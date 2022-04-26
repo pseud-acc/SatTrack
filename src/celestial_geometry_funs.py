@@ -46,7 +46,6 @@ def compute_satloc(tle_in, time_in, re):
     
     #Calculate Julian date
     if isinstance(time_in, (np.ndarray,list)):
-        print(tle_in.shape[0])
         if tle_in.shape[0] > 2:
             raise ValueError("Both TLE and time arguments cannot be arrays")
         else:
@@ -122,3 +121,4 @@ def sphere(size, texture):
     
     # Set up trace
     return x0,y0,z0
+
