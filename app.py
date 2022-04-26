@@ -101,7 +101,7 @@ radius_earth = 6378.137
 # //////////////////////////////////////////////////////////
 
 ## Satellite catalogue data - contains TLEs
-filename = ".\\dat\\clean\\satcat_tle2.csv"
+filename = ".\\dat\\clean\\satcat_tle.csv"
 satcat = pd.read_csv(filename)
 
 print("Satcat imported", satcat.shape)
