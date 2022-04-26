@@ -1,0 +1,12 @@
+astropy==5.0.4
+beautifulsoup4==4.11.1
+dash==2.3.1
+dash_bootstrap_components==1.1.0
+numpy==1.22.3
+pandas==1.4.2
+Pillow==9.1.0
+plotly==5.7.0
+python_dateutil==2.8.2
+requests==2.27.1
+sgp4==2.21
+xlrd==2.0.1
