@@ -500,5 +500,4 @@ def update_graph(status, orbit, satname, satcatid,
     return fig_3d, fig_2d, dff[tbl_col_map].sort_values(by=["ObjectName"]).rename(columns=tbl_col_map).to_dict("records")
 
 ## Run App
-app.run_server(port = 8090, dev_tools_ui=True, #debug=True,
-              dev_tools_hot_reload =True, threaded=True)
+app.run_server(debug=True)
