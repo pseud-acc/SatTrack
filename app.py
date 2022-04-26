@@ -18,6 +18,7 @@ Todo:
 """
 
 import sys
+import os
 sys.path.append("./src/")
 
 import pandas as pd
@@ -101,13 +102,13 @@ radius_earth = 6378.137
 # //////////////////////////////////////////////////////////
 
 ## Satellite catalogue data - contains TLEs
-filename = ".\\dat\\clean\\satcat_tle.csv"
+filename = "./dat/clean/satcat_tle.csv"
 satcat = pd.read_csv(filename)
 
 print("Satcat imported", satcat.shape)
 
 ## Greyscale Earth Map
-filename = "res\\gray_scale_earth_2048_1024.jpg"
+filename = "./res/gray_scale_earth_2048_1024.jpg"
 img = np.asarray(Image.open(filename))
 img = img.T
 
