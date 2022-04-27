@@ -65,7 +65,7 @@ app = Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 
 # Enable Whitenoise for serving static files from Heroku (the /static folder is seen as root by Heroku) 
-server.wsgi_app = WhiteNoise(server.wsgi_app, root='static/') 
+#server.wsgi_app = WhiteNoise(server.wsgi_app, root='static/') 
 
 ## --- Setup ----
 
@@ -78,7 +78,7 @@ satcat_loc = "https://raw.githubusercontent.com/pseud-acc/SatTrack/main/dat/clea
 """
     Greyscale Earth Map
 """
-img_loc = "gray_scale_earth_2048_1024.jpg"
+img_loc = "./static/gray_scale_earth_2048_1024.jpg"
 df, img, radius_earth = import_data(satcat_loc, img_loc)
 
 # Initialise Filter 
