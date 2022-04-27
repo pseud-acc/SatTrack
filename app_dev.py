@@ -68,7 +68,6 @@ satcat_loc = "https://raw.githubusercontent.com/pseud-acc/SatTrack/main/dat/clea
     Greyscale Earth Map
 """
 img_loc = "./static/gray_scale_earth_2048_1024.jpg"
-
 df, img, radius_earth = import_data(satcat_loc, img_loc)
 
 ## Initialise Filter 
