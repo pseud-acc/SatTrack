@@ -17,7 +17,7 @@ Todo:
 
 import sys
 
-sys.path.append("./src/")
+sys.path.append("./src/pipeline/")
 
 from celestrak_import import celestrak_update_check
 from extract_TLEs import extract_TLE_active, extract_TLE, export_satcat_tle

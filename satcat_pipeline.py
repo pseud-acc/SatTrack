@@ -18,7 +18,7 @@ Todo:
 
 import sys
 
-sys.path.append("./src/")
+sys.path.append("./src/pipeline/")
 
 from celestrak_import import celestrak_update_check, import_celestrak_satcat
 from ucs_import import ucs_update_check, import_ucs_satcat
@@ -39,7 +39,7 @@ Metadata location:
     csv file containing most recent date for Celestrak and UCS website updates 
     and satellite catalogue download
 """
-metadata = "dat\\meta\\last_data_update.csv"
+metadata = "./dat/meta/last_data_update.csv"
 
 """
 Celestrak Satellite Catalogue Page url:
@@ -77,7 +77,7 @@ extract_tle = False
 
 """
 Celestrak Filename:
-    Name of csv file to import/export Celestrak satellite catalogue data. Located in ".dat\clean\"
+    Name of csv file to import/export Celestrak satellite catalogue data. Located in "./dat/clean/"
 """
 filename_celestrak = "celestrak_satcat.csv"
 
@@ -89,19 +89,19 @@ url_ucs = "https://www.ucsusa.org/resources/satellite-database"
 
 """
 UCS Filename:
-    Name of csv file to import/export clean UCS satellite catalogue data. Imported from ".\dat\clean\"
+    Name of csv file to import/export clean UCS satellite catalogue data. Imported from "./dat/clean/"
 """
 filename_ucs = "ucs_satcat.csv"
 
 """
 Satellite Catalogue Filename:
-    Name of csv to export merged (Celestrak and UCS) satellite catalogue data. Exported to ".\dat\clean\"
+    Name of csv to export merged (Celestrak and UCS) satellite catalogue data. Exported to "./dat/clean/"
 """
 filename_satcat = "clean_satcat.csv"
 
 """
 Satellite Catalogue Database name:
-    Name of SQLITE database to export satellite catalogue to in ".\dat\clean\" - saved as "satcat" table. 
+    Name of SQLITE database to export satellite catalogue to in "./dat/clean/" - saved as "satcat" table. 
 """
 satcat_dbs = "satcat.sqlite"
 

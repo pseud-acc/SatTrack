@@ -6,7 +6,7 @@ This module runs the SatTrackApp.
 
 Example:
 
-        $ python app.py
+        $ python sattrackapp.py
 
 Attributes:
 
@@ -20,6 +20,7 @@ Todo:
 import sys
 import os
 sys.path.append("./src/app/")
+
 
 # 3rd party packages
 
@@ -54,42 +55,42 @@ from initialise_app import import_data, filter_setup, initialise_2d, initialise_
 
 
 # //////////////////////////////////////////////////////////
-## Dash App
+## App Setup 
 # //////////////////////////////////////////////////////////
-
-# Instantiate  App
-external_stylesheets = [dbc.themes.CYBORG]
-app = Dash(__name__, external_stylesheets=external_stylesheets)
-
-# Reference the underlying flask app (Used by gunicorn webserver in Heroku production deployment)
-server = app.server
-
-# Enable Whitenoise for serving static files from Heroku (the /static folder is seen as root by Heroku) 
-server.wsgi_app = WhiteNoise(server.wsgi_app, root='static/') 
-
-## --- Setup ----
 
 # Import Data
 """
-    Dynamic Satellite catalogue data - contains TLEs
+    Satellite catalogue data - contains TLEs
 """
 satcat_loc = "https://raw.githubusercontent.com/pseud-acc/SatTrack/main/dat/clean/satcat_tle.csv"
 
 """
     Greyscale Earth Map
 """
-img_loc = "gray_scale_earth_2048_1024.jpg"
+img_loc = "./static/gray_scale_earth_2048_1024.jpg"
+
 df, img, radius_earth = import_data(satcat_loc, img_loc)
 
-# Initialise Filter 
+## Initialise Filter 
+
 options, input_filter, tbl_col_map = filter_setup(df)
 
-# Initilise Visualisations
+## Initilise Visualisations
+
 surf_3d, layout_3d, fig3d_0 = initialise_3d(df, img)
+
 scatter_2d, layout_2d, fig2d_0  = initialise_2d()
 
-## --- Define Dash layout ----
+# //////////////////////////////////////////////////////////
+## Dash App
+# //////////////////////////////////////////////////////////
 
+## Initiate App
+external_stylesheets = [dbc.themes.CYBORG]
+app = Dash(__name__, external_stylesheets=external_stylesheets)
+server = app.server
+
+## App Layout
 app.layout = html.Div([
         html.H1(children="SatTrack", style = {'color': colours["ttext"]}),
         html.Div(children=
@@ -211,8 +212,7 @@ app.layout = html.Div([
       )
     ], style={'width': '100%', 'padding': '20px 20px 20px 20px'})
 
-## --- Callback functionality - interactivity ----
-
+## Update Figure Function
 @app.callback(
     [
         Output('3d-earth-satellite-plot', 'figure'),
@@ -374,6 +374,6 @@ def update_graph(status, orbit, satname, satcatid,
     
     return fig_3d, fig_2d, dff[tbl_col_map].sort_values(by=["ObjectName"]).rename(columns=tbl_col_map).to_dict("records")
 
-## --- Run App ----
-
-app.run_server(debug=True, host="0.0.0.0", port=8050)
+## Run App
+app.run_server(port = 8090, dev_tools_ui=True, #debug=True,
+              dev_tools_hot_reload =True, threaded=True)
