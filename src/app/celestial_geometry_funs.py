@@ -33,21 +33,25 @@ from sgp4.api import jday
 
 from teme_to_geodetic import julianDateToGMST2, longitude_trunc, teme2geodetic_spherical
 
-def compute_satloc(tle_in, time_in, re):
+def compute_satloc(tle_in, time_in, re, eci):
     
     ''' 
     Compute satellite position from Two-Line Element (TLE) data. TLEs are passed through a Simplified General Perturbations (SGP4) propagator to calculate satellite position in the TEME version of the Earth Centred Coordinate System assuming a spherical Earth.
 
     @param tle_in: (dataframe) N x 2 floating point array - contains TLE1 and TLE2 data in the respective columns
-    @param time_in: (datetime) Present time
+    @param time_in: (datetime) UTC datetime as datetime object or list of datetime objects
     @param re: (float) single floating point of Earth radius   
+    @param eci: (boolean) set True to compute geodetic position for fixed datetime
     @return: N x 6 floating point array - contains x, y, z in ECI, and latitude, longitude and alitutde
-    '''        
+    '''     
+    # Define time used to compute Geodetic position
+    time_in2 = time_in
     
     #Calculate Julian date
     if isinstance(time_in, (np.ndarray,list)):
+        if eci: time_in2 = time_in[0]
         if tle_in.shape[0] > 2:
-            raise ValueError("Both TLE and time arguments cannot be arrays")
+            raise ValueError("Both TLE and datetime arguments cannot be arrays")
         else:
             dt_array = np.array([(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second) for dt in time_in])
             jd, fr = jday(dt_array[:,0], dt_array[:,1], dt_array[:,2], 
@@ -74,7 +78,7 @@ def compute_satloc(tle_in, time_in, re):
         teme_p2 = np.reshape(teme_p,(teme_p.shape[0],teme_p.shape[2]))
 
     #Convert TEME to Geodetic - assume spherical Earth
-    lat, lon, alt = teme2geodetic_spherical(teme_p2[:,0],teme_p2[:,1],teme_p2[:,2], time_in, re)
+    lat, lon, alt = teme2geodetic_spherical(teme_p2[:,0],teme_p2[:,1],teme_p2[:,2], time_in2, re)
     
     return np.concatenate((teme_p2,np.vstack((lat,lon,alt)).T), axis=1)
 
@@ -106,19 +110,18 @@ def sphere(size, texture):
 
     @param size: (float) single floating point array of Earth radius
     @param texture: (array) floating point array of two-dimensional Earth image
-    @return: x0, y0, z0 (array) floating point vectors of x, y and z position of Earth surface
+    @return: x0, y0, z0 (array) floating point array of x, y and z position of Earth surface
     '''          
     
-    N_lat = int(texture.shape[0])
-    N_lon = int(texture.shape[1])
-    theta = np.linspace(0,2*np.pi,N_lat)
-    phi = np.linspace(0,np.pi,N_lon)
+    N_lon = int(texture.shape[0])
+    N_lat = int(texture.shape[1])
+    lon = np.linspace(0,2*np.pi,N_lon)
+    lat = np.linspace(0,np.pi,N_lat)
     
     # Set up coordinates for points on the sphere
-    x0 = size * np.outer(np.cos(theta),np.sin(phi))
-    y0 = size * np.outer(np.sin(theta),np.sin(phi))
-    z0 = size * np.outer(np.ones(N_lat),np.cos(phi))
+    x0 = size * np.outer(np.cos(lon),np.sin(lat))
+    y0 = size * np.outer(np.sin(lon),np.sin(lat))
+    z0 = size * np.outer(np.ones(N_lon),np.cos(lat))
     
     # Set up trace
     return x0,y0,z0
-

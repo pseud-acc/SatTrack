@@ -19,13 +19,16 @@ colours = {
     "btext" : "#dae0e3", #grey - app button text
     "ttext" : "#dae9f2", #greyish-blue - app title text
     "atext" : "#ffffff", #white - 3d plot annotation text
-    "marker" : "#e00000", #red - marker for Satellites    
+    "marker1" : "#e00000", #red - marker for Satellites    
     "marker2" : "#49fcf3", #cyan - marker for current satellite position
+    "marker0" :"#c0c9cc", #grey - marker for inactive satellites
     "markeredge" : "#b84949", #greyish-red - marker edge for Satellites
+    "markerpath" : "#59ff00", #bright green - path for satellite in 3d
+    "dropdownbox" : "#dae0e3", #light greyish blue - background for dropdown box
     "tab": "#7c919c" #greyish-blue - tab background
 }
 
-## Colour scale to convert 2d greyscale of Earth to coloured texture
+## Colour scale to convert 2d greyscale of Earth surface to coloured texture
 colorscale =[[0.0, 'rgb(30, 59, 117)'],
 
              [0.1, 'rgb(46, 68, 21)'],
@@ -39,6 +42,17 @@ colorscale =[[0.0, 'rgb(30, 59, 117)'],
              [0.9, 'rgb(237,214,183)'],
 
              [1.0, 'rgb(255, 255, 255)']]
+
+## Colour scale for 3d markers
+colorscale_marker =[[0.0, colours["marker0"]],
+                    [1.0, colours["marker1"]]]
+
+## Fontsize
+fontsize = {
+    "checkbox" : "17px", #checkbox text
+    "dropdown" : "17px", #dropdown menu text
+    "slider" : "25px" #range slider text
+}
 
 ## Tab Styles
 tabs_styles = {
