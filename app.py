@@ -314,7 +314,7 @@ def update_3dviz(status, orbit, satname, satcatid,
                                mode = "markers", showlegend = False,
                                hoverlabel=dict(namelength=0), hoverinfo="text", hovertext=satellite_3d_hover(dff)[0],              
                                marker = dict(color = np.where(dff["Status"]=="Active",1,0),
-                                             colorscale = colorscale_marker, opacity = 0.85, size = 2,
+                                             colorscale = colorscale_marker, opacity = 0.85, size = 3.2,
                                              line=dict(color=colours["markeredge"], width=0.01)))
 
         fig_3d = go.Figure(data=[surf_3d,scatter_3d], layout=layout_3d)
@@ -329,7 +329,7 @@ def update_3dviz(status, orbit, satname, satcatid,
                            textangle=0, xanchor='left',align='left',
                            xref="paper", yref="paper"))   
         fig_3d.add_annotation(dict(font=dict(color=colours["atext"],size=12),
-                           x=0.8, y=0.02, showarrow=False,
+                           x=0.67, y=0.02, showarrow=False,
                            text='Click satellite to show 3D orbital path',
                            textangle=0, xanchor='left',align='left',
                            xref="paper", yref="paper"))     
@@ -354,18 +354,19 @@ def update_3dviz(status, orbit, satname, satcatid,
                 orbit_list_updated = list(set(orbit_list_updated))
         if len(orbit_list_updated) > 0:
             for orbit_id in orbit_list_updated:
-                d3d = orbit_path(dff[dff["SatCatId"]==orbit_id],
-                                 360, time_now, True)
-                fig_3d.add_scatter3d(x = d3d["xp"], y = d3d["yp"], z = d3d["zp"],
-                    line = dict(color = np.where(d3d["Status"]=="Active",1,0), width = 5),
-                    mode = "lines", showlegend = False,
-                    hoverlabel=dict(namelength=0), hoverinfo="text",
-                    hovertext='<b>Satellite Name</b>: ' + d3d["ObjectName"]) 
-                fig_3d.add_scatter3d( x=[d3d["xp"][0]], y=[d3d["yp"][0]],  z=[d3d["zp"][0]],
-                        marker = dict(color = np.where(d3d["Status"]=="Active",1,0), opacity = 0.65, size = 8),
-                        mode = "markers", showlegend = False,
-                        hoverlabel=dict(namelength=0),  hoverinfo="text",    
-                        hovertext=satellite_3d_hover(d3d.iloc[[0]])[0]
+                if orbit_id in dff["SatCatId"].values:
+                    d3d = orbit_path(dff[dff["SatCatId"]==orbit_id],
+                                     360, time_now, True)
+                    fig_3d.add_scatter3d(x = d3d["xp"], y = d3d["yp"], z = d3d["zp"],
+                        line = dict(color = np.where(d3d["Status"]=="Active",1,0), width = 5),
+                        mode = "lines", showlegend = False,
+                        hoverlabel=dict(namelength=0), hoverinfo="text",
+                        hovertext='<b>Satellite Name</b>: ' + d3d["ObjectName"]) 
+                    fig_3d.add_scatter3d( x=[d3d["xp"][0]], y=[d3d["yp"][0]],  z=[d3d["zp"][0]],
+                            marker = dict(color = np.where(d3d["Status"]=="Active",1,0), opacity = 0.65, size = 8),
+                            mode = "markers", showlegend = False,
+                            hoverlabel=dict(namelength=0),  hoverinfo="text",    
+                            hovertext=satellite_3d_hover(d3d.iloc[[0]])[0]
                                         )
     else:
         raise PreventUpdate
