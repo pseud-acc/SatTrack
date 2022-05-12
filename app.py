@@ -283,6 +283,8 @@ def update_3dviz(status, orbit, satname, satcatid,
                  cam_mem, cam_scene):
     
     if tab == "3d-viz":
+        print("3d-viz: time check, start.")
+        start = time.time()
         ctx = callback_context
         input_type = ctx.triggered[0]['prop_id'].split('.')[1] 
         input_name = ctx.triggered[0]['prop_id'].split('.')[0] 
@@ -346,6 +348,8 @@ def update_3dviz(status, orbit, satname, satcatid,
         else:
             fig_3d.update_layout(scene_camera = cam_scene["scene.camera"])
             cam_mem = cam_scene["scene.camera"]
+            
+        print("3d-scatter: time check, end.", time.time()-start)
 
         # 3D Orbital Path - click-based
         if input_type == "clickData":
@@ -353,6 +357,8 @@ def update_3dviz(status, orbit, satname, satcatid,
                 orbit_list_updated.append(dff.iloc[[clickData["points"][0]["pointNumber"]]]["SatCatId"].values[0])
                 orbit_list_updated = list(set(orbit_list_updated))
         if len(orbit_list_updated) > 0:
+            print("3d-orbit: time check, start.")
+            start = time.time()
             for orbit_id in orbit_list_updated:
                 if orbit_id in dff["SatCatId"].values:
                     d3d = orbit_path(dff[dff["SatCatId"]==orbit_id],
@@ -368,6 +374,7 @@ def update_3dviz(status, orbit, satname, satcatid,
                             hoverlabel=dict(namelength=0),  hoverinfo="text",    
                             hovertext=satellite_3d_hover(d3d.iloc[[0]])[0]
                                         )
+            print("3d-orbit: time check, end.", time.time()-start)
     else:
         raise PreventUpdate
     
