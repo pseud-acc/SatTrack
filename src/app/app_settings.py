@@ -20,12 +20,12 @@ colours = {
     "ttext" : "#dae9f2", #greyish-blue - app title text
     "atext" : "#ffffff", #white - 3d plot annotation text
     "marker0" :"#c0c9cc", #grey - marker for inactive satellites    
-    "marker1" : "#e00000", #red - marker for Satellites    
+    "marker1" : "#f55151", #red - marker for Satellites    
     "marker2" : "#49fcf3", #cyan - marker for current satellite position
-    "markeredge" : "#b84949", #greyish-red - marker edge for Satellites
+    "markeredge" : "#bab6b7", #greyish-red - marker edge for Satellites
     "markerpath" : "#59ff00", #bright green - path for satellite in 3d
-    "markerpath0" : "#dee2e3", #light grey - path for inactive satellite in 3d
-    "markerpath1" : "#FF3131", #bright red - path for active satellite in 3d    
+    "markerpath0" : "#f2f8fa", #light grey - path for inactive satellite in 3d
+    "markerpath1" : "#e00000", #bright red - path for active satellite in 3d    
     "dropdownbox" : "#dae0e3", #light greyish blue - background for dropdown box
     "tab": "#7c919c" #greyish-blue - tab background
 }
@@ -48,6 +48,10 @@ colorscale =[[0.0, 'rgb(30, 59, 117)'],
 ## Colour scale for 3d markers
 colorscale_marker =[[0.0, colours["marker0"]],
                     [1.0, colours["marker1"]]]
+
+## Colour scale for 3d path
+colorscale_markerpath =[[0.0, colours["markerpath0"]],
+                    [1.0, colours["markerpath1"]]]
 
 ## Fontsize
 fontsize = {
