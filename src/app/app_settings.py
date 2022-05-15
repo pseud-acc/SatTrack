@@ -19,11 +19,13 @@ colours = {
     "btext" : "#dae0e3", #grey - app button text
     "ttext" : "#dae9f2", #greyish-blue - app title text
     "atext" : "#ffffff", #white - 3d plot annotation text
+    "marker0" :"#c0c9cc", #grey - marker for inactive satellites    
     "marker1" : "#e00000", #red - marker for Satellites    
     "marker2" : "#49fcf3", #cyan - marker for current satellite position
-    "marker0" :"#c0c9cc", #grey - marker for inactive satellites
     "markeredge" : "#b84949", #greyish-red - marker edge for Satellites
     "markerpath" : "#59ff00", #bright green - path for satellite in 3d
+    "markerpath0" : "#dee2e3", #light grey - path for inactive satellite in 3d
+    "markerpath1" : "#FF3131", #bright red - path for active satellite in 3d    
     "dropdownbox" : "#dae0e3", #light greyish blue - background for dropdown box
     "tab": "#7c919c" #greyish-blue - tab background
 }

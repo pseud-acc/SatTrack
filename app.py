@@ -83,7 +83,8 @@ satcat_loc = "https://raw.githubusercontent.com/pseud-acc/SatTrack/main/dat/clea
     Greyscale Earth Map
 """
 img_loc = "./static/gray_scale_earth_2048_1024.jpg"
-df, img, radius_earth = import_data(satcat_loc, img_loc)
+resolution = 8
+df, img, radius_earth = import_data(satcat_loc, img_loc, resolution)
 
 # Initialise Filter 
 options, input_filter, tbl_col_map = filter_setup(df)
@@ -283,8 +284,6 @@ def update_3dviz(status, orbit, satname, satcatid,
                  cam_mem, cam_scene):
     
     if tab == "3d-viz":
-        print("3d-viz: time check, start.")
-        start = time.time()
         ctx = callback_context
         input_type = ctx.triggered[0]['prop_id'].split('.')[1] 
         input_name = ctx.triggered[0]['prop_id'].split('.')[0] 
@@ -349,7 +348,6 @@ def update_3dviz(status, orbit, satname, satcatid,
             fig_3d.update_layout(scene_camera = cam_scene["scene.camera"])
             cam_mem = cam_scene["scene.camera"]
             
-        print("3d-scatter: time check, end.", time.time()-start)
 
         # 3D Orbital Path - click-based
         if input_type == "clickData":
@@ -357,24 +355,23 @@ def update_3dviz(status, orbit, satname, satcatid,
                 orbit_list_updated.append(dff.iloc[[clickData["points"][0]["pointNumber"]]]["SatCatId"].values[0])
                 orbit_list_updated = list(set(orbit_list_updated))
         if len(orbit_list_updated) > 0:
-            print("3d-orbit: time check, start.")
-            start = time.time()
             for orbit_id in orbit_list_updated:
                 if orbit_id in dff["SatCatId"].values:
                     d3d = orbit_path(dff[dff["SatCatId"]==orbit_id],
                                      360, time_now, True)
                     fig_3d.add_scatter3d(x = d3d["xp"], y = d3d["yp"], z = d3d["zp"],
-                        line = dict(color = np.where(d3d["Status"]=="Active",1,0), width = 5),
+                        line = dict(color = colours["markerpath" + str(np.where(d3d["Status"]=="Active",1,0)[0])], 
+                                    width = 5),
                         mode = "lines", showlegend = False,
                         hoverlabel=dict(namelength=0), hoverinfo="text",
                         hovertext='<b>Satellite Name</b>: ' + d3d["ObjectName"]) 
                     fig_3d.add_scatter3d( x=[d3d["xp"][0]], y=[d3d["yp"][0]],  z=[d3d["zp"][0]],
-                            marker = dict(color = np.where(d3d["Status"]=="Active",1,0), opacity = 0.65, size = 8),
+                            marker = dict(color = colours["markerpath" + str(np.where(d3d["Status"]=="Active",1,0)[0])],
+                                          opacity = 1, size = 7),
                             mode = "markers", showlegend = False,
                             hoverlabel=dict(namelength=0),  hoverinfo="text",    
                             hovertext=satellite_3d_hover(d3d.iloc[[0]])[0]
                                         )
-            print("3d-orbit: time check, end.", time.time()-start)
     else:
         raise PreventUpdate
     

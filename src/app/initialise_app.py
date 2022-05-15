@@ -33,12 +33,13 @@ from app_settings import *
 # Earth Radius
 radius_earth = 6378.137 
 
-def import_data(satcat_loc, img_loc):
+def import_data(satcat_loc, img_loc, res):
     ''' 
     Import satellite data and earth map.
 
     @param satcat_loc: dynamic location of satellite data
     @param img_loc: static location of Earth map
+    @param res: integer - Earth map resolution in increments of 2^x for integer x
     @return satcat:  dataframe of satellite data 
     @return img_compr:  compressed image array of Earth map
     @return tbl_col_map: dict of column name mapping for table export
@@ -55,7 +56,7 @@ def import_data(satcat_loc, img_loc):
     print("Earth Map successfully imported!")
 
     # Compress image
-    img_compr = img[0:-1:2,0:-1:2]
+    img_compr = img[0:-1:res,0:-1:res]
 
     return satcat, img_compr, radius_earth
 
@@ -122,7 +123,7 @@ def initialise_3d(df, img):
                       showscale=False,
                       hoverinfo="none")            
 
-    R1 = 40000 #axis range
+    R1 = 200000 #axis range
     axis_range = [-R1-radius_earth, radius_earth+R1]
     layout_3d = go.Layout(scene=dict(aspectratio=dict(x=1, y=1, z=1),
                         yaxis=dict(showgrid=False, zeroline=False, visible=False, range=axis_range),
@@ -267,6 +268,18 @@ def satellite_3d_hover(df_plot):
             round(df_plot["lon"],2).astype(str) + '&deg;, ' +
             round(df_plot["alt"]).astype(int).astype(str) + 'km' +
             ')']
+
+def satellite_3d_hover2(df_plot):
+    ''' 
+    Create hover text for satellites in 3d visualisation.
+
+    @param df_plot: (dataframe) data to plot
+    @return: string array of descriptive text.
+    '''     
+    return ['<b>Satellite Name</b>: ' + df_plot["ObjectName"] + '<br>' + '<b>SATCAT Number</b>: ' + 
+            df_plot["SatCatId"].astype(str) + '<br>' +
+            '<b>Status</b>: ' + df_plot["Status"] + '<br>' +
+            '<b>Orbit</b>: ' + df_plot["OrbitClass"]]
 
 def satellite_2d_hover(df_plot):
     ''' 
