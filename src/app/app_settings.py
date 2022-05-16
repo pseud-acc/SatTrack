@@ -55,6 +55,8 @@ colorscale_markerpath =[[0.0, colours["markerpath0"]],
 
 ## Fontsize
 fontsize = {
+    "sub-heading" : "20px", #sub-heading text    
+    "sub-sub-heading" : "13px", #sub-sub-heading text       
     "checkbox" : "17px", #checkbox text
     "dropdown" : "17px", #dropdown menu text
     "slider" : "25px" #range slider text

@@ -20,6 +20,7 @@ Todo:
 import sys
 import os
 sys.path.append("./src/app/")
+sys.path.append("./src/helper/")
 
 # 3rd party packages
 
@@ -55,7 +56,7 @@ from celestial_geometry_funs import compute_satloc, lla_to_xyz, sphere
 from app_settings import *
 from initialise_app import (import_data, filter_setup, initialise_2d, initialise_3d, initialise_3d_ls, filter_df,
                             orbit_path, satellite_3d_hover, satellite_2d_hover)
-
+from funs import get_size
 
 # //////////////////////////////////////////////////////////
 ## Dash App
@@ -93,6 +94,11 @@ options, input_filter, tbl_col_map = filter_setup(df)
 surf_3d, layout_3d, fig3d_0 = initialise_3d_ls(df, img)
 scatter_2d, layout_2d, fig2d_0  = initialise_2d()
 
+# Import metadata
+metadata_loc = "./dat/meta/last_data_update.csv"
+metadata = pd.read_csv(metadata_loc)
+tle_update = metadata[metadata["Source"]=="Celestrak_TLE"]["Last Update"].values[0]
+
 ## --- Define Dash layout ----
 
 def create_dash_layout(app):
@@ -105,11 +111,18 @@ def create_dash_layout(app):
         # Header
             html.H1(children="SatTrack", style = {'color': colours["ttext"]}),
             html.Div(children=
-                     [html.H6('''
-                     An Open Source Real-time Satellite Tracking App
-                     ''', style = {'color': colours["ttext"], "display": "inline-block"}),
-                      html.H6(children="Developed by Francis Nwobu", 
-                              style = {"display": "inline-block", 'color': colours["ttext"], "float": "right"})
+                     [html.H6(['''
+                     An Open Source Real-time Satellite Tracking App (developed by Francis Nwobu)
+                     '''], style = {'color': colours["ttext"], "display": "inline-block", 
+                                    'font-size': fontsize["sub-heading"],
+                                   "marginTop": 5,"marginBottom": 5}),
+                      html.H6(["Data sourced from ", dcc.Link('CelesTrak', href='https://celestrak.com/'), " and ",
+                               dcc.Link('UCS Satellite Database', href='https://www.ucsusa.org/resources/satellite-database'), 
+                               html.Br(),"Satellite position calculated using SGP4 propagator with", html.Br(),
+                               "two-line mean element (TLE) sets (last updated: ", tle_update, ")"],
+                              style = {'font-style': 'italic',
+                                       'color': colours["ttext"], 'font-size': fontsize["sub-sub-heading"],
+                                      "marginTop": 5,"marginBottom": 5})
                      ], style={"display": "inline-block", "width":"100%"}),
     # Body - Main viz/sidebar
         html.Div([   
@@ -315,7 +328,7 @@ def update_3dviz(status, orbit, satname, satcatid,
                                text = dff["ObjectName"], mode = "markers", showlegend = False,
                                hoverlabel=dict(namelength=0), hoverinfo="text", hovertext=satellite_3d_hover(dff)[0],              
                                marker = dict(color = np.where(dff["Status"]=="Active",1,0), cmin=0, cmax=1,
-                                             colorscale = colorscale_marker, opacity = 0.85, size = 2,
+                                             colorscale = colorscale_marker, opacity = 0.85, size = 2.5,
                                              line=dict(color=np.where(dff["Status"]=="Active",1,0),
                                                colorscale = colorscale_marker, width=0.01,
                                               cmin=0, cmax=1))
@@ -375,7 +388,7 @@ def update_3dviz(status, orbit, satname, satcatid,
                             mode = "markers", showlegend = False,
                             hoverlabel=dict(namelength=0),  hoverinfo="text",    
                             hovertext=satellite_3d_hover(d3d.iloc[[0]])[0]
-                                        )
+                                        )                
     else:
         raise PreventUpdate
     
