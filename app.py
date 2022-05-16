@@ -53,7 +53,7 @@ from dash import Dash, dash_table
 
 from celestial_geometry_funs import compute_satloc, lla_to_xyz, sphere 
 from app_settings import *
-from initialise_app import (import_data, filter_setup, initialise_2d, initialise_3d, filter_df,
+from initialise_app import (import_data, filter_setup, initialise_2d, initialise_3d, initialise_3d_ls, filter_df,
                             orbit_path, satellite_3d_hover, satellite_2d_hover)
 
 
@@ -90,7 +90,7 @@ df, img, radius_earth = import_data(satcat_loc, img_loc, resolution)
 options, input_filter, tbl_col_map = filter_setup(df)
 
 # Initilise Visualisations
-surf_3d, layout_3d, fig3d_0 = initialise_3d(df, img)
+surf_3d, layout_3d, fig3d_0 = initialise_3d_ls(df, img)
 scatter_2d, layout_2d, fig2d_0  = initialise_2d()
 
 ## --- Define Dash layout ----
@@ -311,8 +311,8 @@ def update_3dviz(status, orbit, satname, satcatid,
                     raise PreventUpdate
                     
         # 3D Visualisation Output
-        scatter_3d = go.Scatter3d(x = dff["xp"], y = dff["yp"], z = dff["zp"], text = dff["ObjectName"],
-                               mode = "markers", showlegend = False,
+        scatter_3d = go.Scatter3d(x = dff["xp"].astype(np.float32), y = dff["yp"].astype(np.float32), z = dff["zp"].astype(np.float32),
+                               text = dff["ObjectName"], mode = "markers", showlegend = False,
                                hoverlabel=dict(namelength=0), hoverinfo="text", hovertext=satellite_3d_hover(dff)[0],              
                                marker = dict(color = np.where(dff["Status"]=="Active",1,0), cmin=0, cmax=1,
                                              colorscale = colorscale_marker, opacity = 0.85, size = 2,

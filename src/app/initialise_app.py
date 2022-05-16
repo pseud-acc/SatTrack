@@ -142,6 +142,43 @@ def initialise_3d(df, img):
     
     return surf_3d, layout_3d, fig_3d
 
+def initialise_3d_ls(df, img):
+    
+    ''' 
+    Initialise default 3d visualisation in low memory mode
+
+    @param df: (array) satellite catalogue array
+    @return scatter_3d:  3d scatter graph object
+    @return layout_3d:  graph layout object  
+    @return fig_3d:  figure object      
+    '''         
+    
+    x,y,z = sphere(radius_earth,img)
+    surf_3d = go.Surface(x=x.astype(np.float32), y=y.astype(np.float32), z=z.astype(np.float32),
+                      surfacecolor=img,
+                      colorscale=colorscale,
+                      showscale=False,
+                      hoverinfo="none")            
+
+    R1 = 200000 #axis range
+    axis_range = [-R1-radius_earth, radius_earth+R1]
+    layout_3d = go.Layout(scene=dict(aspectratio=dict(x=1, y=1, z=1),
+                        yaxis=dict(showgrid=False, zeroline=False, visible=False, range=axis_range),
+                        xaxis=dict(showgrid=False, zeroline=False, visible=False, range=axis_range),
+                        zaxis=dict(showgrid=False, zeroline=False, visible=False, range=axis_range),
+                        camera=dict(up=dict(x=0, y=0, z=1),
+                                    center=dict(x=0, y=0, z=0),
+                                    eye=dict(x=0.035, y=-0.2,z=0.12),
+                                    projection=dict(type='perspective')
+                                   )),
+                      #uirevision='true',
+                      showlegend=False,
+                      paper_bgcolor="black",
+                      margin=dict(l=0, r=0, t=0, b=0))
+    fig_3d = go.Figure(data=[surf_3d], layout=layout_3d)
+    
+    return surf_3d, layout_3d, fig_3d
+
 def initialise_2d():
     
     ''' 
