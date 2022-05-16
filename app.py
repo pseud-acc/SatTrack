@@ -235,7 +235,11 @@ def create_dash_layout(app):
                             # 2d viz - satellite tracker
                             dcc.Tab(label="2D Satellite Tracker", value="2d-viz",children=[
                                 dcc.Graph(id="2d-earth-satellite-plot",
-                                          figure=fig2d_0)
+                                          figure=fig2d_0),
+                                html.H6(["Select a satellite using either 'Satellite Name' or 'Satellite Number' to see the 2D tracking path"],
+                                        style = {'color': colours["ttext"], "display": "inline-block", 
+                                    'font-size': fontsize["sub-sub-heading"], 'font-style':'italic',
+                                   "marginTop": 5,"marginBottom": 5})
                             ], style=tab_style, selected_style=tab_selected_style)                       
                         ], style = tabs_styles
                     )
@@ -374,7 +378,7 @@ def update_3dviz(status, orbit, satname, satcatid,
             for orbit_id in orbit_list_updated:
                 if orbit_id in dff["SatCatId"].values:
                     d3d = orbit_path(dff[dff["SatCatId"]==orbit_id],
-                                     360, time_now, True)
+                                     720, time_now, True)
                     fig_3d.add_scatter3d(x = d3d["xp"], y = d3d["yp"], z = d3d["zp"],
                         line = dict(color = np.where(d3d["Status"]=="Active",1,0), cmin=0, cmax=1,
                                     colorscale = colorscale_markerpath, width = 5),
