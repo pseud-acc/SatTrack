@@ -498,15 +498,20 @@ def update_table(status, orbit, satname, satcatid,
     [
         Input('status-filter-checkbox', 'value'),
         Input('orbit-filter-checkbox', 'value'),
+        Input('satname-filter-dropdown', 'value'),
+        Input('satcatid-filter-dropdown', 'value'),    
         Input('owner-filter-multi-dropdown', 'value'),
         Input('launchvehicle-filter-multi-dropdown', 'value'),
         Input('purpose-filter-multi-dropdown', 'value'),
-        Input('launchyear-filter-slider', 'value'),
+        Input('launchyear-filter-slider', 'value')
     ]
 )
 
-def update_dropdown(status, orbit, owner, launchvehicle, purpose, year):
-    dff, _ = filter_df(df, input_filter,status, orbit, None, None, owner, launchvehicle, purpose, year)
+def update_dropdown(status, orbit, satname, satcatid,
+                 owner, launchvehicle,
+                 purpose, year):
+    dff, _ = filter_df(df, input_filter,
+             status, orbit, satname, satcatid, owner, launchvehicle, purpose, year)
     return list(np.sort(dff.ObjectName.unique())), list(np.sort(dff.SatCatId.unique()).astype(str))
 
 ## --- Run App ----
