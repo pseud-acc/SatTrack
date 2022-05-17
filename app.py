@@ -473,7 +473,7 @@ def update_2dviz(status, orbit, satname, satcatid,
     ]
 )
 
-def update_graph(status, orbit, satname, satcatid,
+def update_table(status, orbit, satname, satcatid,
                  owner, launchvehicle,
                  purpose, year, tab, update_time_btn):
 
@@ -489,6 +489,25 @@ def update_graph(status, orbit, satname, satcatid,
         raise PreventUpdate
         
     return dff[tbl_col_map].sort_values(by=["ObjectName"]).rename(columns=tbl_col_map).to_dict("records")
+
+@app.callback(
+    [
+        Output('satname-filter-dropdown', 'options'),
+        Output('satcatid-filter-dropdown', 'options')
+    ],
+    [
+        Input('status-filter-checkbox', 'value'),
+        Input('orbit-filter-checkbox', 'value'),
+        Input('owner-filter-multi-dropdown', 'value'),
+        Input('launchvehicle-filter-multi-dropdown', 'value'),
+        Input('purpose-filter-multi-dropdown', 'value'),
+        Input('launchyear-filter-slider', 'value'),
+    ]
+)
+
+def update_dropdown(status, orbit, owner, launchvehicle, purpose, year):
+    dff, _ = filter_df(df, input_filter,status, orbit, None, None, owner, launchvehicle, purpose, year)
+    return list(np.sort(dff.ObjectName.unique())), list(np.sort(dff.SatCatId.unique()).astype(str))
 
 ## --- Run App ----
 
