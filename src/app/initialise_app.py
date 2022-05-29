@@ -168,7 +168,7 @@ def initialise_3d_ls(df, img):
                         zaxis=dict(showgrid=False, zeroline=False, visible=False, range=axis_range),
                         camera=dict(up=dict(x=0, y=0, z=1),
                                     center=dict(x=0, y=0, z=0),
-                                    eye=dict(x=0.035, y=-0.2,z=0.12),
+                                    eye=dict(x=0., y=-0.25,z=0.04),
                                     projection=dict(type='perspective')
                                    )),
                       #uirevision='true',
