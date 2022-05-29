@@ -32,6 +32,7 @@ def clean_satcat_export(celestrak_dat, ucs_dat, filename):
 
     @param celestrak_dat: (dataframe) dataframe containing CelesTrak data
     @param ucs_dat: (dataframe) dataframe containing UCS data
+    @param filename: (str) name of csv file to write in clean merged satellite catalogue data
     @return: merged_satcat(dataframe) Merged and processed Satellite catalogue data
     '''    
     
@@ -133,8 +134,8 @@ def satcat_sql_dump(satcat_filename, dbs_name):
     ''' 
     Dump merged satellite catalogue data into SQL database
 
-    @param satcat_filename: csv containing clean satellite data
-    @return: merged_satcat(dataframe) Merged and processed Satellite catalogue data
+    @param satcat_filename: (str) csv containing clean satellite data
+    @param dbs_name: (str) name of sqlite database to write in merged satallite catalogue data
     '''    
     
     # Define columns to keep
@@ -173,6 +174,5 @@ def satcat_sql_dump(satcat_filename, dbs_name):
     conn.commit()
     
     print("Satellite Catalogue database successfully updated")
-    
-    return 
+
     

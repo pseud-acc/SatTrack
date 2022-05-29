@@ -142,7 +142,7 @@ def create_dash_layout(app):
                            style = {'color': colours["btext"],'font-weight': 'bold',
                                     "marginTop": 5,"marginBottom": -5}),
                     dcc.Checklist(options["orbit"],            #Orbital Class
-                                  ["LEO"],
+                                  ["LEO","GEO"],
                                  id="orbit-filter-checkbox",
                                  inline=True,
                                   inputStyle={"margin-right": "2px", "margin-left": "6px"}

@@ -27,7 +27,7 @@ from bs4 import BeautifulSoup
 from dateutil import parser
 from datetime import datetime
 
-def celestrak_update_check(url, metadata_location, tle_check):
+def celestrak_update_check(metadata_location, tle_check):
     ''' 
     Check whether CelesTrak Satellite Catalogue download needs updating.
 
@@ -37,8 +37,12 @@ def celestrak_update_check(url, metadata_location, tle_check):
     @return: (boolean, str) True - download CelesTrak data, Last update date in string format
     '''    
     
-    dat_source = "Celestrak"
-    if tle_check: dat_source = "Celestrak_TLE"
+    if tle_check: 
+        dat_source = "Celestrak_TLE"
+        url = "https://celestrak.com/NORAD/elements/"
+    else:
+        dat_source = "Celestrak"
+        url = "https://celestrak.com/satcat/search.php"
         
     # Check date of most recent data update on CelesTrak website
     #url = "https://celestrak.com/satcat/search.php" Satellite catalogue
@@ -84,7 +88,7 @@ def map_table(url, col_name):
     return tbl_map
 
     
-def import_celestrak_satcat(url_satcat, url_owner, url_launchsite, filename, download_file):
+def import_celestrak_satcat(filename, download_file):
     ''' 
     Import CelesTrak Satellite Catalogue data
 
@@ -105,8 +109,8 @@ def import_celestrak_satcat(url_satcat, url_owner, url_launchsite, filename, dow
         ## DATA IMPORT ##
 
         # Import Owner code descriptions
-        #url = "https://celestrak.com/satcat/sources.php"
-        owner_map = map_table(url_owner, "OWNER")
+        url = "https://celestrak.com/satcat/sources.php"
+        owner_map = map_table(url, "OWNER")
         owner_clean_map = {'United States':'USA', "United Kingdom":"UK",
            'Republic of Korea':'South Korea', 'Republic of Rwanda':'Rwanda', 'Republic of Tunisia':'Tunisia',
            'United States/Brazil':'US/Brazil', 'United Arab Emirates':'UAE',
@@ -129,8 +133,8 @@ def import_celestrak_satcat(url_satcat, url_owner, url_launchsite, filename, dow
         owner_map["OWNER_DESC"] = owner_map["OWNER_DESC"].apply(lambda x: owner_clean_map[x] if x in owner_clean_map.keys() else x)
 
         # Import Launch Site code descriptions
-        #url = "https://celestrak.com/satcat/launchsites.php"
-        launch_site_map = map_table(url_launchsite, "LAUNCH_SITE")
+        url = "https://celestrak.com/satcat/launchsites.php"
+        launch_site_map = map_table(url, "LAUNCH_SITE")
         launch_site_map["LAUNCH_SITE_COUNTRY"] = [s[-1].strip().split("(")[0].strip().replace(")","") for s in       launch_site_map["LAUNCH_SITE_DESC"].str.split(",")]
         launch_site_map.loc[launch_site_map["LAUNCH_SITE"] == "SNMLP","LAUNCH_SITE_COUNTRY"] = "Kenya"
 
@@ -140,7 +144,8 @@ def import_celestrak_satcat(url_satcat, url_owner, url_launchsite, filename, dow
 
         filename_raw = ".\\dat\\raw\\celestrak_satcat.csv"
 
-        data = requests.get(url_satcat)
+        url = "https://celestrak.com/pub/satcat.csv"
+        data = requests.get(url)
         with open(filename_raw, "wb") as f: f.write(data.content)
         all_sat_raw = pd.read_csv(filename_raw)
 

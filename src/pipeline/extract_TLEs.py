@@ -31,12 +31,11 @@ from bs4 import BeautifulSoup
 from dateutil import parser
 from datetime import datetime
 
-def extract_TLE_active(dbs_name, tle_format, lastupdate):
+def extract_TLE_active(dbs_name, lastupdate):
     ''' 
     Bulk extract TLEs of active satellites from Celestrak website.
 
     @param dbs_name: (str) database name (sqlite) to export TLEs
-    @param tle_format: (str) Format of GP elements - currently only accepts "tle"
     @param lastupdate: (str) Datetime of last update of Celestrak TLEs
     @return: (missing_satcat, length) list of SATCAT Ids w/o TLEs, int number of SATCAT Ids w/ extracted TLEs
     '''    
@@ -54,8 +53,7 @@ def extract_TLE_active(dbs_name, tle_format, lastupdate):
     sat_list_satcat_all = pd.Series([a[0] for a in ids])
     
     ## Define API access url
-    service_url = "https://celestrak.com/NORAD/elements/gp.php?GROUP=active&FORMAT={:}"
-    url = service_url.format(tle_format)
+    url = "https://celestrak.com/NORAD/elements/gp.php?GROUP=active&FORMAT=tle"
     
     ## Call API data
     data = requests.get(url).text.split("\n")
@@ -80,12 +78,11 @@ def extract_TLE_active(dbs_name, tle_format, lastupdate):
     
     return missing_satcat, len(sat_list_satcat_act)
     
-def extract_TLE(dbs_name, tle_format, lastupdate, satcatid_list):
+def extract_TLE(dbs_name, lastupdate, satcatid_list):
     ''' 
     Extract TLE data of satellites individually from Celestrak website.
 
     @param dbs_name: (str) database name (sqlite) to export TLEs
-    @param tle_format: (str) Format of GP elements - currently only accepts "tle"
     @param lastupdate: (str) Datetime of last update of Celestrak TLEs
     @param satcatid_list: (list) int list of SATCAT Ids for which to request TLE data
     @return: (satcat_no_data) list of SATCAT Ids with no TLE data
@@ -98,7 +95,7 @@ def extract_TLE(dbs_name, tle_format, lastupdate, satcatid_list):
     cur = conn.cursor()    
     
     ## Define API access url    
-    service_url = "https://celestrak.com/NORAD/elements/gp.php?CATNR={:}&FORMAT={:}"
+    service_url = "https://celestrak.com/NORAD/elements/gp.php?CATNR={:}&FORMAT=tle"
     
     # API Call to Celestrak
     satcat_no_data = []
@@ -117,7 +114,7 @@ def extract_TLE(dbs_name, tle_format, lastupdate, satcatid_list):
             # Update TLE data for existing entry
             if lu[0] != lastupdate:
                     # Create API request url using satellite name
-                    url = service_url.format(sat,tle_format)
+                    url = service_url.format(sat)
                     #url = "https://celestrak.com/NORAD/elements/gp.php?GROUP=active&FORMAT=tle"
                     print("Retrieving", url)
                     data = requests.get(url).text.split("\n")
@@ -137,7 +134,7 @@ def extract_TLE(dbs_name, tle_format, lastupdate, satcatid_list):
                 continue
         else:    
             # Create API request url using satellite name
-            url = service_url.format(sat,tle_format)
+            url = service_url.format(sat)
             print("Retrieving", url)
             data = requests.get(url).text.split("\n")
 
@@ -215,4 +212,3 @@ def export_satcat_tle(dbs_name, satcat_tle_filename):
     
     print("Merged Satellite Catalogue-TLE data exported to csv!")
     
-    return

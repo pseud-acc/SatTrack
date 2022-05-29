@@ -27,7 +27,7 @@ from bs4 import BeautifulSoup
 from dateutil import parser
 from datetime import datetime
 
-def ucs_update_check(url, metadata_location):
+def ucs_update_check(metadata_location):
     ''' 
     Check whether UCS Satellite Catalogue download needs updating.
 
@@ -36,7 +36,7 @@ def ucs_update_check(url, metadata_location):
     @return: (boolean, str) True - download UCS data, Last update date in string format
     '''
     
-    #url = "https://www.ucsusa.org/resources/satellite-database"
+    url = "https://www.ucsusa.org/resources/satellite-database"
     html = requests.get(url).text
     soup = BeautifulSoup(html, "html.parser")
     last_update_str = re.findall(">Updated (.*)<",str(soup))[0]
@@ -56,7 +56,7 @@ def ucs_update_check(url, metadata_location):
     else:
         return False, last_update_str        
     
-def import_ucs_satcat(url_ucs, filename, download_file):
+def import_ucs_satcat(filename, download_file):
     ''' 
     Import UCS satellite catalogue
 
@@ -76,7 +76,8 @@ def import_ucs_satcat(url_ucs, filename, download_file):
         filename_raw = ".\\dat\\raw\\ucs_satcat.xls" #celestrak_satcat.csv"
 
         # Import UCS Satellite catalogue
-        html = requests.get(url_ucs).text
+        url = "https://www.ucsusa.org/resources/satellite-database"
+        html = requests.get(url).text
         soup = BeautifulSoup(html, "html.parser")        
         tags = soup("a")
         for tag in tags:
