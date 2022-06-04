@@ -77,35 +77,27 @@ metadata_loc = "./dat/meta/last_data_update.csv"
 metadata = pd.read_csv(metadata_loc)
 tle_update = metadata[metadata["Source"]=="Celestrak_TLE"]["Last Update"].values[0]
 
-# Define parameters for app layout function
-layout_params = dict(app = app,
-                     tle_update_in = tle_update,
-                     options_in = options,
-                     fig3d_0_in = fig3d_0,
-                     fig2d_0_in = fig2d_0,
-                     tbl_col_map_in = tbl_col_map
-                    )
-
-# Define parameters for callback functions
-callback_params = dict(app = app,
-                       df_in = df,
-                       input_filter_in = input_filter,
-                       surf_3d_in = surf_3d,
-                       fig3d_0_in = fig3d_0,
-                       layout_3d_in = layout_3d,
-                       layout_2d_in = layout_2d,
-                       tbl_col_map_in = tbl_col_map)
-
-
 ## >>>>>>>> Create App Layout <<<<<<<<<<<<
 
-create_dash_layout(**layout_params);
+create_dash_layout(app = app,
+                   tle_update_in = tle_update,
+                   options_in = options,
+                   fig3d_0_in = fig3d_0,
+                   fig2d_0_in = fig2d_0,
+                   tbl_col_map_in = tbl_col_map);
 
 
 ## >>>>>>>> Define App Interactivity <<<<<<<<<<<<
 
 # import callback functions
-get_callbacks(**callback_params)
+get_callbacks(app = app,
+              df_in = df,
+              input_filter_in = input_filter,
+              surf_3d_in = surf_3d,
+              fig3d_0_in = fig3d_0,
+              layout_3d_in = layout_3d,
+              layout_2d_in = layout_2d,
+              tbl_col_map_in = tbl_col_map)
 
 
 ## >>>>>>>> Run App <<<<<<<<<<<<

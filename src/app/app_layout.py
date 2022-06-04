@@ -29,7 +29,6 @@ from dash import dcc
 from dash import html
 import dash_vtk
 from dash import Dash, callback_context
-import dash_bootstrap_components as dbc
 from dash import Dash, dash_table
 
 # internal packages
