@@ -29,9 +29,8 @@ satcat_params = dict(
     filename_celestrak = "celestrak_satcat.csv",
     filename_ucs = "ucs_satcat.csv",
     filename_satcat = "merged_satcat.csv",
-    satdat_dbs = "satdat.sqlite",
-    commit_data = False
-)
+    satdat_dbs = "satdat.sqlite"
+    )
 
 #----------------------------#
 # B. TLE Data 
@@ -41,7 +40,6 @@ tle_params = dict(
     metadata = "./dat/meta/last_data_update.csv",
     update_tle_override = True,    
     satdat_dbs = "satdat.sqlite",
-    filename_satcat_tle = "satcat_tle.csv",
-    commit_data = False
-)
+    filename_satcat_tle = "satcat_tle.csv"
+    )
 

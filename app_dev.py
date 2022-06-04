@@ -126,6 +126,19 @@ def create_dash_layout(app):
                      ], style={"display": "inline-block", "width":"100%"}),
     # Body - Main viz/sidebar
         html.Div([   
+                #Interval check
+                # 3d viz
+                dcc.Interval(
+                id='3d-viz-interval-component',
+                interval=1*20000, # in milliseconds
+                n_intervals=0
+                ),
+                # 2d viz
+                dcc.Interval(
+                id='2d-viz-interval-component',
+                interval=1*3000, # in milliseconds
+                n_intervals=0
+                ),                    
                 # Sidebars
                 html.Div([
                     # Checklist filters
@@ -236,7 +249,7 @@ def create_dash_layout(app):
                             dcc.Tab(label="2D Satellite Tracker", value="2d-viz",children=[
                                 dcc.Graph(id="2d-earth-satellite-plot",
                                           figure=fig2d_0),
-                                html.H6(["Select a satellite using either 'Satellite Name' or 'Satellite Number' to see the 2D tracking path"],
+                                html.H6(["Select a satellite using either 'Satellite Name' or 'SATCAT Number' to see the 2D tracking path"],
                                         style = {'color': colours["ttext"], "display": "inline-block", 
                                     'font-size': fontsize["sub-sub-heading"], 'font-style':'italic',
                                    "marginTop": 5,"marginBottom": 5})
@@ -288,7 +301,8 @@ create_dash_layout(app);
         Input('3d-orbit-memory', 'data'),
         Input("sat-viz-tabs","value"),
         Input("time-update-btn","n_clicks"),
-        Input("clear-orbits-btn","n_clicks") 
+        Input("clear-orbits-btn","n_clicks"),
+        Input('3d-viz-interval-component', "n_intervals") 
     ],
         State('camera-memory',"data"),
         State('3d-earth-satellite-plot','relayoutData')
@@ -298,7 +312,7 @@ def update_3dviz(status, orbit, satname, satcatid,
                  owner, launchvehicle,
                  purpose, year, clickData, orbit_list, tab, 
                  update_time_btn, clear_orbits_btn,
-                 cam_mem, cam_scene):
+                 cam_mem, cam_scene, time_intverval):
     
     if tab == "3d-viz":
         ctx = callback_context
@@ -410,13 +424,14 @@ def update_3dviz(status, orbit, satname, satcatid,
         Input('purpose-filter-multi-dropdown', 'value'),
         Input('launchyear-filter-slider', 'value'),
         Input("sat-viz-tabs","value"),
-        Input("time-update-btn","n_clicks")       
+        Input("time-update-btn","n_clicks"),
+        Input('2d-viz-interval-component', "n_intervals")       
     ]
 )
 
 def update_2dviz(status, orbit, satname, satcatid,
                  owner, launchvehicle,
-                 purpose, year, tab, update_time_btn):
+                 purpose, year, tab, update_time_btn, time_intverval):
     
     if tab == "2d-viz":         
         dff, time_now = filter_df(df, input_filter,
@@ -469,11 +484,11 @@ def update_2dviz(status, orbit, satname, satcatid,
         Input('purpose-filter-multi-dropdown', 'value'),
         Input('launchyear-filter-slider', 'value'),
         Input("sat-viz-tabs","value"),
-        Input("time-update-btn","n_clicks")  
+        Input("time-update-btn","n_clicks")
     ]
 )
 
-def update_table(status, orbit, satname, satcatid,
+def update_graph(status, orbit, satname, satcatid,
                  owner, launchvehicle,
                  purpose, year, tab, update_time_btn):
 

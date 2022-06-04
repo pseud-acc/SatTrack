@@ -29,8 +29,7 @@ def satcat_pipeline(metadata,
                     filename_celestrak,
                     filename_ucs,
                     filename_satcat,
-                    satdat_dbs,
-                    commit_data):
+                    satdat_dbs):
     
     ''' 
     Run satellite catalogue pipeline.
@@ -41,7 +40,6 @@ def satcat_pipeline(metadata,
     @param filename_ucs: (str) name of csv file to write in clean UCS data 
     @param filename_satcat: (str) name of csv file to write in clean merged satellite catalogue data 
     @param satdat_dbs: (str) name of sqlite database to write in merged satallite catalogue data     
-    @param commit_data: (boolean) If True, commit updated satellite catalogue data to github
     '''    
     
     # >>> Page Update Checks <<<
@@ -53,10 +51,6 @@ def satcat_pipeline(metadata,
     # Check if Celestrak page has been updated
     update_ucs, last_update_ucs = ucs_update_check(metadata)
     print(" UCS Data last updated: ", last_update_ucs, ". Update required: ", update_ucs)
-    if commit_data and (update_celestrak):
-        add_files = "git add ./dat/meta/last_data_update.csv"
-        os.system(add_files)
-        os.system('git commit -m "metadata file updated for satellite catalogue data"')                
     
     # >>> Import/Export Data <<<
 
@@ -76,19 +70,12 @@ def satcat_pipeline(metadata,
         print("Columns in Satellite catalogue:", satcat_cols)
         # Update SQL database
         satcat_sql_dump(filename_satcat,  satdat_dbs)
-
-        if commit_data:
-            files = [filename_celestrak, filename_ucs, filename_satcat, satdat_dbs]
-            add_files = "git add ./dat/clean/" + " ./dat/clean/".join(files[update_celestrak, update_ucs, True, True])
-            os.system(add_files)
-            os.system('git commit -m "Satellite catalogue updated"')    
                     
 
 def tle_pipeline(metadata,
                  update_tle_override,                 
                  satdat_dbs,
-                 filename_satcat_tle,
-                 commit_data):
+                 filename_satcat_tle):
     ''' 
     Run TLE data pipeline.
 
@@ -97,7 +84,6 @@ def tle_pipeline(metadata,
     @param satdat_dbs: (str) name of sqlite database to write in TLE data
     @param tle_format: (str) Format of GP elements - currently only accepts "tle"
     @param filename_satcat_tle: (str) name of csv file to write in merged satellite catalogue and TLE data
-    @param commit_data: (boolean) If True, commit updated satellite catalogue data to github    
     '''        
     
     
@@ -106,10 +92,6 @@ def tle_pipeline(metadata,
     # Check if Celestrak page has been updated
     update_tle, last_update_tle = celestrak_update_check(metadata, True)
     print(" Celestrak TLE Data last updated: ", last_update_tle, ". Update required: ", update_tle) 
-    if commit_data and update_tle:
-        add_files = "git add ./dat/meta/last_data_update.csv"
-        os.system(add_files)
-        os.system('git commit -m "metadata file updated for TLE data"')                
     
     # >>> Import/Export Data <<<
 
@@ -121,8 +103,4 @@ def tle_pipeline(metadata,
               num_downloaded+len(missing_satcat_ids)," satellites")
         export_satcat_tle(satdat_dbs, filename_satcat_tle)  
         
-        if commit_data:
-            files = [satdat_dbs, filename_satcat_tle]
-            add_files = "git add ./dat/clean/" + " ./dat/clean/".join(files)
-            os.system(add_files)
-            os.system('git commit -m "TLE data updated"')          
+
