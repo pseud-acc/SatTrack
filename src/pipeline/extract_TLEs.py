@@ -53,7 +53,7 @@ def extract_TLE_active(dbs_name, lastupdate):
     sat_list_satcat_all = pd.Series([a[0] for a in ids])
     
     ## Define API access url
-    url = "https://celestrak.com/NORAD/elements/gp.php?GROUP=active&FORMAT=tle"
+    url = "https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=tle"
     
     ## Call API data
     data = requests.get(url).text.split("\n")
@@ -95,7 +95,7 @@ def extract_TLE(dbs_name, lastupdate, satcatid_list):
     cur = conn.cursor()    
     
     ## Define API access url    
-    service_url = "https://celestrak.com/NORAD/elements/gp.php?CATNR={:}&FORMAT=tle"
+    service_url = "https://celestrak.org/NORAD/elements/gp.php?CATNR={:}&FORMAT=tle"
     
     # API Call to Celestrak
     satcat_no_data = []

@@ -2,7 +2,7 @@
 
 """
 
-This module imports and cleans data from the CelesTrak Satellite Catalogue (see: https://celestrak.com/)
+This module imports and cleans data from the CelesTrak Satellite Catalogue (see: https://celestrak.org/)
 
 Example:
 
@@ -39,14 +39,14 @@ def celestrak_update_check(metadata_location, tle_check):
     
     if tle_check: 
         dat_source = "Celestrak_TLE"
-        url = "https://celestrak.com/NORAD/elements/"
+        url = "https://celestrak.org/NORAD/elements/"
     else:
         dat_source = "Celestrak"
-        url = "https://celestrak.com/satcat/search.php"
+        url = "https://celestrak.org/satcat/search.php"
         
     # Check date of most recent data update on CelesTrak website
-    #url = "https://celestrak.com/satcat/search.php" Satellite catalogue
-    #url = "https://celestrak.com/NORAD/elements/" TLE
+    #url = "https://celestrak.org/satcat/search.php" Satellite catalogue
+    #url = "https://celestrak.org/NORAD/elements/" TLE
     html = requests.get(url = url).text
     soup = BeautifulSoup(html, "html.parser")
     last_update_str = re.findall("Current as of (.*) UTC",str(soup))[0]
@@ -109,7 +109,7 @@ def import_celestrak_satcat(filename, download_file):
         ## DATA IMPORT ##
 
         # Import Owner code descriptions
-        url = "https://celestrak.com/satcat/sources.php"
+        url = "https://celestrak.org/satcat/sources.php"
         owner_map = map_table(url, "OWNER")
         owner_clean_map = {'United States':'USA', "United Kingdom":"UK",
            'Republic of Korea':'South Korea', 'Republic of Rwanda':'Rwanda', 'Republic of Tunisia':'Tunisia',
@@ -133,7 +133,7 @@ def import_celestrak_satcat(filename, download_file):
         owner_map["OWNER_DESC"] = owner_map["OWNER_DESC"].apply(lambda x: owner_clean_map[x] if x in owner_clean_map.keys() else x)
 
         # Import Launch Site code descriptions
-        url = "https://celestrak.com/satcat/launchsites.php"
+        url = "https://celestrak.org/satcat/launchsites.php"
         launch_site_map = map_table(url, "LAUNCH_SITE")
         launch_site_map["LAUNCH_SITE_COUNTRY"] = [s[-1].strip().split("(")[0].strip().replace(")","") for s in       launch_site_map["LAUNCH_SITE_DESC"].str.split(",")]
         launch_site_map.loc[launch_site_map["LAUNCH_SITE"] == "SNMLP","LAUNCH_SITE_COUNTRY"] = "Kenya"
@@ -144,7 +144,7 @@ def import_celestrak_satcat(filename, download_file):
 
         filename_raw = ".\\dat\\raw\\celestrak_satcat.csv"
 
-        url = "https://celestrak.com/pub/satcat.csv"
+        url = "https://celestrak.org/pub/satcat.csv"
         data = requests.get(url)
         with open(filename_raw, "wb") as f: f.write(data.content)
         all_sat_raw = pd.read_csv(filename_raw)
