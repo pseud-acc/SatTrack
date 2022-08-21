@@ -151,7 +151,8 @@ def get_callbacks(app,
                                '<i>Satellite position as at: ' + 
                                time_now.strftime("%H:%M:%S, %d/%m/%Y") + '</i> <br>' +
                                '<i>Number of active/inactive satellites shown: ' + 
-                                "/".join([str(sum(dff.Status == "Active")),str(sum(dff.Status == "Inactive"))]) + '</i>',
+                                "/".join([str(sum(dff.Status == "Active")),str(sum(dff.Status == "Inactive"))]) + 
+                                ' (' + str(dff.shape[0]) + ' in total)' + '</i>',
                                textangle=0, xanchor='left',align='left',
                                xref="paper", yref="paper"))   
             fig_3d.add_annotation(dict(font=dict(color=colours["atext"],size=12),
