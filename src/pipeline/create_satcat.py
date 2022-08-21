@@ -105,11 +105,10 @@ def clean_satcat_export(celestrak_dat, ucs_dat, filename):
 
     ## Standardise Satellite Purpose
     merged_satcat_clean["Purpose"] = merged_satcat_clean["Purpose"].str.strip()
-    p_map = {"Earth Observation":["Earth Observarion"], 
-          "Communications":["Communication"],
+    p_map = {"Communications":["Communication"],
           "Space Science":["Space Observation"],
            "Space Science/Technology Development": ["Space Science/Technology Demonstration"],
-         "Earth Observation":["Earth Science", "Earth Observation/Earth Science","Earth Science/Earth Observation"],
+         "Earth Observation":["Earth Observarion","Earth Science", "Earth Observation/Earth Science","Earth Science/Earth Observation"],
           "Earth Observation/Space Observation": ["Earth/Space Observation"],
           "Communications/Navigation (Global or Regional Positioning)":["Communications/Navigation"],
          "Navigation (Global or Regional Positioning)" : ["Navigation/Global Positioning","Navigation/Regional Positioning"],

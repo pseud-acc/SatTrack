@@ -7359,7 +7359,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 49000,2021-060AK,ONEWEB-0282,2021-07-01,2021,"Vostochny Cosmodrome, Russia",Russia,Soyuz-2.1b,Active,+,LEO,109.37,-1.0,UK,UK,Commercial,Communications,148.0,,5.0,1,Soyuz
 49001,2021-060AL,ONEWEB-0283,2021-07-01,2021,"Vostochny Cosmodrome, Russia",Russia,Soyuz-2.1b,Active,+,LEO,109.37,-1.0,UK,UK,Commercial,Communications,148.0,,5.0,1,Soyuz
 49002,2021-060AM,ONEWEB-0284,2021-07-01,2021,"Vostochny Cosmodrome, Russia",Russia,Soyuz-2.1b,Active,+,LEO,109.37,-1.0,UK,UK,Commercial,Communications,148.0,,5.0,1,Soyuz
-49003,2021-061A,OBJECT A,2021-07-03,2021,"Taiyuan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,95.24,-1.0,PRC,China,Commercial,Earth Observarion,95.0,,-1.0,1,Long March
+49003,2021-061A,OBJECT A,2021-07-03,2021,"Taiyuan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,95.24,-1.0,PRC,China,Commercial,Earth Observation,95.0,,-1.0,1,Long March
 49004,2021-061B,OBJECT B,2021-07-03,2021,"Taiyuan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,95.22,-1.0,PRC,China,Commercial,Earth Observation,40.0,,-1.0,1,Long March
 49005,2021-061C,OBJECT C,2021-07-03,2021,"Taiyuan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,95.25,-1.0,PRC,China,Commercial,Earth Observation,40.0,,-1.0,1,Long March
 49006,2021-061D,OBJECT D,2021-07-03,2021,"Taiyuan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,95.24,-1.0,PRC,China,Commercial,Earth Observation,40.0,,-1.0,1,Long March
