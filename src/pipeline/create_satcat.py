@@ -109,7 +109,7 @@ def clean_satcat_export(celestrak_dat, ucs_dat, filename):
           "Space Science":["Space Observation"],
            "Space Science/Technology Development": ["Space Science/Technology Demonstration"],
          "Earth Observation":["Earth Observarion","Earth Science", "Earth Observation/Earth Science","Earth Science/Earth Observation"],
-          "Earth Observation/Space Observation": ["Earth/Space Observation"],
+          "Earth Observation/Space Science": ["Earth/Space Observation"],
           "Communications/Navigation (Global or Regional Positioning)":["Communications/Navigation"],
          "Navigation (Global or Regional Positioning)" : ["Navigation/Global Positioning","Navigation/Regional Positioning"],
          "Educational/Technology Development": ["Technology Development/Educational"],

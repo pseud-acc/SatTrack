@@ -194,6 +194,8 @@ def export_satcat_tle(dbs_name, satcat_tle_filename):
             satcat s
         ON
             t.SatCatId = s.SatCatId
+        WHERE 
+            s.OrbitalPeriod > 0
     '''
     cur.executescript(query)
     conn.commit()

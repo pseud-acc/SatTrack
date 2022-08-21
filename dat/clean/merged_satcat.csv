@@ -4941,7 +4941,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 44786,2019-077B,KL-ALPHA B,2019-11-17,2019,"Jiuquan Space Center, PRC",PRC,Kuaizhou 1A,Active,+,LEO,106.21,-1.0,GER,Germany,Commercial,Technology Development,-1.0,,-1.0,1,Kuaizhou
 44793,2019-078A,BEIDOU-3 M21,2019-11-23,2019,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
 44794,2019-078B,BEIDOU-3 M22,2019-11-23,2019,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
-44797,2019-079A,COSMOS 2542,2019-11-25,2019,"Plesetsk Missile and Space Complex, Russia",Russia,Soyuz-2.1v,Active,+,LEO,93.99,-1.0,CIS,Russia/USSR,Military,Earth Observation/Space Observation,-1.0,,-1.0,1,Soyuz
+44797,2019-079A,COSMOS 2542,2019-11-25,2019,"Plesetsk Missile and Space Complex, Russia",Russia,Soyuz-2.1v,Active,+,LEO,93.99,-1.0,CIS,Russia/USSR,Military,Earth Observation/Space Science,-1.0,,-1.0,1,Soyuz
 44800,2019-080A,TIBA-1,2019-11-26,2019,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5 ECA,Active,+,GEO,1436.07,-1.0,EGYP,Egypt,Commercial/Military,Communications,5600.0,,15.0,1,Ariane
 44801,2019-080B,INMARSAT GX5,2019-11-26,2019,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5 ECA,Active,+,GEO,1436.06,-1.0,IM,INMARSAT,Commercial,Communications,4007.0,,15.0,1,Ariane
 44804,2019-081A,CARTOSAT-3,2019-11-27,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,94.78,-1.0,IND,India,Government,Earth Observation,1625.0,,5.0,1,PSLV
@@ -4960,7 +4960,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 44818,2019-081Q,FLOCK 4P-5,2019-11-27,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,94.16,-1.0,US,USA,Commercial,Earth Observation,4.0,,3.0,1,PSLV
 44819,2019-082A,GAOFEN 12-1,2019-11-27,2019,"Taiyuan Space Center, PRC",PRC,Long March 4C,Active,+,LEO,97.28,-1.0,PRC,China,Government,Earth Observation,1000.0,,8.0,1,Long March
 44824,2019-084A,ALE-2,2019-12-06,2019,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,92.16,-1.0,JPN,Japan,Commercial,Earth Observation,75.0,,-1.0,1,Electron
-44835,2019-079D,COSMOS 2543,2019-11-25,2019,"Plesetsk Missile and Space Complex, Russia",Russia,Soyuz-2.1v,Active,+,LEO,94.25,-1.0,CIS,Russia/USSR,Military,Earth Observation/Space Observation,-1.0,,-1.0,1,Soyuz
+44835,2019-079D,COSMOS 2543,2019-11-25,2019,"Plesetsk Missile and Space Complex, Russia",Russia,Soyuz-2.1v,Active,+,LEO,94.25,-1.0,CIS,Russia/USSR,Military,Earth Observation/Space Science,-1.0,,-1.0,1,Soyuz
 44836,2019-086A,JILIN-01 GAOFEN 2B,2019-12-07,2019,"Taiyuan Space Center, PRC",PRC,Kuaizhou 1A,Active,+,LEO,95.39,-1.0,PRC,China,Commercial,Earth Observation,95.0,,-1.0,1,Kuaizhou
 44838,2019-087A,OBJECT A,2019-12-07,2019,"Taiyuan Space Center, PRC",PRC,Kuaizhou 1A,Active,+,LEO,94.14,-1.0,PRC,China,Commercial,Earth Observation,45.0,,-1.0,1,Kuaizhou
 44839,2019-087B,OBJECT B,2019-12-07,2019,"Taiyuan Space Center, PRC",PRC,Kuaizhou 1A,Active,+,LEO,94.33,-1.0,PRC,China,Commercial,Earth Observation,45.0,,-1.0,1,Kuaizhou
