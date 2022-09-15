@@ -9580,3 +9580,4 @@ DECAY_DATE,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAME,OBJECT_TYP
 ,1998-11-20,TYMSC,53769,1998-067UG,OBJECT UG,PAY,+,EA,LEO,ORB,US,92.84,Active,USA,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,1998-11-20,TYMSC,53770,1998-067UH,OBJECT UH,PAY,+,EA,LEO,ORB,US,92.83,Active,USA,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,1998-11-20,TYMSC,53771,1998-067UJ,OBJECT UJ,PAY,+,EA,LEO,ORB,US,92.83,Active,USA,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
+,2022-09-13,WSC,53813,2022-112A,OBJECT A,PAY,+,EA,MEO,ORB,PRC,630.99,Active,China,"Wenchang Satellite Launch Site, PRC",PRC
