@@ -103,7 +103,7 @@ def get_callbacks(app,
                      owner, launchvehicle,
                      purpose, year, clickData, orbit_list, tab, 
                      update_time_btn, clear_orbits_btn,
-                     cam_mem, cam_scene, time_intverval):
+                     time_intverval, cam_mem, cam_scene):
 
         if tab == "3d-viz":
             ctx = callback_context
@@ -324,7 +324,9 @@ def get_callbacks(app,
     @app.callback(
         [
             Output('satname-filter-dropdown', 'options'),
-            Output('satcatid-filter-dropdown', 'options')
+            Output('satcatid-filter-dropdown', 'options'),            
+            Output('satname-filter-dropdown', 'value'),
+            Output('satcatid-filter-dropdown', 'value')    
         ],
         [
             Input('status-filter-checkbox', 'value'),
@@ -343,4 +345,9 @@ def get_callbacks(app,
                      purpose, year):
         dff, _ = filter_df(df_in, input_filter_in,
                  status, orbit, satname, satcatid, owner, launchvehicle, purpose, year)
-        return list(np.sort(dff.ObjectName.unique())), list(np.sort(dff.SatCatId.unique()).astype(str))
+        if dff.shape[0] == 0:
+            satname = None
+            satcatid = None
+            dff, _ = filter_df(df_in, input_filter_in,
+                     status, orbit, satname, satcatid, owner, launchvehicle, purpose, year)            
+        return list(np.sort(dff.ObjectName.unique())), list(np.sort(dff.SatCatId.unique()).astype(str)), satname, satcatid
