@@ -2,7 +2,7 @@
 
 """
 
-This module defines the user input parameters for the satellite catalogue and TLE data pipeline functions.
+This module defines the user input parameters for the satellite catalogue, data enrichment and TLE data pipeline functions.
 
 Example:
 
@@ -19,9 +19,9 @@ Todo:
 # Define User Inputs
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-#----------------------------#
-# A. Satellite Catalogue 
-#----------------------------#
+#-------------------------------------#
+# A. Create Satellite Catalogue 
+#-------------------------------------#
 
 satcat_params = dict(
     metadata = "./dat/meta/last_data_update.csv",
@@ -32,14 +32,33 @@ satcat_params = dict(
     satdat_dbs = "satdat.sqlite"
     )
 
-#----------------------------#
-# B. TLE Data 
-#----------------------------#
+#-------------------------------------#
+# B. Satellite Catalgoue Enrichment 
+#-------------------------------------#
+
+satcat_enrichement_params = dict(
+    metadata = "./dat/meta/last_data_update.csv",
+    full_update_check = False,
+    webscraper_override = False,    
+    satdat_dbs = "satdat.sqlite",
+    filename_enriched_satcat = "enriched_satcat.csv"
+    )
+
+#-------------------------------------#
+# C. Extract TLE Data 
+#-------------------------------------#
 
 tle_params = dict(
     metadata = "./dat/meta/last_data_update.csv",
     update_tle_override = True,    
+    satdat_dbs = "satdat.sqlite"
+    )
+
+#-------------------------------------#
+# D. Export App Data
+#-------------------------------------#
+
+export_app_data_params = dict(
     satdat_dbs = "satdat.sqlite",
     filename_satcat_tle = "satcat_tle.csv"
     )
-

@@ -45,7 +45,7 @@ def import_data(satcat_loc, img_loc, res):
     @return tbl_col_map: dict of column name mapping for table export
     '''          
     ## Satellite catalogue data - contains TLEs
-    satcat_loc = "https://raw.githubusercontent.com/pseud-acc/SatTrack/main/dat/clean/satcat_tle.csv"
+
     satcat = pd.read_csv(satcat_loc)
 
     print("Satellite catalgoue and TLEs successfully imported!")

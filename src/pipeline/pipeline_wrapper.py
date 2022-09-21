@@ -22,7 +22,13 @@ from celestrak_import import celestrak_update_check, import_celestrak_satcat
 from ucs_import import ucs_update_check, import_ucs_satcat
 from create_satcat import clean_satcat_export, satcat_sql_dump
 
-from extract_TLEs import extract_TLE_active, extract_TLE, export_satcat_tle
+from skyrocket_webscraper import skyrocket_update_check, webscraper_dump, enrich_satcat
+
+from extract_TLEs import extract_TLE_active, extract_TLE
+
+from export_app_data import export_satcat_tle
+
+
 
 def satcat_pipeline(metadata,
                     update_satcat,
@@ -48,7 +54,7 @@ def satcat_pipeline(metadata,
     update_celestrak, last_update_celestrak = celestrak_update_check(metadata, False)
     print(" Celestrak Data last updated: ", last_update_celestrak, ". Update required: ", update_celestrak)
 
-    # Check if Celestrak page has been updated
+    # Check if UCS page has been updated
     update_ucs, last_update_ucs = ucs_update_check(metadata)
     print(" UCS Data last updated: ", last_update_ucs, ". Update required: ", update_ucs)
     
@@ -61,21 +67,51 @@ def satcat_pipeline(metadata,
     if update_celestrak or update_ucs:
         # Celestrak data import
         celestrak_dat = import_celestrak_satcat(filename_celestrak, update_celestrak)
+        
         # UCS data import
         ucs_dat = import_ucs_satcat(filename_ucs, update_ucs)
+        
         # Merge datasets and export to csv
         satcat_shape, satcat_cols = clean_satcat_export(celestrak_dat, ucs_dat, filename_satcat)
+        
         print("Satellite catalogue contains ", satcat_shape[0], " rows and ",
               satcat_shape[1], " columns")
         print("Columns in Satellite catalogue:", satcat_cols)
+        
         # Update SQL database
         satcat_sql_dump(filename_satcat,  satdat_dbs)
+        
+def satcat_enrichement_pipeline(metadata,
+                                full_update_check,
+                                webscraper_override,
+                                satdat_dbs,
+                                filename_enriched_satcat):
+    ''' 
+    Run webscraper on skyrocket website and enrich existing satellite catalogue data.
+
+    @param webscraper_override: (boolean) If true, run webscraper (override)    
+    @param satdat_dbs: (str) name of sqlite database to write in webscraped data
+    @param filename_enriched_satcat: (str) name of csv file to write in enriched satellite catalogue data     
+    '''      
+    
+    # Check if Skyrocket page(s) has been updated
+    update_skyrocket, last_update_skyrocket = skyrocket_update_check(metadata, full_update_check)
+    print(" Skyrocket Data last updated: ", last_update_skyrocket, ". Update required: ", update_skyrocket)    
+    
+    # Scrape data from skyrocket website
+    if webscraper_override or update_skyrocket:
+        webscraper_dump(satdat_dbs, skyrocket_updates_filename)
+    
+    # Enrich satellite catalogue with skyrocket data
+    enrich_satcat(satdat_dbs, filename_enriched_satcat)
+    
+    # Update SQL database
+    satcat_sql_dump(filename_enriched_satcat,  satdat_dbs)            
                     
 
 def tle_pipeline(metadata,
                  update_tle_override,                 
-                 satdat_dbs,
-                 filename_satcat_tle):
+                 satdat_dbs):
     ''' 
     Run TLE data pipeline.
 
@@ -89,7 +125,7 @@ def tle_pipeline(metadata,
     
     # >>> Page Update Checks <<<
     
-    # Check if Celestrak page has been updated
+    # Check if Celestrak TLE page has been updated
     update_tle, last_update_tle = celestrak_update_check(metadata, True)
     print(" Celestrak TLE Data last updated: ", last_update_tle, ". Update required: ", update_tle) 
     
@@ -98,9 +134,18 @@ def tle_pipeline(metadata,
     if update_tle or update_tle_override:
         missing_satcat_ids, num_downloaded  = extract_TLE_active(satdat_dbs, last_update_tle)
         print("TLEs downloaded for ",num_downloaded," active satellites")
+        
         satcat_no_data = extract_TLE(satdat_dbs, last_update_tle, missing_satcat_ids)
         print("TLEs could not be found for ",len(satcat_no_data), "/",
               num_downloaded+len(missing_satcat_ids)," satellites")
-        export_satcat_tle(satdat_dbs, filename_satcat_tle)  
         
+def app_data_export(satdat_dbs,
+                filename_satcat_tle):
+    ''' 
+    Export merged satellite catalogue and TLE data for app.
 
+    @param satdat_dbs: (str) name of sqlite database import satellite catalogue and TLE data.
+    @param filename_satcat_tle: (str) name of csv file to write in merged satellite catalogue and TLE data
+    '''        
+    
+    export_satcat_tle(satdat_dbs, filename_satcat_tle)  

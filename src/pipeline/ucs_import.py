@@ -31,7 +31,6 @@ def ucs_update_check(metadata_location):
     ''' 
     Check whether UCS Satellite Catalogue download needs updating.
 
-    @param url: (str) website url to UCS page containing table with code and description
     @param metadata_location: (str) filename of UCS download metadata
     @return: (boolean, str) True - download UCS data, Last update date in string format
     '''
