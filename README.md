@@ -4,7 +4,7 @@
 
 This repository contains python scripts to run the SatTrack App - an open-source real-time satellite tracking app - for visualising active and inactive satellites orbiting the Earth. 
 
-The project consists of two parts - (1) data pipeline; (2) interactive app. In the data pipeline, satellite catalogue and TLE data is pulled from CelesTrak and UCS (Union of Concerned Scientists) via web scrapers and API calls into a SQLite database. The interactive app is a Dash app (which can be hosted on Heroku) in which satellite TLE data is converted into a real-time satellite position and satellite catalogue data is used to filter 2d and 3d visualisations. The app also allows satellite position data to be exported in tabular form (to a csv).
+The project consists of two parts - (1) data pipeline; (2) interactive app. In the data pipeline, satellite catalogue and TLE data is pulled from CelesTrak, UCS (Union of Concerned Scientists) and space.skyrocket via web scrapers and API calls into a SQLite database. The interactive app is a Dash app (which can be hosted on Heroku) in which satellite TLE data is converted into a real-time satellite position and satellite catalogue data is used to filter 2d and 3d visualisations. The app also allows satellite position data to be exported in tabular form (to a csv).
 
 ## Pipeline/App Features
 
@@ -17,7 +17,6 @@ The project consists of two parts - (1) data pipeline; (2) interactive app. In t
 - Tabular export (to csv) of satellite details and position
 - TODO:
   - Automate pipeline with airflow
-  - Auto-update of satellite position in 2d and 3d
   - Slider to manually select time to compute satellite position 
 
 
