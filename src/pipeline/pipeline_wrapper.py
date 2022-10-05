@@ -2,7 +2,7 @@
 
 """
 
-This module contains wrapper functions for the satellite catalogue and TLE data pipeline functions.
+This module contains wrapper functions for the satellite catalogue, webscraper and TLE data pipeline functions.
 
 Example:
 

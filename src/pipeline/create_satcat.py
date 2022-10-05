@@ -25,6 +25,7 @@ from bs4 import BeautifulSoup
 from dateutil import parser
 from datetime import datetime
 import sqlite3
+import nltk
 
 def clean_satcat_export(celestrak_dat, ucs_dat, filename):
     ''' 
@@ -41,11 +42,22 @@ def clean_satcat_export(celestrak_dat, ucs_dat, filename):
     # Merge data
     merged_satcat_raw = pd.merge(celestrak_dat, ucs_dat, how="left",left_on=['NORAD_CAT_ID'],right_on=['NORAD Number'])
     
-    # Remove erroneous UCS data for entry - NORAD ID 45125
+    # Remove erroneous UCS data for unidentified entries
+    ucs_error_ids = [45123,45125]
     merged_satcat_clean = merged_satcat_raw.copy()
-    indx = merged_satcat_clean.index[merged_satcat_clean["NORAD_CAT_ID"]==45125]
+    indx = merged_satcat_clean.index[merged_satcat_clean["NORAD_CAT_ID"].isin(ucs_error_ids)]
     merged_satcat_clean.loc[indx,ucs_dat.columns] = np.nan
     
+    ## Remove duplicates from UCS data - take closest satellite name match between Celestrak and UCS
+    dup_indx = merged_satcat_raw.NORAD_CAT_ID.value_counts().index[merged_satcat_raw.NORAD_CAT_ID.value_counts()>1]
+    indx_to_drop = []
+    for norad_dup in dup_indx:
+        a0 = celestrak_dat[celestrak_dat["NORAD_CAT_ID"]==norad_dup]["OBJECT_NAME"].values[0].upper().strip()
+        edit_dist = np.array([(nltk.edit_distance(a0,str(a).upper().strip()),ind)
+                    for ind,a in merged_satcat_clean[merged_satcat_clean["NORAD_CAT_ID"]==norad_dup]["Current Official Name of Satellite"].items() ])
+        indx_list = np.array(list(zip(*edit_dist))[1])
+        indx_to_drop.append(indx_list[np.argmax(np.array(list(zip(*edit_dist))[0]))])
+    merged_satcat_clean.drop(merged_satcat_clean.index[indx_to_drop], inplace = True)   
     
     ## Create factor for UCS data
     merged_satcat_clean["UcsData"] =  merged_satcat_clean["NORAD Number"].apply(lambda x: 0 if np.isnan(x) else 1)
@@ -117,21 +129,6 @@ def clean_satcat_export(celestrak_dat, ucs_dat, filename):
          "Technology Development": ["Technology Demonstration"]}    
     for u,v in p_map.items():
         merged_satcat_clean = manual_mapper(merged_satcat_clean,"Purpose",v,u)
-
-    ## Drop duplicate SATCAT numbers - auto
-    merged_satcat_clean.drop_duplicates(inplace = True)
-
-    ## Drop duplicate SATCAT numbers - manual
-    dupl_to_drop_map = {43118: {"col": "LaunchMass", "val":10}, 43767:{"col":"LaunchMass" , "val":10}, 45123:{"col":"LaunchMass" , "val":2}, 46809:{"col":"LaunchMass" , "val":-1},
-     48965:{"col":"Purpose" , "val":"Earth Observation"}, 49055:{"col":"LaunchMass" , "val":6411.0}, 49056:{"col":"LaunchMass" , "val":3852}, 49434:{"col":"LaunchVehicleClass" , "val":"Long March"},
-     49818:{"col":"ExpLifetime" , "val":-1}}
-
-    indices_to_drop = list()
-    for catid,cv in dupl_to_drop_map.items():
-        ind = merged_satcat_clean[(merged_satcat_clean["SatCatId"] == catid) & (merged_satcat_clean[cv["col"]] == cv["val"])].index[0]
-        indices_to_drop.append(ind)
-
-    merged_satcat_clean = merged_satcat_clean.drop(indices_to_drop, axis=0)
     
     ## Export data
     merged_satcat_clean.to_csv(filename, index=False)

@@ -101,7 +101,8 @@ def import_ucs_satcat(filename, download_file):
         # Convert NORAD Catalogue number to int
         ucs_sat_clean = ucs_sat_clean[~ucs_sat_clean["NORAD Number"].isna()]
         ucs_sat_clean["NORAD Number"] = ucs_sat_clean["NORAD Number"].astype('int64')    
-
+        
+        # Export to csv
         ucs_sat_clean.to_csv(filename_clean, index=False)
 
         return ucs_sat_clean
