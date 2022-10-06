@@ -436,6 +436,7 @@ def enrich_satcat(dbs_name, enriched_satcat_filename):
                 satcat s
             on s.satcatid = m.satcatid
             where m.flag <> "N"
+            and s.satcatid is not null
             """
     cur.execute(query)
     output = cur.fetchall()
@@ -465,7 +466,7 @@ def enrich_satcat(dbs_name, enriched_satcat_filename):
         print("")
         satname_new = re.sub("[-]"," ",sat).split("(")[0].split("&")[0].split("[")[0]
         print(satname_new)
-        print("{}/{} ".format(n,len(satellite_match_list)))
+        print("{}/{} ".format(n+1,len(satellite_match_list)))
         print("")
         print("-------")
         regex_str = "(^" + ".*|^".join(alphnum[sat[0]]) + ".*)"
@@ -536,7 +537,7 @@ def enrich_satcat(dbs_name, enriched_satcat_filename):
     def manual_mapper(dat,col,str_old,str_new):
         dat.loc[dat[col].isin(str_old), col] = str_new
         return dat
-    lv_map = {"Long March":["Long","CZ"], "Soyuz":["Soyuz Fregat Soyuz","Souyz"], "LauncherOne":["Launcher"],
+    lv_map = {"Long March":["Long","CZ"], "Soyuz":["Soyuz Fregat Soyuz","Souyz","11A510"], "LauncherOne":["Launcher"],
              "Proton":["Proton/Breeze","Proton M Briz"],"ISS NRCSD":['Dextre Arm + Kaber', 'Nanoracks','J',
                                                     'KIBO','SEOPS','JEM','Kaber'],
               "Black Arrow":["Black"], "Start-1":["Start"], "Titan":["Commercial"], "L1011 Stargazer":["L1011"],

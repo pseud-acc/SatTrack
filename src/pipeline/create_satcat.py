@@ -108,7 +108,7 @@ def clean_satcat_export(celestrak_dat, ucs_dat, filename):
     def manual_mapper(dat,col,str_old,str_new):
         dat.loc[dat[col].isin(str_old), col] = str_new
         return dat
-    lv_map = {"Long March":["Long"], "Soyuz":["Soyuz Fregat Soyuz"], "LauncherOne":["Launcher"],
+    lv_map = {"Long March":["Long"], "Soyuz":["Soyuz Fregat Soyuz","11A510"], "LauncherOne":["Launcher"],
              "Proton":["Proton/Breeze"],"ISS NRCSD":['Dextre Arm + Kaber', 'Nanoracks','J',
                                                     'KIBO','SEOPS','JEM','Kaber'],
              'JAXA M-V': ['JAXA'], 'Kaituozhe': ["KT"]}
