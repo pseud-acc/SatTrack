@@ -469,7 +469,7 @@ def enrich_satcat(dbs_name, enriched_satcat_filename):
         print("{}/{} ".format(n+1,len(satellite_match_list)))
         print("")
         print("-------")
-        regex_str = "(^" + ".*|^".join(alphnum[sat[0]]) + ".*)"
+        regex_str = "(^" + ".*|^".join([a + sat[1] for a in alphnum[sat[0]]]) + ".*)"
         indices = skyrocket_df.ObjectName.str.extract(regex_str).dropna().index
         dist_matrix[n, index_to_array_index[indices]] = np.array([nltk.edit_distance(satname_new,re.sub("[-]"," ",s)) for s in skyrocket_df.loc[indices,"ObjectName"]])
     ##Convert distance matrix to dataframe
