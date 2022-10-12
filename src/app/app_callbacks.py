@@ -131,14 +131,19 @@ def get_callbacks(app,
                     orbit_id = dff.iloc[[clickData["points"][0]["pointNumber"]]]["SatCatId"].values[0]
                     if orbit_id in orbit_list_updated:
                         raise PreventUpdate
+                        
+            sat_status_enc = np.where(dff["Status"]=="Active",1,0)
 
             # 3D Visualisation Output
             scatter_3d = go.Scatter3d(x = dff["xp"].astype(np.float32), y = dff["yp"].astype(np.float32), z = dff["zp"].astype(np.float32),
                                    text = dff["ObjectName"], mode = "markers", showlegend = False,
-                                   hoverlabel=dict(namelength=0), hoverinfo="text", hovertext=satellite_3d_hover(dff)[0],              
+                                   hoverlabel=dict(namelength=0, font_family="Verdana",font_color="white",
+                                                  bgcolor=[colours["hboxbg"+str(a)] for a in sat_status_enc],
+                                                  bordercolor = "white"), 
+                                   hoverinfo="text", hovertext=satellite_3d_hover(dff)[0],  
                                    marker = dict(color = np.where(dff["Status"]=="Active",1,0), cmin=0, cmax=1,
                                                  colorscale = colorscale_marker, opacity = 0.85, size = 2.5,
-                                                 line=dict(color=np.where(dff["Status"]=="Active",1,0),
+                                                 line=dict(color=sat_status_enc,
                                                    colorscale = colorscale_marker, width=0.01,
                                                   cmin=0, cmax=1))
                                         )

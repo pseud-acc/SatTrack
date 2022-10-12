@@ -27,7 +27,9 @@ colours = {
     "markerpath0" : "#f2f8fa", #light grey - path for inactive satellite in 3d
     "markerpath1" : "#e00000", #bright red - path for active satellite in 3d    
     "dropdownbox" : "#dae0e3", #light greyish blue - background for dropdown box
-    "tab": "#7c919c" #greyish-blue - tab background
+    "tab": "#7c919c", #greyish-blue - tab background
+    "hboxbg0": "#cdd1d1", #light grey - hoverbox background for inactive satellites
+    "hboxbg1": "#f55d5d" #light red - hoverbox background for active satellites
 }
 
 ## Colour scale to convert 2d greyscale of Earth surface to coloured texture
