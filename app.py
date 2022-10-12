@@ -50,6 +50,38 @@ app = Dash(__name__, external_stylesheets=external_stylesheets)
 # Reference the underlying flask app (Used by gunicorn webserver in Heroku production deployment)
 server = app.server
 
+# Google analytics
+app.index_string = 
+'''
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-LF4EP2J2F8"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-LF4EP2J2F8');
+        </script>    
+        {%metas%}
+        <title>{%title%}</title>
+        {%favicon%}
+        {%css%}
+    </head>
+    <body>
+        {%app_entry%}
+        <footer>
+            {%config%}
+            {%scripts%}
+            {%renderer%}
+        </footer>
+    </body>
+</html>
+
+'''
+
 ## >>>>>>>> Setup App Inputs <<<<<<<<<<<<
 
 # Import Data
