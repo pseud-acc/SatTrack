@@ -51,9 +51,7 @@ app = Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 
 # Google analytics
-app.index_string = 
-'''
-<!DOCTYPE html>
+app.index_string = """<!DOCTYPE html>
 <html>
     <head>
         <!-- Google tag (gtag.js) -->
@@ -78,9 +76,9 @@ app.index_string =
             {%renderer%}
         </footer>
     </body>
-</html>
+</html>"""
 
-'''
+
 
 ## >>>>>>>> Setup App Inputs <<<<<<<<<<<<
 
