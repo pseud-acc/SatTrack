@@ -161,7 +161,7 @@ def webscraper_dump(dbs_name):
         cur.execute(query)
         url_lastupdate_output = cur.fetchall()
         # Insert url into table if not already in database
-        if len(url_exists_output) < 1:
+        if len(url_lastupdate_output) < 1:
             print("url not in database")
             print("")
             insert_row = [url_sat,lastupdate,"Y","Y"]
@@ -178,7 +178,7 @@ def webscraper_dump(dbs_name):
             query = '''update url_skyrocket 
                         set lastupdate = "{}", 
                             updateflag = "{}", 
-                            matchupdateflag = "{}" WHERE urlname="{}"'''.format(upsert_row[0],upsert_row[1],upsert_row[1])
+                            matchupdateflag = "{}" WHERE urlname="{}"'''.format(upsert_row[0],upsert_row[1],upsert_row[1],url_sat)
             cur.execute(query) 
             
             
@@ -258,7 +258,6 @@ def webscraper_dump(dbs_name):
             tmp = pd.read_html(url_sat)
         except Exception:
             pass 
-            url_missing.append(url_sat)
             continue
         #Upsert scraped data for url
         tbl_tmp = [None, None]
@@ -375,6 +374,15 @@ def enrich_satcat(dbs_name, enriched_satcat_filename):
     ##Remove rows with empty or single character names
     skyrocket_df = skyrocket_df[~(skyrocket_df["ObjectName"] == '') & (skyrocket_df["ObjectName"].str.len() > 1)]
     skyrocket_df.reset_index(inplace=True, drop=True)    
+    ## Add launch year column
+    year_extract = []
+    for a in skyrocket_df.LaunchDate.astype(str):
+        try:
+            year_extract.append(str(parser.parse(a).year))
+        except Exception:
+            pass 
+            year_extract.append("Unknown")
+    skyrocket_df["LaunchYear"] = year_extract    
     
     # Add processed skyrocket data to database
     
@@ -390,6 +398,7 @@ def enrich_satcat(dbs_name, enriched_satcat_filename):
                 LaunchMass TEXT,
                 Owner TEXT,
                 LaunchVehicle TEXT,
+                LaunchYear TEXT,
                 description TEXT
                 )'''
     cur.execute(query)
@@ -402,7 +411,7 @@ def enrich_satcat(dbs_name, enriched_satcat_filename):
     
     # Insert new data
     cols_to_input = ["urlid","ObjectName","OrbitClass","Operator","LaunchDate",
-                     "Purpose","LaunchMass","Owner","LaunchVehicle","description"]
+                     "Purpose","LaunchMass","Owner","LaunchVehicle","LaunchYear","description"]
     query = "select distinct ObjectName || '_' || LaunchDate || '_' || LaunchVehicle from satcat_skyrocket_norm"
     cur.execute(query)
     unique_id_list = [a[0] for a in cur.fetchall()]
@@ -474,8 +483,8 @@ def enrich_satcat(dbs_name, enriched_satcat_filename):
         dist_matrix[n, index_to_array_index[indices]] = np.array([nltk.edit_distance(satname_new,re.sub("[-]"," ",s)) for s in skyrocket_df.loc[indices,"ObjectName"]])
     ##Convert distance matrix to dataframe
     dist_matrix_df = pd.DataFrame(dist_matrix, index = satellite_match_list, columns = skyrocket_df["ObjectName"] + "_" + skyrocket_df["LaunchDate"].astype(str))
-    dist_matrix_df.head()
-    ##Assign skyrocket row index to satellite name from satcat subset
+    # Assign skyrocket row index to satellite name from satcat subset - use Launch year for fuzzy matches
+    satcat_year = satcat_pre.loc[:,["SatCatId","LaunchYear"]].set_index("SatCatId").LaunchYear.astype(str)
     tol = 1
     satname_matches = {}
     satid_matches = {}
@@ -489,7 +498,7 @@ def enrich_satcat(dbs_name, enriched_satcat_filename):
         if len(name_matches):
             for name, t, idm in zip(name_matches,tol_vals,id_matches):
                 #Retain match with lowest edit distance below tolerance
-                if t < tols[name]:
+                if t < tols[name] or (t < tols[name] and satcat_year.loc[idm] == skyrocket_df.loc[n,"LaunchYear"]):
                     satname_matches[name] = n
                     satid_matches[str(idm)] = n
                     tols[name] = t
@@ -524,6 +533,7 @@ def enrich_satcat(dbs_name, enriched_satcat_filename):
     
     ##Convert launch vehicle column to launch vehicle class and coalesce with existing catalogue data
     tmp_merge["LaunchVehicle"] = tmp_merge["LaunchVehicle"].astype(str).str.strip()
+    print(tmp_merge.columns)
     tmp = tmp_merge["LaunchVehicleClass"].apply(lambda x: None if x == "Unknown" else x)
     tmp_merge["LaunchVehicleClass"] = tmp.combine_first(pd.Series([re.sub("[\s]{2,}"," ",
                                                    re.sub("[.\-\(\)]"," ",a)).rsplit(" ",1)[0].

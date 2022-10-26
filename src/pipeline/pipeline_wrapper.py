@@ -100,7 +100,7 @@ def satcat_enrichement_pipeline(metadata,
     
     # Scrape data from skyrocket website
     if webscraper_override or update_skyrocket:
-        webscraper_dump(satdat_dbs, skyrocket_updates_filename)
+        webscraper_dump(satdat_dbs)
     
     # Enrich satellite catalogue with skyrocket data
     enrich_satcat(satdat_dbs, filename_enriched_satcat)
