@@ -123,7 +123,7 @@ def initialise_3d(df, img):
                       showscale=False,
                       hoverinfo="none")            
 
-    R1 = 200000 #axis range
+    R1 = 250000 #axis range
     axis_range = [-R1-radius_earth, radius_earth+R1]
     layout_3d = go.Layout(scene=dict(aspectratio=dict(x=1, y=1, z=1),
                         yaxis=dict(showgrid=False, zeroline=False, visible=False, range=axis_range),
@@ -160,7 +160,7 @@ def initialise_3d_ls(df, img):
                       showscale=False,
                       hoverinfo="none")            
 
-    R1 = 200000 #axis range
+    R1 = 250000 #axis range
     axis_range = [-R1-radius_earth, radius_earth+R1]
     layout_3d = go.Layout(scene=dict(aspectratio=dict(x=1, y=1, z=1),
                         yaxis=dict(showgrid=False, zeroline=False, visible=False, range=axis_range),
