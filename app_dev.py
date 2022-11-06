@@ -44,8 +44,8 @@ from app_callbacks import get_callbacks
 ## >>>>>>>> Initilise App <<<<<<<<<<<<
 
 # Instantiate  App
-external_stylesheets = [dbc.themes.CYBORG]
-app = Dash(__name__, external_stylesheets=external_stylesheets)
+#external_stylesheets = [dbc.themes.CYBORG]
+app = Dash(__name__)#, external_stylesheets=external_stylesheets)
 
 # Reference the underlying flask app (Used by gunicorn webserver in Heroku production deployment)
 server = app.server

@@ -90,7 +90,7 @@ def get_callbacks(app,
             Input('launchyear-filter-slider', 'value'),
             Input("3d-earth-satellite-plot", "clickData"),
             Input('3d-orbit-memory', 'data'),
-            Input("sat-viz-tabs","value"),
+            Input("sat-viz-tabs","active_tab"),
             Input("time-update-btn","n_clicks"),
             Input("clear-orbits-btn","n_clicks"),
             Input('3d-viz-interval-component', "n_intervals") 
@@ -137,12 +137,13 @@ def get_callbacks(app,
             # 3D Visualisation Output
             scatter_3d = go.Scatter3d(x = dff["xp"].astype(np.float32), y = dff["yp"].astype(np.float32), z = dff["zp"].astype(np.float32),
                                    text = dff["ObjectName"], mode = "markers", showlegend = False,
-                                   hoverlabel=dict(namelength=0, font_family="Verdana",font_color="white",
+                                   hoverlabel=dict(namelength=0, font_family="Verdana",
+                                                  font_color=[colours["hboxtx"+str(a)] for a in sat_status_enc],
                                                   bgcolor=[colours["hboxbg"+str(a)] for a in sat_status_enc],
                                                   bordercolor = "white"), 
                                    hoverinfo="text", hovertext=satellite_3d_hover(dff)[0],  
                                    marker = dict(color = np.where(dff["Status"]=="Active",1,0), cmin=0, cmax=1,
-                                                 colorscale = colorscale_marker, opacity = 0.85, size = 2.5,
+                                                 colorscale = colorscale_marker, opacity = 0.65, size = 2.5,
                                                  line=dict(color=sat_status_enc,
                                                    colorscale = colorscale_marker, width=0.01,
                                                   cmin=0, cmax=1))
@@ -161,7 +162,7 @@ def get_callbacks(app,
                                textangle=0, xanchor='left',align='left',
                                xref="paper", yref="paper"))   
             fig_3d.add_annotation(dict(font=dict(color=colours["atext"],size=12),
-                               x=0.67, y=0.02, showarrow=False,
+                               x=0.6, y=0.02, showarrow=False,
                                text='Click satellite to show 3D orbital path',
                                textangle=0, xanchor='left',align='left',
                                xref="paper", yref="paper"))     
@@ -190,6 +191,7 @@ def get_callbacks(app,
                     if orbit_id in dff["SatCatId"].values:
                         d3d = orbit_path(dff[dff["SatCatId"]==orbit_id],
                                          720, time_now, True)
+                        sat_path_status_enc = np.where(d3d["Status"]=="Active",1,0)[0]
                         fig_3d.add_scatter3d(x = d3d["xp"], y = d3d["yp"], z = d3d["zp"],
                             line = dict(color = np.where(d3d["Status"]=="Active",1,0), cmin=0, cmax=1,
                                         colorscale = colorscale_markerpath, width = 5),
@@ -201,7 +203,10 @@ def get_callbacks(app,
                                               colorscale = colorscale_markerpath,
                                               cmin=0, cmax=1,opacity = 0.65, size = 8),
                                 mode = "markers", showlegend = False,
-                                hoverlabel=dict(namelength=0),  hoverinfo="text",    
+                                hoverlabel=dict(namelength=0, font_family="Verdana",
+                                                font_color=colours["hboxtx"+str(sat_path_status_enc)],
+                                                bgcolor=colours["hboxbg"+str(sat_path_status_enc)]),
+                                             hoverinfo="text",    
                                 hovertext=satellite_3d_hover(d3d.iloc[[0]])[0]
                                             )                
         else:
@@ -228,7 +233,7 @@ def get_callbacks(app,
             Input('launchvehicle-filter-multi-dropdown', 'value'),
             Input('purpose-filter-multi-dropdown', 'value'),
             Input('launchyear-filter-slider', 'value'),
-            Input("sat-viz-tabs","value"),
+            Input("sat-viz-tabs","active_tab"),
             Input("time-update-btn","n_clicks"),
             Input('2d-viz-interval-component', "n_intervals")       
         ]
@@ -295,7 +300,7 @@ def get_callbacks(app,
             Input('launchvehicle-filter-multi-dropdown', 'value'),
             Input('purpose-filter-multi-dropdown', 'value'),
             Input('launchyear-filter-slider', 'value'),
-            Input("sat-viz-tabs","value"),
+            Input("sat-viz-tabs","active_tab"),
             Input("time-update-btn","n_clicks")
         ]
     )

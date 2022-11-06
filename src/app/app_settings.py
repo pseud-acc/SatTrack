@@ -19,17 +19,19 @@ colours = {
     "btext" : "#dae0e3", #grey - app button text
     "ttext" : "#dae9f2", #greyish-blue - app title text
     "atext" : "#ffffff", #white - 3d plot annotation text
-    "marker0" :"#c0c9cc", #grey - marker for inactive satellites    
-    "marker1" : "#f55151", #red - marker for Satellites    
+    "marker0" :"#a3a8a5", #grey - marker for inactive satellites    
+    "marker1" : "#de2828", #red - marker for active satellites    
     "marker2" : "#49fcf3", #cyan - marker for current satellite position
     "markeredge" : "#bab6b7", #greyish-red - marker edge for Satellites
     "markerpath" : "#59ff00", #bright green - path for satellite in 3d
-    "markerpath0" : "#f2f8fa", #light grey - path for inactive satellite in 3d
+    "markerpath0" : "#e3e7e8", #light grey - path for inactive satellite in 3d
     "markerpath1" : "#e00000", #bright red - path for active satellite in 3d    
     "dropdownbox" : "#dae0e3", #light greyish blue - background for dropdown box
     "tab": "#7c919c", #greyish-blue - tab background
-    "hboxbg0": "#cdd1d1", #light grey - hoverbox background for inactive satellites
-    "hboxbg1": "#f55d5d" #light red - hoverbox background for active satellites
+    "hboxbg0": "#ccdde3", #light grey - hoverbox background for inactive satellites
+    "hboxbg1": "#de2828", #light red - hoverbox background for active satellites
+    "hboxtx0": "#000000", #black - hoverbox text for inactive satellites
+    "hboxtx1": "#ffffff" #white - hoverbox text for active satellites    
 }
 
 ## Colour scale to convert 2d greyscale of Earth surface to coloured texture
