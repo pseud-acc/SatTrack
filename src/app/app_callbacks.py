@@ -90,7 +90,7 @@ def get_callbacks(app,
             Input('launchyear-filter-slider', 'value'),
             Input("3d-earth-satellite-plot", "clickData"),
             Input('3d-orbit-memory', 'data'),
-            Input("sat-viz-tabs","value"),
+            Input("sat-viz-tabs","active_tab"),
             Input("time-update-btn","n_clicks"),
             Input("clear-orbits-btn","n_clicks"),
             Input('3d-viz-interval-component', "n_intervals") 
@@ -162,7 +162,7 @@ def get_callbacks(app,
                                textangle=0, xanchor='left',align='left',
                                xref="paper", yref="paper"))   
             fig_3d.add_annotation(dict(font=dict(color=colours["atext"],size=12),
-                               x=0.67, y=0.02, showarrow=False,
+                               x=0.6, y=0.02, showarrow=False,
                                text='Click satellite to show 3D orbital path',
                                textangle=0, xanchor='left',align='left',
                                xref="paper", yref="paper"))     
@@ -233,7 +233,7 @@ def get_callbacks(app,
             Input('launchvehicle-filter-multi-dropdown', 'value'),
             Input('purpose-filter-multi-dropdown', 'value'),
             Input('launchyear-filter-slider', 'value'),
-            Input("sat-viz-tabs","value"),
+            Input("sat-viz-tabs","active_tab"),
             Input("time-update-btn","n_clicks"),
             Input('2d-viz-interval-component', "n_intervals")       
         ]
@@ -300,7 +300,7 @@ def get_callbacks(app,
             Input('launchvehicle-filter-multi-dropdown', 'value'),
             Input('purpose-filter-multi-dropdown', 'value'),
             Input('launchyear-filter-slider', 'value'),
-            Input("sat-viz-tabs","value"),
+            Input("sat-viz-tabs","active_tab"),
             Input("time-update-btn","n_clicks")
         ]
     )
