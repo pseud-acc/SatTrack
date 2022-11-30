@@ -4012,7 +4012,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Status,UcsDat
 41954,INS-1B,2017,93.71,8.0,+,Active,1,LEO,India,India,Government,PSLV,Earth Observation
 41955,FLOCK 3P-19,2017,90.86,-1.0,-,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
 41956,FLOCK 3P-24,2017,93.65,4.0,+,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
-41957,FLOCK 3P-18,2017,89.18,-1.0,-,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
 41958,FLOCK 3P-22,2017,90.53,-1.0,-,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
 41959,FLOCK 3P-21,2017,91.8,-1.0,-,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
 41960,FLOCK 3P-28,2017,92.22,-1.0,-,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
@@ -4033,7 +4032,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Status,UcsDat
 41978,FLOCK 3P-57,2017,92.11,4.0,+,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 41979,FLOCK 3P-75,2017,91.74,-1.0,-,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
 41980,FLOCK 3P-70,2017,92.88,-1.0,-,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
-41981,FLOCK 3P-73,2017,89.05,-1.0,-,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
 41982,FLOCK 3P-88,2017,91.69,-1.0,-,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
 41983,FLOCK 3P-85,2017,91.23,-1.0,-,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
 41984,FLOCK 3P-79,2017,92.41,-1.0,-,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
@@ -4503,9 +4501,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Status,UcsDat
 43721,FACSAT-1,2018,93.25,5.0,+,Active,1,LEO,India,Colombia,Military,PSLV,Earth Observation
 43722,CENTAURI-2,2018,92.81,4.0,+,Active,1,LEO,India,USA,Commercial,Falcon,Technology Development
 43724,FLOCK 3R-12,2018,91.91,4.0,+,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
-43725,FLOCK 3R-11,2018,89.09,4.0,-,Inactive,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 43726,FLOCK 3R-5,2018,89.8,-1.0,-,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
-43727,FLOCK 3R-8,2018,89.11,-1.0,-,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
 43728,3CAT-1,2018,92.84,-1.0,-,Inactive,0,LEO,India,Spain,Unknown,PSLV,Unknown
 43729,KEPLER-1 (CASE),2018,92.87,4.0,+,Active,1,LEO,India,Canada,Commercial,PSLV,Communications
 43730,GLOBAL-1,2018,93.77,56.0,+,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
@@ -9905,3 +9901,4 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Status,UcsDat
 54372,OBJECT A,2022,94.51,-1.0,+,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 54373,OBJECT B,2022,94.51,-1.0,+,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 54374,OBJECT C,2022,94.53,-1.0,+,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+54377,OBJECT A,2022,683.65,-1.0,+,Active,0,MEO,Russia,Russia/USSR,Unknown,Unknown,Unknown

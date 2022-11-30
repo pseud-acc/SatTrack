@@ -4012,7 +4012,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 41954,2017-008G,INS-1B,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV XL,Active,+,LEO,93.71,-1.0,IND,India,Government,Earth Observation,8.0,,-1.0,1,PSLV
 41955,2017-008H,FLOCK 3P-19,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,90.86,-1.0,US,USA,,,-1.0,,-1.0,0,
 41956,2017-008J,FLOCK 3P-24,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,93.65,-1.0,US,USA,Commercial,Earth Observation,4.0,,3.0,1,PSLV
-41957,2017-008K,FLOCK 3P-18,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,89.18,-1.0,US,USA,,,-1.0,,-1.0,0,
 41958,2017-008L,FLOCK 3P-22,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,90.53,-1.0,US,USA,,,-1.0,,-1.0,0,
 41959,2017-008M,FLOCK 3P-21,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,91.8,-1.0,US,USA,,,-1.0,,-1.0,0,
 41960,2017-008N,FLOCK 3P-28,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,92.22,-1.0,US,USA,,,-1.0,,-1.0,0,
@@ -4033,7 +4032,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 41978,2017-008AG,FLOCK 3P-57,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,92.11,-1.0,US,USA,Commercial,Earth Observation,4.0,,3.0,1,PSLV
 41979,2017-008AH,FLOCK 3P-75,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,91.74,-1.0,US,USA,,,-1.0,,-1.0,0,
 41980,2017-008AJ,FLOCK 3P-70,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,92.88,-1.0,US,USA,,,-1.0,,-1.0,0,
-41981,2017-008AK,FLOCK 3P-73,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,89.05,-1.0,US,USA,,,-1.0,,-1.0,0,
 41982,2017-008AL,FLOCK 3P-88,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,91.69,-1.0,US,USA,,,-1.0,,-1.0,0,
 41983,2017-008AM,FLOCK 3P-85,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,91.23,-1.0,US,USA,,,-1.0,,-1.0,0,
 41984,2017-008AN,FLOCK 3P-79,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,92.41,-1.0,US,USA,,,-1.0,,-1.0,0,
@@ -4503,9 +4501,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 43721,2018-096C,FACSAT-1,2018-11-29,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,93.25,-1.0,COL,Colombia,Military,Earth Observation,5.0,,-1.0,1,PSLV
 43722,2018-096D,CENTAURI-2,2018-11-29,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,Falcon 9,Active,+,LEO,92.81,-1.0,US,USA,Commercial,Technology Development,4.0,,-1.0,1,Falcon
 43724,2018-096F,FLOCK 3R-12,2018-11-29,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,91.91,-1.0,US,USA,Commercial,Earth Observation,4.0,,3.0,1,PSLV
-43725,2018-096G,FLOCK 3R-11,2018-11-29,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Inactive,-,LEO,89.09,-1.0,US,USA,Commercial,Earth Observation,4.0,,3.0,1,PSLV
 43726,2018-096H,FLOCK 3R-5,2018-11-29,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,89.8,-1.0,US,USA,,,-1.0,,-1.0,0,
-43727,2018-096J,FLOCK 3R-8,2018-11-29,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,89.11,-1.0,US,USA,,,-1.0,,-1.0,0,
 43728,2018-096K,3CAT-1,2018-11-29,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,92.84,-1.0,SPN,Spain,,,-1.0,,-1.0,0,
 43729,2018-096L,KEPLER-1 (CASE),2018-11-29,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,92.87,-1.0,CA,Canada,Commercial,Communications,4.0,,-1.0,1,PSLV
 43730,2018-096M,GLOBAL-1,2018-11-29,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,93.77,-1.0,US,USA,Commercial,Earth Observation,56.0,,-1.0,1,PSLV
@@ -9905,3 +9901,4 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 54372,2022-160A,OBJECT A,2022-11-27,2022,"Xichang Launch Facility, PRC",PRC,,Active,+,LEO,94.51,-1.0,PRC,China,,,-1.0,,-1.0,0,
 54373,2022-160B,OBJECT B,2022-11-27,2022,"Xichang Launch Facility, PRC",PRC,,Active,+,LEO,94.51,-1.0,PRC,China,,,-1.0,,-1.0,0,
 54374,2022-160C,OBJECT C,2022-11-27,2022,"Xichang Launch Facility, PRC",PRC,,Active,+,LEO,94.53,-1.0,PRC,China,,,-1.0,,-1.0,0,
+54377,2022-161A,OBJECT A,2022-11-28,2022,"Plesetsk Missile and Space Complex, Russia",Russia,,Active,+,MEO,683.65,-1.0,CIS,Russia/USSR,,,-1.0,,-1.0,0,

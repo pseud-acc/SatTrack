@@ -4012,7 +4012,6 @@ DECAY_DATE,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAME,OBJECT_TYP
 ,2017-02-15,SRILR,41954,2017-008G,INS-1B,PAY,+,EA,LEO,ORB,IND,93.71,Active,India,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,2017-02-15,SRILR,41955,2017-008H,FLOCK 3P-19,PAY,-,EA,LEO,ORB,US,90.86,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,2017-02-15,SRILR,41956,2017-008J,FLOCK 3P-24,PAY,+,EA,LEO,ORB,US,93.65,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
-,2017-02-15,SRILR,41957,2017-008K,FLOCK 3P-18,PAY,-,EA,LEO,ORB,US,89.18,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,2017-02-15,SRILR,41958,2017-008L,FLOCK 3P-22,PAY,-,EA,LEO,ORB,US,90.53,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,2017-02-15,SRILR,41959,2017-008M,FLOCK 3P-21,PAY,-,EA,LEO,ORB,US,91.8,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,2017-02-15,SRILR,41960,2017-008N,FLOCK 3P-28,PAY,-,EA,LEO,ORB,US,92.22,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
@@ -4033,7 +4032,6 @@ DECAY_DATE,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAME,OBJECT_TYP
 ,2017-02-15,SRILR,41978,2017-008AG,FLOCK 3P-57,PAY,+,EA,LEO,ORB,US,92.11,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,2017-02-15,SRILR,41979,2017-008AH,FLOCK 3P-75,PAY,-,EA,LEO,ORB,US,91.74,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,2017-02-15,SRILR,41980,2017-008AJ,FLOCK 3P-70,PAY,-,EA,LEO,ORB,US,92.88,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
-,2017-02-15,SRILR,41981,2017-008AK,FLOCK 3P-73,PAY,-,EA,LEO,ORB,US,89.05,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,2017-02-15,SRILR,41982,2017-008AL,FLOCK 3P-88,PAY,-,EA,LEO,ORB,US,91.69,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,2017-02-15,SRILR,41983,2017-008AM,FLOCK 3P-85,PAY,-,EA,LEO,ORB,US,91.23,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,2017-02-15,SRILR,41984,2017-008AN,FLOCK 3P-79,PAY,-,EA,LEO,ORB,US,92.41,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
@@ -4503,9 +4501,7 @@ DECAY_DATE,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAME,OBJECT_TYP
 ,2018-11-29,SRILR,43721,2018-096C,FACSAT-1,PAY,+,EA,LEO,ORB,COL,93.25,Active,Colombia,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,2018-11-29,SRILR,43722,2018-096D,CENTAURI-2,PAY,+,EA,LEO,ORB,US,92.81,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,2018-11-29,SRILR,43724,2018-096F,FLOCK 3R-12,PAY,+,EA,LEO,ORB,US,91.91,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
-,2018-11-29,SRILR,43725,2018-096G,FLOCK 3R-11,PAY,-,EA,LEO,ORB,US,89.09,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,2018-11-29,SRILR,43726,2018-096H,FLOCK 3R-5,PAY,-,EA,LEO,ORB,US,89.8,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
-,2018-11-29,SRILR,43727,2018-096J,FLOCK 3R-8,PAY,-,EA,LEO,ORB,US,89.11,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,2018-11-29,SRILR,43728,2018-096K,3CAT-1,PAY,-,EA,LEO,ORB,SPN,92.84,Inactive,Spain,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,2018-11-29,SRILR,43729,2018-096L,KEPLER-1 (CASE),PAY,+,EA,LEO,ORB,CA,92.87,Active,Canada,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,2018-11-29,SRILR,43730,2018-096M,GLOBAL-1,PAY,+,EA,LEO,ORB,US,93.77,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
@@ -9905,3 +9901,4 @@ DECAY_DATE,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAME,OBJECT_TYP
 ,2022-11-27,XICLF,54372,2022-160A,OBJECT A,PAY,+,EA,LEO,ORB,PRC,94.51,Active,China,"Xichang Launch Facility, PRC",PRC
 ,2022-11-27,XICLF,54373,2022-160B,OBJECT B,PAY,+,EA,LEO,ORB,PRC,94.51,Active,China,"Xichang Launch Facility, PRC",PRC
 ,2022-11-27,XICLF,54374,2022-160C,OBJECT C,PAY,+,EA,LEO,ORB,PRC,94.53,Active,China,"Xichang Launch Facility, PRC",PRC
+,2022-11-28,PLMSC,54377,2022-161A,OBJECT A,PAY,+,EA,MEO,ORB,CIS,683.65,Active,Russia/USSR,"Plesetsk Missile and Space Complex, Russia",Russia
