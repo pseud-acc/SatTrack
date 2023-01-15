@@ -193,7 +193,7 @@ def webscraper_dump(dbs_name):
     cur.execute(query)
     conn.commit()
             
-    ##Update matching table
+    ##Update matching table with newly launched satellites 
     query  = '''
             INSERT INTO match_satcat_url_skyrocket 
             SELECT SatCatId, null 
@@ -201,7 +201,15 @@ def webscraper_dump(dbs_name):
             WHERE SatCatId not in (SELECT SatCatId FROM match_satcat_url_skyrocket)
     '''
     cur.execute(query)
-    conn.commit()            
+    conn.commit()     
+    
+    ##Remove decayed satellites from matching table
+    query  = '''
+            DELETE FROM  match_satcat_url_skyrocket 
+            WHERE SatCatId not in (SELECT SatCatId FROM satcat);
+    '''
+    cur.execute(query)
+    conn.commit()         
     
     
     # Scrape data from skyrocket webpages and dump in database
