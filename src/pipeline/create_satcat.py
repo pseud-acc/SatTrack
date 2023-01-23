@@ -70,15 +70,15 @@ def clean_satcat_export(celestrak_dat, ucs_dat, filename):
     # columns to keep
     cols_to_keep_postmerge = ['NORAD_CAT_ID', 'OBJECT_ID', 'OBJECT_NAME',
      'LAUNCH_DATE', 'LaunchYear', 'LAUNCH_SITE_DESC', 'LAUNCH_SITE_COUNTRY', 'Launch Vehicle',   
-     'OPS_STATUS', 'OPS_STATUS_CODE','ORBIT_CLASS', 'PERIOD', 'DECAY_DATE',
-     'OWNER', 'OWNER_DESC',
+     'OPS_STATUS', 'OPS_STATUS_CODE','ORBIT_CLASS_EST', 'PERIOD', 'DECAY_DATE',
+     'OWNER', 'OWNER_DESC','INCLINATION',
      'Users', 'Purpose', 'Launch Mass (kg.)', 'Dry Mass (kg.)','Expected Lifetime (yrs.)',
     'UcsData']
     # renamed columns
     cols_renamed_postmerge = ['SatCatId', 'ObjectId', 'ObjectName', 
      'LaunchDate', 'LaunchYear', 'LaunchSite', 'LaunchSiteCountry', 'LaunchVehicle',
-     'Status', 'StatusCode','OrbitClass', 'OrbitalPeriod', 'DecayDate',
-     'OwnerCode', 'Owner',
+     'Status', 'StatusCode','OrbitClassEstimated', 'OrbitalPeriod', 'DecayDate',
+     'OwnerCode', 'Owner','Inclination',
      'UseType', 'Purpose','LaunchMass', 'DryMass','ExpLifetime',
     'UcsData']
     # rename columns in dataset
@@ -146,7 +146,7 @@ def satcat_sql_dump(satcat_filename, dbs_name):
     
     # Define columns to keep
     cols_to_keep = ["SatCatId", "ObjectName", "LaunchYear","OrbitalPeriod", "LaunchMass", 
-                    "StatusCode", "Status", "UcsData", "OrbitClass", "LaunchSiteCountry", 
+                    "StatusCode","Inclination", "Status", "UcsData", "OrbitClassEstimated", "LaunchSiteCountry", 
                     "Owner", "UseType", "Purpose", "LaunchVehicleClass"]
     
     filename = ".\\dat\\clean\\" + satcat_filename
@@ -164,7 +164,7 @@ def satcat_sql_dump(satcat_filename, dbs_name):
     # Check columns distributions - will export to csv
     print("Distribution Checks on satcat sql table:")
     print("")
-    for col in cols_to_keep[6:]:
+    for col in cols_to_keep[7:]:
         print(col)
         print("-------------")
         print(satcat_dat[col].value_counts())

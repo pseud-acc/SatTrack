@@ -154,26 +154,26 @@ def import_celestrak_satcat(filename, download_file):
         # Select features to keep
         cols_to_keep_ctk = ['OBJECT_NAME', 'OBJECT_ID', 'NORAD_CAT_ID', 'OBJECT_TYPE','OPS_STATUS_CODE',
                'OWNER', 'LAUNCH_DATE', 'LAUNCH_SITE', 'DECAY_DATE',
-               'PERIOD', 'ORBIT_CENTER', 'ORBIT_TYPE']
+               'PERIOD', 'ORBIT_CENTER', 'ORBIT_TYPE','INCLINATION']
         all_sat_clean = all_sat_raw[cols_to_keep_ctk]
 
         # Filter by Earth Orbiting Satellites
         all_sat_clean = all_sat_clean[(all_sat_raw["OBJECT_TYPE"] == "PAY") & (all_sat_clean["ORBIT_CENTER"] == "EA") & (all_sat_clean["ORBIT_TYPE"] == "ORB")]
 
-        # Function to create Orbit Class factor (LEO, MEO, GEO, HEO) using Orbital Period
+        # Function to estimate Orbit Class (LEO, MEO, GSO, HEO) using Orbital Period
         def orbit_class(row):
-            leo_hi = 130
+            leo_hi = 128
             geo_lo = 1400
             geo_hi = 1500
             period = row["PERIOD"]
             if period <= leo_hi:
-                row["ORBIT_CLASS"] = "LEO"
+                row["ORBIT_CLASS_EST"] = "LEO"
             elif period > leo_hi and period < geo_lo:
-                row["ORBIT_CLASS"] = "MEO"
+                row["ORBIT_CLASS_EST"] = "MEO"
             elif period >= geo_lo and period <= geo_hi:
-                row["ORBIT_CLASS"] = "GEO"
+                row["ORBIT_CLASS_EST"] = "GSO"
             elif period > geo_hi:
-                row["ORBIT_CLASS"] = "HEO"
+                row["ORBIT_CLASS_EST"] = "HEO"
 
             return row    
 

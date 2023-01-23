@@ -74,7 +74,7 @@ def filter_setup(df):
     options = {}
     
     # Create dropdown filter options
-    options["orbit"] = np.sort(df.OrbitClass.unique())
+    options["orbit"] = ["LEO","MEO","GEO","GSO","HEO"] #np.sort(df.OrbitClass.unique())
 
     options["owner"] = list(np.sort(df.Owner.unique()))
 
@@ -94,7 +94,7 @@ def filter_setup(df):
     input_filter = dict()
     for col in temp_cols:
         input_filter[col] = df[col].unique()
-    input_filter["OrbitClass"] = np.array(["LEO","MEO","GEO","HEO"])
+    input_filter["OrbitClass"] = np.array(["LEO","MEO","GEO","GSO","HEO"])
     input_filter["LaunchYear"] = np.array(range(df["LaunchYear"].min(),df["LaunchYear"].max()+1))
     input_filter["Purpose"] = options["purpose"]
 
