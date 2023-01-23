@@ -86,7 +86,7 @@ app.index_string = """<!DOCTYPE html>
 """
     Dynamic Satellite catalogue data - contains TLEs
 """
-satcat_loc = "https://raw.githubusercontent.com/pseud-acc/SatTrack/main/dat/clean/satcat_tle.csv"
+satcat_loc = "./dat/clean/satcat_tle.csv"
 
 """
     Greyscale Earth Map
