@@ -2511,7 +2511,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 26624,ANIK F1,2000,1436.11,4710.0,+,1.99,Active,1,GSO,French Guiana,Canada,Commercial,Ariane,Communications
 26626,SIRIUS-3,2000,906.67,3727.0,-,60.89,Inactive,1,MEO,Kazakhstan,USA,Commercial,Proton,Communications
 26635,USA 155,2000,1436.2,-1.0,-,9.86,Inactive,0,GSO,USA,USA,Unknown,Atlas,Unknown
-26638,ASTRA 2D,2000,1436.02,1420.0,+,7.73,Active,1,GSO,French Guiana,SES,Commercial,Ariane,Communications
+26638,ASTRA 2D,2000,1436.02,1420.0,-,7.73,Inactive,1,GSO,French Guiana,SES,Commercial,Ariane,Communications
 26639,AMC-8 (GE-8),2000,1452.3,2015.0,-,2.92,Inactive,1,GSO,French Guiana,SES,Commercial,Ariane,Communications
 26643,CHINASAT 31 (BEIDOU 1B),2000,1450.88,-1.0,-,10.81,Inactive,0,GSO,PRC,China,Unknown,Unknown,Unknown
 26666,TURKSAT 2A,2001,1466.28,-1.0,-,5.88,Inactive,0,GSO,French Guiana,Turkey,Unknown,Unknown,Unknown
@@ -4006,7 +4006,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 41980,FLOCK 3P-70,2017,92.23,-1.0,-,97.25,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
 41984,FLOCK 3P-79,2017,90.81,-1.0,-,97.23,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
 41985,FLOCK 3P-86,2017,91.3,-1.0,-,97.24,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
-41986,FLOCK 3P-36,2017,88.29,-1.0,-,97.22,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
 41987,FLOCK 3P-30,2017,91.29,-1.0,-,97.25,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
 41988,FLOCK 3P-34,2017,90.89,4.0,-,97.24,Inactive,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 41989,FLOCK 3P-35,2017,89.01,-1.0,-,97.22,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
@@ -10163,3 +10162,42 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 55263,USA 342,2023,1407.48,-1.0,+,0.06,Active,0,GSO,USA,USA,Unknown,Atlas,Unknown
 55264,LDPE-3A,2023,-1.0,-1.0,+,-1.0,Active,0,Unknown,USA,USA,Unknown,Falcon,Unknown
 55268,NAVSTAR 82 (USA 343),2023,356.53,-1.0,+,55.01,Active,0,MEO,USA,USA,Unknown,Unknown,Unknown
+55269,STARLINK A,2023,90.32,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55270,STARLINK B,2023,90.32,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55271,STARLINK C,2023,90.32,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55272,STARLINK D,2023,90.32,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55273,STARLINK E,2023,90.32,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55274,STARLINK F,2023,90.31,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55275,STARLINK G,2023,90.31,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55276,STARLINK H,2023,90.31,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55277,STARLINK J,2023,90.31,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55278,STARLINK K,2023,90.31,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55279,STARLINK L,2023,90.31,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55280,STARLINK M,2023,90.31,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55281,STARLINK N,2023,90.31,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55282,STARLINK P,2023,90.31,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55283,STARLINK Q,2023,90.31,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55284,STARLINK R,2023,90.31,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55285,STARLINK S,2023,90.2,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55286,STARLINK T,2023,90.31,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55287,STARLINK U,2023,90.31,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55288,STARLINK V,2023,90.3,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55292,STARLINK Z,2023,90.3,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55293,STARLINK AA,2023,90.3,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55294,STARLINK AB,2023,90.31,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55296,STARLINK AD,2023,90.3,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55297,STARLINK AE,2023,90.3,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55298,STARLINK AF,2023,90.3,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55300,STARLINK AH,2023,90.3,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55301,STARLINK AJ,2023,89.72,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55302,STARLINK AK,2023,90.3,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55304,STARLINK AM,2023,90.3,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55305,STARLINK AN,2023,90.32,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55306,STARLINK AP,2023,90.3,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55307,STARLINK AQ,2023,90.3,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55308,STARLINK AR,2023,90.3,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55309,STARLINK AS,2023,90.3,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55311,STARLINK AU,2023,90.3,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55312,STARLINK AV,2023,89.72,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55314,STARLINK AX,2023,90.29,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+55315,STARLINK AY,2023,90.31,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
