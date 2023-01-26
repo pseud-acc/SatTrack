@@ -39,7 +39,7 @@ The project consists of two parts - (1) data pipeline; (2) interactive app. In t
 Developer: Francis Nwobu
 
 
-## Examples
+## Visualisations
 
 - Screenshots taken from app:
 
