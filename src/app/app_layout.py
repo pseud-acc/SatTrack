@@ -64,9 +64,9 @@ def create_dash_layout(app,
             html.H1(children="SatTrack", style={'color': colours["ttext"]}
                     ),
             html.Div(children=
-                     [html.H6(['''
-                     An Open Source Real-time Satellite Tracking App (developed by Francis Nwobu)
-                     '''], style={'color': colours["ttext"], "display": "inline-block",
+                     [html.H6(["An ", dcc.Link('Open Source', href='https://github.com/pseud-acc/SatTrack'), 
+                               " Real-time Satellite Tracking App (developed by Francis Nwobu)"], 
+                              style={'color': colours["ttext"], "display": "inline-block",
                                   'font-size': fontsize["sub-heading"],
                                   "marginTop": 5, "marginBottom": 5}
                               ),
