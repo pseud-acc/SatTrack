@@ -3110,7 +3110,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 36122,XIWANG-1 (HOPE-1),2009,109.39,60.0,P,100.22,Active,1,LEO,PRC,China,Civil,Long March,Communications
 36124,HELIOS 2B,2009,93.47,4200.0,+,98.19,Active,1,LEO,French Guiana,France,Military,Ariane,Earth Observation
 36131,DIRECTV 12,2009,1436.08,5900.0,+,0.03,Active,1,GSO,Kazakhstan,USA,Commercial,Breeze,Communications
-36287,BEIDOU 3,2010,1436.1,-1.0,+,1.94,Active,0,GSO,PRC,China,Unknown,Long March,Unknown
+36287,BEIDOU 3,2010,1436.1,-1.0,P,1.94,Active,0,GSO,PRC,China,Unknown,Long March,Unknown
 36358,RADUGA-1M 2,2010,1436.11,2500.0,+,0.45,Active,1,GSO,Kazakhstan,Russia/USSR,Military,Proton,Communications
 36395,SDO,2010,1436.03,3100.0,+,32.12,Active,1,GSO,USA,USA,Government,Atlas,Space Science
 36397,INTELSAT 16 (IS-16),2010,1436.1,2450.0,+,0.01,Active,1,GSO,Kazakhstan,INTELSAT,Commercial,Proton,Communications
@@ -3129,7 +3129,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 36582,COMSATBW-2,2010,1436.07,2440.0,+,0.06,Active,1,GSO,French Guiana,Germany,Military,Ariane,Communications
 36585,NAVSTAR 65 (USA 213),2010,718.02,1630.0,+,54.66,Active,1,MEO,USA,USA,Commercial/Military,Delta,Navigation (Global or Regional Positioning)
 36588,SERVIS 2,2010,109.43,-1.0,UNK,100.43,Inactive,0,LEO,Russia,Japan,Unknown,Rokot,Unknown
-36590,BEIDOU 4,2010,1436.09,-1.0,-,2.0,Inactive,0,GSO,PRC,China,Unknown,Long March,Unknown
+36590,BEIDOU 4,2010,1436.09,-1.0,P,2.0,Active,0,GSO,PRC,China,Unknown,Long March,Unknown
 36592,BADR-5,2010,1436.13,5420.0,+,0.03,Active,1,GSO,Kazakhstan,Arabsat,Government,Proton,Communications
 36596,SJ-12,2010,96.05,-1.0,+,97.74,Active,1,LEO,PRC,China,Government,Long March,Technology Development
 36598,PICARD,2010,99.24,-1.0,-,98.3,Inactive,0,LEO,Russia,France,Unknown,Dnepr,Unknown
@@ -3146,7 +3146,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 36798,ALSAT 2A,2010,97.91,130.0,+,97.84,Active,1,LEO,India,Algeria,Government,PSLV,Earth Observation
 36799,TISAT 1,2010,96.35,-1.0,+,98.15,Active,0,LEO,India,Switzerland,Unknown,PSLV,Unknown
 36827,PRISMA (TANGO),2010,99.8,-1.0,UNK,98.53,Inactive,0,LEO,Russia,Sweden,Unknown,Vega,Unknown
-36828,BEIDOU 5,2010,1435.95,4200.0,+,54.21,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+36828,BEIDOU-2 IGSO-1,2010,1435.95,4200.0,+,54.21,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 36830,NILESAT 201,2010,1436.1,3200.0,+,0.04,Active,1,GSO,French Guiana,Egypt,Government,Ariane,Communications
 36831,RASCOM-QAF 1R,2010,1436.09,3050.0,+,0.05,Active,1,GSO,French Guiana,RascomStar-QAF,Commercial,Ariane,Communications
 36834,YAOGAN 10,2010,97.19,-1.0,+,97.97,Active,1,LEO,PRC,China,Military,Long March,Earth Observation
@@ -3176,7 +3176,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 37193,GLOBALSTAR M073,2010,114.08,700.0,+,52.0,Active,1,LEO,Kazakhstan,Globalstar,Commercial,Soyuz,Communications
 37206,EUTELSAT W3B,2010,557.38,-1.0,-,2.63,Inactive,0,MEO,French Guiana,EUTELSAT,Unknown,Ariane,Unknown
 37207,BSAT-3B,2010,1436.1,2060.0,+,0.09,Active,1,GSO,French Guiana,Japan,Commercial,Ariane,Communications
-37210,BEIDOU 6,2010,1436.09,6000.0,+,0.98,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+37210,BEIDOU-2 G4,2010,1436.09,6000.0,+,0.98,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 37212,MERIDIAN 3,2010,717.83,2500.0,-,63.49,Inactive,1,MEO,Russia,Russia/USSR,Military,Soyuz,Communications
 37214,FENGYUN 3B,2010,101.82,2300.0,+,99.09,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
 37216,COSMO-SKYMED 4,2010,97.15,1700.0,+,97.89,Active,1,LEO,USA,Italy,Government/Military,Delta,Earth Observation
@@ -3193,7 +3193,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 37234,ZHONGXING-20A,2010,1436.07,2300.0,+,3.25,Active,1,GSO,PRC,China,Military,Long March,Communications
 37237,HYLAS 1,2010,1436.11,2242.0,+,2.52,Active,1,GSO,French Guiana,UK,Commercial,Ariane,Communications
 37238,INTELSAT 17 (IS-17),2010,1436.09,5540.0,+,0.02,Active,1,GSO,French Guiana,INTELSAT,Commercial,Ariane,Communications
-37256,BEIDOU 7,2010,1435.81,4200.0,+,49.78,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+37256,BEIDOU-2 IGSO-2,2010,1435.81,4200.0,+,49.78,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 37258,EUTELSAT KA-SAT 9A,2010,1436.13,6150.0,+,0.06,Active,1,GSO,Kazakhstan,EUTELSAT,Commercial,Proton,Communications
 37264,HISPASAT 30W-5,2010,1436.1,5320.0,+,0.01,Active,1,GSO,French Guiana,Spain,Commercial,Ariane,Communications
 37265,KOREASAT 6,2010,1436.09,2850.0,+,0.02,Active,1,GSO,French Guiana,South Korea,Commercial,Ariane,Communications
@@ -3203,7 +3203,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 37372,COSMOS 2471 [GLONASS-K],2011,675.86,935.0,-,65.92,Inactive,1,MEO,Russia,Russia/USSR,Commercial/Military,Soyuz,Navigation (Global or Regional Positioning)
 37377,USA 227,2011,1452.74,-1.0,+,4.88,Active,1,GSO,USA,USA,Military,Delta,Communications
 37380,FASTRAC 2 (USA 228),2010,97.29,-1.0,-,71.98,Inactive,0,LEO,USA,USA,Unknown,Minotaur,Unknown
-37384,BEIDOU 8,2011,1435.83,4200.0,+,60.65,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+37384,BEIDOU-2 IGSO-3,2011,1435.83,4200.0,+,60.65,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 37386,USA 229,2011,107.4,-1.0,+,63.44,Active,1,LEO,USA,USA,Military,Atlas,Earth Observation
 37387,RESOURCESAT-2,2011,101.29,1206.0,+,98.64,Active,1,LEO,India,India,Government,PSLV,Earth Observation
 37388,YOUTHSAT,2011,101.09,92.0,+,98.31,Active,1,LEO,India,India,Government,PSLV,Space Science
@@ -3230,7 +3230,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 37749,KAZSAT-2,2011,1436.12,1300.0,+,0.02,Active,1,GSO,Kazakhstan,Kazakhstan,Commercial,Proton,Communications
 37753,NAVSTAR 66 (USA 232),2011,717.97,1630.0,+,56.7,Active,1,MEO,USA,USA,Commercial/Military,Delta,Navigation (Global or Regional Positioning)
 37755,SPEKTR-R,2011,13643.63,3660.0,-,40.28,Inactive,1,HEO,Kazakhstan,Russia/USSR,Government,Zenit,Space Science
-37763,BEIDOU 9,2011,1436.07,4200.0,+,54.49,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+37763,BEIDOU-2 IGSO-4,2011,1436.07,4200.0,+,54.49,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 37765,SJ-11-02,2011,98.49,-1.0,+,98.42,Active,1,LEO,PRC,China,Government,Long March,Technology Development
 37775,ASTRA 1N,2011,1436.1,5350.0,+,0.05,Active,1,GSO,French Guiana,SES,Commercial,Ariane,Communications
 37776,BSAT-3C (JCSAT-110R),2011,1436.07,2910.0,B,0.05,Active,1,GSO,French Guiana,Japan,Commercial,Ariane,Communications
@@ -3277,7 +3277,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 37933,ASIASAT 7,2011,1436.05,3813.0,+,0.05,Active,1,GSO,Kazakhstan,ASIASAT,Commercial,Proton,Communications
 37938,COSMOS 2478 [GLONASS-M],2011,676.01,-1.0,-,65.97,Inactive,0,MEO,Russia,Russia/USSR,Unknown,Unknown,Unknown
 37941,YAOGAN 13,2011,94.45,-1.0,+,97.66,Active,1,LEO,PRC,China,Military,Long March,Earth Observation
-37948,BEIDOU 10,2011,1435.98,4200.0,+,49.9,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+37948,BEIDOU-2 IGSO-5,2011,1435.98,4200.0,+,49.9,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 37950,AMOS-5,2011,1436.51,-1.0,-,5.87,Inactive,0,GSO,Kazakhstan,Israel,Unknown,Proton,Unknown
 37951,LUCH 5A,2011,1436.12,950.0,+,5.62,Active,1,GSO,Kazakhstan,Russia/USSR,Government,Proton,Communications
 37954,IGS 7A,2011,-1.0,1600.0,+,-1.0,Active,1,Unknown,Japan,Japan,Government,H2A,Earth Observation
@@ -3300,7 +3300,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 38070,WGS F4 (USA 233),2012,1436.13,5990.0,+,0.01,Active,1,GSO,USA,USA,Military,Delta,Communications
 38077,LARES,2012,114.75,-1.0,+,69.49,Active,0,LEO,French Guiana,Italy,Unknown,Vega,Unknown
 38087,SES-4,2012,1436.12,-1.0,+,0.02,Active,1,GSO,Kazakhstan,SES,Commercial,Proton,Communications
-38091,BEIDOU 11,2012,1436.12,2300.0,+,2.12,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+38091,BEIDOU-2 G5,2012,1436.12,2300.0,+,2.12,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 38093,MUOS-1,2012,1436.1,6804.0,+,3.24,Active,1,GSO,USA,USA,Military,Atlas,Communications
 38098,INTELSAT 22 (IS-22),2012,1436.09,6199.0,+,0.01,Active,1,GSO,Kazakhstan,INTELSAT,Commercial,Proton,Communications
 38101,COSMOS 2479,2012,1435.9,-1.0,-,6.01,Inactive,0,GSO,Kazakhstan,Russia/USSR,Unknown,Proton,Unknown
@@ -3308,8 +3308,8 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 38109,USA 234,2012,107.35,-1.0,+,123.0,Active,1,LEO,USA,USA,Military,Delta,Earth Observation
 38245,YAHSAT 1B,2012,1436.09,6000.0,+,0.02,Active,1,GSO,Kazakhstan,UAE,Commercial/Military,Proton,Communications
 38248,RISAT-1,2012,95.11,1858.0,-,97.55,Inactive,1,LEO,India,India,Military,PSLV,Earth Observation
-38250,BEIDOU 12,2012,773.23,2200.0,+,56.61,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
-38251,BEIDOU 13,2012,773.22,2200.0,+,56.52,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+38250,BEIDOU-2 M3,2012,773.23,2200.0,+,56.61,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+38251,BEIDOU-2 M4,2012,773.22,2200.0,+,56.52,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 38254,AEHF-2 (USA 235),2012,1436.13,6169.0,+,3.86,Active,1,GSO,USA,USA,Military,Atlas,Communications
 38256,TIANHUI 1-02,2012,94.2,2500.0,+,97.53,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
 38257,YAOGAN 14,2012,94.53,-1.0,+,97.57,Active,1,LEO,PRC,China,Military,Long March,Earth Observation
@@ -3359,7 +3359,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 38768,AEROCUBE 4.5B,2012,95.74,-1.0,+,64.67,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 38771,METOP-B,2012,101.3,4085.0,+,98.7,Active,1,LEO,Kazakhstan,EUMETSAT,Civil/Government,Soyuz,Earth Observation
 38774,BEIDOU 14,2012,773.15,-1.0,-,55.44,Inactive,0,MEO,PRC,China,Unknown,Long March,Unknown
-38775,BEIDOU 15,2012,773.23,3800.0,+,55.55,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+38775,BEIDOU-2 M6,2012,773.23,3800.0,+,55.55,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 38778,ASTRA 2F,2012,1436.03,6000.0,+,0.1,Active,1,GSO,French Guiana,SES,Commercial,Ariane,Communications
 38779,GSAT-10,2012,1436.1,3400.0,+,0.02,Active,1,GSO,French Guiana,India,Government,Ariane,Communications
 38782,VRSS-1,2012,97.54,880.0,+,97.64,Active,1,LEO,PRC,Venezuela,Government,Long March,Earth Observation
@@ -3369,7 +3369,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 38860,SJ-9A,2012,97.27,-1.0,+,97.58,Active,1,LEO,PRC,China,Government,Long March,Technology Development
 38861,SJ-9B,2012,97.12,-1.0,+,97.58,Active,1,LEO,PRC,China,Government,Long March,Technology Development
 38867,INTELSAT 23 (IS-23),2012,1436.16,3200.0,+,0.04,Active,1,GSO,Kazakhstan,INTELSAT,Commercial,Proton,Communications
-38953,BEIDOU 16,2012,1436.12,3800.0,+,1.52,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+38953,BEIDOU-2 G6,2012,1436.12,3800.0,+,1.52,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 38977,LUCH 5B,2012,1436.1,1282.0,+,7.81,Active,1,GSO,Kazakhstan,Russia/USSR,Government,Proton,Communications
 38978,YAMAL 300K,2012,1436.09,1640.0,+,0.01,Active,1,GSO,Kazakhstan,Russia/USSR,Commercial,Proton,Communications
 38991,STAR ONE C3,2012,1436.07,3225.0,+,0.04,Active,1,GSO,French Guiana,Brazil,Commercial,Ariane,Communications
@@ -3711,7 +3711,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 40544,GSAT0203 (GALILEO 7),2015,844.7,723.0,+,56.87,Active,1,MEO,French Guiana,ESA,Commercial,Soyuz,Navigation (Global or Regional Positioning)
 40545,GSAT0204 (GALILEO 8),2015,844.7,723.0,+,56.87,Active,1,MEO,French Guiana,ESA,Commercial,Soyuz,Navigation (Global or Regional Positioning)
 40547,IRNSS-1D,2015,1436.01,1425.0,+,28.48,Active,1,GSO,India,India,Government,PSLV,Navigation (Global or Regional Positioning)
-40549,BEIDOU 17,2015,1435.67,4200.0,S,51.47,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+40549,BEIDOU-3S IGSO-1S,2015,1435.67,4200.0,S,51.47,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 40552,GONETS-M 11,2015,115.86,280.0,+,82.48,Active,1,LEO,Russia,Russia/USSR,Commercial,Rokot,Communications
 40553,GONETS-M 12,2015,115.86,280.0,+,82.49,Active,1,LEO,Russia,Russia/USSR,Commercial,Rokot,Communications
 40554,GONETS-M 13,2015,115.86,280.0,+,82.48,Active,1,LEO,Russia,Russia/USSR,Commercial,Rokot,Communications
@@ -3740,8 +3740,8 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 40732,METEOSAT-11 (MSG-4),2015,1436.17,2000.0,+,0.47,Active,1,GSO,French Guiana,EUMETSAT,Civil/Government,Ariane,Earth Observation
 40733,STAR ONE C4,2015,1436.1,5634.0,+,0.02,Active,1,GSO,French Guiana,Brazil,Commercial,Ariane,Communications
 40746,WGS F7 (USA 263),2015,1436.13,5990.0,+,0.02,Active,1,GSO,USA,USA,Military,Delta,Communications
-40748,BEIDOU 18,2015,773.22,800.0,S,55.77,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
-40749,BEIDOU 19,2015,773.23,800.0,S,55.77,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+40748,BEIDOU-3S M2S,2015,773.22,800.0,S,55.77,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+40749,BEIDOU-3S M1S,2015,773.23,800.0,S,55.77,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 40874,INTELSAT 34 (IS-34),2015,1436.11,3300.0,+,0.0,Active,1,GSO,French Guiana,INTELSAT,Commercial,Ariane,Communications
 40875,EUTELSAT 8 WEST B,2015,1436.1,5800.0,+,0.07,Active,1,GSO,French Guiana,EUTELSAT,Commercial,Ariane,Communications
 40878,YAOGAN-27,2015,109.42,-1.0,+,100.11,Active,1,LEO,PRC,China,Military,Long March,Earth Observation
@@ -3778,7 +3778,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 40934,LEMUR-2-JEROEN,2015,97.31,10.0,-,6.01,Inactive,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 40935,LEMUR-2-PETER,2015,97.33,10.0,-,6.0,Inactive,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 40936,EXACTVIEW 9,2015,97.44,6.0,+,6.0,Active,1,LEO,India,Canada,Commercial,PSLV,Communications
-40938,BEIDOU 20,2015,1435.92,4200.0,S,51.13,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+40938,BEIDOU-3S IGSO-2S,2015,1435.92,4200.0,S,51.13,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 40940,SKY MUSTER 1 (NBN1A),2015,1436.13,6440.0,+,0.01,Active,1,GSO,French Guiana,Australia,Commercial,Ariane,Communications
 40941,ARSAT 2,2015,1436.1,2977.0,+,0.04,Active,1,GSO,French Guiana,Argentina,Commercial,Ariane,Communications
 40946,MORELOS 3,2015,1436.1,5325.0,+,3.42,Active,1,GSO,USA,Mexico,Government,Atlas,Communications
@@ -3858,7 +3858,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 41384,IRNSS-1F,2016,1436.03,1425.0,+,2.54,Active,1,GSO,India,India,Government,PSLV,Navigation (Global or Regional Positioning)
 41386,RESURS P3,2016,92.21,5900.0,P,97.18,Active,1,LEO,Kazakhstan,Russia/USSR,Commercial/Government,Soyuz,Earth Observation
 41394,COSMOS 2515,2016,95.99,4000.0,+,97.92,Active,1,LEO,Russia,Russia/USSR,Military,Soyuz,Earth Observation
-41434,BEIDOU IGSO-6,2016,1435.99,4200.0,+,58.45,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+41434,BEIDOU-2 IGSO-6,2016,1435.99,4200.0,+,58.45,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 41456,SENTINEL-1B,2016,98.68,2300.0,-,98.18,Inactive,1,LEO,French Guiana,ESA,Government,Soyuz,Earth Observation
 41457,MICROSCOPE,2016,98.97,-1.0,-,98.26,Inactive,0,LEO,French Guiana,France,Unknown,Soyuz,Unknown
 41458,OUFTI-1,2016,94.51,-1.0,-,98.19,Inactive,0,LEO,French Guiana,Belgium,Unknown,Soyuz,Unknown
@@ -4016,7 +4016,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 41999,BGUSAT,2017,90.67,-1.0,+,97.24,Active,0,LEO,India,Israel,Unknown,PSLV,Unknown
 42000,DIDO-2,2017,93.89,10.0,+,97.22,Active,1,LEO,India,Israel,Commercial,PSLV,Technology Development
 42003,FLOCK 3P-68,2017,90.5,-1.0,-,97.23,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
-42007,FLOCK 3P-43,2017,88.57,-1.0,-,97.23,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
 42010,FLOCK 3P-40,2017,91.67,-1.0,-,97.24,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
 42015,PEASSS,2017,93.5,10.0,+,97.23,Active,1,LEO,India,Netherlands,Government,PSLV,Technology Development
 42016,AL-FARABI 1,2017,93.04,-1.0,+,97.24,Active,0,LEO,India,Kazakhstan,Unknown,PSLV,Unknown
@@ -4211,8 +4210,8 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 43098,USA 280 (ZUMA),2018,-1.0,-1.0,+,-1.0,Active,0,Unknown,USA,USA,Unknown,Falcon,Unknown
 43099,SUPERVIEW-1 03,2018,94.71,560.0,+,97.42,Active,1,LEO,PRC,China,Commercial,Long March,Earth Observation
 43100,SUPERVIEW-1 04,2018,94.71,560.0,+,97.42,Active,1,LEO,PRC,China,Commercial,Long March,Earth Observation
-43107,BEIDOU-3 M3,2018,773.23,800.0,+,55.22,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
-43108,BEIDOU-3 M4,2018,773.23,800.0,+,55.22,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+43107,BEIDOU-3 M7,2018,773.23,800.0,+,55.22,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+43108,BEIDOU-3 M8,2018,773.23,800.0,+,55.22,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 43111,CARTOSAT-2F,2018,94.78,712.0,+,97.42,Active,1,LEO,India,India,Government,PSLV,Earth Observation
 43113,LEO VANTAGE 1,2018,98.95,100.0,P,99.24,Active,1,LEO,India,USA,Commercial,PSLV,Communications
 43114,ICEYE-X1,2018,93.77,-1.0,+,97.34,Active,0,LEO,India,Finland,Unknown,PSLV,Unknown
@@ -4275,8 +4274,8 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 43197,GOMX-4A,2018,93.88,8.0,+,97.56,Active,1,LEO,PRC,Denmark,Military,Long March,Earth Observation
 43199,SHAONIAN XING,2018,93.04,3.0,+,97.54,Active,1,LEO,PRC,China,Civil,Long March,Technology Development
 43204,NUSAT-5 (MARYAM),2018,93.54,35.0,+,97.56,Active,1,LEO,PRC,Argentina,Commercial,Long March,Earth Observation
-43207,BEIDOU-3 M5,2018,773.23,800.0,+,55.66,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
-43208,BEIDOU-3 M6,2018,773.23,800.0,+,55.66,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+43207,BEIDOU-3 M4,2018,773.23,800.0,+,55.66,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+43208,BEIDOU-3 M3,2018,773.23,800.0,+,55.66,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 43215,PAZ,2018,94.79,1450.0,+,97.44,Active,1,LEO,USA,Spain,Commercial/Military,Falcon,Earth Observation
 43223,IGS O-6,2018,-1.0,1600.0,+,-1.0,Active,1,Unknown,Japan,Japan,Government,H2A,Earth Observation
 43226,GOES 17,2018,1432.97,5211.0,B,0.01,Active,1,GSO,USA,USA,Government,Atlas,Earth Observation
@@ -4288,8 +4287,8 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 43234,O3B FM13,2018,287.93,650.0,+,0.07,Active,1,MEO,French Guiana,O3b Networks,Commercial,Soyuz,Communications
 43236,LKW-4,2018,94.45,-1.0,+,97.5,Active,1,LEO,PRC,China,Military,Long March,Earth Observation
 43241,GSAT-6A,2018,1206.88,-1.0,-,0.69,Inactive,0,MEO,India,India,Unknown,GSLV,Unknown
-43245,BEIDOU-3 M7,2018,773.23,800.0,+,55.13,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
-43246,BEIDOU-3 M8,2018,773.23,800.0,+,55.12,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+43245,BEIDOU-3 M9,2018,773.23,800.0,+,55.13,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+43246,BEIDOU-3 M10,2018,773.23,800.0,+,55.12,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 43249,IRIDIUM 144,2018,100.4,860.0,+,86.39,Active,1,LEO,USA,USA,Commercial/Government,Falcon,Communications
 43250,IRIDIUM 149,2018,100.4,860.0,+,86.39,Active,1,LEO,USA,USA,Commercial/Government,Falcon,Communications
 43251,IRIDIUM 157,2018,100.4,860.0,+,86.39,Active,1,LEO,USA,USA,Commercial/Government,Falcon,Communications
@@ -4343,7 +4342,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 43519,XJS B,2018,92.76,-1.0,+,35.04,Active,1,LEO,PRC,China,Government,Long March,Technology Development
 43529,PAKTES 1A,2018,96.71,1200.0,+,97.99,Active,1,LEO,PRC,Pakistan,Government,Long March,Earth Observation
 43530,PRSS 1,2018,97.45,285.0,+,97.91,Active,1,LEO,PRC,Pakistan,Government,Long March,Earth Observation
-43539,BEIDOU IGSO-7,2018,1435.79,800.0,+,55.1,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+43539,BEIDOU-2 IGSO-7,2018,1435.79,800.0,+,55.1,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 43556,AEROCUBE 12A,2018,92.53,4.0,+,51.63,Active,1,LEO,USA,USA,Commercial,Nanorack,Technology Development
 43557,AEROCUBE 12B,2018,92.93,4.0,+,51.63,Active,1,LEO,USA,USA,Commercial,Nanorack,Technology Development
 43561,LEMUR-2-TOMHENDERSON,2018,89.0,10.0,+,51.63,Active,1,LEO,USA,USA,Commercial,Nanorack,Earth Observation
@@ -4362,13 +4361,13 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 43576,IRIDIUM 156,2018,100.4,860.0,+,86.4,Active,1,LEO,USA,USA,Commercial/Government,Falcon,Communications
 43577,IRIDIUM 164,2018,100.4,860.0,+,86.4,Active,1,LEO,USA,USA,Commercial/Government,Falcon,Communications
 43578,IRIDIUM 159,2018,100.4,860.0,+,86.4,Active,1,LEO,USA,USA,Commercial/Government,Falcon,Communications
-43581,BEIDOU-3 M9,2018,773.23,800.0,+,54.22,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
-43582,BEIDOU-3 M10,2018,773.24,800.0,+,54.22,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+43581,BEIDOU-3 M5,2018,773.23,800.0,+,54.22,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+43582,BEIDOU-3 M6,2018,773.24,800.0,+,54.22,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 43585,GAOFEN 11-1,2018,94.49,1000.0,+,97.29,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
 43587,TELKOM 4 (MERAH PUTIH),2018,1436.1,5800.0,+,0.02,Active,1,GSO,USA,Indonesia,Commercial,Falcon,Communications
 43600,AEOLUS,2018,90.71,1367.0,+,96.73,Active,1,LEO,French Guiana,ESA,Government,Vega,Earth Observation
-43602,BEIDOU-3 M11,2018,773.23,800.0,+,54.3,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
-43603,BEIDOU-3 M12,2018,773.23,800.0,+,54.3,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+43602,BEIDOU-3 M12,2018,773.23,800.0,+,54.3,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+43603,BEIDOU-3 M11,2018,773.23,800.0,+,54.3,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 43609,HAIYANG-1C,2018,100.4,442.0,+,98.43,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
 43611,TELSTAR 18V (APSTAR 5C),2018,1436.15,7060.0,+,0.02,Active,1,GSO,USA,Canada,Commercial,Falcon,Communications
 43613,ICESAT-2,2018,94.23,1515.0,+,92.0,Active,1,LEO,USA,USA,Government,Delta,Earth Observation
@@ -4383,8 +4382,8 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 43641,SAOCOM 1A,2018,97.16,1650.0,+,97.89,Active,1,LEO,USA,Argentina,Government,Falcon,Earth Observation
 43642,YAOGAN-32 A,2018,98.64,-1.0,+,98.06,Active,1,LEO,PRC,China,Military,Long March,Earth Observation
 43643,YAOGAN-32 B,2018,98.64,-1.0,+,98.06,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
-43647,BEIDOU-3 M15,2018,773.25,800.0,+,55.02,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
-43648,BEIDOU-3 M16,2018,773.23,800.0,+,55.02,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+43647,BEIDOU-3 M16,2018,773.25,800.0,+,55.02,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+43648,BEIDOU-3 M15,2018,773.23,800.0,+,55.02,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 43651,AEHF-4 (USA 288),2018,1436.1,6169.0,+,2.14,Active,1,GSO,USA,USA,Military,Atlas,Communications
 43655,HAIYANG-2B,2018,104.4,1500.0,+,99.34,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
 43657,COSMOS 2528,2018,103.11,5000.0,+,67.15,Active,1,LEO,Russia,Russia/USSR,Military,Soyuz,Earth Observation
@@ -4397,7 +4396,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 43678,DIWATA-2B,2018,96.46,56.0,+,98.0,Active,1,LEO,Japan,Philippines,Civil,H2A,Earth Observation
 43679,STARS-AO,2018,96.31,-1.0,+,98.0,Active,0,LEO,Japan,Japan,Unknown,JAXA H,Unknown
 43681,AUTCUBE 2,2018,96.37,-1.0,+,98.0,Active,0,LEO,Japan,Japan,Unknown,JAXA H,Unknown
-43683,BEIDOU-3 G1,2018,1436.07,800.0,S,1.11,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+43683,BEIDOU-3 G1,2018,1436.07,800.0,+,1.11,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 43687,COSMOS 2529 [GLONASS-M],2018,675.73,1415.0,+,64.33,Active,1,MEO,Russia,Russia/USSR,Commercial/Military,Soyuz,Navigation (Global or Regional Positioning)
 43689,METOP-C,2018,101.3,4084.0,+,98.7,Active,1,LEO,French Guiana,EUMETSAT,Civil/Government,Soyuz,Earth Observation
 43690,CICERO 10,2018,94.09,10.0,+,85.04,Active,1,LEO,New Zealand,USA,Commercial,Electron,Earth Observation
@@ -4589,9 +4588,9 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 44085,LEMUR-2-BEAUDACIOUS,2019,93.07,10.0,+,97.28,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 44086,LEMUR-2-ELHAM,2019,92.66,10.0,+,97.29,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 44087,LEMUR-2-VICTOR-ANDREW,2019,91.46,10.0,+,97.28,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
-44088,FLOCK 4A-17,2019,91.78,4.0,+,97.27,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
+44088,FLOCK 4A-17,2019,91.78,4.0,-,97.27,Inactive,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 44089,FLOCK 4A-18,2019,92.39,-1.0,-,97.27,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
-44090,FLOCK 4A-19,2019,91.55,4.0,+,97.27,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
+44090,FLOCK 4A-19,2019,91.55,4.0,-,97.27,Inactive,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 44091,FLOCK 4A-20,2019,92.47,-1.0,-,97.27,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
 44092,FLOCK 4A-8,2019,92.85,-1.0,-,97.27,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
 44093,FLOCK 4A-7,2019,92.44,-1.0,-,97.27,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
@@ -4614,7 +4613,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 44114,O3B FM17,2019,287.93,700.0,+,0.04,Active,1,MEO,French Guiana,O3b Networks,Commercial,Soyuz,Communications
 44115,O3B FM18,2019,287.93,700.0,+,0.05,Active,1,MEO,French Guiana,O3b Networks,Commercial,Soyuz,Communications
 44186,ARABSAT-6A,2019,1436.12,6465.0,+,0.04,Active,1,GSO,USA,Arabsat,Commercial,Falcon,Communications
-44204,BEIDOU-3 IGSO-1,2019,1435.83,800.0,S,56.92,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+44204,BEIDOU-3 IGSO-1,2019,1435.83,800.0,+,56.92,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 44207,TIANHUI 2-01A,2019,94.94,2500.0,+,97.46,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
 44209,TIANHUI 2-01B,2019,94.94,2500.0,+,97.46,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
 44225,AFOTEC-1 (FALCON ODE),2019,93.97,-1.0,+,40.02,Active,0,LEO,New Zealand,USA,Unknown,Electron,Unknown
@@ -4718,8 +4717,8 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 44537,ZHUHAI-1 03C,2019,94.27,55.0,+,97.46,Active,1,LEO,PRC,China,Commercial,Long March,Earth Observation
 44538,ZHUHAI-1 03D,2019,94.27,55.0,+,97.46,Active,1,LEO,PRC,China,Commercial,Long March,Earth Observation
 44539,ZHUHAI-1 03E,2019,94.26,55.0,+,97.47,Active,1,LEO,PRC,China,Commercial,Long March,Earth Observation
-44542,BEIDOU-3 M23,2019,773.23,800.0,+,54.53,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
-44543,BEIDOU-3 M24,2019,773.23,800.0,+,54.52,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+44542,BEIDOU-3 M24,2019,773.23,800.0,+,54.53,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+44543,BEIDOU-3 M23,2019,773.23,800.0,+,54.52,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 44547,YUNHAI 1-02,2019,100.5,-1.0,+,98.48,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
 44552,COSMOS 2541,2019,717.68,-1.0,+,63.06,Active,1,MEO,Russia,Russia/USSR,Military,Soyuz,Earth Observation
 44622,GAOFEN 10R,2019,97.22,1000.0,+,97.92,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
@@ -4791,8 +4790,8 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 44783,NINGXIA-1 5,2019,102.73,100.0,+,45.01,Active,1,LEO,PRC,China,Commercial,Long March,Earth Observation
 44785,KL-ALPHA A,2019,106.21,-1.0,+,88.93,Active,1,LEO,PRC,Germany,Commercial,Kuaizhou,Technology Development
 44786,KL-ALPHA B,2019,106.21,-1.0,+,88.91,Active,1,LEO,PRC,Germany,Commercial,Kuaizhou,Technology Development
-44793,BEIDOU-3 M21,2019,773.23,800.0,+,54.87,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
-44794,BEIDOU-3 M22,2019,773.23,800.0,+,54.85,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+44793,BEIDOU-3 M22,2019,773.23,800.0,+,54.87,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
+44794,BEIDOU-3 M21,2019,773.23,800.0,+,54.85,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 44797,COSMOS 2542,2019,92.39,-1.0,+,97.65,Active,1,LEO,Russia,Russia/USSR,Military,Soyuz,Earth Observation/Space Science
 44800,TIBA-1,2019,1436.12,5600.0,+,0.05,Active,1,GSO,French Guiana,Egypt,Commercial/Military,Ariane,Communications
 44801,INMARSAT GX5,2019,1436.08,4007.0,+,0.04,Active,1,GSO,French Guiana,INMARSAT,Commercial,Ariane,Communications

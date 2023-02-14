@@ -3110,7 +3110,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 36122,2009-072B,XIWANG-1 (HOPE-1),2009-12-15,2009,"Taiyuan Space Center, PRC",PRC,Long March 4C,Active,P,LEO,109.39,-1.0,PRC,China,100.22,Civil,Communications,60.0,,-1.0,1,Long March
 36124,2009-073A,HELIOS 2B,2009-12-18,2009,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,LEO,93.47,-1.0,FR,France,98.19,Military,Earth Observation,4200.0,"1,500-1,900",5.0,1,Ariane
 36131,2009-075A,DIRECTV 12,2009-12-29,2009,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Breeze M,Active,+,GSO,1436.08,-1.0,US,USA,0.03,Commercial,Communications,5900.0,,15.0,1,Breeze
-36287,2010-001A,BEIDOU 3,2010-01-16,2010,"Xichang Launch Facility, PRC",PRC,,Active,+,GSO,1436.1,-1.0,PRC,China,1.94,,,-1.0,,-1.0,0,
+36287,2010-001A,BEIDOU 3,2010-01-16,2010,"Xichang Launch Facility, PRC",PRC,,Active,P,GSO,1436.1,-1.0,PRC,China,1.94,,,-1.0,,-1.0,0,
 36358,2010-002A,RADUGA-1M 2,2010-01-28,2010,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Active,+,GSO,1436.11,-1.0,CIS,Russia/USSR,0.45,Military,Communications,2500.0,,5.0,1,Proton
 36395,2010-005A,SDO,2010-02-11,2010,"Air Force Eastern Test Range, Florida, USA",USA,Atlas 5,Active,+,GSO,1436.03,-1.0,US,USA,32.12,Government,Space Science,3100.0,1650,5.0,1,Atlas
 36397,2010-006A,INTELSAT 16 (IS-16),2010-02-12,2010,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Active,+,GSO,1436.1,-1.0,ITSO,INTELSAT,0.01,Commercial,Communications,2450.0,,15.0,1,Proton
@@ -3129,7 +3129,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 36582,2010-021B,COMSATBW-2,2010-05-21,2010,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1436.07,-1.0,GER,Germany,0.06,Military,Communications,2440.0,,15.0,1,Ariane
 36585,2010-022A,NAVSTAR 65 (USA 213),2010-05-28,2010,"Air Force Eastern Test Range, Florida, USA",USA,Delta 4,Active,+,MEO,718.02,-1.0,US,USA,54.66,Commercial/Military,Navigation (Global or Regional Positioning),1630.0,,12.0,1,Delta
 36588,2010-023A,SERVIS 2,2010-06-02,2010,"Plesetsk Missile and Space Complex, Russia",Russia,,Inactive,UNK,LEO,109.43,-1.0,JPN,Japan,100.43,,,-1.0,,-1.0,0,
-36590,2010-024A,BEIDOU 4,2010-06-02,2010,"Xichang Launch Facility, PRC",PRC,,Inactive,-,GSO,1436.09,-1.0,PRC,China,2.0,,,-1.0,,-1.0,0,
+36590,2010-024A,BEIDOU 4,2010-06-02,2010,"Xichang Launch Facility, PRC",PRC,,Active,P,GSO,1436.09,-1.0,PRC,China,2.0,,,-1.0,,-1.0,0,
 36592,2010-025A,BADR-5,2010-06-03,2010,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton,Active,+,GSO,1436.13,-1.0,AB,Arabsat,0.03,Government,Communications,5420.0,,15.0,1,Proton
 36596,2010-027A,SJ-12,2010-06-15,2010,"Jiuquan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,96.05,-1.0,PRC,China,97.74,Government,Technology Development,-1.0,,-1.0,1,Long March
 36598,2010-028A,PICARD,2010-06-15,2010,"Dombarovskiy Launch Site, Russia",Russia,,Inactive,-,LEO,99.24,-1.0,FR,France,98.3,,,-1.0,,-1.0,0,
@@ -3146,7 +3146,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 36798,2010-035D,ALSAT 2A,2010-07-12,2010,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,97.91,-1.0,ALG,Algeria,97.84,Government,Earth Observation,130.0,,5.0,1,PSLV
 36799,2010-035E,TISAT 1,2010-07-12,2010,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Active,+,LEO,96.35,-1.0,SWTZ,Switzerland,98.15,,,-1.0,,-1.0,0,
 36827,2010-028F,PRISMA (TANGO),2010-06-15,2010,"Dombarovskiy Launch Site, Russia",Russia,,Inactive,UNK,LEO,99.8,-1.0,SWED,Sweden,98.53,,,-1.0,,-1.0,0,
-36828,2010-036A,BEIDOU 5,2010-07-31,2010,"Xichang Launch Facility, PRC",PRC,Long March 3A,Active,+,GSO,1435.95,-1.0,PRC,China,54.21,Government/Military,Navigation (Global or Regional Positioning),4200.0,1900,8.0,1,Long March
+36828,2010-036A,BEIDOU-2 IGSO-1,2010-07-31,2010,"Xichang Launch Facility, PRC",PRC,Long March 3A,Active,+,GSO,1435.95,-1.0,PRC,China,54.21,Government/Military,Navigation (Global or Regional Positioning),4200.0,1900,8.0,1,Long March
 36830,2010-037A,NILESAT 201,2010-08-04,2010,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1436.1,-1.0,EGYP,Egypt,0.04,Government,Communications,3200.0,1700,15.0,1,Ariane
 36831,2010-037B,RASCOM-QAF 1R,2010-08-04,2010,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1436.09,-1.0,RASC,RascomStar-QAF,0.05,Commercial,Communications,3050.0,1390,15.0,1,Ariane
 36834,2010-038A,YAOGAN 10,2010-08-09,2010,"Taiyuan Space Center, PRC",PRC,Long March 4C,Active,+,LEO,97.19,-1.0,PRC,China,97.97,Military,Earth Observation,-1.0,,-1.0,1,Long March
@@ -3176,7 +3176,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 37193,2010-054F,GLOBALSTAR M073,2010-10-19,2010,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Soyuz-Fregat,Active,+,LEO,114.08,-1.0,GLOB,Globalstar,52.0,Commercial,Communications,700.0,,15.0,1,Soyuz
 37206,2010-056A,EUTELSAT W3B,2010-10-28,2010,"Europe's Spaceport, Kourou, French Guiana",French Guiana,,Inactive,-,MEO,557.38,-1.0,EUTE,EUTELSAT,2.63,,,-1.0,,-1.0,0,
 37207,2010-056B,BSAT-3B,2010-10-28,2010,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5 ECA,Active,+,GSO,1436.1,-1.0,JPN,Japan,0.09,Commercial,Communications,2060.0,975,15.0,1,Ariane
-37210,2010-057A,BEIDOU 6,2010-10-31,2010,"Xichang Launch Facility, PRC",PRC,Long March 3C,Active,+,GSO,1436.09,-1.0,PRC,China,0.98,Government/Military,Navigation (Global or Regional Positioning),6000.0,,8.0,1,Long March
+37210,2010-057A,BEIDOU-2 G4,2010-10-31,2010,"Xichang Launch Facility, PRC",PRC,Long March 3C,Active,+,GSO,1436.09,-1.0,PRC,China,0.98,Government/Military,Navigation (Global or Regional Positioning),6000.0,,8.0,1,Long March
 37212,2010-058A,MERIDIAN 3,2010-11-02,2010,"Plesetsk Missile and Space Complex, Russia",Russia,Soyuz-2.1a,Inactive,-,MEO,717.83,-1.0,CIS,Russia/USSR,63.49,Military,Communications,2500.0,,-1.0,1,Soyuz
 37214,2010-059A,FENGYUN 3B,2010-11-04,2010,"Taiyuan Space Center, PRC",PRC,Long March 4C,Active,+,LEO,101.82,-1.0,PRC,China,99.09,Government,Earth Observation,2300.0,,-1.0,1,Long March
 37216,2010-060A,COSMO-SKYMED 4,2010-11-06,2010,"Air Force Western Test Range, California, USA",USA,Delta 2,Active,+,LEO,97.15,-1.0,IT,Italy,97.89,Government/Military,Earth Observation,1700.0,,5.0,1,Delta
@@ -3193,7 +3193,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 37234,2010-064A,ZHONGXING-20A,2010-11-24,2010,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,GSO,1436.07,-1.0,PRC,China,3.25,Military,Communications,2300.0,,-1.0,1,Long March
 37237,2010-065A,HYLAS 1,2010-11-26,2010,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1436.11,-1.0,UK,UK,2.52,Commercial,Communications,2242.0,,15.0,1,Ariane
 37238,2010-065B,INTELSAT 17 (IS-17),2010-11-26,2010,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1436.09,-1.0,ITSO,INTELSAT,0.02,Commercial,Communications,5540.0,2393,16.0,1,Ariane
-37256,2010-068A,BEIDOU 7,2010-12-17,2010,"Xichang Launch Facility, PRC",PRC,Long March 3A,Active,+,GSO,1435.81,-1.0,PRC,China,49.78,Government/Military,Navigation (Global or Regional Positioning),4200.0,1900,8.0,1,Long March
+37256,2010-068A,BEIDOU-2 IGSO-2,2010-12-17,2010,"Xichang Launch Facility, PRC",PRC,Long March 3A,Active,+,GSO,1435.81,-1.0,PRC,China,49.78,Government/Military,Navigation (Global or Regional Positioning),4200.0,1900,8.0,1,Long March
 37258,2010-069A,EUTELSAT KA-SAT 9A,2010-12-26,2010,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton,Active,+,GSO,1436.13,-1.0,EUTE,EUTELSAT,0.06,Commercial,Communications,6150.0,3200,15.0,1,Proton
 37264,2010-070A,HISPASAT 30W-5,2010-12-29,2010,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1436.1,-1.0,SPN,Spain,0.01,Commercial,Communications,5320.0,2175,15.0,1,Ariane
 37265,2010-070B,KOREASAT 6,2010-12-29,2010,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1436.09,-1.0,SKOR,South Korea,0.02,Commercial,Communications,2850.0,1150,15.0,1,Ariane
@@ -3203,7 +3203,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 37372,2011-009A,COSMOS 2471 [GLONASS-K],2011-02-26,2011,"Plesetsk Missile and Space Complex, Russia",Russia,Soyuz-2,Inactive,-,MEO,675.86,-1.0,CIS,Russia/USSR,65.92,Commercial/Military,Navigation (Global or Regional Positioning),935.0,,10.0,1,Soyuz
 37377,2011-011A,USA 227,2011-03-11,2011,"Air Force Eastern Test Range, Florida, USA",USA,Delta 4,Active,+,GSO,1452.74,-1.0,US,USA,4.88,Military,Communications,-1.0,,-1.0,1,Delta
 37380,2010-062M,FASTRAC 2 (USA 228),2010-11-20,2010,"Kodiak Launch Complex, Alaska, USA",USA,,Inactive,-,LEO,97.29,-1.0,US,USA,71.98,,,-1.0,,-1.0,0,
-37384,2011-013A,BEIDOU 8,2011-04-09,2011,"Xichang Launch Facility, PRC",PRC,Long March 3A,Active,+,GSO,1435.83,-1.0,PRC,China,60.65,Government/Military,Navigation (Global or Regional Positioning),4200.0,1900,-1.0,1,Long March
+37384,2011-013A,BEIDOU-2 IGSO-3,2011-04-09,2011,"Xichang Launch Facility, PRC",PRC,Long March 3A,Active,+,GSO,1435.83,-1.0,PRC,China,60.65,Government/Military,Navigation (Global or Regional Positioning),4200.0,1900,-1.0,1,Long March
 37386,2011-014A,USA 229,2011-04-15,2011,"Air Force Western Test Range, California, USA",USA,Atlas 5,Active,+,LEO,107.4,-1.0,US,USA,63.44,Military,Earth Observation,-1.0,,-1.0,1,Atlas
 37387,2011-015A,RESOURCESAT-2,2011-04-20,2011,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV C16,Active,+,LEO,101.29,-1.0,IND,India,98.64,Government,Earth Observation,1206.0,,5.0,1,PSLV
 37388,2011-015B,YOUTHSAT,2011-04-20,2011,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV C16,Active,+,LEO,101.09,-1.0,IND,India,98.31,Government,Space Science,92.0,,2.0,1,PSLV
@@ -3230,7 +3230,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 37749,2011-035B,KAZSAT-2,2011-07-15,2011,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Active,+,GSO,1436.12,-1.0,KAZ,Kazakhstan,0.02,Commercial,Communications,1300.0,,12.0,1,Proton
 37753,2011-036A,NAVSTAR 66 (USA 232),2011-07-16,2011,"Air Force Eastern Test Range, Florida, USA",USA,Delta 4,Active,+,MEO,717.97,-1.0,US,USA,56.7,Commercial/Military,Navigation (Global or Regional Positioning),1630.0,,12.0,1,Delta
 37755,2011-037A,SPEKTR-R,2011-07-18,2011,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Zenit 3SLBF/Fregat SB,Inactive,-,HEO,13643.63,-1.0,CIS,Russia/USSR,40.28,Government,Space Science,3660.0,,5.0,1,Zenit
-37763,2011-038A,BEIDOU 9,2011-07-26,2011,"Xichang Launch Facility, PRC",PRC,Long March 3A,Active,+,GSO,1436.07,-1.0,PRC,China,54.49,Government/Military,Navigation (Global or Regional Positioning),4200.0,1900,8.0,1,Long March
+37763,2011-038A,BEIDOU-2 IGSO-4,2011-07-26,2011,"Xichang Launch Facility, PRC",PRC,Long March 3A,Active,+,GSO,1436.07,-1.0,PRC,China,54.49,Government/Military,Navigation (Global or Regional Positioning),4200.0,1900,8.0,1,Long March
 37765,2011-039A,SJ-11-02,2011-07-29,2011,"Jiuquan Space Center, PRC",PRC,Long March 2C,Active,+,LEO,98.49,-1.0,PRC,China,98.42,Government,Technology Development,-1.0,,-1.0,1,Long March
 37775,2011-041A,ASTRA 1N,2011-08-06,2011,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5 ECA,Active,+,GSO,1436.1,-1.0,SES,SES,0.05,Commercial,Communications,5350.0,,15.0,1,Ariane
 37776,2011-041B,BSAT-3C (JCSAT-110R),2011-08-06,2011,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5 ECA,Active,B,GSO,1436.07,-1.0,JPN,Japan,0.05,Commercial,Communications,2910.0,,15.0,1,Ariane
@@ -3277,7 +3277,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 37933,2011-069A,ASIASAT 7,2011-11-25,2011,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Active,+,GSO,1436.05,-1.0,AC,ASIASAT,0.05,Commercial,Communications,3813.0,,15.0,1,Proton
 37938,2011-071A,COSMOS 2478 [GLONASS-M],2011-11-28,2011,"Plesetsk Missile and Space Complex, Russia",Russia,,Inactive,-,MEO,676.01,-1.0,CIS,Russia/USSR,65.97,,,-1.0,,-1.0,0,
 37941,2011-072A,YAOGAN 13,2011-11-29,2011,"Taiyuan Space Center, PRC",PRC,Long March 2C,Active,+,LEO,94.45,-1.0,PRC,China,97.66,Military,Earth Observation,-1.0,,-1.0,1,Long March
-37948,2011-073A,BEIDOU 10,2011-12-01,2011,"Xichang Launch Facility, PRC",PRC,Long March 3A,Active,+,GSO,1435.98,-1.0,PRC,China,49.9,Government/Military,Navigation (Global or Regional Positioning),4200.0,1900,8.0,1,Long March
+37948,2011-073A,BEIDOU-2 IGSO-5,2011-12-01,2011,"Xichang Launch Facility, PRC",PRC,Long March 3A,Active,+,GSO,1435.98,-1.0,PRC,China,49.9,Government/Military,Navigation (Global or Regional Positioning),4200.0,1900,8.0,1,Long March
 37950,2011-074A,AMOS-5,2011-12-11,2011,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Inactive,-,GSO,1436.51,-1.0,ISRA,Israel,5.87,,,-1.0,,-1.0,0,
 37951,2011-074B,LUCH 5A,2011-12-11,2011,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Active,+,GSO,1436.12,-1.0,CIS,Russia/USSR,5.62,Government,Communications,950.0,,-1.0,1,Proton
 37954,2011-075A,IGS 7A,2011-12-12,2011,"Tanegashima Space Center, Japan",Japan,H2A,Active,+,,-1.0,-1.0,JPN,Japan,-1.0,Government,Earth Observation,1600.0,,5.0,1,H2A
@@ -3300,7 +3300,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 38070,2012-003A,WGS F4 (USA 233),2012-01-20,2012,"Air Force Eastern Test Range, Florida, USA",USA,Delta 4,Active,+,GSO,1436.13,-1.0,US,USA,0.01,Military,Communications,5990.0,3450,14.0,1,Delta
 38077,2012-006A,LARES,2012-02-13,2012,"Europe's Spaceport, Kourou, French Guiana",French Guiana,,Active,+,LEO,114.75,-1.0,IT,Italy,69.49,,,-1.0,,-1.0,0,
 38087,2012-007A,SES-4,2012-02-14,2012,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Active,+,GSO,1436.12,-1.0,SES,SES,0.02,Commercial,Communications,-1.0,,15.0,1,Proton
-38091,2012-008A,BEIDOU 11,2012-02-24,2012,"Xichang Launch Facility, PRC",PRC,Long March 3A,Active,+,GSO,1436.12,-1.0,PRC,China,2.12,Government/Military,Navigation (Global or Regional Positioning),2300.0,,8.0,1,Long March
+38091,2012-008A,BEIDOU-2 G5,2012-02-24,2012,"Xichang Launch Facility, PRC",PRC,Long March 3A,Active,+,GSO,1436.12,-1.0,PRC,China,2.12,Government/Military,Navigation (Global or Regional Positioning),2300.0,,8.0,1,Long March
 38093,2012-009A,MUOS-1,2012-02-24,2012,"Air Force Eastern Test Range, Florida, USA",USA,Atlas 5,Active,+,GSO,1436.1,-1.0,US,USA,3.24,Military,Communications,6804.0,,12.0,1,Atlas
 38098,2012-011A,INTELSAT 22 (IS-22),2012-03-25,2012,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton,Active,+,GSO,1436.09,-1.0,ITSO,INTELSAT,0.01,Commercial,Communications,6199.0,,18.0,1,Proton
 38101,2012-012A,COSMOS 2479,2012-03-30,2012,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Inactive,-,GSO,1435.9,-1.0,CIS,Russia/USSR,6.01,,,-1.0,,-1.0,0,
@@ -3308,8 +3308,8 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 38109,2012-014A,USA 234,2012-04-03,2012,"Air Force Western Test Range, California, USA",USA,Delta 4,Active,+,LEO,107.35,-1.0,US,USA,123.0,Military,Earth Observation,-1.0,,-1.0,1,Delta
 38245,2012-016A,YAHSAT 1B,2012-04-23,2012,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Active,+,GSO,1436.09,-1.0,UAE,UAE,0.02,Commercial/Military,Communications,6000.0,,-1.0,1,Proton
 38248,2012-017A,RISAT-1,2012-04-26,2012,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV XL,Inactive,-,LEO,95.11,-1.0,IND,India,97.55,Military,Earth Observation,1858.0,,-1.0,1,PSLV
-38250,2012-018A,BEIDOU 12,2012-04-29,2012,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,56.61,Government/Military,Navigation (Global or Regional Positioning),2200.0,,8.0,1,Long March
-38251,2012-018B,BEIDOU 13,2012-04-29,2012,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.22,-1.0,PRC,China,56.52,Government/Military,Navigation (Global or Regional Positioning),2200.0,,8.0,1,Long March
+38250,2012-018A,BEIDOU-2 M3,2012-04-29,2012,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,56.61,Government/Military,Navigation (Global or Regional Positioning),2200.0,,8.0,1,Long March
+38251,2012-018B,BEIDOU-2 M4,2012-04-29,2012,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.22,-1.0,PRC,China,56.52,Government/Military,Navigation (Global or Regional Positioning),2200.0,,8.0,1,Long March
 38254,2012-019A,AEHF-2 (USA 235),2012-05-04,2012,"Air Force Eastern Test Range, Florida, USA",USA,Atlas 5,Active,+,GSO,1436.13,-1.0,US,USA,3.86,Military,Communications,6169.0,,14.0,1,Atlas
 38256,2012-020A,TIANHUI 1-02,2012-05-06,2012,"Jiuquan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,94.2,-1.0,PRC,China,97.53,Government,Earth Observation,2500.0,,-1.0,1,Long March
 38257,2012-021A,YAOGAN 14,2012-05-10,2012,"Taiyuan Space Center, PRC",PRC,Long March 4B,Active,+,LEO,94.53,-1.0,PRC,China,97.57,Military,Earth Observation,-1.0,,-1.0,1,Long March
@@ -3359,7 +3359,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 38768,2012-048L,AEROCUBE 4.5B,2012-09-13,2012,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,95.74,-1.0,US,USA,64.67,,,-1.0,,-1.0,0,
 38771,2012-049A,METOP-B,2012-09-17,2012,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Soyuz-2.1a,Active,+,LEO,101.3,-1.0,EUME,EUMETSAT,98.7,Civil/Government,Earth Observation,4085.0,,5.0,1,Soyuz
 38774,2012-050A,BEIDOU 14,2012-09-18,2012,"Xichang Launch Facility, PRC",PRC,,Inactive,-,MEO,773.15,-1.0,PRC,China,55.44,,,-1.0,,-1.0,0,
-38775,2012-050B,BEIDOU 15,2012-09-18,2012,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,55.55,Government/Military,Navigation (Global or Regional Positioning),3800.0,,8.0,1,Long March
+38775,2012-050B,BEIDOU-2 M6,2012-09-18,2012,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,55.55,Government/Military,Navigation (Global or Regional Positioning),3800.0,,8.0,1,Long March
 38778,2012-051A,ASTRA 2F,2012-09-28,2012,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5 ECA,Active,+,GSO,1436.03,-1.0,SES,SES,0.1,Commercial,Communications,6000.0,2660,15.0,1,Ariane
 38779,2012-051B,GSAT-10,2012-09-28,2012,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1436.1,-1.0,IND,India,0.02,Government,Communications,3400.0,1493,15.0,1,Ariane
 38782,2012-052A,VRSS-1,2012-09-29,2012,"Jiuquan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,97.54,-1.0,VENZ,Venezuela,97.64,Government,Earth Observation,880.0,,5.0,1,Long March
@@ -3369,7 +3369,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 38860,2012-056A,SJ-9A,2012-10-14,2012,"Taiyuan Space Center, PRC",PRC,Long March 2C,Active,+,LEO,97.27,-1.0,PRC,China,97.58,Government,Technology Development,-1.0,,-1.0,1,Long March
 38861,2012-056B,SJ-9B,2012-10-14,2012,"Taiyuan Space Center, PRC",PRC,Long March 2C,Active,+,LEO,97.12,-1.0,PRC,China,97.58,Government,Technology Development,-1.0,,-1.0,1,Long March
 38867,2012-057A,INTELSAT 23 (IS-23),2012-10-14,2012,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Active,+,GSO,1436.16,-1.0,ITSO,INTELSAT,0.04,Commercial,Communications,3200.0,1503,18.0,1,Proton
-38953,2012-059A,BEIDOU 16,2012-10-25,2012,"Xichang Launch Facility, PRC",PRC,Long March 3C,Active,+,GSO,1436.12,-1.0,PRC,China,1.52,Government/Military,Navigation (Global or Regional Positioning),3800.0,2300,8.0,1,Long March
+38953,2012-059A,BEIDOU-2 G6,2012-10-25,2012,"Xichang Launch Facility, PRC",PRC,Long March 3C,Active,+,GSO,1436.12,-1.0,PRC,China,1.52,Government/Military,Navigation (Global or Regional Positioning),3800.0,2300,8.0,1,Long March
 38977,2012-061A,LUCH 5B,2012-11-02,2012,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Active,+,GSO,1436.1,-1.0,CIS,Russia/USSR,7.81,Government,Communications,1282.0,950,-1.0,1,Proton
 38978,2012-061B,YAMAL 300K,2012-11-02,2012,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Active,+,GSO,1436.09,-1.0,CIS,Russia/USSR,0.01,Commercial,Communications,1640.0,,-1.0,1,Proton
 38991,2012-062A,STAR ONE C3,2012-11-10,2012,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5 ECA,Active,+,GSO,1436.07,-1.0,BRAZ,Brazil,0.04,Commercial,Communications,3225.0,1402,15.0,1,Ariane
@@ -3711,7 +3711,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 40544,2015-017A,GSAT0203 (GALILEO 7),2015-03-27,2015,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Soyuz-ST,Active,+,MEO,844.7,-1.0,ESA,ESA,56.87,Commercial,Navigation (Global or Regional Positioning),723.0,,12.0,1,Soyuz
 40545,2015-017B,GSAT0204 (GALILEO 8),2015-03-27,2015,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Soyuz-ST,Active,+,MEO,844.7,-1.0,ESA,ESA,56.87,Commercial,Navigation (Global or Regional Positioning),723.0,,12.0,1,Soyuz
 40547,2015-018A,IRNSS-1D,2015-03-28,2015,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV-C27,Active,+,GSO,1436.01,-1.0,IND,India,28.48,Government,Navigation (Global or Regional Positioning),1425.0,598,12.0,1,PSLV
-40549,2015-019A,BEIDOU 17,2015-03-30,2015,"Xichang Launch Facility, PRC",PRC,Long March 3C,Active,S,GSO,1435.67,-1.0,PRC,China,51.47,Government/Military,Navigation (Global or Regional Positioning),4200.0,,8.0,1,Long March
+40549,2015-019A,BEIDOU-3S IGSO-1S,2015-03-30,2015,"Xichang Launch Facility, PRC",PRC,Long March 3C,Active,S,GSO,1435.67,-1.0,PRC,China,51.47,Government/Military,Navigation (Global or Regional Positioning),4200.0,,8.0,1,Long March
 40552,2015-020A,GONETS-M 11,2015-03-31,2015,"Plesetsk Missile and Space Complex, Russia",Russia,Rokot,Active,+,LEO,115.86,-1.0,CIS,Russia/USSR,82.48,Commercial,Communications,280.0,,7.0,1,Rokot
 40553,2015-020B,GONETS-M 12,2015-03-31,2015,"Plesetsk Missile and Space Complex, Russia",Russia,Rokot,Active,+,LEO,115.86,-1.0,CIS,Russia/USSR,82.49,Commercial,Communications,280.0,,7.0,1,Rokot
 40554,2015-020C,GONETS-M 13,2015-03-31,2015,"Plesetsk Missile and Space Complex, Russia",Russia,Rokot,Active,+,LEO,115.86,-1.0,CIS,Russia/USSR,82.48,Commercial,Communications,280.0,,7.0,1,Rokot
@@ -3740,8 +3740,8 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 40732,2015-034A,METEOSAT-11 (MSG-4),2015-07-15,2015,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5 ECA,Active,+,GSO,1436.17,-1.0,EUME,EUMETSAT,0.47,Civil/Government,Earth Observation,2000.0,1200,12.0,1,Ariane
 40733,2015-034B,STAR ONE C4,2015-07-15,2015,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5 ECA,Active,+,GSO,1436.1,-1.0,BRAZ,Brazil,0.02,Commercial,Communications,5634.0,,15.0,1,Ariane
 40746,2015-036A,WGS F7 (USA 263),2015-07-24,2015,"Air Force Eastern Test Range, Florida, USA",USA,Delta 4,Active,+,GSO,1436.13,-1.0,US,USA,0.02,Military,Communications,5990.0,3450,14.0,1,Delta
-40748,2015-037A,BEIDOU 18,2015-07-25,2015,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,S,MEO,773.22,-1.0,PRC,China,55.77,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
-40749,2015-037B,BEIDOU 19,2015-07-25,2015,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,S,MEO,773.23,-1.0,PRC,China,55.77,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
+40748,2015-037A,BEIDOU-3S M2S,2015-07-25,2015,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,S,MEO,773.22,-1.0,PRC,China,55.77,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
+40749,2015-037B,BEIDOU-3S M1S,2015-07-25,2015,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,S,MEO,773.23,-1.0,PRC,China,55.77,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
 40874,2015-039A,INTELSAT 34 (IS-34),2015-08-20,2015,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1436.11,-1.0,ITSO,INTELSAT,0.0,Commercial,Communications,3300.0,,15.0,1,Ariane
 40875,2015-039B,EUTELSAT 8 WEST B,2015-08-20,2015,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1436.1,-1.0,EUTE,EUTELSAT,0.07,Commercial,Communications,5800.0,,15.0,1,Ariane
 40878,2015-040A,YAOGAN-27,2015-08-27,2015,"Taiyuan Space Center, PRC",PRC,Long March 4C,Active,+,LEO,109.42,-1.0,PRC,China,100.11,Military,Earth Observation,-1.0,,-1.0,1,Long March
@@ -3778,7 +3778,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 40934,2015-052E,LEMUR-2-JEROEN,2015-09-28,2015,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV C-30,Inactive,-,LEO,97.31,-1.0,US,USA,6.01,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
 40935,2015-052F,LEMUR-2-PETER,2015-09-28,2015,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV C-30,Inactive,-,LEO,97.33,-1.0,US,USA,6.0,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
 40936,2015-052G,EXACTVIEW 9,2015-09-28,2015,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV C-30,Active,+,LEO,97.44,-1.0,CA,Canada,6.0,Commercial,Communications,6.0,6,-1.0,1,PSLV
-40938,2015-053A,BEIDOU 20,2015-09-29,2015,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,S,GSO,1435.92,-1.0,PRC,China,51.13,Government/Military,Navigation (Global or Regional Positioning),4200.0,,8.0,1,Long March
+40938,2015-053A,BEIDOU-3S IGSO-2S,2015-09-29,2015,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,S,GSO,1435.92,-1.0,PRC,China,51.13,Government/Military,Navigation (Global or Regional Positioning),4200.0,,8.0,1,Long March
 40940,2015-054A,SKY MUSTER 1 (NBN1A),2015-09-30,2015,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5 ECA,Active,+,GSO,1436.13,-1.0,AUS,Australia,0.01,Commercial,Communications,6440.0,,15.0,1,Ariane
 40941,2015-054B,ARSAT 2,2015-09-30,2015,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5 ECA,Active,+,GSO,1436.1,-1.0,ARGN,Argentina,0.04,Commercial,Communications,2977.0,,15.0,1,Ariane
 40946,2015-056A,MORELOS 3,2015-10-02,2015,"Air Force Eastern Test Range, Florida, USA",USA,Atlas 5,Active,+,GSO,1436.1,-1.0,MEX,Mexico,3.42,Government,Communications,5325.0,,15.0,1,Atlas
@@ -3858,7 +3858,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 41384,2016-015A,IRNSS-1F,2016-03-10,2016,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV-XL,Active,+,GSO,1436.03,-1.0,IND,India,2.54,Government,Navigation (Global or Regional Positioning),1425.0,598,12.0,1,PSLV
 41386,2016-016A,RESURS P3,2016-03-13,2016,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Soyuz-2.1b,Active,P,LEO,92.21,-1.0,CIS,Russia/USSR,97.18,Commercial/Government,Earth Observation,5900.0,,5.0,1,Soyuz
 41394,2016-020A,COSMOS 2515,2016-03-24,2016,"Plesetsk Missile and Space Complex, Russia",Russia,Soyuz-2.1a,Active,+,LEO,95.99,-1.0,CIS,Russia/USSR,97.92,Military,Earth Observation,4000.0,,5.0,1,Soyuz
-41434,2016-021A,BEIDOU IGSO-6,2016-03-29,2016,"Xichang Launch Facility, PRC",PRC,Long March 3A,Active,+,GSO,1435.99,-1.0,PRC,China,58.45,Government/Military,Navigation (Global or Regional Positioning),4200.0,1900,8.0,1,Long March
+41434,2016-021A,BEIDOU-2 IGSO-6,2016-03-29,2016,"Xichang Launch Facility, PRC",PRC,Long March 3A,Active,+,GSO,1435.99,-1.0,PRC,China,58.45,Government/Military,Navigation (Global or Regional Positioning),4200.0,1900,8.0,1,Long March
 41456,2016-025A,SENTINEL-1B,2016-04-25,2016,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Soyuz-2.1a,Inactive,-,LEO,98.68,-1.0,ESA,ESA,98.18,Government,Earth Observation,2300.0,2146,7.0,1,Soyuz
 41457,2016-025B,MICROSCOPE,2016-04-25,2016,"Europe's Spaceport, Kourou, French Guiana",French Guiana,,Inactive,-,LEO,98.97,-1.0,FR,France,98.26,,,-1.0,,-1.0,0,
 41458,2016-025C,OUFTI-1,2016-04-25,2016,"Europe's Spaceport, Kourou, French Guiana",French Guiana,,Inactive,-,LEO,94.51,-1.0,BEL,Belgium,98.19,,,-1.0,,-1.0,0,
@@ -4016,7 +4016,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 41999,2017-008BD,BGUSAT,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Active,+,LEO,90.67,-1.0,ISRA,Israel,97.24,,,-1.0,,-1.0,0,
 42000,2017-008BE,DIDO-2,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV XL,Active,+,LEO,93.89,-1.0,ISRA,Israel,97.22,Commercial,Technology Development,10.0,,-1.0,1,PSLV
 42003,2017-008BH,FLOCK 3P-68,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,90.5,-1.0,US,USA,97.23,,,-1.0,,-1.0,0,
-42007,2017-008BM,FLOCK 3P-43,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,88.57,-1.0,US,USA,97.23,,,-1.0,,-1.0,0,
 42010,2017-008BQ,FLOCK 3P-40,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,91.67,-1.0,US,USA,97.24,,,-1.0,,-1.0,0,
 42015,2017-008BV,PEASSS,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV XL,Active,+,LEO,93.5,-1.0,NETH,Netherlands,97.23,Government,Technology Development,10.0,,1.0,1,PSLV
 42016,2017-008BW,AL-FARABI 1,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Active,+,LEO,93.04,-1.0,KAZ,Kazakhstan,97.24,,,-1.0,,-1.0,0,
@@ -4211,8 +4210,8 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 43098,2018-001A,USA 280 (ZUMA),2018-01-08,2018,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,,-1.0,-1.0,US,USA,-1.0,,,-1.0,,-1.0,0,
 43099,2018-002A,SUPERVIEW-1 03,2018-01-09,2018,"Taiyuan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,94.71,-1.0,PRC,China,97.42,Commercial,Earth Observation,560.0,,8.0,1,Long March
 43100,2018-002B,SUPERVIEW-1 04,2018-01-09,2018,"Taiyuan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,94.71,-1.0,PRC,China,97.42,Commercial,Earth Observation,560.0,,8.0,1,Long March
-43107,2018-003A,BEIDOU-3 M3,2018-01-11,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,55.22,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
-43108,2018-003B,BEIDOU-3 M4,2018-01-11,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,55.22,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
+43107,2018-003A,BEIDOU-3 M7,2018-01-11,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,55.22,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
+43108,2018-003B,BEIDOU-3 M8,2018-01-11,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,55.22,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
 43111,2018-004A,CARTOSAT-2F,2018-01-12,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,94.78,-1.0,IND,India,97.42,Government,Earth Observation,712.0,,5.0,1,PSLV
 43113,2018-004C,LEO VANTAGE 1,2018-01-12,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,P,LEO,98.95,-1.0,US,USA,99.24,Commercial,Communications,100.0,,-1.0,1,PSLV
 43114,2018-004D,ICEYE-X1,2018-01-12,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Active,+,LEO,93.77,-1.0,FIN,Finland,97.34,,,-1.0,,-1.0,0,
@@ -4275,8 +4274,8 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 43197,2018-015F,GOMX-4A,2018-02-02,2018,"Jiuquan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,93.88,-1.0,DEN,Denmark,97.56,Military,Earth Observation,8.0,,-1.0,1,Long March
 43199,2018-015H,SHAONIAN XING,2018-02-02,2018,"Jiuquan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,93.04,-1.0,PRC,China,97.54,Civil,Technology Development,3.0,,-1.0,1,Long March
 43204,2018-015K,NUSAT-5 (MARYAM),2018-02-02,2018,"Jiuquan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,93.54,-1.0,ARGN,Argentina,97.56,Commercial,Earth Observation,35.0,,-1.0,1,Long March
-43207,2018-018A,BEIDOU-3 M5,2018-02-12,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,55.66,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
-43208,2018-018B,BEIDOU-3 M6,2018-02-12,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,55.66,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
+43207,2018-018A,BEIDOU-3 M4,2018-02-12,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,55.66,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
+43208,2018-018B,BEIDOU-3 M3,2018-02-12,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,55.66,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
 43215,2018-020A,PAZ,2018-02-22,2018,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,94.79,-1.0,SPN,Spain,97.44,Commercial/Military,Earth Observation,1450.0,,-1.0,1,Falcon
 43223,2018-021A,IGS O-6,2018-02-27,2018,"Tanegashima Space Center, Japan",Japan,H2A,Active,+,,-1.0,-1.0,JPN,Japan,-1.0,Government,Earth Observation,1600.0,,5.0,1,H2A
 43226,2018-022A,GOES 17,2018-03-01,2018,"Air Force Eastern Test Range, Florida, USA",USA,Atlas 5,Active,B,GSO,1432.97,-1.0,US,USA,0.01,Government,Earth Observation,5211.0,3000,15.0,1,Atlas
@@ -4288,8 +4287,8 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 43234,2018-024D,O3B FM13,2018-03-09,2018,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Soyuz-2.1b,Active,+,MEO,287.93,-1.0,O3B,O3b Networks,0.07,Commercial,Communications,650.0,,-1.0,1,Soyuz
 43236,2018-025A,LKW-4,2018-03-17,2018,"Jiuquan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,94.45,-1.0,PRC,China,97.5,Military,Earth Observation,-1.0,,-1.0,1,Long March
 43241,2018-027A,GSAT-6A,2018-03-29,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,MEO,1206.88,-1.0,IND,India,0.69,,,-1.0,,-1.0,0,
-43245,2018-029A,BEIDOU-3 M7,2018-03-29,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,55.13,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
-43246,2018-029B,BEIDOU-3 M8,2018-03-29,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,55.12,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
+43245,2018-029A,BEIDOU-3 M9,2018-03-29,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,55.13,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
+43246,2018-029B,BEIDOU-3 M10,2018-03-29,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,55.12,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
 43249,2018-030A,IRIDIUM 144,2018-03-30,2018,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,100.4,-1.0,US,USA,86.39,Commercial/Government,Communications,860.0,678,15.0,1,Falcon
 43250,2018-030B,IRIDIUM 149,2018-03-30,2018,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,100.4,-1.0,US,USA,86.39,Commercial/Government,Communications,860.0,678,15.0,1,Falcon
 43251,2018-030C,IRIDIUM 157,2018-03-30,2018,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,100.4,-1.0,US,USA,86.39,Commercial/Government,Communications,860.0,678,15.0,1,Falcon
@@ -4343,7 +4342,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 43519,2018-054B,XJS B,2018-06-27,2018,"Xichang Launch Facility, PRC",PRC,Long March 2C,Active,+,LEO,92.76,-1.0,PRC,China,35.04,Government,Technology Development,-1.0,,-1.0,1,Long March
 43529,2018-056A,PAKTES 1A,2018-07-09,2018,"Jiuquan Space Center, PRC",PRC,Long March 2C,Active,+,LEO,96.71,-1.0,PAKI,Pakistan,97.99,Government,Earth Observation,1200.0,,7.0,1,Long March
 43530,2018-056B,PRSS 1,2018-07-09,2018,"Jiuquan Space Center, PRC",PRC,Long March 2C,Active,+,LEO,97.45,-1.0,PAKI,Pakistan,97.91,Government,Earth Observation,285.0,,3.0,1,Long March
-43539,2018-057A,BEIDOU IGSO-7,2018-07-09,2018,"Xichang Launch Facility, PRC",PRC,Long March 3A,Active,+,GSO,1435.79,-1.0,PRC,China,55.1,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
+43539,2018-057A,BEIDOU-2 IGSO-7,2018-07-09,2018,"Xichang Launch Facility, PRC",PRC,Long March 3A,Active,+,GSO,1435.79,-1.0,PRC,China,55.1,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
 43556,2018-046C,AEROCUBE 12A,2018-05-21,2018,"Wallops Island, Virginia, USA",USA,Nanorack Deployer,Active,+,LEO,92.53,-1.0,US,USA,51.63,Commercial,Technology Development,4.0,,-1.0,1,Nanorack
 43557,2018-046D,AEROCUBE 12B,2018-05-21,2018,"Wallops Island, Virginia, USA",USA,Nanorack Deployer,Active,+,LEO,92.93,-1.0,US,USA,51.63,Commercial,Technology Development,4.0,,-1.0,1,Nanorack
 43561,2018-046H,LEMUR-2-TOMHENDERSON,2018-05-21,2018,"Wallops Island, Virginia, USA",USA,Nanorack Deployer,Active,+,LEO,89.0,-1.0,US,USA,51.63,Commercial,Earth Observation,10.0,,-1.0,1,Nanorack
@@ -4362,13 +4361,13 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 43576,2018-061H,IRIDIUM 156,2018-07-25,2018,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,100.4,-1.0,US,USA,86.4,Commercial/Government,Communications,860.0,678,15.0,1,Falcon
 43577,2018-061J,IRIDIUM 164,2018-07-25,2018,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,100.4,-1.0,US,USA,86.4,Commercial/Government,Communications,860.0,678,15.0,1,Falcon
 43578,2018-061K,IRIDIUM 159,2018-07-25,2018,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,100.4,-1.0,US,USA,86.4,Commercial/Government,Communications,860.0,678,15.0,1,Falcon
-43581,2018-062A,BEIDOU-3 M9,2018-07-29,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,54.22,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
-43582,2018-062B,BEIDOU-3 M10,2018-07-29,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.24,-1.0,PRC,China,54.22,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
+43581,2018-062A,BEIDOU-3 M5,2018-07-29,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,54.22,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
+43582,2018-062B,BEIDOU-3 M6,2018-07-29,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.24,-1.0,PRC,China,54.22,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
 43585,2018-063A,GAOFEN 11-1,2018-07-31,2018,"Taiyuan Space Center, PRC",PRC,Long March 4B,Active,+,LEO,94.49,-1.0,PRC,China,97.29,Government,Earth Observation,1000.0,,8.0,1,Long March
 43587,2018-064A,TELKOM 4 (MERAH PUTIH),2018-08-07,2018,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,GSO,1436.1,-1.0,INDO,Indonesia,0.02,Commercial,Communications,5800.0,,16.0,1,Falcon
 43600,2018-066A,AEOLUS,2018-08-22,2018,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Vega,Active,+,LEO,90.71,-1.0,ESA,ESA,96.73,Government,Earth Observation,1367.0,,3.0,1,Vega
-43602,2018-067A,BEIDOU-3 M11,2018-08-24,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,54.3,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
-43603,2018-067B,BEIDOU-3 M12,2018-08-24,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,54.3,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
+43602,2018-067A,BEIDOU-3 M12,2018-08-24,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,54.3,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
+43603,2018-067B,BEIDOU-3 M11,2018-08-24,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,54.3,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
 43609,2018-068A,HAIYANG-1C,2018-09-07,2018,"Taiyuan Space Center, PRC",PRC,Long March 2C,Active,+,LEO,100.4,-1.0,PRC,China,98.43,Government,Earth Observation,442.0,,-1.0,1,Long March
 43611,2018-069A,TELSTAR 18V (APSTAR 5C),2018-09-10,2018,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,GSO,1436.15,-1.0,CA,Canada,0.02,Commercial,Communications,7060.0,,15.0,1,Falcon
 43613,2018-070A,ICESAT-2,2018-09-15,2018,"Air Force Western Test Range, California, USA",USA,Delta 2,Active,+,LEO,94.23,-1.0,US,USA,92.0,Government,Earth Observation,1515.0,,3.0,1,Delta
@@ -4383,8 +4382,8 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 43641,2018-076A,SAOCOM 1A,2018-10-08,2018,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,97.16,-1.0,ARGN,Argentina,97.89,Government,Earth Observation,1650.0,,5.0,1,Falcon
 43642,2018-077A,YAOGAN-32 A,2018-10-09,2018,"Jiuquan Space Center, PRC",PRC,Long March 2C,Active,+,LEO,98.64,-1.0,PRC,China,98.06,Military,Earth Observation,-1.0,,-1.0,1,Long March
 43643,2018-077B,YAOGAN-32 B,2018-10-09,2018,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,98.64,-1.0,PRC,China,98.06,,,-1.0,,-1.0,0,
-43647,2018-078A,BEIDOU-3 M15,2018-10-15,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.25,-1.0,PRC,China,55.02,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
-43648,2018-078B,BEIDOU-3 M16,2018-10-15,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,55.02,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
+43647,2018-078A,BEIDOU-3 M16,2018-10-15,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.25,-1.0,PRC,China,55.02,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
+43648,2018-078B,BEIDOU-3 M15,2018-10-15,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,55.02,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
 43651,2018-079A,AEHF-4 (USA 288),2018-10-17,2018,"Air Force Eastern Test Range, Florida, USA",USA,Atlas 5,Active,+,GSO,1436.1,-1.0,US,USA,2.14,Military,Communications,6169.0,,-1.0,1,Atlas
 43655,2018-081A,HAIYANG-2B,2018-10-24,2018,"Taiyuan Space Center, PRC",PRC,Long March 4B,Active,+,LEO,104.4,-1.0,PRC,China,99.34,Government,Earth Observation,1500.0,,3.0,1,Long March
 43657,2018-082A,COSMOS 2528,2018-10-25,2018,"Plesetsk Missile and Space Complex, Russia",Russia,Soyuz-2.1b,Active,+,LEO,103.11,-1.0,CIS,Russia/USSR,67.15,Military,Earth Observation,5000.0,,-1.0,1,Soyuz
@@ -4397,7 +4396,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 43678,2018-084H,DIWATA-2B,2018-10-29,2018,"Tanegashima Space Center, Japan",Japan,H2A,Active,+,LEO,96.46,-1.0,RP,Philippines,98.0,Civil,Earth Observation,56.0,,1.0,1,H2A
 43679,2018-084J,STARS-AO,2018-10-29,2018,"Tanegashima Space Center, Japan",Japan,,Active,+,LEO,96.31,-1.0,JPN,Japan,98.0,,,-1.0,,-1.0,0,
 43681,2018-084K,AUTCUBE 2,2018-10-29,2018,"Tanegashima Space Center, Japan",Japan,,Active,+,LEO,96.37,-1.0,JPN,Japan,98.0,,,-1.0,,-1.0,0,
-43683,2018-085A,BEIDOU-3 G1,2018-11-01,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,S,GSO,1436.07,-1.0,PRC,China,1.11,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
+43683,2018-085A,BEIDOU-3 G1,2018-11-01,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,GSO,1436.07,-1.0,PRC,China,1.11,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
 43687,2018-086A,COSMOS 2529 [GLONASS-M],2018-11-03,2018,"Plesetsk Missile and Space Complex, Russia",Russia,Soyuz-2.1b,Active,+,MEO,675.73,-1.0,CIS,Russia/USSR,64.33,Commercial/Military,Navigation (Global or Regional Positioning),1415.0,,7.0,1,Soyuz
 43689,2018-087A,METOP-C,2018-11-07,2018,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Soyuz-2.1b,Active,+,LEO,101.3,-1.0,EUME,EUMETSAT,98.7,Civil/Government,Earth Observation,4084.0,,5.0,1,Soyuz
 43690,2018-088A,CICERO 10,2018-11-11,2018,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,94.09,-1.0,US,USA,85.04,Commercial,Earth Observation,10.0,,-1.0,1,Electron
@@ -4589,9 +4588,9 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 44085,2019-018H,LEMUR-2-BEAUDACIOUS,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,93.07,-1.0,US,USA,97.28,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
 44086,2019-018J,LEMUR-2-ELHAM,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,92.66,-1.0,US,USA,97.29,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
 44087,2019-018K,LEMUR-2-VICTOR-ANDREW,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,91.46,-1.0,US,USA,97.28,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
-44088,2019-018L,FLOCK 4A-17,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,91.78,-1.0,US,USA,97.27,Commercial,Earth Observation,4.0,,3.0,1,PSLV
+44088,2019-018L,FLOCK 4A-17,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Inactive,-,LEO,91.78,-1.0,US,USA,97.27,Commercial,Earth Observation,4.0,,3.0,1,PSLV
 44089,2019-018M,FLOCK 4A-18,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,92.39,-1.0,US,USA,97.27,,,-1.0,,-1.0,0,
-44090,2019-018N,FLOCK 4A-19,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,91.55,-1.0,US,USA,97.27,Commercial,Earth Observation,4.0,,3.0,1,PSLV
+44090,2019-018N,FLOCK 4A-19,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Inactive,-,LEO,91.55,-1.0,US,USA,97.27,Commercial,Earth Observation,4.0,,3.0,1,PSLV
 44091,2019-018P,FLOCK 4A-20,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,92.47,-1.0,US,USA,97.27,,,-1.0,,-1.0,0,
 44092,2019-018Q,FLOCK 4A-8,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,92.85,-1.0,US,USA,97.27,,,-1.0,,-1.0,0,
 44093,2019-018R,FLOCK 4A-7,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,92.44,-1.0,US,USA,97.27,,,-1.0,,-1.0,0,
@@ -4614,7 +4613,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 44114,2019-020C,O3B FM17,2019-04-04,2019,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Soyuz-ST-B,Active,+,MEO,287.93,-1.0,O3B,O3b Networks,0.04,Commercial,Communications,700.0,,-1.0,1,Soyuz
 44115,2019-020D,O3B FM18,2019-04-04,2019,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Soyuz-ST-B,Active,+,MEO,287.93,-1.0,O3B,O3b Networks,0.05,Commercial,Communications,700.0,,-1.0,1,Soyuz
 44186,2019-021A,ARABSAT-6A,2019-04-11,2019,"Air Force Eastern Test Range, Florida, USA",USA,Falcon Heavy,Active,+,GSO,1436.12,-1.0,AB,Arabsat,0.04,Commercial,Communications,6465.0,,15.0,1,Falcon
-44204,2019-023A,BEIDOU-3 IGSO-1,2019-04-20,2019,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,S,GSO,1435.83,-1.0,PRC,China,56.92,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
+44204,2019-023A,BEIDOU-3 IGSO-1,2019-04-20,2019,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,GSO,1435.83,-1.0,PRC,China,56.92,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
 44207,2019-024A,TIANHUI 2-01A,2019-04-29,2019,"Taiyuan Space Center, PRC",PRC,Long March 4B,Active,+,LEO,94.94,-1.0,PRC,China,97.46,Government,Earth Observation,2500.0,,-1.0,1,Long March
 44209,2019-024C,TIANHUI 2-01B,2019-04-29,2019,"Taiyuan Space Center, PRC",PRC,Long March 4B,Active,+,LEO,94.94,-1.0,PRC,China,97.46,Government,Earth Observation,2500.0,,-1.0,1,Long March
 44225,2019-026A,AFOTEC-1 (FALCON ODE),2019-05-05,2019,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,93.97,-1.0,US,USA,40.02,,,-1.0,,-1.0,0,
@@ -4718,8 +4717,8 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 44537,2019-060D,ZHUHAI-1 03C,2019-09-19,2019,"Jiuquan Space Center, PRC",PRC,Long March 11,Active,+,LEO,94.27,-1.0,PRC,China,97.46,Commercial,Earth Observation,55.0,,-1.0,1,Long March
 44538,2019-060E,ZHUHAI-1 03D,2019-09-19,2019,"Jiuquan Space Center, PRC",PRC,Long March 11,Active,+,LEO,94.27,-1.0,PRC,China,97.46,Commercial,Earth Observation,55.0,,-1.0,1,Long March
 44539,2019-060F,ZHUHAI-1 03E,2019-09-19,2019,"Jiuquan Space Center, PRC",PRC,Long March 11,Active,+,LEO,94.26,-1.0,PRC,China,97.47,Commercial,Earth Observation,55.0,,-1.0,1,Long March
-44542,2019-061A,BEIDOU-3 M23,2019-09-22,2019,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,54.53,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
-44543,2019-061B,BEIDOU-3 M24,2019-09-22,2019,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,54.52,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
+44542,2019-061A,BEIDOU-3 M24,2019-09-22,2019,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,54.53,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
+44543,2019-061B,BEIDOU-3 M23,2019-09-22,2019,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,54.52,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
 44547,2019-063A,YUNHAI 1-02,2019-09-25,2019,"Jiuquan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,100.5,-1.0,PRC,China,98.48,Government,Earth Observation,-1.0,,-1.0,1,Long March
 44552,2019-065A,COSMOS 2541,2019-09-26,2019,"Plesetsk Missile and Space Complex, Russia",Russia,Soyuz-2.1b,Active,+,MEO,717.68,-1.0,CIS,Russia/USSR,63.06,Military,Earth Observation,-1.0,,-1.0,1,Soyuz
 44622,2019-066A,GAOFEN 10R,2019-10-04,2019,"Taiyuan Space Center, PRC",PRC,Long March 4C,Active,+,LEO,97.22,-1.0,PRC,China,97.92,Government,Earth Observation,1000.0,,8.0,1,Long March
@@ -4791,8 +4790,8 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 44783,2019-076E,NINGXIA-1 5,2019-11-13,2019,"Taiyuan Space Center, PRC",PRC,Long March 6,Active,+,LEO,102.73,-1.0,PRC,China,45.01,Commercial,Earth Observation,100.0,,-1.0,1,Long March
 44785,2019-077A,KL-ALPHA A,2019-11-17,2019,"Jiuquan Space Center, PRC",PRC,Kuaizhou 1A,Active,+,LEO,106.21,-1.0,GER,Germany,88.93,Commercial,Technology Development,-1.0,,-1.0,1,Kuaizhou
 44786,2019-077B,KL-ALPHA B,2019-11-17,2019,"Jiuquan Space Center, PRC",PRC,Kuaizhou 1A,Active,+,LEO,106.21,-1.0,GER,Germany,88.91,Commercial,Technology Development,-1.0,,-1.0,1,Kuaizhou
-44793,2019-078A,BEIDOU-3 M21,2019-11-23,2019,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,54.87,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
-44794,2019-078B,BEIDOU-3 M22,2019-11-23,2019,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,54.85,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
+44793,2019-078A,BEIDOU-3 M22,2019-11-23,2019,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,54.87,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
+44794,2019-078B,BEIDOU-3 M21,2019-11-23,2019,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,54.85,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
 44797,2019-079A,COSMOS 2542,2019-11-25,2019,"Plesetsk Missile and Space Complex, Russia",Russia,Soyuz-2.1v,Active,+,LEO,92.39,-1.0,CIS,Russia/USSR,97.65,Military,Earth Observation/Space Science,-1.0,,-1.0,1,Soyuz
 44800,2019-080A,TIBA-1,2019-11-26,2019,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5 ECA,Active,+,GSO,1436.12,-1.0,EGYP,Egypt,0.05,Commercial/Military,Communications,5600.0,,15.0,1,Ariane
 44801,2019-080B,INMARSAT GX5,2019-11-26,2019,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5 ECA,Active,+,GSO,1436.08,-1.0,IM,INMARSAT,0.04,Commercial,Communications,4007.0,,15.0,1,Ariane
