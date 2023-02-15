@@ -2499,7 +2499,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,8.5,2000-10-21,SEAL,26578,2000-066A,THURAYA-1,PAY,-,EA,GSO,ORB,UAE,1454.79,Inactive,UAE,Sea Launch Platform (mobile),Sea Launch Platform
 ,0.06,2000-10-21,TYMSC,26580,2000-067A,AMC-6 (GE-6),PAY,+,EA,GSO,ORB,SES,1436.08,Active,SES,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,5.28,2000-10-29,FRGUI,26590,2000-068A,INTELSAT 12 (IS-12),PAY,-,EA,GSO,ORB,ITSO,1454.18,Inactive,INTELSAT,"Europe's Spaceport, Kourou, French Guiana",French Guiana
-,10.34,2000-10-30,XICLF,26599,2000-069A,CHINASAT 32 (BEIDOU 1),PAY,UNK,EA,GSO,ORB,PRC,1455.94,Inactive,China,"Xichang Launch Facility, PRC",PRC
+,10.34,2000-10-30,XICLF,26599,2000-069A,CHINASAT 32 (BEIDOU-1 G1),PAY,UNK,EA,GSO,ORB,PRC,1455.94,Inactive,China,"Xichang Launch Facility, PRC",PRC
 ,55.14,2000-11-10,AFETR,26605,2000-071A,NAVSTAR 49 (USA 154),PAY,P,EA,MEO,ORB,US,717.95,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,5.02,2000-11-16,FRGUI,26608,2000-072A,INTELSAT 1R (IS-1R),PAY,+,EA,GSO,ORB,US,1436.1,Active,USA,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,5.6,2000-11-16,FRGUI,26609,2000-072B,PHASE 3D (AO-40),PAY,-,EA,MEO,ORB,GER,1146.6,Inactive,Germany,"Europe's Spaceport, Kourou, French Guiana",French Guiana
@@ -2513,7 +2513,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,9.86,2000-12-06,AFETR,26635,2000-080A,USA 155,PAY,-,EA,GSO,ORB,US,1436.2,Inactive,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,7.8,2000-12-20,FRGUI,26638,2000-081A,ASTRA 2D,PAY,-,EA,GSO,ORB,SES,1454.55,Inactive,SES,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,2.97,2000-12-20,FRGUI,26639,2000-081B,AMC-8 (GE-8),PAY,-,EA,GSO,ORB,SES,1452.38,Inactive,SES,"Europe's Spaceport, Kourou, French Guiana",French Guiana
-,10.84,2000-12-20,XICLF,26643,2000-082A,CHINASAT 31 (BEIDOU 1B),PAY,-,EA,GSO,ORB,PRC,1450.8,Inactive,China,"Xichang Launch Facility, PRC",PRC
+,10.84,2000-12-20,XICLF,26643,2000-082A,CHINASAT 31 (BEIDOU-1 G2),PAY,-,EA,GSO,ORB,PRC,1450.8,Inactive,China,"Xichang Launch Facility, PRC",PRC
 ,5.94,2001-01-10,FRGUI,26666,2001-002A,TURKSAT 2A,PAY,-,EA,GSO,ORB,TURK,1466.29,Inactive,Turkey,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,54.17,2001-01-30,AFETR,26690,2001-004A,NAVSTAR 50 (USA 156),PAY,B,EA,MEO,ORB,US,751.58,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,4.7,2001-02-07,FRGUI,26694,2001-005A,SICRAL 1,PAY,+,EA,GSO,ORB,IT,1436.1,Active,Italy,"Europe's Spaceport, Kourou, French Guiana",French Guiana
@@ -2642,7 +2642,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,29.0,2003-04-28,AFETR,27783,2003-017A,GALEX,PAY,-,EA,LEO,ORB,US,98.44,Inactive,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,8.79,2003-05-08,SRILR,27807,2003-018A,GSAT-2,PAY,-,EA,GSO,ORB,IND,1442.05,Inactive,India,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,4.29,2003-05-13,AFETR,27811,2003-020A,HELLAS-SAT 2,PAY,+,EA,GSO,ORB,GREC,1436.11,Active,Greece,"Air Force Eastern Test Range, Florida, USA",USA
-,9.0,2003-05-24,XICLF,27813,2003-021A,BD 1 03,PAY,-,EA,GSO,ORB,PRC,1443.31,Inactive,China,"Xichang Launch Facility, PRC",PRC
+,9.0,2003-05-24,XICLF,27813,2003-021A,BEIDOU-1 G3,PAY,-,EA,GSO,ORB,PRC,1443.31,Inactive,China,"Xichang Launch Facility, PRC",PRC
 ,82.95,2003-06-04,PLMSC,27818,2003-023A,COSMOS 2398,PAY,-,EA,LEO,ORB,CIS,104.94,Inactive,Russia/USSR,"Plesetsk Missile and Space Complex, Russia",Russia
 ,4.85,2003-06-06,TYMSC,27820,2003-024A,AMC-9 (GE-12),PAY,-,EA,GSO,ORB,SES,1454.12,Inactive,SES,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,7.04,2003-06-10,SEAL,27825,2003-026A,THURAYA-2,PAY,+,EA,GSO,ORB,UAE,1436.07,Active,UAE,Sea Launch Platform (mobile),Sea Launch Platform
@@ -2861,7 +2861,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,90.06,2006-12-27,TYMSC,29678,2006-063A,COROT,PAY,-,EA,LEO,ORB,FR,99.63,Inactive,France,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,98.0,2007-01-10,SRILR,29709,2007-001A,LAPAN-TUBSAT,PAY,+,EA,LEO,ORB,INDO,97.11,Active,Indonesia,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.88,2007-01-10,SRILR,29710,2007-001B,CARTOSAT-2 (IRS-P7),PAY,+,EA,LEO,ORB,IND,93.49,Active,India,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
-,6.99,2007-02-02,XICLF,30323,2007-003A,BEIDOU 1D,PAY,-,EA,GSO,ORB,PRC,1452.22,Inactive,China,"Xichang Launch Facility, PRC",PRC
+,6.99,2007-02-02,XICLF,30323,2007-003A,BEIDOU-1 G4,PAY,-,EA,GSO,ORB,PRC,1452.22,Inactive,China,"Xichang Launch Facility, PRC",PRC
 ,12.09,2007-02-17,AFETR,30580,2007-004A,THEMIS A,PAY,+,EA,HEO,ORB,US,1639.48,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,46.06,2007-03-09,AFETR,30773,2007-006B,MIDSTAR-1,PAY,-,EA,LEO,ORB,US,91.7,Inactive,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,45.99,2007-03-09,AFETR,30774,2007-006C,OE (NEXTSAT),PAY,B,EA,LEO,ORB,US,91.37,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
@@ -2872,7 +2872,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,9.36,2007-02-17,AFETR,30798,2007-004E,THEMIS E,PAY,+,EA,HEO,ORB,US,1639.52,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,0.02,2007-04-09,TYMSC,31102,2007-009A,ANIK F3,PAY,+,EA,GSO,ORB,CA,1436.1,Active,Canada,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,98.31,2007-04-11,TAISC,31113,2007-010A,HAIYANG-1B,PAY,+,EA,LEO,ORB,PRC,100.67,Active,China,"Taiyuan Space Center, PRC",PRC
-,51.56,2007-04-13,XICLF,31115,2007-011A,BEIDOU 2,PAY,-,EA,MEO,ORB,PRC,811.96,Inactive,China,"Xichang Launch Facility, PRC",PRC
+,51.56,2007-04-13,XICLF,31115,2007-011A,BEIDOU-2 M1,PAY,-,EA,MEO,ORB,PRC,811.96,Inactive,China,"Xichang Launch Facility, PRC",PRC
 ,97.9,2007-04-17,TYMSC,31117,2007-012A,EGYPTSAT 1,PAY,-,EA,LEO,ORB,EGYP,97.7,Inactive,Egypt,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,98.0,2007-04-17,TYMSC,31118,2007-012B,SAUDISAT 3,PAY,+,EA,LEO,ORB,SAUD,97.99,Active,Saudi Arabia,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,98.21,2007-04-17,TYMSC,31119,2007-012C,SAUDICOMSAT 7,PAY,+,EA,LEO,ORB,SAUD,98.47,Active,Saudi Arabia,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
@@ -3045,7 +3045,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,54.91,2009-03-24,AFETR,34661,2009-014A,NAVSTAR 63 (USA 203),PAY,B,EA,MEO,ORB,US,717.96,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,0.03,2009-04-03,TYMSC,34710,2009-016A,EUTELSAT 10A,PAY,+,EA,GSO,ORB,EUTE,1436.07,Active,EUTELSAT,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,0.01,2009-04-04,AFETR,34713,2009-017A,WGS F2 (USA 204),PAY,+,EA,GSO,ORB,US,1436.04,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
-,8.94,2009-04-14,XICLF,34779,2009-018A,COMPASS G2,PAY,-,EA,HEO,ORB,PRC,1523.52,Inactive,China,"Xichang Launch Facility, PRC",PRC
+,8.94,2009-04-14,XICLF,34779,2009-018A,BEIDOU-2 G2,PAY,-,EA,HEO,ORB,PRC,1523.52,Inactive,China,"Xichang Launch Facility, PRC",PRC
 ,0.1,2009-04-20,SEAL,34810,2009-020A,SICRAL 1B,PAY,+,EA,GSO,ORB,IT,1436.0,Active,Italy,Sea Launch Platform (mobile),Sea Launch Platform
 ,97.11,2009-04-22,TAISC,34839,2009-021A,YAOGAN 6,PAY,+,EA,LEO,ORB,PRC,93.96,Active,China,"Taiyuan Space Center, PRC",PRC
 ,98.93,2009-05-05,AFWTR,34903,2009-023A,STSS ATRR (USA 205),PAY,+,EA,LEO,ORB,US,102.37,Active,USA,"Air Force Western Test Range, California, USA",USA
@@ -3110,7 +3110,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,100.22,2009-12-15,TAISC,36122,2009-072B,XIWANG-1 (HOPE-1),PAY,P,EA,LEO,ORB,PRC,109.39,Active,China,"Taiyuan Space Center, PRC",PRC
 ,98.19,2009-12-18,FRGUI,36124,2009-073A,HELIOS 2B,PAY,+,EA,LEO,ORB,FR,93.45,Active,France,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,0.03,2009-12-29,TYMSC,36131,2009-075A,DIRECTV 12,PAY,+,EA,GSO,ORB,US,1436.09,Active,USA,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
-,1.95,2010-01-16,XICLF,36287,2010-001A,BEIDOU 3,PAY,P,EA,GSO,ORB,PRC,1436.11,Active,China,"Xichang Launch Facility, PRC",PRC
+,1.95,2010-01-16,XICLF,36287,2010-001A,BEIDOU-2 G1,PAY,P,EA,GSO,ORB,PRC,1436.11,Active,China,"Xichang Launch Facility, PRC",PRC
 ,0.46,2010-01-28,TYMSC,36358,2010-002A,RADUGA-1M 2,PAY,+,EA,GSO,ORB,CIS,1436.12,Active,Russia/USSR,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,32.13,2010-02-11,AFETR,36395,2010-005A,SDO,PAY,+,EA,GSO,ORB,US,1436.04,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,0.01,2010-02-12,TYMSC,36397,2010-006A,INTELSAT 16 (IS-16),PAY,+,EA,GSO,ORB,ITSO,1436.12,Active,INTELSAT,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
@@ -3129,7 +3129,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,0.06,2010-05-21,FRGUI,36582,2010-021B,COMSATBW-2,PAY,+,EA,GSO,ORB,GER,1436.06,Active,Germany,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,54.66,2010-05-28,AFETR,36585,2010-022A,NAVSTAR 65 (USA 213),PAY,+,EA,MEO,ORB,US,718.02,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,100.43,2010-06-02,PLMSC,36588,2010-023A,SERVIS 2,PAY,UNK,EA,LEO,ORB,JPN,109.43,Inactive,Japan,"Plesetsk Missile and Space Complex, Russia",Russia
-,2.0,2010-06-02,XICLF,36590,2010-024A,BEIDOU 4,PAY,P,EA,GSO,ORB,PRC,1436.09,Active,China,"Xichang Launch Facility, PRC",PRC
+,2.0,2010-06-02,XICLF,36590,2010-024A,BEIDOU-2 G3,PAY,P,EA,GSO,ORB,PRC,1436.09,Active,China,"Xichang Launch Facility, PRC",PRC
 ,0.03,2010-06-03,TYMSC,36592,2010-025A,BADR-5,PAY,+,EA,GSO,ORB,AB,1436.12,Active,Arabsat,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,97.74,2010-06-15,JSC,36596,2010-027A,SJ-12,PAY,+,EA,LEO,ORB,PRC,96.05,Active,China,"Jiuquan Space Center, PRC",PRC
 ,98.3,2010-06-15,DLS,36598,2010-028A,PICARD,PAY,-,EA,LEO,ORB,FR,99.24,Inactive,France,"Dombarovskiy Launch Site, Russia",Russia
@@ -3358,7 +3358,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,64.67,2012-09-13,AFWTR,38767,2012-048K,AEROCUBE 4.5A,PAY,+,EA,LEO,ORB,US,96.12,Active,USA,"Air Force Western Test Range, California, USA",USA
 ,64.67,2012-09-13,AFWTR,38768,2012-048L,AEROCUBE 4.5B,PAY,+,EA,LEO,ORB,US,95.73,Active,USA,"Air Force Western Test Range, California, USA",USA
 ,98.7,2012-09-17,TYMSC,38771,2012-049A,METOP-B,PAY,+,EA,LEO,ORB,EUME,101.3,Active,EUMETSAT,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
-,55.44,2012-09-18,XICLF,38774,2012-050A,BEIDOU 14,PAY,-,EA,MEO,ORB,PRC,773.15,Inactive,China,"Xichang Launch Facility, PRC",PRC
+,55.44,2012-09-18,XICLF,38774,2012-050A,BEIDOU-2 M5,PAY,-,EA,MEO,ORB,PRC,773.15,Inactive,China,"Xichang Launch Facility, PRC",PRC
 ,55.55,2012-09-18,XICLF,38775,2012-050B,BEIDOU-2 M6,PAY,+,EA,MEO,ORB,PRC,773.23,Active,China,"Xichang Launch Facility, PRC",PRC
 ,0.1,2012-09-28,FRGUI,38778,2012-051A,ASTRA 2F,PAY,+,EA,GSO,ORB,SES,1436.03,Active,SES,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,0.02,2012-09-28,FRGUI,38779,2012-051B,GSAT-10,PAY,+,EA,GSO,ORB,IND,1436.1,Active,India,"Europe's Spaceport, Kourou, French Guiana",French Guiana
@@ -3843,7 +3843,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,30.52,2016-01-20,SRILR,41241,2016-003A,IRNSS-1E,PAY,+,EA,GSO,ORB,IND,1436.06,Active,India,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,3.42,2016-01-27,FRGUI,41308,2016-004A,INTELSAT 29E (IS-29E),PAY,-,EA,GSO,ORB,ITSO,1430.99,Inactive,INTELSAT,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,0.03,2016-01-29,TYMSC,41310,2016-005A,EUTELSAT 9B,PAY,+,EA,GSO,ORB,EUTE,1436.11,Active,EUTELSAT,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
-,55.72,2016-02-01,XICLF,41315,2016-006A,BEIDOU 21,PAY,-,EA,MEO,ORB,PRC,773.23,Inactive,China,"Xichang Launch Facility, PRC",PRC
+,55.72,2016-02-01,XICLF,41315,2016-006A,BEIDOU-3S M3S,PAY,-,EA,MEO,ORB,PRC,773.23,Inactive,China,"Xichang Launch Facility, PRC",PRC
 ,54.96,2016-02-05,AFETR,41328,2016-007A,NAVSTAR 76 (USA 266),PAY,+,EA,MEO,ORB,US,717.99,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,65.55,2016-02-07,PLMSC,41330,2016-008A,COSMOS 2514 [GLONASS-M],PAY,+,EA,MEO,ORB,CIS,675.73,Active,Russia/USSR,"Plesetsk Missile and Space Complex, Russia",Russia
 ,97.22,2016-02-07,YUN,41332,2016-009A,KMS 4,PAY,+,EA,LEO,ORB,NKOR,92.44,Active,North Korea,"Yunsong Launch Site(Sohae Satellite Launching Station),Democratic People's Republic of Korea",Democratic People's Republic of Korea
@@ -4523,10 +4523,8 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.68,2018-12-27,VOSTO,43889,2018-111P,LEMUR-2-DAISY-HARPER,PAY,+,EA,LEO,ORB,US,95.81,Active,USA,"Vostochny Cosmodrome, Russia",Russia
 ,97.62,2018-12-27,VOSTO,43890,2018-111Q,GRUS-1A,PAY,+,EA,LEO,ORB,JPN,96.38,Active,Japan,"Vostochny Cosmodrome, Russia",Russia
 ,97.15,2018-12-27,VOSTO,43891,2018-111R,OBJECT R,PAY,+,EA,LEO,ORB,TBD,94.41,Active,To Be Determined,"Vostochny Cosmodrome, Russia",Russia
-,97.14,2018-12-27,VOSTO,43894,2018-111U,FLOCK 3K-1,PAY,-,EA,LEO,ORB,US,89.37,Inactive,USA,"Vostochny Cosmodrome, Russia",Russia
 ,97.15,2018-12-27,VOSTO,43895,2018-111V,FLOCK 3K-2,PAY,-,EA,LEO,ORB,US,90.61,Inactive,USA,"Vostochny Cosmodrome, Russia",Russia
 ,97.15,2018-12-27,VOSTO,43896,2018-111W,FLOCK 3K-6,PAY,-,EA,LEO,ORB,US,90.24,Inactive,USA,"Vostochny Cosmodrome, Russia",Russia
-,97.12,2018-12-27,VOSTO,43903,2018-111AD,FLOCK 3K-12,PAY,-,EA,LEO,ORB,US,88.55,Inactive,USA,"Vostochny Cosmodrome, Russia",Russia
 ,97.15,2018-12-27,VOSTO,43904,2018-111AE,FLOCK 3K-11,PAY,-,EA,LEO,ORB,US,90.87,Inactive,USA,"Vostochny Cosmodrome, Russia",Russia
 ,97.16,2018-12-27,VOSTO,43907,2018-111AH,ZACUBE-2,PAY,+,EA,LEO,ORB,SAFR,93.9,Active,South Africa,"Vostochny Cosmodrome, Russia",Russia
 ,97.16,2018-12-27,VOSTO,43908,2018-111AJ,LUME 1,PAY,+,EA,LEO,ORB,SPN,93.65,Active,Spain,"Vostochny Cosmodrome, Russia",Russia
@@ -10256,7 +10254,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,70.0,2023-01-31,AFWTR,55421,2023-014AG,STARLINK-5598,PAY,+,EA,LEO,ORB,US,91.72,Active,USA,"Air Force Western Test Range, California, USA",USA
 ,70.0,2023-01-31,AFWTR,55422,2023-014AH,STARLINK-5006,PAY,+,EA,LEO,ORB,US,91.72,Active,USA,"Air Force Western Test Range, California, USA",USA
 ,70.0,2023-01-31,AFWTR,55423,2023-014AJ,STARLINK-5068,PAY,+,EA,LEO,ORB,US,91.72,Active,USA,"Air Force Western Test Range, California, USA",USA
-,69.98,2023-01-31,AFWTR,55424,2023-014AK,STARLINK-5066,PAY,P,EA,LEO,ORB,US,88.29,Active,USA,"Air Force Western Test Range, California, USA",USA
 ,70.0,2023-01-31,AFWTR,55425,2023-014AL,STARLINK-5615,PAY,+,EA,LEO,ORB,US,91.73,Active,USA,"Air Force Western Test Range, California, USA",USA
 ,70.0,2023-01-31,AFWTR,55426,2023-014AM,STARLINK-5638,PAY,+,EA,LEO,ORB,US,91.72,Active,USA,"Air Force Western Test Range, California, USA",USA
 ,70.0,2023-01-31,AFWTR,55427,2023-014AN,STARLINK-5073,PAY,+,EA,LEO,ORB,US,91.72,Active,USA,"Air Force Western Test Range, California, USA",USA

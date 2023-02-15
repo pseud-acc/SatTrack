@@ -2499,7 +2499,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 26578,2000-066A,THURAYA-1,2000-10-21,2000,Sea Launch Platform (mobile),Sea Launch Platform,,Inactive,-,GSO,1454.79,-1.0,UAE,UAE,8.5,,,-1.0,,-1.0,0,
 26580,2000-067A,AMC-6 (GE-6),2000-10-21,2000,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton K,Active,+,GSO,1436.08,-1.0,SES,SES,0.06,Commercial,Communications,3901.0,2500,15.0,1,Proton
 26590,2000-068A,INTELSAT 12 (IS-12),2000-10-29,2000,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 44LP,Inactive,-,GSO,1454.18,-1.0,ITSO,INTELSAT,5.28,Commercial,Communications,4167.0,1729,18.0,1,Ariane
-26599,2000-069A,CHINASAT 32 (BEIDOU 1),2000-10-30,2000,"Xichang Launch Facility, PRC",PRC,,Inactive,UNK,GSO,1455.94,-1.0,PRC,China,10.34,,,-1.0,,-1.0,0,
+26599,2000-069A,CHINASAT 32 (BEIDOU-1 G1),2000-10-30,2000,"Xichang Launch Facility, PRC",PRC,,Inactive,UNK,GSO,1455.94,-1.0,PRC,China,10.34,,,-1.0,,-1.0,0,
 26605,2000-071A,NAVSTAR 49 (USA 154),2000-11-10,2000,"Air Force Eastern Test Range, Florida, USA",USA,Delta 2,Active,P,MEO,717.95,-1.0,US,USA,55.14,Commercial/Military,Navigation (Global or Regional Positioning),2217.0,980,10.0,1,Delta
 26608,2000-072A,INTELSAT 1R (IS-1R),2000-11-16,2000,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1436.1,-1.0,US,USA,5.02,Commercial,Communications,4793.0,3000,15.0,1,Ariane
 26609,2000-072B,PHASE 3D (AO-40),2000-11-16,2000,"Europe's Spaceport, Kourou, French Guiana",French Guiana,,Inactive,-,MEO,1146.6,-1.0,GER,Germany,5.6,,,-1.0,,-1.0,0,
@@ -2513,7 +2513,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 26635,2000-080A,USA 155,2000-12-06,2000,"Air Force Eastern Test Range, Florida, USA",USA,,Inactive,-,GSO,1436.2,-1.0,US,USA,9.86,,,-1.0,,-1.0,0,
 26638,2000-081A,ASTRA 2D,2000-12-20,2000,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5G,Inactive,-,GSO,1454.55,-1.0,SES,SES,7.8,Commercial,Communications,1420.0,700,15.0,1,Ariane
 26639,2000-081B,AMC-8 (GE-8),2000-12-20,2000,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5G,Inactive,-,GSO,1452.38,-1.0,SES,SES,2.97,Commercial,Communications,2015.0,919,15.0,1,Ariane
-26643,2000-082A,CHINASAT 31 (BEIDOU 1B),2000-12-20,2000,"Xichang Launch Facility, PRC",PRC,,Inactive,-,GSO,1450.8,-1.0,PRC,China,10.84,,,-1.0,,-1.0,0,
+26643,2000-082A,CHINASAT 31 (BEIDOU-1 G2),2000-12-20,2000,"Xichang Launch Facility, PRC",PRC,,Inactive,-,GSO,1450.8,-1.0,PRC,China,10.84,,,-1.0,,-1.0,0,
 26666,2001-002A,TURKSAT 2A,2001-01-10,2001,"Europe's Spaceport, Kourou, French Guiana",French Guiana,,Inactive,-,GSO,1466.29,-1.0,TURK,Turkey,5.94,,,-1.0,,-1.0,0,
 26690,2001-004A,NAVSTAR 50 (USA 156),2001-01-30,2001,"Air Force Eastern Test Range, Florida, USA",USA,Delta 2,Active,B,MEO,751.58,-1.0,US,USA,54.17,Commercial/Military,Navigation (Global or Regional Positioning),2217.0,980,10.0,1,Delta
 26694,2001-005A,SICRAL 1,2001-02-07,2001,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 44L,Active,+,GSO,1436.1,-1.0,IT,Italy,4.7,Military,Communications,2596.0,1263,12.0,1,Ariane
@@ -2642,7 +2642,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 27783,2003-017A,GALEX,2003-04-28,2003,"Air Force Eastern Test Range, Florida, USA",USA,,Inactive,-,LEO,98.44,-1.0,US,USA,29.0,,,-1.0,,-1.0,0,
 27807,2003-018A,GSAT-2,2003-05-08,2003,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,GSO,1442.05,-1.0,IND,India,8.79,,,-1.0,,-1.0,0,
 27811,2003-020A,HELLAS-SAT 2,2003-05-13,2003,"Air Force Eastern Test Range, Florida, USA",USA,Atlas 5,Active,+,GSO,1436.11,-1.0,GREC,Greece,4.29,Commercial,Communications,3300.0,,15.0,1,Atlas
-27813,2003-021A,BD 1 03,2003-05-24,2003,"Xichang Launch Facility, PRC",PRC,,Inactive,-,GSO,1443.31,-1.0,PRC,China,9.0,,,-1.0,,-1.0,0,
+27813,2003-021A,BEIDOU-1 G3,2003-05-24,2003,"Xichang Launch Facility, PRC",PRC,,Inactive,-,GSO,1443.31,-1.0,PRC,China,9.0,,,-1.0,,-1.0,0,
 27818,2003-023A,COSMOS 2398,2003-06-04,2003,"Plesetsk Missile and Space Complex, Russia",Russia,,Inactive,-,LEO,104.94,-1.0,CIS,Russia/USSR,82.95,,,-1.0,,-1.0,0,
 27820,2003-024A,AMC-9 (GE-12),2003-06-06,2003,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Inactive,-,GSO,1454.12,-1.0,SES,SES,4.85,,,-1.0,,-1.0,0,
 27825,2003-026A,THURAYA-2,2003-06-10,2003,Sea Launch Platform (mobile),Sea Launch Platform,Zenit 3SL,Active,+,GSO,1436.07,-1.0,UAE,UAE,7.04,Commercial,Communications,5250.0,3200,12.0,1,Zenit
@@ -2861,7 +2861,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 29678,2006-063A,COROT,2006-12-27,2006,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Inactive,-,LEO,99.63,-1.0,FR,France,90.06,,,-1.0,,-1.0,0,
 29709,2007-001A,LAPAN-TUBSAT,2007-01-10,2007,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV C7,Active,+,LEO,97.11,-1.0,INDO,Indonesia,98.0,Government,Earth Observation/Technology Development,60.0,,-1.0,1,PSLV
 29710,2007-001B,CARTOSAT-2 (IRS-P7),2007-01-10,2007,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV C7,Active,+,LEO,93.49,-1.0,IND,India,97.88,Government,Earth Observation,680.0,,5.0,1,PSLV
-30323,2007-003A,BEIDOU 1D,2007-02-02,2007,"Xichang Launch Facility, PRC",PRC,,Inactive,-,GSO,1452.22,-1.0,PRC,China,6.99,,,-1.0,,-1.0,0,
+30323,2007-003A,BEIDOU-1 G4,2007-02-02,2007,"Xichang Launch Facility, PRC",PRC,,Inactive,-,GSO,1452.22,-1.0,PRC,China,6.99,,,-1.0,,-1.0,0,
 30580,2007-004A,THEMIS A,2007-02-17,2007,"Air Force Eastern Test Range, Florida, USA",USA,Delta 2,Active,+,HEO,1639.48,-1.0,US,USA,12.09,Civil/Government,Space Science,126.0,77,2.0,1,Delta
 30773,2007-006B,MIDSTAR-1,2007-03-09,2007,"Air Force Eastern Test Range, Florida, USA",USA,,Inactive,-,LEO,91.7,-1.0,US,USA,46.06,,,-1.0,,-1.0,0,
 30774,2007-006C,OE (NEXTSAT),2007-03-09,2007,"Air Force Eastern Test Range, Florida, USA",USA,,Active,B,LEO,91.37,-1.0,US,USA,45.99,,,-1.0,,-1.0,0,
@@ -2872,7 +2872,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 30798,2007-004E,THEMIS E,2007-02-17,2007,"Air Force Eastern Test Range, Florida, USA",USA,Delta 2,Active,+,HEO,1639.52,-1.0,US,USA,9.36,Civil/Government,Space Science,126.0,77,2.0,1,Delta
 31102,2007-009A,ANIK F3,2007-04-09,2007,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Active,+,GSO,1436.1,-1.0,CA,Canada,0.02,Commercial,Communications,4715.0,,15.0,1,Proton
 31113,2007-010A,HAIYANG-1B,2007-04-11,2007,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.67,-1.0,PRC,China,98.31,,,-1.0,,-1.0,0,
-31115,2007-011A,BEIDOU 2,2007-04-13,2007,"Xichang Launch Facility, PRC",PRC,,Inactive,-,MEO,811.96,-1.0,PRC,China,51.56,,,-1.0,,-1.0,0,
+31115,2007-011A,BEIDOU-2 M1,2007-04-13,2007,"Xichang Launch Facility, PRC",PRC,,Inactive,-,MEO,811.96,-1.0,PRC,China,51.56,,,-1.0,,-1.0,0,
 31117,2007-012A,EGYPTSAT 1,2007-04-17,2007,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Inactive,-,LEO,97.7,-1.0,EGYP,Egypt,97.9,,,-1.0,,-1.0,0,
 31118,2007-012B,SAUDISAT 3,2007-04-17,2007,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Dnepr,Active,+,LEO,97.99,-1.0,SAUD,Saudi Arabia,98.0,Government,Earth Observation,200.0,,-1.0,1,Dnepr
 31119,2007-012C,SAUDICOMSAT 7,2007-04-17,2007,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Dnepr,Active,+,LEO,98.47,-1.0,SAUD,Saudi Arabia,98.21,Commercial,Communications,12.0,,-1.0,1,Dnepr
@@ -3045,7 +3045,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 34661,2009-014A,NAVSTAR 63 (USA 203),2009-03-24,2009,"Air Force Eastern Test Range, Florida, USA",USA,,Active,B,MEO,717.96,-1.0,US,USA,54.91,,,-1.0,,-1.0,0,
 34710,2009-016A,EUTELSAT 10A,2009-04-03,2009,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Active,+,GSO,1436.07,-1.0,EUTE,EUTELSAT,0.03,Commercial,Communications,5900.0,,15.0,1,Proton
 34713,2009-017A,WGS F2 (USA 204),2009-04-04,2009,"Air Force Eastern Test Range, Florida, USA",USA,Atlas 5,Active,+,GSO,1436.04,-1.0,US,USA,0.01,Military,Communications,5987.0,3450,14.0,1,Atlas
-34779,2009-018A,COMPASS G2,2009-04-14,2009,"Xichang Launch Facility, PRC",PRC,,Inactive,-,HEO,1523.52,-1.0,PRC,China,8.94,,,-1.0,,-1.0,0,
+34779,2009-018A,BEIDOU-2 G2,2009-04-14,2009,"Xichang Launch Facility, PRC",PRC,,Inactive,-,HEO,1523.52,-1.0,PRC,China,8.94,,,-1.0,,-1.0,0,
 34810,2009-020A,SICRAL 1B,2009-04-20,2009,Sea Launch Platform (mobile),Sea Launch Platform,Zenit 3SL,Active,+,GSO,1436.0,-1.0,IT,Italy,0.1,Commercial/Military,Communications,3038.0,,12.0,1,Zenit
 34839,2009-021A,YAOGAN 6,2009-04-22,2009,"Taiyuan Space Center, PRC",PRC,Long March 2C,Active,+,LEO,93.96,-1.0,PRC,China,97.11,Government,Earth Observation,1800.0,,-1.0,1,Long March
 34903,2009-023A,STSS ATRR (USA 205),2009-05-05,2009,"Air Force Western Test Range, California, USA",USA,Delta 2,Active,+,LEO,102.37,-1.0,US,USA,98.93,Military,Technology Development,-1.0,,-1.0,1,Delta
@@ -3110,7 +3110,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 36122,2009-072B,XIWANG-1 (HOPE-1),2009-12-15,2009,"Taiyuan Space Center, PRC",PRC,Long March 4C,Active,P,LEO,109.39,-1.0,PRC,China,100.22,Civil,Communications,60.0,,-1.0,1,Long March
 36124,2009-073A,HELIOS 2B,2009-12-18,2009,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,LEO,93.45,-1.0,FR,France,98.19,Military,Earth Observation,4200.0,"1,500-1,900",5.0,1,Ariane
 36131,2009-075A,DIRECTV 12,2009-12-29,2009,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Breeze M,Active,+,GSO,1436.09,-1.0,US,USA,0.03,Commercial,Communications,5900.0,,15.0,1,Breeze
-36287,2010-001A,BEIDOU 3,2010-01-16,2010,"Xichang Launch Facility, PRC",PRC,,Active,P,GSO,1436.11,-1.0,PRC,China,1.95,,,-1.0,,-1.0,0,
+36287,2010-001A,BEIDOU-2 G1,2010-01-16,2010,"Xichang Launch Facility, PRC",PRC,,Active,P,GSO,1436.11,-1.0,PRC,China,1.95,,,-1.0,,-1.0,0,
 36358,2010-002A,RADUGA-1M 2,2010-01-28,2010,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Active,+,GSO,1436.12,-1.0,CIS,Russia/USSR,0.46,Military,Communications,2500.0,,5.0,1,Proton
 36395,2010-005A,SDO,2010-02-11,2010,"Air Force Eastern Test Range, Florida, USA",USA,Atlas 5,Active,+,GSO,1436.04,-1.0,US,USA,32.13,Government,Space Science,3100.0,1650,5.0,1,Atlas
 36397,2010-006A,INTELSAT 16 (IS-16),2010-02-12,2010,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Active,+,GSO,1436.12,-1.0,ITSO,INTELSAT,0.01,Commercial,Communications,2450.0,,15.0,1,Proton
@@ -3129,7 +3129,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 36582,2010-021B,COMSATBW-2,2010-05-21,2010,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1436.06,-1.0,GER,Germany,0.06,Military,Communications,2440.0,,15.0,1,Ariane
 36585,2010-022A,NAVSTAR 65 (USA 213),2010-05-28,2010,"Air Force Eastern Test Range, Florida, USA",USA,Delta 4,Active,+,MEO,718.02,-1.0,US,USA,54.66,Commercial/Military,Navigation (Global or Regional Positioning),1630.0,,12.0,1,Delta
 36588,2010-023A,SERVIS 2,2010-06-02,2010,"Plesetsk Missile and Space Complex, Russia",Russia,,Inactive,UNK,LEO,109.43,-1.0,JPN,Japan,100.43,,,-1.0,,-1.0,0,
-36590,2010-024A,BEIDOU 4,2010-06-02,2010,"Xichang Launch Facility, PRC",PRC,,Active,P,GSO,1436.09,-1.0,PRC,China,2.0,,,-1.0,,-1.0,0,
+36590,2010-024A,BEIDOU-2 G3,2010-06-02,2010,"Xichang Launch Facility, PRC",PRC,,Active,P,GSO,1436.09,-1.0,PRC,China,2.0,,,-1.0,,-1.0,0,
 36592,2010-025A,BADR-5,2010-06-03,2010,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton,Active,+,GSO,1436.12,-1.0,AB,Arabsat,0.03,Government,Communications,5420.0,,15.0,1,Proton
 36596,2010-027A,SJ-12,2010-06-15,2010,"Jiuquan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,96.05,-1.0,PRC,China,97.74,Government,Technology Development,-1.0,,-1.0,1,Long March
 36598,2010-028A,PICARD,2010-06-15,2010,"Dombarovskiy Launch Site, Russia",Russia,,Inactive,-,LEO,99.24,-1.0,FR,France,98.3,,,-1.0,,-1.0,0,
@@ -3358,7 +3358,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 38767,2012-048K,AEROCUBE 4.5A,2012-09-13,2012,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,96.12,-1.0,US,USA,64.67,,,-1.0,,-1.0,0,
 38768,2012-048L,AEROCUBE 4.5B,2012-09-13,2012,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,95.73,-1.0,US,USA,64.67,,,-1.0,,-1.0,0,
 38771,2012-049A,METOP-B,2012-09-17,2012,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Soyuz-2.1a,Active,+,LEO,101.3,-1.0,EUME,EUMETSAT,98.7,Civil/Government,Earth Observation,4085.0,,5.0,1,Soyuz
-38774,2012-050A,BEIDOU 14,2012-09-18,2012,"Xichang Launch Facility, PRC",PRC,,Inactive,-,MEO,773.15,-1.0,PRC,China,55.44,,,-1.0,,-1.0,0,
+38774,2012-050A,BEIDOU-2 M5,2012-09-18,2012,"Xichang Launch Facility, PRC",PRC,,Inactive,-,MEO,773.15,-1.0,PRC,China,55.44,,,-1.0,,-1.0,0,
 38775,2012-050B,BEIDOU-2 M6,2012-09-18,2012,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,55.55,Government/Military,Navigation (Global or Regional Positioning),3800.0,,8.0,1,Long March
 38778,2012-051A,ASTRA 2F,2012-09-28,2012,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5 ECA,Active,+,GSO,1436.03,-1.0,SES,SES,0.1,Commercial,Communications,6000.0,2660,15.0,1,Ariane
 38779,2012-051B,GSAT-10,2012-09-28,2012,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1436.1,-1.0,IND,India,0.02,Government,Communications,3400.0,1493,15.0,1,Ariane
@@ -3843,7 +3843,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 41241,2016-003A,IRNSS-1E,2016-01-20,2016,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV-XL,Active,+,GSO,1436.06,-1.0,IND,India,30.52,Government,Navigation (Global or Regional Positioning),1425.0,598,12.0,1,PSLV
 41308,2016-004A,INTELSAT 29E (IS-29E),2016-01-27,2016,"Europe's Spaceport, Kourou, French Guiana",French Guiana,,Inactive,-,GSO,1430.99,-1.0,ITSO,INTELSAT,3.42,,,-1.0,,-1.0,0,
 41310,2016-005A,EUTELSAT 9B,2016-01-29,2016,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton,Active,+,GSO,1436.11,-1.0,EUTE,EUTELSAT,0.03,Commercial,Communications,5200.0,,15.0,1,Proton
-41315,2016-006A,BEIDOU 21,2016-02-01,2016,"Xichang Launch Facility, PRC",PRC,,Inactive,-,MEO,773.23,-1.0,PRC,China,55.72,,,-1.0,,-1.0,0,
+41315,2016-006A,BEIDOU-3S M3S,2016-02-01,2016,"Xichang Launch Facility, PRC",PRC,,Inactive,-,MEO,773.23,-1.0,PRC,China,55.72,,,-1.0,,-1.0,0,
 41328,2016-007A,NAVSTAR 76 (USA 266),2016-02-05,2016,"Air Force Eastern Test Range, Florida, USA",USA,Atlas 5,Active,+,MEO,717.99,-1.0,US,USA,54.96,Commercial/Military,Navigation (Global or Regional Positioning),1630.0,,12.0,1,Atlas
 41330,2016-008A,COSMOS 2514 [GLONASS-M],2016-02-07,2016,"Plesetsk Missile and Space Complex, Russia",Russia,Soyuz-2.1b,Active,+,MEO,675.73,-1.0,CIS,Russia/USSR,65.55,Commercial/Military,Navigation (Global or Regional Positioning),1415.0,,7.0,1,Soyuz
 41332,2016-009A,KMS 4,2016-02-07,2016,"Yunsong Launch Site(Sohae Satellite Launching Station),Democratic People's Republic of Korea",Democratic People's Republic of Korea,,Active,+,LEO,92.44,-1.0,NKOR,North Korea,97.22,,,-1.0,,-1.0,0,
@@ -4523,10 +4523,8 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 43889,2018-111P,LEMUR-2-DAISY-HARPER,2018-12-27,2018,"Vostochny Cosmodrome, Russia",Russia,Soyuz-2.1a,Active,+,LEO,95.81,-1.0,US,USA,97.68,Commercial,Earth Observation,10.0,,-1.0,1,Soyuz
 43890,2018-111Q,GRUS-1A,2018-12-27,2018,"Vostochny Cosmodrome, Russia",Russia,Soyuz-2.1a,Active,+,LEO,96.38,-1.0,JPN,Japan,97.62,Commercial,Earth Observation,100.0,,5.0,1,Soyuz
 43891,2018-111R,OBJECT R,2018-12-27,2018,"Vostochny Cosmodrome, Russia",Russia,,Active,+,LEO,94.41,-1.0,TBD,To Be Determined,97.15,,,-1.0,,-1.0,0,
-43894,2018-111U,FLOCK 3K-1,2018-12-27,2018,"Vostochny Cosmodrome, Russia",Russia,,Inactive,-,LEO,89.37,-1.0,US,USA,97.14,,,-1.0,,-1.0,0,
 43895,2018-111V,FLOCK 3K-2,2018-12-27,2018,"Vostochny Cosmodrome, Russia",Russia,,Inactive,-,LEO,90.61,-1.0,US,USA,97.15,,,-1.0,,-1.0,0,
 43896,2018-111W,FLOCK 3K-6,2018-12-27,2018,"Vostochny Cosmodrome, Russia",Russia,,Inactive,-,LEO,90.24,-1.0,US,USA,97.15,,,-1.0,,-1.0,0,
-43903,2018-111AD,FLOCK 3K-12,2018-12-27,2018,"Vostochny Cosmodrome, Russia",Russia,,Inactive,-,LEO,88.55,-1.0,US,USA,97.12,,,-1.0,,-1.0,0,
 43904,2018-111AE,FLOCK 3K-11,2018-12-27,2018,"Vostochny Cosmodrome, Russia",Russia,,Inactive,-,LEO,90.87,-1.0,US,USA,97.15,,,-1.0,,-1.0,0,
 43907,2018-111AH,ZACUBE-2,2018-12-27,2018,"Vostochny Cosmodrome, Russia",Russia,Soyuz-2.1a,Active,+,LEO,93.9,-1.0,SAFR,South Africa,97.16,Civil,Earth Observation,4.0,,-1.0,1,Soyuz
 43908,2018-111AJ,LUME 1,2018-12-27,2018,"Vostochny Cosmodrome, Russia",Russia,Soyuz-2.1a,Active,+,LEO,93.65,-1.0,SPN,Spain,97.16,Civil/Commercial,Communications,2.0,,-1.0,1,Soyuz
@@ -10256,7 +10254,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 55421,2023-014AG,STARLINK-5598,2023-01-31,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,91.72,-1.0,US,USA,70.0,,,-1.0,,-1.0,0,
 55422,2023-014AH,STARLINK-5006,2023-01-31,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,91.72,-1.0,US,USA,70.0,,,-1.0,,-1.0,0,
 55423,2023-014AJ,STARLINK-5068,2023-01-31,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,91.72,-1.0,US,USA,70.0,,,-1.0,,-1.0,0,
-55424,2023-014AK,STARLINK-5066,2023-01-31,2023,"Air Force Western Test Range, California, USA",USA,,Active,P,LEO,88.29,-1.0,US,USA,69.98,,,-1.0,,-1.0,0,
 55425,2023-014AL,STARLINK-5615,2023-01-31,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,91.73,-1.0,US,USA,70.0,,,-1.0,,-1.0,0,
 55426,2023-014AM,STARLINK-5638,2023-01-31,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,91.72,-1.0,US,USA,70.0,,,-1.0,,-1.0,0,
 55427,2023-014AN,STARLINK-5073,2023-01-31,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,91.72,-1.0,US,USA,70.0,,,-1.0,,-1.0,0,
