@@ -3992,7 +3992,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 41945,2017-007B,INTELSAT 32E (IS-32E),2017-02-14,2017,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5 ECA,Active,+,GSO,1435.95,-1.0,ITSO,INTELSAT,0.01,Commercial,Communications,6000.0,,15.0,1,Ariane
 41948,2017-008A,CARTOSAT-2D,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV XL,Active,+,LEO,94.79,-1.0,IND,India,97.43,Government,Earth Observation,714.0,,5.0,1,PSLV
 41949,2017-008B,INS-1A,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV XL,Active,+,LEO,93.24,-1.0,IND,India,97.22,Government,Earth Observation,8.4,,-1.0,1,PSLV
-41950,2017-008C,FLOCK 3P-20,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,88.5,-1.0,US,USA,97.23,,,-1.0,,-1.0,0,
 41951,2017-008D,FLOCK 3P-8,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,91.38,-1.0,US,USA,97.23,,,-1.0,,-1.0,0,
 41954,2017-008G,INS-1B,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV XL,Active,+,LEO,93.29,-1.0,IND,India,97.22,Government,Earth Observation,8.0,,-1.0,1,PSLV
 41956,2017-008J,FLOCK 3P-24,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,93.29,-1.0,US,USA,97.25,Commercial,Earth Observation,4.0,,3.0,1,PSLV
@@ -4563,7 +4562,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 44087,2019-018K,LEMUR-2-VICTOR-ANDREW,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,90.53,-1.0,US,USA,97.28,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
 44088,2019-018L,FLOCK 4A-17,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Inactive,-,LEO,90.58,-1.0,US,USA,97.26,Commercial,Earth Observation,4.0,,3.0,1,PSLV
 44089,2019-018M,FLOCK 4A-18,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,92.07,-1.0,US,USA,97.26,,,-1.0,,-1.0,0,
-44090,2019-018N,FLOCK 4A-19,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Inactive,-,LEO,89.07,-1.0,US,USA,97.24,Commercial,Earth Observation,4.0,,3.0,1,PSLV
 44091,2019-018P,FLOCK 4A-20,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,91.95,-1.0,US,USA,97.26,,,-1.0,,-1.0,0,
 44092,2019-018Q,FLOCK 4A-8,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,92.59,-1.0,US,USA,97.26,,,-1.0,,-1.0,0,
 44093,2019-018R,FLOCK 4A-7,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,91.94,-1.0,US,USA,97.26,,,-1.0,,-1.0,0,
@@ -5974,7 +5972,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 47406,2021-005BK,STARLINK-2133,2021-01-20,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 47407,2021-005BL,STARLINK-2134,2021-01-20,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 47408,2021-005BM,STARLINK-2135,2021-01-20,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
-47425,2021-006N,SPACEBEE-52,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,88.5,-1.0,US,USA,97.38,Commercial,Communications,2.0,,2.0,1,Falcon
 47426,2021-006P,SPACEBEE-46,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,92.42,-1.0,US,USA,97.4,Commercial,Communications,2.0,,2.0,1,Falcon
 47427,2021-006Q,SPACEBEE-47,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,92.63,-1.0,US,USA,97.4,Commercial,Communications,2.0,,2.0,1,Falcon
 47428,2021-006R,SPACEBEE-59,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,92.8,-1.0,US,USA,97.4,Commercial,Communications,2.0,,2.0,1,Falcon
@@ -7045,7 +7042,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 48930,2021-059BD,KSF1-A,2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.1,-1.0,LUXE,Luxembourg,97.57,Commercial,Earth Observation,10.0,,-1.0,1,Falcon
 48931,2021-059BE,HAWK-3B,2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9/Sherpa FX,Active,+,LEO,94.84,-1.0,US,USA,97.57,Commercial,Surveillance,15.0,,-1.0,1,Falcon
 48932,2021-059BF,SPACEBEE-92,2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,91.22,-1.0,US,USA,97.55,Commercial,Communications,2.0,,2.0,1,Falcon
-48933,2021-059BG,SPACEBEE-89,2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,88.3,-1.0,US,USA,97.53,Commercial,Communications,2.0,,2.0,1,Falcon
 48934,2021-059BH,SPACEBEE-96,2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,91.62,-1.0,US,USA,97.55,Commercial,Communications,2.0,,2.0,1,Falcon
 48936,2021-059BK,SPACEBEE-99,2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,92.22,-1.0,US,USA,97.55,Commercial,Communications,2.0,,2.0,1,Falcon
 48937,2021-059BL,SPACEBEE-94,2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,91.0,-1.0,US,USA,97.54,Commercial,Communications,2.0,,2.0,1,Falcon
