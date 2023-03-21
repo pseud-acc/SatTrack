@@ -3991,7 +3991,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.21,2017-02-15,SRILR,41951,2017-008D,FLOCK 3P-8,PAY,-,EA,LEO,ORB,US,89.42,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.21,2017-02-15,SRILR,41954,2017-008G,INS-1B,PAY,+,EA,LEO,ORB,IND,93.16,Active,India,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.25,2017-02-15,SRILR,41956,2017-008J,FLOCK 3P-24,PAY,+,EA,LEO,ORB,US,93.18,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
-,97.21,2017-02-15,SRILR,41990,2017-008AU,FLOCK 3P-33,PAY,-,EA,LEO,ORB,US,88.93,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.22,2017-02-15,SRILR,41991,2017-008AV,LEMUR-2-JOBANPUTRA,PAY,+,EA,LEO,ORB,US,92.82,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.22,2017-02-15,SRILR,41992,2017-008AW,LEMUR-2-SPIRE-MINIONS,PAY,+,EA,LEO,ORB,US,92.03,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.21,2017-02-15,SRILR,41993,2017-008AX,LEMUR-2-SATCHMO,PAY,+,EA,LEO,ORB,US,93.17,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
@@ -5772,7 +5771,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,3.46,2020-11-12,XICLF,46916,2020-082A,TIANTONG-1 2,PAY,+,EA,GSO,ORB,PRC,1436.14,Active,China,"Xichang Launch Facility, PRC",PRC
 ,58.43,2020-11-13,AFETR,46918,2020-083A,USA 310,PAY,+,EA,MEO,ORB,US,382.8,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,97.47,2020-11-20,RLLB,46931,2020-085C,CORVUS BC5,PAY,+,EA,LEO,ORB,US,93.76,Active,USA,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
-,97.43,2020-11-20,RLLB,46938,2020-085K,SPACEBEENZ-3,PAY,+,EA,LEO,ORB,NZ,88.66,Active,New Zealand,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
 ,97.44,2020-11-20,RLLB,46939,2020-085L,SPACEBEENZ-4,PAY,+,EA,LEO,ORB,NZ,90.58,Active,New Zealand,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
 ,97.48,2020-11-20,RLLB,46940,2020-085M,BRO-2,PAY,+,EA,LEO,ORB,FR,94.1,Active,France,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
 ,97.45,2020-11-20,RLLB,46941,2020-085N,SPACEBEENZ-5,PAY,+,EA,LEO,ORB,NZ,91.13,Active,New Zealand,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand

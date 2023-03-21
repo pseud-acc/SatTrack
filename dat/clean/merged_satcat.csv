@@ -3991,7 +3991,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 41951,2017-008D,FLOCK 3P-8,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,89.42,-1.0,US,USA,97.21,,,-1.0,,-1.0,0,
 41954,2017-008G,INS-1B,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV XL,Active,+,LEO,93.16,-1.0,IND,India,97.21,Government,Earth Observation,8.0,,-1.0,1,PSLV
 41956,2017-008J,FLOCK 3P-24,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,93.18,-1.0,US,USA,97.25,Commercial,Earth Observation,4.0,,3.0,1,PSLV
-41990,2017-008AU,FLOCK 3P-33,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Inactive,-,LEO,88.93,-1.0,US,USA,97.21,Commercial,Earth Observation,4.0,,3.0,1,PSLV
 41991,2017-008AV,LEMUR-2-JOBANPUTRA,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV-XL,Active,+,LEO,92.82,-1.0,US,USA,97.22,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
 41992,2017-008AW,LEMUR-2-SPIRE-MINIONS,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV-XL,Active,+,LEO,92.03,-1.0,US,USA,97.22,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
 41993,2017-008AX,LEMUR-2-SATCHMO,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV-XL,Active,+,LEO,93.17,-1.0,US,USA,97.21,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
@@ -5772,7 +5771,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 46916,2020-082A,TIANTONG-1 2,2020-11-12,2020,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,GSO,1436.14,-1.0,PRC,China,3.46,Government,Communications,-1.0,,-1.0,1,Long March
 46918,2020-083A,USA 310,2020-11-13,2020,"Air Force Eastern Test Range, Florida, USA",USA,Atlas 5,Active,+,MEO,382.8,-1.0,US,USA,58.43,Military,Earth Observation,-1.0,,-1.0,1,Atlas
 46931,2020-085C,CORVUS BC5,2020-11-20,2020,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,93.76,-1.0,US,USA,97.47,Commercial,Earth Observation,10.0,,-1.0,1,Electron
-46938,2020-085K,SPACEBEENZ-3,2020-11-20,2020,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,88.66,-1.0,NZ,New Zealand,97.43,Commercial,Communications,2.0,,2.0,1,Electron
 46939,2020-085L,SPACEBEENZ-4,2020-11-20,2020,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,90.58,-1.0,NZ,New Zealand,97.44,Commercial,Communications,2.0,,2.0,1,Electron
 46940,2020-085M,BRO-2,2020-11-20,2020,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,94.1,-1.0,FR,France,97.48,,,-1.0,,-1.0,0,
 46941,2020-085N,SPACEBEENZ-5,2020-11-20,2020,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,91.13,-1.0,NZ,New Zealand,97.45,Commercial,Communications,2.0,,2.0,1,Electron

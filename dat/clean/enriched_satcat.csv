@@ -3991,7 +3991,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 41951,FLOCK 3P-8,2017,89.42,-1.0,-,97.21,Inactive,0,LEO,India,USA,Unknown,Unknown,Unknown
 41954,INS-1B,2017,93.16,8.0,+,97.21,Active,1,LEO,India,India,Government,PSLV,Earth Observation
 41956,FLOCK 3P-24,2017,93.18,4.0,+,97.25,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
-41990,FLOCK 3P-33,2017,88.93,4.0,-,97.21,Inactive,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 41991,LEMUR-2-JOBANPUTRA,2017,92.82,10.0,+,97.22,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 41992,LEMUR-2-SPIRE-MINIONS,2017,92.03,10.0,+,97.22,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 41993,LEMUR-2-SATCHMO,2017,93.17,10.0,+,97.21,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
@@ -5772,7 +5771,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 46916,TIANTONG-1 2,2020,1436.14,-1.0,+,3.46,Active,1,GSO,PRC,China,Government,Long March,Communications
 46918,USA 310,2020,382.8,-1.0,+,58.43,Active,1,MEO,USA,USA,Military,Atlas,Earth Observation
 46931,CORVUS BC5,2020,93.76,10.0,+,97.47,Active,1,LEO,New Zealand,USA,Commercial,Electron,Earth Observation
-46938,SPACEBEENZ-3,2020,88.66,2.0,+,97.43,Active,1,LEO,New Zealand,New Zealand,Commercial,Electron,Communications
 46939,SPACEBEENZ-4,2020,90.58,2.0,+,97.44,Active,1,LEO,New Zealand,New Zealand,Commercial,Electron,Communications
 46940,BRO-2,2020,94.1,-1.0,+,97.48,Active,0,LEO,New Zealand,France,Unknown,Unknown,Unknown
 46941,SPACEBEENZ-5,2020,91.13,2.0,+,97.45,Active,1,LEO,New Zealand,New Zealand,Commercial,Electron,Communications
