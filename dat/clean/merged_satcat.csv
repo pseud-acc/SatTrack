@@ -3750,7 +3750,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 40894,2015-047A,GAOFEN 9-01,2015-09-14,2015,"Jiuquan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,97.5,-1.0,PRC,China,97.78,Government,Earth Observation,1000.0,,8.0,1,Long March
 40895,2015-048A,EXPRESS-AM8,2015-09-14,2015,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton DM,Active,+,GSO,1436.1,-1.0,CIS,Russia/USSR,0.02,Commercial,Communications,2100.0,,15.0,1,Proton
 40899,2015-049A,OBJECT A,2015-09-19,2015,"Taiyuan Space Center, PRC",PRC,Long March 6,Active,+,LEO,94.47,-1.0,PRC,China,97.48,Government,Technology Development,20.0,,-1.0,1,Long March
-40900,2015-049B,NUDT-PHONESAT,2015-09-19,2015,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,89.15,-1.0,PRC,China,97.35,,,-1.0,,-1.0,0,
 40901,2015-049C,ZDPS 2A,2015-09-19,2015,"Taiyuan Space Center, PRC",PRC,Long March 6,Active,+,LEO,93.77,-1.0,PRC,China,97.45,Civil,Technology Development,12.0,,-1.0,1,Long March
 40902,2015-049D,ZDPS 2B,2015-09-19,2015,"Taiyuan Space Center, PRC",PRC,Long March 6,Active,+,LEO,93.71,-1.0,PRC,China,97.46,Civil,Technology Development,12.0,,-1.0,1,Long March
 40903,2015-049E,XW-2A,2015-09-19,2015,"Taiyuan Space Center, PRC",PRC,Long March 6,Active,+,LEO,90.53,-1.0,PRC,China,97.12,Civil,Communications,25.0,,-1.0,1,Long March
@@ -4000,7 +3999,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 42015,2017-008BV,PEASSS,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV XL,Active,+,LEO,93.24,-1.0,NETH,Netherlands,97.22,Government,Technology Development,10.0,,1.0,1,PSLV
 42016,2017-008BW,AL-FARABI 1,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Active,+,LEO,92.56,-1.0,KAZ,Kazakhstan,97.22,,,-1.0,,-1.0,0,
 42017,2017-008BX,NAYIF-1 (EO-88),2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV XL,Active,+,LEO,92.52,-1.0,UAE,UAE,97.22,Civil,Communications/Technology Development,2.0,,-1.0,1,PSLV
-42048,2017-008DE,FLOCK 3P-74,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Inactive,-,LEO,88.57,-1.0,US,USA,97.21,Commercial,Earth Observation,4.0,,3.0,1,PSLV
 42058,2017-011A,USA 274,2017-03-01,2017,"Air Force Western Test Range, California, USA",USA,Atlas 5,Active,+,LEO,107.39,-1.0,US,USA,63.44,Military,Earth Observation,6500.0,,-1.0,1,Atlas
 42061,2017-012A,TK-1,2017-03-02,2017,"Jiuquan Space Center, PRC",PRC,KT-2,Active,+,LEO,90.98,-1.0,PRC,China,97.14,Government,Earth Observation/Technology Development,-1.0,,-1.0,1,Kaituozhe
 42063,2017-013A,SENTINEL-2B,2017-03-07,2017,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Vega,Active,+,LEO,100.64,-1.0,ESA,ESA,98.57,Government,Earth Observation,1130.0,,7.0,1,Vega
@@ -4135,7 +4133,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 42990,2017-068D,SKYSAT-C8,2017-10-31,2017,"Air Force Western Test Range, California, USA",USA,Minotaur-C,Active,+,LEO,93.43,-1.0,US,USA,97.32,Commercial,Earth Observation,110.0,,-1.0,1,Minotaur
 42991,2017-068E,SKYSAT-C7,2017-10-31,2017,"Air Force Western Test Range, California, USA",USA,Minotaur-C,Active,+,LEO,93.42,-1.0,US,USA,97.32,Commercial,Earth Observation,110.0,,-1.0,1,Minotaur
 42992,2017-068F,SKYSAT-C6,2017-10-31,2017,"Air Force Western Test Range, California, USA",USA,Minotaur-C,Active,+,LEO,93.43,-1.0,US,USA,97.32,Commercial,Earth Observation,110.0,,-1.0,1,Minotaur
-42998,2017-068M,FLOCK 3M-2,2017-10-31,2017,"Air Force Western Test Range, California, USA",USA,,Inactive,-,LEO,88.97,-1.0,US,USA,97.44,,,-1.0,,-1.0,0,
 43001,2017-069A,BEIDOU-3 M1,2017-11-05,2017,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,55.73,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
 43002,2017-069B,BEIDOU-3 M2,2017-11-05,2017,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,55.73,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
 43005,2017-070A,MOHAMMED VI-A,2017-11-08,2017,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Vega,Active,+,LEO,97.49,-1.0,MA,Morroco,97.94,Government,Earth Observation,1110.0,,-1.0,1,Vega

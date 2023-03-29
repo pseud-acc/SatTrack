@@ -3750,7 +3750,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 40894,GAOFEN 9-01,2015,97.5,1000.0,+,97.78,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
 40895,EXPRESS-AM8,2015,1436.1,2100.0,+,0.02,Active,1,GSO,Kazakhstan,Russia/USSR,Commercial,Proton,Communications
 40899,OBJECT A,2015,94.47,20.0,+,97.48,Active,1,LEO,PRC,China,Government,Long March,Technology Development
-40900,NUDT-PHONESAT,2015,89.15,-1.0,+,97.35,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 40901,ZDPS 2A,2015,93.77,12.0,+,97.45,Active,1,LEO,PRC,China,Civil,Long March,Technology Development
 40902,ZDPS 2B,2015,93.71,12.0,+,97.46,Active,1,LEO,PRC,China,Civil,Long March,Technology Development
 40903,XW-2A,2015,90.53,25.0,+,97.12,Active,1,LEO,PRC,China,Civil,Long March,Communications
@@ -4000,7 +3999,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 42015,PEASSS,2017,93.24,10.0,+,97.22,Active,1,LEO,India,Netherlands,Government,PSLV,Technology Development
 42016,AL-FARABI 1,2017,92.56,-1.0,+,97.22,Active,0,LEO,India,Kazakhstan,Unknown,Unknown,Unknown
 42017,NAYIF-1 (EO-88),2017,92.52,2.0,+,97.22,Active,1,LEO,India,UAE,Civil,PSLV,Communications/Technology Development
-42048,FLOCK 3P-74,2017,88.57,4.0,-,97.21,Inactive,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 42058,USA 274,2017,107.39,6500.0,+,63.44,Active,1,LEO,USA,USA,Military,Atlas,Earth Observation
 42061,TK-1,2017,90.98,-1.0,+,97.14,Active,1,LEO,PRC,China,Government,Kaituozhe,Earth Observation/Technology Development
 42063,SENTINEL-2B,2017,100.64,1130.0,+,98.57,Active,1,LEO,French Guiana,ESA,Government,Vega,Earth Observation
@@ -4135,7 +4133,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 42990,SKYSAT-C8,2017,93.43,110.0,+,97.32,Active,1,LEO,USA,USA,Commercial,Minotaur,Earth Observation
 42991,SKYSAT-C7,2017,93.42,110.0,+,97.32,Active,1,LEO,USA,USA,Commercial,Minotaur,Earth Observation
 42992,SKYSAT-C6,2017,93.43,110.0,+,97.32,Active,1,LEO,USA,USA,Commercial,Minotaur,Earth Observation
-42998,FLOCK 3M-2,2017,88.97,-1.0,-,97.44,Inactive,0,LEO,USA,USA,Unknown,Unknown,Unknown
 43001,BEIDOU-3 M1,2017,773.23,800.0,+,55.73,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 43002,BEIDOU-3 M2,2017,773.23,800.0,+,55.73,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 43005,MOHAMMED VI-A,2017,97.49,1110.0,+,97.94,Active,1,LEO,French Guiana,Morroco,Government,Vega,Earth Observation
