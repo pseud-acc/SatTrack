@@ -4728,7 +4728,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.35,2019-11-27,SRILR,44811,2019-081H,FLOCK 4P-4,PAY,-,EA,LEO,ORB,US,91.45,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.34,2019-11-27,SRILR,44812,2019-081J,FLOCK 4P-3,PAY,-,EA,LEO,ORB,US,90.16,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.35,2019-11-27,SRILR,44813,2019-081K,FLOCK 4P-2,PAY,-,EA,LEO,ORB,US,93.1,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
-,97.34,2019-11-27,SRILR,44814,2019-081L,FLOCK 4P-1,PAY,-,EA,LEO,ORB,US,87.98,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.35,2019-11-27,SRILR,44815,2019-081M,FLOCK 4P-8,PAY,-,EA,LEO,ORB,US,92.45,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.36,2019-11-27,SRILR,44816,2019-081N,FLOCK 4P-7,PAY,+,EA,LEO,ORB,US,93.34,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.36,2019-11-27,SRILR,44817,2019-081P,FLOCK 4P-6,PAY,-,EA,LEO,ORB,US,92.58,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
@@ -10642,14 +10641,14 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,98.21,2023-04-15,AFWTR,56178,2023-054A,IMECE,PAY,+,EA,LEO,ORB,TURK,98.22,Active,Turkey,"Air Force Western Test Range, California, USA",USA
 ,97.41,2023-04-15,AFWTR,56179,2023-054B,OBJECT B,PAY,+,EA,LEO,ORB,TBD,94.68,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
 ,97.42,2023-04-15,AFWTR,56180,2023-054C,OBJECT C,PAY,+,EA,LEO,ORB,TBD,94.67,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
-,97.41,2023-04-15,AFWTR,56181,2023-054D,OBJECT D,PAY,+,EA,LEO,ORB,TBD,94.67,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.41,2023-04-15,AFWTR,56181,2023-054D,KILICSAT,PAY,+,EA,LEO,ORB,TURK,94.67,Active,Turkey,"Air Force Western Test Range, California, USA",USA
 ,97.4,2023-04-15,AFWTR,56182,2023-054E,OBJECT E,PAY,+,EA,LEO,ORB,TBD,94.66,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
 ,97.41,2023-04-15,AFWTR,56183,2023-054F,OBJECT F,PAY,+,EA,LEO,ORB,TBD,94.66,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
 ,97.42,2023-04-15,AFWTR,56184,2023-054G,OBJECT G,PAY,+,EA,LEO,ORB,TBD,94.66,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
 ,97.41,2023-04-15,AFWTR,56185,2023-054H,OBJECT H,PAY,+,EA,LEO,ORB,TBD,94.66,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
 ,97.41,2023-04-15,AFWTR,56186,2023-054J,OBJECT J,PAY,+,EA,LEO,ORB,TBD,94.66,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
 ,97.41,2023-04-15,AFWTR,56187,2023-054K,OBJECT K,PAY,+,EA,LEO,ORB,TBD,94.65,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
-,97.41,2023-04-15,AFWTR,56188,2023-054L,OBJECT L,PAY,+,EA,LEO,ORB,TBD,94.65,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.41,2023-04-15,AFWTR,56188,2023-054L,CIRBE,PAY,+,EA,LEO,ORB,US,94.65,Active,USA,"Air Force Western Test Range, California, USA",USA
 ,97.41,2023-04-15,AFWTR,56189,2023-054M,OBJECT M,PAY,+,EA,LEO,ORB,TBD,94.64,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
 ,97.41,2023-04-15,AFWTR,56190,2023-054N,OBJECT N,PAY,+,EA,LEO,ORB,TBD,94.64,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
 ,97.41,2023-04-15,AFWTR,56191,2023-054P,OBJECT P,PAY,+,EA,LEO,ORB,TBD,94.63,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
@@ -10669,11 +10668,11 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.41,2023-04-15,AFWTR,56205,2023-054AD,OBJECT AD,PAY,+,EA,LEO,ORB,TBD,94.56,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
 ,97.41,2023-04-15,AFWTR,56206,2023-054AE,OBJECT AE,PAY,+,EA,LEO,ORB,TBD,94.57,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
 ,97.42,2023-04-15,AFWTR,56207,2023-054AF,OBJECT AF,PAY,+,EA,LEO,ORB,TBD,94.57,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.4,2023-04-15,AFWTR,56208,2023-054AG,OBJECT AG,PAY,+,EA,LEO,ORB,TBD,94.57,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
 ,97.41,2023-04-15,AFWTR,56209,2023-054AH,OBJECT AH,PAY,+,EA,LEO,ORB,TBD,94.57,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
 ,97.41,2023-04-15,AFWTR,56210,2023-054AJ,OBJECT AJ,PAY,+,EA,LEO,ORB,TBD,94.56,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
-,97.42,2023-04-15,AFWTR,56211,2023-054AK,OBJECT AK,PAY,+,EA,LEO,ORB,TBD,94.56,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
-,97.42,2023-04-15,AFWTR,56212,2023-054AL,OBJECT AL,PAY,+,EA,LEO,ORB,TBD,94.55,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.42,2023-04-15,AFWTR,56211,2023-054AK,INSPIRE-SAT 7,PAY,+,EA,LEO,ORB,FR,94.56,Active,France,"Air Force Western Test Range, California, USA",USA
+,97.42,2023-04-15,AFWTR,56212,2023-054AL,ROSEYCUBESAT-1,PAY,+,EA,LEO,ORB,MCO,94.55,Active,Principality of Monaco,"Air Force Western Test Range, California, USA",USA
 ,97.41,2023-04-15,AFWTR,56213,2023-054AM,OBJECT AM,PAY,+,EA,LEO,ORB,TBD,94.55,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
 ,97.41,2023-04-15,AFWTR,56214,2023-054AN,OBJECT AN,PAY,+,EA,LEO,ORB,TBD,94.55,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
-,98.21,2023-04-15,AFWTR,56215,2023-054AP,OBJECT AP,PAY,+,EA,LEO,ORB,TBD,98.49,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
 ,50.0,2023-04-16,JSC,56232,2023-055A,FENGYUN 3G,PAY,+,EA,LEO,ORB,PRC,92.79,Active,China,"Jiuquan Space Center, PRC",PRC

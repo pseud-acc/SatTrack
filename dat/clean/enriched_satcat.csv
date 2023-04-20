@@ -4728,7 +4728,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 44811,FLOCK 4P-4,2019,91.45,4.0,-,97.35,Inactive,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 44812,FLOCK 4P-3,2019,90.16,4.0,-,97.34,Inactive,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 44813,FLOCK 4P-2,2019,93.1,-1.0,-,97.35,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
-44814,FLOCK 4P-1,2019,87.98,4.0,-,97.34,Inactive,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 44815,FLOCK 4P-8,2019,92.45,-1.0,-,97.35,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
 44816,FLOCK 4P-7,2019,93.34,4.0,+,97.36,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 44817,FLOCK 4P-6,2019,92.58,-1.0,-,97.36,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
@@ -10642,14 +10641,14 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 56178,IMECE,2023,98.22,-1.0,+,98.21,Active,0,LEO,USA,Turkey,Unknown,Unknown,Unknown
 56179,OBJECT B,2023,94.68,-1.0,+,97.41,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 56180,OBJECT C,2023,94.67,-1.0,+,97.42,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
-56181,OBJECT D,2023,94.67,-1.0,+,97.41,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+56181,KILICSAT,2023,94.67,-1.0,+,97.41,Active,0,LEO,USA,Turkey,Unknown,Unknown,Unknown
 56182,OBJECT E,2023,94.66,-1.0,+,97.4,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 56183,OBJECT F,2023,94.66,-1.0,+,97.41,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 56184,OBJECT G,2023,94.66,-1.0,+,97.42,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 56185,OBJECT H,2023,94.66,-1.0,+,97.41,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 56186,OBJECT J,2023,94.66,-1.0,+,97.41,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 56187,OBJECT K,2023,94.65,-1.0,+,97.41,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
-56188,OBJECT L,2023,94.65,-1.0,+,97.41,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+56188,CIRBE,2023,94.65,-1.0,+,97.41,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56189,OBJECT M,2023,94.64,-1.0,+,97.41,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 56190,OBJECT N,2023,94.64,-1.0,+,97.41,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 56191,OBJECT P,2023,94.63,-1.0,+,97.41,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
@@ -10669,11 +10668,11 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 56205,OBJECT AD,2023,94.56,-1.0,+,97.41,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 56206,OBJECT AE,2023,94.57,-1.0,+,97.41,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 56207,OBJECT AF,2023,94.57,-1.0,+,97.42,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+56208,OBJECT AG,2023,94.57,-1.0,+,97.4,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 56209,OBJECT AH,2023,94.57,-1.0,+,97.41,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 56210,OBJECT AJ,2023,94.56,-1.0,+,97.41,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
-56211,OBJECT AK,2023,94.56,-1.0,+,97.42,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
-56212,OBJECT AL,2023,94.55,-1.0,+,97.42,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+56211,INSPIRE-SAT 7,2023,94.56,-1.0,+,97.42,Active,0,LEO,USA,France,Unknown,Unknown,Unknown
+56212,ROSEYCUBESAT-1,2023,94.55,-1.0,+,97.42,Active,0,LEO,USA,Principality of Monaco,Unknown,Unknown,Unknown
 56213,OBJECT AM,2023,94.55,-1.0,+,97.41,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 56214,OBJECT AN,2023,94.55,-1.0,+,97.41,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
-56215,OBJECT AP,2023,98.49,-1.0,+,98.21,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 56232,FENGYUN 3G,2023,92.79,-1.0,+,50.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
