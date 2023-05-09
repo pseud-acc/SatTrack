@@ -100,6 +100,7 @@ def webscraper_dump(dbs_name):
     cur = conn.cursor()    
     
     # Create list of webpages in SkyRocket satellite directory - filter for satellites
+    insertdatetime = datetime.today().strftime("%d/%m/%Y, %H:%M:%S")
     
     ##Define parent webpages for satellite listings
     url_home = "https://space.skyrocket.de/"
@@ -144,7 +145,8 @@ def webscraper_dump(dbs_name):
             urlname varchar(200) NOT NULL,
             lastupdate varchar(200) NOT NULL,
             updateflag varchar(2) NOT NULL,
-            matchupdateflag varchar(2) NOT NULL)'''
+            matchupdateflag varchar(2) NOT NULL,
+            insertdatetime varchar(200))'''
     cur.execute(query)
     conn.commit()
         
@@ -164,8 +166,8 @@ def webscraper_dump(dbs_name):
         if len(url_lastupdate_output) < 1:
             print("url not in database")
             print("")
-            insert_row = [url_sat,lastupdate,"Y","Y"]
-            query = "insert into url_skyrocket(urlname,lastupdate,updateflag,matchupdateflag) values('" + "','".join(insert_row) + "')"
+            insert_row = [url_sat,lastupdate,"Y","Y",insertdatetime]
+            query = "insert into url_skyrocket(urlname,lastupdate,updateflag,matchupdateflag,insertdatetime) values('" + "','".join(insert_row) + "')"
             cur.execute(query)
             conn.commit()
         else:
@@ -178,7 +180,11 @@ def webscraper_dump(dbs_name):
             query = '''update url_skyrocket 
                         set lastupdate = "{}", 
                             updateflag = "{}", 
-                            matchupdateflag = "{}" WHERE urlname="{}"'''.format(upsert_row[0],upsert_row[1],upsert_row[1],url_sat)
+                            matchupdateflag = "{}",
+                            insertdatetime = "{}"
+                            WHERE urlname="{}"'''.format(upsert_row[0],upsert_row[1],
+                                                         upsert_row[1],insertdatetime,
+                                                         url_sat)
             cur.execute(query) 
             
             
@@ -188,7 +194,8 @@ def webscraper_dump(dbs_name):
     query = '''
             CREATE TABLE IF NOT EXISTS match_satcat_url_skyrocket
             (satcatid INTEGER PRIMARY KEY,
-            skyrocketid INTEGER)
+            skyrocketid INTEGER,
+            insertdatetime TEXT)
             '''
     cur.execute(query)
     conn.commit()
@@ -196,10 +203,10 @@ def webscraper_dump(dbs_name):
     ##Update matching table with newly launched satellites 
     query  = '''
             INSERT INTO match_satcat_url_skyrocket 
-            SELECT SatCatId, null 
+            SELECT SatCatId, null, "{}" 
             FROM satcat 
             WHERE SatCatId not in (SELECT SatCatId FROM match_satcat_url_skyrocket)
-    '''
+    '''.format(insertdatetime)
     cur.execute(query)
     conn.commit()     
     
@@ -239,7 +246,7 @@ def webscraper_dump(dbs_name):
                 "LaunchVehicle": {"tbl_num": 1, "regex_str": "(.*)(VEHICLE)(.*)|(.*)(LAUNCHER)(.*)"}}  
     
     ##Create table to input data
-    satcat_new = pd.DataFrame(columns = [a for a in col_dict.keys()] + ["description","urlid"])
+    satcat_new = pd.DataFrame(columns = [a for a in col_dict.keys()] + ["description","urlid","insertdatetime"])
     try:
         satcat_new.to_sql("satcat_skyrocket", conn, if_exists="fail", index=False)
     except Exception:
@@ -257,8 +264,12 @@ def webscraper_dump(dbs_name):
         print("")
         print(n, "/", len(urls_to_run))
         print("------")
+        
         ## Update url database
-        query = "update url_skyrocket set updateflag = 'N' where urlid = {}".format(url_id)
+        query = '''update url_skyrocket 
+                    set updateflag = 'N',
+                        insertdatetime = "{}"
+                        where urlid = {}'''.format(insertdatetime, url_id)
         cur.execute(query)
         ## Check database    
         df  = pd.DataFrame(columns = satcat_new.columns)
@@ -290,6 +301,7 @@ def webscraper_dump(dbs_name):
             for colname, map_dict in col_dict.items():
                 df[colname] = col_search(map_dict["tbl_num"], map_dict["regex_str"], tbl_tmp[map_dict["tbl_num"]])
         df["urlid"] = url_id
+        df["insertdatetime"] = insertdatetime
         #Add satellite description text
         html = requests.get(url = url_sat).text
         soup = BeautifulSoup(html, "html.parser")
@@ -334,6 +346,7 @@ def enrich_satcat(dbs_name, enriched_satcat_filename):
     cur = conn.cursor()        
     
     # Extract satellite catalogue data from SQL database
+    insertdatetime = datetime.today().strftime("%d/%m/%Y, %H:%M:%S")
     
     # Extract all rows
     query = "select * from satcat"
@@ -391,6 +404,7 @@ def enrich_satcat(dbs_name, enriched_satcat_filename):
             pass 
             year_extract.append("Unknown")
     skyrocket_df["LaunchYear"] = year_extract    
+    skyrocket_df["insertdatetime"] = insertdatetime
     
     # Add processed skyrocket data to database
     
@@ -407,7 +421,8 @@ def enrich_satcat(dbs_name, enriched_satcat_filename):
                 Owner TEXT,
                 LaunchVehicle TEXT,
                 LaunchYear TEXT,
-                description TEXT
+                description TEXT,
+                insertdatetime TEXT
                 )'''
     cur.execute(query)
     conn.commit()    
@@ -419,7 +434,7 @@ def enrich_satcat(dbs_name, enriched_satcat_filename):
     
     # Insert new data
     cols_to_input = ["urlid","ObjectName","OrbitClass","Operator","LaunchDate",
-                     "Purpose","LaunchMass","Owner","LaunchVehicle","LaunchYear","description"]
+                     "Purpose","LaunchMass","Owner","LaunchVehicle","LaunchYear","description","insertdatetime"]
     query = "select distinct ObjectName || '_' || LaunchDate || '_' || LaunchVehicle from satcat_skyrocket_norm"
     cur.execute(query)
     unique_id_list = [a[0] for a in cur.fetchall()]
@@ -512,15 +527,18 @@ def enrich_satcat(dbs_name, enriched_satcat_filename):
                     tols[name] = t
     ##Update database with satellites matched to skyrocket webpages
     for satid,n in satid_matches.items():
-        query = """ UPDATE match_satcat_url_skyrocket set skyrocketid = {} WHERE SatCatId = {}""".format(n, int(satid))
+        query = """ UPDATE match_satcat_url_skyrocket 
+                    SET skyrocketid = {},
+                        insertdatetime = "{}"
+                    WHERE SatCatId = {}""".format(n, insertdatetime, int(satid))
         cur.execute(query)
         conn.commit()
     ##Update match flag in url_skyrocket table in database
     query = """
             UPDATE url_skyrocket
-            SET matchupdateflag = "N"
-            WHERE 1=1
-    """
+            SET matchupdateflag = "N",
+                insertdatetime = "{}"
+            WHERE 1=1""".format(insertdatetime)
     cur.execute(query)
     conn.commit()
     ##Define satellites with matching skyrocket data
