@@ -3978,7 +3978,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 41954,INS-1B,2017,92.74,8.0,+,97.2,Active,1,LEO,India,India,Government,PSLV,Earth Observation
 41956,FLOCK 3P-24,2017,92.61,4.0,+,97.23,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 41991,LEMUR-2-JOBANPUTRA,2017,91.92,10.0,+,97.19,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
-41992,LEMUR-2-SPIRE-MINIONS,2017,89.59,10.0,+,97.2,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 41993,LEMUR-2-SATCHMO,2017,92.78,10.0,+,97.2,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 41994,LEMUR-2-SMITA-SHARAD,2017,90.16,10.0,+,97.19,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 41995,LEMUR-2-RDEATON,2017,92.96,10.0,+,97.21,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
@@ -4361,7 +4360,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 43719,HYSIS,2018,97.39,380.0,+,97.91,Active,1,LEO,India,India,Government,PSLV,Earth Observation
 43721,FACSAT-1,2018,90.7,5.0,+,97.3,Active,1,LEO,India,Colombia,Military,PSLV,Earth Observation
 43730,GLOBAL-1,2018,93.15,56.0,+,97.33,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
-43737,CICERO 8,2018,89.46,10.0,+,97.32,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 43743,REAKTOR HELLO WORLD,2018,92.65,4.0,+,97.32,Active,1,LEO,India,Finland,Commercial,PSLV,Earth Observation
 43751,COSMOS 2530,2018,115.86,280.0,+,82.52,Active,1,LEO,Russia,Russia/USSR,Military,Rokot,Communications
 43752,COSMOS 2531,2018,115.86,280.0,+,82.52,Active,1,LEO,Russia,Russia/USSR,Military,Rokot,Communications
@@ -4510,7 +4508,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 44078,EMISAT,2019,99.74,436.0,+,98.39,Active,1,LEO,India,India,Military,PSLV,Earth Observation
 44080,FLOCK 4A-2,2019,92.12,4.0,-,97.24,Inactive,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 44081,FLOCK 4A-3,2019,91.48,-1.0,-,97.24,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
-44082,FLOCK 4A-4,2019,89.77,-1.0,-,97.24,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
 44083,ASTROCAST 0.2,2019,93.11,-1.0,+,97.27,Active,0,LEO,India,Switzerland,Unknown,Unknown,Unknown
 44085,LEMUR-2-BEAUDACIOUS,2019,91.63,10.0,+,97.25,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 44094,FLOCK 4A-6,2019,92.63,4.0,+,97.25,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
@@ -10817,3 +10814,4 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 56496,STARLINK BA,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56497,STARLINK BB,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56498,STARLINK BC,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56564,BEIDOU-3 G4,2023,631.73,-1.0,+,28.42,Active,0,MEO,PRC,China,Unknown,Unknown,Unknown

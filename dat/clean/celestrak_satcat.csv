@@ -3978,7 +3978,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.2,2017-02-15,SRILR,41954,2017-008G,INS-1B,PAY,+,EA,LEO,ORB,IND,92.74,Active,India,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.23,2017-02-15,SRILR,41956,2017-008J,FLOCK 3P-24,PAY,+,EA,LEO,ORB,US,92.61,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.19,2017-02-15,SRILR,41991,2017-008AV,LEMUR-2-JOBANPUTRA,PAY,+,EA,LEO,ORB,US,91.92,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
-,97.2,2017-02-15,SRILR,41992,2017-008AW,LEMUR-2-SPIRE-MINIONS,PAY,+,EA,LEO,ORB,US,89.59,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.2,2017-02-15,SRILR,41993,2017-008AX,LEMUR-2-SATCHMO,PAY,+,EA,LEO,ORB,US,92.78,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.19,2017-02-15,SRILR,41994,2017-008AY,LEMUR-2-SMITA-SHARAD,PAY,+,EA,LEO,ORB,US,90.16,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.21,2017-02-15,SRILR,41995,2017-008AZ,LEMUR-2-RDEATON,PAY,+,EA,LEO,ORB,US,92.96,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
@@ -4361,7 +4360,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.91,2018-11-29,SRILR,43719,2018-096A,HYSIS,PAY,+,EA,LEO,ORB,IND,97.39,Active,India,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.3,2018-11-29,SRILR,43721,2018-096C,FACSAT-1,PAY,+,EA,LEO,ORB,COL,90.7,Active,Colombia,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.33,2018-11-29,SRILR,43730,2018-096M,GLOBAL-1,PAY,+,EA,LEO,ORB,US,93.15,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
-,97.32,2018-11-29,SRILR,43737,2018-096U,CICERO 8,PAY,+,EA,LEO,ORB,US,89.46,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.32,2018-11-29,SRILR,43743,2018-096AA,REAKTOR HELLO WORLD,PAY,+,EA,LEO,ORB,FIN,92.65,Active,Finland,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,82.52,2018-11-30,PLMSC,43751,2018-097A,COSMOS 2530,PAY,+,EA,LEO,ORB,CIS,115.86,Active,Russia/USSR,"Plesetsk Missile and Space Complex, Russia",Russia
 ,82.52,2018-11-30,PLMSC,43752,2018-097B,COSMOS 2531,PAY,+,EA,LEO,ORB,CIS,115.86,Active,Russia/USSR,"Plesetsk Missile and Space Complex, Russia",Russia
@@ -4510,7 +4508,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,98.39,2019-04-01,SRILR,44078,2019-018A,EMISAT,PAY,+,EA,LEO,ORB,IND,99.74,Active,India,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.24,2019-04-01,SRILR,44080,2019-018C,FLOCK 4A-2,PAY,-,EA,LEO,ORB,US,92.12,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.24,2019-04-01,SRILR,44081,2019-018D,FLOCK 4A-3,PAY,-,EA,LEO,ORB,US,91.48,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
-,97.24,2019-04-01,SRILR,44082,2019-018E,FLOCK 4A-4,PAY,-,EA,LEO,ORB,US,89.77,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.27,2019-04-01,SRILR,44083,2019-018F,ASTROCAST 0.2,PAY,+,EA,LEO,ORB,SWTZ,93.11,Active,Switzerland,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.25,2019-04-01,SRILR,44085,2019-018H,LEMUR-2-BEAUDACIOUS,PAY,+,EA,LEO,ORB,US,91.63,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.25,2019-04-01,SRILR,44094,2019-018S,FLOCK 4A-6,PAY,+,EA,LEO,ORB,US,92.63,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
@@ -10817,3 +10814,4 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,70.0,2023-05-10,AFWTR,56496,2023-064BA,STARLINK BA,PAY,+,EA,LEO,ORB,US,90.52,Active,USA,"Air Force Western Test Range, California, USA",USA
 ,70.0,2023-05-10,AFWTR,56497,2023-064BB,STARLINK BB,PAY,+,EA,LEO,ORB,US,90.52,Active,USA,"Air Force Western Test Range, California, USA",USA
 ,70.0,2023-05-10,AFWTR,56498,2023-064BC,STARLINK BC,PAY,+,EA,LEO,ORB,US,90.52,Active,USA,"Air Force Western Test Range, California, USA",USA
+,28.42,2023-05-17,XICLF,56564,2023-066A,BEIDOU-3 G4,PAY,+,EA,MEO,ORB,PRC,631.73,Active,China,"Xichang Launch Facility, PRC",PRC
