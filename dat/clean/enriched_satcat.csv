@@ -1784,7 +1784,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 21937,COSMOS 2184,1992,104.86,-1.0,UNK,82.93,Inactive,0,LEO,Russia,Russia/USSR,Unknown,Kosmos,Unknown
 21939,TELECOM 2B,1992,1447.06,-1.0,-,14.13,Inactive,0,GSO,French Guiana,France,Unknown,Unknown,Unknown
 21940,INMARSAT 2-F4,1992,1470.24,-1.0,-,11.15,Inactive,0,GSO,French Guiana,INMARSAT,Unknown,Ariane,Unknown
-21949,USA 81,1992,100.59,-1.0,UNK,85.01,Inactive,0,LEO,USA,USA,Unknown,Titan,Unknown
+21949,USA 81,1992,100.58,-1.0,UNK,85.01,Inactive,0,LEO,USA,USA,Unknown,Titan,Unknown
 21964,PALAPA B4,1992,1440.83,-1.0,UNK,12.11,Inactive,0,GSO,USA,Indonesia,Unknown,Delta,Unknown
 21976,COSMOS 2187,1992,114.68,-1.0,UNK,74.0,Inactive,0,LEO,Russia,Russia/USSR,Military,Kosmos,Unknown
 21977,COSMOS 2188,1992,114.51,-1.0,UNK,74.0,Inactive,0,LEO,Russia,Russia/USSR,Military,Kosmos,Unknown
@@ -2092,7 +2092,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 23880,GORIZONT 32,1996,1436.85,-1.0,-,14.45,Inactive,0,GSO,Kazakhstan,Russia/USSR,Unknown,Proton,Unknown
 23893,USA 119,1996,107.35,-1.0,+,63.35,Active,1,LEO,USA,USA,Military,Titan,Communications
 23907,USA 120,1996,107.35,-1.0,UNK,63.34,Inactive,0,LEO,USA,USA,Unknown,Titan,Unknown
-23908,USA 121,1996,107.35,-1.0,UNK,63.34,Inactive,0,LEO,USA,USA,Unknown,Titan,Unknown
+23908,USA 121,1996,107.34,-1.0,UNK,63.34,Inactive,0,LEO,USA,USA,Unknown,Titan,Unknown
 23915,INTELSAT 709 (IS-709),1996,1451.94,-1.0,-,8.31,Inactive,0,GSO,French Guiana,INTELSAT,Unknown,Ariane,Unknown
 23936,USA 123,1996,95.97,-1.0,UNK,63.3,Inactive,0,LEO,USA,USA,Unknown,Titan,Unknown
 23937,USA 124,1996,102.42,-1.0,UNK,63.3,Inactive,0,LEO,USA,USA,Unknown,Titan,Unknown
@@ -2351,7 +2351,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 25735,TERRIERS,1999,91.4,-1.0,UNK,97.23,Inactive,0,LEO,Western Range Airspace,USA,Unknown,Pegasus,Unknown
 25736,MUBLCOM,1999,99.23,-1.0,UNK,97.78,Inactive,0,LEO,Western Range Airspace,USA,Unknown,Pegasus,Unknown
 25740,NIMIQ 1,1999,1460.73,-1.0,-,3.7,Inactive,0,GSO,Kazakhstan,Canada,Unknown,Proton,Unknown
-25744,USA 144,1999,148.45,-1.0,-,63.44,Inactive,0,MEO,USA,USA,Unknown,Titan,Unknown
+25744,USA 144,1999,148.45,-1.0,-,63.45,Inactive,0,MEO,USA,USA,Unknown,Titan,Unknown
 25756,KITSAT 3,1999,99.02,-1.0,-,98.62,Inactive,0,LEO,India,South Korea,Unknown,PSLV,Unknown
 25757,DLR-TUBSAT,1999,99.2,45.0,+,98.53,Active,1,LEO,India,Germany,Government,PSLV,Earth Observation
 25758,IRS-P4 (OCEANSAT-1),1999,99.1,-1.0,-,97.9,Inactive,0,LEO,India,India,Unknown,PSLV,Unknown
@@ -2678,7 +2678,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 28082,ZHONGXING-20,2003,1452.96,-1.0,-,7.97,Inactive,0,GSO,PRC,China,Unknown,Unknown,Unknown
 28089,YAMAL 202,2003,1436.09,1320.0,+,3.46,Active,1,GSO,Kazakhstan,Russia/USSR,Commercial,Proton,Communications
 28094,YAMAL 201,2003,1436.62,-1.0,-,6.99,Inactive,0,GSO,Kazakhstan,Russia/USSR,Unknown,Proton,Unknown
-28095,USA 173,2003,107.35,-1.0,-,63.41,Inactive,0,LEO,USA,USA,Unknown,Atlas,Unknown
+28095,USA 173,2003,107.34,-1.0,-,63.41,Inactive,0,LEO,USA,USA,Unknown,Atlas,Unknown
 28112,COSMOS 2404 [GLONASS-M],2003,675.78,-1.0,-,63.6,Inactive,0,MEO,Kazakhstan,Russia/USSR,Unknown,Unknown,Unknown
 28113,COSMOS 2402 [GLONASS],2003,675.72,-1.0,-,63.62,Inactive,0,MEO,Kazakhstan,Russia/USSR,Unknown,Unknown,Unknown
 28114,COSMOS 2403 [GLONASS],2003,675.72,-1.0,-,63.62,Inactive,0,MEO,Kazakhstan,Russia/USSR,Unknown,Unknown,Unknown
@@ -2927,7 +2927,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 32299,ASTRA 4A (SIRIUS 4),2007,1436.12,4400.0,+,0.04,Active,1,GSO,Kazakhstan,SES,Commercial,Proton,Communications
 32373,RADUGA-1M 1,2007,1448.77,-1.0,-,7.63,Inactive,0,GSO,Kazakhstan,Russia/USSR,Military,Proton,Unknown
 32376,COSMO-SKYMED 2,2007,97.16,1700.0,+,97.89,Active,1,LEO,USA,Italy,Government/Military,Delta,Earth Observation
-32378,USA 198,2007,717.4,-1.0,P,63.59,Active,1,MEO,USA,USA,Military,Atlas,Communications
+32378,USA 198,2007,717.89,-1.0,P,63.6,Active,1,MEO,USA,USA,Military,Atlas,Communications
 32382,RADARSAT-2,2007,100.7,2924.0,+,98.58,Active,1,LEO,Kazakhstan,Canada,Commercial,Soyuz,Earth Observation
 32384,NAVSTAR 61 (USA 199),2007,718.02,2060.0,+,55.97,Active,1,MEO,USA,USA,Commercial/Military,Delta,Navigation (Global or Regional Positioning)
 32387,RASCOM-QAF 1,2007,1453.55,-1.0,-,9.17,Inactive,0,GSO,French Guiana,RascomStar-QAF,Unknown,Ariane,Unknown
@@ -2940,7 +2940,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 32478,EXPRESS-AM33,2008,1435.86,2600.0,+,1.89,Active,1,GSO,Kazakhstan,Russia/USSR,Commercial,Proton,Communications
 32487,THOR 5,2008,1436.09,2024.0,+,0.03,Active,1,GSO,Kazakhstan,Norway,Commercial,Proton,Communications
 32500,KIZUNA (WINDS),2008,1435.79,-1.0,-,5.77,Inactive,0,GSO,Japan,Japan,Unknown,JAXA H,Unknown
-32706,USA 200,2008,717.78,4200.0,+,63.56,Active,1,MEO,USA,USA,Military,Atlas,Earth Observation
+32706,USA 200,2008,717.89,4200.0,+,63.57,Active,1,MEO,USA,USA,Military,Atlas,Earth Observation
 32708,AMC-14,2008,1436.06,-1.0,P,22.54,Active,0,GSO,Kazakhstan,USA,Unknown,Proton,Unknown
 32711,NAVSTAR 62 (USA 201),2008,718.01,2217.0,+,54.45,Active,1,MEO,USA,USA,Commercial/Military,Delta,Navigation (Global or Regional Positioning)
 32729,DIRECTV 11,2008,1436.11,5900.0,+,0.04,Active,1,GSO,Sea Launch Platform,USA,Commercial,Zenit,Communications
@@ -10593,7 +10593,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 56186,GHGSAT-C8,2023,94.63,-1.0,+,97.41,Active,0,LEO,USA,Canada,Unknown,Unknown,Unknown
 56187,LEMUR-2-SPACEGUS,2023,94.59,-1.0,+,97.4,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56188,CIRBE,2023,94.59,-1.0,+,97.39,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56189,OBJECT M,2023,94.61,-1.0,+,97.41,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56189,IT'S ABOUT TIME,2023,94.61,-1.0,+,97.41,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56190,NUSAT-36 (ANNIE CANNON),2023,94.6,-1.0,+,97.4,Active,0,LEO,USA,Argentina,Unknown,Unknown,Unknown
 56191,HAWK-7A,2023,94.58,-1.0,+,97.41,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56192,ION SCV-010,2023,94.51,-1.0,+,97.4,Active,0,LEO,USA,Italy,Unknown,Unknown,Unknown

@@ -1784,7 +1784,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 21937,1992-020A,COSMOS 2184,1992-04-15,1992,"Plesetsk Missile and Space Complex, Russia",Russia,,Inactive,UNK,LEO,104.86,-1.0,CIS,Russia/USSR,82.93,,,-1.0,,-1.0,0,
 21939,1992-021A,TELECOM 2B,1992-04-15,1992,"Europe's Spaceport, Kourou, French Guiana",French Guiana,,Inactive,-,GSO,1447.06,-1.0,FR,France,14.13,,,-1.0,,-1.0,0,
 21940,1992-021B,INMARSAT 2-F4,1992-04-15,1992,"Europe's Spaceport, Kourou, French Guiana",French Guiana,,Inactive,-,GSO,1470.24,-1.0,IM,INMARSAT,11.15,,,-1.0,,-1.0,0,
-21949,1992-023A,USA 81,1992-04-25,1992,"Air Force Western Test Range, California, USA",USA,,Inactive,UNK,LEO,100.59,-1.0,US,USA,85.01,,,-1.0,,-1.0,0,
+21949,1992-023A,USA 81,1992-04-25,1992,"Air Force Western Test Range, California, USA",USA,,Inactive,UNK,LEO,100.58,-1.0,US,USA,85.01,,,-1.0,,-1.0,0,
 21964,1992-027A,PALAPA B4,1992-05-14,1992,"Air Force Eastern Test Range, Florida, USA",USA,,Inactive,UNK,GSO,1440.83,-1.0,INDO,Indonesia,12.11,,,-1.0,,-1.0,0,
 21976,1992-030A,COSMOS 2187,1992-06-03,1992,"Plesetsk Missile and Space Complex, Russia",Russia,,Inactive,UNK,LEO,114.68,-1.0,CIS,Russia/USSR,74.0,,,-1.0,,-1.0,0,
 21977,1992-030B,COSMOS 2188,1992-06-03,1992,"Plesetsk Missile and Space Complex, Russia",Russia,,Inactive,UNK,LEO,114.51,-1.0,CIS,Russia/USSR,74.0,,,-1.0,,-1.0,0,
@@ -2092,7 +2092,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 23880,1996-034A,GORIZONT 32,1996-05-25,1996,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Inactive,-,GSO,1436.85,-1.0,CIS,Russia/USSR,14.45,,,-1.0,,-1.0,0,
 23893,1996-029A,USA 119,1996-05-12,1996,"Air Force Western Test Range, California, USA",USA,Titan IV,Active,+,LEO,107.35,-1.0,US,USA,63.35,Military,Communications,-1.0,,-1.0,1,Titan
 23907,1996-029B,USA 120,1996-05-12,1996,"Air Force Western Test Range, California, USA",USA,,Inactive,UNK,LEO,107.35,-1.0,US,USA,63.34,,,-1.0,,-1.0,0,
-23908,1996-029C,USA 121,1996-05-12,1996,"Air Force Western Test Range, California, USA",USA,,Inactive,UNK,LEO,107.35,-1.0,US,USA,63.34,,,-1.0,,-1.0,0,
+23908,1996-029C,USA 121,1996-05-12,1996,"Air Force Western Test Range, California, USA",USA,,Inactive,UNK,LEO,107.34,-1.0,US,USA,63.34,,,-1.0,,-1.0,0,
 23915,1996-035A,INTELSAT 709 (IS-709),1996-06-15,1996,"Europe's Spaceport, Kourou, French Guiana",French Guiana,,Inactive,-,GSO,1451.94,-1.0,ITSO,INTELSAT,8.31,,,-1.0,,-1.0,0,
 23936,1996-029E,USA 123,1996-05-12,1996,"Air Force Western Test Range, California, USA",USA,,Inactive,UNK,LEO,95.97,-1.0,US,USA,63.3,,,-1.0,,-1.0,0,
 23937,1996-029F,USA 124,1996-05-12,1996,"Air Force Western Test Range, California, USA",USA,,Inactive,UNK,LEO,102.42,-1.0,US,USA,63.3,,,-1.0,,-1.0,0,
@@ -2351,7 +2351,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 25735,1999-026A,TERRIERS,1999-05-18,1999,Western Range Airspace,Western Range Airspace,,Inactive,UNK,LEO,91.4,-1.0,US,USA,97.23,,,-1.0,,-1.0,0,
 25736,1999-026B,MUBLCOM,1999-05-18,1999,Western Range Airspace,Western Range Airspace,,Inactive,UNK,LEO,99.23,-1.0,US,USA,97.78,,,-1.0,,-1.0,0,
 25740,1999-027A,NIMIQ 1,1999-05-20,1999,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Inactive,-,GSO,1460.73,-1.0,CA,Canada,3.7,,,-1.0,,-1.0,0,
-25744,1999-028A,USA 144,1999-05-22,1999,"Air Force Western Test Range, California, USA",USA,,Inactive,-,MEO,148.45,-1.0,US,USA,63.44,,,-1.0,,-1.0,0,
+25744,1999-028A,USA 144,1999-05-22,1999,"Air Force Western Test Range, California, USA",USA,,Inactive,-,MEO,148.45,-1.0,US,USA,63.45,,,-1.0,,-1.0,0,
 25756,1999-029A,KITSAT 3,1999-05-26,1999,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,99.02,-1.0,SKOR,South Korea,98.62,,,-1.0,,-1.0,0,
 25757,1999-029B,DLR-TUBSAT,1999-05-26,1999,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV C2,Active,+,LEO,99.2,-1.0,GER,Germany,98.53,Government,Earth Observation,45.0,,1.0,1,PSLV
 25758,1999-029C,IRS-P4 (OCEANSAT-1),1999-05-26,1999,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,99.1,-1.0,IND,India,97.9,,,-1.0,,-1.0,0,
@@ -2678,7 +2678,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 28082,2003-052A,ZHONGXING-20,2003-11-14,2003,"Xichang Launch Facility, PRC",PRC,,Inactive,-,GSO,1452.96,-1.0,PRC,China,7.97,,,-1.0,,-1.0,0,
 28089,2003-053A,YAMAL 202,2003-11-24,2003,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton K,Active,+,GSO,1436.09,-1.0,CIS,Russia/USSR,3.46,Commercial,Communications,1320.0,,12.0,1,Proton
 28094,2003-053B,YAMAL 201,2003-11-24,2003,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Inactive,-,GSO,1436.62,-1.0,CIS,Russia/USSR,6.99,,,-1.0,,-1.0,0,
-28095,2003-054A,USA 173,2003-12-02,2003,"Air Force Western Test Range, California, USA",USA,,Inactive,-,LEO,107.35,-1.0,US,USA,63.41,,,-1.0,,-1.0,0,
+28095,2003-054A,USA 173,2003-12-02,2003,"Air Force Western Test Range, California, USA",USA,,Inactive,-,LEO,107.34,-1.0,US,USA,63.41,,,-1.0,,-1.0,0,
 28112,2003-056A,COSMOS 2404 [GLONASS-M],2003-12-10,2003,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Inactive,-,MEO,675.78,-1.0,CIS,Russia/USSR,63.6,,,-1.0,,-1.0,0,
 28113,2003-056B,COSMOS 2402 [GLONASS],2003-12-10,2003,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Inactive,-,MEO,675.72,-1.0,CIS,Russia/USSR,63.62,,,-1.0,,-1.0,0,
 28114,2003-056C,COSMOS 2403 [GLONASS],2003-12-10,2003,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Inactive,-,MEO,675.72,-1.0,CIS,Russia/USSR,63.62,,,-1.0,,-1.0,0,
@@ -2927,7 +2927,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 32299,2007-057A,ASTRA 4A (SIRIUS 4),2007-11-17,2007,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Active,+,GSO,1436.12,-1.0,SES,SES,0.04,Commercial,Communications,4400.0,,15.0,1,Proton
 32373,2007-058A,RADUGA-1M 1,2007-12-09,2007,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Inactive,-,GSO,1448.77,-1.0,CIS,Russia/USSR,7.63,,,-1.0,,-1.0,0,
 32376,2007-059A,COSMO-SKYMED 2,2007-12-09,2007,"Air Force Western Test Range, California, USA",USA,Delta 2,Active,+,LEO,97.16,-1.0,IT,Italy,97.89,Government/Military,Earth Observation,1700.0,,5.0,1,Delta
-32378,2007-060A,USA 198,2007-12-10,2007,"Air Force Eastern Test Range, Florida, USA",USA,Atlas 5,Active,P,MEO,717.4,-1.0,US,USA,63.59,Military,Communications,-1.0,,10.0,1,Atlas
+32378,2007-060A,USA 198,2007-12-10,2007,"Air Force Eastern Test Range, Florida, USA",USA,Atlas 5,Active,P,MEO,717.89,-1.0,US,USA,63.6,Military,Communications,-1.0,,10.0,1,Atlas
 32382,2007-061A,RADARSAT-2,2007-12-14,2007,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Soyuz,Active,+,LEO,100.7,-1.0,CA,Canada,98.58,Commercial,Earth Observation,2924.0,,7.0,1,Soyuz
 32384,2007-062A,NAVSTAR 61 (USA 199),2007-12-20,2007,"Air Force Eastern Test Range, Florida, USA",USA,Delta 2,Active,+,MEO,718.02,-1.0,US,USA,55.97,Commercial/Military,Navigation (Global or Regional Positioning),2060.0,,10.0,1,Delta
 32387,2007-063A,RASCOM-QAF 1,2007-12-21,2007,"Europe's Spaceport, Kourou, French Guiana",French Guiana,,Inactive,-,GSO,1453.55,-1.0,RASC,RascomStar-QAF,9.17,,,-1.0,,-1.0,0,
@@ -2940,7 +2940,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 32478,2008-003A,EXPRESS-AM33,2008-01-28,2008,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Active,+,GSO,1435.86,-1.0,CIS,Russia/USSR,1.89,Commercial,Communications,2600.0,,12.0,1,Proton
 32487,2008-006A,THOR 5,2008-02-11,2008,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Active,+,GSO,1436.09,-1.0,NOR,Norway,0.03,Commercial,Communications,2024.0,,15.0,1,Proton
 32500,2008-007A,KIZUNA (WINDS),2008-02-23,2008,"Tanegashima Space Center, Japan",Japan,,Inactive,-,GSO,1435.79,-1.0,JPN,Japan,5.77,,,-1.0,,-1.0,0,
-32706,2008-010A,USA 200,2008-03-13,2008,"Air Force Western Test Range, California, USA",USA,Atlas 5,Active,+,MEO,717.78,-1.0,US,USA,63.56,Military,Earth Observation,4200.0,,-1.0,1,Atlas
+32706,2008-010A,USA 200,2008-03-13,2008,"Air Force Western Test Range, California, USA",USA,Atlas 5,Active,+,MEO,717.89,-1.0,US,USA,63.57,Military,Earth Observation,4200.0,,-1.0,1,Atlas
 32708,2008-011A,AMC-14,2008-03-14,2008,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Active,P,GSO,1436.06,-1.0,US,USA,22.54,,,-1.0,,-1.0,0,
 32711,2008-012A,NAVSTAR 62 (USA 201),2008-03-15,2008,"Air Force Eastern Test Range, Florida, USA",USA,Delta 2,Active,+,MEO,718.01,-1.0,US,USA,54.45,Commercial/Military,Navigation (Global or Regional Positioning),2217.0,980,10.0,1,Delta
 32729,2008-013A,DIRECTV 11,2008-03-19,2008,Sea Launch Platform (mobile),Sea Launch Platform,Zenit 3SL,Active,+,GSO,1436.11,-1.0,US,USA,0.04,Commercial,Communications,5900.0,,-1.0,1,Zenit
@@ -10593,7 +10593,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 56186,2023-054J,GHGSAT-C8,2023-04-15,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.63,-1.0,CA,Canada,97.41,,,-1.0,,-1.0,0,
 56187,2023-054K,LEMUR-2-SPACEGUS,2023-04-15,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.59,-1.0,US,USA,97.4,,,-1.0,,-1.0,0,
 56188,2023-054L,CIRBE,2023-04-15,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.59,-1.0,US,USA,97.39,,,-1.0,,-1.0,0,
-56189,2023-054M,OBJECT M,2023-04-15,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.61,-1.0,US,USA,97.41,,,-1.0,,-1.0,0,
+56189,2023-054M,IT'S ABOUT TIME,2023-04-15,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.61,-1.0,US,USA,97.41,,,-1.0,,-1.0,0,
 56190,2023-054N,NUSAT-36 (ANNIE CANNON),2023-04-15,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.6,-1.0,ARGN,Argentina,97.4,,,-1.0,,-1.0,0,
 56191,2023-054P,HAWK-7A,2023-04-15,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.58,-1.0,US,USA,97.41,,,-1.0,,-1.0,0,
 56192,2023-054Q,ION SCV-010,2023-04-15,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.51,-1.0,IT,Italy,97.4,,,-1.0,,-1.0,0,
