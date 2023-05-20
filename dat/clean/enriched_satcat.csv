@@ -4840,7 +4840,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 45083,STARLINK-1190,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45084,STARLINK-1173,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45085,STARLINK-1179,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-45086,STARLINK-1181,2020,90.8,227.0,-,52.95,Inactive,1,LEO,USA,USA,Commercial,Falcon,Communications
 45087,STARLINK-1185,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45088,STARLINK-1183,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45089,STARLINK-1136,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -5897,7 +5896,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 47461,KEPLER-15 (SUDORMRF),2021,94.35,9.0,+,97.39,Active,1,LEO,USA,Canada,Commercial,Falcon,Communications
 47462,FLOCK 4S-11,2021,94.83,4.0,+,97.39,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47465,SPACEBEE-57,2021,94.42,2.0,+,97.39,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-47468,SPACEBEE-56,2021,90.55,2.0,+,97.37,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47469,FLOCK 4S-33,2021,94.16,4.0,+,97.39,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47471,FLOCK 4S-12,2021,94.17,4.0,+,97.39,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47472,FLOCK 4S-13,2021,94.15,4.0,+,97.39,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
@@ -10763,55 +10761,111 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 56429,STARLINK-6264,2023,91.64,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56442,TROPICS-05,2023,95.59,-1.0,+,32.74,Active,0,LEO,New Zealand,USA,Unknown,Unknown,Unknown
 56444,TROPICS-06,2023,95.52,-1.0,+,32.74,Active,0,LEO,New Zealand,USA,Unknown,Unknown,Unknown
-56448,STARLINK A,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56449,STARLINK B,2023,90.55,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56450,STARLINK C,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56451,STARLINK D,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56452,STARLINK E,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56453,STARLINK F,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56454,STARLINK G,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56455,STARLINK H,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56456,STARLINK J,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56457,STARLINK K,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56458,STARLINK L,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56459,STARLINK M,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56460,STARLINK N,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56461,STARLINK P,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56462,STARLINK Q,2023,90.14,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56463,STARLINK R,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56464,STARLINK S,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56465,STARLINK T,2023,89.99,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56466,STARLINK U,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56467,STARLINK V,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56468,STARLINK W,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56469,STARLINK X,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56470,STARLINK Y,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56471,STARLINK Z,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56472,STARLINK AA,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56473,STARLINK AB,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56474,STARLINK AC,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56475,STARLINK AD,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56476,STARLINK AE,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56477,STARLINK AF,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56478,STARLINK AG,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56479,STARLINK AH,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56480,STARLINK AJ,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56481,STARLINK AK,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56482,STARLINK AL,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56483,STARLINK AM,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56484,STARLINK AN,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56485,STARLINK AP,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56486,STARLINK AQ,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56487,STARLINK AR,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56488,STARLINK AS,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56489,STARLINK AT,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56490,STARLINK AU,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56491,STARLINK AV,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56492,STARLINK AW,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56493,STARLINK AX,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56494,STARLINK AY,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56495,STARLINK AZ,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56496,STARLINK BA,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56497,STARLINK BB,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56498,STARLINK BC,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56448,STARLINK-5990,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56449,STARLINK-5993,2023,90.55,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56450,STARLINK-5970,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56451,STARLINK-5985,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56452,STARLINK-5986,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56453,STARLINK-5935,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56454,STARLINK-5959,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56455,STARLINK-5987,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56456,STARLINK-5995,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56457,STARLINK-5994,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56458,STARLINK-6050,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56459,STARLINK-6048,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56460,STARLINK-6047,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56461,STARLINK-6037,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56462,STARLINK-6045,2023,90.14,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56463,STARLINK-6051,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56464,STARLINK-6043,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56465,STARLINK-6054,2023,89.99,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56466,STARLINK-6053,2023,90.54,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56467,STARLINK-6055,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56468,STARLINK-5998,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56469,STARLINK-5518,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56470,STARLINK-5523,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56471,STARLINK-5521,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56472,STARLINK-5038,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56473,STARLINK-5486,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56474,STARLINK-5524,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56475,STARLINK-5541,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56476,STARLINK-5545,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56477,STARLINK-5534,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56478,STARLINK-6041,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56479,STARLINK-6044,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56480,STARLINK-6214,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56481,STARLINK-6222,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56482,STARLINK-6220,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56483,STARLINK-5868,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56484,STARLINK-6221,2023,90.53,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56485,STARLINK-6210,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56486,STARLINK-6201,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56487,STARLINK-6196,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56488,STARLINK-6204,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56489,STARLINK-5923,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56490,STARLINK-5873,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56491,STARLINK-5842,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56492,STARLINK-5846,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56493,STARLINK-5841,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56494,STARLINK-5530,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56495,STARLINK-5529,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56496,STARLINK-5526,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56497,STARLINK-5527,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56498,STARLINK-5522,2023,90.52,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56503,STARLINK A,2023,91.32,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56504,STARLINK B,2023,91.31,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56505,STARLINK C,2023,91.31,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56506,STARLINK D,2023,91.32,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56507,STARLINK E,2023,91.31,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56508,STARLINK F,2023,91.31,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56509,STARLINK G,2023,91.31,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56510,STARLINK H,2023,91.31,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56511,STARLINK J,2023,91.3,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56512,STARLINK K,2023,91.31,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56513,STARLINK L,2023,91.3,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56514,STARLINK M,2023,91.31,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56515,STARLINK N,2023,91.3,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56516,STARLINK P,2023,91.3,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56517,STARLINK Q,2023,91.3,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56518,STARLINK R,2023,91.3,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56519,STARLINK S,2023,91.29,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56520,STARLINK T,2023,91.3,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56521,STARLINK U,2023,91.29,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56522,STARLINK V,2023,91.29,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56523,STARLINK W,2023,91.29,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56524,STARLINK X,2023,91.29,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56525,STARLINK Y,2023,91.29,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56526,STARLINK Z,2023,91.29,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56527,STARLINK AA,2023,91.28,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56528,STARLINK AB,2023,91.29,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56529,STARLINK AC,2023,91.28,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56530,STARLINK AD,2023,91.28,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56531,STARLINK AE,2023,91.28,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56532,STARLINK AF,2023,91.28,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56533,STARLINK AG,2023,91.28,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56534,STARLINK AH,2023,91.28,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56535,STARLINK AJ,2023,91.27,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56536,STARLINK AK,2023,91.27,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56537,STARLINK AL,2023,91.27,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56538,STARLINK AM,2023,91.27,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56539,STARLINK AN,2023,91.27,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56540,STARLINK AP,2023,91.27,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56541,STARLINK AQ,2023,91.27,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56542,STARLINK AR,2023,91.27,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56543,STARLINK AS,2023,91.26,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56544,STARLINK AT,2023,91.27,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56545,STARLINK AU,2023,91.26,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56546,STARLINK AV,2023,91.26,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56547,STARLINK AW,2023,91.26,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56548,STARLINK AX,2023,91.26,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56549,STARLINK AY,2023,91.25,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56550,STARLINK AZ,2023,91.26,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56551,STARLINK BA,2023,91.25,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56552,STARLINK BB,2023,91.26,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56553,STARLINK BC,2023,91.25,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56554,STARLINK BD,2023,91.25,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56555,STARLINK BE,2023,91.25,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56556,STARLINK BF,2023,91.25,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56557,STARLINK BG,2023,91.25,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56558,STARLINK BH,2023,91.25,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56564,BEIDOU-3 G4,2023,631.73,-1.0,+,28.42,Active,0,MEO,PRC,China,Unknown,Unknown,Unknown
