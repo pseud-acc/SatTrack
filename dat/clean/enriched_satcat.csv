@@ -2316,7 +2316,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 25594,COSMOS 2363 [GLONASS],1998,675.73,-1.0,-,63.66,Inactive,0,MEO,Kazakhstan,Russia/USSR,Unknown,Unknown,Unknown
 25595,COSMOS 2362 [GLONASS],1998,675.73,-1.0,-,63.67,Inactive,0,MEO,Kazakhstan,Russia/USSR,Unknown,Unknown,Unknown
 25615,USA 141 (ATEX),1998,99.61,-1.0,-,84.98,Inactive,0,LEO,USA,USA,Unknown,Atlas,Unknown
-25616,FORMOSAT-1 (ROCSAT 1),1999,88.55,-1.0,-,34.91,Inactive,0,LEO,USA,Taiwan,Unknown,Athena,Unknown
 25621,GLOBALSTAR M023,1999,114.06,-1.0,-,52.01,Inactive,0,LEO,Kazakhstan,Globalstar,Unknown,Soyuz,Unknown
 25622,GLOBALSTAR M040,1999,114.11,-1.0,-,51.99,Inactive,0,LEO,Kazakhstan,Globalstar,Unknown,Soyuz,Unknown
 25623,GLOBALSTAR M036,1999,121.36,-1.0,-,52.0,Inactive,0,LEO,Kazakhstan,Globalstar,Unknown,Soyuz,Unknown
@@ -3979,7 +3978,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 41956,FLOCK 3P-24,2017,92.38,4.0,+,97.23,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 41991,LEMUR-2-JOBANPUTRA,2017,91.72,10.0,+,97.19,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 41993,LEMUR-2-SATCHMO,2017,92.71,10.0,+,97.2,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
-41994,LEMUR-2-SMITA-SHARAD,2017,88.15,10.0,+,97.18,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 41995,LEMUR-2-RDEATON,2017,92.91,10.0,+,97.21,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 41996,LEMUR-2-TACHIKOMA,2017,90.42,10.0,+,97.21,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 41997,LEMUR-2-NOGUECORREIG,2017,89.39,10.0,+,97.2,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
@@ -10867,5 +10865,3 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 56557,STARLINK-6265,2023,91.45,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56558,STARLINK-6286,2023,91.44,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56564,BEIDOU-3 G4,2023,631.73,-1.0,+,28.42,Active,0,MEO,PRC,China,Unknown,Unknown,Unknown
-56731,OBJECT A,2023,94.12,-1.0,+,41.01,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
-56732,OBJECT B,2023,94.1,-1.0,+,41.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown

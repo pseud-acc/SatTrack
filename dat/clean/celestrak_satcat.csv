@@ -2316,7 +2316,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,63.66,1998-12-30,TYMSC,25594,1998-077B,COSMOS 2363 [GLONASS],PAY,-,EA,MEO,ORB,CIS,675.73,Inactive,Russia/USSR,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,63.67,1998-12-30,TYMSC,25595,1998-077C,COSMOS 2362 [GLONASS],PAY,-,EA,MEO,ORB,CIS,675.73,Inactive,Russia/USSR,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,84.98,1998-10-03,AFWTR,25615,1998-055C,USA 141 (ATEX),PAY,-,EA,LEO,ORB,US,99.61,Inactive,USA,"Air Force Western Test Range, California, USA",USA
-,34.91,1999-01-27,AFETR,25616,1999-002A,FORMOSAT-1 (ROCSAT 1),PAY,-,EA,LEO,ORB,ROC,88.55,Inactive,Taiwan,"Air Force Eastern Test Range, Florida, USA",USA
 ,52.01,1999-02-09,TYMSC,25621,1999-004A,GLOBALSTAR M023,PAY,-,EA,LEO,ORB,GLOB,114.06,Inactive,Globalstar,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,51.99,1999-02-09,TYMSC,25622,1999-004B,GLOBALSTAR M040,PAY,-,EA,LEO,ORB,GLOB,114.11,Inactive,Globalstar,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,52.0,1999-02-09,TYMSC,25623,1999-004C,GLOBALSTAR M036,PAY,-,EA,LEO,ORB,GLOB,121.36,Inactive,Globalstar,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
@@ -3979,7 +3978,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.23,2017-02-15,SRILR,41956,2017-008J,FLOCK 3P-24,PAY,+,EA,LEO,ORB,US,92.38,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.19,2017-02-15,SRILR,41991,2017-008AV,LEMUR-2-JOBANPUTRA,PAY,+,EA,LEO,ORB,US,91.72,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.2,2017-02-15,SRILR,41993,2017-008AX,LEMUR-2-SATCHMO,PAY,+,EA,LEO,ORB,US,92.71,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
-,97.18,2017-02-15,SRILR,41994,2017-008AY,LEMUR-2-SMITA-SHARAD,PAY,+,EA,LEO,ORB,US,88.15,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.21,2017-02-15,SRILR,41995,2017-008AZ,LEMUR-2-RDEATON,PAY,+,EA,LEO,ORB,US,92.91,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.21,2017-02-15,SRILR,41996,2017-008BA,LEMUR-2-TACHIKOMA,PAY,+,EA,LEO,ORB,US,90.42,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.2,2017-02-15,SRILR,41997,2017-008BB,LEMUR-2-NOGUECORREIG,PAY,+,EA,LEO,ORB,US,89.39,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
@@ -10867,5 +10865,3 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,43.01,2023-05-14,AFETR,56557,2023-065BG,STARLINK-6265,PAY,+,EA,LEO,ORB,US,91.45,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,43.01,2023-05-14,AFETR,56558,2023-065BH,STARLINK-6286,PAY,+,EA,LEO,ORB,US,91.44,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,28.42,2023-05-17,XICLF,56564,2023-066A,BEIDOU-3 G4,PAY,+,EA,MEO,ORB,PRC,631.73,Active,China,"Xichang Launch Facility, PRC",PRC
-,41.01,2023-05-21,JSC,56731,2023-069A,OBJECT A,PAY,+,EA,LEO,ORB,PRC,94.12,Active,China,"Jiuquan Space Center, PRC",PRC
-,41.0,2023-05-21,JSC,56732,2023-069B,OBJECT B,PAY,+,EA,LEO,ORB,PRC,94.1,Active,China,"Jiuquan Space Center, PRC",PRC
