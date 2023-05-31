@@ -3974,7 +3974,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 41948,CARTOSAT-2D,2017,94.78,714.0,+,97.42,Active,1,LEO,India,India,Government,PSLV,Earth Observation
 41949,INS-1A,2017,92.5,8.4,+,97.2,Active,1,LEO,India,India,Government,PSLV,Earth Observation
 41954,INS-1B,2017,92.6,8.0,+,97.2,Active,1,LEO,India,India,Government,PSLV,Earth Observation
-41956,FLOCK 3P-24,2017,92.14,4.0,+,97.23,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
+41956,FLOCK 3P-24,2017,92.14,4.0,-,97.23,Inactive,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 41991,LEMUR-2-JOBANPUTRA,2017,91.5,10.0,+,97.19,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 41993,LEMUR-2-SATCHMO,2017,92.65,10.0,+,97.2,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 41995,LEMUR-2-RDEATON,2017,92.87,10.0,+,97.21,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
@@ -4029,7 +4029,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 42784,PEGASUS,2017,93.15,-1.0,+,97.15,Active,0,LEO,India,Austria,Unknown,PSLV,Unknown
 42785,DIAMOND GREEN,2017,93.47,6.0,+,97.15,Active,1,LEO,India,UK,Commercial,PSLV,Technology Development
 42786,DIAMOND BLUE,2017,93.5,6.0,+,97.15,Active,1,LEO,India,UK,Commercial,PSLV,Technology Development
-42787,NUDTSAT,2017,88.11,-1.0,+,97.12,Active,0,LEO,India,Belgium,Unknown,PSLV,Unknown
 42788,SUCHAI,2017,92.61,-1.0,+,97.15,Active,0,LEO,India,Chile,Unknown,PSLV,Unknown
 42789,SKCUBE,2017,92.9,-1.0,+,97.15,Active,0,LEO,India,Czech Republic,Unknown,PSLV,Unknown
 42790,VZLUSAT-1,2017,89.89,3.0,+,97.13,Active,1,LEO,India,Czech Republic,Government,PSLV,Technology Development
@@ -4166,7 +4165,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 43115,CARBONITE 2,2018,94.1,-1.0,+,97.32,Active,1,LEO,India,UK,Commercial,PSLV,Technology Development
 43116,INS-1C,2018,92.9,5.0,+,97.34,Active,1,LEO,India,India,Government,PSLV,Technology Development
 43118,CORVUS BC3,2018,93.64,10.0,+,97.32,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
-43119,FLOCK 3P'-3,2018,91.69,4.0,+,97.32,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
+43119,FLOCK 3P'-3,2018,91.69,4.0,-,97.32,Inactive,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 43120,FLOCK 3P'-2,2018,92.45,4.0,+,97.33,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 43122,FLOCK 3P'-4,2018,92.62,4.0,+,97.33,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 43127,DEMOSAT 2,2018,93.62,-1.0,+,97.33,Active,1,LEO,India,USA,Commercial,PSLV,Technology Development
@@ -4503,8 +4502,8 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 44081,FLOCK 4A-3,2019,90.83,-1.0,-,97.23,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
 44083,ASTROCAST 0.2,2019,92.99,-1.0,+,97.27,Active,0,LEO,India,Switzerland,Unknown,Unknown,Unknown
 44085,LEMUR-2-BEAUDACIOUS,2019,91.18,10.0,+,97.25,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
-44094,FLOCK 4A-6,2019,92.18,4.0,+,97.25,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
-44096,FLOCK 4A-11,2019,92.02,4.0,+,97.25,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
+44094,FLOCK 4A-6,2019,92.18,4.0,-,97.25,Inactive,1,LEO,India,USA,Commercial,PSLV,Earth Observation
+44096,FLOCK 4A-11,2019,92.02,4.0,-,97.25,Inactive,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 44097,FLOCK 4A-10,2019,92.46,-1.0,-,97.25,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
 44102,FLOCK 4A-13,2019,90.76,-1.0,-,97.25,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
 44103,AISTECHSAT-3,2019,93.49,2.3,+,97.25,Active,1,LEO,India,Spain,Commercial,PSLV,Earth Observation
@@ -4804,7 +4803,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 45048,STARLINK-1134,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45049,STARLINK-1135,2020,94.58,227.0,P,53.07,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45050,STARLINK-1140,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-45051,STARLINK-1141,2020,87.65,227.0,-,53.02,Inactive,1,LEO,USA,USA,Commercial,Falcon,Communications
 45052,STARLINK-1148,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45053,STARLINK-1155,2020,93.99,227.0,P,52.99,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45054,STARLINK-1156,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -5896,7 +5894,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 47476,KEPLER-8 (AMAROK),2021,94.32,9.0,+,97.4,Active,1,LEO,USA,Canada,Commercial,Falcon,Communications
 47477,FLOCK 4S-34,2021,94.12,4.0,+,97.39,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47478,FLOCK 4S-9,2021,94.14,4.0,+,97.39,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
-47479,FLOCK 4S-32,2021,92.08,4.0,+,97.38,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
+47479,FLOCK 4S-32,2021,92.08,4.0,-,97.38,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47482,NASA PTD-1,2021,94.08,-1.0,+,97.4,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 47483,P2-10,2021,93.93,1.0,+,97.39,Active,1,LEO,USA,USA,Civil/Government,Falcon,Technology Development
 47484,ARCE-1C,2021,93.8,1.0,+,97.39,Active,1,LEO,USA,USA,Civil,Falcon,Technology Development

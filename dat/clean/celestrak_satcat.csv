@@ -3974,7 +3974,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.42,2017-02-15,SRILR,41948,2017-008A,CARTOSAT-2D,PAY,+,EA,LEO,ORB,IND,94.78,Active,India,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.2,2017-02-15,SRILR,41949,2017-008B,INS-1A,PAY,+,EA,LEO,ORB,IND,92.5,Active,India,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.2,2017-02-15,SRILR,41954,2017-008G,INS-1B,PAY,+,EA,LEO,ORB,IND,92.6,Active,India,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
-,97.23,2017-02-15,SRILR,41956,2017-008J,FLOCK 3P-24,PAY,+,EA,LEO,ORB,US,92.14,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
+,97.23,2017-02-15,SRILR,41956,2017-008J,FLOCK 3P-24,PAY,-,EA,LEO,ORB,US,92.14,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.19,2017-02-15,SRILR,41991,2017-008AV,LEMUR-2-JOBANPUTRA,PAY,+,EA,LEO,ORB,US,91.5,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.2,2017-02-15,SRILR,41993,2017-008AX,LEMUR-2-SATCHMO,PAY,+,EA,LEO,ORB,US,92.65,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.21,2017-02-15,SRILR,41995,2017-008AZ,LEMUR-2-RDEATON,PAY,+,EA,LEO,ORB,US,92.87,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
@@ -4029,7 +4029,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.15,2017-06-23,SRILR,42784,2017-036V,PEGASUS,PAY,+,EA,LEO,ORB,ASRA,93.15,Active,Austria,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.15,2017-06-23,SRILR,42785,2017-036W,DIAMOND GREEN,PAY,+,EA,LEO,ORB,UK,93.47,Active,UK,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.15,2017-06-23,SRILR,42786,2017-036X,DIAMOND BLUE,PAY,+,EA,LEO,ORB,UK,93.5,Active,UK,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
-,97.12,2017-06-23,SRILR,42787,2017-036Y,NUDTSAT,PAY,+,EA,LEO,ORB,BEL,88.11,Active,Belgium,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.15,2017-06-23,SRILR,42788,2017-036Z,SUCHAI,PAY,+,EA,LEO,ORB,CHLE,92.61,Active,Chile,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.15,2017-06-23,SRILR,42789,2017-036AA,SKCUBE,PAY,+,EA,LEO,ORB,CZCH,92.9,Active,Czech Republic,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.13,2017-06-23,SRILR,42790,2017-036AB,VZLUSAT-1,PAY,+,EA,LEO,ORB,CZCH,89.89,Active,Czech Republic,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
@@ -4166,7 +4165,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.32,2018-01-12,SRILR,43115,2018-004E,CARBONITE 2,PAY,+,EA,LEO,ORB,UK,94.1,Active,UK,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.34,2018-01-12,SRILR,43116,2018-004F,INS-1C,PAY,+,EA,LEO,ORB,IND,92.9,Active,India,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.32,2018-01-12,SRILR,43118,2018-004H,CORVUS BC3,PAY,+,EA,LEO,ORB,US,93.64,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
-,97.32,2018-01-12,SRILR,43119,2018-004J,FLOCK 3P'-3,PAY,+,EA,LEO,ORB,US,91.69,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
+,97.32,2018-01-12,SRILR,43119,2018-004J,FLOCK 3P'-3,PAY,-,EA,LEO,ORB,US,91.69,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.33,2018-01-12,SRILR,43120,2018-004K,FLOCK 3P'-2,PAY,+,EA,LEO,ORB,US,92.45,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.33,2018-01-12,SRILR,43122,2018-004M,FLOCK 3P'-4,PAY,+,EA,LEO,ORB,US,92.62,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.33,2018-01-12,SRILR,43127,2018-004S,DEMOSAT 2,PAY,+,EA,LEO,ORB,US,93.62,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
@@ -4503,8 +4502,8 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.23,2019-04-01,SRILR,44081,2019-018D,FLOCK 4A-3,PAY,-,EA,LEO,ORB,US,90.83,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.27,2019-04-01,SRILR,44083,2019-018F,ASTROCAST 0.2,PAY,+,EA,LEO,ORB,SWTZ,92.99,Active,Switzerland,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.25,2019-04-01,SRILR,44085,2019-018H,LEMUR-2-BEAUDACIOUS,PAY,+,EA,LEO,ORB,US,91.18,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
-,97.25,2019-04-01,SRILR,44094,2019-018S,FLOCK 4A-6,PAY,+,EA,LEO,ORB,US,92.18,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
-,97.25,2019-04-01,SRILR,44096,2019-018U,FLOCK 4A-11,PAY,+,EA,LEO,ORB,US,92.02,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
+,97.25,2019-04-01,SRILR,44094,2019-018S,FLOCK 4A-6,PAY,-,EA,LEO,ORB,US,92.18,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
+,97.25,2019-04-01,SRILR,44096,2019-018U,FLOCK 4A-11,PAY,-,EA,LEO,ORB,US,92.02,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.25,2019-04-01,SRILR,44097,2019-018V,FLOCK 4A-10,PAY,-,EA,LEO,ORB,US,92.46,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.25,2019-04-01,SRILR,44102,2019-018AA,FLOCK 4A-13,PAY,-,EA,LEO,ORB,US,90.76,Inactive,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.25,2019-04-01,SRILR,44103,2019-018AB,AISTECHSAT-3,PAY,+,EA,LEO,ORB,SPN,93.49,Active,Spain,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
@@ -4804,7 +4803,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,53.05,2020-01-29,AFETR,45048,2020-006E,STARLINK-1134,PAY,+,EA,LEO,ORB,US,95.59,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.07,2020-01-29,AFETR,45049,2020-006F,STARLINK-1135,PAY,P,EA,LEO,ORB,US,94.58,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.05,2020-01-29,AFETR,45050,2020-006G,STARLINK-1140,PAY,+,EA,LEO,ORB,US,95.59,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
-,53.02,2020-01-29,AFETR,45051,2020-006H,STARLINK-1141,PAY,-,EA,LEO,ORB,US,87.65,Inactive,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.05,2020-01-29,AFETR,45052,2020-006J,STARLINK-1148,PAY,+,EA,LEO,ORB,US,95.59,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,52.99,2020-01-29,AFETR,45053,2020-006K,STARLINK-1155,PAY,P,EA,LEO,ORB,US,93.99,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.05,2020-01-29,AFETR,45054,2020-006L,STARLINK-1156,PAY,+,EA,LEO,ORB,US,95.59,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
@@ -5896,7 +5894,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.4,2021-01-24,AFETR,47476,2021-006BR,KEPLER-8 (AMAROK),PAY,+,EA,LEO,ORB,CA,94.32,Active,Canada,"Air Force Eastern Test Range, Florida, USA",USA
 ,97.39,2021-01-24,AFETR,47477,2021-006BS,FLOCK 4S-34,PAY,+,EA,LEO,ORB,US,94.12,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,97.39,2021-01-24,AFETR,47478,2021-006BT,FLOCK 4S-9,PAY,+,EA,LEO,ORB,US,94.14,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
-,97.38,2021-01-24,AFETR,47479,2021-006BU,FLOCK 4S-32,PAY,+,EA,LEO,ORB,US,92.08,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,97.38,2021-01-24,AFETR,47479,2021-006BU,FLOCK 4S-32,PAY,-,EA,LEO,ORB,US,92.08,Inactive,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,97.4,2021-01-24,AFETR,47482,2021-006BX,NASA PTD-1,PAY,+,EA,LEO,ORB,US,94.08,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,97.39,2021-01-24,AFETR,47483,2021-006BY,P2-10,PAY,+,EA,LEO,ORB,US,93.93,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,97.39,2021-01-24,AFETR,47484,2021-006BZ,ARCE-1C,PAY,+,EA,LEO,ORB,US,93.8,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA

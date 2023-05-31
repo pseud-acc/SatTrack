@@ -3974,7 +3974,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 41948,2017-008A,CARTOSAT-2D,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV XL,Active,+,LEO,94.78,-1.0,IND,India,97.42,Government,Earth Observation,714.0,,5.0,1,PSLV
 41949,2017-008B,INS-1A,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV XL,Active,+,LEO,92.5,-1.0,IND,India,97.2,Government,Earth Observation,8.4,,-1.0,1,PSLV
 41954,2017-008G,INS-1B,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV XL,Active,+,LEO,92.6,-1.0,IND,India,97.2,Government,Earth Observation,8.0,,-1.0,1,PSLV
-41956,2017-008J,FLOCK 3P-24,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,92.14,-1.0,US,USA,97.23,Commercial,Earth Observation,4.0,,3.0,1,PSLV
+41956,2017-008J,FLOCK 3P-24,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Inactive,-,LEO,92.14,-1.0,US,USA,97.23,Commercial,Earth Observation,4.0,,3.0,1,PSLV
 41991,2017-008AV,LEMUR-2-JOBANPUTRA,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV-XL,Active,+,LEO,91.5,-1.0,US,USA,97.19,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
 41993,2017-008AX,LEMUR-2-SATCHMO,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV-XL,Active,+,LEO,92.65,-1.0,US,USA,97.2,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
 41995,2017-008AZ,LEMUR-2-RDEATON,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV-XL,Active,+,LEO,92.87,-1.0,US,USA,97.21,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
@@ -4029,7 +4029,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 42784,2017-036V,PEGASUS,2017-06-23,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Active,+,LEO,93.15,-1.0,ASRA,Austria,97.15,,,-1.0,,-1.0,0,
 42785,2017-036W,DIAMOND GREEN,2017-06-23,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,93.47,-1.0,UK,UK,97.15,Commercial,Technology Development,6.0,,-1.0,1,PSLV
 42786,2017-036X,DIAMOND BLUE,2017-06-23,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,93.5,-1.0,UK,UK,97.15,Commercial,Technology Development,6.0,,-1.0,1,PSLV
-42787,2017-036Y,NUDTSAT,2017-06-23,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Active,+,LEO,88.11,-1.0,BEL,Belgium,97.12,,,-1.0,,-1.0,0,
 42788,2017-036Z,SUCHAI,2017-06-23,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Active,+,LEO,92.61,-1.0,CHLE,Chile,97.15,,,-1.0,,-1.0,0,
 42789,2017-036AA,SKCUBE,2017-06-23,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Active,+,LEO,92.9,-1.0,CZCH,Czech Republic,97.15,,,-1.0,,-1.0,0,
 42790,2017-036AB,VZLUSAT-1,2017-06-23,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,89.89,-1.0,CZCH,Czech Republic,97.13,Government,Technology Development,3.0,,-1.0,1,PSLV
@@ -4166,7 +4165,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 43115,2018-004E,CARBONITE 2,2018-01-12,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,94.1,-1.0,UK,UK,97.32,Commercial,Technology Development,-1.0,,-1.0,1,PSLV
 43116,2018-004F,INS-1C,2018-01-12,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,92.9,-1.0,IND,India,97.34,Government,Technology Development,5.0,,0.5,1,PSLV
 43118,2018-004H,CORVUS BC3,2018-01-12,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,93.64,-1.0,US,USA,97.32,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
-43119,2018-004J,FLOCK 3P'-3,2018-01-12,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,91.69,-1.0,US,USA,97.32,Commercial,Earth Observation,4.0,,3.0,1,PSLV
+43119,2018-004J,FLOCK 3P'-3,2018-01-12,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Inactive,-,LEO,91.69,-1.0,US,USA,97.32,Commercial,Earth Observation,4.0,,3.0,1,PSLV
 43120,2018-004K,FLOCK 3P'-2,2018-01-12,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,92.45,-1.0,US,USA,97.33,Commercial,Earth Observation,4.0,,3.0,1,PSLV
 43122,2018-004M,FLOCK 3P'-4,2018-01-12,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,92.62,-1.0,US,USA,97.33,Commercial,Earth Observation,4.0,,3.0,1,PSLV
 43127,2018-004S,DEMOSAT 2,2018-01-12,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,93.62,-1.0,US,USA,97.33,Commercial,Technology Development,-1.0,,-1.0,1,PSLV
@@ -4503,8 +4502,8 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 44081,2019-018D,FLOCK 4A-3,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,90.83,-1.0,US,USA,97.23,,,-1.0,,-1.0,0,
 44083,2019-018F,ASTROCAST 0.2,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Active,+,LEO,92.99,-1.0,SWTZ,Switzerland,97.27,,,-1.0,,-1.0,0,
 44085,2019-018H,LEMUR-2-BEAUDACIOUS,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,91.18,-1.0,US,USA,97.25,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
-44094,2019-018S,FLOCK 4A-6,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,92.18,-1.0,US,USA,97.25,Commercial,Earth Observation,4.0,,3.0,1,PSLV
-44096,2019-018U,FLOCK 4A-11,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,92.02,-1.0,US,USA,97.25,Commercial,Earth Observation,4.0,,3.0,1,PSLV
+44094,2019-018S,FLOCK 4A-6,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Inactive,-,LEO,92.18,-1.0,US,USA,97.25,Commercial,Earth Observation,4.0,,3.0,1,PSLV
+44096,2019-018U,FLOCK 4A-11,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Inactive,-,LEO,92.02,-1.0,US,USA,97.25,Commercial,Earth Observation,4.0,,3.0,1,PSLV
 44097,2019-018V,FLOCK 4A-10,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,92.46,-1.0,US,USA,97.25,,,-1.0,,-1.0,0,
 44102,2019-018AA,FLOCK 4A-13,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,90.76,-1.0,US,USA,97.25,,,-1.0,,-1.0,0,
 44103,2019-018AB,AISTECHSAT-3,2019-04-01,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,93.49,-1.0,SPN,Spain,97.25,Commercial,Earth Observation,2.3,,-1.0,1,PSLV
@@ -4804,7 +4803,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 45048,2020-006E,STARLINK-1134,2020-01-29,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
 45049,2020-006F,STARLINK-1135,2020-01-29,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,94.58,-1.0,US,USA,53.07,Commercial,Communications,227.0,,-1.0,1,Falcon
 45050,2020-006G,STARLINK-1140,2020-01-29,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
-45051,2020-006H,STARLINK-1141,2020-01-29,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Inactive,-,LEO,87.65,-1.0,US,USA,53.02,Commercial,Communications,227.0,,-1.0,1,Falcon
 45052,2020-006J,STARLINK-1148,2020-01-29,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
 45053,2020-006K,STARLINK-1155,2020-01-29,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,93.99,-1.0,US,USA,52.99,Commercial,Communications,227.0,,-1.0,1,Falcon
 45054,2020-006L,STARLINK-1156,2020-01-29,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
@@ -5896,7 +5894,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 47476,2021-006BR,KEPLER-8 (AMAROK),2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.32,-1.0,CA,Canada,97.4,Commercial,Communications,9.0,,-1.0,1,Falcon
 47477,2021-006BS,FLOCK 4S-34,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.12,-1.0,US,USA,97.39,Commercial,Earth Observation,4.0,,3.0,1,Falcon
 47478,2021-006BT,FLOCK 4S-9,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.14,-1.0,US,USA,97.39,Commercial,Earth Observation,4.0,,3.0,1,Falcon
-47479,2021-006BU,FLOCK 4S-32,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,92.08,-1.0,US,USA,97.38,Commercial,Earth Observation,4.0,,3.0,1,Falcon
+47479,2021-006BU,FLOCK 4S-32,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Inactive,-,LEO,92.08,-1.0,US,USA,97.38,Commercial,Earth Observation,4.0,,3.0,1,Falcon
 47482,2021-006BX,NASA PTD-1,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,94.08,-1.0,US,USA,97.4,,,-1.0,,-1.0,0,
 47483,2021-006BY,P2-10,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,93.93,-1.0,US,USA,97.39,Civil/Government,Technology Development,1.0,,-1.0,1,Falcon
 47484,2021-006BZ,ARCE-1C,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9/Sherpa FX,Active,+,LEO,93.8,-1.0,US,USA,97.39,Civil,Technology Development,1.0,,-1.0,1,Falcon
