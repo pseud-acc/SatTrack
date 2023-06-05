@@ -3978,7 +3978,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 41991,LEMUR-2-JOBANPUTRA,2017,91.4,10.0,+,97.18,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 41993,LEMUR-2-SATCHMO,2017,92.62,10.0,+,97.2,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 41995,LEMUR-2-RDEATON,2017,92.85,10.0,+,97.21,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
-41996,LEMUR-2-TACHIKOMA,2017,88.55,10.0,+,97.19,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 41998,LEMUR-2-MIA-GRACE,2017,92.83,10.0,+,97.21,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 42000,DIDO-2,2017,93.54,10.0,+,97.2,Active,1,LEO,India,Israel,Commercial,PSLV,Technology Development
 42015,PEASSS,2017,92.85,10.0,+,97.21,Active,1,LEO,India,Netherlands,Government,PSLV,Technology Development
@@ -10226,7 +10225,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 55708,STARLINK-30058,2023,94.16,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
 55709,STARLINK-30047,2023,91.64,-1.0,P,43.0,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
 55710,STARLINK-30046,2023,91.64,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
-55711,STARLINK-30048,2023,88.42,-1.0,P,42.98,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
 55712,STARLINK-30037,2023,91.64,-1.0,P,43.0,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
 55713,STARLINK-30063,2023,91.64,-1.0,P,43.0,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
 55714,STARLINK-30059,2023,91.64,-1.0,P,43.0,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
