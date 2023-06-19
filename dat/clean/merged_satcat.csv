@@ -4013,7 +4013,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 42767,2017-036C,CARTOSAT-2E,2017-06-23,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,94.78,-1.0,IND,India,97.4,Government,Earth Observation,712.0,,5.0,1,PSLV
 42769,2017-036E,CE-SAT-I,2017-06-23,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,94.13,-1.0,JPN,Japan,97.16,Commercial,Technology Development,3.0,,-1.0,1,PSLV
 42771,2017-036G,LEMUR-2-SHAINAJOHL,2017-06-23,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,92.15,-1.0,US,USA,97.14,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
-42772,2017-036H,LEMUR-2-XUENITERENCE,2017-06-23,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,88.16,-1.0,US,USA,97.07,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
 42773,2017-036J,LEMUR-2-LUCYBRYCE,2017-06-23,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,92.55,-1.0,US,USA,97.15,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
 42774,2017-036K,LEMUR-2-KUNGFOO,2017-06-23,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,92.06,-1.0,US,USA,97.14,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
 42775,2017-036L,AALTO-1,2017-06-23,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,93.78,-1.0,FIN,Finland,97.15,Civil,Technology Development,4.5,,2.0,1,PSLV
@@ -10964,3 +10963,4 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 56844,2023-079X,STARLINK-30136,2023-06-04,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,91.72,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 56873,2022-162C,SZ-15 MODULE,2022-11-29,2022,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,92.37,-1.0,PRC,China,41.48,,,-1.0,,-1.0,0,
 56874,2023-082A,LONGJIANG 3,2023-06-09,2023,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,94.5,-1.0,PRC,China,49.13,,,-1.0,,-1.0,0,
+57045,2023-086A,OBJECT A,2023-06-18,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,MEO,971.18,-1.0,INDO,Indonesia,27.89,,,-1.0,,-1.0,0,

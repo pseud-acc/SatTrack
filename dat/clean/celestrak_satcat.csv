@@ -4013,7 +4013,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.4,2017-06-23,SRILR,42767,2017-036C,CARTOSAT-2E,PAY,+,EA,LEO,ORB,IND,94.78,Active,India,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.16,2017-06-23,SRILR,42769,2017-036E,CE-SAT-I,PAY,+,EA,LEO,ORB,JPN,94.13,Active,Japan,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.14,2017-06-23,SRILR,42771,2017-036G,LEMUR-2-SHAINAJOHL,PAY,+,EA,LEO,ORB,US,92.15,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
-,97.07,2017-06-23,SRILR,42772,2017-036H,LEMUR-2-XUENITERENCE,PAY,+,EA,LEO,ORB,US,88.16,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.15,2017-06-23,SRILR,42773,2017-036J,LEMUR-2-LUCYBRYCE,PAY,+,EA,LEO,ORB,US,92.55,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.14,2017-06-23,SRILR,42774,2017-036K,LEMUR-2-KUNGFOO,PAY,+,EA,LEO,ORB,US,92.06,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.15,2017-06-23,SRILR,42775,2017-036L,AALTO-1,PAY,+,EA,LEO,ORB,FIN,93.78,Active,Finland,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
@@ -10964,3 +10963,4 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,43.0,2023-06-04,AFETR,56844,2023-079X,STARLINK-30136,PAY,+,EA,LEO,ORB,US,91.72,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,41.48,2022-11-29,JSC,56873,2022-162C,SZ-15 MODULE,PAY,+,EA,LEO,ORB,PRC,92.37,Active,China,"Jiuquan Space Center, PRC",PRC
 ,49.13,2023-06-09,JSC,56874,2023-082A,LONGJIANG 3,PAY,+,EA,LEO,ORB,PRC,94.5,Active,China,"Jiuquan Space Center, PRC",PRC
+,27.89,2023-06-18,AFETR,57045,2023-086A,OBJECT A,PAY,+,EA,MEO,ORB,INDO,971.18,Active,Indonesia,"Air Force Eastern Test Range, Florida, USA",USA

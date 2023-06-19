@@ -4013,7 +4013,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 42767,CARTOSAT-2E,2017,94.78,712.0,+,97.4,Active,1,LEO,India,India,Government,PSLV,Earth Observation
 42769,CE-SAT-I,2017,94.13,3.0,+,97.16,Active,1,LEO,India,Japan,Commercial,PSLV,Technology Development
 42771,LEMUR-2-SHAINAJOHL,2017,92.15,10.0,+,97.14,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
-42772,LEMUR-2-XUENITERENCE,2017,88.16,10.0,+,97.07,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 42773,LEMUR-2-LUCYBRYCE,2017,92.55,10.0,+,97.15,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 42774,LEMUR-2-KUNGFOO,2017,92.06,10.0,+,97.14,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 42775,AALTO-1,2017,93.78,4.5,+,97.15,Active,1,LEO,India,Finland,Civil,PSLV,Technology Development
@@ -10964,3 +10963,4 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 56844,STARLINK-30136,2023,91.72,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56873,SZ-15 MODULE,2022,92.37,-1.0,+,41.48,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 56874,LONGJIANG 3,2023,94.5,-1.0,+,49.13,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+57045,OBJECT A,2023,971.18,-1.0,+,27.89,Active,0,MEO,USA,Indonesia,Unknown,Unknown,Unknown
