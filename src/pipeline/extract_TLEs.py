@@ -102,8 +102,14 @@ def extract_TLE(dbs_name, lastupdate, satcatid_list):
     start = time.time()
     
     count=0
+    url_count=0
+    no_of_satcatids = len(satcatid_list)
+    
     ## Loop through list of SATCAT Numbers 
-    for sat in satcatid_list:
+    while url_count < no_of_satcatids:
+    #     for sat in satcatid_list:
+        sat = satcatid_list[url_count]
+        url_count += 1
 
         # Check database
         query = "select lastupdate from tle where satcatid = {}".format(sat)
@@ -117,16 +123,30 @@ def extract_TLE(dbs_name, lastupdate, satcatid_list):
                     url = service_url.format(sat)
                     #url = "https://celestrak.com/NORAD/elements/gp.php?GROUP=active&FORMAT=tle"
                     print("Retrieving", url)
-                    data = requests.get(url).text.split("\n")
+                    # try retrieving TLE data from celestrak
+                    try:
+                        data = requests.get(url).text.split("\n")
+                    except Exception:
+                        pass 
+                        print("Connection attempt failed - retries with url exceeded.")
+                        print("")
+                        print("Wait 30 seconds...")
+                        time.sleep(30)
+                        # Iterate backwards to retry url
+                        url_count -=1
+                        continue            
 
-                    if len(data) == 1:
+                    print("Connection attempt was successful - check if data is present...")
+                    try:
+                        data1 = [d.strip() for d in data[:-1]] + [sat]
+                        tmp   = pd.DataFrame([data1], columns=["ObjectName","TLE1","TLE2","SatCatId"])
+                    except Exception:
+                        pass 
                         print("=== Failure to Retrieve ===")
                         print(data)
                         satcat_no_data.append(sat)
                         continue
 
-                    data1 = [d.strip() for d in data[:-1]] + [sat]
-                    tmp   = pd.DataFrame([data1], columns=["ObjectName","TLE1","TLE2","SatCatId"])
                     query = 'UPDATE tle  SET  ObjectName = "{obj}", TLE1 = "{t1}", TLE2 = "{t2}", LastUpdate = "{lu}", WHERE SatCatId = {sid}'.format(obj = tmp["ObjectName"][0],t1 = tmp["TLE1"][0], lu=lastupdate,
                                                       t2 = tmp["TLE2"][0], sid = tmp["SatCatId"][0])
                # print(query)
@@ -136,15 +156,32 @@ def extract_TLE(dbs_name, lastupdate, satcatid_list):
             # Create API request url using satellite name
             url = service_url.format(sat)
             print("Retrieving", url)
-            data = requests.get(url).text.split("\n")
+            # try retrieving TLE data from celestrak
+            try:
+                data = requests.get(url).text.split("\n")
+            except Exception:
+                pass 
+                print("Connection attempt failed - retries with url exceeded.")
+                print("")
+                print("Wait 30 seconds...")
+                time.sleep(30)
+                # Iterate backwards to retry url
+                url_count -=1
+                continue            
 
-            if len(data) == 1:
+            # Connection attempt was successful - check if data present
+            print("Connection attempt was successful - check if data is present...")
+            try:
+                data1 = [d.strip() for d in data[:-1]] + [sat]
+                tmp   = pd.DataFrame([data1], columns=["ObjectName","TLE1","TLE2","SatCatId"])
+                print("=== Data extracted ===")
+            except Exception:
+                pass 
                 print("=== Failure to Retrieve ===")
                 print(data)
                 satcat_no_data.append(sat)
                 continue
-            data1 = [d.strip() for d in data[:-1]] + [sat]   
-            tmp   = pd.DataFrame([data1], columns=["ObjectName","TLE1","TLE2","SatCatId"])
+         
             # Insert TLE data for new entry
             query = 'INSERT INTO tle (ObjectName,TLE1,TLE2,LastUpdate,SatCatId)  VALUES("{obj}","{t1}","{t2}","{lu}",{sid})'.format(
             obj = tmp["ObjectName"][0],t1 = tmp["TLE1"][0], t2 = tmp["TLE2"][0], lu=lastupdate, sid = tmp["SatCatId"][0])
