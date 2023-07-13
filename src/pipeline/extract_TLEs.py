@@ -26,10 +26,49 @@ import numpy as np
 import http
 import sqlite3
 import requests
+from requests.adapters import HTTPAdapter, Retry
 import time
 from bs4 import BeautifulSoup
 from dateutil import parser
 from datetime import datetime
+
+set_retry_count = 5
+
+def request_celestrak_data(url, retry_count):
+    ''' 
+    Request data from Celestrak website with retries
+
+    @param url: (str) url containing TLE data for specific SatCat ID 
+    @param retry_count: (integer) number of times to retry connection
+    @return: data (list): list of strings containing TLE data if connection attempt(s) successful, otherwise None
+    '''         
+    try:
+        s = requests.Session()
+        retries = Retry(total=retry_count,
+                        backoff_factor=1) #waits 0s, 1s, 4s, 8s, ... between retry attempts
+        s.mount('https://', HTTPAdapter(max_retries=retries))
+        data = s.get(url).text.splitlines() 
+        print("Connection attempt was successful")
+        s.close()
+        return data
+    except Exception:
+        pass 
+        print("Connection retry count limit of ", retry_count, " exceeded.")
+        return
+
+def map_celestrak_data(data_in, sat): 
+    ''' 
+    Map TLE data extracted from Celestrak to array format to insert in database
+
+    @param sat: (str) SatCat ID 
+    @param data_in: (list) raw TLE data in list format
+    @return: data_mapped: dataframe containing TLE data
+    '''     
+    print("Check if data is present")
+    data_array = [d.strip() for d in data_in] + [sat]
+    data_mapped   = pd.DataFrame([data_array], columns=["ObjectName","TLE1","TLE2","SatCatId"])
+    print("=== Data extracted ===")
+    return data_mapped
 
 def extract_TLE_active(dbs_name, lastupdate):
     ''' 
@@ -102,14 +141,8 @@ def extract_TLE(dbs_name, lastupdate, satcatid_list):
     start = time.time()
     
     count=0
-    url_count=0
-    no_of_satcatids = len(satcatid_list)
-    
     ## Loop through list of SATCAT Numbers 
-    while url_count < no_of_satcatids:
-    #     for sat in satcatid_list:
-        sat = satcatid_list[url_count]
-        url_count += 1
+    for sat in satcatid_list:
 
         # Check database
         query = "select lastupdate from tle where satcatid = {}".format(sat)
@@ -124,29 +157,18 @@ def extract_TLE(dbs_name, lastupdate, satcatid_list):
                     #url = "https://celestrak.com/NORAD/elements/gp.php?GROUP=active&FORMAT=tle"
                     print("Retrieving", url)
                     # try retrieving TLE data from celestrak
+                    api_data = request_celestrak_data(url, set_retry_count)          
+                    # try mapping celestrak data
                     try:
-                        data = requests.get(url).text.split("\n")
-                    except Exception:
-                        pass 
-                        print("Connection attempt failed - retries with url exceeded.")
-                        print("")
-                        print("Wait 30 seconds...")
-                        time.sleep(30)
-                        # Iterate backwards to retry url
-                        url_count -=1
-                        continue            
-
-                    print("Connection attempt was successful - check if data is present...")
-                    try:
-                        data1 = [d.strip() for d in data[:-1]] + [sat]
-                        tmp   = pd.DataFrame([data1], columns=["ObjectName","TLE1","TLE2","SatCatId"])
+                        tmp = map_celestrak_data(api_data, sat)
                     except Exception:
                         pass 
                         print("=== Failure to Retrieve ===")
-                        print(data)
+                        print(api_data)
                         satcat_no_data.append(sat)
                         continue
 
+                    tmp   = pd.DataFrame([data1], columns=["ObjectName","TLE1","TLE2","SatCatId"])
                     query = 'UPDATE tle  SET  ObjectName = "{obj}", TLE1 = "{t1}", TLE2 = "{t2}", LastUpdate = "{lu}", WHERE SatCatId = {sid}'.format(obj = tmp["ObjectName"][0],t1 = tmp["TLE1"][0], lu=lastupdate,
                                                       t2 = tmp["TLE2"][0], sid = tmp["SatCatId"][0])
                # print(query)
@@ -157,31 +179,16 @@ def extract_TLE(dbs_name, lastupdate, satcatid_list):
             url = service_url.format(sat)
             print("Retrieving", url)
             # try retrieving TLE data from celestrak
+            api_data = request_celestrak_data(url, set_retry_count)          
+            # try mapping celestrak data
             try:
-                data = requests.get(url).text.split("\n")
-            except Exception:
-                pass 
-                print("Connection attempt failed - retries with url exceeded.")
-                print("")
-                print("Wait 30 seconds...")
-                time.sleep(30)
-                # Iterate backwards to retry url
-                url_count -=1
-                continue            
-
-            # Connection attempt was successful - check if data present
-            print("Connection attempt was successful - check if data is present...")
-            try:
-                data1 = [d.strip() for d in data[:-1]] + [sat]
-                tmp   = pd.DataFrame([data1], columns=["ObjectName","TLE1","TLE2","SatCatId"])
-                print("=== Data extracted ===")
+                tmp = map_celestrak_data(api_data, sat)
             except Exception:
                 pass 
                 print("=== Failure to Retrieve ===")
-                print(data)
+                print(api_data)
                 satcat_no_data.append(sat)
                 continue
-         
             # Insert TLE data for new entry
             query = 'INSERT INTO tle (ObjectName,TLE1,TLE2,LastUpdate,SatCatId)  VALUES("{obj}","{t1}","{t2}","{lu}",{sid})'.format(
             obj = tmp["ObjectName"][0],t1 = tmp["TLE1"][0], t2 = tmp["TLE2"][0], lu=lastupdate, sid = tmp["SatCatId"][0])
@@ -202,5 +209,3 @@ def extract_TLE(dbs_name, lastupdate, satcatid_list):
     print("Individual Satellite TLE update complete!")    
     
     return satcat_no_data
-
-    
