@@ -3970,7 +3970,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 41948,CARTOSAT-2D,2017,94.79,714.0,+,97.47,Active,1,LEO,India,India,Government,PSLV,Earth Observation
 41949,INS-1A,2017,91.89,8.4,+,97.19,Active,1,LEO,India,India,Government,PSLV,Earth Observation
 41954,INS-1B,2017,92.08,8.0,+,97.19,Active,1,LEO,India,India,Government,PSLV,Earth Observation
-41956,FLOCK 3P-24,2017,88.01,-1.0,-,97.2,Inactive,0,LEO,India,USA,Unknown,PSLV,Unknown
 41993,LEMUR-2-SATCHMO,2017,92.21,10.0,+,97.19,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 41995,LEMUR-2-RDEATON,2017,92.53,10.0,+,97.21,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 41998,LEMUR-2-MIA-GRACE,2017,92.47,10.0,+,97.21,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
