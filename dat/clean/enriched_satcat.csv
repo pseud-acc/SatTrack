@@ -4161,7 +4161,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 43159,JILIN-01-07,2018,95.07,95.0,+,97.29,Active,1,LEO,PRC,China,Commercial,Long March,Earth Observation
 43160,JILIN-01-08,2018,95.09,95.0,+,97.29,Active,1,LEO,PRC,China,Commercial,Long March,Earth Observation
 43162,SBIRS GEO-3 (USA 282),2018,1436.09,4500.0,+,2.78,Active,1,GSO,USA,USA,Military,Atlas,Earth Observation
-43165,LEMUR-2-MARSHALL,2018,88.35,10.0,+,82.87,Active,1,LEO,New Zealand,USA,Commercial,Electron,Earth Observation
 43167,LEMUR-2-TALLHAMN-ATC,2018,92.46,10.0,+,82.91,Active,1,LEO,New Zealand,USA,Commercial,Electron,Earth Observation
 43169,WEINA 1A,2018,96.49,1.0,+,35.0,Active,1,LEO,PRC,China,Government,Long March,Technology Development
 43170,YAOGAN-30 K,2018,96.47,-1.0,+,35.0,Active,1,LEO,PRC,China,Military,Long March,Earth Observation
@@ -11505,3 +11504,4 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 57628,OBJECT C,2023,98.77,-1.0,+,45.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 57629,OBJECT D,2023,98.74,-1.0,+,45.01,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 57630,OBJECT E,2023,98.74,-1.0,+,45.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+57654,OBJECT A,2023,96.66,-1.0,+,97.9,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown

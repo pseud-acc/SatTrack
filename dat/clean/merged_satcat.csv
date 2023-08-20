@@ -4161,7 +4161,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 43159,2018-008E,JILIN-01-07,2018-01-19,2018,"Jiuquan Space Center, PRC",PRC,Long March 11,Active,+,LEO,95.07,-1.0,PRC,China,97.29,Commercial,Earth Observation,95.0,,3.0,1,Long March
 43160,2018-008F,JILIN-01-08,2018-01-19,2018,"Jiuquan Space Center, PRC",PRC,Long March 11,Active,+,LEO,95.09,-1.0,PRC,China,97.29,Commercial,Earth Observation,95.0,,3.0,1,Long March
 43162,2018-009A,SBIRS GEO-3 (USA 282),2018-01-20,2018,"Air Force Eastern Test Range, Florida, USA",USA,Atlas 5,Active,+,GSO,1436.09,-1.0,US,USA,2.78,Military,Earth Observation,4500.0,,12.0,1,Atlas
-43165,2018-010C,LEMUR-2-MARSHALL,2018-01-21,2018,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,88.35,-1.0,US,USA,82.87,Commercial,Earth Observation,10.0,,-1.0,1,Electron
 43167,2018-010E,LEMUR-2-TALLHAMN-ATC,2018-01-21,2018,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,92.46,-1.0,US,USA,82.91,Commercial,Earth Observation,10.0,,-1.0,1,Electron
 43169,2018-011A,WEINA 1A,2018-01-25,2018,"Xichang Launch Facility, PRC",PRC,Long March 2C,Active,+,LEO,96.49,-1.0,PRC,China,35.0,Government,Technology Development,1.0,,-1.0,1,Long March
 43170,2018-011B,YAOGAN-30 K,2018-01-25,2018,"Xichang Launch Facility, PRC",PRC,Long March 2C,Active,+,LEO,96.47,-1.0,PRC,China,35.0,Military,Earth Observation,-1.0,,-1.0,1,Long March
@@ -11505,3 +11504,4 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 57628,2023-121C,OBJECT C,2023-08-14,2023,"Xichang Launch Facility, PRC",PRC,,Active,+,LEO,98.77,-1.0,PRC,China,45.0,,,-1.0,,-1.0,0,
 57629,2023-121D,OBJECT D,2023-08-14,2023,"Xichang Launch Facility, PRC",PRC,,Active,+,LEO,98.74,-1.0,PRC,China,45.01,,,-1.0,,-1.0,0,
 57630,2023-121E,OBJECT E,2023-08-14,2023,"Xichang Launch Facility, PRC",PRC,,Active,+,LEO,98.74,-1.0,PRC,China,45.0,,,-1.0,,-1.0,0,
+57654,2023-123A,OBJECT A,2023-08-20,2023,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,96.66,-1.0,PRC,China,97.9,,,-1.0,,-1.0,0,
