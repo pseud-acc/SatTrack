@@ -8340,7 +8340,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 52775,GUARDIAN,2022,94.82,-1.0,+,97.55,Active,0,LEO,USA,Spain,Unknown,Unknown,Unknown
 52776,FOSSASAT-2E13,2022,93.83,-1.0,+,97.54,Active,0,LEO,USA,Spain,Unknown,Falcon,Unknown
 52777,VEERY-FS1,2022,93.99,-1.0,+,97.55,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
-52778,FOSSASAT-2E7,2022,89.08,-1.0,+,97.53,Active,0,LEO,USA,Spain,Unknown,Falcon,Unknown
 52779,FOSSASAT-2E8,2022,93.0,-1.0,+,97.54,Active,0,LEO,USA,Spain,Unknown,Falcon,Unknown
 52780,CPOD FLT2 (TYVAK-0033),2022,94.15,-1.0,+,97.55,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 52785,GEESAT 1,2022,96.91,100.0,+,50.0,Active,1,LEO,PRC,China,Commercial,Long March,Earth Observation/Navigation
@@ -9781,7 +9780,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 55177,ONEWEB-0716,2023,108.21,-1.0,+,87.94,Active,0,LEO,USA,UK,Unknown,Falcon,Unknown
 55178,ONEWEB-0717,2023,108.2,-1.0,+,88.08,Active,0,LEO,USA,UK,Unknown,Falcon,Unknown
 55179,ONEWEB-0719,2023,108.15,-1.0,+,87.96,Active,0,LEO,USA,UK,Unknown,Falcon,Unknown
-55183,OPTIMAL-1,1998,88.14,-1.0,+,51.63,Active,0,LEO,Kazakhstan,Japan,Unknown,Falcon,Unknown
 55239,APSTAR 6E,2023,602.33,-1.0,+,28.38,Active,0,MEO,PRC,China,Unknown,Long March,Unknown
 55242,SHIYAN 22A (SY-22A),2023,94.27,-1.0,+,43.19,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 55243,SHIYAN 22B (SY-22B),2023,94.66,-1.0,+,43.2,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
@@ -11498,6 +11496,28 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 57584,OBJECT E,2023,95.29,-1.0,+,97.52,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 57585,OBJECT F,2023,95.29,-1.0,+,97.52,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 57586,OBJECT G,2023,95.24,-1.0,+,97.52,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+57602,STARLINK A,2023,91.05,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+57603,STARLINK B,2023,91.04,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+57604,STARLINK C,2023,91.04,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+57605,STARLINK D,2023,91.04,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+57606,STARLINK E,2023,91.04,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+57607,STARLINK F,2023,91.04,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+57608,STARLINK G,2023,91.04,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+57609,STARLINK H,2023,91.04,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+57610,STARLINK J,2023,91.04,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+57611,STARLINK K,2023,91.04,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+57612,STARLINK L,2023,91.04,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+57613,STARLINK M,2023,91.04,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+57614,STARLINK N,2023,91.04,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+57615,STARLINK P,2023,91.04,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+57616,STARLINK Q,2023,91.05,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+57617,STARLINK R,2023,91.05,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+57618,STARLINK S,2023,91.05,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+57619,STARLINK T,2023,90.42,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+57620,STARLINK U,2023,91.04,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+57621,STARLINK V,2023,91.05,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+57622,STARLINK W,2023,91.05,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+57623,STARLINK X,2023,91.05,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 57624,LUDI TANCE-4 01A,2023,655.44,-1.0,+,23.77,Active,0,MEO,PRC,China,Unknown,Unknown,Unknown
 57626,OBJECT A,2023,98.79,-1.0,+,45.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 57627,OBJECT B,2023,98.78,-1.0,+,45.01,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
@@ -11505,3 +11525,4 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 57629,OBJECT D,2023,98.74,-1.0,+,45.01,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 57630,OBJECT E,2023,98.74,-1.0,+,45.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 57654,OBJECT A,2023,96.61,-1.0,+,97.9,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+57691,PROGRESS-MS 24,2023,90.46,-1.0,+,51.64,Active,0,LEO,Kazakhstan,Russia/USSR,Unknown,Unknown,Unknown
