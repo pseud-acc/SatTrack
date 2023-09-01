@@ -4727,7 +4727,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 44952,STARLINK-1117,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 44953,STARLINK-1124,2020,93.56,227.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 44954,STARLINK-1066,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-44955,STARLINK-1069,2020,94.76,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
+44955,STARLINK-1069,2020,94.76,227.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 44956,STARLINK-1070,2020,91.33,227.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 44957,STARLINK-1074,2020,91.33,227.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 44959,STARLINK-1076,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -5022,7 +5022,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 45568,STARLINK-1363,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45569,STARLINK-1366,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45570,STARLINK-1376,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-45571,STARLINK-1261,2020,93.05,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
+45571,STARLINK-1261,2020,93.05,227.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45572,STARLINK-1320,2020,95.2,227.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45573,STARLINK-1321,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45574,STARLINK-1324,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -10127,7 +10127,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 55699,STARLINK-30055,2023,91.64,-1.0,P,43.0,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
 55700,STARLINK-30064,2023,91.64,-1.0,P,43.0,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
 55701,STARLINK-30065,2023,91.64,-1.0,P,43.0,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
-55702,STARLINK-30042,2023,90.24,-1.0,+,42.99,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
+55702,STARLINK-30042,2023,90.24,-1.0,P,42.99,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
 55704,STARLINK-30051,2023,91.64,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
 55705,STARLINK-30057,2023,91.64,-1.0,P,43.0,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
 55707,STARLINK-30060,2023,91.64,-1.0,P,43.0,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
@@ -10719,7 +10719,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 56511,STARLINK-5351,2023,95.84,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56512,STARLINK-5349,2023,95.84,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56513,STARLINK-5329,2023,95.84,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56514,STARLINK-5343,2023,90.2,-1.0,+,42.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56514,STARLINK-5343,2023,90.2,-1.0,P,42.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56515,STARLINK-5348,2023,95.84,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56516,STARLINK-5342,2023,95.84,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56517,STARLINK-5345,2023,95.84,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
@@ -10972,7 +10972,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 56926,STARLINK-5746,2023,95.84,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56927,STARLINK-5808,2023,91.35,-1.0,P,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56932,OBJECT A,2023,94.98,-1.0,+,97.51,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
-56933,OTTER PUP,2023,95.17,-1.0,+,97.52,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+56933,OTTER PUP,2023,95.17,-1.0,P,97.52,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56934,GEISAT PRECURSOR,2023,95.18,-1.0,+,97.52,Active,0,LEO,USA,Spain,Unknown,Unknown,Unknown
 56935,OBJECT D,2023,94.98,-1.0,+,97.51,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 56936,OBJECT E,2023,94.98,-1.0,+,97.51,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
@@ -11547,3 +11547,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 57691,PROGRESS-MS 24,2023,92.9,-1.0,+,51.64,Active,0,LEO,Kazakhstan,Russia/USSR,Unknown,Unknown,Unknown
 57693,CAPELLA-11 (ACADIA),2023,97.62,-1.0,+,53.01,Active,0,LEO,New Zealand,USA,Unknown,Unknown,Unknown
 57696,JILIN-01 KUANFU 02A,2023,95.42,-1.0,+,97.59,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+57727,OBJECT A,2023,94.56,-1.0,+,35.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+57728,OBJECT B,2023,94.55,-1.0,+,34.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+57729,OBJECT C,2023,94.55,-1.0,+,34.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
