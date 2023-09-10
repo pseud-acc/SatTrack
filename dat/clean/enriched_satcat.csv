@@ -11622,3 +11622,4 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 57797,OBJECT A,2023,98.45,-1.0,+,98.16,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 57800,XRISM,2023,96.54,-1.0,+,31.05,Active,0,LEO,Japan,Japan,Unknown,Unknown,Unknown
 57803,SLIM,2023,2190.67,-1.0,+,30.32,Active,0,HEO,Japan,Japan,Unknown,Unknown,Unknown
+57830,OBJECT A,2023,100.97,-1.0,+,86.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
