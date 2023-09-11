@@ -3794,7 +3794,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 41036,2015-068A,TELSTAR 12V,2015-11-24,2015,"Tanegashima Space Center, Japan",Japan,H2A,Active,+,GSO,1436.12,-1.0,CA,Canada,0.03,Commercial,Communications,4900.0,,15.0,1,H2A
 41038,2015-069A,YAOGAN-29,2015-11-26,2015,"Taiyuan Space Center, PRC",PRC,Long March 4C,Active,+,LEO,97.2,-1.0,PRC,China,98.06,Military,Earth Observation,1040.0,,-1.0,1,Long March
 41099,2015-071B,COSMOS 2512,2015-12-05,2015,"Plesetsk Missile and Space Complex, Russia",Russia,,Inactive,-,LEO,98.24,-1.0,CIS,Russia/USSR,98.12,,,-1.0,,-1.0,0,
-41103,2015-073A,CHINASAT 1C (ZX 1C),2015-12-09,2015,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,GSO,1452.13,-1.0,PRC,China,4.52,Commercial,Communications,5200.0,,15.0,1,Long March
+41103,2015-073A,CHINASAT 1C (ZX 1C),2015-12-09,2015,"Xichang Launch Facility, PRC",PRC,Long March 3B,Inactive,-,GSO,1452.13,-1.0,PRC,China,4.52,Commercial,Communications,5200.0,,15.0,1,Long March
 41105,2015-074A,ELEKTRO-L 2,2015-12-11,2015,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Zenit,Active,+,GSO,1436.08,-1.0,CIS,Russia/USSR,4.12,Government,Earth Observation,1800.0,,10.0,1,Zenit
 41121,2015-075A,COSMOS 2513,2015-12-13,2015,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Active,+,GSO,1436.12,-1.0,CIS,Russia/USSR,0.04,Military,Communications,5000.0,,-1.0,1,Proton
 41166,2015-077A,VELOX-CI,2015-12-16,2015,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV-C29,Active,+,LEO,94.96,-1.0,SING,Singapore,14.98,Civil,Technology Development,123.0,,-1.0,1,PSLV

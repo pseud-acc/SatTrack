@@ -3794,7 +3794,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,0.03,2015-11-24,TANSC,41036,2015-068A,TELSTAR 12V,PAY,+,EA,GSO,ORB,CA,1436.12,Active,Canada,"Tanegashima Space Center, Japan",Japan
 ,98.06,2015-11-26,TAISC,41038,2015-069A,YAOGAN-29,PAY,+,EA,LEO,ORB,PRC,97.2,Active,China,"Taiyuan Space Center, PRC",PRC
 ,98.12,2015-12-05,PLMSC,41099,2015-071B,COSMOS 2512,PAY,-,EA,LEO,ORB,CIS,98.24,Inactive,Russia/USSR,"Plesetsk Missile and Space Complex, Russia",Russia
-,4.52,2015-12-09,XICLF,41103,2015-073A,CHINASAT 1C (ZX 1C),PAY,+,EA,GSO,ORB,PRC,1452.13,Active,China,"Xichang Launch Facility, PRC",PRC
+,4.52,2015-12-09,XICLF,41103,2015-073A,CHINASAT 1C (ZX 1C),PAY,-,EA,GSO,ORB,PRC,1452.13,Inactive,China,"Xichang Launch Facility, PRC",PRC
 ,4.12,2015-12-11,TYMSC,41105,2015-074A,ELEKTRO-L 2,PAY,+,EA,GSO,ORB,CIS,1436.08,Active,Russia/USSR,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,0.04,2015-12-13,TYMSC,41121,2015-075A,COSMOS 2513,PAY,+,EA,GSO,ORB,CIS,1436.12,Active,Russia/USSR,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,14.98,2015-12-16,SRILR,41166,2015-077A,VELOX-CI,PAY,+,EA,LEO,ORB,SING,94.96,Active,Singapore,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
