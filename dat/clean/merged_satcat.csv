@@ -4132,7 +4132,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 43107,2018-003A,BEIDOU-3 M7,2018-01-11,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,55.11,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
 43108,2018-003B,BEIDOU-3 M8,2018-01-11,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,55.11,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
 43111,2018-004A,CARTOSAT-2F,2018-01-12,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,94.78,-1.0,IND,India,97.47,Government,Earth Observation,712.0,,5.0,1,PSLV
-43113,2018-004C,LEO VANTAGE 1,2018-01-12,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,P,LEO,98.82,-1.0,US,USA,99.27,Commercial,Communications,100.0,,-1.0,1,PSLV
+43113,2018-004C,LEO 1 (LEO VANTAGE 1),2018-01-12,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,P,LEO,98.82,-1.0,US,USA,99.27,Commercial,Communications,100.0,,-1.0,1,PSLV
 43114,2018-004D,ICEYE-X1,2018-01-12,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Active,+,LEO,92.76,-1.0,FIN,Finland,97.32,,,-1.0,,-1.0,0,
 43115,2018-004E,CARBONITE 2,2018-01-12,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,93.96,-1.0,UK,UK,97.31,Commercial,Technology Development,-1.0,,-1.0,1,PSLV
 43116,2018-004F,INS-1C,2018-01-12,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,92.0,-1.0,IND,India,97.33,Government,Technology Development,5.0,,0.5,1,PSLV
@@ -10115,7 +10115,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 55699,2023-026E,STARLINK-30055,2023-02-27,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,P,LEO,91.64,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 55700,2023-026F,STARLINK-30064,2023-02-27,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,P,LEO,91.64,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 55701,2023-026G,STARLINK-30065,2023-02-27,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,P,LEO,91.64,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
-55702,2023-026H,STARLINK-30042,2023-02-27,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,P,LEO,88.23,-1.0,US,USA,42.98,,,-1.0,,-1.0,0,
 55704,2023-026K,STARLINK-30051,2023-02-27,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,91.64,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 55705,2023-026L,STARLINK-30057,2023-02-27,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,P,LEO,91.64,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 55707,2023-026N,STARLINK-30060,2023-02-27,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,P,LEO,91.64,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
@@ -11350,7 +11349,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 57389,2023-100D,STARLING 3,2023-07-18,2023,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,96.12,-1.0,US,USA,99.47,,,-1.0,,-1.0,0,
 57390,2023-100E,LEMUR-2-MANO,2023-07-18,2023,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,96.07,-1.0,US,USA,99.47,,,-1.0,,-1.0,0,
 57391,2023-100F,LEMUR-2-DEVERILL-M-T,2023-07-18,2023,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,96.05,-1.0,US,USA,99.47,,,-1.0,,-1.0,0,
-57392,2023-100G,LEO VANTAGE 3 (LEO 3),2023-07-18,2023,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,105.27,-1.0,CA,Canada,99.45,,,-1.0,,-1.0,0,
+57392,2023-100G,LEO 3,2023-07-18,2023,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,105.27,-1.0,CA,Canada,99.45,,,-1.0,,-1.0,0,
 57399,2023-101A,TIANMU-1 07,2023-07-20,2023,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,95.06,-1.0,PRC,China,97.41,,,-1.0,,-1.0,0,
 57400,2023-101B,TIANMU-1 08,2023-07-20,2023,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,95.15,-1.0,PRC,China,97.4,,,-1.0,,-1.0,0,
 57401,2023-101C,TIANMU-1 09,2023-07-20,2023,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,95.08,-1.0,PRC,China,97.4,,,-1.0,,-1.0,0,
@@ -11551,7 +11550,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 57681,2023-124U,STARLINK-30273,2023-08-22,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,93.06,-1.0,US,USA,53.05,,,-1.0,,-1.0,0,
 57682,2023-124V,STARLINK-30297,2023-08-22,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,93.06,-1.0,US,USA,53.05,,,-1.0,,-1.0,0,
 57683,2023-124W,STARLINK-30295,2023-08-22,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,92.1,-1.0,US,USA,53.05,,,-1.0,,-1.0,0,
-57691,2023-125A,PROGRESS-MS 24,2023-08-23,2023,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Active,+,LEO,92.95,-1.0,CIS,Russia/USSR,51.64,,,-1.0,,-1.0,0,
 57693,2023-126A,CAPELLA-11 (ACADIA),2023-08-23,2023,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,97.61,-1.0,US,USA,53.01,,,-1.0,,-1.0,0,
 57696,2023-127A,JILIN-1 KUANFU 02A,2023-08-25,2023,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,95.4,-1.0,PRC,China,97.59,,,-1.0,,-1.0,0,
 57698,2023-129A,STARLINK-30288,2023-08-27,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,91.77,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
