@@ -3849,7 +3849,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 41549,2016-030A,GSAT0211 (GALILEO 14),2016-05-24,2016,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Soyuz-ST,Active,+,MEO,844.71,-1.0,ESA,ESA,55.5,Commercial,Navigation (Global or Regional Positioning),723.0,,12.0,1,Soyuz
 41550,2016-030B,GSAT0210 (GALILEO 13),2016-05-24,2016,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Soyuz-ST,Active,+,MEO,844.71,-1.0,ESA,ESA,55.5,Commercial,Navigation (Global or Regional Positioning),723.0,,12.0,1,Soyuz
 41552,2016-031A,THAICOM 8,2016-05-27,2016,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,GSO,1436.07,-1.0,THAI,Thailand,0.07,Commercial,Communications,3025.0,,15.0,1,Falcon
-41554,2016-032A,COSMOS 2516 [GLONASS-M],2016-05-29,2016,"Plesetsk Missile and Space Complex, Russia",Russia,Soyuz-2.1b,Active,+,MEO,675.72,-1.0,CIS,Russia/USSR,63.87,Commercial/Military,Navigation (Global or Regional Positioning),1415.0,,7.0,1,Soyuz
+41554,2016-032A,COSMOS 2516 [GLONASS-M],2016-05-29,2016,"Plesetsk Missile and Space Complex, Russia",Russia,Soyuz-2.1b,Inactive,-,MEO,675.72,-1.0,CIS,Russia/USSR,63.87,Commercial/Military,Navigation (Global or Regional Positioning),1415.0,,7.0,1,Soyuz
 41556,2016-033A,ZIYUAN 3-2 (ZY 3-2),2016-05-30,2016,"Taiyuan Space Center, PRC",PRC,Long March 4B,Active,+,LEO,94.65,-1.0,PRC,China,97.49,Government,Earth Observation,2630.0,,4.0,1,Long March
 41557,2016-033B,NUSAT-1 (FRESCO),2016-05-30,2016,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,91.14,-1.0,ARGN,Argentina,97.39,,,-1.0,,-1.0,0,
 41558,2016-033C,NUSAT-2 (BATATA),2016-05-30,2016,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,90.38,-1.0,ARGN,Argentina,97.41,,,-1.0,,-1.0,0,

@@ -3849,7 +3849,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 41549,GSAT0211 (GALILEO 14),2016,844.71,723.0,+,55.5,Active,1,MEO,French Guiana,ESA,Commercial,Soyuz,Navigation (Global or Regional Positioning)
 41550,GSAT0210 (GALILEO 13),2016,844.71,723.0,+,55.5,Active,1,MEO,French Guiana,ESA,Commercial,Soyuz,Navigation (Global or Regional Positioning)
 41552,THAICOM 8,2016,1436.07,3025.0,+,0.07,Active,1,GSO,USA,Thailand,Commercial,Falcon,Communications
-41554,COSMOS 2516 [GLONASS-M],2016,675.72,1415.0,+,63.87,Active,1,MEO,Russia,Russia/USSR,Commercial/Military,Soyuz,Navigation (Global or Regional Positioning)
+41554,COSMOS 2516 [GLONASS-M],2016,675.72,1415.0,-,63.87,Inactive,1,MEO,Russia,Russia/USSR,Commercial/Military,Soyuz,Navigation (Global or Regional Positioning)
 41556,ZIYUAN 3-2 (ZY 3-2),2016,94.65,2630.0,+,97.49,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
 41557,NUSAT-1 (FRESCO),2016,91.14,-1.0,+,97.39,Active,0,LEO,PRC,Argentina,Unknown,Unknown,Unknown
 41558,NUSAT-2 (BATATA),2016,90.38,-1.0,+,97.41,Active,0,LEO,PRC,Argentina,Unknown,Unknown,Unknown
