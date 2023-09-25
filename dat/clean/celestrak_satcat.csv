@@ -4383,7 +4383,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,85.02,2018-12-16,RLLB,43849,2018-104A,TOMSAT R3 (AEROCUBE 11B),PAY,+,EA,LEO,ORB,US,92.42,Active,USA,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
 ,85.02,2018-12-16,RLLB,43850,2018-104B,SHIELDS 1,PAY,+,EA,LEO,ORB,US,94.11,Active,USA,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
 ,85.02,2018-12-16,RLLB,43852,2018-104D,STF-1,PAY,+,EA,LEO,ORB,US,92.85,Active,USA,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
-,84.98,2018-12-16,RLLB,43854,2018-104F,OBJECT F,PAY,-,EA,LEO,ORB,TBD,88.63,Inactive,To Be Determined,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
 ,85.02,2018-12-16,RLLB,43855,2018-104G,CHOMPTT,PAY,+,EA,LEO,ORB,US,93.15,Active,USA,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
 ,85.02,2018-12-16,RLLB,43856,2018-104H,CP11 (ISX),PAY,+,EA,LEO,ORB,US,93.28,Active,USA,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
 ,85.02,2018-12-16,RLLB,43858,2018-104K,OBJECT K,PAY,-,EA,LEO,ORB,TBD,93.4,Inactive,To Be Determined,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
@@ -5865,7 +5864,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.37,2021-01-24,AFETR,47542,2021-006EC,FLOCK 4S-25,PAY,+,EA,LEO,ORB,US,93.93,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,97.37,2021-01-24,AFETR,47543,2021-006ED,FLOCK 4S-1,PAY,+,EA,LEO,ORB,US,93.88,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,97.37,2021-01-24,AFETR,47544,2021-006EE,FLOCK 4S-30,PAY,+,EA,LEO,ORB,US,93.94,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
-,97.37,2021-01-24,AFETR,47545,2021-006EF,FLOCK 4S-23,PAY,+,EA,LEO,ORB,US,92.56,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,97.37,2021-01-24,AFETR,47545,2021-006EF,FLOCK 4S-23,PAY,-,EA,LEO,ORB,US,92.56,Inactive,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,67.15,2021-02-02,PLMSC,47546,2021-008A,COSMOS 2549,PAY,+,EA,LEO,ORB,CIS,103.1,Active,Russia/USSR,"Plesetsk Missile and Space Complex, Russia",Russia
 ,53.05,2021-02-04,AFETR,47548,2021-009A,STARLINK-1782,PAY,+,EA,LEO,ORB,US,95.59,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.06,2021-02-04,AFETR,47549,2021-009B,STARLINK-1806,PAY,+,EA,LEO,ORB,US,95.59,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA

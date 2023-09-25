@@ -4383,7 +4383,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 43849,TOMSAT R3 (AEROCUBE 11B),2018,92.42,4.0,+,85.02,Active,1,LEO,New Zealand,USA,Commercial,Electron,Technology Development
 43850,SHIELDS 1,2018,94.11,4.0,+,85.02,Active,1,LEO,New Zealand,USA,Government,Electron,Technology Development
 43852,STF-1,2018,92.85,-1.0,+,85.02,Active,0,LEO,New Zealand,USA,Unknown,Electron,Unknown
-43854,OBJECT F,2018,88.63,-1.0,-,84.98,Inactive,0,LEO,New Zealand,To Be Determined,Unknown,Unknown,Unknown
 43855,CHOMPTT,2018,93.15,4.0,+,85.02,Active,1,LEO,New Zealand,USA,Civil/Government,Electron,Technology Development
 43856,CP11 (ISX),2018,93.28,4.0,+,85.02,Active,1,LEO,New Zealand,USA,Civil/Government,Electron,Space Science
 43858,OBJECT K,2018,93.4,3.0,-,85.02,Inactive,1,LEO,New Zealand,To Be Determined,Civil,Electron,Technology Development
@@ -5865,7 +5864,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 47542,FLOCK 4S-25,2021,93.93,4.0,+,97.37,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47543,FLOCK 4S-1,2021,93.88,4.0,+,97.37,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47544,FLOCK 4S-30,2021,93.94,4.0,+,97.37,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
-47545,FLOCK 4S-23,2021,92.56,4.0,+,97.37,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
+47545,FLOCK 4S-23,2021,92.56,4.0,-,97.37,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47546,COSMOS 2549,2021,103.1,5000.0,+,67.15,Active,1,LEO,Russia,Russia/USSR,Military,Soyuz,Earth Observation
 47548,STARLINK-1782,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47549,STARLINK-1806,2021,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications

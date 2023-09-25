@@ -4383,7 +4383,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 43849,2018-104A,TOMSAT R3 (AEROCUBE 11B),2018-12-16,2018,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,92.42,-1.0,US,USA,85.02,Commercial,Technology Development,4.0,,-1.0,1,Electron
 43850,2018-104B,SHIELDS 1,2018-12-16,2018,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,94.11,-1.0,US,USA,85.02,Government,Technology Development,4.0,,-1.0,1,Electron
 43852,2018-104D,STF-1,2018-12-16,2018,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,92.85,-1.0,US,USA,85.02,,,-1.0,,-1.0,0,
-43854,2018-104F,OBJECT F,2018-12-16,2018,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Inactive,-,LEO,88.63,-1.0,TBD,To Be Determined,84.98,,,-1.0,,-1.0,0,
 43855,2018-104G,CHOMPTT,2018-12-16,2018,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,93.15,-1.0,US,USA,85.02,Civil/Government,Technology Development,4.0,,-1.0,1,Electron
 43856,2018-104H,CP11 (ISX),2018-12-16,2018,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,93.28,-1.0,US,USA,85.02,Civil/Government,Space Science,4.0,,-1.0,1,Electron
 43858,2018-104K,OBJECT K,2018-12-16,2018,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Inactive,-,LEO,93.4,-1.0,TBD,To Be Determined,85.02,Civil,Technology Development,3.0,,-1.0,1,Electron
@@ -5865,7 +5864,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 47542,2021-006EC,FLOCK 4S-25,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,93.93,-1.0,US,USA,97.37,Commercial,Earth Observation,4.0,,3.0,1,Falcon
 47543,2021-006ED,FLOCK 4S-1,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,93.88,-1.0,US,USA,97.37,Commercial,Earth Observation,4.0,,3.0,1,Falcon
 47544,2021-006EE,FLOCK 4S-30,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,93.94,-1.0,US,USA,97.37,Commercial,Earth Observation,4.0,,3.0,1,Falcon
-47545,2021-006EF,FLOCK 4S-23,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,92.56,-1.0,US,USA,97.37,Commercial,Earth Observation,4.0,,3.0,1,Falcon
+47545,2021-006EF,FLOCK 4S-23,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Inactive,-,LEO,92.56,-1.0,US,USA,97.37,Commercial,Earth Observation,4.0,,3.0,1,Falcon
 47546,2021-008A,COSMOS 2549,2021-02-02,2021,"Plesetsk Missile and Space Complex, Russia",Russia,Soyuz-2.1b,Active,+,LEO,103.1,-1.0,CIS,Russia/USSR,67.15,Military,Earth Observation,5000.0,,-1.0,1,Soyuz
 47548,2021-009A,STARLINK-1782,2021-02-04,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 47549,2021-009B,STARLINK-1806,2021-02-04,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
