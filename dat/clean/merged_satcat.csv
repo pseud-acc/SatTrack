@@ -5578,11 +5578,10 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 46818,2020-077F,CE-SAT IIB,2020-10-28,2020,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,94.44,-1.0,JPN,Japan,97.36,Commercial,Technology Development,36.0,,2.0,1,Electron
 46819,2020-077G,FLOCK 4E'-3,2020-10-28,2020,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,93.04,-1.0,US,USA,97.36,Commercial,Earth Observation,4.0,,3.0,1,Electron
 46820,2020-077H,FLOCK 4E'-2,2020-10-28,2020,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Inactive,-,LEO,91.91,-1.0,US,USA,97.36,Commercial,Earth Observation,4.0,,3.0,1,Electron
-46821,2020-077J,FLOCK 4E'-4,2020-10-28,2020,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,92.47,-1.0,US,USA,97.36,Commercial,Earth Observation,4.0,,3.0,1,Electron
+46821,2020-077J,FLOCK 4E'-4,2020-10-28,2020,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Inactive,-,LEO,92.47,-1.0,US,USA,97.36,Commercial,Earth Observation,4.0,,3.0,1,Electron
 46822,2020-077K,FLOCK 4E'-6,2020-10-28,2020,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,92.77,-1.0,US,USA,97.35,Commercial,Earth Observation,4.0,,3.0,1,Electron
 46825,2020-061BQ,FLOCK 4V-26,2020-09-03,2020,"Europe's Spaceport, Kourou, French Guiana",French Guiana,ION SCV Dispenser,Inactive,-,LEO,91.73,-1.0,US,USA,97.35,Commercial,Earth Observation,4.0,,3.0,1,ION
 46826,2020-078A,NAVSTAR 80 (USA 309),2020-11-05,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,MEO,717.98,-1.0,US,USA,54.3,Commercial/Military,Navigation (Global or Regional Positioning),2300.0,,15.0,1,Falcon
-46827,2020-079A,NUSAT-12 (DOROTHY),2020-11-06,2020,"Taiyuan Space Center, PRC",PRC,Long March 6,Active,+,LEO,88.33,-1.0,ARGN,Argentina,97.11,Commercial,Earth Observation,45.0,,-1.0,1,Long March
 46828,2020-079B,NUSAT-9 (ALICE),2020-11-06,2020,"Taiyuan Space Center, PRC",PRC,Long March 6,Active,+,LEO,89.71,-1.0,ARGN,Argentina,97.11,Commercial,Earth Observation,45.0,,-1.0,1,Long March
 46829,2020-079C,NUSAT-11 (CORA),2020-11-06,2020,"Taiyuan Space Center, PRC",PRC,Long March 6,Active,+,LEO,90.05,-1.0,ARGN,Argentina,97.12,Commercial,Earth Observation,45.0,,-1.0,1,Long March
 46832,2020-079F,NUSAT-10 (CAROLINE),2020-11-06,2020,"Taiyuan Space Center, PRC",PRC,Long March 6,Active,+,LEO,90.8,-1.0,ARGN,Argentina,97.14,Commercial,Earth Observation,45.0,,-1.0,1,Long March
@@ -7941,7 +7940,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 52305,2022-041AW,STARLINK-3724,2022-04-21,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 52306,2022-041AX,STARLINK-3747,2022-04-21,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 52307,2022-041AY,STARLINK-3755,2022-04-21,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
-52308,2022-041AZ,STARLINK-3745,2022-04-21,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.41,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
+52308,2022-041AZ,STARLINK-3745,2022-04-21,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,95.41,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 52309,2022-041BA,STARLINK-3756,2022-04-21,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 52310,2022-041BB,STARLINK-3688,2022-04-21,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.54,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 52311,2022-041BC,STARLINK-3750,2022-04-21,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
@@ -9957,7 +9956,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 55473,2023-015AA,STARLINK-5687,2023-02-02,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,95.84,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 55474,2023-015AB,STARLINK-5689,2023-02-02,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,95.84,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 55475,2023-015AC,STARLINK-5650,2023-02-02,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,95.84,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
-55476,2023-015AD,STARLINK-5596,2023-02-02,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,P,LEO,89.01,-1.0,US,USA,42.99,,,-1.0,,-1.0,0,
 55477,2023-015AE,STARLINK-5685,2023-02-02,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,95.84,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 55478,2023-015AF,STARLINK-5691,2023-02-02,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,95.84,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 55479,2023-015AG,STARLINK-5688,2023-02-02,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,95.84,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
@@ -11720,3 +11718,5 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 57910,2023-146V,STARLINK-30453,2023-09-20,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.61,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 57911,2023-146W,STARLINK-30478,2023-09-20,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.51,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 57912,2023-146X,STARLINK-30477,2023-09-20,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.6,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+57958,2023-149A,OBJECT A,2023-09-26,2023,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,98.44,-1.0,PRC,China,98.07,,,-1.0,,-1.0,0,
+57962,2023-150A,OBJECT A,2023-09-27,2023,"Shahrud Missile Test Site, Iran",Iran,,Active,+,LEO,93.57,-1.0,IRAN,Iran,60.02,,,-1.0,,-1.0,0,
