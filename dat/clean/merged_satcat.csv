@@ -4726,7 +4726,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 44978,2020-002A,TJS-5,2020-01-07,2020,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,GSO,1436.07,-1.0,PRC,China,0.11,Government,Communications,-1.0,,-1.0,1,Long March
 45016,2020-003A,JILIN-1 KUANFU 01,2020-01-15,2020,"Taiyuan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,95.15,-1.0,PRC,China,97.61,Commercial,Earth Observation,95.0,,-1.0,1,Long March
 45017,2020-003B,NUSAT-7 (SOPHIE),2020-01-15,2020,"Taiyuan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,91.96,-1.0,ARGN,Argentina,97.15,Commercial,Earth Observation,45.0,,-1.0,1,Long March
-45018,2020-003C,NUSAT-8 (MARIE),2020-01-15,2020,"Taiyuan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,88.34,-1.0,ARGN,Argentina,97.15,Commercial,Earth Observation,45.0,,-1.0,1,Long March
 45019,2020-003D,TIANQI-5,2020-01-15,2020,"Taiyuan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,93.11,-1.0,PRC,China,97.15,Commercial,Communications,9.0,,-1.0,1,Long March
 45024,2020-004A,YINHE-1,2020-01-16,2020,"Jiuquan Space Center, PRC",PRC,Kuaizhou 1A,Active,+,LEO,97.54,-1.0,PRC,China,86.4,Commercial,Communications,227.0,,-1.0,1,Kuaizhou
 45026,2020-005A,GSAT-30,2020-01-16,2020,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1436.09,-1.0,IND,India,0.05,Government,Communications,3357.0,,15.0,1,Ariane
@@ -5585,7 +5584,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 46832,2020-079F,NUSAT-10 (CAROLINE),2020-11-06,2020,"Taiyuan Space Center, PRC",PRC,Long March 6,Active,+,LEO,90.82,-1.0,ARGN,Argentina,97.14,Commercial,Earth Observation,45.0,,-1.0,1,Long March
 46833,2020-079G,NUSAT-13 (EMMY),2020-11-06,2020,"Taiyuan Space Center, PRC",PRC,Long March 6,Active,+,LEO,90.49,-1.0,ARGN,Argentina,97.13,Commercial,Earth Observation,45.0,,-1.0,1,Long March
 46835,2020-079J,NUSAT-17 (MARY),2020-11-06,2020,"Taiyuan Space Center, PRC",PRC,Long March 6,Active,+,LEO,90.1,-1.0,ARGN,Argentina,97.13,Commercial,Earth Observation,45.0,,-1.0,1,Long March
-46836,2020-079K,NUSAT-18 (VERA),2020-11-06,2020,"Taiyuan Space Center, PRC",PRC,Long March 6,Active,+,LEO,88.13,-1.0,ARGN,Argentina,97.11,Commercial,Earth Observation,45.0,,-1.0,1,Long March
 46838,2020-079M,BEIHANGKONGSHI 1,2020-11-06,2020,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,91.72,-1.0,PRC,China,97.14,,,-1.0,,-1.0,0,
 46904,2020-080A,TIANQI-11,2020-11-07,2020,"Jiuquan Space Center, PRC",PRC,Ceres-1,Active,+,LEO,91.42,-1.0,PRC,China,97.5,Commercial,Technology Development,50.0,,-1.0,1,Ceres
 46905,2020-081A,RISAT-2BR2,2020-11-07,2020,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,96.09,-1.0,IND,India,36.9,Military,Earth Observation,630.0,,-1.0,1,PSLV
@@ -5628,7 +5626,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 47151,2020-088AF,STARLINK-1864,2020-11-25,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 47152,2020-088AG,STARLINK-1866,2020-11-25,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 47153,2020-088AH,STARLINK-1867,2020-11-25,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
-47154,2020-088AJ,STARLINK-1868,2020-11-25,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,88.74,-1.0,US,USA,53.02,Commercial,Communications,260.0,,4.0,1,Falcon
 47155,2020-088AK,STARLINK-1869,2020-11-25,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 47157,2020-088AM,STARLINK-1871,2020-11-25,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 47158,2020-088AN,STARLINK-1873,2020-11-25,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
@@ -6738,7 +6735,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 48864,2021-055E,TIANQI-14,2021-06-18,2021,"Xichang Launch Facility, PRC",PRC,Long March 2C,Active,+,LEO,96.29,-1.0,PRC,China,35.0,Commercial,Technology Development,50.0,,-1.0,1,Long March
 48865,2021-056A,COSMOS 2550,2021-06-25,2021,"Plesetsk Missile and Space Complex, Russia",Russia,Soyuz 2.1b,Active,+,LEO,93.88,-1.0,CIS,Russia/USSR,67.14,Military,Earth Observation,6500.0,,5.0,1,Soyuz
 48872,2021-058B,STORK-5 (MARTA),2021-06-30,2021,Western Range Airspace,Western Range Airspace,LauncherOne,Active,+,LEO,91.19,-1.0,POL,Poland,60.67,Commercial,Earth Observation,5.0,,5.0,1,LauncherOne
-48873,2021-058C,STORK-4,2021-06-30,2021,Western Range Airspace,Western Range Airspace,LauncherOne,Active,+,LEO,88.52,-1.0,POL,Poland,60.68,Commercial,Earth Observation,5.0,,5.0,1,LauncherOne
 48874,2021-058D,CNCE3,2021-06-30,2021,Western Range Airspace,Western Range Airspace,LauncherOne,Active,+,LEO,91.59,-1.0,US,USA,60.7,Military,Communications,5.0,,-1.0,1,LauncherOne
 48875,2021-058E,CNCE1,2021-06-30,2021,Western Range Airspace,Western Range Airspace,LauncherOne,Active,+,LEO,91.6,-1.0,US,USA,60.7,Military,Communications,5.0,,-1.0,1,LauncherOne
 48876,2021-058F,BRIK-II,2021-06-30,2021,Western Range Airspace,Western Range Airspace,LauncherOne,Active,+,LEO,94.23,-1.0,NETH,Netherlands,60.68,Government,Earth Observation,10.0,,-1.0,1,LauncherOne

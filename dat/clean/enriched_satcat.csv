@@ -4726,7 +4726,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 44978,TJS-5,2020,1436.07,-1.0,+,0.11,Active,1,GSO,PRC,China,Government,Long March,Communications
 45016,JILIN-1 KUANFU 01,2020,95.15,95.0,+,97.61,Active,1,LEO,PRC,China,Commercial,Long March,Earth Observation
 45017,NUSAT-7 (SOPHIE),2020,91.96,45.0,+,97.15,Active,1,LEO,PRC,Argentina,Commercial,Long March,Earth Observation
-45018,NUSAT-8 (MARIE),2020,88.34,45.0,+,97.15,Active,1,LEO,PRC,Argentina,Commercial,Long March,Earth Observation
 45019,TIANQI-5,2020,93.11,9.0,+,97.15,Active,1,LEO,PRC,China,Commercial,Long March,Communications
 45024,YINHE-1,2020,97.54,227.0,+,86.4,Active,1,LEO,PRC,China,Commercial,Kuaizhou,Communications
 45026,GSAT-30,2020,1436.09,3357.0,+,0.05,Active,1,GSO,French Guiana,India,Government,Ariane,Communications
@@ -5585,7 +5584,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 46832,NUSAT-10 (CAROLINE),2020,90.82,45.0,+,97.14,Active,1,LEO,PRC,Argentina,Commercial,Long March,Earth Observation
 46833,NUSAT-13 (EMMY),2020,90.49,45.0,+,97.13,Active,1,LEO,PRC,Argentina,Commercial,Long March,Earth Observation
 46835,NUSAT-17 (MARY),2020,90.1,45.0,+,97.13,Active,1,LEO,PRC,Argentina,Commercial,Long March,Earth Observation
-46836,NUSAT-18 (VERA),2020,88.13,45.0,+,97.11,Active,1,LEO,PRC,Argentina,Commercial,Long March,Earth Observation
 46838,BEIHANGKONGSHI 1,2020,91.72,-1.0,+,97.14,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 46904,TIANQI-11,2020,91.42,50.0,+,97.5,Active,1,LEO,PRC,China,Commercial,Ceres,Technology Development
 46905,RISAT-2BR2,2020,96.09,630.0,+,36.9,Active,1,LEO,India,India,Military,PSLV,Earth Observation
@@ -5628,7 +5626,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 47151,STARLINK-1864,2020,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47152,STARLINK-1866,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47153,STARLINK-1867,2020,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-47154,STARLINK-1868,2020,88.74,260.0,P,53.02,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47155,STARLINK-1869,2020,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47157,STARLINK-1871,2020,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47158,STARLINK-1873,2020,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -6738,7 +6735,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 48864,TIANQI-14,2021,96.29,50.0,+,35.0,Active,1,LEO,PRC,China,Commercial,Long March,Technology Development
 48865,COSMOS 2550,2021,93.88,6500.0,+,67.14,Active,1,LEO,Russia,Russia/USSR,Military,Soyuz,Earth Observation
 48872,STORK-5 (MARTA),2021,91.19,5.0,+,60.67,Active,1,LEO,Western Range Airspace,Poland,Commercial,LauncherOne,Earth Observation
-48873,STORK-4,2021,88.52,5.0,+,60.68,Active,1,LEO,Western Range Airspace,Poland,Commercial,LauncherOne,Earth Observation
 48874,CNCE3,2021,91.59,5.0,+,60.7,Active,1,LEO,Western Range Airspace,USA,Military,LauncherOne,Communications
 48875,CNCE1,2021,91.6,5.0,+,60.7,Active,1,LEO,Western Range Airspace,USA,Military,LauncherOne,Communications
 48876,BRIK-II,2021,94.23,10.0,+,60.68,Active,1,LEO,Western Range Airspace,Netherlands,Government,LauncherOne,Earth Observation
