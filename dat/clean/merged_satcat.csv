@@ -4136,7 +4136,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 43118,2018-004H,CORVUS BC3,2018-01-12,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,93.26,-1.0,US,USA,97.32,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
 43127,2018-004S,DEMOSAT 2,2018-01-12,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,93.23,-1.0,US,USA,97.32,Commercial,Technology Development,-1.0,,-1.0,1,PSLV
 43130,2018-004V,ARKYD 6A,2018-01-12,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,92.63,-1.0,US,USA,97.32,Commercial,Technology Development,10.0,,-1.0,1,PSLV
-43132,2018-004X,PICSAT,2018-01-12,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Active,+,LEO,88.63,-1.0,FR,France,97.29,,,-1.0,,-1.0,0,
 43133,2018-004Y,CNUSAIL-1,2018-01-12,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Active,+,LEO,92.84,-1.0,SKOR,South Korea,97.32,,,-1.0,,-1.0,0,
 43134,2018-004Z,OBJECT Z,2018-01-12,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,91.75,-1.0,TBD,To Be Determined,97.32,,,-1.0,,-1.0,0,
 43137,2018-004AC,FOX-1D (AO-92),2018-01-12,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Active,+,LEO,92.52,-1.0,US,USA,97.32,,,-1.0,,-1.0,0,
@@ -7380,7 +7379,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 51022,2022-002AQ,LEMUR-2-KING-JULIEN,2022-01-13,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,93.25,-1.0,US,USA,97.43,Commercial,Earth Observation,10.0,,-1.0,1,Falcon
 51023,2022-002AR,FLOCK 4X-38,2022-01-13,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.04,-1.0,US,USA,97.43,Commercial,Earth Observation,6.0,,3.0,1,Falcon
 51024,2022-002AS,FLOCK 4X-32,2022-01-13,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.05,-1.0,US,USA,97.43,Commercial,Earth Observation,6.0,,3.0,1,Falcon
-51025,2022-002AT,GRIZU-263A,2022-01-13,2022,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,88.89,-1.0,TURK,Turkey,97.42,,,-1.0,,-1.0,0,
 51026,2022-002AU,FLOCK 4X-26,2022-01-13,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.02,-1.0,US,USA,97.43,Commercial,Earth Observation,6.0,,3.0,1,Falcon
 51027,2022-002AV,FLOCK 4X-43,2022-01-13,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.03,-1.0,US,USA,97.43,Commercial,Earth Observation,6.0,,3.0,1,Falcon
 51028,2022-002AW,FLOCK 4X-13,2022-01-13,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.04,-1.0,US,USA,97.43,Commercial,Earth Observation,6.0,,3.0,1,Falcon
@@ -7849,7 +7847,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 52162,2022-033F,LYNK TOWER 1,2022-04-01,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.24,-1.0,US,USA,97.35,Commercial,Communications,80.0,,-1.0,1,Falcon
 52163,2022-033G,ION SCV-005,2022-04-01,2022,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,91.05,-1.0,IT,Italy,97.35,,,-1.0,,-1.0,0,
 52165,2022-033J,HAWK-4B,2022-04-01,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.1,-1.0,US,USA,97.35,Commercial,Surveillance,15.0,,-1.0,1,Falcon
-52166,2022-033K,SPACEBEE-138,2022-04-01,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,89.22,-1.0,US,USA,97.32,Commercial,Communications,2.0,,2.0,1,Falcon
 52167,2022-033L,HAWK-4A,2022-04-01,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.1,-1.0,US,USA,97.35,Commercial,Surveillance,15.0,,-1.0,1,Falcon
 52168,2022-033M,NUSAT-23 (ANNIE MAUNDER),2022-04-01,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,93.87,-1.0,ARGN,Argentina,97.35,Commercial,Earth Observation,42.0,,-1.0,1,Falcon
 52169,2022-033N,MP42,2022-04-01,2022,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,93.81,-1.0,LTU,Lithuania,97.35,,,-1.0,,-1.0,0,

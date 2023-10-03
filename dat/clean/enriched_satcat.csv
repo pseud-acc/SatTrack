@@ -4136,7 +4136,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 43118,CORVUS BC3,2018,93.26,10.0,+,97.32,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 43127,DEMOSAT 2,2018,93.23,-1.0,+,97.32,Active,1,LEO,India,USA,Commercial,PSLV,Technology Development
 43130,ARKYD 6A,2018,92.63,10.0,+,97.32,Active,1,LEO,India,USA,Commercial,PSLV,Technology Development
-43132,PICSAT,2018,88.63,-1.0,+,97.29,Active,0,LEO,India,France,Unknown,PSLV,Unknown
 43133,CNUSAIL-1,2018,92.84,-1.0,+,97.32,Active,0,LEO,India,South Korea,Unknown,PSLV,Unknown
 43134,OBJECT Z,2018,91.75,-1.0,-,97.32,Inactive,0,LEO,India,To Be Determined,Unknown,Unknown,Unknown
 43137,FOX-1D (AO-92),2018,92.52,-1.0,+,97.32,Active,0,LEO,India,USA,Unknown,PSLV,Unknown
@@ -7380,7 +7379,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 51022,LEMUR-2-KING-JULIEN,2022,93.25,10.0,+,97.43,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 51023,FLOCK 4X-38,2022,94.04,6.0,+,97.43,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 51024,FLOCK 4X-32,2022,94.05,6.0,+,97.43,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
-51025,GRIZU-263A,2022,88.89,-1.0,+,97.42,Active,0,LEO,USA,Turkey,Unknown,Falcon,Unknown
 51026,FLOCK 4X-26,2022,94.02,6.0,+,97.43,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 51027,FLOCK 4X-43,2022,94.03,6.0,+,97.43,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 51028,FLOCK 4X-13,2022,94.04,6.0,+,97.43,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
@@ -7849,7 +7847,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 52162,LYNK TOWER 1,2022,94.24,80.0,+,97.35,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 52163,ION SCV-005,2022,91.05,-1.0,+,97.35,Active,0,LEO,USA,Italy,Unknown,Falcon,Unknown
 52165,HAWK-4B,2022,94.1,15.0,+,97.35,Active,1,LEO,USA,USA,Commercial,Falcon,Surveillance
-52166,SPACEBEE-138,2022,89.22,2.0,+,97.32,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 52167,HAWK-4A,2022,94.1,15.0,+,97.35,Active,1,LEO,USA,USA,Commercial,Falcon,Surveillance
 52168,NUSAT-23 (ANNIE MAUNDER),2022,93.87,42.0,+,97.35,Active,1,LEO,USA,Argentina,Commercial,Falcon,Earth Observation
 52169,MP42,2022,93.81,-1.0,+,97.35,Active,0,LEO,USA,Lithuania,Unknown,Falcon,Unknown

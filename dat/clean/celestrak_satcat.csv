@@ -4136,7 +4136,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.32,2018-01-12,SRILR,43118,2018-004H,CORVUS BC3,PAY,+,EA,LEO,ORB,US,93.26,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.32,2018-01-12,SRILR,43127,2018-004S,DEMOSAT 2,PAY,+,EA,LEO,ORB,US,93.23,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.32,2018-01-12,SRILR,43130,2018-004V,ARKYD 6A,PAY,+,EA,LEO,ORB,US,92.63,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
-,97.29,2018-01-12,SRILR,43132,2018-004X,PICSAT,PAY,+,EA,LEO,ORB,FR,88.63,Active,France,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.32,2018-01-12,SRILR,43133,2018-004Y,CNUSAIL-1,PAY,+,EA,LEO,ORB,SKOR,92.84,Active,South Korea,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.32,2018-01-12,SRILR,43134,2018-004Z,OBJECT Z,PAY,-,EA,LEO,ORB,TBD,91.75,Inactive,To Be Determined,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.32,2018-01-12,SRILR,43137,2018-004AC,FOX-1D (AO-92),PAY,+,EA,LEO,ORB,US,92.52,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
@@ -7380,7 +7379,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.43,2022-01-13,AFETR,51022,2022-002AQ,LEMUR-2-KING-JULIEN,PAY,+,EA,LEO,ORB,US,93.25,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,97.43,2022-01-13,AFETR,51023,2022-002AR,FLOCK 4X-38,PAY,+,EA,LEO,ORB,US,94.04,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,97.43,2022-01-13,AFETR,51024,2022-002AS,FLOCK 4X-32,PAY,+,EA,LEO,ORB,US,94.05,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
-,97.42,2022-01-13,AFETR,51025,2022-002AT,GRIZU-263A,PAY,+,EA,LEO,ORB,TURK,88.89,Active,Turkey,"Air Force Eastern Test Range, Florida, USA",USA
 ,97.43,2022-01-13,AFETR,51026,2022-002AU,FLOCK 4X-26,PAY,+,EA,LEO,ORB,US,94.02,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,97.43,2022-01-13,AFETR,51027,2022-002AV,FLOCK 4X-43,PAY,+,EA,LEO,ORB,US,94.03,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,97.43,2022-01-13,AFETR,51028,2022-002AW,FLOCK 4X-13,PAY,+,EA,LEO,ORB,US,94.04,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
@@ -7849,7 +7847,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.35,2022-04-01,AFETR,52162,2022-033F,LYNK TOWER 1,PAY,+,EA,LEO,ORB,US,94.24,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,97.35,2022-04-01,AFETR,52163,2022-033G,ION SCV-005,PAY,+,EA,LEO,ORB,IT,91.05,Active,Italy,"Air Force Eastern Test Range, Florida, USA",USA
 ,97.35,2022-04-01,AFETR,52165,2022-033J,HAWK-4B,PAY,+,EA,LEO,ORB,US,94.1,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
-,97.32,2022-04-01,AFETR,52166,2022-033K,SPACEBEE-138,PAY,+,EA,LEO,ORB,US,89.22,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,97.35,2022-04-01,AFETR,52167,2022-033L,HAWK-4A,PAY,+,EA,LEO,ORB,US,94.1,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,97.35,2022-04-01,AFETR,52168,2022-033M,NUSAT-23 (ANNIE MAUNDER),PAY,+,EA,LEO,ORB,ARGN,93.87,Active,Argentina,"Air Force Eastern Test Range, Florida, USA",USA
 ,97.35,2022-04-01,AFETR,52169,2022-033N,MP42,PAY,+,EA,LEO,ORB,LTU,93.81,Active,Lithuania,"Air Force Eastern Test Range, Florida, USA",USA
