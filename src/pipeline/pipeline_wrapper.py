@@ -135,6 +135,7 @@ def tle_pipeline(metadata,
         missing_satcat_ids, num_downloaded  = extract_TLE_active(satdat_dbs, last_update_tle)
         print("TLEs downloaded for ",num_downloaded," active satellites")
         
+        print("Attempt to extract TLEs for individual satellites...")
         satcat_no_data = extract_TLE(satdat_dbs, last_update_tle, missing_satcat_ids)
         print("TLEs could not be found for ",len(satcat_no_data), "/",
               num_downloaded+len(missing_satcat_ids)," satellites")

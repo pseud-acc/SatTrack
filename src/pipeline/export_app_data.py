@@ -50,7 +50,9 @@ def export_satcat_tle(dbs_name, satcat_tle_filename):
         ON
             t.SatCatId = s.SatCatId
         WHERE 
-            s.OrbitalPeriod > 0
+            s.OrbitalPeriod > 0 AND
+            t.TLE1 != "" AND
+            t.TLE2 != ""
     '''
     cur.executescript(query)
     conn.commit()

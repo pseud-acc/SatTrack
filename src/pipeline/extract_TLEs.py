@@ -34,6 +34,7 @@ from datetime import datetime
 
 set_retry_count = 5
 
+
 def request_celestrak_data(url, retry_count):
     ''' 
     Request data from Celestrak website with retries
@@ -65,10 +66,73 @@ def map_celestrak_data(data_in, sat):
     @return: data_mapped: dataframe containing TLE data
     '''     
     print("Check if data is present")
-    data_array = [d.strip() for d in data_in] + [sat]
-    data_mapped   = pd.DataFrame([data_array], columns=["ObjectName","TLE1","TLE2","SatCatId"])
-    print("=== Data extracted ===")
-    return data_mapped
+    if len(data_in) == 3:
+        data_array = [d.strip() for d in data_in] + [sat]
+        data_mapped   = pd.DataFrame([data_array], columns=["ObjectName","TLE1","TLE2","SatCatId"])
+        print("=== Data extracted ===")
+        return True, data_mapped
+    elif data_in[0] == 'No GP data found':
+        print(data_in)
+        return True, None
+    else:
+        print(data_in)
+        return False, None
+    
+def insert_tle(tle_data, satcatid_in, lastupdate_in, cur_in, conn_in):
+    ''' 
+    Build and execute parameterised query to insert TLE data into sqlite database
+
+    @param tle_data: (dataframe) table containing satellite name and TLE data
+    @param satcatid_in: (integer) Satcat number for satellite 
+    @param lastupdate_in: (string) Last update date of TLE data in celestrak database  
+    @param cur_in: (string) Cursor object for sqlite database connection
+    @param conn_in (string) Sqlite database connection    
+    @return: None
+    '''            
+    query = '''INSERT INTO tle (SatCatId, ObjectName, 
+                                TLE1, TLE2, LastUpdate, InsertedDateTime)  
+                VALUES({sid},"{obj}","{t1}","{t2}","{lu}","{dt}")'''.format(
+        sid = satcatid_in,
+        obj = tle_data["ObjectName"][0],
+        t1 = tle_data["TLE1"][0], 
+        t2 = tle_data["TLE2"][0], 
+        lu=lastupdate_in,
+        dt = datetime.today().strftime("%d/%m/%Y, %H:%M:%S") 
+        )            
+    
+    cur_in.execute(query)
+    conn_in.commit()    
+    return
+
+def update_tle(tle_data, satcatid_in, lastupdate_in, cur_in, conn_in):
+    ''' 
+    Build and execute parameterised query to update TLE data into sqlite database
+
+    @param tle_data: (dataframe) table containing satellite name and TLE data
+    @param satcatid_in: (integer) Satcat number for satellite 
+    @param lastupdate_in: (string) Last update date of TLE data in celestrak database  
+    @param cur_in: (string) Cursor object for sqlite database connection
+    @param conn_in (string) Sqlite database connection    
+    @return: None
+    '''        
+    query = '''
+            UPDATE tle  
+            SET  ObjectName = "{obj}"
+            , TLE1 = "{t1}"
+            , TLE2 = "{t2}"
+            , LastUpdate = "{lu}"
+            , InsertedDateTime = "{dt}"
+            WHERE SatCatId = {sid}'''.format(
+        obj = tle_data["ObjectName"][0],
+        t1 = tle_data["TLE1"][0], 
+        lu=lastupdate_in,
+        t2 = tle_data["TLE2"][0], 
+        dt = datetime.today().strftime("%d/%m/%Y, %H:%M:%S"),
+        sid = satcatid_in)    
+    
+    cur_in.execute(query)
+    conn_in.commit()    
+    return    
 
 def extract_TLE_active(dbs_name, lastupdate):
     ''' 
@@ -95,25 +159,71 @@ def extract_TLE_active(dbs_name, lastupdate):
     url = "https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=tle"
     
     ## Call API data
-    data = requests.get(url).text.split("\n")
+    data = request_celestrak_data(url, set_retry_count)
     if len(data) == 1:
         return "=== Failure to Retrieve ==="
         
     data = [d.strip() for d in data]
-    df = np.reshape(np.array(data[:-1]),(int(len(data[:-1])/3),3))
+    df = np.reshape(np.array(data),(int(len(data)/3),3))
     df_tle = pd.DataFrame(df, columns=["ObjectName","TLE1","TLE2"])
     df_tle["LastUpdate"] = lastupdate
     
     ## Extract SATCAT Numbers
     sat_list_satcat_act = df_tle["TLE1"].str.extract("^1 ([\d]{1,})U.*").astype("int")[0]
-    df_tle["SatCatId"] = sat_list_satcat_act    
+    df_tle["SatCatId"] = sat_list_satcat_act   
     
-    # Missing SATCAT Numbers
-    missing_satcat = list(set(sat_list_satcat_all) - set(sat_list_satcat_act))
+    # Add insert time    
+    df_tle["InsertedDateTime"] = datetime.today().strftime("%d/%m/%Y, %H:%M:%S")
+    
+    # Reorder columns
+    df_tle = df_tle[["SatCatId","ObjectName","TLE1","TLE2","LastUpdate","InsertedDateTime"]]
+    
+    # -- Upsert TLEs
+    
+    ## Create TLE table if it does not exist
+    query = '''
+            CREATE TABLE IF NOT EXISTS tle (
+                SatCatId INTEGER,
+                ObjectName TEXT,
+                TLE1 TEXT,
+                TLE2 TEXT,
+                LastUpdate TEXT,                
+                InsertedDateTime TEXT
+            )
+           '''
+    cur.execute(query)
+    conn.commit()    
  
-    ## Add to SQL database
-    df_tle.to_sql("tle", conn, if_exists="replace", index=False)
+    ## Add new data to staging table
+    df_tle.to_sql("tle_staging", conn, if_exists="replace", index=False)
     conn.commit()
+    
+    ## Delete records from target
+    query = '''
+    DELETE FROM tle
+    WHERE SatCatId IN (
+    SELECT SatCatId FROM tle_staging)    
+    '''
+    cur.execute(query)
+    conn.commit()
+    
+    ## Insert staging data into target
+    query = '''
+    INSERT INTO tle
+    SELECT 
+        SatCatId    
+        , ObjectName
+        , TLE1
+        , TLE2
+        , LastUpdate
+        , InsertedDateTime
+    FROM tle_staging
+    '''
+    cur.execute(query)
+    conn.commit()    
+    
+    # Find missing SATCAT Numbers
+    missing_satcat = list(set(sat_list_satcat_all) - set(sat_list_satcat_act))    
     
     return missing_satcat, len(sat_list_satcat_act)
     
@@ -140,18 +250,70 @@ def extract_TLE(dbs_name, lastupdate, satcatid_list):
     satcat_no_data = []
     start = time.time()
     
+    # Convert list of missing satcatids to dataframe
+    missing_satcat_df = pd.DataFrame(satcatid_list, columns = ['SatCatId'])    
+    
+    # insert list into table - replace
+    missing_satcat_df.to_sql("missing_tle", conn, if_exists="replace", index=False)
+    conn.commit()    
+    
+    # join w/ TLE data and pull out last update, extract ordered by last update ascending - new satcatids ordered first
+    # only checks TLE data if TLE has been extracted before (extract contains Object name, TLE1 and TLE2)
+    query = '''
+        SELECT
+            s.SatCatId,
+            t.LastUpdate
+        FROM 
+            missing_tle s
+        LEFT JOIN
+            tle t
+        ON
+            s.SatCatId = t.SatCatId AND
+            t.ObjectName != "" 
+        ORDER BY LastUpdate
+    '''
+    cur.execute(query)
+
+    missing_satcat_raw = cur.fetchall()
+    
+    # Convert to data frame
+    missing_satcat_w_lu = pd.DataFrame(missing_satcat_raw, columns = ['SatCatId','LastUpdate'])    
+        
+    # map to list 
+    missing_satcat_list = missing_satcat_w_lu['SatCatId'].to_list()
+    
+    # Extract satcatids where TLE was missing at last update -
+    # ensures newest satcatids will be checked first (null in above query)
+    query = '''
+        SELECT
+            SatCatId
+        FROM tle
+        WHERE ObjectName = ""
+        ORDER BY LastUpdate
+    '''
+    cur.execute(query)
+
+    historic_missing_satcat_raw = cur.fetchall()
+    
+    # Convert to data frame
+    historic_missing_satcat = pd.DataFrame(historic_missing_satcat_raw, columns = ['SatCatId'])  
+    
+    # Append list of historic missing satcats to original list
+    missing_satcat_list = missing_satcat_list + historic_missing_satcat['SatCatId'].to_list()
+    
     count=0
     ## Loop through list of SATCAT Numbers 
-    for sat in satcatid_list:
-
+    for n, sat in enumerate(missing_satcat_list):
+        print("Checking ",n+1, "/",len(missing_satcat_list)," satellites")
         # Check database
         query = "select lastupdate from tle where satcatid = {}".format(sat)
         cur.execute(query)
         lu = cur.fetchone()
 
         if lu is not None:
-            # Update TLE data for existing entry
-            if lu[0] != lastupdate:
+            print("Update TLE data for existing entry")
+            print("New date:",parser.parse(lastupdate).date(),"Existing date:",parser.parse(lu[0]).date())
+            if parser.parse(lu[0]).date() != parser.parse(lastupdate).date():
                     # Create API request url using satellite name
                     url = service_url.format(sat)
                     #url = "https://celestrak.com/NORAD/elements/gp.php?GROUP=active&FORMAT=tle"
@@ -159,44 +321,43 @@ def extract_TLE(dbs_name, lastupdate, satcatid_list):
                     # try retrieving TLE data from celestrak
                     api_data = request_celestrak_data(url, set_retry_count)          
                     # try mapping celestrak data
-                    try:
-                        tmp = map_celestrak_data(api_data, sat)
-                    except Exception:
-                        pass 
-                        print("=== Failure to Retrieve ===")
-                        print(api_data)
-                        satcat_no_data.append(sat)
-                        continue
-
-                    tmp   = pd.DataFrame([data1], columns=["ObjectName","TLE1","TLE2","SatCatId"])
-                    query = 'UPDATE tle  SET  ObjectName = "{obj}", TLE1 = "{t1}", TLE2 = "{t2}", LastUpdate = "{lu}", WHERE SatCatId = {sid}'.format(obj = tmp["ObjectName"][0],t1 = tmp["TLE1"][0], lu=lastupdate,
-                                                      t2 = tmp["TLE2"][0], sid = tmp["SatCatId"][0])
-               # print(query)
+                    extract_is_not_blocked, tmp_data = map_celestrak_data(api_data, sat)
+                    if extract_is_not_blocked:
+                        if tmp_data is None:
+                            print("=== Failure to Retrieve ===")
+                            print(api_data)
+                            satcat_no_data.append(sat)
+                            null_data   = pd.DataFrame([['','','','']], columns=["ObjectName","TLE1","TLE2","SatCatId"])
+                            update_tle(null_data, sat, lastupdate, cur, conn)
+                            continue
+                        else:
+                            update_tle(tmp_data, sat, lastupdate, cur, conn)
             else:
                 continue
         else:    
+            print("Insert TLE data for new entry")            
             # Create API request url using satellite name
             url = service_url.format(sat)
             print("Retrieving", url)
             # try retrieving TLE data from celestrak
             api_data = request_celestrak_data(url, set_retry_count)          
             # try mapping celestrak data
-            try:
-                tmp = map_celestrak_data(api_data, sat)
-            except Exception:
-                pass 
-                print("=== Failure to Retrieve ===")
-                print(api_data)
-                satcat_no_data.append(sat)
-                continue
-            # Insert TLE data for new entry
-            query = 'INSERT INTO tle (ObjectName,TLE1,TLE2,LastUpdate,SatCatId)  VALUES("{obj}","{t1}","{t2}","{lu}",{sid})'.format(
-            obj = tmp["ObjectName"][0],t1 = tmp["TLE1"][0], t2 = tmp["TLE2"][0], lu=lastupdate, sid = tmp["SatCatId"][0])
-
-        cur.execute(query)
+            extract_is_not_blocked, tmp_data = map_celestrak_data(api_data, sat)
+            if extract_is_not_blocked:            
+                if tmp is None:
+                    print("=== Failure to Retrieve ===")
+                    print(api_data)
+                    satcat_no_data.append(sat)
+                    # Insert nulls for satcatid entry w/o TLE data
+                    null_data   = pd.DataFrame([['','','','']], columns=["ObjectName","TLE1","TLE2","SatCatId"])
+                    insert_tle(null_data, sat, lastupdate, cur, conn)               
+                    continue
+                else:
+                    # Insert TLE data for new entry
+                    insert_tle(tmp_data, sat, lastupdate, cur, conn)           
 
         count = count + 1
-        print(count)
+        print("TLEs successfully extracted for ", count, " satellites")
         # Batch save every 10 TLEs
         if count % 10 == 0:
             conn.commit()
@@ -204,8 +365,10 @@ def extract_TLE(dbs_name, lastupdate, satcatid_list):
             
     conn.commit()
     end = time.time()    
-    print(end-start)    
+    print("Time taken to extract individual TLEs", end-start) 
     
+        
     print("Individual Satellite TLE update complete!")    
     
     return satcat_no_data
+

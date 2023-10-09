@@ -30,7 +30,7 @@ import plotly.graph_objects as go
 from celestial_geometry_funs import compute_satloc, lla_to_xyz, sphere 
 from app_settings import *
 
-# Earth Radius
+# Earth Radius (km)
 radius_earth = 6378.137 
 
 def import_data(satcat_loc, img_loc, res):
@@ -282,7 +282,7 @@ def orbit_path(df_in, res, time_now, eci):
     df_path = pd.DataFrame(compute_satloc(df_in[["TLE1","TLE2"]].astype(str).values[0], time_lapse, radius_earth, eci), 
                        columns =["x","y","z","lat","lon","alt"])
     df_path["xp"], df_path["yp"], df_path["zp"] = lla_to_xyz(df_path.lat,df_path.lon,df_path.alt,radius_earth)    
-    for col in (df_path.columns).symmetric_difference(df_in.columns):
+    for col in np.setdiff1d(list(df_in.columns),list(df_path.columns)):
         df_path[col] = df_in[col].values[0]
     df_path["Datetime"] = time_lapse; 
     return df_path
