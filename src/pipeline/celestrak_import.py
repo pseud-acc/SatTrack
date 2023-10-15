@@ -37,26 +37,37 @@ def celestrak_update_check(metadata_location, tle_check):
     @return: (boolean, str) True - download CelesTrak data, Last update date in string format
     '''    
     
+    # Assign vars based on satellite catalogue or TLE data download request
     if tle_check: 
         dat_source = "Celestrak_TLE"
         url = "https://celestrak.org/NORAD/elements/"
     else:
         dat_source = "Celestrak"
         url = "https://celestrak.org/satcat/search.php"
+                
+    # Check date of most recent download
+    filename = metadata_location #"..\dat\\meta\\last_data_update.csv"
+    metadata = pd.read_csv(filename)
+    metadata_last_download = metadata[metadata["Source"] == dat_source]["Last Download"].values[0]
+    print("Last Celestrak download: ",  metadata_last_download)    
+    
+    
+
         
     # Check date of most recent data update on CelesTrak website
     #url = "https://celestrak.org/satcat/search.php" Satellite catalogue
     #url = "https://celestrak.org/NORAD/elements/" TLE
     html = requests.get(url = url).text
     soup = BeautifulSoup(html, "html.parser")
-    last_update_str = re.findall("Current as of (.*) UTC",str(soup))[0]
+    
+    try:
+        last_update_str = re.findall("Current as of (.*) UTC",str(soup))[0]
+    except Exception:
+        pass 
+        return False, metadata_last_download
+    
     last_update = parser.parse(last_update_str, dayfirst=True)
 
-    # Check date of most recent download
-    filename = metadata_location #"..\dat\\meta\\last_data_update.csv"
-    metadata = pd.read_csv(filename)
-    metadata_last_download = metadata[metadata["Source"] == dat_source]["Last Download"].values[0]
-    print("Last Celestrak download: ",  metadata_last_download)    
     if parser.parse(metadata_last_download, dayfirst=True) < last_update:
         today = datetime.now()
         metadata.loc[metadata["Source"] == dat_source,"Last Download"] = today.strftime("%d/%m/%Y, %H:%M:%S")
@@ -146,7 +157,21 @@ def import_celestrak_satcat(filename, download_file):
 
         url = "https://celestrak.org/pub/satcat.csv"
         data = requests.get(url)
+        
+        # Check data length - should be >1k lines
+        data_len = len(data.text.splitlines())
+        
+        if data_len < 1000:
+            if re.search('(.*)temporarily blocked(.*)',''.join(data)) is not None:
+                print("")
+                print("Celestrak API request limit reached - connection temporarily blocked.")
+                print("")
+                print("Exiting...")
+                print("")        
+                exit() 
+        
         with open(filename_raw, "wb") as f: f.write(data.content)
+
         all_sat_raw = pd.read_csv(filename_raw)
 
         ## DATA PROCESSING ##

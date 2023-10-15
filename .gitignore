@@ -1,0 +1,12 @@
+# Development code #
+####################
+*.ipynb
+
+# Cached files #
+################
+src/__pycache__/*
+*.pyc
+
+# Large files #
+################
+*.sqlite

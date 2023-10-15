@@ -24,7 +24,7 @@ from create_satcat import clean_satcat_export, satcat_sql_dump
 
 from skyrocket_webscraper import skyrocket_update_check, webscraper_dump, enrich_satcat
 
-from extract_TLEs import extract_TLE_active, extract_TLE
+from extract_TLEs import extract_TLE_active, extract_TLE, remove_decayed_TLE, drop_staging_tables
 
 from export_app_data import export_satcat_tle
 
@@ -47,6 +47,12 @@ def satcat_pipeline(metadata,
     @param filename_satcat: (str) name of csv file to write in clean merged satellite catalogue data 
     @param satdat_dbs: (str) name of sqlite database to write in merged satallite catalogue data     
     '''    
+    
+    print("")
+    print("===========================")
+    print("Satellite catalogue pipeline - Extract Celestrak & UCS data")
+    print("===========================")    
+    print("")           
     
     # >>> Page Update Checks <<<
 
@@ -94,6 +100,12 @@ def satcat_enrichement_pipeline(metadata,
     @param filename_enriched_satcat: (str) name of csv file to write in enriched satellite catalogue data     
     '''      
     
+    print("")
+    print("===========================")
+    print("Webscraper pipeline - satellite catalogue enrichment")
+    print("===========================")    
+    print("")       
+    
     # Check if Skyrocket page(s) has been updated
     update_skyrocket, last_update_skyrocket = skyrocket_update_check(metadata, full_update_check)
     print(" Skyrocket Data last updated: ", last_update_skyrocket, ". Update required: ", update_skyrocket)    
@@ -125,20 +137,35 @@ def tle_pipeline(metadata,
     
     # >>> Page Update Checks <<<
     
+    print("")
+    print("===========================")
+    print("TLE pipeline - Extract Celestrak data")
+    print("===========================")    
+    print("")    
+    
     # Check if Celestrak TLE page has been updated
     update_tle, last_update_tle = celestrak_update_check(metadata, True)
     print(" Celestrak TLE Data last updated: ", last_update_tle, ". Update required: ", update_tle) 
     
     # >>> Import/Export Data <<<
 
+    # Remove decayed satellites from TLE database
+    remove_decayed_TLE(satdat_dbs)
+    print("TLEs successfully removed from database for decayed satellites")
+
+
     if update_tle or update_tle_override:
-        missing_satcat_ids, num_downloaded  = extract_TLE_active(satdat_dbs, last_update_tle)
-        print("TLEs downloaded for ",num_downloaded," active satellites")
-        
-        print("Attempt to extract TLEs for individual satellites...")
-        satcat_no_data = extract_TLE(satdat_dbs, last_update_tle, missing_satcat_ids)
-        print("TLEs could not be found for ",len(satcat_no_data), "/",
-              num_downloaded+len(missing_satcat_ids)," satellites")
+        api_request_limit_not_reached, missing_satcat_ids, num_downloaded  = extract_TLE_active(satdat_dbs, last_update_tle)
+        if api_request_limit_not_reached:
+            print("TLEs downloaded for ",num_downloaded," active satellites")
+
+            print("Attempt to extract TLEs for individual satellites...")
+            satcat_no_data = extract_TLE(satdat_dbs, last_update_tle, missing_satcat_ids)
+            print("TLEs could not be found for ",len(satcat_no_data), "/",
+                  num_downloaded+len(missing_satcat_ids)," satellites")
+            # Drop TLE staging tables
+            drop_staging_tables(satdat_dbs)
+            print("Remove TLE staging tables from database")
         
 def app_data_export(satdat_dbs,
                 filename_satcat_tle):
@@ -148,5 +175,11 @@ def app_data_export(satdat_dbs,
     @param satdat_dbs: (str) name of sqlite database import satellite catalogue and TLE data.
     @param filename_satcat_tle: (str) name of csv file to write in merged satellite catalogue and TLE data
     '''        
+    
+    print("")
+    print("===========================")
+    print("App data export")
+    print("===========================")    
+    print("")        
     
     export_satcat_tle(satdat_dbs, filename_satcat_tle)  
