@@ -34,7 +34,7 @@ satcat_pipeline(**satcat_params)
 # Run Satellite Catalogue Enrichment Pipeline
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-satcat_enrichement_pipeline(**satcat_enrichement_params)
+#satcat_enrichement_pipeline(**satcat_enrichement_params)
 
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

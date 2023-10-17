@@ -10,3 +10,7 @@ src/__pycache__/*
 # Large files #
 ################
 *.sqlite
+
+# Executables #
+################
+*.sh
