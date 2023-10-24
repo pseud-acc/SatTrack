@@ -4301,7 +4301,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 43717,2018-095A,MOHAMMED VI-B,2018-11-21,2018,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Vega,Active,+,LEO,97.49,-1.0,MA,Morroco,97.94,Government,Earth Observation,1110.0,,-1.0,1,Vega
 43719,2018-096A,HYSIS,2018-11-29,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,97.38,-1.0,IND,India,97.9,Government,Earth Observation,380.0,,5.0,1,PSLV
 43730,2018-096M,GLOBAL-1,2018-11-29,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,92.22,-1.0,US,USA,97.32,Commercial,Earth Observation,56.0,,-1.0,1,PSLV
-43743,2018-096AA,REAKTOR HELLO WORLD,2018-11-29,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,88.2,-1.0,FIN,Finland,97.29,Commercial,Earth Observation,4.0,,-1.0,1,PSLV
 43751,2018-097A,COSMOS 2530,2018-11-30,2018,"Plesetsk Missile and Space Complex, Russia",Russia,Rokot,Active,+,LEO,115.86,-1.0,CIS,Russia/USSR,82.51,Military,Communications,280.0,,5.0,1,Rokot
 43752,2018-097B,COSMOS 2531,2018-11-30,2018,"Plesetsk Missile and Space Complex, Russia",Russia,Rokot,Active,+,LEO,115.86,-1.0,CIS,Russia/USSR,82.51,Military,Communications,280.0,,5.0,1,Rokot
 43753,2018-097C,COSMOS 2532,2018-11-30,2018,"Plesetsk Missile and Space Complex, Russia",Russia,Rokot,Active,+,LEO,115.86,-1.0,CIS,Russia/USSR,82.51,Military,Communications,280.0,,5.0,1,Rokot
@@ -5205,7 +5204,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 46081,2020-055BG,STARLINK-1571,2020-08-07,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,-1.0,1,Falcon
 46082,2020-055BH,STARLINK-1578,2020-08-07,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,-1.0,1,Falcon
 46083,2020-055BJ,STARLINK-1579,2020-08-07,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,-1.0,1,Falcon
-46088,2020-055BP,GLOBAL-7,2020-08-07,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,88.41,-1.0,US,USA,52.97,Commercial,Earth Observation,56.0,,-1.0,1,Falcon
 46089,2020-055BQ,GLOBAL-8,2020-08-07,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,92.38,-1.0,US,USA,52.99,Commercial,Earth Observation,56.0,,-1.0,1,Falcon
 46112,2020-056A,BSAT-4B,2020-08-15,2020,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1436.15,-1.0,JPN,Japan,0.08,Commercial,Communications,3520.0,,15.0,1,Ariane
 46114,2020-056C,GALAXY 30 (G-30),2020-08-15,2020,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1436.1,-1.0,US,USA,0.02,Commercial,Communications,3298.0,,15.0,1,Ariane
@@ -6753,7 +6751,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 48917,2021-059AQ,ICEYE-X15,2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.19,-1.0,FIN,Finland,97.61,Commercial,Earth Observation,80.0,,-1.0,1,Falcon
 48918,2021-059AR,ICEYE-X11,2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.7,-1.0,FIN,Finland,97.61,Commercial,Earth Observation,80.0,,-1.0,1,Falcon
 48919,2021-059AS,NUSAT-22 (SOFYA),2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,91.54,-1.0,ARGN,Argentina,97.4,Commercial,Earth Observation,37.0,,-1.0,1,Falcon
-48920,2021-059AT,NUSAT-21 (ELISA),2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,88.35,-1.0,ARGN,Argentina,97.38,Commercial,Earth Observation,37.0,,-1.0,1,Falcon
 48921,2021-059AU,NUSAT-20 (GRACE),2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,90.59,-1.0,ARGN,Argentina,97.41,Commercial,Earth Observation,37.0,,-1.0,1,Falcon
 48922,2021-059AV,D2/ATLACOM-1,2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,93.85,-1.0,LTU,Lithuania,97.6,Government,Earth Observation,9.0,,-1.0,1,Falcon
 48923,2021-059AW,LEMUR-2-ANNABANANA,2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,92.93,-1.0,US,USA,97.59,Commercial,Earth Observation,10.0,,-1.0,1,Falcon
@@ -11812,3 +11809,25 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 58071,2023-158W,STARLINK-30513,2023-10-13,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.48,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 58072,2023-158X,STARLINK-30506,2023-10-13,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.47,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 58073,2023-159A,YUNHAI 1-04,2023-10-15,2023,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,100.13,-1.0,PRC,China,98.59,,,-1.0,,-1.0,0,
+58075,2023-160A,STARLINK A,2023-10-18,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.45,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58076,2023-160B,STARLINK B,2023-10-18,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.45,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58077,2023-160C,STARLINK C,2023-10-18,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.44,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58078,2023-160D,STARLINK D,2023-10-18,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.44,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58079,2023-160E,STARLINK E,2023-10-18,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.43,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58080,2023-160F,STARLINK F,2023-10-18,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.43,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58081,2023-160G,STARLINK G,2023-10-18,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.42,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58082,2023-160H,STARLINK H,2023-10-18,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.42,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58083,2023-160J,STARLINK J,2023-10-18,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.41,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58084,2023-160K,STARLINK K,2023-10-18,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.4,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58085,2023-160L,STARLINK L,2023-10-18,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.4,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58086,2023-160M,STARLINK M,2023-10-18,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.39,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58087,2023-160N,STARLINK N,2023-10-18,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.4,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58088,2023-160P,STARLINK P,2023-10-18,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.38,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58089,2023-160Q,STARLINK Q,2023-10-18,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.37,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58090,2023-160R,STARLINK R,2023-10-18,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.38,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58091,2023-160S,STARLINK S,2023-10-18,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.37,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58092,2023-160T,STARLINK T,2023-10-18,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.36,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58093,2023-160U,STARLINK U,2023-10-18,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.37,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58094,2023-160V,STARLINK V,2023-10-18,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.36,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58095,2023-160W,STARLINK W,2023-10-18,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.35,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58096,2023-160X,STARLINK X,2023-10-18,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.34,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
