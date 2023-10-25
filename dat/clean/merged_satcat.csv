@@ -5779,7 +5779,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 47483,2021-006BY,P2-10,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,92.86,-1.0,US,USA,97.37,Civil/Government,Technology Development,1.0,,-1.0,1,Falcon
 47484,2021-006BZ,ARCE-1C,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9/Sherpa FX,Active,+,LEO,92.57,-1.0,US,USA,97.35,Civil,Technology Development,1.0,,-1.0,1,Falcon
 47485,2021-006CA,QPS-SAR-2 IZANAMI,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9/Sherpa FX,Active,+,LEO,93.47,-1.0,JPN,Japan,97.37,Commercial,Earth Observation,100.0,,-1.0,1,Falcon
-47486,2021-006CB,CELESTIS 17 & SHERPA-FX1,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.92,-1.0,US,USA,97.37,Commercial,Communications,9.0,,-1.0,1,Falcon
+47486,2021-006CB,CELESTIS-17 & SHERPA-FX1,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.92,-1.0,US,USA,97.37,Commercial,Communications,9.0,,-1.0,1,Falcon
 47487,2021-006CC,ASTROCAST-0103,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9/Sherpa FX,Active,+,LEO,94.67,-1.0,SWTZ,Switzerland,97.39,Commercial,Communications,4.0,,-1.0,1,Falcon
 47488,2021-006CD,ASTROCAST-0102,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9/Sherpa FX,Active,+,LEO,94.66,-1.0,SWTZ,Switzerland,97.38,Commercial,Communications,4.0,,-1.0,1,Falcon
 47490,2021-006CF,FLOCK 4S-39,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,93.83,-1.0,US,USA,97.38,Commercial,Earth Observation,4.0,,3.0,1,Falcon
@@ -8246,7 +8246,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 52763,2022-057AH,SHERPA-AC1,2022-05-25,2022,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,94.91,-1.0,US,USA,97.56,,,-1.0,,-1.0,0,
 52764,2022-057AJ,NUSAT-29 (EDITH CLARKE),2022-05-25,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.35,-1.0,ARGN,Argentina,97.42,Commercial,Earth Observation,42.0,,-1.0,1,Falcon
 52765,2022-057AK,ARMSAT1 URDANETA,2022-05-25,2022,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,94.5,-1.0,SPN,Spain,97.56,,,-1.0,,-1.0,0,
-52766,2022-057AL,VARISAT 1C & CELESTIS 21,2022-05-25,2022,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,94.57,-1.0,US,USA,97.56,,,-1.0,,-1.0,0,
+52766,2022-057AL,VARISAT 1C & CELESTIS-21,2022-05-25,2022,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,94.57,-1.0,US,USA,97.56,,,-1.0,,-1.0,0,
 52767,2022-057AM,CNCE4,2022-05-25,2022,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,93.58,-1.0,US,USA,97.55,,,-1.0,,-1.0,0,
 52768,2022-057AN,CNCE5,2022-05-25,2022,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,93.57,-1.0,US,USA,97.55,,,-1.0,,-1.0,0,
 52769,2022-057AP,LEMUR-2-MIMI1307,2022-05-25,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,93.95,-1.0,US,USA,97.56,Commercial,Earth Observation,10.0,,-1.0,1,Falcon
