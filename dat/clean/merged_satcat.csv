@@ -4620,7 +4620,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 44819,2019-082A,GAOFEN-12 01,2019-11-27,2019,"Taiyuan Space Center, PRC",PRC,Long March 4C,Active,+,LEO,97.24,-1.0,PRC,China,97.84,Government,Earth Observation,1000.0,,8.0,1,Long March
 44835,2019-079D,COSMOS 2543,2019-11-25,2019,"Plesetsk Missile and Space Complex, Russia",Russia,Soyuz-2.1v,Active,+,LEO,93.19,-1.0,CIS,Russia/USSR,97.73,Military,Earth Observation/Space Science,-1.0,,-1.0,1,Soyuz
 44836,2019-086A,JILIN-1 GAOFEN 2B,2019-12-07,2019,"Taiyuan Space Center, PRC",PRC,Kuaizhou 1A,Active,+,LEO,95.06,-1.0,PRC,China,97.61,Commercial,Earth Observation,95.0,,-1.0,1,Kuaizhou
-44838,2019-087A,HEAD 2A,2019-12-07,2019,"Taiyuan Space Center, PRC",PRC,Kuaizhou 1A,Active,+,LEO,87.68,-1.0,PRC,China,97.46,Commercial,Earth Observation,45.0,,-1.0,1,Kuaizhou
 44839,2019-087B,HEAD 2B,2019-12-07,2019,"Taiyuan Space Center, PRC",PRC,Kuaizhou 1A,Active,+,LEO,92.64,-1.0,PRC,China,97.51,Commercial,Earth Observation,45.0,,-1.0,1,Kuaizhou
 44840,2019-087C,TIANYI-16 (TY-16),2019-12-07,2019,"Taiyuan Space Center, PRC",PRC,Kuaizhou 1A,Inactive,UNK,LEO,92.76,-1.0,PRC,China,97.51,Commercial,Communications,9.0,,-1.0,1,Kuaizhou
 44842,2019-087E,TIANQI-4A,2019-12-07,2019,"Taiyuan Space Center, PRC",PRC,Kuaizhou 1A,Inactive,UNK,LEO,92.85,-1.0,PRC,China,97.5,Commercial,Technology Development,9.0,,-1.0,1,Kuaizhou
@@ -8615,7 +8614,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 53323,2022-089A,COSMOS 2558,2022-08-01,2022,"Plesetsk Missile and Space Complex, Russia",Russia,,Active,+,LEO,93.83,-1.0,CIS,Russia/USSR,97.25,,,-1.0,,-1.0,0,
 53346,2022-090A,OBJECT A,2022-08-04,2022,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,94.68,-1.0,PRC,China,97.42,,,-1.0,,-1.0,0,
 53347,2022-090B,OBJECT B,2022-08-04,2022,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,93.6,-1.0,PRC,China,97.42,,,-1.0,,-1.0,0,
-53348,2022-090C,OBJECT C,2022-08-04,2022,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,88.89,-1.0,PRC,China,97.42,,,-1.0,,-1.0,0,
 53352,2022-091A,USA 335,2022-08-04,2022,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,96.93,-1.0,US,USA,70.01,Military,Technology Development,100.0,,-1.0,1,Electron
 53355,2022-092A,SBIRS GEO-6 (USA 336),2022-08-04,2022,"Air Force Eastern Test Range, Florida, USA",USA,Atlas 5,Active,+,GSO,1450.23,-1.0,US,USA,5.05,Military,Earth Observation,4850.0,,-1.0,1,Atlas
 53367,2022-095A,OBJECT A,2022-08-09,2022,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,92.93,-1.0,PRC,China,97.36,,,-1.0,,-1.0,0,
