@@ -4138,7 +4138,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 43159,JILIN-1 07,2018,95.01,95.0,+,97.28,Active,1,LEO,PRC,China,Commercial,Long March,Earth Observation
 43160,JILIN-1 08,2018,95.02,95.0,+,97.28,Active,1,LEO,PRC,China,Commercial,Long March,Earth Observation
 43162,SBIRS GEO-3 (USA 282),2018,1436.06,4500.0,+,2.66,Active,1,GSO,USA,USA,Military,Atlas,Earth Observation
-43167,LEMUR-2-TALLHAMN-ATC,2018,88.96,10.0,+,82.86,Active,1,LEO,New Zealand,USA,Commercial,Electron,Earth Observation
 43169,WEINA 1A,2018,96.45,1.0,+,35.0,Active,1,LEO,PRC,China,Government,Long March,Technology Development
 43170,YAOGAN-30 K,2018,96.43,-1.0,+,34.99,Active,1,LEO,PRC,China,Military,Long March,Earth Observation
 43171,YAOGAN-30 L,2018,96.43,-1.0,+,34.99,Active,1,LEO,PRC,China,Military,Long March,Earth Observation
@@ -4282,7 +4281,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 43687,COSMOS 2529 [GLONASS-M],2018,675.73,1415.0,+,64.31,Active,1,MEO,Russia,Russia/USSR,Commercial/Military,Soyuz,Navigation (Global or Regional Positioning)
 43689,METOP-C,2018,101.3,4084.0,+,98.71,Active,1,LEO,French Guiana,EUMETSAT,Civil/Government,Soyuz,Earth Observation
 43690,CICERO 10,2018,93.24,10.0,+,85.03,Active,1,LEO,New Zealand,USA,Commercial,Electron,Earth Observation
-43692,NABEO-1 & KICK STAGE,2018,88.71,-1.0,+,84.99,Active,0,LEO,New Zealand,USA,Unknown,Electron,Unknown
 43694,PROXIMA I,2018,92.92,1.0,+,85.02,Active,1,LEO,New Zealand,Australia,Commercial,Electron,Technology Development
 43696,PROXIMA II,2018,92.94,1.0,+,85.02,Active,1,LEO,New Zealand,Australia,Commercial,Electron,Technology Development
 43698,GSAT-29,2018,1436.14,3400.0,+,0.08,Active,1,GSO,India,India,Government,GSLV,Communications
@@ -4416,7 +4414,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 43931,IRIDIUM 167,2019,100.4,860.0,+,86.4,Active,1,LEO,USA,USA,Commercial/Government,Falcon,Communications
 43932,RAPIS-1,2019,94.29,200.0,+,97.19,Active,1,LEO,Japan,Japan,Government,Epsilon,Technology Development
 43935,MICRODRAGON,2019,93.43,50.5,+,97.1,Active,1,LEO,Japan,Vietnam,Government,Epsilon,Earth Observation
-43937,NEXUS (FO-99),2019,88.52,4.0,+,97.04,Active,1,LEO,Japan,Japan,Civil,Epsilon,Communications
 43941,USA 290,2019,92.67,18000.0,+,73.58,Active,1,LEO,USA,USA,Military,Delta,Earth Observation
 43943,JILIN-1 09,2019,95.1,95.0,+,97.5,Active,1,LEO,PRC,China,Commercial,Long March,Earth Observation
 43944,XIAOXIANG 3,2019,92.21,3.0,+,97.49,Active,1,LEO,PRC,China,Commercial,Long March,Technology Development
@@ -11923,3 +11920,4 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 58227,STARLINK X,2023,90.52,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 58228,STARLINK Y,2023,90.51,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 58253,OBJECT A,2023,630.73,-1.0,+,28.4,Active,0,MEO,PRC,China,Unknown,Unknown,Unknown
+58255,DRAGON CRS-29,2023,88.53,-1.0,+,51.65,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown

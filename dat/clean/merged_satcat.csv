@@ -4138,7 +4138,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 43159,2018-008E,JILIN-1 07,2018-01-19,2018,"Jiuquan Space Center, PRC",PRC,Long March 11,Active,+,LEO,95.01,-1.0,PRC,China,97.28,Commercial,Earth Observation,95.0,,3.0,1,Long March
 43160,2018-008F,JILIN-1 08,2018-01-19,2018,"Jiuquan Space Center, PRC",PRC,Long March 11,Active,+,LEO,95.02,-1.0,PRC,China,97.28,Commercial,Earth Observation,95.0,,3.0,1,Long March
 43162,2018-009A,SBIRS GEO-3 (USA 282),2018-01-20,2018,"Air Force Eastern Test Range, Florida, USA",USA,Atlas 5,Active,+,GSO,1436.06,-1.0,US,USA,2.66,Military,Earth Observation,4500.0,,12.0,1,Atlas
-43167,2018-010E,LEMUR-2-TALLHAMN-ATC,2018-01-21,2018,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,88.96,-1.0,US,USA,82.86,Commercial,Earth Observation,10.0,,-1.0,1,Electron
 43169,2018-011A,WEINA 1A,2018-01-25,2018,"Xichang Launch Facility, PRC",PRC,Long March 2C,Active,+,LEO,96.45,-1.0,PRC,China,35.0,Government,Technology Development,1.0,,-1.0,1,Long March
 43170,2018-011B,YAOGAN-30 K,2018-01-25,2018,"Xichang Launch Facility, PRC",PRC,Long March 2C,Active,+,LEO,96.43,-1.0,PRC,China,34.99,Military,Earth Observation,-1.0,,-1.0,1,Long March
 43171,2018-011C,YAOGAN-30 L,2018-01-25,2018,"Xichang Launch Facility, PRC",PRC,Long March 2C,Active,+,LEO,96.43,-1.0,PRC,China,34.99,Military,Earth Observation,-1.0,,-1.0,1,Long March
@@ -4282,7 +4281,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 43687,2018-086A,COSMOS 2529 [GLONASS-M],2018-11-03,2018,"Plesetsk Missile and Space Complex, Russia",Russia,Soyuz-2.1b,Active,+,MEO,675.73,-1.0,CIS,Russia/USSR,64.31,Commercial/Military,Navigation (Global or Regional Positioning),1415.0,,7.0,1,Soyuz
 43689,2018-087A,METOP-C,2018-11-07,2018,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Soyuz-2.1b,Active,+,LEO,101.3,-1.0,EUME,EUMETSAT,98.71,Civil/Government,Earth Observation,4084.0,,5.0,1,Soyuz
 43690,2018-088A,CICERO 10,2018-11-11,2018,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,93.24,-1.0,US,USA,85.03,Commercial,Earth Observation,10.0,,-1.0,1,Electron
-43692,2018-088C,NABEO-1 & KICK STAGE,2018-11-11,2018,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,88.71,-1.0,US,USA,84.99,,,-1.0,,-1.0,0,
 43694,2018-088E,PROXIMA I,2018-11-11,2018,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,92.92,-1.0,AUS,Australia,85.02,Commercial,Technology Development,1.0,,-1.0,1,Electron
 43696,2018-088G,PROXIMA II,2018-11-11,2018,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,92.94,-1.0,AUS,Australia,85.02,Commercial,Technology Development,1.0,,-1.0,1,Electron
 43698,2018-089A,GSAT-29,2018-11-14,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,GSLV MK.3,Active,+,GSO,1436.14,-1.0,IND,India,0.08,Government,Communications,3400.0,,10.0,1,GSLV
@@ -4416,7 +4414,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 43931,2019-002K,IRIDIUM 167,2019-01-11,2019,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,100.4,-1.0,US,USA,86.4,Commercial/Government,Communications,860.0,678,15.0,1,Falcon
 43932,2019-003A,RAPIS-1,2019-01-18,2019,"Uchinoura Space Center(Fomerly Kagoshima Space Center—University of Tokyo, Japan)",Japan,Epsilon,Active,+,LEO,94.29,-1.0,JPN,Japan,97.19,Government,Technology Development,200.0,,2.0,1,Epsilon
 43935,2019-003D,MICRODRAGON,2019-01-18,2019,"Uchinoura Space Center(Fomerly Kagoshima Space Center—University of Tokyo, Japan)",Japan,Epsilon,Active,+,LEO,93.43,-1.0,VTNM,Vietnam,97.1,Government,Earth Observation,50.5,,-1.0,1,Epsilon
-43937,2019-003F,NEXUS (FO-99),2019-01-18,2019,"Uchinoura Space Center(Fomerly Kagoshima Space Center—University of Tokyo, Japan)",Japan,Epsilon,Active,+,LEO,88.52,-1.0,JPN,Japan,97.04,Civil,Communications,4.0,,-1.0,1,Epsilon
 43941,2019-004A,USA 290,2019-01-19,2019,"Air Force Western Test Range, California, USA",USA,Delta 4 Heavy,Active,+,LEO,92.67,-1.0,US,USA,73.58,Military,Earth Observation,18000.0,10000,5.0,1,Delta
 43943,2019-005B,JILIN-1 09,2019-01-21,2019,"Jiuquan Space Center, PRC",PRC,Long March 11,Active,+,LEO,95.1,-1.0,PRC,China,97.5,Commercial,Earth Observation,95.0,,3.0,1,Long March
 43944,2019-005C,XIAOXIANG 3,2019-01-21,2019,"Jiuquan Space Center, PRC",PRC,Long March 11,Active,+,LEO,92.21,-1.0,PRC,China,97.49,Commercial,Technology Development,3.0,,-1.0,1,Long March
@@ -11923,3 +11920,4 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 58227,2023-170X,STARLINK X,2023-11-04,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.52,-1.0,US,USA,43.01,,,-1.0,,-1.0,0,
 58228,2023-170Y,STARLINK Y,2023-11-04,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.51,-1.0,US,USA,43.01,,,-1.0,,-1.0,0,
 58253,2023-172A,OBJECT A,2023-11-09,2023,"Xichang Launch Facility, PRC",PRC,,Active,+,MEO,630.73,-1.0,PRC,China,28.4,,,-1.0,,-1.0,0,
+58255,2023-173A,DRAGON CRS-29,2023-11-10,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,88.53,-1.0,US,USA,51.65,,,-1.0,,-1.0,0,
