@@ -2947,7 +2947,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 32786,2008-021D,IMS-1,2008-04-28,2008,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,96.63,-1.0,IND,India,97.81,,,-1.0,,-1.0,0,
 32787,2008-021E,COMPASS-1,2008-04-28,2008,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,95.7,-1.0,GER,Germany,97.6,,,-1.0,,-1.0,0,
 32788,2008-021F,AAUSAT-II,2008-04-28,2008,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Active,P,LEO,95.48,-1.0,DEN,Denmark,97.58,,,-1.0,,-1.0,0,
-32789,2008-021G,DELFI-C3 (DO-64),2008-04-28,2008,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV C9,Active,P,LEO,88.45,-1.0,NETH,Netherlands,97.26,Civil,Technology Development,6.5,,-1.0,1,PSLV
 32790,2008-021H,CANX-2,2008-04-28,2008,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV C9,Active,+,LEO,96.46,-1.0,CA,Canada,97.74,Civil/Government,Technology Development,7.0,,-1.0,1,PSLV
 32791,2008-021J,SEEDS II (CO-66),2008-04-28,2008,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV C9,Active,+,LEO,96.06,-1.0,JPN,Japan,97.67,Civil,Technology Development,3.0,,-1.0,1,PSLV
 32792,2008-021K,RUBIN-8 & PSLV R/B,2008-04-28,2008,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,UNK,LEO,97.18,-1.0,GER,Germany,98.06,,,-1.0,,-1.0,0,
@@ -4605,7 +4604,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 44800,2019-080A,TIBA-1,2019-11-26,2019,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5 ECA,Active,+,GSO,1436.1,-1.0,EGYP,Egypt,0.06,Commercial/Military,Communications,5600.0,,15.0,1,Ariane
 44801,2019-080B,INMARSAT GX5,2019-11-26,2019,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5 ECA,Active,+,GSO,1436.11,-1.0,IM,INMARSAT,0.05,Commercial,Communications,4007.0,,15.0,1,Ariane
 44804,2019-081A,CARTOSAT-3,2019-11-27,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,94.78,-1.0,IND,India,97.33,Government,Earth Observation,1625.0,,5.0,1,PSLV
-44809,2019-081F,FLOCK 4P-11,2019-11-27,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,92.5,-1.0,US,USA,97.34,Commercial,Earth Observation,4.0,,3.0,1,PSLV
+44809,2019-081F,FLOCK 4P-11,2019-11-27,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Inactive,-,LEO,92.5,-1.0,US,USA,97.34,Commercial,Earth Observation,4.0,,3.0,1,PSLV
 44816,2019-081N,FLOCK 4P-7,2019-11-27,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Inactive,-,LEO,92.45,-1.0,US,USA,97.34,Commercial,Earth Observation,4.0,,3.0,1,PSLV
 44818,2019-081Q,FLOCK 4P-5,2019-11-27,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,92.6,-1.0,US,USA,97.34,Commercial,Earth Observation,4.0,,3.0,1,PSLV
 44819,2019-082A,GAOFEN-12 01,2019-11-27,2019,"Taiyuan Space Center, PRC",PRC,Long March 4C,Active,+,LEO,97.24,-1.0,PRC,China,97.83,Government,Earth Observation,1000.0,,8.0,1,Long March
@@ -4850,7 +4849,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 45361,2020-019B,STARLINK-1301,2020-03-18,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
 45362,2020-019C,STARLINK-1306,2020-03-18,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,227.0,,-1.0,1,Falcon
 45364,2020-019E,STARLINK-1313,2020-03-18,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,94.55,-1.0,US,USA,53.03,Commercial,Communications,227.0,,-1.0,1,Falcon
-45365,2020-019F,STARLINK-1317,2020-03-18,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Inactive,-,LEO,89.48,-1.0,US,USA,52.96,Commercial,Communications,227.0,,-1.0,1,Falcon
 45366,2020-019G,STARLINK-1262,2020-03-18,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,227.0,,-1.0,1,Falcon
 45367,2020-019H,STARLINK-1273,2020-03-18,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
 45368,2020-019J,STARLINK-1276,2020-03-18,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,227.0,,-1.0,1,Falcon
@@ -11914,7 +11912,29 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 58226,2023-170W,STARLINK-30865,2023-11-03,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.96,-1.0,US,USA,43.01,,,-1.0,,-1.0,0,
 58227,2023-170X,STARLINK-30874,2023-11-03,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.96,-1.0,US,USA,43.01,,,-1.0,,-1.0,0,
 58228,2023-170Y,STARLINK-30871,2023-11-03,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.97,-1.0,US,USA,43.01,,,-1.0,,-1.0,0,
+58230,2023-171A,STARLINK A,2023-11-08,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.73,-1.0,US,USA,43.01,,,-1.0,,-1.0,0,
+58231,2023-171B,STARLINK B,2023-11-08,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.73,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58232,2023-171C,STARLINK C,2023-11-08,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.73,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58233,2023-171D,STARLINK D,2023-11-08,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.72,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58234,2023-171E,STARLINK E,2023-11-08,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.73,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58235,2023-171F,STARLINK F,2023-11-08,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.72,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58236,2023-171G,STARLINK G,2023-11-08,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.72,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58237,2023-171H,STARLINK H,2023-11-08,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.72,-1.0,US,USA,43.01,,,-1.0,,-1.0,0,
+58238,2023-171J,STARLINK J,2023-11-08,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.72,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58239,2023-171K,STARLINK K,2023-11-08,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.72,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58240,2023-171L,STARLINK L,2023-11-08,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.71,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58241,2023-171M,STARLINK M,2023-11-08,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.72,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58242,2023-171N,STARLINK N,2023-11-08,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.72,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58243,2023-171P,STARLINK P,2023-11-08,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.71,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58244,2023-171Q,STARLINK Q,2023-11-08,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.71,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58245,2023-171R,STARLINK R,2023-11-08,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.71,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58246,2023-171S,STARLINK S,2023-11-08,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.71,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58247,2023-171T,STARLINK T,2023-11-08,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.71,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58248,2023-171U,STARLINK U,2023-11-08,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.7,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58249,2023-171V,STARLINK V,2023-11-08,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.7,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58250,2023-171W,STARLINK W,2023-11-08,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.6,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58251,2023-171X,STARLINK X,2023-11-08,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.3,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+58252,2023-171Y,STARLINK Y,2023-11-08,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.7,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 58253,2023-172A,CHINASAT 6E (ZX 6E),2023-11-09,2023,"Xichang Launch Facility, PRC",PRC,,Active,+,MEO,630.8,-1.0,PRC,China,28.39,,,-1.0,,-1.0,0,
-58255,2023-173A,DRAGON CRS-29,2023-11-10,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,92.95,-1.0,US,USA,51.64,,,-1.0,,-1.0,0,
-58346,2023-175A,OBJECT A,2023-11-12,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,MEO,196.08,-1.0,O3B,O3b Networks,9.01,,,-1.0,,-1.0,0,
-58347,2023-175B,OBJECT B,2023-11-12,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,MEO,196.05,-1.0,O3B,O3b Networks,9.02,,,-1.0,,-1.0,0,
+58346,2023-175A,OBJECT A,2023-11-12,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,P,MEO,196.08,-1.0,O3B,O3b Networks,9.01,,,-1.0,,-1.0,0,
+58347,2023-175B,OBJECT B,2023-11-12,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,P,MEO,196.05,-1.0,O3B,O3b Networks,9.02,,,-1.0,,-1.0,0,
