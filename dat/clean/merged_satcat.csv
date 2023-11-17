@@ -3949,7 +3949,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 41945,2017-007B,INTELSAT 32E (IS-32E),2017-02-14,2017,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5 ECA,Active,+,GSO,1436.13,-1.0,ITSO,INTELSAT,0.01,Commercial,Communications,6000.0,,15.0,1,Ariane
 41948,2017-008A,CARTOSAT-2D,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV XL,Active,+,LEO,94.78,-1.0,IND,India,97.46,Government,Earth Observation,714.0,,5.0,1,PSLV
 41995,2017-008AZ,LEMUR-2-RDEATON,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV-XL,Active,+,LEO,90.15,-1.0,US,USA,97.17,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
-41998,2017-008BC,LEMUR-2-MIA-GRACE,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV-XL,Active,+,LEO,88.42,-1.0,US,USA,97.16,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
 42000,2017-008BE,DIDO-2,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV XL,Active,+,LEO,93.0,-1.0,ISRA,Israel,97.18,Commercial,Technology Development,10.0,,-1.0,1,PSLV
 42015,2017-008BV,PEASSS,2017-02-15,2017,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV XL,Active,+,LEO,90.25,-1.0,NETH,Netherlands,97.18,Government,Technology Development,10.0,,1.0,1,PSLV
 42058,2017-011A,USA 274,2017-03-01,2017,"Air Force Western Test Range, California, USA",USA,Atlas 5,Active,+,LEO,107.39,-1.0,US,USA,63.44,Military,Earth Observation,6500.0,,-1.0,1,Atlas
@@ -11935,3 +11934,4 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 58253,2023-172A,CHINASAT 6E (ZX 6E),2023-11-09,2023,"Xichang Launch Facility, PRC",PRC,,Active,+,MEO,630.8,-1.0,PRC,China,28.39,,,-1.0,,-1.0,0,
 58346,2023-175A,OBJECT A,2023-11-12,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,P,MEO,196.08,-1.0,O3B,O3b Networks,9.0,,,-1.0,,-1.0,0,
 58347,2023-175B,OBJECT B,2023-11-12,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,P,MEO,196.05,-1.0,O3B,O3b Networks,9.01,,,-1.0,,-1.0,0,
+58350,2023-176B,OBJECT B,2023-11-16,2023,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,100.41,-1.0,PRC,China,98.65,,,-1.0,,-1.0,0,

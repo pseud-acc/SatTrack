@@ -3949,7 +3949,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,0.01,2017-02-14,FRGUI,41945,2017-007B,INTELSAT 32E (IS-32E),PAY,+,EA,GSO,ORB,ITSO,1436.13,Active,INTELSAT,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,97.46,2017-02-15,SRILR,41948,2017-008A,CARTOSAT-2D,PAY,+,EA,LEO,ORB,IND,94.78,Active,India,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.17,2017-02-15,SRILR,41995,2017-008AZ,LEMUR-2-RDEATON,PAY,+,EA,LEO,ORB,US,90.15,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
-,97.16,2017-02-15,SRILR,41998,2017-008BC,LEMUR-2-MIA-GRACE,PAY,+,EA,LEO,ORB,US,88.42,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.18,2017-02-15,SRILR,42000,2017-008BE,DIDO-2,PAY,+,EA,LEO,ORB,ISRA,93.0,Active,Israel,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.18,2017-02-15,SRILR,42015,2017-008BV,PEASSS,PAY,+,EA,LEO,ORB,NETH,90.25,Active,Netherlands,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,63.44,2017-03-01,AFWTR,42058,2017-011A,USA 274,PAY,+,EA,LEO,ORB,US,107.39,Active,USA,"Air Force Western Test Range, California, USA",USA
@@ -11935,3 +11934,4 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,28.39,2023-11-09,XICLF,58253,2023-172A,CHINASAT 6E (ZX 6E),PAY,+,EA,MEO,ORB,PRC,630.8,Active,China,"Xichang Launch Facility, PRC",PRC
 ,9.0,2023-11-12,AFETR,58346,2023-175A,OBJECT A,PAY,P,EA,MEO,ORB,O3B,196.08,Active,O3b Networks,"Air Force Eastern Test Range, Florida, USA",USA
 ,9.01,2023-11-12,AFETR,58347,2023-175B,OBJECT B,PAY,P,EA,MEO,ORB,O3B,196.05,Active,O3b Networks,"Air Force Eastern Test Range, Florida, USA",USA
+,98.65,2023-11-16,JSC,58350,2023-176B,OBJECT B,PAY,+,EA,LEO,ORB,PRC,100.41,Active,China,"Jiuquan Space Center, PRC",PRC

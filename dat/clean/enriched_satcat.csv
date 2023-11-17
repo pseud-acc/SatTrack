@@ -3949,7 +3949,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 41945,INTELSAT 32E (IS-32E),2017,1436.13,6000.0,+,0.01,Active,1,GSO,French Guiana,INTELSAT,Commercial,Ariane,Communications
 41948,CARTOSAT-2D,2017,94.78,714.0,+,97.46,Active,1,LEO,India,India,Government,PSLV,Earth Observation
 41995,LEMUR-2-RDEATON,2017,90.15,10.0,+,97.17,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
-41998,LEMUR-2-MIA-GRACE,2017,88.42,10.0,+,97.16,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 42000,DIDO-2,2017,93.0,10.0,+,97.18,Active,1,LEO,India,Israel,Commercial,PSLV,Technology Development
 42015,PEASSS,2017,90.25,10.0,+,97.18,Active,1,LEO,India,Netherlands,Government,PSLV,Technology Development
 42058,USA 274,2017,107.39,6500.0,+,63.44,Active,1,LEO,USA,USA,Military,Atlas,Earth Observation
@@ -11935,3 +11934,4 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 58253,CHINASAT 6E (ZX 6E),2023,630.8,-1.0,+,28.39,Active,0,MEO,PRC,China,Unknown,Unknown,Unknown
 58346,OBJECT A,2023,196.08,-1.0,P,9.0,Active,0,MEO,USA,O3b Networks,Unknown,Unknown,Unknown
 58347,OBJECT B,2023,196.05,-1.0,P,9.01,Active,0,MEO,USA,O3b Networks,Unknown,Unknown,Unknown
+58350,OBJECT B,2023,100.41,-1.0,+,98.65,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
