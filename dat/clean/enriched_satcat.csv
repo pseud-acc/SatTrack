@@ -2840,7 +2840,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 29601,NAVSTAR 59 (USA 192),2006,718.01,2060.0,+,55.23,Active,1,MEO,USA,USA,Commercial/Military,Delta,Navigation (Global or Regional Positioning)
 29640,FENGYUN 2D,2006,1466.53,-1.0,-,9.15,Inactive,0,GSO,PRC,China,Unknown,Unknown,Unknown
 29643,WILDBLUE-1,2006,1436.1,4735.0,+,0.37,Active,1,GSO,French Guiana,USA,Commercial,Ariane,Communications
-29644,AMC-18,2006,1456.61,2081.0,+,0.19,Active,1,GSO,French Guiana,SES,Commercial,Ariane,Communications
+29644,AMC-18,2006,1456.61,2081.0,-,0.19,Inactive,1,GSO,French Guiana,SES,Commercial,Ariane,Communications
 29648,MEASAT-3,2006,1443.62,-1.0,-,2.29,Inactive,0,GSO,Kazakhstan,Malaysia,Unknown,Proton,Unknown
 29656,KIKU-8 (ETS-VIII),2006,1454.4,-1.0,-,9.78,Inactive,0,GSO,Japan,Japan,Unknown,JAXA H,Unknown
 29658,SAR-LUPE 1,2006,94.3,770.0,+,98.2,Active,1,LEO,Russia,Germany,Military,Kosmos,Earth Observation
@@ -4970,7 +4970,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 45573,STARLINK-1321,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45574,STARLINK-1324,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45576,STARLINK-1328,2020,95.59,227.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-45577,STARLINK-1330,2020,88.55,227.0,-,52.98,Inactive,1,LEO,USA,USA,Commercial,Falcon,Communications
 45578,STARLINK-1331,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45579,STARLINK-1332,2020,95.59,227.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45580,STARLINK-1333,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -5278,7 +5277,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 46313,FLOCK 4V-1,2020,93.38,4.0,+,97.38,Active,1,LEO,French Guiana,USA,Commercial,Vega,Earth Observation
 46314,FLOCK 4V-4,2020,91.04,4.0,-,97.37,Inactive,1,LEO,French Guiana,USA,Commercial,Vega,Earth Observation
 46315,LEMUR-2-SCHMIDTFALL,2020,90.54,10.0,+,97.38,Active,1,LEO,French Guiana,USA,Commercial,Vega,Earth Observation
-46317,LEMUR-2-SQUAREJAWS,2020,88.59,10.0,+,97.36,Active,1,LEO,French Guiana,USA,Commercial,Vega,Earth Observation
 46318,LEMUR-2-URSA-AVION,2020,90.36,10.0,+,97.37,Active,1,LEO,French Guiana,USA,Commercial,Vega,Earth Observation
 46319,KEPLER-2 (TARS),2020,94.29,9.0,+,97.38,Active,1,LEO,French Guiana,Canada,Commercial,Vega,Communications
 46320,NAPA-1,2020,94.82,10.0,+,97.39,Active,1,LEO,French Guiana,Thailand,Military,Vega,Earth Observation
@@ -5528,7 +5526,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 46817,FLOCK 4E'-5,2020,92.69,4.0,+,97.35,Active,1,LEO,New Zealand,USA,Commercial,Electron,Earth Observation
 46818,CE-SAT IIB,2020,94.36,36.0,+,97.35,Active,1,LEO,New Zealand,Japan,Commercial,Electron,Technology Development
 46819,FLOCK 4E'-3,2020,92.66,4.0,+,97.35,Active,1,LEO,New Zealand,USA,Commercial,Electron,Earth Observation
-46821,FLOCK 4E'-4,2020,88.59,4.0,-,97.33,Inactive,1,LEO,New Zealand,USA,Commercial,Electron,Earth Observation
 46822,FLOCK 4E'-6,2020,90.69,4.0,-,97.34,Inactive,1,LEO,New Zealand,USA,Commercial,Electron,Earth Observation
 46826,NAVSTAR 80 (USA 309),2020,717.98,2300.0,+,54.27,Active,1,MEO,USA,USA,Commercial/Military,Falcon,Navigation (Global or Regional Positioning)
 46838,BEIHANGKONGSHI 1,2020,90.04,-1.0,+,97.12,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
@@ -11931,3 +11928,4 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 58346,OBJECT A,2023,196.89,-1.0,P,8.84,Active,0,MEO,USA,O3b Networks,Unknown,Unknown,Unknown
 58347,OBJECT B,2023,196.33,-1.0,P,8.99,Active,0,MEO,USA,O3b Networks,Unknown,Unknown,Unknown
 58349,HAIYANG-3A,2023,100.41,-1.0,+,98.65,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+58400,OBJECT A,2023,94.67,-1.0,+,97.43,Active,0,LEO,Democratic People's Republic of Korea,North Korea,Unknown,Unknown,Unknown

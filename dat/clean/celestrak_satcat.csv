@@ -2840,7 +2840,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,55.23,2006-11-17,AFETR,29601,2006-052A,NAVSTAR 59 (USA 192),PAY,+,EA,MEO,ORB,US,718.01,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,9.15,2006-12-08,XICLF,29640,2006-053A,FENGYUN 2D,PAY,-,EA,GSO,ORB,PRC,1466.53,Inactive,China,"Xichang Launch Facility, PRC",PRC
 ,0.37,2006-12-08,FRGUI,29643,2006-054A,WILDBLUE-1,PAY,+,EA,GSO,ORB,US,1436.1,Active,USA,"Europe's Spaceport, Kourou, French Guiana",French Guiana
-,0.19,2006-12-08,FRGUI,29644,2006-054B,AMC-18,PAY,+,EA,GSO,ORB,SES,1456.61,Active,SES,"Europe's Spaceport, Kourou, French Guiana",French Guiana
+,0.19,2006-12-08,FRGUI,29644,2006-054B,AMC-18,PAY,-,EA,GSO,ORB,SES,1456.61,Inactive,SES,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,2.29,2006-12-11,TYMSC,29648,2006-056A,MEASAT-3,PAY,-,EA,GSO,ORB,MALA,1443.62,Inactive,Malaysia,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,9.78,2006-12-18,TANSC,29656,2006-059A,KIKU-8 (ETS-VIII),PAY,-,EA,GSO,ORB,JPN,1454.4,Inactive,Japan,"Tanegashima Space Center, Japan",Japan
 ,98.2,2006-12-19,PLMSC,29658,2006-060A,SAR-LUPE 1,PAY,+,EA,LEO,ORB,GER,94.3,Active,Germany,"Plesetsk Missile and Space Complex, Russia",Russia
@@ -4970,7 +4970,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,53.05,2020-04-22,AFETR,45573,2020-025AU,STARLINK-1321,PAY,+,EA,LEO,ORB,US,95.59,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.05,2020-04-22,AFETR,45574,2020-025AV,STARLINK-1324,PAY,+,EA,LEO,ORB,US,95.59,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.06,2020-04-22,AFETR,45576,2020-025AX,STARLINK-1328,PAY,+,EA,LEO,ORB,US,95.59,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
-,52.98,2020-04-22,AFETR,45577,2020-025AY,STARLINK-1330,PAY,-,EA,LEO,ORB,US,88.55,Inactive,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.05,2020-04-22,AFETR,45578,2020-025AZ,STARLINK-1331,PAY,+,EA,LEO,ORB,US,95.59,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.06,2020-04-22,AFETR,45579,2020-025BA,STARLINK-1332,PAY,+,EA,LEO,ORB,US,95.59,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.05,2020-04-22,AFETR,45580,2020-025BB,STARLINK-1333,PAY,+,EA,LEO,ORB,US,95.59,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
@@ -5278,7 +5277,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.38,2020-09-03,FRGUI,46313,2020-061AT,FLOCK 4V-1,PAY,+,EA,LEO,ORB,US,93.38,Active,USA,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,97.37,2020-09-03,FRGUI,46314,2020-061AU,FLOCK 4V-4,PAY,-,EA,LEO,ORB,US,91.04,Inactive,USA,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,97.38,2020-09-03,FRGUI,46315,2020-061AV,LEMUR-2-SCHMIDTFALL,PAY,+,EA,LEO,ORB,US,90.54,Active,USA,"Europe's Spaceport, Kourou, French Guiana",French Guiana
-,97.36,2020-09-03,FRGUI,46317,2020-061AX,LEMUR-2-SQUAREJAWS,PAY,+,EA,LEO,ORB,US,88.59,Active,USA,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,97.37,2020-09-03,FRGUI,46318,2020-061AY,LEMUR-2-URSA-AVION,PAY,+,EA,LEO,ORB,US,90.36,Active,USA,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,97.38,2020-09-03,FRGUI,46319,2020-061AZ,KEPLER-2 (TARS),PAY,+,EA,LEO,ORB,CA,94.29,Active,Canada,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,97.39,2020-09-03,FRGUI,46320,2020-061BA,NAPA-1,PAY,+,EA,LEO,ORB,THAI,94.82,Active,Thailand,"Europe's Spaceport, Kourou, French Guiana",French Guiana
@@ -5528,7 +5526,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.35,2020-10-28,RLLB,46817,2020-077E,FLOCK 4E'-5,PAY,+,EA,LEO,ORB,US,92.69,Active,USA,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
 ,97.35,2020-10-28,RLLB,46818,2020-077F,CE-SAT IIB,PAY,+,EA,LEO,ORB,JPN,94.36,Active,Japan,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
 ,97.35,2020-10-28,RLLB,46819,2020-077G,FLOCK 4E'-3,PAY,+,EA,LEO,ORB,US,92.66,Active,USA,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
-,97.33,2020-10-28,RLLB,46821,2020-077J,FLOCK 4E'-4,PAY,-,EA,LEO,ORB,US,88.59,Inactive,USA,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
 ,97.34,2020-10-28,RLLB,46822,2020-077K,FLOCK 4E'-6,PAY,-,EA,LEO,ORB,US,90.69,Inactive,USA,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
 ,54.27,2020-11-05,AFETR,46826,2020-078A,NAVSTAR 80 (USA 309),PAY,+,EA,MEO,ORB,US,717.98,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,97.12,2020-11-06,TAISC,46838,2020-079M,BEIHANGKONGSHI 1,PAY,+,EA,LEO,ORB,PRC,90.04,Active,China,"Taiyuan Space Center, PRC",PRC
@@ -11931,3 +11928,4 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,8.84,2023-11-12,AFETR,58346,2023-175A,OBJECT A,PAY,P,EA,MEO,ORB,O3B,196.89,Active,O3b Networks,"Air Force Eastern Test Range, Florida, USA",USA
 ,8.99,2023-11-12,AFETR,58347,2023-175B,OBJECT B,PAY,P,EA,MEO,ORB,O3B,196.33,Active,O3b Networks,"Air Force Eastern Test Range, Florida, USA",USA
 ,98.65,2023-11-16,JSC,58349,2023-176A,HAIYANG-3A,PAY,+,EA,LEO,ORB,PRC,100.41,Active,China,"Jiuquan Space Center, PRC",PRC
+,97.43,2023-11-22,SOHAE,58400,2023-179A,OBJECT A,PAY,+,EA,LEO,ORB,NKOR,94.67,Active,North Korea,"Sohae Satellite Launching Station,Democratic People's Republic of Korea (North Korea)",Democratic People's Republic of Korea
