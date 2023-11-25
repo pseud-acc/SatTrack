@@ -11925,5 +11925,50 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 58346,OBJECT A,2023,198.33,-1.0,P,8.46,Active,0,MEO,USA,O3b Networks,Unknown,Unknown,Unknown
 58347,OBJECT B,2023,198.21,-1.0,P,8.49,Active,0,MEO,USA,O3b Networks,Unknown,Unknown,Unknown
 58349,HAIYANG-3A,2023,100.41,-1.0,+,98.65,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+58351,STARLINK A,2023,90.6,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58352,STARLINK B,2023,90.61,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58353,STARLINK C,2023,90.74,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58354,STARLINK D,2023,90.74,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58355,STARLINK E,2023,90.74,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58356,STARLINK F,2023,90.73,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58357,STARLINK G,2023,90.73,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58358,STARLINK H,2023,90.73,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58359,STARLINK J,2023,90.73,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58360,STARLINK K,2023,90.73,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58361,STARLINK L,2023,90.73,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58362,STARLINK M,2023,90.73,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58363,STARLINK N,2023,90.72,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58364,STARLINK P,2023,90.72,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58365,STARLINK Q,2023,90.72,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58366,STARLINK R,2023,90.72,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58367,STARLINK S,2023,90.72,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58368,STARLINK T,2023,90.72,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58369,STARLINK U,2023,90.72,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58370,STARLINK V,2023,90.72,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58371,STARLINK W,2023,90.71,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58372,STARLINK X,2023,90.71,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58373,STARLINK Y,2023,90.71,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58374,STARLINK A,2023,90.45,-1.0,+,53.06,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58375,STARLINK B,2023,90.45,-1.0,+,53.06,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58376,STARLINK C,2023,90.45,-1.0,+,53.06,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58377,STARLINK D,2023,90.44,-1.0,+,53.06,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58378,STARLINK E,2023,90.44,-1.0,+,53.06,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58379,STARLINK F,2023,90.44,-1.0,+,53.06,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58380,STARLINK G,2023,90.02,-1.0,+,53.06,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58381,STARLINK H,2023,90.43,-1.0,+,53.06,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58382,STARLINK J,2023,90.44,-1.0,+,53.06,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58383,STARLINK K,2023,90.43,-1.0,+,53.06,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58384,STARLINK L,2023,90.43,-1.0,+,53.06,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58385,STARLINK M,2023,90.43,-1.0,+,53.06,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58386,STARLINK N,2023,90.31,-1.0,+,53.06,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58387,STARLINK P,2023,90.42,-1.0,+,53.06,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58388,STARLINK Q,2023,90.41,-1.0,+,53.06,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58389,STARLINK R,2023,90.42,-1.0,+,53.06,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58390,STARLINK S,2023,90.41,-1.0,+,53.06,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58391,STARLINK T,2023,90.41,-1.0,+,53.06,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58392,STARLINK U,2023,90.4,-1.0,+,53.06,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58393,STARLINK V,2023,90.41,-1.0,+,53.06,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58394,STARLINK W,2023,90.4,-1.0,+,53.06,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58395,STARLINK X,2023,90.4,-1.0,+,53.06,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 58400,MALLIGYONG-1,2023,94.66,-1.0,+,97.43,Active,0,LEO,Democratic People's Republic of Korea,North Korea,Unknown,Unknown,Unknown
 58425,OBJECT A,2023,107.28,-1.0,+,49.96,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
