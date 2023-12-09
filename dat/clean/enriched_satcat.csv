@@ -5046,7 +5046,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 45733,STARLINK-1467,2020,94.37,227.0,P,53.07,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45734,STARLINK-1468,2020,94.6,227.0,P,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45735,STARLINK-1471,2020,95.59,227.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-45736,STARLINK-1472,2020,88.14,227.0,-,53.02,Inactive,1,LEO,USA,USA,Commercial,Falcon,Communications
 45738,STARLINK-1474,2020,95.59,227.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45739,STARLINK-1475,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45740,STARLINK-1479,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -5732,7 +5731,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 47491,FLOCK 4S-4,2021,93.71,4.0,+,97.36,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47492,FLOCK 4S-17,2021,93.68,4.0,+,97.38,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47493,LEMUR-2-MANGO1,2021,93.22,10.0,+,97.37,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
-47494,FLOCK 4S-3,2021,92.48,4.0,+,97.34,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
+47494,FLOCK 4S-3,2021,92.48,4.0,-,97.34,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47495,FLOCK 4S-27,2021,93.85,4.0,+,97.36,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47496,FLOCK 4S-18,2021,93.71,4.0,+,97.37,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47499,FLOCK 4S-40,2021,93.1,-1.0,-,97.37,Inactive,0,LEO,USA,USA,Unknown,Falcon,Unknown
@@ -12097,3 +12096,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 58502,OBJECT A,2023,94.69,-1.0,+,97.47,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 58503,OBJECT B,2023,94.67,-1.0,+,97.46,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 58505,OBJECT A,2023,103.26,-1.0,+,86.5,Active,0,LEO,Sea Launch Platform,China,Unknown,Unknown,Unknown
+58553,OBJECT A,2023,93.53,-1.0,+,97.26,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+58554,OBJECT B,2023,93.53,-1.0,+,97.26,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+58555,OBJECT C,2023,93.53,-1.0,+,97.26,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
