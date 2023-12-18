@@ -12166,3 +12166,4 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,42.02,2023-12-15,RLLB,58578,2023-196A,OBJECT A,PAY,+,EA,LEO,ORB,JPN,96.23,Active,Japan,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
 ,19.47,2023-12-15,WSC,58582,2023-197A,YAOGAN-41,PAY,+,EA,MEO,ORB,PRC,631.49,Active,China,"Wenchang Satellite Launch Site, PRC",PRC
 ,62.8,2023-12-16,TYMSC,58584,2023-198A,OBJECT A,PAY,+,EA,MEO,ORB,CIS,700.54,Active,Russia/USSR,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
+,97.4,2023-12-17,JSC,58586,2023-199A,OBJECT A,PAY,+,EA,LEO,ORB,PRC,94.57,Active,China,"Jiuquan Space Center, PRC",PRC
