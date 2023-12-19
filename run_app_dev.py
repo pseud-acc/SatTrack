@@ -61,7 +61,7 @@ satcat_loc = "./dat/clean/satcat_tle.csv"
 """
     Greyscale Earth Map
 """
-img_loc = "./static/gray_scale_earth_2048_1024.jpg"
+img_loc = "./app/assets/images/gray_scale_earth_2048_1024.jpg"
 resolution = 8
 df, img, radius_earth = import_data(satcat_loc, img_loc, resolution)
 
