@@ -14,18 +14,16 @@ Todo:
     * 
 
 """
-# 3rd party packages
+
+## Packages
 
 import pandas as pd
 import numpy as np
-from PIL import Image 
-
+from PIL import Image
 from datetime import datetime, timedelta
-
-import plotly.express as px 
 import plotly.graph_objects as go
 
-# internal packages
+## Internal Scripts
 
 from celestial_geometry_funs import compute_satloc, lla_to_xyz, sphere 
 from app_settings import *

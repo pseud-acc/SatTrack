@@ -21,7 +21,7 @@ Todo:
 """
 
 from sgp4.api import jday
-from math import atan, atan2, sqrt, pi, sin, cos, asin, acos, tan
+from math import pi
 import numpy as np
 
 

@@ -16,19 +16,22 @@ Todo:
 """
 
 import sys
-import os
+sys.path.append("./app_data_export/")
+sys.path.append("./config/")
+sys.path.append("./satcat_creation/")
+sys.path.append("./satcat_enrichment/")
+sys.path.append("./tle_import/")
 
+# satcat creation
 from celestrak_import import celestrak_update_check, import_celestrak_satcat
 from ucs_import import ucs_update_check, import_ucs_satcat
 from create_satcat import clean_satcat_export, satcat_sql_dump
-
+# satcat enrichment
 from skyrocket_webscraper import skyrocket_update_check, webscraper_dump, enrich_satcat
-
+# tle import
 from extract_TLEs import extract_TLE_active, extract_TLE, remove_decayed_TLE, drop_staging_tables
-
+# app data export
 from export_app_data import export_satcat_tle
-
-
 
 def satcat_pipeline(metadata,
                     update_satcat,
