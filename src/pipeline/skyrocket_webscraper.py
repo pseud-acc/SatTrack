@@ -453,7 +453,7 @@ def enrich_satcat(dbs_name, enriched_satcat_filename):
                     m.satcatid, coalesce(u.matchupdateflag,'Y') as flag
                 from 
                     match_satcat_url_skyrocket m
-                left join
+                inner join
                     satcat_skyrocket_norm s
                 on m.skyrocketid = s.skyrocketid
                 left join
@@ -542,7 +542,13 @@ def enrich_satcat(dbs_name, enriched_satcat_filename):
     cur.execute(query)
     conn.commit()
     ##Define satellites with matching skyrocket data
-    query = "select satcatid, skyrocketid from match_satcat_url_skyrocket where skyrocketid not null"
+    query = """select m.satcatid
+               , m.skyrocketid 
+                from match_satcat_url_skyrocket m 
+                inner join
+                    satcat_skyrocket_norm s
+                on m.skyrocketid = s.skyrocketid                
+                where m.skyrocketid not null"""
     cur.execute(query)
     output = cur.fetchall()
     satid_list = [int(a[0]) for a in output]
