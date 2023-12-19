@@ -313,8 +313,8 @@ def extract_TLE(dbs_name, lastupdate, satcatid_list):
         LEFT JOIN
             tle t
         ON
-            s.SatCatId = t.SatCatId AND
-            t.ObjectName != "" 
+            s.SatCatId = t.SatCatId
+        WHERE t.ObjectName != "" OR t.ObjectName IS NULL 
         ORDER BY LastUpdate
     '''
     cur.execute(query)
