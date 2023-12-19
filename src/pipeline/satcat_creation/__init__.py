@@ -1,0 +1,1 @@
+# src/pipeline/satcat_creation/__init__.py

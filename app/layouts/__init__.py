@@ -1,0 +1,1 @@
+# app/layouts/__init__.py
