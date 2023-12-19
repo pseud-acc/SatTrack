@@ -2,11 +2,11 @@
 
 """
 
-This module defines dash app callbacks used in the SatTrack app.
+This module defines dash app callbacks used in the SatTrack visualisation.
 
 Example:
 
-        $ python app_callbacks.py
+        $ python callback_sat_visualisations.py
 
 Function:
     get_callbacks: wrapper function for callbacks
@@ -20,29 +20,19 @@ Todo:
 
 """
 
-# 3rd party packages
+## Packages
 
-import pandas as pd
+import sys
 import numpy as np
-
-import time # Packages to compute satellite position
-from dateutil import parser
-from datetime import datetime, timedelta
-
-from sgp4.api import Satrec, SatrecArray
-from sgp4.api import SGP4_ERRORS
-from sgp4.api import jday
-
-import plotly.express as px # Packgaes to generate interactivity
 import plotly.graph_objects as go
-import dash_vtk
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
 from dash import Dash, callback_context
 
-# internal packages
+## Internal Scripts
 
-from celestial_geometry_funs import compute_satloc, lla_to_xyz, sphere 
+# paths
+sys.path.append("../app/helper/")
 from app_settings import *
 from initialise_app import (filter_df, orbit_path, satellite_3d_hover, satellite_2d_hover)
 

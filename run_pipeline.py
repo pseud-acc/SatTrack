@@ -18,6 +18,7 @@ Todo:
 import sys
 
 sys.path.append("./src/pipeline/")
+sys.path.append("./src/pipeline/config")
 
 from user_setup_pipeline import *
 from pipeline_wrapper import satcat_pipeline, tle_pipeline, satcat_enrichement_pipeline, app_data_export
