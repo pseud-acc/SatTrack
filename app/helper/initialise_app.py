@@ -16,7 +16,7 @@ Todo:
 """
 
 ## Packages
-
+import sys
 import pandas as pd
 import numpy as np
 from PIL import Image
@@ -24,9 +24,9 @@ from datetime import datetime, timedelta
 import plotly.graph_objects as go
 
 ## Internal Scripts
-
-from celestial_geometry_funs import compute_satloc, lla_to_xyz, sphere 
-from app_settings import *
+sys.path.append("../../")
+from app.helper.app_settings import *
+from app.helper.celestial_geometry_funs import compute_satloc, lla_to_xyz, sphere
 
 # Earth Radius (km)
 radius_earth = 6378.137 

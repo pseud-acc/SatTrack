@@ -19,11 +19,14 @@ Todo:
 """
 
 # Packages
+import sys
 
 import numpy as np
 from sgp4.api import Satrec, SatrecArray
 from sgp4.api import jday
-from teme_to_geodetic import teme2geodetic_spherical
+
+sys.path.append("../../")
+from app.helper.teme_to_geodetic import teme2geodetic_spherical
 
 def compute_satloc(tle_in, time_in, re, eci):
     

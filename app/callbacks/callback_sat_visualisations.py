@@ -32,9 +32,9 @@ from dash import Dash, callback_context
 ## Internal Scripts
 
 # paths
-sys.path.append("../app/helper/")
-from app_settings import *
-from initialise_app import (filter_df, orbit_path, satellite_3d_hover, satellite_2d_hover)
+sys.path.append("../../")
+from app.helper.app_settings import *
+from app.helper.initialise_app import (filter_df, orbit_path, satellite_3d_hover, satellite_2d_hover)
 
 # Callback wrapper function
 def get_callbacks(app,
