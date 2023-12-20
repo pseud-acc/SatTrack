@@ -22,23 +22,15 @@ Todo:
 import pandas as pd
 from dash import Dash
 import dash_bootstrap_components as dbc
-import sys
 
 ## Internal Scripts
 
-# paths
-sys.path.append("./app/assets/")
-sys.path.append("./app/callbacks/")
-sys.path.append("./app/helper/")
-sys.path.append("./app/layouts/")
-
 # helper scrips
-from app_settings import *
-from initialise_app import (import_data, filter_setup, initialise_2d, initialise_3d, initialise_3d_ls)
+from app.helper.initialise_app import (import_data, filter_setup, initialise_2d, initialise_3d_ls)
 # app layout
-from layout_sat_visualisations import create_dash_layout
+from app.layouts.layout_sat_visualisations import create_dash_layout
 # app callbacks
-from callback_sat_visualisations import get_callbacks
+from app.callbacks.callback_sat_visualisations import get_callbacks
 
 ## >>>>>>>> Initilise App <<<<<<<<<<<<
 
@@ -49,7 +41,7 @@ app = Dash(__name__, external_stylesheets=external_stylesheets)
 # Reference the underlying flask app (Used by gunicorn webserver in Heroku production deployment)
 server = app.server
 
-# Google analytics
+# Google Analytics
 app.index_string = """<!DOCTYPE html>
 <html>
     <head>

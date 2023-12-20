@@ -23,12 +23,10 @@ import re
 import pandas as pd
 import numpy as np
 
-import http
 import sqlite3
 import requests
 from requests.adapters import HTTPAdapter, Retry
 import time
-from bs4 import BeautifulSoup
 from dateutil import parser
 from datetime import datetime
 

@@ -17,11 +17,6 @@ Todo:
 
 ## Packages
 import sys
-
-
-
-## Packages
-
 import pandas as pd
 from dash import dcc
 from dash import html
@@ -30,8 +25,8 @@ import dash_bootstrap_components as dbc
 
 ## Internal Scripts
 
-sys.path.append("../app/helper/")
-from app_settings import *
+sys.path.append("../../")
+from app.helper.app_settings import *
 
 
 ## --- Define Dash layout ----
