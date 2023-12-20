@@ -31,18 +31,18 @@ satcat_pipeline(**satcat_params)
 # Run Satellite Catalogue Enrichment Pipeline
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-#satcat_enrichement_pipeline(**satcat_enrichement_params)
+satcat_enrichement_pipeline(**satcat_enrichement_params)
 
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 # Run TLE Data Pipeline
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-#tle_pipeline(**tle_params)
+tle_pipeline(**tle_params)
 
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 # Export App Data
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-#app_data_export(**export_app_data_params)
+app_data_export(**export_app_data_params)
