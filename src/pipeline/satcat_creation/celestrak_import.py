@@ -21,7 +21,6 @@ Todo:
 import re # standard library
 
 import pandas as pd # 3rd party packages
-import numpy as np
 import requests
 from bs4 import BeautifulSoup 
 from dateutil import parser

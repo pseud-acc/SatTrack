@@ -16,22 +16,18 @@ Todo:
 """
 
 import sys
-sys.path.append("./app_data_export/")
-sys.path.append("./config/")
-sys.path.append("./satcat_creation/")
-sys.path.append("./satcat_enrichment/")
-sys.path.append("./tle_import/")
+sys.path.append("../../")
 
 # satcat creation
-from celestrak_import import celestrak_update_check, import_celestrak_satcat
-from ucs_import import ucs_update_check, import_ucs_satcat
-from create_satcat import clean_satcat_export, satcat_sql_dump
+from src.pipeline.satcat_creation.celestrak_import import celestrak_update_check, import_celestrak_satcat
+from src.pipeline.satcat_creation.ucs_import import ucs_update_check, import_ucs_satcat
+from src.pipeline.satcat_creation.create_satcat import clean_satcat_export, satcat_sql_dump
 # satcat enrichment
-from skyrocket_webscraper import skyrocket_update_check, webscraper_dump, enrich_satcat
+from src.pipeline.satcat_enrichment.skyrocket_webscraper import skyrocket_update_check, webscraper_dump, enrich_satcat
 # tle import
-from extract_TLEs import extract_TLE_active, extract_TLE, remove_decayed_TLE, drop_staging_tables
+from src.pipeline.tle_import.extract_TLEs import extract_TLE_active, extract_TLE, remove_decayed_TLE, drop_staging_tables
 # app data export
-from export_app_data import export_satcat_tle
+from src.pipeline.app_data_export.export_app_data import export_satcat_tle
 
 def satcat_pipeline(metadata,
                     update_satcat,

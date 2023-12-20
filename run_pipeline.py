@@ -15,13 +15,9 @@ Todo:
 
 """
 
-import sys
-
-sys.path.append("./src/pipeline/")
-sys.path.append("./src/pipeline/config")
-
-from user_setup_pipeline import *
-from pipeline_wrapper import satcat_pipeline, tle_pipeline, satcat_enrichement_pipeline, app_data_export
+## Internal scripts
+from src.pipeline.config.user_setup_pipeline import *
+from src.pipeline.pipeline_wrapper import satcat_pipeline, tle_pipeline, satcat_enrichement_pipeline, app_data_export
 
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -42,11 +38,11 @@ satcat_pipeline(**satcat_params)
 # Run TLE Data Pipeline
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-tle_pipeline(**tle_params)
+#tle_pipeline(**tle_params)
 
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 # Export App Data
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-app_data_export(**export_app_data_params)
+#app_data_export(**export_app_data_params)

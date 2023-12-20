@@ -16,16 +16,17 @@ Todo:
 
 """
 
+## Packages
+
 import re # standard library
 
-import pandas as pd # 3rd party packages
+import pandas as pd
 import numpy as np
 import requests
 from bs4 import BeautifulSoup 
 import unidecode
 from dateutil import parser
 from datetime import datetime
-import time
 import sqlite3
 
 import string

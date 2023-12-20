@@ -20,10 +20,7 @@ import re # standard library
 
 import pandas as pd # 3rd party packages
 import numpy as np
-import requests
-from bs4 import BeautifulSoup 
 from dateutil import parser
-from datetime import datetime
 import sqlite3
 import nltk
 
@@ -109,9 +106,10 @@ def clean_satcat_export(celestrak_dat, ucs_dat, filename):
         dat.loc[dat[col].isin(str_old), col] = str_new
         return dat
     lv_map = {"Long March":["Long"], "Soyuz":["Soyuz Fregat Soyuz","11A510"], "LauncherOne":["Launcher"],
-             "Proton":["Proton/Breeze"],"ISS NRCSD":['Dextre Arm + Kaber', 'Nanoracks','J',
-                                                    'KIBO','SEOPS','JEM','Kaber'],
-             'JAXA M-V': ['JAXA'], 'Kaituozhe': ["KT"]}
+             "Proton":["Proton/Breeze"],"ISS NRCSD":["Dextre Arm + Kaber", "Nanoracks","J",
+                                                    "KIBO","SEOPS","JEM","Kaber"],
+             "JAXA M-V": ["JAXA"], "Kaituozhe": ["KT"],
+              "Falcon": ["Falcon 9"]}
     for u,v in lv_map.items():
         merged_satcat_clean = manual_mapper(merged_satcat_clean,"LaunchVehicleClass",v,u)
 
