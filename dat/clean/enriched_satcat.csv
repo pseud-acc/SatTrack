@@ -12172,3 +12172,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 58646,OBJECT B,2023,95.11,-1.0,+,97.42,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 58647,OBJECT C,2023,95.12,-1.0,+,97.42,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 58648,OBJECT D,2023,95.11,-1.0,+,97.42,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+58650,OBJECT A,2023,95.62,-1.0,+,97.33,Active,0,LEO,Sea Launch Platform,China,Unknown,Unknown,Unknown
+58651,OBJECT B,2023,95.59,-1.0,+,97.34,Active,0,LEO,Sea Launch Platform,China,Unknown,Unknown,Unknown
+58652,OBJECT C,2023,95.59,-1.0,+,97.33,Active,0,LEO,Sea Launch Platform,China,Unknown,Unknown,Unknown
