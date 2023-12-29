@@ -74,12 +74,12 @@ def map_celestrak_data(data_in, sat):
         print(data_in)
         return True, None
     elif re.search('(.*)temporarily blocked(.*)', ''.join(data_in)) is not None:
-        print("")
-        print("Celestrak API request limit reached - connection temporarily blocked.")
-        print("")
-        print("Exiting...")
-        print("")
-        exit()
+        # print("")
+        # print("Celestrak API request limit reached - connection temporarily blocked.")
+        # print("")
+        # print("Exiting...")
+        # print("")
+        return False, None
 
 
 def insert_tle(tle_data, satcatid_in, lastupdate_in, cur_in, conn_in):
@@ -204,7 +204,7 @@ def extract_TLE_active(dbs_name, lastupdate):
             print("")
             print("Exiting...")
             print("")
-            exit()
+            return False, None, None
 
     data = [d.strip() for d in data]
     df = np.reshape(np.array(data), (int(len(data) / 3), 3))
