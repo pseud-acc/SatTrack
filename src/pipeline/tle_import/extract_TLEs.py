@@ -65,20 +65,19 @@ def map_celestrak_data(data_in, sat):
     @return: data_mapped: dataframe containing TLE data
     '''
     print("Check if data is present")
-    if len(data_in) == 3:
-        data_array = [d.strip() for d in data_in] + [sat]
-        data_mapped = pd.DataFrame([data_array], columns=["ObjectName", "TLE1", "TLE2", "SatCatId"])
-        print("=== Data extracted ===")
-        return True, data_mapped
-    elif data_in[0] == 'No GP data found':
-        print(data_in)
-        return True, None
-    elif re.search('(.*)temporarily blocked(.*)', ''.join(data_in)) is not None:
-        # print("")
-        # print("Celestrak API request limit reached - connection temporarily blocked.")
-        # print("")
-        # print("Exiting...")
-        # print("")
+    try:
+        if len(data_in) == 3:
+            data_array = [d.strip() for d in data_in] + [sat]
+            data_mapped = pd.DataFrame([data_array], columns=["ObjectName", "TLE1", "TLE2", "SatCatId"])
+            print("=== Data extracted ===")
+            return True, data_mapped
+        elif data_in[0] == 'No GP data found':
+            print(data_in)
+            return True, None
+        elif re.search('(.*)temporarily blocked(.*)', ''.join(data_in)) is not None:
+            return False, None
+    except Exception:
+        pass
         return False, None
 
 
