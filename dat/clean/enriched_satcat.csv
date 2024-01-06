@@ -12238,6 +12238,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 58692,HULIANWANG JISHU SHIYAN 4B,2023,103.7,-1.0,+,50.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 58693,HULIANWANG JISHU SHIYAN 4C,2023,103.79,-1.0,+,50.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 58694,XPOSAT,2024,97.64,-1.0,+,5.99,Active,0,LEO,India,India,Unknown,Unknown,Unknown
+58695,POEM-3,2024,91.46,-1.0,+,9.67,Active,0,LEO,India,India,Unknown,Unknown,Unknown
 58698,OBJECT A,2024,870.38,-1.0,+,26.81,Active,0,MEO,USA,Sweden,Unknown,Unknown,Unknown
 58700,OBJECT A,2024,95.11,-1.0,+,97.46,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 58701,OBJECT B,2024,95.1,-1.0,+,97.45,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
