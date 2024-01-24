@@ -5690,7 +5690,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 47477,FLOCK 4S-34,2021,93.55,4.0,+,97.36,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47478,FLOCK 4S-9,2021,93.59,4.0,+,97.36,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47482,NASA PTD-1,2021,90.56,-1.0,+,97.37,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-47483,P2-10,2021,88.94,1.0,+,97.33,Active,1,LEO,USA,USA,Civil/Government,Falcon,Technology Development
 47485,QPS-SAR-2 (IZANAMI),2021,92.57,100.0,+,97.35,Active,1,LEO,USA,Japan,Commercial,Falcon,Earth Observation
 47486,CELESTIS-17 & SHERPA-FX1,2021,94.86,9.0,+,97.36,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47487,ASTROCAST-0103,2021,94.55,4.0,+,97.38,Active,1,LEO,USA,Switzerland,Commercial,Falcon,Communications
@@ -7843,7 +7842,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 52399,SPACEBEE-140,2022,92.0,2.0,+,97.4,Active,1,LEO,New Zealand,USA,Commercial,Electron,Communications
 52400,SPACEBEE-141,2022,92.89,2.0,+,97.4,Active,1,LEO,New Zealand,USA,Commercial,Electron,Communications
 52401,SPACEBEE-142,2022,92.96,2.0,+,97.4,Active,1,LEO,New Zealand,USA,Commercial,Electron,Communications
-52403,SPACEBEENZ-22,2022,88.71,2.0,+,97.37,Active,1,LEO,New Zealand,New Zealand,Commercial,Electron,Communications
 52406,SPACEBEE-148,2022,92.09,2.0,+,97.4,Active,1,LEO,New Zealand,USA,Commercial,Electron,Communications
 52407,SPACEBEE-149,2022,92.78,2.0,+,97.4,Active,1,LEO,New Zealand,USA,Commercial,Electron,Communications
 52408,SPACEBEE-153,2022,92.66,2.0,+,97.4,Active,1,LEO,New Zealand,USA,Commercial,Electron,Communications
