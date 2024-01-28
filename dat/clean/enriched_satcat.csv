@@ -5495,7 +5495,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 46916,TIANTONG-1 2,2020,1436.16,-1.0,+,2.69,Active,1,GSO,PRC,China,Government,Long March,Communications
 46918,USA 310,2020,382.8,-1.0,+,58.45,Active,1,MEO,USA,USA,Military,Atlas,Earth Observation
 46931,CORVUS BC5,2020,91.49,10.0,+,97.49,Active,1,LEO,New Zealand,USA,Commercial,Electron,Earth Observation
-46932,APSS-1,2020,88.18,-1.0,+,97.47,Active,0,LEO,New Zealand,New Zealand,Unknown,Unknown,Unknown
 46940,BRO-2,2020,93.19,-1.0,+,97.52,Active,0,LEO,New Zealand,France,Unknown,Unknown,Unknown
 46955,DRAGRACER 2 (AUGURY),2020,94.09,-1.0,+,97.52,Active,0,LEO,New Zealand,USA,Unknown,Unknown,Unknown
 46984,SENTINEL-6,2020,112.42,1192.0,+,66.04,Active,1,LEO,USA,ESA,Government,Falcon,Earth Observation
@@ -7294,7 +7293,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 51087,STORK-1,2022,92.88,5.0,+,97.41,Active,1,LEO,USA,Poland,Commercial,Falcon,Earth Observation
 51088,STORK-2,2022,92.89,5.0,+,97.4,Active,1,LEO,USA,Poland,Commercial,Falcon,Earth Observation
 51089,SW1FT,2022,92.87,-1.0,+,97.4,Active,0,LEO,USA,Poland,Unknown,Unknown,Unknown
-51094,OBJECT A,2022,88.38,4.0,-,44.98,Inactive,1,LEO,Western Range Airspace,To Be Determined,Government,LauncherOne,Technology Development
 51095,TECHEDSAT 13,2022,92.82,4.0,+,44.99,Active,1,LEO,Western Range Airspace,USA,Government,LauncherOne,Technology Development
 51096,OBJECT C,2022,92.98,4.0,-,44.95,Inactive,1,LEO,Western Range Airspace,To Be Determined,Government,LauncherOne,Technology Development
 51097,GEARRS-3,2022,92.93,4.0,+,44.95,Active,1,LEO,Western Range Airspace,USA,Commercial/Military,LauncherOne,Communications
@@ -12323,3 +12321,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 58823,OBJECT D,2024,95.28,-1.0,+,97.52,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 58824,OBJECT E,2024,92.81,-1.0,+,97.67,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 58848,AAC-AIS-SAT3,2023,95.62,-1.0,+,97.45,Active,0,LEO,USA,Sweden,Unknown,Unknown,Unknown
+58849,OBJECT A,2024,100.59,-1.0,+,58.69,Active,0,LEO,Iran,Iran,Unknown,Unknown,Unknown
+58850,OBJECT B,2024,100.42,-1.0,+,58.69,Active,0,LEO,Iran,Iran,Unknown,Unknown,Unknown
+58851,OBJECT C,2024,100.42,-1.0,+,58.69,Active,0,LEO,Iran,Iran,Unknown,Unknown,Unknown
