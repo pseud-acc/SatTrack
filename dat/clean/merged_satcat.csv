@@ -4574,7 +4574,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 44800,2019-080A,TIBA-1,2019-11-26,2019,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5 ECA,Active,+,GSO,1436.13,-1.0,EGYP,Egypt,0.05,Commercial/Military,Communications,5600.0,,15.0,1,Ariane
 44801,2019-080B,INMARSAT GX5,2019-11-26,2019,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5 ECA,Active,+,GSO,1436.07,-1.0,IM,INMARSAT,0.05,Commercial,Communications,4007.0,,15.0,1,Ariane
 44804,2019-081A,CARTOSAT-3,2019-11-27,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,94.79,-1.0,IND,India,97.56,Government,Earth Observation,1625.0,,5.0,1,PSLV
-44809,2019-081F,FLOCK 4P-11,2019-11-27,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Inactive,-,LEO,88.89,-1.0,US,USA,97.31,Commercial,Earth Observation,4.0,,3.0,1,PSLV
 44818,2019-081Q,FLOCK 4P-5,2019-11-27,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Inactive,-,LEO,91.29,-1.0,US,USA,97.33,Commercial,Earth Observation,4.0,,3.0,1,PSLV
 44819,2019-082A,GAOFEN-12 01,2019-11-27,2019,"Taiyuan Space Center, PRC",PRC,Long March 4C,Active,+,LEO,97.23,-1.0,PRC,China,97.83,Government,Earth Observation,1000.0,,8.0,1,Long March
 44835,2019-079D,COSMOS 2543,2019-11-25,2019,"Plesetsk Missile and Space Complex, Russia",Russia,Soyuz-2.1v,Active,+,LEO,92.78,-1.0,CIS,Russia/USSR,97.73,Military,Earth Observation/Space Science,-1.0,,-1.0,1,Soyuz
@@ -5201,7 +5200,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 46232,2020-058A,GAOFEN-9 05,2020-08-23,2020,"Jiuquan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,94.5,-1.0,PRC,China,97.32,Government,Earth Observation,1000.0,,8.0,1,Long March
 46233,2020-058B,MULTIFUNCTION TEST SAT,2020-08-23,2020,"Jiuquan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,92.95,-1.0,PRC,China,97.32,Military,Technology Development,78.5,,-1.0,1,Long March
 46234,2020-058C,TIANTUO 5,2020-08-23,2020,"Jiuquan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,93.91,-1.0,PRC,China,97.32,Military,Technology Development,-1.0,,-1.0,1,Long March
-46235,2020-057BS,SKYSAT-C19,2020-08-18,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Inactive,-,LEO,88.66,-1.0,US,USA,52.96,Commercial,Earth Observation,110.0,,-1.0,1,Falcon
 46265,2020-059A,SAOCOM 1B,2020-08-30,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,97.16,-1.0,ARGN,Argentina,97.89,Government,Earth Observation,3050.0,,5.0,1,Falcon
 46266,2020-059B,GNOMES-1,2020-08-30,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,96.5,-1.0,US,USA,97.86,Commercial,Earth Observation,30.0,,-1.0,1,Falcon
 46267,2020-059C,TYVAK-0172,2020-08-30,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.97,-1.0,US,USA,97.84,Commercial,Technology Development,10.0,,-1.0,1,Falcon

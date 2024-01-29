@@ -4574,7 +4574,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 44800,TIBA-1,2019,1436.13,5600.0,+,0.05,Active,1,GSO,French Guiana,Egypt,Commercial/Military,Ariane,Communications
 44801,INMARSAT GX5,2019,1436.07,4007.0,+,0.05,Active,1,GSO,French Guiana,INMARSAT,Commercial,Ariane,Communications
 44804,CARTOSAT-3,2019,94.79,1625.0,+,97.56,Active,1,LEO,India,India,Government,PSLV,Earth Observation
-44809,FLOCK 4P-11,2019,88.89,4.0,-,97.31,Inactive,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 44818,FLOCK 4P-5,2019,91.29,4.0,-,97.33,Inactive,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 44819,GAOFEN-12 01,2019,97.23,1000.0,+,97.83,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
 44835,COSMOS 2543,2019,92.78,-1.0,+,97.73,Active,1,LEO,Russia,Russia/USSR,Military,Soyuz,Earth Observation/Space Science
@@ -5201,7 +5200,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 46232,GAOFEN-9 05,2020,94.5,1000.0,+,97.32,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
 46233,MULTIFUNCTION TEST SAT,2020,92.95,78.5,+,97.32,Active,1,LEO,PRC,China,Military,Long March,Technology Development
 46234,TIANTUO 5,2020,93.91,-1.0,+,97.32,Active,1,LEO,PRC,China,Military,Long March,Technology Development
-46235,SKYSAT-C19,2020,88.66,110.0,-,52.96,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 46265,SAOCOM 1B,2020,97.16,3050.0,+,97.89,Active,1,LEO,USA,Argentina,Government,Falcon,Earth Observation
 46266,GNOMES-1,2020,96.5,30.0,+,97.86,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 46267,TYVAK-0172,2020,95.97,10.0,+,97.84,Active,1,LEO,USA,USA,Commercial,Falcon,Technology Development
