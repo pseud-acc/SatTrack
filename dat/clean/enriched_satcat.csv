@@ -11067,7 +11067,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 57309,STARLINK-30163,2023,95.84,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
 57310,STARLINK-30184,2023,95.84,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
 57311,STARLINK-30175,2023,95.84,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
-57313,OBJECT VR,1998,88.68,-1.0,+,51.62,Active,0,LEO,Kazakhstan,To Be Determined,Unknown,Unknown,Unknown
 57316,MOONLIGHTER,1998,90.29,-1.0,+,51.62,Active,0,LEO,Kazakhstan,USA,Unknown,Unknown,Unknown
 57328,STARLINK-6290,2023,95.84,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 57329,STARLINK-6138,2023,95.84,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
@@ -12321,3 +12320,4 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 58849,OBJECT A,2024,100.59,-1.0,+,58.69,Active,0,LEO,Iran,Iran,Unknown,Unknown,Unknown
 58850,OBJECT B,2024,100.42,-1.0,+,58.69,Active,0,LEO,Iran,Iran,Unknown,Unknown,Unknown
 58851,OBJECT C,2024,100.42,-1.0,+,58.69,Active,0,LEO,Iran,Iran,Unknown,Unknown,Unknown
+58898,CYGNUS NG-20,2024,89.44,-1.0,+,51.66,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
