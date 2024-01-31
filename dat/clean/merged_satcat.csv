@@ -4650,7 +4650,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 44954,2020-001AS,STARLINK-1066,2020-01-07,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
 44959,2020-001AX,STARLINK-1076,2020-01-07,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,227.0,,-1.0,1,Falcon
 44961,2020-001AZ,STARLINK-1080,2020-01-07,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,227.0,,-1.0,1,Falcon
-44964,2020-001BC,STARLINK-1086,2020-01-07,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,89.75,-1.0,US,USA,53.03,Commercial,Communications,227.0,,-1.0,1,Falcon
+44964,2020-001BC,STARLINK-1086,2020-01-07,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Inactive,-,LEO,89.75,-1.0,US,USA,53.03,Commercial,Communications,227.0,,-1.0,1,Falcon
 44966,2020-001BE,STARLINK-1088,2020-01-07,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,94.52,-1.0,US,USA,53.06,Commercial,Communications,227.0,,-1.0,1,Falcon
 44967,2020-001BF,STARLINK-1089,2020-01-07,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,227.0,,-1.0,1,Falcon
 44968,2020-001BG,STARLINK-1090,2020-01-07,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
@@ -12322,3 +12322,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 58850,2024-018B,OBJECT B,2024-01-28,2024,"Semnan Satellite Launch Site, Iran",Iran,,Active,+,LEO,100.46,-1.0,IRAN,Iran,58.7,,,-1.0,,-1.0,0,
 58851,2024-018C,OBJECT C,2024-01-28,2024,"Semnan Satellite Launch Site, Iran",Iran,,Active,+,LEO,100.42,-1.0,IRAN,Iran,58.69,,,-1.0,,-1.0,0,
 58898,2024-021A,CYGNUS NG-20,2024-01-30,2024,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,89.44,-1.0,US,USA,51.66,,,-1.0,,-1.0,0,
+58899,2024-022A,OBJECT A,2024-01-31,2024,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,95.24,-1.0,US,USA,97.49,,,-1.0,,-1.0,0,
+58900,2024-022B,OBJECT B,2024-01-31,2024,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,95.24,-1.0,US,USA,97.47,,,-1.0,,-1.0,0,
+58901,2024-022C,OBJECT C,2024-01-31,2024,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,95.28,-1.0,US,USA,97.49,,,-1.0,,-1.0,0,
+58902,2024-022D,OBJECT D,2024-01-31,2024,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,95.22,-1.0,US,USA,97.48,,,-1.0,,-1.0,0,
