@@ -4096,7 +4096,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 43115,CARBONITE 2,2018,93.65,-1.0,+,97.28,Active,1,LEO,India,UK,Commercial,PSLV,Technology Development
 43118,CORVUS BC3,2018,92.29,10.0,+,97.3,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 43127,DEMOSAT 2,2018,92.31,-1.0,+,97.3,Active,1,LEO,India,USA,Commercial,PSLV,Technology Development
-43130,ARKYD 6A,2018,88.15,10.0,+,97.28,Active,1,LEO,India,USA,Commercial,PSLV,Technology Development
 43133,CNUSAIL-1,2018,90.79,-1.0,+,97.29,Active,0,LEO,India,South Korea,Unknown,Unknown,Unknown
 43145,USA 281,2018,106.82,-1.0,+,106.01,Active,1,LEO,USA,USA,Military,Delta,Earth Observation
 43146,LKW-3,2018,94.54,-1.0,+,97.55,Active,1,LEO,PRC,China,Military,Long March,Earth Observation
@@ -5175,7 +5174,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 46172,STARLINK-1635,2020,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46173,STARLINK-1640,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46174,STARLINK-1641,2020,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-46179,SKYSAT-C17,2020,88.26,110.0,-,52.95,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 46232,GAOFEN-9 05,2020,94.5,1000.0,+,97.32,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
 46233,MULTIFUNCTION TEST SAT,2020,92.8,78.5,+,97.31,Active,1,LEO,PRC,China,Military,Long March,Technology Development
 46234,TIANTUO 5,2020,93.84,-1.0,+,97.32,Active,1,LEO,PRC,China,Military,Long March,Technology Development
@@ -6676,7 +6674,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 49007,XINGSHIDAI 10,2021,94.66,10.0,+,97.41,Active,1,LEO,PRC,China,Commercial,Long March,Earth Observation
 49008,FENGYUN 3E,2021,101.43,2450.0,+,98.73,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
 49011,TIANLIAN 1-05,2021,1436.1,2200.0,+,0.59,Active,1,GSO,PRC,China,Government,Long March,Communications
-49017,IT-SPINS,2021,88.62,-1.0,+,51.56,Active,0,LEO,USA,USA,Unknown,Antares,Unknown
 49018,NINGXIA-1 6,2021,102.26,100.0,+,45.0,Active,1,LEO,PRC,China,Commercial,Long March,Earth Observation
 49019,NINGXIA-1 7,2021,102.26,100.0,+,45.0,Active,1,LEO,PRC,China,Commercial,Long March,Earth Observation
 49020,NINGXIA-1 8,2021,102.26,100.0,+,45.0,Active,1,LEO,PRC,China,Commercial,Long March,Earth Observation
