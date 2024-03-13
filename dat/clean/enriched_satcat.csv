@@ -9104,7 +9104,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 54208,STARLINK-5255,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 54209,STARLINK-5259,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 54214,SHIYAN 20C (SY-20C),2022,100.78,-1.0,+,60.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
-54219,LDPE-2,2022,-1.0,-1.0,+,-1.0,Active,0,Unknown,USA,USA,Unknown,Unknown,Unknown
+54219,LDPE-2,2022,1430.92,-1.0,+,3.59,Active,0,GSO,USA,USA,Unknown,Unknown,Unknown
 54220,USA 339,2022,1429.38,-1.0,+,3.43,Active,0,GSO,USA,USA,Unknown,Unknown,Unknown
 54223,COSMOS 2563,2022,717.71,-1.0,+,63.87,Active,0,MEO,Russia,Russia/USSR,Unknown,Unknown,Unknown
 54225,EUTELSAT HOTBIRD 13G,2022,1436.11,4500.0,+,0.05,Active,1,GSO,USA,EUTELSAT,Commercial,Falcon,Communications

@@ -9104,7 +9104,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 54208,2022-141BD,STARLINK-5255,2022-10-28,2022,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 54209,2022-141BE,STARLINK-5259,2022-10-28,2022,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 54214,2022-142A,SHIYAN 20C (SY-20C),2022-10-29,2022,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,100.78,-1.0,PRC,China,60.0,,,-1.0,,-1.0,0,
-54219,2022-144A,LDPE-2,2022-11-01,2022,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,,-1.0,-1.0,US,USA,-1.0,,,-1.0,,-1.0,0,
+54219,2022-144A,LDPE-2,2022-11-01,2022,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,GSO,1430.92,-1.0,US,USA,3.59,,,-1.0,,-1.0,0,
 54220,2022-144B,USA 339,2022-11-01,2022,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,GSO,1429.38,-1.0,US,USA,3.43,,,-1.0,,-1.0,0,
 54223,2022-145A,COSMOS 2563,2022-11-02,2022,"Plesetsk Missile and Space Complex, Russia",Russia,,Active,+,MEO,717.71,-1.0,CIS,Russia/USSR,63.87,,,-1.0,,-1.0,0,
 54225,2022-146A,EUTELSAT HOTBIRD 13G,2022-11-03,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,GSO,1436.11,-1.0,EUTE,EUTELSAT,0.05,Commercial,Communications,4500.0,,15.0,1,Falcon
