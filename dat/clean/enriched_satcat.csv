@@ -3815,7 +3815,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 41434,BEIDOU-2 IGSO-6,2016,1435.85,4200.0,+,59.04,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 41456,SENTINEL-1B,2016,96.71,2300.0,-,98.17,Inactive,1,LEO,French Guiana,ESA,Government,Soyuz,Earth Observation
 41457,MICROSCOPE,2016,98.88,-1.0,-,98.26,Inactive,0,LEO,French Guiana,France,Unknown,Unknown,Unknown
-41458,OUFTI-1,2016,88.04,-1.0,-,98.12,Inactive,0,LEO,French Guiana,Belgium,Unknown,Soyuz,Unknown
 41459,E-ST@R-II,2016,92.02,-1.0,+,98.14,Active,0,LEO,French Guiana,Italy,Unknown,Unknown,Unknown
 41465,AIST-2D (RS-48),2016,90.43,-1.0,+,96.95,Active,0,LEO,Russia,Russia/USSR,Unknown,Unknown,Unknown
 41469,IRNSS-1G,2016,1436.08,1425.0,P,3.22,Active,1,GSO,India,India,Government,PSLV,Navigation (Global or Regional Positioning)
@@ -5142,7 +5141,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 46146,STARLINK-1608,2020,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46147,STARLINK-1611,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46148,STARLINK-1616,2020,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-46149,STARLINK-1620,2020,95.58,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
+46149,STARLINK-1620,2020,95.58,260.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46150,STARLINK-1629,2020,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46151,STARLINK-1631,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46152,STARLINK-1634,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -5290,7 +5289,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 46506,NETSAT-1,2020,95.3,4.0,+,97.8,Active,1,LEO,Russia,Germany,Commercial,Soyuz,Technology Development
 46507,NETSAT-2,2020,95.21,4.0,+,97.8,Active,1,LEO,Russia,Germany,Commercial,Soyuz,Technology Development
 46528,FLOCK 4V-15,2020,90.77,4.0,-,97.31,Inactive,1,LEO,French Guiana,USA,Commercial,ION,Earth Observation
-46529,FLOCK 4V-17,2020,88.71,4.0,-,97.29,Inactive,1,LEO,French Guiana,USA,Commercial,ION,Earth Observation
 46532,STARLINK-1644,2020,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46533,STARLINK-1648,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46534,STARLINK-1659,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -5627,7 +5625,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 47445,SOMP2B,2021,93.75,3.0,+,97.34,Active,1,LEO,USA,Germany,Civil,Falcon,Space Science
 47446,KEPLER-12 (BOBA),2021,93.89,9.0,+,97.35,Active,1,LEO,USA,Canada,Commercial,Falcon,Communications
 47448,CUBEL,2021,94.75,5.0,+,97.36,Active,1,LEO,USA,Germany,Government,Falcon,Technology Development
-47452,FLOCK 4S-22,2021,93.08,4.0,+,97.35,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
+47452,FLOCK 4S-22,2021,93.08,4.0,-,97.35,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47454,KEPLER-13 (LUCKY),2021,92.06,9.0,+,97.33,Active,1,LEO,USA,Canada,Commercial,Falcon,Communications
 47456,FLOCK 4S-21,2021,93.33,4.0,+,97.35,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47458,IDEASSAT,2021,93.85,-1.0,+,97.35,Active,0,LEO,USA,Taiwan,Unknown,Unknown,Unknown
@@ -6564,7 +6562,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 48879,STARLINK-3003,2021,95.92,260.0,+,97.66,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48880,STARLINK-3004,2021,95.92,260.0,+,97.66,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48881,STARLINK-3005,2021,95.92,260.0,+,97.66,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-48883,SPACEBEE-100,2021,88.47,2.0,+,97.58,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48884,SPACEBEE-101,2021,90.69,2.0,+,97.6,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48886,SPACEBEE-102,2021,90.34,2.0,+,97.6,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48892,TYVAK-0173,2021,97.53,12.0,+,96.02,Active,1,LEO,USA,Australia,Commercial,Falcon,Technology Development
@@ -7753,7 +7750,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 52394,SPACEBEE-143,2022,92.22,2.0,+,97.4,Active,1,LEO,New Zealand,USA,Commercial,Electron,Communications
 52400,SPACEBEE-141,2022,92.12,2.0,+,97.39,Active,1,LEO,New Zealand,USA,Commercial,Electron,Communications
 52401,SPACEBEE-142,2022,92.21,2.0,+,97.39,Active,1,LEO,New Zealand,USA,Commercial,Electron,Communications
-52406,SPACEBEE-148,2022,88.8,2.0,+,97.36,Active,1,LEO,New Zealand,USA,Commercial,Electron,Communications
 52407,SPACEBEE-149,2022,91.87,2.0,+,97.39,Active,1,LEO,New Zealand,USA,Commercial,Electron,Communications
 52408,SPACEBEE-153,2022,91.61,2.0,+,97.39,Active,1,LEO,New Zealand,USA,Commercial,Electron,Communications
 52409,SPACEBEE-150,2022,92.18,2.0,+,97.39,Active,1,LEO,New Zealand,USA,Commercial,Electron,Communications
@@ -12494,3 +12490,4 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 59173,STARLINK-31289,2024,90.84,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 59174,STARLINK-31283,2024,90.84,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 59175,EXO-0,2023,95.05,-1.0,+,97.47,Active,0,LEO,USA,France,Unknown,Unknown,Unknown
+59224,OBJECT A,2024,95.98,-1.0,+,97.56,Active,0,LEO,New Zealand,Japan,Unknown,Unknown,Unknown
