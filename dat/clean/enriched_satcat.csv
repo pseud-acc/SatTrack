@@ -4093,7 +4093,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 43115,CARBONITE 2,2018,93.6,-1.0,+,97.28,Active,1,LEO,India,UK,Commercial,PSLV,Technology Development
 43118,CORVUS BC3,2018,92.04,10.0,+,97.29,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 43127,DEMOSAT 2,2018,92.07,-1.0,+,97.3,Active,1,LEO,India,USA,Commercial,PSLV,Technology Development
-43133,CNUSAIL-1,2018,88.36,-1.0,+,97.27,Active,0,LEO,India,South Korea,Unknown,Unknown,Unknown
 43145,USA 281,2018,106.82,-1.0,+,106.01,Active,1,LEO,USA,USA,Military,Delta,Earth Observation
 43146,LKW-3,2018,94.5,-1.0,+,97.56,Active,1,LEO,PRC,China,Military,Long March,Earth Observation
 43152,ASNARO-2,2018,94.59,570.0,+,97.42,Active,1,LEO,Japan,Japan,Government,Epsilon,Earth Observation
@@ -4983,7 +4982,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 45725,USA 303,2020,95.46,-1.0,+,97.74,Active,1,LEO,New Zealand,USA,Military,Electron,Unknown
 45726,ANDESITE,2020,96.19,9.0,+,97.77,Active,1,LEO,New Zealand,USA,Civil,Electron,Space Science/Technology Development
 45727,M2 PATHFINDER,2020,96.24,9.0,+,97.77,Active,1,LEO,New Zealand,Australia,Civil/Military,Electron,Technology Development
-45730,STARLINK-1461,2020,95.35,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
+45730,STARLINK-1461,2020,95.35,227.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45731,STARLINK-1465,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45732,STARLINK-1466,2020,94.41,227.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45733,STARLINK-1467,2020,94.1,227.0,P,53.07,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -5194,7 +5193,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 46294,OSM-1 CICERO,2020,94.3,-1.0,+,97.36,Active,1,LEO,French Guiana,Spain,Commercial,Vega,Technology Development
 46296,FLOCK 4V-10,2020,93.65,4.0,+,97.36,Active,1,LEO,French Guiana,USA,Commercial,Vega,Earth Observation
 46297,FLOCK 4V-13,2020,93.69,4.0,+,97.36,Active,1,LEO,French Guiana,USA,Commercial,Vega,Earth Observation
-46298,LEMUR-2-ETHANOAKES,2020,89.09,10.0,+,97.34,Active,1,LEO,French Guiana,USA,Commercial,Vega,Earth Observation
 46312,TTU100,2020,93.17,4.0,+,97.37,Active,1,LEO,French Guiana,Estonia,Civil,Vega,Earth Observation
 46313,FLOCK 4V-1,2020,91.36,4.0,-,97.36,Inactive,1,LEO,French Guiana,USA,Commercial,Vega,Earth Observation
 46319,KEPLER-2 (TARS),2020,93.9,9.0,+,97.36,Active,1,LEO,French Guiana,Canada,Commercial,Vega,Communications
@@ -7541,7 +7539,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 52002,STARLINK-3668,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 52003,STARLINK-3654,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 52017,ORESAT0,2022,93.41,1.0,+,97.5,Active,1,LEO,USA,USA,Civil,Rocket,Technology Development
-52020,SPACEBEE-127,2022,88.99,2.0,+,97.46,Active,1,LEO,USA,USA,Commercial,Rocket,Communications
 52084,YAOGAN-34 02,2022,107.04,500.0,+,63.4,Active,1,LEO,PRC,China,Military,Long March,Earth Observation
 52088,STARLINK-3537,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 52089,STARLINK-3722,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -8393,7 +8390,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 53370,KHAYYAM,2022,94.34,650.0,+,97.4,Active,1,LEO,Kazakhstan,Iran,Military,Soyuz,Earth Observation
 53371,OBJECT B,2022,93.01,5.0,+,97.4,Active,1,LEO,Kazakhstan,Russia/USSR,Civil,Soyuz,Technology Development
 53372,OBJECT C,2022,93.07,5.0,+,97.4,Active,1,LEO,Kazakhstan,Russia/USSR,Civil,Soyuz,Technology Development
-53374,MONITOR-1 (RS32S),2022,88.55,-1.0,+,97.36,Active,0,LEO,Kazakhstan,Russia/USSR,Unknown,Unknown,Unknown
 53375,KUZBASS-300 (RS34S),2022,91.83,-1.0,+,97.39,Active,0,LEO,Kazakhstan,Russia/USSR,Unknown,Unknown,Unknown
 53376,UTMN (RS23S),2022,91.6,-1.0,+,97.39,Active,0,LEO,Kazakhstan,Russia/USSR,Unknown,Soyuz,Unknown
 53377,MIET-AIS (RS28S),2022,92.14,-1.0,+,97.39,Active,0,LEO,Kazakhstan,Russia/USSR,Unknown,Unknown,Unknown
@@ -12604,8 +12600,8 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 59283,OBJECT D,2024,94.22,-1.0,+,50.1,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 59284,OBJECT E,2024,94.19,-1.0,+,50.1,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 59285,OBJECT F,2024,94.17,-1.0,+,50.1,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
-59287,DRAGON CRS-30,2024,88.61,-1.0,+,51.62,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 59288,USA 352,2024,-1.0,-1.0,+,-1.0,Active,0,Unknown,USA,USA,Unknown,Unknown,Unknown
 59289,MOLA,2024,-1.0,-1.0,+,-1.0,Active,0,Unknown,USA,USA,Unknown,Unknown,Unknown
 59290,AEROCUBE 16A,2024,-1.0,-1.0,+,-1.0,Active,0,Unknown,USA,USA,Unknown,Unknown,Unknown
 59291,AEROCUBE 16B,2024,-1.0,-1.0,+,-1.0,Active,0,Unknown,USA,USA,Unknown,Unknown,Unknown
+59294,SOYUZ-MS 25,2024,91.53,-1.0,+,51.64,Active,0,LEO,Kazakhstan,Russia/USSR,Unknown,Unknown,Unknown

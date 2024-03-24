@@ -4093,7 +4093,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.28,2018-01-12,SRILR,43115,2018-004E,CARBONITE 2,PAY,+,EA,LEO,ORB,UK,93.6,Active,UK,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.29,2018-01-12,SRILR,43118,2018-004H,CORVUS BC3,PAY,+,EA,LEO,ORB,US,92.04,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.3,2018-01-12,SRILR,43127,2018-004S,DEMOSAT 2,PAY,+,EA,LEO,ORB,US,92.07,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
-,97.27,2018-01-12,SRILR,43133,2018-004Y,CNUSAIL-1,PAY,+,EA,LEO,ORB,SKOR,88.36,Active,South Korea,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,106.01,2018-01-12,AFWTR,43145,2018-005A,USA 281,PAY,+,EA,LEO,ORB,US,106.82,Active,USA,"Air Force Western Test Range, California, USA",USA
 ,97.56,2018-01-13,JSC,43146,2018-006A,LKW-3,PAY,+,EA,LEO,ORB,PRC,94.5,Active,China,"Jiuquan Space Center, PRC",PRC
 ,97.42,2018-01-17,KSCUT,43152,2018-007A,ASNARO-2,PAY,+,EA,LEO,ORB,JPN,94.59,Active,Japan,"Uchinoura Space Center(Fomerly Kagoshima Space Center—University of Tokyo, Japan)",Japan
@@ -4983,7 +4982,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.74,2020-06-13,RLLB,45725,2020-037C,USA 303,PAY,+,EA,LEO,ORB,US,95.46,Active,USA,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
 ,97.77,2020-06-13,RLLB,45726,2020-037D,ANDESITE,PAY,+,EA,LEO,ORB,US,96.19,Active,USA,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
 ,97.77,2020-06-13,RLLB,45727,2020-037E,M2 PATHFINDER,PAY,+,EA,LEO,ORB,AUS,96.24,Active,Australia,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
-,53.05,2020-06-13,AFETR,45730,2020-038A,STARLINK-1461,PAY,+,EA,LEO,ORB,US,95.35,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,53.05,2020-06-13,AFETR,45730,2020-038A,STARLINK-1461,PAY,P,EA,LEO,ORB,US,95.35,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.05,2020-06-13,AFETR,45731,2020-038B,STARLINK-1465,PAY,+,EA,LEO,ORB,US,95.59,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.05,2020-06-13,AFETR,45732,2020-038C,STARLINK-1466,PAY,P,EA,LEO,ORB,US,94.41,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.07,2020-06-13,AFETR,45733,2020-038D,STARLINK-1467,PAY,P,EA,LEO,ORB,US,94.1,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
@@ -5194,7 +5193,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.36,2020-09-03,FRGUI,46294,2020-061Y,OSM-1 CICERO,PAY,+,EA,LEO,ORB,SPN,94.3,Active,Spain,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,97.36,2020-09-03,FRGUI,46296,2020-061AA,FLOCK 4V-10,PAY,+,EA,LEO,ORB,US,93.65,Active,USA,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,97.36,2020-09-03,FRGUI,46297,2020-061AB,FLOCK 4V-13,PAY,+,EA,LEO,ORB,US,93.69,Active,USA,"Europe's Spaceport, Kourou, French Guiana",French Guiana
-,97.34,2020-09-03,FRGUI,46298,2020-061AC,LEMUR-2-ETHANOAKES,PAY,+,EA,LEO,ORB,US,89.09,Active,USA,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,97.37,2020-09-03,FRGUI,46312,2020-061AS,TTU100,PAY,+,EA,LEO,ORB,EST,93.17,Active,Estonia,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,97.36,2020-09-03,FRGUI,46313,2020-061AT,FLOCK 4V-1,PAY,-,EA,LEO,ORB,US,91.36,Inactive,USA,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,97.36,2020-09-03,FRGUI,46319,2020-061AZ,KEPLER-2 (TARS),PAY,+,EA,LEO,ORB,CA,93.9,Active,Canada,"Europe's Spaceport, Kourou, French Guiana",French Guiana
@@ -7541,7 +7539,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,53.22,2022-03-09,AFETR,52002,2022-025AY,STARLINK-3668,PAY,+,EA,LEO,ORB,US,95.44,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.22,2022-03-09,AFETR,52003,2022-025AZ,STARLINK-3654,PAY,+,EA,LEO,ORB,US,95.44,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,97.5,2022-03-15,KODAK,52017,2022-026K,ORESAT0,PAY,+,EA,LEO,ORB,US,93.41,Active,USA,"Kodiak Launch Complex, Alaska, USA",USA
-,97.46,2022-03-15,KODAK,52020,2022-026N,SPACEBEE-127,PAY,+,EA,LEO,ORB,US,88.99,Active,USA,"Kodiak Launch Complex, Alaska, USA",USA
 ,63.4,2022-03-17,JSC,52084,2022-027A,YAOGAN-34 02,PAY,+,EA,LEO,ORB,PRC,107.04,Active,China,"Jiuquan Space Center, PRC",PRC
 ,53.22,2022-03-19,AFETR,52088,2022-029A,STARLINK-3537,PAY,+,EA,LEO,ORB,US,95.44,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.22,2022-03-19,AFETR,52089,2022-029B,STARLINK-3722,PAY,+,EA,LEO,ORB,US,95.44,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
@@ -8393,7 +8390,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.4,2022-08-09,TYMSC,53370,2022-096A,KHAYYAM,PAY,+,EA,LEO,ORB,IRAN,94.34,Active,Iran,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,97.4,2022-08-09,TYMSC,53371,2022-096B,OBJECT B,PAY,+,EA,LEO,ORB,CIS,93.01,Active,Russia/USSR,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,97.4,2022-08-09,TYMSC,53372,2022-096C,OBJECT C,PAY,+,EA,LEO,ORB,CIS,93.07,Active,Russia/USSR,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
-,97.36,2022-08-09,TYMSC,53374,2022-096E,MONITOR-1 (RS32S),PAY,+,EA,LEO,ORB,CIS,88.55,Active,Russia/USSR,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,97.39,2022-08-09,TYMSC,53375,2022-096F,KUZBASS-300 (RS34S),PAY,+,EA,LEO,ORB,CIS,91.83,Active,Russia/USSR,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,97.39,2022-08-09,TYMSC,53376,2022-096G,UTMN (RS23S),PAY,+,EA,LEO,ORB,CIS,91.6,Active,Russia/USSR,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,97.39,2022-08-09,TYMSC,53377,2022-096H,MIET-AIS (RS28S),PAY,+,EA,LEO,ORB,CIS,92.14,Active,Russia/USSR,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
@@ -12604,8 +12600,8 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,50.1,2024-03-21,JSC,59283,2024-052D,OBJECT D,PAY,+,EA,LEO,ORB,PRC,94.22,Active,China,"Jiuquan Space Center, PRC",PRC
 ,50.1,2024-03-21,JSC,59284,2024-052E,OBJECT E,PAY,+,EA,LEO,ORB,PRC,94.19,Active,China,"Jiuquan Space Center, PRC",PRC
 ,50.1,2024-03-21,JSC,59285,2024-052F,OBJECT F,PAY,+,EA,LEO,ORB,PRC,94.17,Active,China,"Jiuquan Space Center, PRC",PRC
-,51.62,2024-03-21,AFETR,59287,2024-054A,DRAGON CRS-30,PAY,+,EA,LEO,ORB,US,88.61,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,,2024-03-21,WLPIS,59288,2024-053A,USA 352,PAY,+,EA,,ORB,US,,Active,USA,"Wallops Island, Virginia, USA",USA
 ,,2024-03-21,WLPIS,59289,2024-053B,MOLA,PAY,+,EA,,ORB,US,,Active,USA,"Wallops Island, Virginia, USA",USA
 ,,2024-03-21,WLPIS,59290,2024-053C,AEROCUBE 16A,PAY,+,EA,,ORB,US,,Active,USA,"Wallops Island, Virginia, USA",USA
 ,,2024-03-21,WLPIS,59291,2024-053D,AEROCUBE 16B,PAY,+,EA,,ORB,US,,Active,USA,"Wallops Island, Virginia, USA",USA
+,51.64,2024-03-23,TYMSC,59294,2024-055A,SOYUZ-MS 25,PAY,+,EA,LEO,ORB,CIS,91.53,Active,Russia/USSR,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
