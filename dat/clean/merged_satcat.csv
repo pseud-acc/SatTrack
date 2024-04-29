@@ -5583,7 +5583,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 47446,2021-006AK,KEPLER-12 (BOBA),2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,93.58,-1.0,CA,Canada,97.34,Commercial,Communications,9.0,,-1.0,1,Falcon
 47448,2021-006AM,CUBEL,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.69,-1.0,GER,Germany,97.35,Government,Technology Development,5.0,,-1.0,1,Falcon
 47452,2021-006AR,FLOCK 4S-22,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Inactive,-,LEO,92.3,-1.0,US,USA,97.34,Commercial,Earth Observation,4.0,,3.0,1,Falcon
-47454,2021-006AT,KEPLER-13 (LUCKY),2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,88.86,-1.0,CA,Canada,97.3,Commercial,Communications,9.0,,-1.0,1,Falcon
 47456,2021-006AV,FLOCK 4S-21,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,93.08,-1.0,US,USA,97.34,Commercial,Earth Observation,4.0,,3.0,1,Falcon
 47458,2021-006AX,IDEASSAT,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,93.63,-1.0,ROC,Taiwan,97.34,,,-1.0,,-1.0,0,
 47459,2021-006AY,SPACEBEE-55,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,90.13,-1.0,US,USA,97.31,Commercial,Communications,2.0,,2.0,1,Falcon
@@ -7680,7 +7679,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 52400,2022-047G,SPACEBEE-141,2022-05-02,2022,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,89.64,-1.0,US,USA,97.37,Commercial,Communications,2.0,,2.0,1,Electron
 52401,2022-047H,SPACEBEE-142,2022-05-02,2022,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,89.92,-1.0,US,USA,97.37,Commercial,Communications,2.0,,2.0,1,Electron
 52410,2022-047S,SPACEBEE-144,2022-05-02,2022,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,89.88,-1.0,US,USA,97.38,Commercial,Communications,2.0,,2.0,1,Electron
-52411,2022-047T,SPACEBEE-145,2022-05-02,2022,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,89.21,-1.0,US,USA,97.36,Commercial,Communications,2.0,,2.0,1,Electron
 52413,2022-047V,SPACEBEE-151,2022-05-02,2022,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,89.44,-1.0,US,USA,97.36,Commercial,Communications,2.0,,2.0,1,Electron
 52414,2022-047W,SPACEBEE-152,2022-05-02,2022,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,89.76,-1.0,US,USA,97.37,Commercial,Communications,2.0,,2.0,1,Electron
 52415,2022-047X,SPACEBEE-147,2022-05-02,2022,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,90.63,-1.0,US,USA,97.38,Commercial,Communications,2.0,,2.0,1,Electron
