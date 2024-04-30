@@ -12806,6 +12806,29 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 59561,OBJECT WL,1998,92.78,-1.0,+,51.64,Active,0,LEO,Kazakhstan,To Be Determined,Unknown,Unknown,Unknown
 59562,OBJECT WM,1998,92.72,-1.0,+,51.64,Active,0,LEO,Kazakhstan,To Be Determined,Unknown,Unknown,Unknown
 59563,OBJECT WN,1998,92.74,-1.0,+,51.64,Active,0,LEO,Kazakhstan,To Be Determined,Unknown,Unknown,Unknown
+59564,STARLINK-31747,2024,90.53,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59565,STARLINK-31388,2024,90.53,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59566,STARLINK-31332,2024,90.52,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59567,STARLINK-31689,2024,90.52,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59568,STARLINK-31471,2024,90.51,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59569,STARLINK-31470,2024,90.51,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59570,STARLINK-31587,2024,90.5,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59571,STARLINK-31606,2024,90.5,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59572,STARLINK-31666,2024,90.49,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59573,STARLINK-31683,2024,90.49,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59574,STARLINK-31751,2024,90.48,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59575,STARLINK-31510,2024,90.48,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59576,STARLINK-31663,2024,90.47,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59577,STARLINK-31692,2024,90.48,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59578,STARLINK-31685,2024,90.47,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59579,STARLINK-31686,2024,90.45,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59580,STARLINK-31668,2024,90.46,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59581,STARLINK-31690,2024,90.45,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59582,STARLINK-31701,2024,90.44,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59583,STARLINK-31697,2024,90.44,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59584,STARLINK-31662,2024,90.44,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59585,STARLINK-31702,2024,90.43,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59586,STARLINK-31704,2024,90.43,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 59587,NEONSAT-1,2024,94.99,-1.0,+,97.41,Active,0,LEO,New Zealand,South Korea,Unknown,Unknown,Unknown
 59588,ACS3,2024,105.29,-1.0,+,97.41,Active,0,LEO,New Zealand,USA,Unknown,Unknown,Unknown
 59596,OBJECT WP,1998,92.69,-1.0,+,51.64,Active,0,LEO,Kazakhstan,To Be Determined,Unknown,Unknown,Unknown

@@ -12806,6 +12806,29 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,51.64,1998-11-20,TYMSC,59561,1998-067WL,OBJECT WL,PAY,+,EA,LEO,ORB,TBD,92.78,Active,To Be Determined,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,51.64,1998-11-20,TYMSC,59562,1998-067WM,OBJECT WM,PAY,+,EA,LEO,ORB,TBD,92.72,Active,To Be Determined,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,51.64,1998-11-20,TYMSC,59563,1998-067WN,OBJECT WN,PAY,+,EA,LEO,ORB,TBD,92.74,Active,To Be Determined,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
+,43.0,2024-04-23,AFETR,59564,2024-076A,STARLINK-31747,PAY,+,EA,LEO,ORB,US,90.53,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,43.0,2024-04-23,AFETR,59565,2024-076B,STARLINK-31388,PAY,+,EA,LEO,ORB,US,90.53,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,43.0,2024-04-23,AFETR,59566,2024-076C,STARLINK-31332,PAY,+,EA,LEO,ORB,US,90.52,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,43.0,2024-04-23,AFETR,59567,2024-076D,STARLINK-31689,PAY,+,EA,LEO,ORB,US,90.52,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,43.0,2024-04-23,AFETR,59568,2024-076E,STARLINK-31471,PAY,+,EA,LEO,ORB,US,90.51,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,43.0,2024-04-23,AFETR,59569,2024-076F,STARLINK-31470,PAY,+,EA,LEO,ORB,US,90.51,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,43.0,2024-04-23,AFETR,59570,2024-076G,STARLINK-31587,PAY,+,EA,LEO,ORB,US,90.5,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,43.0,2024-04-23,AFETR,59571,2024-076H,STARLINK-31606,PAY,+,EA,LEO,ORB,US,90.5,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,43.0,2024-04-23,AFETR,59572,2024-076J,STARLINK-31666,PAY,+,EA,LEO,ORB,US,90.49,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,43.0,2024-04-23,AFETR,59573,2024-076K,STARLINK-31683,PAY,+,EA,LEO,ORB,US,90.49,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,43.0,2024-04-23,AFETR,59574,2024-076L,STARLINK-31751,PAY,+,EA,LEO,ORB,US,90.48,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,43.0,2024-04-23,AFETR,59575,2024-076M,STARLINK-31510,PAY,+,EA,LEO,ORB,US,90.48,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,43.0,2024-04-23,AFETR,59576,2024-076N,STARLINK-31663,PAY,+,EA,LEO,ORB,US,90.47,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,43.0,2024-04-23,AFETR,59577,2024-076P,STARLINK-31692,PAY,+,EA,LEO,ORB,US,90.48,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,43.0,2024-04-23,AFETR,59578,2024-076Q,STARLINK-31685,PAY,+,EA,LEO,ORB,US,90.47,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,43.0,2024-04-23,AFETR,59579,2024-076R,STARLINK-31686,PAY,+,EA,LEO,ORB,US,90.45,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,43.0,2024-04-23,AFETR,59580,2024-076S,STARLINK-31668,PAY,+,EA,LEO,ORB,US,90.46,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,43.0,2024-04-23,AFETR,59581,2024-076T,STARLINK-31690,PAY,+,EA,LEO,ORB,US,90.45,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,43.0,2024-04-23,AFETR,59582,2024-076U,STARLINK-31701,PAY,+,EA,LEO,ORB,US,90.44,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,43.0,2024-04-23,AFETR,59583,2024-076V,STARLINK-31697,PAY,+,EA,LEO,ORB,US,90.44,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,43.0,2024-04-23,AFETR,59584,2024-076W,STARLINK-31662,PAY,+,EA,LEO,ORB,US,90.44,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,43.0,2024-04-23,AFETR,59585,2024-076X,STARLINK-31702,PAY,+,EA,LEO,ORB,US,90.43,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
+,43.0,2024-04-23,AFETR,59586,2024-076Y,STARLINK-31704,PAY,+,EA,LEO,ORB,US,90.43,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,97.41,2024-04-23,RLLB,59587,2024-077A,NEONSAT-1,PAY,+,EA,LEO,ORB,SKOR,94.99,Active,South Korea,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
 ,97.41,2024-04-23,RLLB,59588,2024-077B,ACS3,PAY,+,EA,LEO,ORB,US,105.29,Active,USA,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
 ,51.64,1998-11-20,TYMSC,59596,1998-067WP,OBJECT WP,PAY,+,EA,LEO,ORB,TBD,92.69,Active,To Be Determined,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
