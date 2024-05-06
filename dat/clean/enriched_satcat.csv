@@ -4419,7 +4419,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 44391,NSL-1,2019,93.21,8.0,+,97.88,Active,1,LEO,Russia,Israel,Commercial,Soyuz,Technology Development
 44392,VDNH-80,2019,91.82,4.0,+,97.68,Active,1,LEO,Russia,Russia/USSR,Civil,Soyuz,Space Science
 44393,D-STAR ONE (LIGHTSAT),2019,91.39,-1.0,+,97.67,Active,0,LEO,Russia,Germany,Unknown,Unknown,Unknown
-44394,AMGU-1 (AMURSAT),2019,87.62,4.0,+,97.65,Active,1,LEO,Russia,Russia/USSR,Civil,Soyuz,Space Science
 44395,ROBUSTA 1C (MTCUBE),2019,93.97,-1.0,-,97.71,Inactive,0,LEO,Russia,France,Unknown,Unknown,Unknown
 44397,OBJECT M,2019,91.38,-1.0,-,97.68,Inactive,0,LEO,Russia,To Be Determined,Unknown,Unknown,Unknown
 44399,DOT-1,2019,93.66,17.5,+,97.71,Active,1,LEO,Russia,UK,Commercial,Soyuz,Technology Development
@@ -5595,7 +5594,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 47490,FLOCK 4S-39,2021,93.05,4.0,+,97.34,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47491,FLOCK 4S-4,2021,93.11,4.0,+,97.33,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47492,FLOCK 4S-17,2021,93.03,4.0,+,97.35,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
-47493,LEMUR-2-MANGO1,2021,88.37,10.0,+,97.31,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47495,FLOCK 4S-27,2021,93.31,4.0,+,97.32,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47496,FLOCK 4S-18,2021,93.14,4.0,+,97.34,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47500,FLOCK 4S-19,2021,93.12,4.0,+,97.34,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation

@@ -4419,7 +4419,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 44391,2019-038E,NSL-1,2019-07-05,2019,"Vostochny Cosmodrome, Russia",Russia,Soyuz-2.1b,Active,+,LEO,93.21,-1.0,ISRA,Israel,97.88,Commercial,Technology Development,8.0,,-1.0,1,Soyuz
 44392,2019-038G,VDNH-80,2019-07-05,2019,"Vostochny Cosmodrome, Russia",Russia,Soyuz-2.1b,Active,+,LEO,91.82,-1.0,CIS,Russia/USSR,97.68,Civil,Space Science,4.0,,-1.0,1,Soyuz
 44393,2019-038H,D-STAR ONE (LIGHTSAT),2019-07-05,2019,"Vostochny Cosmodrome, Russia",Russia,,Active,+,LEO,91.39,-1.0,GER,Germany,97.67,,,-1.0,,-1.0,0,
-44394,2019-038J,AMGU-1 (AMURSAT),2019-07-05,2019,"Vostochny Cosmodrome, Russia",Russia,Soyuz-2.1b,Active,+,LEO,87.62,-1.0,CIS,Russia/USSR,97.65,Civil,Space Science,4.0,,-1.0,1,Soyuz
 44395,2019-038K,ROBUSTA 1C (MTCUBE),2019-07-05,2019,"Vostochny Cosmodrome, Russia",Russia,,Inactive,-,LEO,93.97,-1.0,FR,France,97.71,,,-1.0,,-1.0,0,
 44397,2019-038M,OBJECT M,2019-07-05,2019,"Vostochny Cosmodrome, Russia",Russia,,Inactive,-,LEO,91.38,-1.0,TBD,To Be Determined,97.68,,,-1.0,,-1.0,0,
 44399,2019-038P,DOT-1,2019-07-05,2019,"Vostochny Cosmodrome, Russia",Russia,Soyuz,Active,+,LEO,93.66,-1.0,UK,UK,97.71,Commercial,Technology Development,17.5,,-1.0,1,Soyuz
@@ -5595,7 +5594,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 47490,2021-006CF,FLOCK 4S-39,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,93.05,-1.0,US,USA,97.34,Commercial,Earth Observation,4.0,,3.0,1,Falcon
 47491,2021-006CG,FLOCK 4S-4,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,93.11,-1.0,US,USA,97.33,Commercial,Earth Observation,4.0,,3.0,1,Falcon
 47492,2021-006CH,FLOCK 4S-17,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,93.03,-1.0,US,USA,97.35,Commercial,Earth Observation,4.0,,3.0,1,Falcon
-47493,2021-006CJ,LEMUR-2-MANGO1,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,88.37,-1.0,US,USA,97.31,Commercial,Earth Observation,10.0,,-1.0,1,Falcon
 47495,2021-006CL,FLOCK 4S-27,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,93.31,-1.0,US,USA,97.32,Commercial,Earth Observation,4.0,,3.0,1,Falcon
 47496,2021-006CM,FLOCK 4S-18,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,93.14,-1.0,US,USA,97.34,Commercial,Earth Observation,4.0,,3.0,1,Falcon
 47500,2021-006CR,FLOCK 4S-19,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,93.12,-1.0,US,USA,97.34,Commercial,Earth Observation,4.0,,3.0,1,Falcon
