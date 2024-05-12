@@ -6502,7 +6502,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 48907,MANDRAKE 2 ABLE,2021,94.47,23.0,+,97.64,Active,1,LEO,USA,USA,Military,Falcon,Technology Development
 48908,MANDRAKE 2 BAKER,2021,94.42,-1.0,+,97.64,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 48909,PACE-1,2021,94.35,10.0,+,97.63,Active,1,LEO,USA,USA,Government,Falcon,Technology Development
-48910,GNOMES-2,2021,88.04,30.0,+,97.6,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 48911,YAM-2,2021,94.03,80.0,+,97.64,Active,1,LEO,USA,USA,Commercial,Falcon,Satellite Positioning
 48912,ION SCV-003,2021,93.36,-1.0,+,97.61,Active,0,LEO,USA,Italy,Unknown,Unknown,Unknown
 48914,ICEYE-X12,2021,94.25,80.0,+,97.63,Active,1,LEO,USA,Finland,Commercial,Falcon,Earth Observation
@@ -8278,7 +8277,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 53299,OBJECT A,2022,93.39,-1.0,+,97.33,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 53300,LZWN (JINAN 1),2022,93.58,-1.0,+,97.33,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 53301,OBJECT C,2022,93.62,-1.0,+,97.33,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
-53302,OBJECT D,2022,88.64,-1.0,+,97.3,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 53303,OBJECT E,2022,93.22,-1.0,+,97.34,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 53316,YAOGAN-35 03A,2022,94.21,300.0,+,35.0,Active,1,LEO,PRC,China,Military,Long March,Earth Observation
 53318,YAOGAN-35 03B,2022,94.53,300.0,+,34.99,Active,1,LEO,PRC,China,Military,Long March,Earth Observation
@@ -11260,7 +11258,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 57878,STARLINK-30433,2023,95.84,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
 57879,STARLINK-30358,2023,95.84,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
 57880,STARLINK-30436,2023,95.83,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
-57881,STARLINK-30406,2023,95.64,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
+57881,STARLINK-30406,2023,95.64,-1.0,P,43.0,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
 57882,STARLINK-30339,2023,95.84,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
 57883,STARLINK-30282,2023,95.84,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown
 57884,STARLINK-30340,2023,95.84,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Falcon,Unknown

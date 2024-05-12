@@ -6502,7 +6502,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 48907,2021-059AE,MANDRAKE 2 ABLE,2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.47,-1.0,US,USA,97.64,Military,Technology Development,23.0,,-1.0,1,Falcon
 48908,2021-059AF,MANDRAKE 2 BAKER,2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,94.42,-1.0,US,USA,97.64,,,-1.0,,-1.0,0,
 48909,2021-059AG,PACE-1,2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.35,-1.0,US,USA,97.63,Government,Technology Development,10.0,,-1.0,1,Falcon
-48910,2021-059AH,GNOMES-2,2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,88.04,-1.0,US,USA,97.6,Commercial,Earth Observation,30.0,,-1.0,1,Falcon
 48911,2021-059AJ,YAM-2,2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.03,-1.0,US,USA,97.64,Commercial,Satellite Positioning,80.0,,-1.0,1,Falcon
 48912,2021-059AK,ION SCV-003,2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,93.36,-1.0,IT,Italy,97.61,,,-1.0,,-1.0,0,
 48914,2021-059AM,ICEYE-X12,2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.25,-1.0,FIN,Finland,97.63,Commercial,Earth Observation,80.0,,-1.0,1,Falcon
@@ -8278,7 +8277,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 53299,2022-087A,OBJECT A,2022-07-27,2022,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,93.39,-1.0,PRC,China,97.33,,,-1.0,,-1.0,0,
 53300,2022-087B,LZWN (JINAN 1),2022-07-27,2022,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,93.58,-1.0,PRC,China,97.33,,,-1.0,,-1.0,0,
 53301,2022-087C,OBJECT C,2022-07-27,2022,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,93.62,-1.0,PRC,China,97.33,,,-1.0,,-1.0,0,
-53302,2022-087D,OBJECT D,2022-07-27,2022,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,88.64,-1.0,PRC,China,97.3,,,-1.0,,-1.0,0,
 53303,2022-087E,OBJECT E,2022-07-27,2022,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,93.22,-1.0,PRC,China,97.34,,,-1.0,,-1.0,0,
 53316,2022-088A,YAOGAN-35 03A,2022-07-29,2022,"Xichang Launch Facility, PRC",PRC,Long March 2D,Active,+,LEO,94.21,-1.0,PRC,China,35.0,Military,Earth Observation,300.0,,-1.0,1,Long March
 53318,2022-088C,YAOGAN-35 03B,2022-07-29,2022,"Xichang Launch Facility, PRC",PRC,Long March 2D,Active,+,LEO,94.53,-1.0,PRC,China,34.99,Military,Earth Observation,300.0,,-1.0,1,Long March
@@ -11260,7 +11258,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 57878,2023-144Q,STARLINK-30433,2023-09-16,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,95.84,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 57879,2023-144R,STARLINK-30358,2023-09-16,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,95.84,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 57880,2023-144S,STARLINK-30436,2023-09-16,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,95.83,-1.0,US,USA,43.01,,,-1.0,,-1.0,0,
-57881,2023-144T,STARLINK-30406,2023-09-16,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,95.64,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+57881,2023-144T,STARLINK-30406,2023-09-16,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,P,LEO,95.64,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 57882,2023-144U,STARLINK-30339,2023-09-16,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,95.84,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 57883,2023-144V,STARLINK-30282,2023-09-16,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,95.84,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 57884,2023-144W,STARLINK-30340,2023-09-16,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,95.84,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
