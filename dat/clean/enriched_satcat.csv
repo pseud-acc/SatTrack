@@ -6236,7 +6236,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 48381,STARLINK-2630,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48382,STARLINK-2585,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48383,STARLINK-2599,2021,91.74,260.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-48384,STARLINK-2601,2021,89.95,260.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48385,STARLINK-2598,2021,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48386,STARLINK-2606,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48387,STARLINK-2600,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -12880,3 +12879,4 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 59679,OBJECT C,2024,94.66,-1.0,+,97.4,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 59680,OBJECT D,2024,94.67,-1.0,+,97.41,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 59681,OBJECT E,2024,93.91,-1.0,+,97.37,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+59728,OBJECT A,2024,96.61,-1.0,+,97.76,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown

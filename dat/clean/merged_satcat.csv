@@ -6236,7 +6236,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 48381,2021-038AE,STARLINK-2630,2021-05-04,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 48382,2021-038AF,STARLINK-2585,2021-05-04,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 48383,2021-038AG,STARLINK-2599,2021-05-04,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,91.74,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
-48384,2021-038AH,STARLINK-2601,2021-05-04,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,89.95,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 48385,2021-038AJ,STARLINK-2598,2021-05-04,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 48386,2021-038AK,STARLINK-2606,2021-05-04,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 48387,2021-038AL,STARLINK-2600,2021-05-04,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
@@ -12880,3 +12879,4 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 59679,2024-085C,OBJECT C,2024-05-07,2024,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,94.66,-1.0,PRC,China,97.4,,,-1.0,,-1.0,0,
 59680,2024-085D,OBJECT D,2024-05-07,2024,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,94.67,-1.0,PRC,China,97.41,,,-1.0,,-1.0,0,
 59681,2024-085E,OBJECT E,2024-05-07,2024,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,93.91,-1.0,PRC,China,97.37,,,-1.0,,-1.0,0,
+59728,2024-089A,OBJECT A,2024-05-11,2024,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,96.61,-1.0,PRC,China,97.76,,,-1.0,,-1.0,0,
