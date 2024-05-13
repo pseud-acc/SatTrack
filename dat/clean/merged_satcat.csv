@@ -4310,7 +4310,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 43831,2018-102A,SAUDISAT 5A,2018-12-07,2018,"Jiuquan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,95.02,-1.0,SAUD,Saudi Arabia,97.41,Government,Earth Observation,425.0, ,5.0,1,Long March
 43833,2018-102C,SAUDISAT 5B,2018-12-07,2018,"Jiuquan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,94.98,-1.0,SAUD,Saudi Arabia,97.41,Government,Earth Observation,425.0,,5.0,1,Long March
 43850,2018-104B,SHIELDS 1,2018-12-16,2018,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,93.72,-1.0,US,USA,85.02,Government,Technology Development,4.0,,-1.0,1,Electron
-43855,2018-104G,CHOMPTT,2018-12-16,2018,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,88.36,-1.0,US,USA,84.99,Civil/Government,Technology Development,4.0,,-1.0,1,Electron
 43856,2018-104H,CP11 (ISX),2018-12-16,2018,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,89.4,-1.0,US,USA,84.99,Civil/Government,Space Science,4.0,,-1.0,1,Electron
 43858,2018-104K,OBJECT K,2018-12-16,2018,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Inactive,-,LEO,91.42,-1.0,TBD,To Be Determined,85.01,Civil,Technology Development,3.0,,-1.0,1,Electron
 43859,2018-104L,OBJECT L,2018-12-16,2018,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Inactive,-,LEO,91.59,-1.0,TBD,To Be Determined,85.01,,,-1.0,,-1.0,0,

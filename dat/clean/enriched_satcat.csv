@@ -4310,7 +4310,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 43831,SAUDISAT 5A,2018,95.02,425.0,+,97.41,Active,1,LEO,PRC,Saudi Arabia,Government,Long March,Earth Observation
 43833,SAUDISAT 5B,2018,94.98,425.0,+,97.41,Active,1,LEO,PRC,Saudi Arabia,Government,Long March,Earth Observation
 43850,SHIELDS 1,2018,93.72,4.0,+,85.02,Active,1,LEO,New Zealand,USA,Government,Electron,Technology Development
-43855,CHOMPTT,2018,88.36,4.0,+,84.99,Active,1,LEO,New Zealand,USA,Civil/Government,Electron,Technology Development
 43856,CP11 (ISX),2018,89.4,4.0,+,84.99,Active,1,LEO,New Zealand,USA,Civil/Government,Electron,Space Science
 43858,OBJECT K,2018,91.42,3.0,-,85.01,Inactive,1,LEO,New Zealand,To Be Determined,Civil,Electron,Technology Development
 43859,OBJECT L,2018,91.59,-1.0,-,85.01,Inactive,0,LEO,New Zealand,To Be Determined,Unknown,Unknown,Unknown

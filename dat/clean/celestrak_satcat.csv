@@ -4310,7 +4310,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.41,2018-12-07,JSC,43831,2018-102A,SAUDISAT 5A,PAY,+,EA,LEO,ORB,SAUD,95.02,Active,Saudi Arabia,"Jiuquan Space Center, PRC",PRC
 ,97.41,2018-12-07,JSC,43833,2018-102C,SAUDISAT 5B,PAY,+,EA,LEO,ORB,SAUD,94.98,Active,Saudi Arabia,"Jiuquan Space Center, PRC",PRC
 ,85.02,2018-12-16,RLLB,43850,2018-104B,SHIELDS 1,PAY,+,EA,LEO,ORB,US,93.72,Active,USA,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
-,84.99,2018-12-16,RLLB,43855,2018-104G,CHOMPTT,PAY,+,EA,LEO,ORB,US,88.36,Active,USA,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
 ,84.99,2018-12-16,RLLB,43856,2018-104H,CP11 (ISX),PAY,+,EA,LEO,ORB,US,89.4,Active,USA,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
 ,85.01,2018-12-16,RLLB,43858,2018-104K,OBJECT K,PAY,-,EA,LEO,ORB,TBD,91.42,Inactive,To Be Determined,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
 ,85.01,2018-12-16,RLLB,43859,2018-104L,OBJECT L,PAY,-,EA,LEO,ORB,TBD,91.59,Inactive,To Be Determined,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
