@@ -269,6 +269,26 @@ def extract_TLE_active(dbs_name, lastupdate):
 
     return True, missing_satcat, len(sat_list_satcat_act)
 
+def extract_TLE_fail_end_hook(failed_extracts, to_be_extracted, extract_start_ts):
+    '''
+    Generate End-hook message when TLE extract process fails
+
+    @param dbs_name: (list) list of satcat ids for which TLE extract failed
+    @param lastupdate: (list) list of satcat ids for which TLE extract not yet attempted
+    @return: satcat_no_data list of satcat Ids w/o updated TLE
+    '''
+    print("")
+    print("Celestrak API request limit reached - connection temporarily blocked.")
+    print("")
+    print("Exiting...")
+    print("")
+    satcat_no_data = failed_extracts + to_be_extracted
+    end = time.time()
+    print("Time taken to extract individual TLEs", end - extract_start_ts)
+    print("Individual Satellite TLE update complete!")
+    return satcat_no_data
+
+
 
 def extract_TLE(dbs_name, lastupdate, satcatid_list):
     '''
@@ -363,27 +383,24 @@ def extract_TLE(dbs_name, lastupdate, satcatid_list):
                 # try retrieving TLE data from celestrak
                 api_data = request_celestrak_data(url, set_retry_count)
                 # try mapping celestrak data
-                extract_is_not_blocked, tmp_data = map_celestrak_data(api_data, sat)
-                if extract_is_not_blocked:
-                    if tmp_data is None:
-                        print("=== Failure to Retrieve ===")
-                        print(api_data)
-                        satcat_no_data.append(sat)
-                        null_data = pd.DataFrame([['', '', '', '']], columns=["ObjectName", "TLE1", "TLE2", "SatCatId"])
-                        update_tle(null_data, sat, lastupdate, cur, conn)
-                        continue
+                try:
+                    extract_is_not_blocked, tmp_data = map_celestrak_data(api_data, sat)
+                    if extract_is_not_blocked:
+                        if tmp_data is None:
+                            print("=== Failure to Retrieve ===")
+                            print(api_data)
+                            satcat_no_data.append(sat)
+                            null_data = pd.DataFrame([['', '', '', '']], columns=["ObjectName", "TLE1", "TLE2", "SatCatId"])
+                            update_tle(null_data, sat, lastupdate, cur, conn)
+                            continue
+                        else:
+                            update_tle(tmp_data, sat, lastupdate, cur, conn)
                     else:
-                        update_tle(tmp_data, sat, lastupdate, cur, conn)
-                else:
-                    print("")
-                    print("Celestrak API request limit reached - connection temporarily blocked.")
-                    print("")
-                    print("Exiting...")
-                    print("")
-                    satcat_no_data = satcat_no_data + missing_satcat_list[n:]
-                    end = time.time()
-                    print("Time taken to extract individual TLEs", end - start)
-                    print("Individual Satellite TLE update complete!")
+                        satcat_no_data = extract_TLE_fail_end_hook(satcat_no_data,missing_satcat_list[n:], start)
+                        return satcat_no_data
+                except Exception:
+                    pass
+                    satcat_no_data = extract_TLE_fail_end_hook(satcat_no_data, missing_satcat_list[n:], start)
                     return satcat_no_data
             else:
                 continue
@@ -395,26 +412,26 @@ def extract_TLE(dbs_name, lastupdate, satcatid_list):
             # try retrieving TLE data from celestrak
             api_data = request_celestrak_data(url, set_retry_count)
             # try mapping celestrak data
-            extract_is_not_blocked, tmp_data = map_celestrak_data(api_data, sat)
-            if extract_is_not_blocked:
-                if tmp_data is None:
-                    print("=== Failure to Retrieve ===")
-                    print(api_data)
-                    satcat_no_data.append(sat)
-                    # Insert nulls for satcatid entry w/o TLE data
-                    null_data = pd.DataFrame([['', '', '', '']], columns=["ObjectName", "TLE1", "TLE2", "SatCatId"])
-                    insert_tle(null_data, sat, lastupdate, cur, conn)
-                    continue
+            try:
+                extract_is_not_blocked, tmp_data = map_celestrak_data(api_data, sat)
+                if extract_is_not_blocked:
+                    if tmp_data is None:
+                        print("=== Failure to Retrieve ===")
+                        print(api_data)
+                        satcat_no_data.append(sat)
+                        # Insert nulls for satcatid entry w/o TLE data
+                        null_data = pd.DataFrame([['', '', '', '']], columns=["ObjectName", "TLE1", "TLE2", "SatCatId"])
+                        insert_tle(null_data, sat, lastupdate, cur, conn)
+                        continue
+                    else:
+                        # Insert TLE data for new entry
+                        insert_tle(tmp_data, sat, lastupdate, cur, conn)
                 else:
-                    # Insert TLE data for new entry
-                    insert_tle(tmp_data, sat, lastupdate, cur, conn)
-            else:
-                print("")
-                print("Celestrak API request limit reached - connection temporarily blocked")
-                satcat_no_data = satcat_no_data + missing_satcat_list[n:]
-                end = time.time()
-                print("Time taken to extract individual TLEs", end - start)
-                print("Individual Satellite TLE update complete!")
+                    satcat_no_data = extract_TLE_fail_end_hook(satcat_no_data, missing_satcat_list[n:], start)
+                    return satcat_no_data
+            except Exception:
+                pass
+                satcat_no_data = extract_TLE_fail_end_hook(satcat_no_data, missing_satcat_list[n:], start)
                 return satcat_no_data
 
         count = count + 1
