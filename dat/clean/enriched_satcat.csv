@@ -1950,7 +1950,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 23179,NADEZHDA 4,1994,104.6,-1.0,-,82.95,Inactive,0,LEO,Russia,Russia/USSR,Unknown,Unknown,Unknown
 23185,APSTAR-1,1994,1449.04,-1.0,-,12.54,Inactive,0,GSO,PRC,China,Unknown,Unknown,Unknown
 23189,COSMOS 2285,1994,104.92,-1.0,UNK,74.03,Inactive,0,LEO,Russia,Russia/USSR,Unknown,Unknown,Unknown
-23191,APEX,1994,88.46,-1.0,UNK,69.84,Inactive,0,LEO,USA,USA,Unknown,Unknown,Unknown
 23192,DIRECTV 2 (DBS 2),1994,1459.93,-1.0,-,11.84,Inactive,0,GSO,USA,USA,Unknown,Atlas,Unknown
 23194,COSMOS 2286,1994,717.16,-1.0,UNK,67.0,Inactive,0,MEO,Russia,Russia/USSR,Unknown,Molniya,Unknown
 23199,BRASILSAT B1,1994,1450.84,-1.0,-,11.63,Inactive,0,GSO,French Guiana,Brazil,Unknown,Unknown,Unknown
@@ -4886,7 +4885,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 45608,COSMOS 2546,2020,717.76,-1.0,+,63.11,Active,1,MEO,Russia,Russia/USSR,Military,Soyuz,Earth Observation
 45610,USA 300,2020,91.05,136.0,+,45.03,Active,1,LEO,USA,USA,Civil/Military,Atlas,Technology Development
 45611,XJS G,2020,93.87,-1.0,+,35.03,Active,1,LEO,PRC,China,Government,Long March,Technology Development
-45612,XJS H,2020,88.13,-1.0,+,35.02,Active,1,LEO,PRC,China,Government,Long March,Technology Development
 45625,GAOFEN-9 02,2020,94.5,1000.0,+,97.48,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
 45658,STARLINK-1441,2020,91.63,227.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45659,STARLINK-1442,2020,90.7,227.0,P,53.04,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -6152,7 +6150,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 48294,STARLINK-2533,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48295,STARLINK-2535,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48296,STARLINK-2546,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-48297,STARLINK-2544,2021,89.53,260.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48298,STARLINK-2559,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48299,STARLINK-2557,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48300,STARLINK-2538,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -6344,7 +6341,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 48587,STARLINK-2242,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48588,STARLINK-2244,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48589,STARLINK-2245,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-48591,STARLINK-2248,2021,89.54,260.0,P,53.04,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48592,STARLINK-2249,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48593,STARLINK-2250,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48594,STARLINK-2251,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -7865,7 +7861,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 52716,OBJECT A,2022,102.57,-1.0,+,86.01,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 52717,OBJECT B,2022,108.31,-1.0,+,86.01,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 52718,OBJECT C,2022,102.57,-1.0,+,86.01,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
-52733,LEMUR-2-VANDENDRIES,2022,88.22,10.0,+,97.54,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 52734,PTD-3 (TYVAK-0125),2022,92.21,-1.0,+,97.55,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 52735,OP15 FLT2 (TYVAK-0821),2022,92.72,10.0,+,97.56,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 52737,GHGSAT-C3,2022,94.77,-1.0,+,97.57,Active,0,LEO,USA,Canada,Unknown,Unknown,Unknown
@@ -9329,7 +9324,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 55248,OBJECT A,2023,93.71,189.0,+,97.32,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
 55249,OBJECT B,2023,93.03,186.0,+,97.32,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
 55250,OBJECT C,2023,91.14,245.0,+,97.3,Active,1,LEO,PRC,China,Civil,Long March,Earth Observation
-55251,OBJECT D,2023,88.43,42.0,+,97.29,Active,1,LEO,PRC,China,Commercial,Long March,Earth Observation
 55252,OBJECT E,2023,93.13,18.0,+,97.31,Active,1,LEO,PRC,China,Commercial,Long March,Earth Observation
 55253,OBJECT F,2023,93.81,18.0,+,97.31,Active,1,LEO,PRC,China,Commercial,Long March,Earth Observation
 55254,OBJECT G,2023,92.96,18.0,+,97.32,Active,1,LEO,PRC,China,Commercial,Long March,Earth Observation
