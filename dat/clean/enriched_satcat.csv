@@ -6135,7 +6135,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 48282,STARLINK-2558,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48283,STARLINK-2516,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48284,STARLINK-2564,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-48285,STARLINK-2548,2021,89.33,260.0,P,53.04,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48286,STARLINK-2547,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48287,STARLINK-2566,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48288,STARLINK-2562,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -6349,7 +6348,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 48606,TYVAK-0130,2021,95.48,9.0,+,53.03,Active,1,LEO,USA,USA,Commercial,Falcon,Technology Development
 48618,SBIRS GEO-5 (USA 315),2021,1436.08,4850.0,+,6.19,Active,1,GSO,USA,USA,Military,Atlas,Earth Observation
 48621,HAIYANG-2D,2021,104.09,-1.0,+,66.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
-48638,STARLINK-2758,2021,89.34,260.0,P,53.04,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48639,STARLINK-2739,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48640,STARLINK-2736,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48641,STARLINK-2754,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -8783,7 +8781,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 54011,STARLINK-5124,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 54012,STARLINK-5126,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 54013,STARLINK-5098,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-54014,STARLINK-5116,2022,88.81,260.0,P,53.21,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 54015,STARLINK-5055,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 54020,CENTISPACE-1 S5,2022,98.66,97.0,+,55.0,Active,1,LEO,Sea Launch Platform,China,Government,Long March,Technology Development
 54021,CENTISPACE-1 S6,2022,98.66,97.0,+,55.0,Active,1,LEO,Sea Launch Platform,China,Government,Long March,Technology Development
@@ -9955,7 +9952,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 56136,STARLINK-5489,2023,95.84,290.0,+,43.0,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 56137,STARLINK-5090,2023,95.84,290.0,+,43.0,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 56138,STARLINK-4774,2023,95.84,290.0,+,43.0,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-56139,STARLINK-5378,2023,88.69,290.0,P,42.99,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 56140,STARLINK-5375,2023,95.84,290.0,+,43.0,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 56141,STARLINK-5377,2023,95.84,290.0,+,43.0,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 56142,STARLINK-5376,2023,95.84,290.0,+,43.0,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -10479,7 +10475,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 56927,STARLINK-5808,2023,95.84,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56933,OTTER PUP,2023,94.56,-1.0,P,97.54,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56934,GEISAT PRECURSOR,2023,94.8,-1.0,+,97.54,Active,0,LEO,USA,Spain,Unknown,Unknown,Unknown
-56936,FOSSASAT-2E14,2023,89.36,-1.0,+,97.49,Active,0,LEO,USA,Spain,Unknown,Unknown,Unknown
 56937,EIVE,2023,94.41,-1.0,+,97.54,Active,0,LEO,USA,Germany,Unknown,Unknown,Unknown
 56938,FOSSASAT-2E15,2023,90.86,-1.0,+,97.51,Active,0,LEO,USA,Spain,Unknown,Unknown,Unknown
 56939,LAYAN-23,2023,94.34,-1.0,+,97.53,Active,0,LEO,USA,Rwanda,Unknown,Unknown,Unknown
@@ -12961,3 +12956,4 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 59811,OBJECT B,2024,95.27,-1.0,+,97.6,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 59812,OBJECT C,2024,95.26,-1.0,+,97.6,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 59813,OBJECT D,2024,95.24,-1.0,+,97.6,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+59881,PREFIRE 1,2024,95.29,-1.0,+,97.5,Active,0,LEO,New Zealand,USA,Unknown,Unknown,Unknown
