@@ -2997,7 +2997,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 33453,CIEL-2,2008,1454.15,-1.0,-,0.85,Inactive,1,GSO,Kazakhstan,Canada,Commercial,Proton,Communications
 33459,EUTELSAT HOTBIRD 13C,2008,1436.09,4880.0,+,1.04,Active,1,GSO,French Guiana,EUTELSAT,Commercial,Ariane,Communications
 33460,EUTELSAT 48D,2008,1458.05,3460.0,-,3.41,Inactive,1,GSO,French Guiana,EUTELSAT,Commercial,Ariane,Communications
-33463,FENGYUN 2E,2008,1452.81,-1.0,P,7.57,Active,0,GSO,PRC,China,Unknown,Unknown,Unknown
+33463,FENGYUN 2E,2008,1452.81,-1.0,-,7.57,Inactive,0,GSO,PRC,China,Unknown,Unknown,Unknown
 33466,COSMOS 2447 [GLONASS-M],2008,675.71,-1.0,-,64.4,Inactive,0,MEO,Kazakhstan,Russia/USSR,Unknown,Unknown,Unknown
 33467,COSMOS 2449 [GLONASS-M],2008,675.75,-1.0,-,64.39,Inactive,0,MEO,Kazakhstan,Russia/USSR,Unknown,Unknown,Unknown
 33468,COSMOS 2448 [GLONASS-M],2008,675.69,-1.0,-,64.4,Inactive,0,MEO,Kazakhstan,Russia/USSR,Unknown,Unknown,Unknown
@@ -4416,7 +4416,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 44407,LEMUR-2-ALEX-MADDY,2019,91.22,10.0,+,97.65,Active,1,LEO,Russia,USA,Commercial,Soyuz,Earth Observation
 44408,MOMENTUS-X1,2019,94.31,20.0,+,97.71,Active,1,LEO,Russia,USA,Commercial,Soyuz,Technology Development
 44414,OBJECT AE,2019,93.77,10.0,-,97.71,Inactive,1,LEO,Russia,To Be Determined,Commercial,Soyuz,Earth Observation
-44419,JAISAT-1,2019,88.88,1.0,+,97.65,Active,1,LEO,Russia,Thailand,Civil,Soyuz,Communications
 44421,COSMOS 2535,2019,96.74,-1.0,-,97.67,Inactive,1,LEO,Russia,Russia/USSR,Military,Soyuz,Technology Development
 44422,COSMOS 2536,2019,91.72,-1.0,+,97.65,Active,1,LEO,Russia,Russia/USSR,Military,Soyuz,Technology Development
 44424,COSMOS 2538,2019,95.52,-1.0,+,97.67,Active,1,LEO,Russia,Russia/USSR,Military,Soyuz,Technology Development
@@ -4881,7 +4880,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 45611,XJS G,2020,93.83,-1.0,+,35.03,Active,1,LEO,PRC,China,Government,Long March,Technology Development
 45625,GAOFEN-9 02,2020,94.53,1000.0,+,97.49,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
 45658,STARLINK-1441,2020,91.39,227.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-45659,STARLINK-1442,2020,89.03,227.0,P,53.04,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45660,STARLINK-1443,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45661,STARLINK-1444,2020,94.77,227.0,P,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45662,STARLINK-1445,2020,95.59,227.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -5288,7 +5286,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 46682,STARLINK-1776,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46684,STARLINK-1780,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46685,STARLINK-1781,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-46686,STARLINK-1783,2020,88.88,260.0,P,53.04,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46687,STARLINK-1784,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46689,STARLINK-1788,2020,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46690,STARLINK-1789,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -5303,7 +5300,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 46701,STARLINK-1801,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46702,STARLINK-1802,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46703,STARLINK-1803,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-46704,STARLINK-1804,2020,89.31,260.0,P,53.04,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46705,STARLINK-1805,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46706,STARLINK-1807,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46707,STARLINK-1808,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
