@@ -13048,6 +13048,26 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 59942,STARLINK-31900,2024,90.6,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 59943,STARLINK-31973,2024,90.6,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 59944,STARLINK-31966,2024,90.6,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59945,STARLINK-11145 [DTC],2024,90.43,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59946,STARLINK-11121 [DTC],2024,90.41,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59947,STARLINK-11113 [DTC],2024,90.19,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59948,STARLINK-11123 [DTC],2024,90.39,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59949,STARLINK-11138 [DTC],2024,90.38,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59950,STARLINK-11130 [DTC],2024,90.37,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59951,STARLINK-11126 [DTC],2024,90.36,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59952,STARLINK-11124 [DTC],2024,90.35,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59953,STARLINK-11143 [DTC],2024,90.34,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59954,STARLINK-11133 [DTC],2024,90.33,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59955,STARLINK-11144 [DTC],2024,90.32,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59956,STARLINK-11134 [DTC],2024,90.31,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59957,STARLINK-11142 [DTC],2024,90.3,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59958,STARLINK-31995,2024,90.29,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59959,STARLINK-31989,2024,90.3,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59960,STARLINK-31856,2024,90.27,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59961,STARLINK-31993,2024,90.28,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59962,STARLINK-31980,2024,90.26,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59963,STARLINK-31991,2024,90.25,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+59964,STARLINK-31979,2024,90.24,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 59965,PREFIRE-2,2024,95.25,-1.0,+,97.45,Active,0,LEO,New Zealand,USA,Unknown,Unknown,Unknown
 59968,STARLINER CFT-1,2024,92.88,-1.0,+,51.64,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 60012,OBJECT A,2024,95.61,-1.0,+,97.6,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
