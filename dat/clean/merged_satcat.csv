@@ -3181,7 +3181,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 37387,2011-015A,RESOURCESAT-2,2011-04-20,2011,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV C16,Active,+,LEO,101.29,-1.0,IND,India,98.58,Government,Earth Observation,1206.0,,5.0,1,PSLV
 37388,2011-015B,YOUTHSAT,2011-04-20,2011,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV C16,Active,+,LEO,101.06,-1.0,IND,India,98.3,Government,Space Science,92.0,,2.0,1,PSLV
 37389,2011-015C,X-SAT,2011-04-20,2011,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV C16,Active,+,LEO,101.07,-1.0,SING,Singapore,98.29,Government,Earth Observation,91.0,,3.0,1,PSLV
-37392,2011-016A,INTELSAT NEW DAWN,2011-04-22,2011,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1436.09,-1.0,ITSO,INTELSAT,0.01,Commercial,Communications,3000.0,1283,15.0,1,Ariane
+37392,2011-016A,INTELSAT 28 (IS-28),2011-04-22,2011,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1436.09,-1.0,ITSO,INTELSAT,0.01,Commercial,Communications,3000.0,1283,15.0,1,Ariane
 37393,2011-016B,YAHSAT 1A,2011-04-22,2011,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1436.09,-1.0,UAE,UAE,0.01,Commercial/Military,Communications,5953.0,,15.0,1,Ariane
 37398,2011-018A,MERIDIAN 4,2011-05-04,2011,"Plesetsk Missile and Space Complex, Russia",Russia,Soyuz-2.1a,Inactive,-,MEO,717.98,-1.0,CIS,Russia/USSR,62.15,Military,Communications,2500.0,,-1.0,1,Soyuz
 37481,2011-019A,SBIRS GEO-1 (USA 230),2011-05-07,2011,"Air Force Eastern Test Range, Florida, USA",USA,Atlas 5,Active,+,GSO,1436.09,-1.0,US,USA,3.07,Military,Earth Observation,4500.0,,12.0,1,Atlas
@@ -4721,7 +4721,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 45375,2020-019R,STARLINK-1302,2020-03-18,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,227.0,,-1.0,1,Falcon
 45376,2020-019S,STARLINK-1304,2020-03-18,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,227.0,,-1.0,1,Falcon
 45377,2020-019T,STARLINK-1305,2020-03-18,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
-45378,2020-019U,STARLINK-1310,2020-03-18,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,88.43,-1.0,US,USA,53.03,Commercial,Communications,227.0,,-1.0,1,Falcon
 45379,2020-019V,STARLINK-1319,2020-03-18,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
 45380,2020-019W,STARLINK-1207,2020-03-18,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
 45381,2020-019X,STARLINK-1258,2020-03-18,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
@@ -5695,7 +5694,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 47734,2021-017N,STARLINK-2144,2021-03-04,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 47735,2021-017P,STARLINK-2146,2021-03-04,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 47736,2021-017Q,STARLINK-2147,2021-03-04,2021,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,95.59,-1.0,US,USA,53.06,,,-1.0,,-1.0,0,
-47737,2021-017R,STARLINK-2148,2021-03-04,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,88.75,-1.0,US,USA,53.03,Commercial,Communications,260.0,,4.0,1,Falcon
 47739,2021-017T,STARLINK-2150,2021-03-04,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 47740,2021-017U,STARLINK-2152,2021-03-04,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 47742,2021-017W,STARLINK-2156,2021-03-04,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
@@ -7759,7 +7757,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 52737,2022-057F,GHGSAT-C3,2022-05-25,2022,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,94.71,-1.0,CA,Canada,97.58,,,-1.0,,-1.0,0,
 52738,2022-057G,PLANETUM1,2022-05-25,2022,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,93.18,-1.0,CZCH,Czech Republic,97.57,,,-1.0,,-1.0,0,
 52739,2022-057H,CONNECTA T1.1,2022-05-25,2022,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,94.31,-1.0,TURK,Turkey,97.58,,,-1.0,,-1.0,0,
-52740,2022-057J,LEMUR-2-HANCOM-1,2022-05-25,2022,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,88.1,-1.0,US,USA,97.57,,,-1.0,,-1.0,0,
 52741,2022-057K,OP15 FLT1 (TYVAK-0820),2022-05-25,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,92.15,-1.0,US,USA,97.57,Commercial,Earth Observation,-1.0,,-1.0,1,Falcon
 52742,2022-057L,CENTAURI-5 (TYVAK-0212),2022-05-25,2022,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,92.06,-1.0,AUS,Australia,97.57,,,-1.0,,-1.0,0,
 52743,2022-057M,OBJECT M,2022-05-25,2022,"Air Force Eastern Test Range, Florida, USA",USA,,Inactive,-,LEO,93.09,-1.0,TBD,To Be Determined,97.57,,,-1.0,,-1.0,0,

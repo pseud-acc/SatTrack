@@ -3181,7 +3181,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 37387,RESOURCESAT-2,2011,101.29,1206.0,+,98.58,Active,1,LEO,India,India,Government,PSLV,Earth Observation
 37388,YOUTHSAT,2011,101.06,92.0,+,98.3,Active,1,LEO,India,India,Government,PSLV,Space Science
 37389,X-SAT,2011,101.07,91.0,+,98.29,Active,1,LEO,India,Singapore,Government,PSLV,Earth Observation
-37392,INTELSAT NEW DAWN,2011,1436.09,3000.0,+,0.01,Active,1,GSO,French Guiana,INTELSAT,Commercial,Ariane,Communications
+37392,INTELSAT 28 (IS-28),2011,1436.09,3000.0,+,0.01,Active,1,GSO,French Guiana,INTELSAT,Commercial,Ariane,Communications
 37393,YAHSAT 1A,2011,1436.09,5953.0,+,0.01,Active,1,GSO,French Guiana,UAE,Commercial/Military,Ariane,Communications
 37398,MERIDIAN 4,2011,717.98,2500.0,-,62.15,Inactive,1,MEO,Russia,Russia/USSR,Military,Soyuz,Communications
 37481,SBIRS GEO-1 (USA 230),2011,1436.09,4500.0,+,3.07,Active,1,GSO,USA,USA,Military,Atlas,Earth Observation
@@ -4721,7 +4721,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 45375,STARLINK-1302,2020,95.59,227.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45376,STARLINK-1304,2020,95.59,227.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45377,STARLINK-1305,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-45378,STARLINK-1310,2020,88.43,227.0,P,53.03,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45379,STARLINK-1319,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45380,STARLINK-1207,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45381,STARLINK-1258,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -5695,7 +5694,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 47734,STARLINK-2144,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47735,STARLINK-2146,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47736,STARLINK-2147,2021,95.59,-1.0,+,53.06,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-47737,STARLINK-2148,2021,88.75,260.0,P,53.03,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47739,STARLINK-2150,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47740,STARLINK-2152,2021,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47742,STARLINK-2156,2021,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -7759,7 +7757,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 52737,GHGSAT-C3,2022,94.71,-1.0,+,97.58,Active,0,LEO,USA,Canada,Unknown,Unknown,Unknown
 52738,PLANETUM1,2022,93.18,-1.0,+,97.57,Active,0,LEO,USA,Czech Republic,Unknown,Unknown,Unknown
 52739,CONNECTA T1.1,2022,94.31,-1.0,+,97.58,Active,0,LEO,USA,Turkey,Unknown,Unknown,Unknown
-52740,LEMUR-2-HANCOM-1,2022,88.1,-1.0,+,97.57,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 52741,OP15 FLT1 (TYVAK-0820),2022,92.15,-1.0,+,97.57,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 52742,CENTAURI-5 (TYVAK-0212),2022,92.06,-1.0,+,97.57,Active,0,LEO,USA,Australia,Unknown,Unknown,Unknown
 52743,OBJECT M,2022,93.09,-1.0,-,97.57,Inactive,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
