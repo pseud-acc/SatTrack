@@ -8328,7 +8328,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 53608,2022-104W,STARLINK-4647,2022-08-28,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 53609,2022-104X,STARLINK-4660,2022-08-28,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 53610,2022-104Y,STARLINK-4610,2022-08-28,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
-53611,2022-104Z,STARLINK-4650,2022-08-28,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,95.23,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
+53611,2022-104Z,STARLINK-4650,2022-08-28,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.23,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 53612,2022-104AA,STARLINK-4658,2022-08-28,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 53613,2022-104AB,STARLINK-4655,2022-08-28,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 53616,2022-104AE,STARLINK-4605,2022-08-28,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
@@ -9408,7 +9408,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 55575,2023-020G,STARLINK-5745,2023-02-12,2023,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.84,-1.0,US,USA,43.0,Commercial,Communications,290.0,,4.0,1,Falcon
 55576,2023-020H,STARLINK-5751,2023-02-12,2023,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.84,-1.0,US,USA,43.0,Commercial,Communications,290.0,,4.0,1,Falcon
 55577,2023-020J,STARLINK-5752,2023-02-12,2023,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.84,-1.0,US,USA,43.0,Commercial,Communications,290.0,,4.0,1,Falcon
-55578,2023-020K,STARLINK-5713,2023-02-12,2023,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,95.89,-1.0,US,USA,43.0,Commercial,Communications,290.0,,4.0,1,Falcon
+55578,2023-020K,STARLINK-5713,2023-02-12,2023,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.89,-1.0,US,USA,43.0,Commercial,Communications,290.0,,4.0,1,Falcon
 55579,2023-020L,STARLINK-5754,2023-02-12,2023,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.84,-1.0,US,USA,43.0,Commercial,Communications,290.0,,4.0,1,Falcon
 55580,2023-020M,STARLINK-5757,2023-02-12,2023,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.84,-1.0,US,USA,43.0,Commercial,Communications,290.0,,4.0,1,Falcon
 55581,2023-020N,STARLINK-5753,2023-02-12,2023,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.84,-1.0,US,USA,43.0,Commercial,Communications,290.0,,4.0,1,Falcon
@@ -13182,3 +13182,4 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 60323,2024-134B,USA 397,2024-07-30,2024,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,,-1.0,-1.0,US,USA,-1.0,,,-1.0,,-1.0,0,
 60324,2024-134C,USA 398,2024-07-30,2024,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,,-1.0,-1.0,US,USA,-1.0,,,-1.0,,-1.0,0,
 60327,2024-135A,OBJECT A,2024-08-01,2024,"Xichang Launch Facility, PRC",PRC,,Active,+,MEO,631.34,-1.0,PRC,China,26.73,,,-1.0,,-1.0,0,
+60352,2024-137A,OBJECT A,2024-08-02,2024,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,95.58,-1.0,JPN,Japan,43.02,,,-1.0,,-1.0,0,
