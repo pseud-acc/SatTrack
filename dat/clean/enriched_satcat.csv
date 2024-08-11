@@ -4662,7 +4662,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 45190,STARLINK-1234,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45191,STARLINK-1236,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45192,STARLINK-1237,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-45193,STARLINK-1239,2020,89.65,227.0,P,53.04,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45194,STARLINK-1240,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45196,STARLINK-1244,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45197,STARLINK-1269,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -4869,7 +4868,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 45688,STARLINK-1408,2020,93.43,227.0,P,53.08,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45689,STARLINK-1413,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45690,STARLINK-1414,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-45691,STARLINK-1415,2020,89.5,227.0,P,53.04,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45692,STARLINK-1416,2020,93.06,227.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45693,STARLINK-1417,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45695,STARLINK-1420,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -5132,7 +5130,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 46363,STARLINK-1739,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46364,STARLINK-1763,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46366,STARLINK-1651,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-46368,STARLINK-1658,2020,89.5,260.0,P,53.04,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46370,STARLINK-1670,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46372,STARLINK-1689,2020,95.49,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46374,STARLINK-1711,2020,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -6760,7 +6757,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 49761,STARLINK-3203,2021,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 49762,STARLINK-3195,2021,95.44,260.0,+,53.21,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 49763,STARLINK-3198,2021,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-49764,STARLINK-3206,2021,89.14,260.0,P,53.21,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 49765,STARLINK-3227,2021,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 49766,STARLINK-3190,2021,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 49767,STARLINK-3192,2021,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -9161,7 +9157,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 55259,OBJECT M,2023,92.54,10.0,+,97.31,Active,1,LEO,PRC,China,Commercial,Long March,Earth Observation
 55261,OBJECT P,2023,91.84,19.0,+,97.3,Active,1,LEO,PRC,China,Government,Long March,Technology Development
 55263,USA 342,2023,1436.05,3200.0,+,0.07,Active,1,GSO,USA,USA,Military,Falcon,Communications
-55264,LDPE-3A,2023,-1.0,500.0,+,-1.0,Active,1,Unknown,USA,USA,Military,Falcon,Technology Development
+55264,LDPE-3A,2023,1439.99,500.0,+,0.47,Active,1,GSO,USA,USA,Military,Falcon,Technology Development
 55268,NAVSTAR 82 (USA 343),2023,717.99,4352.0,+,55.09,Active,1,MEO,USA,USA,Commercial/Military,Falcon,Navigation (Global or Regional Positioning)
 55269,STARLINK-5277,2023,96.11,290.0,+,70.0,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 55270,STARLINK-5301,2023,96.11,290.0,+,70.0,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
