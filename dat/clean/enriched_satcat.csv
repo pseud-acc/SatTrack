@@ -3235,7 +3235,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 37846,GSAT0101 (GALILEO-PFM),2011,844.69,700.0,+,57.13,Active,1,MEO,French Guiana,ESA,Commercial,Soyuz,Navigation (Global or Regional Positioning)
 37847,GSAT0102 (GALILEO-FM2),2011,844.7,700.0,+,57.13,Active,1,MEO,French Guiana,ESA,Commercial,Soyuz,Navigation (Global or Regional Positioning)
 37849,SUOMI NPP,2011,101.44,2128.0,+,98.72,Active,1,LEO,USA,USA,Government,Delta,Earth Observation
-37851,DICE-F,2011,88.6,-1.0,-,101.69,Inactive,0,LEO,USA,USA,Unknown,Unknown,Unknown
 37853,RAX-2,2011,92.13,-1.0,-,101.69,Inactive,0,LEO,USA,USA,Unknown,Unknown,Unknown
 37867,COSMOS 2476 [GLONASS-M],2011,675.73,1415.0,+,64.91,Active,1,MEO,Kazakhstan,Russia/USSR,Commercial/Military,Proton,Navigation (Global or Regional Positioning)
 37868,COSMOS 2477 [GLONASS-M],2011,675.73,1415.0,+,64.91,Active,1,MEO,Kazakhstan,Russia/USSR,Commercial/Military,Proton,Navigation (Global or Regional Positioning)
@@ -3522,7 +3521,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 39767,UNIFORM 1,2014,96.68,50.0,+,97.82,Active,1,LEO,Japan,Japan,Civil,H2A,Earth Observation
 39768,SOCRATES,2014,96.69,48.0,+,97.88,Active,1,LEO,Japan,Japan,Commercial,H2A,Technology Development
 39769,RISING 2,2014,96.92,41.0,+,97.73,Active,1,LEO,Japan,Japan,Civil,H2A,Earth Observation
-39770,SPROUT,2014,89.53,7.1,+,97.99,Active,1,LEO,Japan,Japan,Civil,H2A,Technology Development
 39773,EUTELSAT 3B,2014,1436.11,5967.0,+,0.06,Active,1,GSO,Sea Launch Platform,EUTELSAT,Commercial,Zenit,Communications
 40001,COSMOS 2500 [GLONASS-M],2014,675.72,1415.0,+,65.59,Active,1,MEO,Russia,Russia/USSR,Commercial/Military,Soyuz,Navigation (Global or Regional Positioning)
 40010,KAZEOSAT 2,2014,97.12,185.0,+,97.61,Active,1,LEO,Russia,Kazakhstan,Government,Dnepr,Earth Observation
@@ -13215,3 +13213,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 60375,STARLINK-32281,2024,90.09,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 60376,STARLINK-32277,2024,90.1,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 60377,STARLINK-32269,2024,90.1,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+60419,CAPELLA-13 (ACADIA-3),2024,96.97,-1.0,+,53.01,Active,0,LEO,New Zealand,USA,Unknown,Unknown,Unknown
+60422,ASBM A,2024,242.59,-1.0,+,62.32,Active,0,MEO,USA,USA,Unknown,Unknown,Unknown
+60423,ASBM B,2024,242.6,-1.0,+,62.31,Active,0,MEO,USA,USA,Unknown,Unknown,Unknown

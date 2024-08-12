@@ -3235,7 +3235,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 37846,2011-060A,GSAT0101 (GALILEO-PFM),2011-10-21,2011,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Soyuz-Fregat,Active,+,MEO,844.69,-1.0,ESA,ESA,57.13,Commercial,Navigation (Global or Regional Positioning),700.0,,12.0,1,Soyuz
 37847,2011-060B,GSAT0102 (GALILEO-FM2),2011-10-21,2011,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Soyuz-Fregat,Active,+,MEO,844.7,-1.0,ESA,ESA,57.13,Commercial,Navigation (Global or Regional Positioning),700.0,,12.0,1,Soyuz
 37849,2011-061A,SUOMI NPP,2011-10-28,2011,"Air Force Western Test Range, California, USA",USA,Delta 2,Active,+,LEO,101.44,-1.0,US,USA,98.72,Government,Earth Observation,2128.0,,-1.0,1,Delta
-37851,2011-061B,DICE-F,2011-10-28,2011,"Air Force Western Test Range, California, USA",USA,,Inactive,-,LEO,88.6,-1.0,US,USA,101.69,,,-1.0,,-1.0,0,
 37853,2011-061D,RAX-2,2011-10-28,2011,"Air Force Western Test Range, California, USA",USA,,Inactive,-,LEO,92.13,-1.0,US,USA,101.69,,,-1.0,,-1.0,0,
 37867,2011-064A,COSMOS 2476 [GLONASS-M],2011-11-04,2011,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Active,+,MEO,675.73,-1.0,CIS,Russia/USSR,64.91,Commercial/Military,Navigation (Global or Regional Positioning),1415.0,,7.0,1,Proton
 37868,2011-064B,COSMOS 2477 [GLONASS-M],2011-11-04,2011,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Active,+,MEO,675.73,-1.0,CIS,Russia/USSR,64.91,Commercial/Military,Navigation (Global or Regional Positioning),1415.0,,7.0,1,Proton
@@ -3522,7 +3521,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 39767,2014-029B,UNIFORM 1,2014-05-24,2014,"Tanegashima Space Center, Japan",Japan,H2A,Active,+,LEO,96.68,-1.0,JPN,Japan,97.82,Civil,Earth Observation,50.0,,-1.0,1,H2A
 39768,2014-029C,SOCRATES,2014-05-24,2014,"Tanegashima Space Center, Japan",Japan,H2A,Active,+,LEO,96.69,-1.0,JPN,Japan,97.88,Commercial,Technology Development,48.0,,-1.0,1,H2A
 39769,2014-029D,RISING 2,2014-05-24,2014,"Tanegashima Space Center, Japan",Japan,H2A,Active,+,LEO,96.92,-1.0,JPN,Japan,97.73,Civil,Earth Observation,41.0,,-1.0,1,H2A
-39770,2014-029E,SPROUT,2014-05-24,2014,"Tanegashima Space Center, Japan",Japan,H2A,Active,+,LEO,89.53,-1.0,JPN,Japan,97.99,Civil,Technology Development,7.1,,-1.0,1,H2A
 39773,2014-030A,EUTELSAT 3B,2014-05-26,2014,Sea Launch Platform (mobile),Sea Launch Platform,Zenit 3SL,Active,+,GSO,1436.11,-1.0,EUTE,EUTELSAT,0.06,Commercial,Communications,5967.0,,15.0,1,Zenit
 40001,2014-032A,COSMOS 2500 [GLONASS-M],2014-06-14,2014,"Plesetsk Missile and Space Complex, Russia",Russia,Soyuz-2.1b,Active,+,MEO,675.72,-1.0,CIS,Russia/USSR,65.59,Commercial/Military,Navigation (Global or Regional Positioning),1415.0,,7.0,1,Soyuz
 40010,2014-033A,KAZEOSAT 2,2014-06-19,2014,"Dombarovskiy Launch Site, Russia",Russia,Dnepr,Active,+,LEO,97.12,-1.0,KAZ,Kazakhstan,97.61,Government,Earth Observation,185.0,,7.0,1,Dnepr
@@ -13215,3 +13213,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 60375,2024-138W,STARLINK-32281,2024-08-04,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,90.09,-1.0,US,USA,53.16,,,-1.0,,-1.0,0,
 60376,2024-138X,STARLINK-32277,2024-08-04,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,90.1,-1.0,US,USA,53.16,,,-1.0,,-1.0,0,
 60377,2024-138Y,STARLINK-32269,2024-08-04,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,90.1,-1.0,US,USA,53.16,,,-1.0,,-1.0,0,
+60419,2024-142A,CAPELLA-13 (ACADIA-3),2024-08-11,2024,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,96.97,-1.0,US,USA,53.01,,,-1.0,,-1.0,0,
+60422,2024-143A,ASBM A,2024-08-12,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,MEO,242.59,-1.0,US,USA,62.32,,,-1.0,,-1.0,0,
+60423,2024-143B,ASBM B,2024-08-12,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,MEO,242.6,-1.0,US,USA,62.31,,,-1.0,,-1.0,0,
