@@ -4498,7 +4498,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 44856,2019-089E,QPS-SAR-1 (IZANAGI),2019-12-11,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,92.84,-1.0,JPN,Japan,36.95,Commercial,Earth Observation,100.0,,-1.0,1,PSLV
 44857,2019-089F,RISAT-2BR1,2019-12-11,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,96.06,-1.0,IND,India,36.96,Military,Earth Observation,628.0,,5.0,1,PSLV
 44859,2019-089H,IHOPSAT-TD,2019-12-11,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,95.7,-1.0,US,USA,36.97,Commercial,Earth Observation,22.0,,0.5,1,PSLV
-44860,2019-089J,LEMUR-2-HIMOMANDDAD,2019-12-11,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,89.12,-1.0,US,USA,36.96,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
 44861,2019-089K,LEMUR-2-PAPPY,2019-12-11,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,92.93,-1.0,US,USA,36.96,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
 44863,2019-089M,LEMUR-2-THEODOSIA,2019-12-11,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,91.93,-1.0,US,USA,36.96,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
 44864,2019-090A,BEIDOU-3 M19,2019-12-16,2019,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,55.97,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
@@ -4567,7 +4566,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 45047,2020-006D,STARLINK-1131,2020-01-29,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.64,-1.0,US,USA,53.06,Commercial,Communications,227.0,,-1.0,1,Falcon
 45048,2020-006E,STARLINK-1134,2020-01-29,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,227.0,,-1.0,1,Falcon
 45049,2020-006F,STARLINK-1135,2020-01-29,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,93.05,-1.0,US,USA,53.08,Commercial,Communications,227.0,,-1.0,1,Falcon
-45050,2020-006G,STARLINK-1140,2020-01-29,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,89.66,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
 45052,2020-006J,STARLINK-1148,2020-01-29,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,95.0,-1.0,US,USA,53.06,Commercial,Communications,227.0,,-1.0,1,Falcon
 45053,2020-006K,STARLINK-1155,2020-01-29,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,91.02,-1.0,US,USA,52.98,Commercial,Communications,227.0,,-1.0,1,Falcon
 45054,2020-006L,STARLINK-1156,2020-01-29,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,227.0,,-1.0,1,Falcon
@@ -5074,7 +5072,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 46276,2020-061E,UPMSAT-2,2020-09-03,2020,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Vega,Active,+,LEO,93.72,-1.0,SPN,Spain,97.29,Civil,Technology Development,60.0,,-1.0,1,Vega
 46277,2020-061F,NEMO-HD,2020-09-03,2020,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Vega,Active,+,LEO,94.28,-1.0,SVN,Slovenia,97.29,Civil,Earth Observation,65.0,,-1.0,1,Vega
 46278,2020-061G,GHGSAT-C1,2020-09-03,2020,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Vega,Active,+,LEO,93.67,-1.0,CA,Canada,97.29,Commercial,Earth Observation,15.0,15,-1.0,1,Vega
-46279,2020-061H,SIMBA,2020-09-03,2020,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Vega,Active,+,LEO,88.88,-1.0,BEL,Belgium,97.32,Government,Earth Observation,6.0,,-1.0,1,Vega
 46280,2020-061J,TRISAT,2020-09-03,2020,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Vega,Active,+,LEO,92.05,-1.0,SVN,Slovenia,97.33,Civil,Technology Development,4.0,,-1.0,1,Vega
 46284,2020-061N,DIDO 3,2020-09-03,2020,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Vega,Active,+,LEO,93.65,-1.0,ISRA,Israel,97.34,Commercial,Space Science,6.0,,-1.0,1,Vega
 46285,2020-061P,FLOCK 4V-11,2020-09-03,2020,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Vega,Active,+,LEO,92.97,-1.0,US,USA,97.35,Commercial,Earth Observation,4.0,,3.0,1,Vega
@@ -6163,7 +6160,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 48444,2021-040S,STARLINK-2645,2021-05-09,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 48445,2021-040T,STARLINK-2634,2021-05-09,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 48446,2021-040U,STARLINK-2247,2021-05-09,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,94.03,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
-48448,2021-040W,STARLINK-2632,2021-05-09,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,88.94,-1.0,US,USA,53.03,Commercial,Communications,260.0,,4.0,1,Falcon
 48449,2021-040X,STARLINK-2655,2021-05-09,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 48450,2021-040Y,STARLINK-2660,2021-05-09,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 48451,2021-040Z,STARLINK-2652,2021-05-09,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,90.04,-1.0,US,USA,53.04,Commercial,Communications,260.0,,4.0,1,Falcon
@@ -7358,7 +7354,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 52184,2022-033AD,NUSAT-26 (M SOMERVILLE),2022-04-01,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.1,-1.0,ARGN,Argentina,97.3,Commercial,Earth Observation,42.0,,-1.0,1,Falcon
 52189,2022-033AJ,KSF2-C,2022-04-01,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,89.36,-1.0,LUXE,Luxembourg,97.32,Commercial,Earth Observation,10.0,,-1.0,1,Falcon
 52192,2022-033AM,SUCHAI-2,2022-04-01,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,91.77,-1.0,CHLE,Chile,97.3,Civil,Earth Observation,4.0,,-1.0,1,Falcon
-52194,2022-033AP,KSF2-A,2022-04-01,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,88.61,-1.0,LUXE,Luxembourg,97.32,Commercial,Earth Observation,10.0,,-1.0,1,Falcon
 52196,2022-034B,GLOBAL-18,2022-04-02,2022,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,93.59,-1.0,US,USA,52.99,Commercial,Earth Observation,55.0,50,-1.0,1,Electron
 52197,2022-034C,GLOBAL-20,2022-04-02,2022,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,92.85,-1.0,US,USA,52.99,Commercial,Earth Observation,55.0,50,-1.0,1,Electron
 52200,2022-035A,GAOFEN-3 03,2022-04-06,2022,"Jiuquan Space Center, PRC",PRC,Long March 4C,Active,+,LEO,99.85,-1.0,PRC,China,98.41,Government,Earth Observation,2500.0,,8.0,1,Long March
@@ -8991,7 +8986,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 55010,2023-001B,MENUT,2023-01-03,2023,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.68,-1.0,SPN,Spain,97.43,Commercial,Earth Observation,10.0,10,-1.0,1,Falcon
 55011,2023-001C,BRO-8,2023-01-03,2023,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.72,-1.0,FR,France,97.43,Commercial,Earth Observation,10.0,10,-1.0,1,Falcon
 55012,2023-001D,CONNECTA T1.2,2023-01-03,2023,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.49,-1.0,TURK,Turkey,97.43,Commercial,Communications,10.0,10,-1.0,1,Falcon
-55013,2023-001E,LEMUR-2-PHILARI,2023-01-03,2023,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,88.64,-1.0,US,USA,97.39,Commercial,Earth Observation,10.0,,-1.0,1,Falcon
 55015,2023-001G,BIRKELAND,2023-01-03,2023,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.52,-1.0,NOR,Norway,97.43,Military,Earth Observation,10.0,10,-1.0,1,Falcon
 55016,2023-001H,OBJECT H,2023-01-03,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Inactive,-,LEO,94.65,-1.0,TBD,To Be Determined,97.42,,,-1.0,,-1.0,0,
 55017,2023-001J,LEMUR-2-STEVEALBERS,2023-01-03,2023,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,92.1,-1.0,US,USA,97.41,Commercial,Earth Observation,10.0,,-1.0,1,Falcon
@@ -9261,7 +9255,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 55391,2023-014A,STARLINK-5077,2023-01-31,2023,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,96.16,-1.0,US,USA,70.0,Commercial,Communications,290.0,,4.0,1,Falcon
 55392,2023-014B,STARLINK-5085,2023-01-31,2023,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,96.11,-1.0,US,USA,70.0,Commercial,Communications,290.0,,4.0,1,Falcon
 55393,2023-014C,STARLINK-4786,2023-01-31,2023,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,96.11,-1.0,US,USA,70.0,Commercial,Communications,290.0,,4.0,1,Falcon
-55394,2023-014D,STARLINK-5230,2023-01-31,2023,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,P,LEO,89.41,-1.0,US,USA,70.0,Commercial,Communications,290.0,,4.0,1,Falcon
 55395,2023-014E,STARLINK-5274,2023-01-31,2023,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,96.11,-1.0,US,USA,70.0,Commercial,Communications,290.0,,4.0,1,Falcon
 55396,2023-014F,STARLINK-5283,2023-01-31,2023,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,96.11,-1.0,US,USA,70.0,Commercial,Communications,290.0,,4.0,1,Falcon
 55397,2023-014G,STARLINK-5224,2023-01-31,2023,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,96.11,-1.0,US,USA,70.0,Commercial,Communications,290.0,,4.0,1,Falcon
@@ -13203,6 +13196,24 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 60375,2024-138W,STARLINK-32281,2024-08-04,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,90.33,-1.0,US,USA,53.16,,,-1.0,,-1.0,0,
 60376,2024-138X,STARLINK-32277,2024-08-04,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,90.33,-1.0,US,USA,53.16,,,-1.0,,-1.0,0,
 60377,2024-138Y,STARLINK-32269,2024-08-04,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,90.33,-1.0,US,USA,53.16,,,-1.0,,-1.0,0,
+60379,2024-140A,OBJECT A,2024-08-06,2024,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.93,-1.0,PRC,China,89.0,,,-1.0,,-1.0,0,
+60380,2024-140B,OBJECT B,2024-08-06,2024,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.94,-1.0,PRC,China,89.0,,,-1.0,,-1.0,0,
+60381,2024-140C,OBJECT C,2024-08-06,2024,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.94,-1.0,PRC,China,89.0,,,-1.0,,-1.0,0,
+60382,2024-140D,OBJECT D,2024-08-06,2024,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.94,-1.0,PRC,China,89.0,,,-1.0,,-1.0,0,
+60383,2024-140E,OBJECT E,2024-08-06,2024,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.94,-1.0,PRC,China,89.0,,,-1.0,,-1.0,0,
+60384,2024-140F,OBJECT F,2024-08-06,2024,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.94,-1.0,PRC,China,89.0,,,-1.0,,-1.0,0,
+60385,2024-140G,OBJECT G,2024-08-06,2024,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.94,-1.0,PRC,China,89.0,,,-1.0,,-1.0,0,
+60386,2024-140H,OBJECT H,2024-08-06,2024,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.94,-1.0,PRC,China,89.0,,,-1.0,,-1.0,0,
+60387,2024-140J,OBJECT J,2024-08-06,2024,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.94,-1.0,PRC,China,89.0,,,-1.0,,-1.0,0,
+60388,2024-140K,OBJECT K,2024-08-06,2024,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.93,-1.0,PRC,China,89.0,,,-1.0,,-1.0,0,
+60389,2024-140L,OBJECT L,2024-08-06,2024,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.93,-1.0,PRC,China,89.0,,,-1.0,,-1.0,0,
+60390,2024-140M,OBJECT M,2024-08-06,2024,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.93,-1.0,PRC,China,89.0,,,-1.0,,-1.0,0,
+60391,2024-140N,OBJECT N,2024-08-06,2024,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.93,-1.0,PRC,China,89.0,,,-1.0,,-1.0,0,
+60392,2024-140P,OBJECT P,2024-08-06,2024,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.93,-1.0,PRC,China,89.0,,,-1.0,,-1.0,0,
+60393,2024-140Q,OBJECT Q,2024-08-06,2024,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.93,-1.0,PRC,China,89.0,,,-1.0,,-1.0,0,
+60394,2024-140R,OBJECT R,2024-08-06,2024,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.93,-1.0,PRC,China,89.0,,,-1.0,,-1.0,0,
+60395,2024-140S,OBJECT S,2024-08-06,2024,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.93,-1.0,PRC,China,89.0,,,-1.0,,-1.0,0,
+60396,2024-140T,OBJECT T,2024-08-06,2024,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.93,-1.0,PRC,China,89.0,,,-1.0,,-1.0,0,
 60419,2024-142A,CAPELLA-13 (ACADIA-3),2024-08-11,2024,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,96.96,-1.0,US,USA,53.01,,,-1.0,,-1.0,0,
 60422,2024-143A,ASBM A,2024-08-12,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,MEO,242.59,-1.0,US,USA,62.33,,,-1.0,,-1.0,0,
 60423,2024-143B,ASBM B,2024-08-12,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,MEO,242.52,-1.0,US,USA,62.32,,,-1.0,,-1.0,0,
