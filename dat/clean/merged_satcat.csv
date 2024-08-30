@@ -4920,7 +4920,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 45785,2020-038BH,STARLINK-1512,2020-06-13,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,92.88,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
 45786,2020-038BJ,STARLINK-1513,2020-06-13,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
 45787,2020-038BK,STARLINK-1517,2020-06-13,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
-45788,2020-038BL,SKYSAT-C14,2020-06-13,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Inactive,-,LEO,88.64,-1.0,US,USA,52.96,Commercial,Earth Observation,100.0,,-1.0,1,Falcon
 45789,2020-038BM,SKYSAT-C16,2020-06-13,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,90.74,-1.0,US,USA,52.97,Commercial,Earth Observation,100.0,,-1.0,1,Falcon
 45790,2020-038BN,SKYSAT-C15,2020-06-13,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,91.17,-1.0,US,USA,52.97,Commercial,Earth Observation,100.0,,-1.0,1,Falcon
 45794,2020-039A,GAOFEN-9 03,2020-06-17,2020,"Jiuquan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,94.54,-1.0,PRC,China,97.47,Government,Earth Observation,1000.0,,8.0,1,Long March
@@ -5611,7 +5610,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 47684,2021-006EK,FLOCK 4S-46,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,92.4,-1.0,US,USA,97.34,Commercial,Earth Observation,4.0,,3.0,1,Falcon
 47685,2021-006EL,FLOCK 4S-47,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,92.42,-1.0,US,USA,97.32,Commercial,Earth Observation,4.0,,3.0,1,Falcon
 47686,2021-006EM,FLOCK 4S-44,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,92.34,-1.0,US,USA,97.32,Commercial,Earth Observation,4.0,,3.0,1,Falcon
-47688,2021-006EP,FLOCK 4S-45,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Inactive,-,LEO,89.02,-1.0,US,USA,97.3,Commercial,Earth Observation,4.0,,3.0,1,Falcon
 47691,2021-014A,YAOGAN-31 03A,2021-02-24,2021,"Jiuquan Space Center, PRC",PRC,Long March 4C,Active,+,LEO,107.04,-1.0,PRC,China,63.4,Military,Earth Observation,-1.0,,-1.0,1,Long March
 47692,2021-014B,OBJECT B,2021-02-24,2021,"Jiuquan Space Center, PRC",PRC,,Inactive,UNK,LEO,107.14,-1.0,PRC,China,63.41,,,-1.0,,-1.0,0,
 47693,2021-014C,YAOGAN-31 03B,2021-02-24,2021,"Jiuquan Space Center, PRC",PRC,Long March 4C,Active,+,LEO,107.04,-1.0,PRC,China,63.4,Military,Earth Observation,-1.0,,-1.0,1,Long March
@@ -6085,7 +6083,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 48399,2021-038AY,STARLINK-2587,2021-05-04,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 48400,2021-038AZ,STARLINK-2576,2021-05-04,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 48401,2021-038BA,STARLINK-2571,2021-05-04,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
-48402,2021-038BB,STARLINK-2560,2021-05-04,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,89.29,-1.0,US,USA,53.04,Commercial,Communications,260.0,,4.0,1,Falcon
 48403,2021-038BC,STARLINK-2561,2021-05-04,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 48404,2021-038BD,STARLINK-2593,2021-05-04,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 48405,2021-038BE,STARLINK-2570,2021-05-04,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
@@ -6299,7 +6296,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 48864,2021-055E,TIANQI-14,2021-06-18,2021,"Xichang Launch Facility, PRC",PRC,Long March 2C,Active,+,LEO,95.95,-1.0,PRC,China,35.0,Commercial,Technology Development,50.0,,-1.0,1,Long March
 48865,2021-056A,COSMOS 2550,2021-06-25,2021,"Plesetsk Missile and Space Complex, Russia",Russia,Soyuz 2.1b,Active,+,LEO,93.88,-1.0,CIS,Russia/USSR,67.14,Military,Earth Observation,6500.0,,5.0,1,Soyuz
 48876,2021-058F,BRIK-II,2021-06-30,2021,Western Range Airspace,Western Range Airspace,LauncherOne,Active,+,LEO,93.56,-1.0,NETH,Netherlands,60.67,Government,Earth Observation,10.0,,-1.0,1,LauncherOne
-48879,2021-059A,STARLINK-3003,2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,89.2,-1.0,US,USA,97.64,Commercial,Communications,260.0,,4.0,1,Falcon
 48880,2021-059B,STARLINK-3004,2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.92,-1.0,US,USA,97.66,Commercial,Communications,260.0,,4.0,1,Falcon
 48881,2021-059C,STARLINK-3005,2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.92,-1.0,US,USA,97.66,Commercial,Communications,260.0,,4.0,1,Falcon
 48892,2021-059P,TYVAK-0173,2021-06-30,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,97.47,-1.0,AUS,Australia,96.0,Commercial,Technology Development,12.0,,-1.0,1,Falcon
@@ -9392,7 +9388,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 55685,2021-102M,DRUMS TARGET-1,2021-11-09,2021,"Uchinoura Space Center(Fomerly Kagoshima Space Center—University of Tokyo, Japan)",Japan,,Active,+,LEO,93.19,-1.0,JPN,Japan,97.42,,,-1.0,,-1.0,0,
 55686,2023-023A,ZHONGXING-26,2023-02-23,2023,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,GSO,1436.1,-1.0,PRC,China,0.07,Commercial,Communications,5250.0,2500,15.0,1,Long March
 55690,2023-025A,HORUS 1,2023-02-24,2023,"Jiuquan Space Center, PRC",PRC,Long March 2,Active,+,LEO,94.54,-1.0,EGYP,Egypt,97.42,Government,Earth Observation,330.0,330,-1.0,1,Long March
-55709,2023-026Q,STARLINK-30047,2023-02-27,2023,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,88.94,-1.0,US,USA,42.99,Commercial,Communications,800.0,,-1.0,1,Falcon
 55741,2023-028A,STARLINK-5592,2023-03-03,2023,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,96.11,-1.0,US,USA,70.0,Commercial,Communications,290.0,,4.0,1,Falcon
 55742,2023-028B,STARLINK-5594,2023-03-03,2023,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,96.11,-1.0,US,USA,70.0,Commercial,Communications,290.0,,4.0,1,Falcon
 55743,2023-028C,STARLINK-5602,2023-03-03,2023,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,96.11,-1.0,US,USA,70.0,Commercial,Communications,290.0,,4.0,1,Falcon
@@ -11741,7 +11736,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 58796,2024-012K,STARLINK-31195,2024-01-15,2024,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,94.37,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 58797,2024-012L,STARLINK-31193,2024-01-15,2024,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,94.37,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 58798,2024-012M,STARLINK-31168,2024-01-15,2024,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,94.37,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
-58799,2024-012N,STARLINK-31154,2024-01-15,2024,"Air Force Eastern Test Range, Florida, USA",USA,,Active,P,LEO,89.42,-1.0,US,USA,42.99,,,-1.0,,-1.0,0,
 58800,2024-012P,STARLINK-31191,2024-01-15,2024,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,94.37,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 58801,2024-012Q,STARLINK-31170,2024-01-15,2024,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,94.37,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 58802,2024-012R,STARLINK-31173,2024-01-15,2024,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,94.37,-1.0,US,USA,42.99,,,-1.0,,-1.0,0,
