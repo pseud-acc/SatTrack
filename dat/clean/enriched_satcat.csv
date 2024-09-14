@@ -4572,7 +4572,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 45078,STARLINK-1177,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45080,STARLINK-1153,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45081,STARLINK-1151,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-45082,STARLINK-1160,2020,88.74,227.0,P,53.03,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45083,STARLINK-1190,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45084,STARLINK-1173,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45085,STARLINK-1179,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -5273,7 +5272,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 46906,KSM1-C,2020,95.3,-1.0,+,36.89,Active,1,LEO,India,Luxembourg,Commercial,PSLV,Earth Observation
 46907,KSM1-D,2020,95.33,-1.0,+,36.9,Active,1,LEO,India,Luxembourg,Commercial,PSLV,Earth Observation
 46908,LEMUR-2-OZARAK,2020,92.14,10.0,+,36.89,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
-46910,LEMUR-2-WALLACE,2020,89.11,10.0,+,36.88,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 46911,LEMUR-2-JEREMIAH,2020,92.52,10.0,+,36.9,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 46912,KSM1-A,2020,95.31,-1.0,+,36.9,Active,1,LEO,India,Luxembourg,Commercial,PSLV,Earth Observation
 46913,R2,2020,95.31,-1.0,+,36.9,Active,0,LEO,India,Lithuania,Unknown,Unknown,Unknown
@@ -6839,7 +6837,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 51003,FLOCK 4X-22,2022,90.3,6.0,-,97.37,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 51004,FLOCK 4X-5,2022,91.46,6.0,-,97.37,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 51005,FLOCK 4X-41,2022,92.32,6.0,-,97.38,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
-51006,FLOCK 4X-3,2022,92.34,6.0,+,97.38,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
+51006,FLOCK 4X-3,2022,92.34,6.0,-,97.38,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 51008,ICEYE-X16,2022,89.62,80.0,+,97.36,Active,1,LEO,USA,Finland,Commercial,Falcon,Earth Observation
 51011,FLOCK 4X-29,2022,91.94,6.0,-,97.38,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 51015,FLOCK 4X-12,2022,92.41,6.0,+,97.38,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
@@ -6854,9 +6852,9 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 51035,FLOCK 4X-17,2022,92.42,6.0,+,97.38,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 51038,MDASAT-1C,2022,93.57,1.0,+,97.39,Active,1,LEO,USA,South Africa,Government,Falcon,Earth Observation
 51039,FLOCK 4X-36,2022,91.98,6.0,-,97.38,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
-51043,FLOCK 4X-6,2022,92.34,6.0,+,97.38,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
+51043,FLOCK 4X-6,2022,92.34,6.0,-,97.38,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 51044,IRIS-A,2022,93.67,-1.0,+,97.38,Active,0,LEO,USA,Taiwan,Unknown,Unknown,Unknown
-51047,FLOCK 4X-9,2022,92.33,6.0,+,97.38,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
+51047,FLOCK 4X-9,2022,92.33,6.0,-,97.38,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 51048,FLOCK 4X-35,2022,92.31,6.0,-,97.37,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 51050,MDASAT-1B,2022,93.33,1.0,+,97.38,Active,1,LEO,USA,South Africa,Government,Falcon,Earth Observation
 51051,KEPLER-19,2022,93.91,9.0,+,97.38,Active,1,LEO,USA,Canada,Commercial,Falcon,Communications
@@ -7601,7 +7599,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 52716,OBJECT A,2022,102.56,-1.0,+,86.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 52717,OBJECT B,2022,108.31,-1.0,+,86.01,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 52718,OBJECT C,2022,102.56,-1.0,+,86.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
-52734,PTD-3 (TYVAK-0125),2022,89.95,-1.0,+,97.54,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+52734,PTD-3 (TBIRD),2022,89.95,-1.0,+,97.54,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 52737,GHGSAT-C3,2022,94.63,-1.0,+,97.58,Active,0,LEO,USA,Canada,Unknown,Unknown,Unknown
 52738,PLANETUM1,2022,92.61,-1.0,+,97.57,Active,0,LEO,USA,Czech Republic,Unknown,Unknown,Unknown
 52739,CONNECTA T1.1,2022,94.14,-1.0,+,97.59,Active,0,LEO,USA,Turkey,Unknown,Unknown,Unknown
@@ -13235,7 +13233,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 60562,OBJECT CY,2024,94.8,-1.0,+,97.44,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 60563,FLOCK 4BE-19,2024,94.78,-1.0,+,97.44,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 60564,OBJECT DA,2024,96.43,-1.0,+,97.75,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
-60565,OBJECT DB,2024,96.46,-1.0,+,97.75,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+60565,PTD-4 (LISA-T),2024,96.46,-1.0,+,97.75,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 60566,OBJECT DC,2024,96.42,-1.0,+,97.75,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 60567,OBJECT DD,2024,96.42,-1.0,+,97.75,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 60568,OBJECT DE,2024,96.42,-1.0,+,97.75,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
@@ -13243,7 +13241,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 60570,OBJECT DG,2024,96.42,-1.0,+,97.75,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 60571,OBJECT DH,2024,96.41,-1.0,+,97.75,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 60572,OBJECT DJ,2024,96.41,-1.0,+,97.75,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
-60573,OBJECT DK,2024,96.51,-1.0,+,97.74,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+60573,ION SCV-012,2024,96.51,-1.0,+,97.74,Active,0,LEO,USA,Italy,Unknown,Unknown,Unknown
 60574,OBJECT DL,2024,96.49,-1.0,+,97.75,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 60575,OBJECT DM,2024,96.49,-1.0,+,97.74,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 60576,OBJECT DN,2024,96.42,-1.0,+,97.75,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
