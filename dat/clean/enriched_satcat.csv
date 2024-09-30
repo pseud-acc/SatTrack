@@ -2330,7 +2330,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 25677,GLOBALSTAR M019,1999,118.63,-1.0,-,51.99,Inactive,0,LEO,Kazakhstan,Globalstar,Unknown,Unknown,Unknown
 25678,GLOBALSTAR M044,1999,120.98,-1.0,-,52.0,Inactive,0,LEO,Kazakhstan,Globalstar,Unknown,Unknown,Unknown
 25679,GLOBALSTAR M042,1999,117.83,-1.0,-,52.0,Inactive,0,LEO,Kazakhstan,Globalstar,Unknown,Unknown,Unknown
-25682,LANDSAT 7,1999,98.56,2744.0,P,97.88,Active,1,LEO,USA,USA,Government,Delta,Earth Observation
+25682,LANDSAT 7,1999,98.56,2744.0,-,97.88,Inactive,1,LEO,USA,USA,Government,Delta,Earth Observation
 25693,UOSAT 12 (UO-36),1999,97.11,-1.0,-,64.56,Inactive,0,LEO,Kazakhstan,UK,Unknown,Unknown,Unknown
 25724,USA 143 (MILSTAR-2 1),1999,153.6,-1.0,UNK,28.24,Inactive,0,MEO,USA,USA,Unknown,Unknown,Unknown
 25727,ORION 3,1999,138.57,-1.0,UNK,19.83,Inactive,0,MEO,USA,USA,Unknown,Unknown,Unknown
@@ -3261,7 +3261,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 38044,GLOBALSTAR M090,2011,114.08,700.0,+,51.99,Active,1,LEO,Kazakhstan,Globalstar,Commercial,Soyuz,Communications
 38045,GLOBALSTAR M086,2011,114.08,700.0,+,51.99,Active,1,LEO,Kazakhstan,Globalstar,Commercial,Soyuz,Communications
 38046,ZIYUAN 3-1 (ZY 3-1),2012,93.69,2650.0,+,97.23,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
-38049,FENGYUN 2F,2012,1452.48,1390.0,+,6.0,Active,1,GSO,PRC,China,Government,Long March,Earth Observation
+38049,FENGYUN 2F,2012,1452.48,1390.0,P,6.0,Active,1,GSO,PRC,China,Government,Long March,Earth Observation
 38070,WGS F4 (USA 233),2012,1436.14,5990.0,+,0.02,Active,1,GSO,USA,USA,Military,Delta,Communications
 38077,LARES,2012,114.75,-1.0,+,69.49,Active,0,LEO,French Guiana,Italy,Unknown,Unknown,Unknown
 38087,SES-4,2012,1436.11,-1.0,+,0.05,Active,1,GSO,Kazakhstan,SES,Commercial,Proton,Communications
@@ -6781,7 +6781,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 50830,STARLINK-3278,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 50831,STARLINK-3299,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 50832,STARLINK-3328,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-50833,STARLINK-3316,2022,88.09,260.0,P,53.18,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 50834,STARLINK-3331,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 50835,STARLINK-3310,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 50836,STARLINK-3330,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -7153,7 +7152,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 52001,STARLINK-3659,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 52002,STARLINK-3668,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 52003,STARLINK-3654,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-52017,ORESAT0,2022,88.32,1.0,+,97.46,Active,1,LEO,USA,USA,Civil,Rocket,Technology Development
 52084,YAOGAN-34 02,2022,107.04,500.0,+,63.4,Active,1,LEO,PRC,China,Military,Long March,Earth Observation
 52088,STARLINK-3537,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 52089,STARLINK-3722,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -13431,4 +13429,3 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 61242,OBJECT E,2024,94.98,-1.0,+,97.46,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 61439,OBJECT A,2024,-1.0,-1.0,+,-1.0,Active,0,Unknown,Japan,Japan,Unknown,Unknown,Unknown
 61444,SHIJIAN-19 (SJ-19),2024,91.14,-1.0,+,41.6,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
-61447,CREW DRAGON 9,2024,88.45,-1.0,+,51.62,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
