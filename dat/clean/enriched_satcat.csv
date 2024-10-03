@@ -3456,7 +3456,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 39440,CUBEBUG-2 (LO-74),2013,96.95,2.0,+,97.82,Active,1,LEO,Russia,Argentina,Civil,Dnepr,Technology Development
 39441,NEE-02 KRYSAOR,2013,97.2,-1.0,+,97.83,Active,0,LEO,Russia,Ecuador,Unknown,Unknown,Unknown
 39442,PUCP-SAT 1,2013,95.53,-1.0,-,97.53,Inactive,0,LEO,Russia,Peru,Unknown,Unknown,Unknown
-39443,QUBESCOUT-S1,2013,88.16,-1.0,-,97.35,Inactive,0,LEO,Russia,USA,Unknown,Unknown,Unknown
 39444,FUNCUBE-1 (AO-73),2013,96.33,1.0,+,97.73,Active,1,LEO,Russia,UK,Civil,Dnepr,Communications
 39445,HINCUBE,2013,96.36,-1.0,-,97.73,Inactive,0,LEO,Russia,Norway,Unknown,Unknown,Unknown
 39446,UWE-3,2013,96.77,-1.0,+,97.79,Active,0,LEO,Russia,Germany,Unknown,Unknown,Unknown
@@ -4205,7 +4204,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 43710,TIANZHI 1,2018,93.03,-1.0,+,97.37,Active,1,LEO,PRC,China,Government,Long March,Space Science
 43711,SHIYAN 6 01 (SY-6 01),2018,94.72,-1.0,+,97.39,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 43712,TIANPING 1A,2018,89.49,27.0,+,97.32,Active,1,LEO,PRC,China,Government,Long March,Technology Development
-43713,JIADING 1,2018,88.26,45.0,+,97.32,Active,1,LEO,PRC,China,Commercial,Long March,Communications
 43714,TIANPING 1B,2018,93.07,-1.0,+,97.36,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 43717,MOHAMMED VI-B,2018,97.49,1110.0,+,97.95,Active,1,LEO,French Guiana,Morroco,Government,Vega,Earth Observation
 43719,HYSIS,2018,97.38,380.0,+,97.86,Active,1,LEO,India,India,Government,PSLV,Earth Observation
@@ -4420,7 +4418,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 44637,TJS-4,2019,1436.06,-1.0,+,0.07,Active,1,GSO,PRC,China,Government,Long March,Technology Development
 44703,GAOFEN-7,2019,94.65,9.0,+,97.33,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
 44709,BEIDOU-3 IGSO-3,2019,1436.12,4200.0,+,55.87,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
-44713,STARLINK-1007,2019,89.14,227.0,P,53.03,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 44714,STARLINK-1008,2019,95.59,227.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 44715,STARLINK-1009,2019,95.59,227.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 44716,STARLINK-1010,2019,95.59,227.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -4478,9 +4475,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 44819,GAOFEN-12 01,2019,97.25,1000.0,+,97.82,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
 44836,JILIN-1 GAOFEN 2B,2019,94.78,95.0,+,97.57,Active,1,LEO,PRC,China,Commercial,Kuaizhou,Earth Observation
 44850,COSMOS 2544 [GLONASS-M],2019,675.73,1415.0,+,65.24,Active,1,MEO,Russia,Russia/USSR,Commercial/Military,Soyuz,Navigation (Global or Regional Positioning)
-44852,TYVAK-0092,2019,89.38,5.0,+,36.92,Active,1,LEO,India,USA,Commercial,PSLV,Technology Development
 44854,DUCHIFAT-3,2019,94.6,-1.0,+,36.95,Active,0,LEO,India,Israel,Unknown,Unknown,Unknown
-44856,QPS-SAR-1 (IZANAGI),2019,88.82,100.0,+,36.94,Active,1,LEO,India,Japan,Commercial,PSLV,Earth Observation
 44857,RISAT-2BR1,2019,96.03,628.0,+,36.96,Active,1,LEO,India,India,Military,PSLV,Earth Observation
 44859,IHOPSAT-TD,2019,95.65,22.0,+,36.97,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
 44861,LEMUR-2-PAPPY,2019,90.61,10.0,+,36.94,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
@@ -5425,7 +5420,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 47458,IDEASSAT,2021,92.35,-1.0,+,97.32,Active,0,LEO,USA,Taiwan,Unknown,Unknown,Unknown
 47462,FLOCK 4S-11,2021,93.4,4.0,-,97.32,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47469,FLOCK 4S-33,2021,91.51,4.0,-,97.31,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
-47477,FLOCK 4S-34,2021,88.84,4.0,-,97.29,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47478,FLOCK 4S-9,2021,92.26,4.0,-,97.31,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 47486,CELESTIS-17 & SHERPA-FX1,2021,94.61,9.0,+,97.32,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47487,ASTROCAST-0103,2021,94.0,4.0,+,97.34,Active,1,LEO,USA,Switzerland,Commercial,Falcon,Communications
@@ -13131,7 +13125,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 60529,GAINDESAT-1A,2024,94.62,-1.0,+,97.44,Active,0,LEO,USA,Republic of Senegal,Unknown,Unknown,Unknown
 60530,TORO,2024,96.53,-1.0,+,97.74,Active,0,LEO,USA,Taiwan,Unknown,Unknown,Unknown
 60531,HYPSO-2,2024,96.52,-1.0,+,97.74,Active,0,LEO,USA,Norway,Unknown,Unknown,Unknown
-60532,LEMU-NGE,2024,96.52,-1.0,+,97.75,Active,0,LEO,USA,Chile,Unknown,Unknown,Unknown
+60532,LEMU NGE,2024,96.52,-1.0,+,97.75,Active,0,LEO,USA,Chile,Unknown,Unknown,Unknown
 60533,LEMUR-2-STELLA,2024,96.45,-1.0,+,97.74,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 60534,SATELIOT_2,2024,96.52,-1.0,+,97.75,Active,0,LEO,USA,Spain,Unknown,Unknown,Unknown
 60535,NIGHTJAR,2024,96.51,-1.0,+,97.75,Active,0,LEO,USA,Taiwan,Unknown,Unknown,Unknown
@@ -13279,12 +13273,12 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 60948,YAOGAN-43 02D,2024,94.56,-1.0,+,34.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 60949,YAOGAN-43 02E,2024,94.54,-1.0,+,35.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 60950,YAOGAN-43 02F,2024,94.53,-1.0,+,35.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
-60952,BINAR-4,1998,92.17,-1.0,+,51.63,Active,0,LEO,Kazakhstan,Japan,Unknown,Unknown,Unknown
+60952,BINAR-4,1998,92.17,-1.0,+,51.63,Active,0,LEO,Kazakhstan,Australia,Unknown,Unknown,Unknown
 60953,COSMOGIRLSAT,1998,92.42,-1.0,+,51.63,Active,0,LEO,Kazakhstan,Japan,Unknown,Unknown,Unknown
 60954,SAKURA,1998,92.36,-1.0,+,51.63,Active,0,LEO,Kazakhstan,Japan,Unknown,Unknown,Unknown
 60955,OBJECT WV,1998,91.78,-1.0,+,51.63,Active,0,LEO,Kazakhstan,Japan,Unknown,Unknown,Unknown
-60956,BINAR-2,1998,92.26,-1.0,+,51.63,Active,0,LEO,Kazakhstan,Japan,Unknown,Unknown,Unknown
-60957,BINAR-3,1998,92.11,-1.0,+,51.63,Active,0,LEO,Kazakhstan,Japan,Unknown,Unknown,Unknown
+60956,BINAR-2,1998,92.26,-1.0,+,51.63,Active,0,LEO,Kazakhstan,Australia,Unknown,Unknown,Unknown
+60957,BINAR-3,1998,92.11,-1.0,+,51.63,Active,0,LEO,Kazakhstan,Australia,Unknown,Unknown,Unknown
 60958,OBJECT WY,1998,92.44,-1.0,+,51.64,Active,0,LEO,Kazakhstan,Japan,Unknown,Unknown,Unknown
 60989,SENTINEL-2C,2024,100.39,-1.0,+,98.57,Active,0,LEO,French Guiana,ESA,Unknown,Unknown,Unknown
 60991,STARLINK-11289 [DTC],2024,91.33,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown

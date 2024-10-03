@@ -3456,7 +3456,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 39440,2013-066AA,CUBEBUG-2 (LO-74),2013-11-21,2013,"Dombarovskiy Launch Site, Russia",Russia,Dnepr,Active,+,LEO,96.95,-1.0,ARGN,Argentina,97.82,Civil,Technology Development,2.0,,-1.0,1,Dnepr
 39441,2013-066AB,NEE-02 KRYSAOR,2013-11-21,2013,"Dombarovskiy Launch Site, Russia",Russia,,Active,+,LEO,97.2,-1.0,ECU,Ecuador,97.83,,,-1.0,,-1.0,0,
 39442,2013-066AC,PUCP-SAT 1,2013-11-21,2013,"Dombarovskiy Launch Site, Russia",Russia,,Inactive,-,LEO,95.53,-1.0,PERU,Peru,97.53,,,-1.0,,-1.0,0,
-39443,2013-066AD,QUBESCOUT-S1,2013-11-21,2013,"Dombarovskiy Launch Site, Russia",Russia,,Inactive,-,LEO,88.16,-1.0,US,USA,97.35,,,-1.0,,-1.0,0,
 39444,2013-066AE,FUNCUBE-1 (AO-73),2013-11-21,2013,"Dombarovskiy Launch Site, Russia",Russia,Dnepr,Active,+,LEO,96.33,-1.0,UK,UK,97.73,Civil,Communications,1.0,,-1.0,1,Dnepr
 39445,2013-066AF,HINCUBE,2013-11-21,2013,"Dombarovskiy Launch Site, Russia",Russia,,Inactive,-,LEO,96.36,-1.0,NOR,Norway,97.73,,,-1.0,,-1.0,0,
 39446,2013-066AG,UWE-3,2013-11-21,2013,"Dombarovskiy Launch Site, Russia",Russia,,Active,+,LEO,96.77,-1.0,GER,Germany,97.79,,,-1.0,,-1.0,0,
@@ -4205,7 +4204,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 43710,2018-094A,TIANZHI 1,2018-11-19,2018,"Jiuquan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,93.03,-1.0,PRC,China,97.37,Government,Space Science,-1.0,,-1.0,1,Long March
 43711,2018-094B,SHIYAN 6 01 (SY-6 01),2018-11-19,2018,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,94.72,-1.0,PRC,China,97.39,,,-1.0,,-1.0,0,
 43712,2018-094C,TIANPING 1A,2018-11-19,2018,"Jiuquan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,89.49,-1.0,PRC,China,97.32,Government,Technology Development,27.0,,-1.0,1,Long March
-43713,2018-094D,JIADING 1,2018-11-19,2018,"Jiuquan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,88.26,-1.0,PRC,China,97.32,Commercial,Communications,45.0,,-1.0,1,Long March
 43714,2018-094E,TIANPING 1B,2018-11-19,2018,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,93.07,-1.0,PRC,China,97.36,,,-1.0,,-1.0,0,
 43717,2018-095A,MOHAMMED VI-B,2018-11-21,2018,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Vega,Active,+,LEO,97.49,-1.0,MA,Morroco,97.95,Government,Earth Observation,1110.0,,-1.0,1,Vega
 43719,2018-096A,HYSIS,2018-11-29,2018,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,97.38,-1.0,IND,India,97.86,Government,Earth Observation,380.0,,5.0,1,PSLV
@@ -4420,7 +4418,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 44637,2019-070A,TJS-4,2019-10-17,2019,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,GSO,1436.06,-1.0,PRC,China,0.07,Government,Technology Development,-1.0,,-1.0,1,Long March
 44703,2019-072A,GAOFEN-7,2019-11-03,2019,"Taiyuan Space Center, PRC",PRC,Long March 4B,Active,+,LEO,94.65,-1.0,PRC,China,97.33,Government,Earth Observation,9.0,,-1.0,1,Long March
 44709,2019-073A,BEIDOU-3 IGSO-3,2019-11-04,2019,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,GSO,1436.12,-1.0,PRC,China,55.87,Government/Military,Navigation (Global or Regional Positioning),4200.0,,8.0,1,Long March
-44713,2019-074A,STARLINK-1007,2019-11-11,2019,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,89.14,-1.0,US,USA,53.03,Commercial,Communications,227.0,,-1.0,1,Falcon
 44714,2019-074B,STARLINK-1008,2019-11-11,2019,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,227.0,,-1.0,1,Falcon
 44715,2019-074C,STARLINK-1009,2019-11-11,2019,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,227.0,,-1.0,1,Falcon
 44716,2019-074D,STARLINK-1010,2019-11-11,2019,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,227.0,,-1.0,1,Falcon
@@ -4478,9 +4475,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 44819,2019-082A,GAOFEN-12 01,2019-11-27,2019,"Taiyuan Space Center, PRC",PRC,Long March 4C,Active,+,LEO,97.25,-1.0,PRC,China,97.82,Government,Earth Observation,1000.0,,8.0,1,Long March
 44836,2019-086A,JILIN-1 GAOFEN 2B,2019-12-07,2019,"Taiyuan Space Center, PRC",PRC,Kuaizhou 1A,Active,+,LEO,94.78,-1.0,PRC,China,97.57,Commercial,Earth Observation,95.0,,-1.0,1,Kuaizhou
 44850,2019-088A,COSMOS 2544 [GLONASS-M],2019-12-11,2019,"Plesetsk Missile and Space Complex, Russia",Russia,Soyuz-2.1a,Active,+,MEO,675.73,-1.0,CIS,Russia/USSR,65.24,Commercial/Military,Navigation (Global or Regional Positioning),1415.0,,7.0,1,Soyuz
-44852,2019-089A,TYVAK-0092,2019-12-11,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,89.38,-1.0,US,USA,36.92,Commercial,Technology Development,5.0,,-1.0,1,PSLV
 44854,2019-089C,DUCHIFAT-3,2019-12-11,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Active,+,LEO,94.6,-1.0,ISRA,Israel,36.95,,,-1.0,,-1.0,0,
-44856,2019-089E,QPS-SAR-1 (IZANAGI),2019-12-11,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,88.82,-1.0,JPN,Japan,36.94,Commercial,Earth Observation,100.0,,-1.0,1,PSLV
 44857,2019-089F,RISAT-2BR1,2019-12-11,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,96.03,-1.0,IND,India,36.96,Military,Earth Observation,628.0,,5.0,1,PSLV
 44859,2019-089H,IHOPSAT-TD,2019-12-11,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,95.65,-1.0,US,USA,36.97,Commercial,Earth Observation,22.0,,0.5,1,PSLV
 44861,2019-089K,LEMUR-2-PAPPY,2019-12-11,2019,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,90.61,-1.0,US,USA,36.94,Commercial,Earth Observation,10.0,,-1.0,1,PSLV
@@ -5425,7 +5420,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 47458,2021-006AX,IDEASSAT,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,92.35,-1.0,ROC,Taiwan,97.32,,,-1.0,,-1.0,0,
 47462,2021-006BB,FLOCK 4S-11,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Inactive,-,LEO,93.4,-1.0,US,USA,97.32,Commercial,Earth Observation,4.0,,3.0,1,Falcon
 47469,2021-006BJ,FLOCK 4S-33,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Inactive,-,LEO,91.51,-1.0,US,USA,97.31,Commercial,Earth Observation,4.0,,3.0,1,Falcon
-47477,2021-006BS,FLOCK 4S-34,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Inactive,-,LEO,88.84,-1.0,US,USA,97.29,Commercial,Earth Observation,4.0,,3.0,1,Falcon
 47478,2021-006BT,FLOCK 4S-9,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Inactive,-,LEO,92.26,-1.0,US,USA,97.31,Commercial,Earth Observation,4.0,,3.0,1,Falcon
 47486,2021-006CB,CELESTIS-17 & SHERPA-FX1,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.61,-1.0,US,USA,97.32,Commercial,Communications,9.0,,-1.0,1,Falcon
 47487,2021-006CC,ASTROCAST-0103,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9/Sherpa FX,Active,+,LEO,94.0,-1.0,SWTZ,Switzerland,97.34,Commercial,Communications,4.0,,-1.0,1,Falcon
@@ -13131,7 +13125,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 60529,2024-149BP,GAINDESAT-1A,2024-08-16,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.62,-1.0,SEN,Republic of Senegal,97.44,,,-1.0,,-1.0,0,
 60530,2024-149BQ,TORO,2024-08-16,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,96.53,-1.0,ROC,Taiwan,97.74,,,-1.0,,-1.0,0,
 60531,2024-149BR,HYPSO-2,2024-08-16,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,96.52,-1.0,NOR,Norway,97.74,,,-1.0,,-1.0,0,
-60532,2024-149BS,LEMU-NGE,2024-08-16,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,96.52,-1.0,CHLE,Chile,97.75,,,-1.0,,-1.0,0,
+60532,2024-149BS,LEMU NGE,2024-08-16,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,96.52,-1.0,CHLE,Chile,97.75,,,-1.0,,-1.0,0,
 60533,2024-149BT,LEMUR-2-STELLA,2024-08-16,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,96.45,-1.0,US,USA,97.74,,,-1.0,,-1.0,0,
 60534,2024-149BU,SATELIOT_2,2024-08-16,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,96.52,-1.0,SPN,Spain,97.75,,,-1.0,,-1.0,0,
 60535,2024-149BV,NIGHTJAR,2024-08-16,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,96.51,-1.0,ROC,Taiwan,97.75,,,-1.0,,-1.0,0,
@@ -13279,12 +13273,12 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 60948,2024-156D,YAOGAN-43 02D,2024-09-03,2024,"Xichang Launch Facility, PRC",PRC,,Active,+,LEO,94.56,-1.0,PRC,China,34.99,,,-1.0,,-1.0,0,
 60949,2024-156E,YAOGAN-43 02E,2024-09-03,2024,"Xichang Launch Facility, PRC",PRC,,Active,+,LEO,94.54,-1.0,PRC,China,35.0,,,-1.0,,-1.0,0,
 60950,2024-156F,YAOGAN-43 02F,2024-09-03,2024,"Xichang Launch Facility, PRC",PRC,,Active,+,LEO,94.53,-1.0,PRC,China,35.0,,,-1.0,,-1.0,0,
-60952,1998-067WS,BINAR-4,1998-11-20,1998,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Active,+,LEO,92.17,-1.0,JPN,Japan,51.63,,,-1.0,,-1.0,0,
+60952,1998-067WS,BINAR-4,1998-11-20,1998,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Active,+,LEO,92.17,-1.0,AUS,Australia,51.63,,,-1.0,,-1.0,0,
 60953,1998-067WT,COSMOGIRLSAT,1998-11-20,1998,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Active,+,LEO,92.42,-1.0,JPN,Japan,51.63,,,-1.0,,-1.0,0,
 60954,1998-067WU,SAKURA,1998-11-20,1998,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Active,+,LEO,92.36,-1.0,JPN,Japan,51.63,,,-1.0,,-1.0,0,
 60955,1998-067WV,OBJECT WV,1998-11-20,1998,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Active,+,LEO,91.78,-1.0,JPN,Japan,51.63,,,-1.0,,-1.0,0,
-60956,1998-067WW,BINAR-2,1998-11-20,1998,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Active,+,LEO,92.26,-1.0,JPN,Japan,51.63,,,-1.0,,-1.0,0,
-60957,1998-067WX,BINAR-3,1998-11-20,1998,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Active,+,LEO,92.11,-1.0,JPN,Japan,51.63,,,-1.0,,-1.0,0,
+60956,1998-067WW,BINAR-2,1998-11-20,1998,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Active,+,LEO,92.26,-1.0,AUS,Australia,51.63,,,-1.0,,-1.0,0,
+60957,1998-067WX,BINAR-3,1998-11-20,1998,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Active,+,LEO,92.11,-1.0,AUS,Australia,51.63,,,-1.0,,-1.0,0,
 60958,1998-067WY,OBJECT WY,1998-11-20,1998,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Active,+,LEO,92.44,-1.0,JPN,Japan,51.64,,,-1.0,,-1.0,0,
 60989,2024-157A,SENTINEL-2C,2024-09-05,2024,"Europe's Spaceport, Kourou, French Guiana",French Guiana,,Active,+,LEO,100.39,-1.0,ESA,ESA,98.57,,,-1.0,,-1.0,0,
 60991,2024-158B,STARLINK-11289 [DTC],2024-09-05,2024,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,91.33,-1.0,US,USA,53.16,,,-1.0,,-1.0,0,
