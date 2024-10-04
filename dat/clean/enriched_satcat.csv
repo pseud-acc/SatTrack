@@ -2777,7 +2777,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 28915,COSMOS 2419 [GLONASS-M],2005,675.71,-1.0,-,65.88,Inactive,0,MEO,Kazakhstan,Russia/USSR,Unknown,Unknown,Unknown
 28916,COSMOS 2418 [GLONASS-M],2005,675.72,-1.0,-,65.9,Inactive,0,MEO,Kazakhstan,Russia/USSR,Unknown,Unknown,Unknown
 28917,COSMOS 2417 [GLONASS],2005,675.73,-1.0,-,65.89,Inactive,0,MEO,Kazakhstan,Russia/USSR,Unknown,Unknown,Unknown
-28922,GIOVE-A,2005,850.41,-1.0,-,58.86,Inactive,0,MEO,Kazakhstan,ESA,Unknown,Unknown,Unknown
+28922,GSAT0001 (GIOVE-A),2005,850.41,-1.0,-,58.86,Inactive,0,MEO,Kazakhstan,ESA,Unknown,Unknown,Unknown
 28924,EUTELSAT 174A,2005,1436.09,5000.0,+,2.63,Active,1,GSO,Kazakhstan,EUTELSAT,Commercial,Proton,Communications
 28931,ALOS (DAICHI),2006,98.18,-1.0,-,98.05,Inactive,0,LEO,Japan,Japan,Unknown,Unknown,Unknown
 28935,ECHOSTAR 10,2006,1436.09,4333.0,+,0.04,Active,1,GSO,Sea Launch Platform,USA,Commercial,Zenit,Communications
@@ -2926,7 +2926,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 32767,VINASAT-1,2008,1436.11,2600.0,+,0.01,Active,1,GSO,French Guiana,Vietnam,Government,Ariane,Communications
 32768,STAR ONE C2,2008,1436.11,4100.0,+,0.05,Active,1,GSO,French Guiana,Brazil,Commercial,Ariane,Communications
 32779,TIANLIAN 1-01,2008,1478.21,3750.0,-,8.62,Inactive,1,GSO,PRC,China,Government,Long March,Communications
-32781,GIOVE-B,2008,870.59,-1.0,-,59.44,Inactive,0,MEO,Kazakhstan,ESA,Unknown,Unknown,Unknown
+32781,GSAT0002 (GIOVE-B),2008,870.59,-1.0,-,59.44,Inactive,0,MEO,Kazakhstan,ESA,Unknown,Unknown,Unknown
 32783,CARTOSAT-2A,2008,97.39,680.0,+,97.85,Active,1,LEO,India,India,Military,PSLV,Earth Observation
 32784,NTS (CANX-6),2008,96.29,-1.0,-,97.8,Inactive,0,LEO,India,Canada,Unknown,Unknown,Unknown
 32785,CUTE-1.7+APD II (CO-65),2008,96.06,-1.0,P,97.77,Active,0,LEO,India,Japan,Unknown,Unknown,Unknown
@@ -11491,7 +11491,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 58650,SHIYAN 24C 01,2023,96.3,-1.0,+,97.34,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 58651,SHIYAN 24C 02,2023,96.31,-1.0,+,97.34,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 58652,SHIYAN 24C 03,2023,96.3,-1.0,+,97.34,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
-58654,BEIDOU-3 M25,2023,773.23,-1.0,+,55.2,Active,0,MEO,PRC,China,Unknown,Unknown,Unknown
+58654,BEIDOU-3 M28,2023,773.23,-1.0,+,55.2,Active,0,MEO,PRC,China,Unknown,Unknown,Unknown
 58655,BEIDOU-3 M26,2023,773.23,-1.0,+,55.2,Active,0,MEO,PRC,China,Unknown,Unknown,Unknown
 58658,COSMOS 2574,2023,90.38,-1.0,+,96.7,Active,0,LEO,Russia,Russia/USSR,Unknown,Unknown,Unknown
 58660,TIANMU-1 19,2023,94.91,-1.0,+,97.42,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
@@ -13432,3 +13432,4 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 61262,STARLINK-32446,2024,90.77,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 61439,OBJECT A,2024,-1.0,-1.0,+,-1.0,Active,0,Unknown,Japan,Japan,Unknown,Unknown,Unknown
 61444,SHIJIAN-19 (SJ-19),2024,91.24,-1.0,+,41.62,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+61448,OBJECT A,2024,94.52,-1.0,+,30.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown

@@ -2777,7 +2777,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,65.88,2005-12-25,TYMSC,28915,2005-050A,COSMOS 2419 [GLONASS-M],PAY,-,EA,MEO,ORB,CIS,675.71,Inactive,Russia/USSR,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,65.9,2005-12-25,TYMSC,28916,2005-050B,COSMOS 2418 [GLONASS-M],PAY,-,EA,MEO,ORB,CIS,675.72,Inactive,Russia/USSR,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,65.89,2005-12-25,TYMSC,28917,2005-050C,COSMOS 2417 [GLONASS],PAY,-,EA,MEO,ORB,CIS,675.73,Inactive,Russia/USSR,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
-,58.86,2005-12-28,TYMSC,28922,2005-051A,GIOVE-A,PAY,-,EA,MEO,ORB,ESA,850.41,Inactive,ESA,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
+,58.86,2005-12-28,TYMSC,28922,2005-051A,GSAT0001 (GIOVE-A),PAY,-,EA,MEO,ORB,ESA,850.41,Inactive,ESA,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,2.63,2005-12-29,TYMSC,28924,2005-052A,EUTELSAT 174A,PAY,+,EA,GSO,ORB,EUTE,1436.09,Active,EUTELSAT,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,98.05,2006-01-24,TANSC,28931,2006-002A,ALOS (DAICHI),PAY,-,EA,LEO,ORB,JPN,98.18,Inactive,Japan,"Tanegashima Space Center, Japan",Japan
 ,0.04,2006-02-15,SEAL,28935,2006-003A,ECHOSTAR 10,PAY,+,EA,GSO,ORB,US,1436.09,Active,USA,Sea Launch Platform (mobile),Sea Launch Platform
@@ -2926,7 +2926,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,0.01,2008-04-18,FRGUI,32767,2008-018A,VINASAT-1,PAY,+,EA,GSO,ORB,VTNM,1436.11,Active,Vietnam,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,0.05,2008-04-18,FRGUI,32768,2008-018B,STAR ONE C2,PAY,+,EA,GSO,ORB,BRAZ,1436.11,Active,Brazil,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,8.62,2008-04-25,XICLF,32779,2008-019A,TIANLIAN 1-01,PAY,-,EA,GSO,ORB,PRC,1478.21,Inactive,China,"Xichang Launch Facility, PRC",PRC
-,59.44,2008-04-26,TYMSC,32781,2008-020A,GIOVE-B,PAY,-,EA,MEO,ORB,ESA,870.59,Inactive,ESA,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
+,59.44,2008-04-26,TYMSC,32781,2008-020A,GSAT0002 (GIOVE-B),PAY,-,EA,MEO,ORB,ESA,870.59,Inactive,ESA,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,97.85,2008-04-28,SRILR,32783,2008-021A,CARTOSAT-2A,PAY,+,EA,LEO,ORB,IND,97.39,Active,India,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.8,2008-04-28,SRILR,32784,2008-021B,NTS (CANX-6),PAY,-,EA,LEO,ORB,CA,96.29,Inactive,Canada,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.77,2008-04-28,SRILR,32785,2008-021C,CUTE-1.7+APD II (CO-65),PAY,P,EA,LEO,ORB,JPN,96.06,Active,Japan,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
@@ -11491,7 +11491,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.34,2023-12-25,SCSLA,58650,2023-206A,SHIYAN 24C 01,PAY,+,EA,LEO,ORB,PRC,96.3,Active,China,"South China Sea Launch Area, PRC",PRC
 ,97.34,2023-12-25,SCSLA,58651,2023-206B,SHIYAN 24C 02,PAY,+,EA,LEO,ORB,PRC,96.31,Active,China,"South China Sea Launch Area, PRC",PRC
 ,97.34,2023-12-25,SCSLA,58652,2023-206C,SHIYAN 24C 03,PAY,+,EA,LEO,ORB,PRC,96.3,Active,China,"South China Sea Launch Area, PRC",PRC
-,55.2,2023-12-26,XICLF,58654,2023-207A,BEIDOU-3 M25,PAY,+,EA,MEO,ORB,PRC,773.23,Active,China,"Xichang Launch Facility, PRC",PRC
+,55.2,2023-12-26,XICLF,58654,2023-207A,BEIDOU-3 M28,PAY,+,EA,MEO,ORB,PRC,773.23,Active,China,"Xichang Launch Facility, PRC",PRC
 ,55.2,2023-12-26,XICLF,58655,2023-207B,BEIDOU-3 M26,PAY,+,EA,MEO,ORB,PRC,773.23,Active,China,"Xichang Launch Facility, PRC",PRC
 ,96.7,2023-12-27,PLMSC,58658,2023-209A,COSMOS 2574,PAY,+,EA,LEO,ORB,CIS,90.38,Active,Russia/USSR,"Plesetsk Missile and Space Complex, Russia",Russia
 ,97.42,2023-12-27,JSC,58660,2023-208A,TIANMU-1 19,PAY,+,EA,LEO,ORB,PRC,94.91,Active,China,"Jiuquan Space Center, PRC",PRC
@@ -13432,3 +13432,4 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,53.16,2024-09-25,AFWTR,61262,2024-175V,STARLINK-32446,PAY,+,EA,LEO,ORB,US,90.77,Active,USA,"Air Force Western Test Range, California, USA",USA
 ,,2024-09-26,TANSC,61439,2024-176A,OBJECT A,PAY,+,EA,,ORB,JPN,,Active,Japan,"Tanegashima Space Center, Japan",Japan
 ,41.62,2024-09-27,JSC,61444,2024-177A,SHIJIAN-19 (SJ-19),PAY,+,EA,LEO,ORB,PRC,91.24,Active,China,"Jiuquan Space Center, PRC",PRC
+,30.0,2024-10-04,AFETR,61448,2024-179A,OBJECT A,PAY,+,EA,LEO,ORB,US,94.52,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA

@@ -2777,7 +2777,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 28915,2005-050A,COSMOS 2419 [GLONASS-M],2005-12-25,2005,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Inactive,-,MEO,675.71,-1.0,CIS,Russia/USSR,65.88,,,-1.0,,-1.0,0,
 28916,2005-050B,COSMOS 2418 [GLONASS-M],2005-12-25,2005,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Inactive,-,MEO,675.72,-1.0,CIS,Russia/USSR,65.9,,,-1.0,,-1.0,0,
 28917,2005-050C,COSMOS 2417 [GLONASS],2005-12-25,2005,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Inactive,-,MEO,675.73,-1.0,CIS,Russia/USSR,65.89,,,-1.0,,-1.0,0,
-28922,2005-051A,GIOVE-A,2005-12-28,2005,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Inactive,-,MEO,850.41,-1.0,ESA,ESA,58.86,,,-1.0,,-1.0,0,
+28922,2005-051A,GSAT0001 (GIOVE-A),2005-12-28,2005,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Inactive,-,MEO,850.41,-1.0,ESA,ESA,58.86,,,-1.0,,-1.0,0,
 28924,2005-052A,EUTELSAT 174A,2005-12-29,2005,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Active,+,GSO,1436.09,-1.0,EUTE,EUTELSAT,2.63,Commercial,Communications,5000.0,,16.0,1,Proton
 28931,2006-002A,ALOS (DAICHI),2006-01-24,2006,"Tanegashima Space Center, Japan",Japan,,Inactive,-,LEO,98.18,-1.0,JPN,Japan,98.05,,,-1.0,,-1.0,0,
 28935,2006-003A,ECHOSTAR 10,2006-02-15,2006,Sea Launch Platform (mobile),Sea Launch Platform,Zenit 3SL,Active,+,GSO,1436.09,-1.0,US,USA,0.04,Commercial,Communications,4333.0,,15.0,1,Zenit
@@ -2926,7 +2926,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 32767,2008-018A,VINASAT-1,2008-04-18,2008,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5 ECA,Active,+,GSO,1436.11,-1.0,VTNM,Vietnam,0.01,Government,Communications,2600.0,,15.0,1,Ariane
 32768,2008-018B,STAR ONE C2,2008-04-18,2008,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5 ECA,Active,+,GSO,1436.11,-1.0,BRAZ,Brazil,0.05,Commercial,Communications,4100.0,1750,-1.0,1,Ariane
 32779,2008-019A,TIANLIAN 1-01,2008-04-25,2008,"Xichang Launch Facility, PRC",PRC,Long March 3C,Inactive,-,GSO,1478.21,-1.0,PRC,China,8.62,Government,Communications,3750.0,,-1.0,1,Long March
-32781,2008-020A,GIOVE-B,2008-04-26,2008,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Inactive,-,MEO,870.59,-1.0,ESA,ESA,59.44,,,-1.0,,-1.0,0,
+32781,2008-020A,GSAT0002 (GIOVE-B),2008-04-26,2008,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Inactive,-,MEO,870.59,-1.0,ESA,ESA,59.44,,,-1.0,,-1.0,0,
 32783,2008-021A,CARTOSAT-2A,2008-04-28,2008,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV C9,Active,+,LEO,97.39,-1.0,IND,India,97.85,Military,Earth Observation,680.0,,5.0,1,PSLV
 32784,2008-021B,NTS (CANX-6),2008-04-28,2008,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,96.29,-1.0,CA,Canada,97.8,,,-1.0,,-1.0,0,
 32785,2008-021C,CUTE-1.7+APD II (CO-65),2008-04-28,2008,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Active,P,LEO,96.06,-1.0,JPN,Japan,97.77,,,-1.0,,-1.0,0,
@@ -11491,7 +11491,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 58650,2023-206A,SHIYAN 24C 01,2023-12-25,2023,"South China Sea Launch Area, PRC",PRC,,Active,+,LEO,96.3,-1.0,PRC,China,97.34,,,-1.0,,-1.0,0,
 58651,2023-206B,SHIYAN 24C 02,2023-12-25,2023,"South China Sea Launch Area, PRC",PRC,,Active,+,LEO,96.31,-1.0,PRC,China,97.34,,,-1.0,,-1.0,0,
 58652,2023-206C,SHIYAN 24C 03,2023-12-25,2023,"South China Sea Launch Area, PRC",PRC,,Active,+,LEO,96.3,-1.0,PRC,China,97.34,,,-1.0,,-1.0,0,
-58654,2023-207A,BEIDOU-3 M25,2023-12-26,2023,"Xichang Launch Facility, PRC",PRC,,Active,+,MEO,773.23,-1.0,PRC,China,55.2,,,-1.0,,-1.0,0,
+58654,2023-207A,BEIDOU-3 M28,2023-12-26,2023,"Xichang Launch Facility, PRC",PRC,,Active,+,MEO,773.23,-1.0,PRC,China,55.2,,,-1.0,,-1.0,0,
 58655,2023-207B,BEIDOU-3 M26,2023-12-26,2023,"Xichang Launch Facility, PRC",PRC,,Active,+,MEO,773.23,-1.0,PRC,China,55.2,,,-1.0,,-1.0,0,
 58658,2023-209A,COSMOS 2574,2023-12-27,2023,"Plesetsk Missile and Space Complex, Russia",Russia,,Active,+,LEO,90.38,-1.0,CIS,Russia/USSR,96.7,,,-1.0,,-1.0,0,
 58660,2023-208A,TIANMU-1 19,2023-12-27,2023,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,94.91,-1.0,PRC,China,97.42,,,-1.0,,-1.0,0,
@@ -13432,3 +13432,4 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 61262,2024-175V,STARLINK-32446,2024-09-25,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,90.77,-1.0,US,USA,53.16,,,-1.0,,-1.0,0,
 61439,2024-176A,OBJECT A,2024-09-26,2024,"Tanegashima Space Center, Japan",Japan,,Active,+,,-1.0,-1.0,JPN,Japan,-1.0,,,-1.0,,-1.0,0,
 61444,2024-177A,SHIJIAN-19 (SJ-19),2024-09-27,2024,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,91.24,-1.0,PRC,China,41.62,,,-1.0,,-1.0,0,
+61448,2024-179A,OBJECT A,2024-10-04,2024,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,94.52,-1.0,US,USA,30.0,,,-1.0,,-1.0,0,
