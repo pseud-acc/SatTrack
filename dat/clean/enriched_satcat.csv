@@ -4806,7 +4806,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 45669,STARLINK-1452,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45670,STARLINK-1453,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45671,STARLINK-1454,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-45672,STARLINK-1455,2020,88.56,227.0,P,53.04,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45673,STARLINK-1456,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45674,STARLINK-1457,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45675,STARLINK-1458,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -5522,7 +5521,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 47641,STARLINK-2019,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47642,STARLINK-2020,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47643,STARLINK-2022,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-47644,STARLINK-2026,2021,88.49,260.0,P,53.04,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47645,STARLINK-2027,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47646,STARLINK-2028,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47647,STARLINK-2030,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -8690,7 +8688,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 54690,JILIN-1 GAOFEN 03D50,2022,94.89,-1.0,+,97.62,Active,0,LEO,Sea Launch Platform,China,Unknown,Unknown,Unknown
 54691,JIAOTONG 5 (HEAD-2H),2022,94.53,-1.0,+,97.61,Active,0,LEO,Sea Launch Platform,China,Unknown,Unknown,Unknown
 54692,JILIN-1 GAOFEN 03D47,2022,94.86,-1.0,+,97.63,Active,0,LEO,Sea Launch Platform,China,Unknown,Unknown,Unknown
-54693,OBJECT M,2022,88.76,-1.0,+,97.58,Active,0,LEO,Sea Launch Platform,China,Unknown,Unknown,Unknown
 54694,JILIN-1 GAOFEN 03D49,2022,94.81,-1.0,+,97.62,Active,0,LEO,Sea Launch Platform,China,Unknown,Unknown,Unknown
 54695,JILIN-1 GAOFEN 03D48,2022,94.87,-1.0,+,97.63,Active,0,LEO,Sea Launch Platform,China,Unknown,Unknown,Unknown
 54699,SHIYAN 20A (SY-20A),2022,100.76,-1.0,+,59.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
