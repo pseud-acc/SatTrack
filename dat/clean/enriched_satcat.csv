@@ -13412,3 +13412,4 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 61444,SHIJIAN-19 (SJ-19),2024,91.28,-1.0,+,41.6,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 61501,CYSAT-1,1998,92.85,-1.0,+,51.64,Active,0,LEO,Kazakhstan,USA,Unknown,Unknown,Unknown
 61502,DORA,1998,92.84,-1.0,+,51.64,Active,0,LEO,Kazakhstan,USA,Unknown,Unknown,Unknown
+61503,HULIANWAN GAOGUI-03 (HG-03),2024,630.79,-1.0,+,28.42,Active,0,MEO,PRC,China,Unknown,Unknown,Unknown

@@ -13412,3 +13412,4 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,41.6,2024-09-27,JSC,61444,2024-177A,SHIJIAN-19 (SJ-19),PAY,+,EA,LEO,ORB,PRC,91.28,Active,China,"Jiuquan Space Center, PRC",PRC
 ,51.64,1998-11-20,TYMSC,61501,1998-067WZ,CYSAT-1,PAY,+,EA,LEO,ORB,US,92.85,Active,USA,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,51.64,1998-11-20,TYMSC,61502,1998-067XA,DORA,PAY,+,EA,LEO,ORB,US,92.84,Active,USA,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
+,28.42,2024-10-10,XICLF,61503,2024-181A,HULIANWAN GAOGUI-03 (HG-03),PAY,+,EA,MEO,ORB,PRC,630.79,Active,China,"Xichang Launch Facility, PRC",PRC
