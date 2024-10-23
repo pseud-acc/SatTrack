@@ -13368,5 +13368,48 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 61501,CYSAT-1,1998,92.65,-1.0,+,51.64,Active,0,LEO,Kazakhstan,USA,Unknown,Unknown,Unknown
 61502,DORA,1998,92.54,-1.0,+,51.64,Active,0,LEO,Kazakhstan,USA,Unknown,Unknown,Unknown
 61503,HULIANWAN GAOGUI-03 (HG-03),2024,1436.08,-1.0,+,0.03,Active,0,GSO,PRC,China,Unknown,Unknown,Unknown
+61509,STARLINK-32174,2024,90.66,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61510,STARLINK-32139,2024,90.66,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61511,STARLINK-32140,2024,90.65,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61512,STARLINK-32201,2024,90.65,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61513,STARLINK-32030,2024,90.64,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61514,STARLINK-31837,2024,90.64,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61515,STARLINK-32136,2024,90.64,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61516,STARLINK-32047,2024,90.63,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61517,STARLINK-31756,2024,90.38,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61518,STARLINK-32172,2024,90.63,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61519,STARLINK-32338,2024,90.62,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61520,STARLINK-32306,2024,90.62,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61521,STARLINK-32297,2024,90.62,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61522,STARLINK-32260,2024,90.61,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61523,STARLINK-32305,2024,90.61,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61524,STARLINK-32296,2024,90.61,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61525,STARLINK-32298,2024,90.6,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61526,STARLINK-32293,2024,90.6,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61527,STARLINK-32313,2024,90.59,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61528,STARLINK-32319,2024,90.59,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61529,STARLINK-32351,2024,90.59,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61530,STARLINK-32261,2024,90.58,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61531,STARLINK-32358,2024,90.58,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61532,STARLINK-11354 [DTC],2024,90.42,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61533,STARLINK-11323 [DTC],2024,90.41,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61534,STARLINK-11338 [DTC],2024,90.41,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61535,STARLINK-11362 [DTC],2024,90.4,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61536,STARLINK-11295 [DTC],2024,90.41,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61537,STARLINK-11331 [DTC],2024,90.4,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61538,STARLINK-11325 [DTC],2024,90.4,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61539,STARLINK-11332 [DTC],2024,90.39,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61540,STARLINK-11350 [DTC],2024,90.39,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61541,STARLINK-11357 [DTC],2024,90.39,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61542,STARLINK-11322 [DTC],2024,90.38,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61543,STARLINK-11364 [DTC],2024,90.38,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61544,STARLINK-11349 [DTC],2024,90.37,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61545,STARLINK-32406,2024,90.49,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61546,STARLINK-32445,2024,90.49,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61547,STARLINK-32411,2024,90.49,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61548,STARLINK-32424,2024,90.48,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61549,STARLINK-32389,2024,90.47,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61550,STARLINK-32476,2024,90.47,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61551,STARLINK-32366,2024,90.48,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 61571,GAOFEN-12 05,2024,97.14,-1.0,+,97.92,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 61614,OBJECT A,2024,95.94,-1.0,+,97.64,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
