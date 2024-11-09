@@ -13499,3 +13499,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 61730,COSMOS 2579,2024,93.65,-1.0,+,97.56,Active,0,LEO,Russia,Russia/USSR,Unknown,Unknown,Unknown
 61733,DSN-3 (KIRAMEKI-3),2024,831.97,-1.0,+,8.08,Active,0,MEO,Japan,Japan,Unknown,Unknown,Unknown
 61793,OBJECT B,2024,97.57,-1.0,+,97.92,Active,0,LEO,New Zealand,To Be Determined,Unknown,Unknown,Unknown
+61869,OBJECT A,2024,95.1,-1.0,+,97.49,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+61870,OBJECT B,2024,95.15,-1.0,+,97.49,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+61871,OBJECT C,2024,95.13,-1.0,+,97.5,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+61872,OBJECT D,2024,95.11,-1.0,+,97.5,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
