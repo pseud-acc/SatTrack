@@ -4372,7 +4372,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 44481,AEHF-5 (USA 292),2019,1436.08,6169.0,+,2.4,Active,1,GSO,USA,USA,Military,Atlas,Communications
 44486,QIANSHENG 1-01,2019,93.6,65.0,UNK,97.39,Inactive,1,LEO,PRC,China,Commercial,Jielong,Earth Observation
 44487,WEILAI 3,2019,92.7,8.0,UNK,97.4,Inactive,1,LEO,PRC,China,Commercial,Jielong,Communications
-44488,TIANQI-2,2019,88.53,10.0,UNK,97.37,Inactive,1,LEO,PRC,China,Commercial,Jielong,Earth Observation
 44493,ZHONGXING-18,2019,452.8,-1.0,-,28.57,Inactive,0,MEO,PRC,China,Unknown,Unknown,Unknown
 44495,BRO-1,2019,94.08,8.0,+,45.01,Active,1,LEO,New Zealand,France,Commercial,Electron,Earth Observation
 44497,PEARL WHITE 1,2019,93.22,8.0,+,45.01,Active,1,LEO,New Zealand,USA,Commercial,Electron,Technology Development
@@ -13532,6 +13531,26 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 61870,OBJECT B,2024,95.14,-1.0,+,97.49,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 61871,OBJECT C,2024,95.13,-1.0,+,97.5,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 61872,OBJECT D,2024,95.12,-1.0,+,97.5,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+61874,STARLINK-11402 [DTC],2024,90.55,-1.0,+,53.17,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61875,STARLINK-11316 [DTC],2024,90.53,-1.0,+,53.17,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61876,STARLINK-11401 [DTC],2024,90.51,-1.0,+,53.17,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61877,STARLINK-11321 [DTC],2024,90.49,-1.0,+,53.17,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61878,STARLINK-11314 [DTC],2024,90.47,-1.0,+,53.17,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61879,STARLINK-11324 [DTC],2024,90.46,-1.0,+,53.17,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61880,STARLINK-11328 [DTC],2024,90.44,-1.0,+,53.17,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61881,STARLINK-11329 [DTC],2024,90.43,-1.0,+,53.17,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61882,STARLINK-11398 [DTC],2024,90.41,-1.0,+,53.17,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61883,STARLINK-11383 [DTC],2024,90.39,-1.0,+,53.17,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61884,STARLINK-11359 [DTC],2024,90.4,-1.0,+,53.17,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61885,STARLINK-11301 [DTC],2024,90.37,-1.0,+,53.17,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61886,STARLINK-11351 [DTC],2024,90.36,-1.0,+,53.17,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61887,STARLINK-32410,2024,90.41,-1.0,+,53.17,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61888,STARLINK-32377,2024,90.39,-1.0,+,53.17,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61889,STARLINK-32292,2024,90.36,-1.0,+,53.17,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61890,STARLINK-32501,2024,90.38,-1.0,+,53.17,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61891,STARLINK-32383,2024,90.37,-1.0,+,53.17,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61892,STARLINK-32239,2024,90.39,-1.0,+,53.17,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61893,STARLINK-32489,2024,90.36,-1.0,+,53.17,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 61894,OBJECT A,2024,95.09,-1.0,+,97.48,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 61895,OBJECT B,2024,95.1,-1.0,+,97.47,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 61896,OBJECT C,2024,95.09,-1.0,+,97.48,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
@@ -13548,4 +13567,28 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 61907,OBJECT P,2024,95.06,-1.0,+,97.48,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 61908,OBJECT Q,2024,95.06,-1.0,+,97.48,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 61910,KOREASAT-6A,2024,1045.34,-1.0,+,3.77,Active,0,MEO,USA,South Korea,Unknown,Unknown,Unknown
+61912,STARLINK-32303,2024,90.22,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61913,STARLINK-32434,2024,90.22,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61914,STARLINK-32460,2024,90.2,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61915,STARLINK-32559,2024,90.21,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61916,STARLINK-32541,2024,90.21,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61917,STARLINK-32544,2024,90.18,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61918,STARLINK-32555,2024,90.19,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61919,STARLINK-32547,2024,90.18,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61920,STARLINK-32616,2024,90.18,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61921,STARLINK-32605,2024,90.16,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61922,STARLINK-32579,2024,90.17,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61923,STARLINK-32537,2024,90.16,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61924,STARLINK-32564,2024,90.15,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61925,STARLINK-32536,2024,90.15,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61926,STARLINK-32624,2024,90.14,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61927,STARLINK-32622,2024,90.14,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61928,STARLINK-32620,2024,90.13,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61929,STARLINK-32609,2024,90.13,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61930,STARLINK-32567,2024,90.06,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61931,STARLINK-32420,2024,90.11,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61932,STARLINK-32354,2024,90.11,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61933,STARLINK-32361,2024,90.11,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61934,STARLINK-32563,2024,90.09,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61935,STARLINK-32500,2024,90.09,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 61936,OBJECT A,2024,97.64,-1.0,+,98.01,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
