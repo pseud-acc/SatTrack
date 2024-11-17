@@ -3384,7 +3384,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 39168,2013-024A,WGS F5 (USA 243),2013-05-25,2013,"Air Force Eastern Test Range, Florida, USA",USA,Delta 4,Active,+,GSO,1436.13,-1.0,US,USA,0.01,Military,Communications,5990.0,3450,14.0,1,Delta
 39172,2013-026A,SES-6,2013-06-03,2013,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Active,+,GSO,1436.13,-1.0,SES,SES,0.03,Commercial,Communications,6140.0,,15.0,1,Proton
 39177,2013-028A,COSMOS 2486,2013-06-07,2013,"Plesetsk Missile and Space Complex, Russia",Russia,Soyuz-2.1b,Active,+,LEO,98.92,-1.0,CIS,Russia/USSR,97.94,Military,Earth Observation,7000.0,,5.0,1,Soyuz
-39186,2013-030A,RESURS-P 1,2013-06-25,2013,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Soyuz-2.1b,Inactive,-,LEO,88.19,-1.0,CIS,Russia/USSR,96.96,Commercial/Government,Earth Observation,5900.0,,3.0,1,Soyuz
 39188,2013-031A,O3B FM5,2013-06-25,2013,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Soyuz-ST,Active,+,MEO,287.93,-1.0,O3B,O3b Networks,0.07,Commercial,Communications,700.0,,-1.0,1,Soyuz
 39189,2013-031B,O3B FM4,2013-06-25,2013,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Soyuz-ST,Active,+,MEO,287.93,-1.0,O3B,O3b Networks,0.04,Commercial,Communications,700.0,,-1.0,1,Soyuz
 39190,2013-031C,O3B FM2,2013-06-25,2013,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Soyuz-ST,Active,+,MEO,287.93,-1.0,O3B,O3b Networks,0.03,Commercial,Communications,700.0,,-1.0,1,Soyuz
@@ -9982,7 +9981,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 56947,2023-084R,ICEYE-X30,2023-06-12,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.3,-1.0,FIN,Finland,97.55,,,-1.0,,-1.0,0,
 56949,2023-084T,ICEYE-X23,2023-06-12,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.17,-1.0,FIN,Finland,97.55,,,-1.0,,-1.0,0,
 56950,2023-084U,BLACKJACK ACES-3,2023-06-12,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.45,-1.0,US,USA,97.56,,,-1.0,,-1.0,0,
-56951,2023-084V,QPS-SAR-6 (AMATERU-III),2023-06-12,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,88.29,-1.0,JPN,Japan,97.52,,,-1.0,,-1.0,0,
 56952,2023-084W,BLACKJACK ACES-4,2023-06-12,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,93.92,-1.0,US,USA,97.56,,,-1.0,,-1.0,0,
 56953,2023-084X,RUNNER-1 (TYVAK-1005),2023-06-12,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.54,-1.0,US,USA,97.56,,,-1.0,,-1.0,0,
 56954,2023-084Y,HOTSAT-1,2023-06-12,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.67,-1.0,UK,UK,97.56,,,-1.0,,-1.0,0,
@@ -13209,7 +13207,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 61064,2024-164Q,STARLINK-32378,2024-09-13,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,93.53,-1.0,US,USA,53.16,,,-1.0,,-1.0,0,
 61065,2024-164R,STARLINK-32321,2024-09-13,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,93.53,-1.0,US,USA,53.16,,,-1.0,,-1.0,0,
 61066,2024-164S,STARLINK-32381,2024-09-13,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,93.53,-1.0,US,USA,53.16,,,-1.0,,-1.0,0,
-61067,2024-164T,STARLINK-32368,2024-09-13,2024,"Air Force Western Test Range, California, USA",USA,,Active,P,LEO,93.27,-1.0,US,USA,53.16,,,-1.0,,-1.0,0,
+61067,2024-164T,STARLINK-32368,2024-09-13,2024,"Air Force Western Test Range, California, USA",USA,,Inactive,-,LEO,93.27,-1.0,US,USA,53.16,,,-1.0,,-1.0,0,
 61068,2024-164U,STARLINK-32385,2024-09-13,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,93.53,-1.0,US,USA,53.16,,,-1.0,,-1.0,0,
 61069,2024-164V,STARLINK-32380,2024-09-13,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,93.53,-1.0,US,USA,53.16,,,-1.0,,-1.0,0,
 61070,2024-164W,STARLINK-32375,2024-09-13,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,93.53,-1.0,US,USA,53.16,,,-1.0,,-1.0,0,

@@ -3384,7 +3384,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 39168,WGS F5 (USA 243),2013,1436.13,5990.0,+,0.01,Active,1,GSO,USA,USA,Military,Delta,Communications
 39172,SES-6,2013,1436.13,6140.0,+,0.03,Active,1,GSO,Kazakhstan,SES,Commercial,Proton,Communications
 39177,COSMOS 2486,2013,98.92,7000.0,+,97.94,Active,1,LEO,Russia,Russia/USSR,Military,Soyuz,Earth Observation
-39186,RESURS-P 1,2013,88.19,5900.0,-,96.96,Inactive,1,LEO,Kazakhstan,Russia/USSR,Commercial/Government,Soyuz,Earth Observation
 39188,O3B FM5,2013,287.93,700.0,+,0.07,Active,1,MEO,French Guiana,O3b Networks,Commercial,Soyuz,Communications
 39189,O3B FM4,2013,287.93,700.0,+,0.04,Active,1,MEO,French Guiana,O3b Networks,Commercial,Soyuz,Communications
 39190,O3B FM2,2013,287.93,700.0,+,0.03,Active,1,MEO,French Guiana,O3b Networks,Commercial,Soyuz,Communications
@@ -9982,7 +9981,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 56947,ICEYE-X30,2023,94.3,-1.0,+,97.55,Active,0,LEO,USA,Finland,Unknown,Unknown,Unknown
 56949,ICEYE-X23,2023,94.17,-1.0,+,97.55,Active,0,LEO,USA,Finland,Unknown,Unknown,Unknown
 56950,BLACKJACK ACES-3,2023,94.45,-1.0,+,97.56,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-56951,QPS-SAR-6 (AMATERU-III),2023,88.29,-1.0,+,97.52,Active,0,LEO,USA,Japan,Unknown,Unknown,Unknown
 56952,BLACKJACK ACES-4,2023,93.92,-1.0,+,97.56,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56953,RUNNER-1 (TYVAK-1005),2023,94.54,-1.0,+,97.56,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56954,HOTSAT-1,2023,94.67,-1.0,+,97.56,Active,0,LEO,USA,UK,Unknown,Unknown,Unknown
@@ -13209,7 +13207,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 61064,STARLINK-32378,2024,93.53,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 61065,STARLINK-32321,2024,93.53,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 61066,STARLINK-32381,2024,93.53,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-61067,STARLINK-32368,2024,93.27,-1.0,P,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61067,STARLINK-32368,2024,93.27,-1.0,-,53.16,Inactive,0,LEO,USA,USA,Unknown,Unknown,Unknown
 61068,STARLINK-32385,2024,93.53,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 61069,STARLINK-32380,2024,93.53,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 61070,STARLINK-32375,2024,93.53,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
