@@ -13641,6 +13641,30 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 62027,STARLINK-32512,2024,90.54,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 62028,GSAT-N2,2024,1144.09,-1.0,+,27.64,Active,0,MEO,USA,India,Unknown,Unknown,Unknown
 62030,PROGRESS-MS 29,2024,92.9,-1.0,+,51.64,Active,0,LEO,Kazakhstan,Russia/USSR,Unknown,Unknown,Unknown
+62032,STARLINK-32637,2024,90.39,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+62033,STARLINK-32582,2024,90.38,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+62034,STARLINK-32615,2024,90.38,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+62035,STARLINK-32592,2024,90.37,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+62036,STARLINK-32225,2024,90.36,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+62037,STARLINK-32595,2024,90.36,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+62038,STARLINK-32477,2024,90.35,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+62039,STARLINK-32480,2024,90.35,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+62040,STARLINK-32510,2024,90.34,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+62041,STARLINK-32456,2024,90.34,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+62042,STARLINK-32509,2024,90.33,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+62043,STARLINK-32491,2024,90.33,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+62044,STARLINK-32577,2024,90.32,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+62045,STARLINK-32618,2024,90.31,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+62046,STARLINK-32598,2024,90.31,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+62047,STARLINK-32630,2024,90.3,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+62048,STARLINK-32599,2024,90.29,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+62049,STARLINK-32473,2024,90.29,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+62050,STARLINK-32492,2024,90.28,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+62051,STARLINK-32496,2024,90.28,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+62052,STARLINK-32495,2024,90.27,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+62053,STARLINK-32494,2024,90.26,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+62054,STARLINK-32408,2024,90.25,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+62055,STARLINK-32571,2024,90.26,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 62078,OBJECT A,2024,95.08,-1.0,+,97.55,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 62079,OBJECT B,2024,94.72,-1.0,+,97.42,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 62081,OBJECT A,2024,97.59,-1.0,+,97.95,Active,0,LEO,New Zealand,France,Unknown,Unknown,Unknown
