@@ -1505,7 +1505,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,82.62,1989-02-10,PLMSC,19790,1989-009F,COSMOS 1999,PAY,UNK,EA,LEO,ORB,CIS,113.77,Inactive,Russia/USSR,"Plesetsk Missile and Space Complex, Russia",Russia
 ,54.69,1989-02-14,AFETR,19802,1989-013A,NAVSTAR 13 (USA 35),PAY,-,EA,MEO,ORB,US,777.01,Inactive,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,63.82,1989-02-15,TYMSC,19807,1989-014A,MOLNIYA 1-75,PAY,UNK,EA,MEO,ORB,CIS,718.07,Inactive,Russia/USSR,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
-,74.87,1989-02-21,KSCUT,19822,1989-016A,AKEBONO (EXOS-D),PAY,-,EA,LEO,ORB,JPN,88.48,Inactive,Japan,"Uchinoura Space Center(Fomerly Kagoshima Space Center—University of Tokyo, Japan)",Japan
 ,82.95,1989-02-22,PLMSC,19826,1989-017A,COSMOS 2004,PAY,UNK,EA,LEO,ORB,CIS,104.92,Inactive,Russia/USSR,"Plesetsk Missile and Space Complex, Russia",Russia
 ,82.52,1989-02-28,PLMSC,19851,1989-018A,METEOR 2-18,PAY,UNK,EA,LEO,ORB,CIS,103.9,Inactive,Russia/USSR,"Plesetsk Missile and Space Complex, Russia",Russia
 ,14.92,1989-03-06,FRGUI,19874,1989-020A,JCSAT-1,PAY,-,EA,GSO,ORB,JPN,1446.65,Inactive,Japan,"Europe's Spaceport, Kourou, French Guiana",French Guiana
@@ -1905,7 +1904,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,64.99,1993-12-22,PLMSC,22949,1993-079A,MOLNIYA 1-87,PAY,UNK,EA,MEO,ORB,CIS,709.88,Inactive,Russia/USSR,"Plesetsk Missile and Space Complex, Russia",Russia
 ,14.6,1994-01-20,TYMSC,22963,1994-002A,GALS 1,PAY,-,EA,GSO,ORB,CIS,1436.37,Inactive,Russia/USSR,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,82.56,1994-01-25,PLMSC,22969,1994-003A,METEOR 3-6,PAY,UNK,EA,LEO,ORB,CIS,109.34,Inactive,Russia/USSR,"Plesetsk Missile and Space Complex, Russia",Russia
-,82.56,1994-01-25,PLMSC,22970,1994-003B,SL-14 R/B,PAY,-,EA,LEO,ORB,CIS,109.34,Inactive,Russia/USSR,"Plesetsk Missile and Space Complex, Russia",Russia
 ,82.56,1994-01-25,PLMSC,22971,1994-003C,TUBSAT B,PAY,UNK,EA,LEO,ORB,GER,109.33,Inactive,Germany,"Plesetsk Missile and Space Complex, Russia",Russia
 ,28.55,1994-02-03,TANSC,22979,1994-007B,VEP,PAY,UNK,EA,MEO,ORB,JPN,637.62,Inactive,Japan,"Tanegashima Space Center, Japan",Japan
 ,14.4,1994-02-05,TYMSC,22981,1994-008A,RADUGA-1 3,PAY,-,EA,GSO,ORB,CIS,1436.55,Inactive,Russia/USSR,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
@@ -3255,7 +3253,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,51.99,2011-12-28,TYMSC,38044,2011-080E,GLOBALSTAR M090,PAY,+,EA,LEO,ORB,GLOB,114.08,Active,Globalstar,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,51.99,2011-12-28,TYMSC,38045,2011-080F,GLOBALSTAR M086,PAY,+,EA,LEO,ORB,GLOB,114.08,Active,Globalstar,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,97.22,2012-01-09,TAISC,38046,2012-001A,ZIYUAN 3-1 (ZY 3-1),PAY,+,EA,LEO,ORB,PRC,93.37,Active,China,"Taiyuan Space Center, PRC",PRC
-,6.14,2012-01-13,XICLF,38049,2012-002A,FENGYUN 2F,PAY,P,EA,GSO,ORB,PRC,1452.54,Active,China,"Xichang Launch Facility, PRC",PRC
+,6.14,2012-01-13,XICLF,38049,2012-002A,FENGYUN 2F,PAY,-,EA,GSO,ORB,PRC,1452.54,Inactive,China,"Xichang Launch Facility, PRC",PRC
 ,0.01,2012-01-20,AFETR,38070,2012-003A,WGS F4 (USA 233),PAY,+,EA,GSO,ORB,US,1436.12,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,69.49,2012-02-13,FRGUI,38077,2012-006A,LARES,PAY,+,EA,LEO,ORB,IT,114.75,Active,Italy,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,0.02,2012-02-14,TYMSC,38087,2012-007A,SES-4,PAY,+,EA,GSO,ORB,SES,1436.14,Active,SES,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
@@ -8237,7 +8235,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,98.53,2022-09-20,JSC,53877,2022-115A,YUNHAI-1 03,PAY,+,EA,LEO,ORB,PRC,100.47,Active,China,"Jiuquan Space Center, PRC",PRC
 ,,2022-09-24,AFWTR,53883,2022-117A,USA 338,PAY,+,EA,,ORB,US,,Active,USA,"Air Force Western Test Range, California, USA",USA
 ,97.46,2022-09-24,TAISC,53884,2022-118A,SHIYAN 14 (SY-14),PAY,+,EA,LEO,ORB,PRC,92.84,Active,China,"Taiyuan Space Center, PRC",PRC
-,97.45,2022-09-24,TAISC,53885,2022-118B,SHIYAN 15 (SY-15),PAY,+,EA,LEO,ORB,PRC,88.98,Active,China,"Taiyuan Space Center, PRC",PRC
 ,53.22,2022-09-24,AFETR,53886,2022-119A,STARLINK-5028,PAY,+,EA,LEO,ORB,US,95.44,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.22,2022-09-24,AFETR,53887,2022-119B,STARLINK-5029,PAY,+,EA,LEO,ORB,US,95.44,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.22,2022-09-24,AFETR,53888,2022-119C,STARLINK-5034,PAY,+,EA,LEO,ORB,US,95.44,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
@@ -9509,7 +9506,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.34,2023-04-15,AFWTR,56224,2023-054AY,REVELA,PAY,+,EA,LEO,ORB,IT,91.32,Active,Italy,"Air Force Western Test Range, California, USA",USA
 ,97.44,2023-04-15,AFWTR,56225,2023-054AZ,AAC-HSI-SAT1,PAY,+,EA,LEO,ORB,UK,95.47,Active,UK,"Air Force Western Test Range, California, USA",USA
 ,97.56,2023-06-12,AFWTR,56226,2023-084BK,OUTPOST MISSION 1,PAY,+,EA,LEO,ORB,US,94.06,Active,USA,"Air Force Western Test Range, California, USA",USA
-,97.53,2023-06-12,AFWTR,56227,2023-084BL,SKYKRAFT-3B,PAY,+,EA,LEO,ORB,AUS,89.16,Active,Australia,"Air Force Western Test Range, California, USA",USA
 ,97.55,2023-06-12,AFWTR,56228,2023-084BM,SKYKRAFT-3C,PAY,+,EA,LEO,ORB,AUS,92.63,Active,Australia,"Air Force Western Test Range, California, USA",USA
 ,97.55,2023-06-12,AFWTR,56229,2023-084BN,SKYKRAFT-3,PAY,-,EA,LEO,ORB,AUS,93.91,Inactive,Australia,"Air Force Western Test Range, California, USA",USA
 ,50.0,2023-04-16,JSC,56232,2023-055A,FENGYUN 3G,PAY,+,EA,LEO,ORB,PRC,92.68,Active,China,"Jiuquan Space Center, PRC",PRC
@@ -13672,3 +13668,5 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.94,2024-11-25,RLLB,62083,2024-219C,OBJECT C,PAY,+,EA,LEO,ORB,FR,97.63,Active,France,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
 ,97.95,2024-11-25,RLLB,62084,2024-219D,OBJECT D,PAY,+,EA,LEO,ORB,FR,97.44,Active,France,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
 ,97.95,2024-11-25,RLLB,62085,2024-219E,OBJECT E,PAY,+,EA,LEO,ORB,FR,97.52,Active,France,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand
+,49.97,2024-11-27,JSC,62111,2024-221A,OBJECT A,PAY,+,EA,LEO,ORB,PRC,92.59,Active,China,"Jiuquan Space Center, PRC",PRC
+,49.97,2024-11-27,JSC,62112,2024-221B,OBJECT B,PAY,+,EA,LEO,ORB,PRC,92.59,Active,China,"Jiuquan Space Center, PRC",PRC

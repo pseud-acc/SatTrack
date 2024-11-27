@@ -1505,7 +1505,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 19790,1989-009F,COSMOS 1999,1989-02-10,1989,"Plesetsk Missile and Space Complex, Russia",Russia,,Inactive,UNK,LEO,113.77,-1.0,CIS,Russia/USSR,82.62,,,-1.0,,-1.0,0,
 19802,1989-013A,NAVSTAR 13 (USA 35),1989-02-14,1989,"Air Force Eastern Test Range, Florida, USA",USA,,Inactive,-,MEO,777.01,-1.0,US,USA,54.69,,,-1.0,,-1.0,0,
 19807,1989-014A,MOLNIYA 1-75,1989-02-15,1989,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Inactive,UNK,MEO,718.07,-1.0,CIS,Russia/USSR,63.82,,,-1.0,,-1.0,0,
-19822,1989-016A,AKEBONO (EXOS-D),1989-02-21,1989,"Uchinoura Space Center(Fomerly Kagoshima Space Center—University of Tokyo, Japan)",Japan,,Inactive,-,LEO,88.48,-1.0,JPN,Japan,74.87,,,-1.0,,-1.0,0,
 19826,1989-017A,COSMOS 2004,1989-02-22,1989,"Plesetsk Missile and Space Complex, Russia",Russia,,Inactive,UNK,LEO,104.92,-1.0,CIS,Russia/USSR,82.95,,,-1.0,,-1.0,0,
 19851,1989-018A,METEOR 2-18,1989-02-28,1989,"Plesetsk Missile and Space Complex, Russia",Russia,,Inactive,UNK,LEO,103.9,-1.0,CIS,Russia/USSR,82.52,,,-1.0,,-1.0,0,
 19874,1989-020A,JCSAT-1,1989-03-06,1989,"Europe's Spaceport, Kourou, French Guiana",French Guiana,,Inactive,-,GSO,1446.65,-1.0,JPN,Japan,14.92,,,-1.0,,-1.0,0,
@@ -1905,7 +1904,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 22949,1993-079A,MOLNIYA 1-87,1993-12-22,1993,"Plesetsk Missile and Space Complex, Russia",Russia,,Inactive,UNK,MEO,709.88,-1.0,CIS,Russia/USSR,64.99,,,-1.0,,-1.0,0,
 22963,1994-002A,GALS 1,1994-01-20,1994,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Inactive,-,GSO,1436.37,-1.0,CIS,Russia/USSR,14.6,,,-1.0,,-1.0,0,
 22969,1994-003A,METEOR 3-6,1994-01-25,1994,"Plesetsk Missile and Space Complex, Russia",Russia,,Inactive,UNK,LEO,109.34,-1.0,CIS,Russia/USSR,82.56,,,-1.0,,-1.0,0,
-22970,1994-003B,SL-14 R/B,1994-01-25,1994,"Plesetsk Missile and Space Complex, Russia",Russia,,Inactive,-,LEO,109.34,-1.0,CIS,Russia/USSR,82.56,,,-1.0,,-1.0,0,
 22971,1994-003C,TUBSAT B,1994-01-25,1994,"Plesetsk Missile and Space Complex, Russia",Russia,,Inactive,UNK,LEO,109.33,-1.0,GER,Germany,82.56,,,-1.0,,-1.0,0,
 22979,1994-007B,VEP,1994-02-03,1994,"Tanegashima Space Center, Japan",Japan,,Inactive,UNK,MEO,637.62,-1.0,JPN,Japan,28.55,,,-1.0,,-1.0,0,
 22981,1994-008A,RADUGA-1 3,1994-02-05,1994,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Inactive,-,GSO,1436.55,-1.0,CIS,Russia/USSR,14.4,,,-1.0,,-1.0,0,
@@ -3255,7 +3253,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 38044,2011-080E,GLOBALSTAR M090,2011-12-28,2011,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Soyuz-2.1a/Fregat,Active,+,LEO,114.08,-1.0,GLOB,Globalstar,51.99,Commercial,Communications,700.0,,15.0,1,Soyuz
 38045,2011-080F,GLOBALSTAR M086,2011-12-28,2011,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Soyuz-2.1a/Fregat,Active,+,LEO,114.08,-1.0,GLOB,Globalstar,51.99,Commercial,Communications,700.0,,15.0,1,Soyuz
 38046,2012-001A,ZIYUAN 3-1 (ZY 3-1),2012-01-09,2012,"Taiyuan Space Center, PRC",PRC,Long March 4B,Active,+,LEO,93.37,-1.0,PRC,China,97.22,Government,Earth Observation,2650.0,,4.0,1,Long March
-38049,2012-002A,FENGYUN 2F,2012-01-13,2012,"Xichang Launch Facility, PRC",PRC,Long March 3A,Active,P,GSO,1452.54,-1.0,PRC,China,6.14,Government,Earth Observation,1390.0,620,3.0,1,Long March
+38049,2012-002A,FENGYUN 2F,2012-01-13,2012,"Xichang Launch Facility, PRC",PRC,Long March 3A,Inactive,-,GSO,1452.54,-1.0,PRC,China,6.14,Government,Earth Observation,1390.0,620,3.0,1,Long March
 38070,2012-003A,WGS F4 (USA 233),2012-01-20,2012,"Air Force Eastern Test Range, Florida, USA",USA,Delta 4,Active,+,GSO,1436.12,-1.0,US,USA,0.01,Military,Communications,5990.0,3450,14.0,1,Delta
 38077,2012-006A,LARES,2012-02-13,2012,"Europe's Spaceport, Kourou, French Guiana",French Guiana,,Active,+,LEO,114.75,-1.0,IT,Italy,69.49,,,-1.0,,-1.0,0,
 38087,2012-007A,SES-4,2012-02-14,2012,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Active,+,GSO,1436.14,-1.0,SES,SES,0.02,Commercial,Communications,-1.0,,15.0,1,Proton
@@ -8237,7 +8235,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 53877,2022-115A,YUNHAI-1 03,2022-09-20,2022,"Jiuquan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,100.47,-1.0,PRC,China,98.53,Government,Earth Observation,800.0,,-1.0,1,Long March
 53883,2022-117A,USA 338,2022-09-24,2022,"Air Force Western Test Range, California, USA",USA,Delta 4 Heavy,Active,+,,-1.0,-1.0,US,USA,-1.0,Military,Earth Observation,20000.0,,5.0,1,Delta
 53884,2022-118A,SHIYAN 14 (SY-14),2022-09-24,2022,"Taiyuan Space Center, PRC",PRC,Kuaizhou 1A,Active,+,LEO,92.84,-1.0,PRC,China,97.46,Government,Technology Development,100.0,,-1.0,1,Kuaizhou
-53885,2022-118B,SHIYAN 15 (SY-15),2022-09-24,2022,"Taiyuan Space Center, PRC",PRC,Kuaizhou 1A,Active,+,LEO,88.98,-1.0,PRC,China,97.45,Government,Technology Development,100.0,,-1.0,1,Kuaizhou
 53886,2022-119A,STARLINK-5028,2022-09-24,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 53887,2022-119B,STARLINK-5029,2022-09-24,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 53888,2022-119C,STARLINK-5034,2022-09-24,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
@@ -9509,7 +9506,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 56224,2023-054AY,REVELA,2023-04-15,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,91.32,-1.0,IT,Italy,97.34,,,-1.0,,-1.0,0,
 56225,2023-054AZ,AAC-HSI-SAT1,2023-04-15,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,95.47,-1.0,UK,UK,97.44,,,-1.0,,-1.0,0,
 56226,2023-084BK,OUTPOST MISSION 1,2023-06-12,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.06,-1.0,US,USA,97.56,,,-1.0,,-1.0,0,
-56227,2023-084BL,SKYKRAFT-3B,2023-06-12,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,89.16,-1.0,AUS,Australia,97.53,,,-1.0,,-1.0,0,
 56228,2023-084BM,SKYKRAFT-3C,2023-06-12,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,92.63,-1.0,AUS,Australia,97.55,,,-1.0,,-1.0,0,
 56229,2023-084BN,SKYKRAFT-3,2023-06-12,2023,"Air Force Western Test Range, California, USA",USA,,Inactive,-,LEO,93.91,-1.0,AUS,Australia,97.55,,,-1.0,,-1.0,0,
 56232,2023-055A,FENGYUN 3G,2023-04-16,2023,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,92.68,-1.0,PRC,China,50.0,,,-1.0,,-1.0,0,
@@ -13672,3 +13668,5 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 62083,2024-219C,OBJECT C,2024-11-25,2024,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,97.63,-1.0,FR,France,97.94,,,-1.0,,-1.0,0,
 62084,2024-219D,OBJECT D,2024-11-25,2024,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,97.44,-1.0,FR,France,97.95,,,-1.0,,-1.0,0,
 62085,2024-219E,OBJECT E,2024-11-25,2024,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,97.52,-1.0,FR,France,97.95,,,-1.0,,-1.0,0,
+62111,2024-221A,OBJECT A,2024-11-27,2024,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,92.59,-1.0,PRC,China,49.97,,,-1.0,,-1.0,0,
+62112,2024-221B,OBJECT B,2024-11-27,2024,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,92.59,-1.0,PRC,China,49.97,,,-1.0,,-1.0,0,
