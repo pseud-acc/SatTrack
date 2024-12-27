@@ -4861,7 +4861,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 46027,STARLINK-1522,2020,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46028,STARLINK-1523,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46029,STARLINK-1526,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-46031,STARLINK-1544,2020,88.9,260.0,P,53.04,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46032,STARLINK-1555,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46033,STARLINK-1556,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46034,STARLINK-1557,2020,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
