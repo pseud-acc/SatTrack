@@ -4233,7 +4233,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 43813,2018-099BH,BRIO,2018-12-03,2018,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,93.7,-1.0,US,USA,97.54,Commercial,Technology Development,4.0,,-1.0,1,Falcon
 43815,2018-099BK,FALCONSAT-6,2018-12-03,2018,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,94.86,-1.0,US,USA,97.55,Civil/Military,Technology Development,181.0,,-1.0,1,Falcon
 43816,2018-099BL,SPACEBEE-7,2018-12-03,2018,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,94.46,-1.0,US,USA,97.52,Commercial,Communications,2.0,,2.0,1,Falcon
-43818,2018-099BN,SPACEBEE-6,2018-12-03,2018,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,87.95,-1.0,US,USA,97.48,Commercial,Communications,2.0,,2.0,1,Falcon
 43819,2018-099BP,EXCITE,2018-12-03,2018,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,95.82,-1.0,US,USA,97.47,Military,Technology Development,155.0,,-1.0,1,Falcon
 43820,2018-099BQ,SEAHAWK-1,2018-12-03,2018,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,95.28,-1.0,US,USA,97.48,Civil,Earth Observation,4.0,,-1.0,1,Falcon
 43821,2018-099BR,FLOCK 3S-2,2018-12-03,2018,"Air Force Western Test Range, California, USA",USA,,Inactive,-,LEO,93.94,-1.0,US,USA,97.51,,,-1.0,,-1.0,0,
@@ -6362,7 +6361,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 49317,2021-091C,OBJECT C,2021-10-14,2021,"Taiyuan Space Center, PRC",PRC,Long March 2D,Inactive,-,LEO,93.46,-1.0,PRC,China,97.43,Commercial,Technology Development,50.0,50,-1.0,1,Long March
 49318,2021-091D,OBJECT D,2021-10-14,2021,"Taiyuan Space Center, PRC",PRC,,Inactive,UNK,LEO,102.87,-1.0,PRC,China,97.48,,,-1.0,,-1.0,0,
 49319,2021-091E,OBJECT E,2021-10-14,2021,"Taiyuan Space Center, PRC",PRC,Long March 4D,Inactive,-,LEO,93.57,-1.0,PRC,China,97.43,Commercial,Earth Observation,45.0,45,-1.0,1,Long March
-49320,2021-091F,OBJECT F,2021-10-14,2021,"Taiyuan Space Center, PRC",PRC,,Inactive,-,LEO,88.48,-1.0,PRC,China,97.38,,,-1.0,,-1.0,0,
 49321,2021-091G,OBJECT G,2021-10-14,2021,"Taiyuan Space Center, PRC",PRC,Long March 2D,Inactive,-,LEO,93.47,-1.0,PRC,China,97.43,Civil,Technology Development,30.0,30,-1.0,1,Long March
 49322,2021-091H,OBJECT H,2021-10-14,2021,"Taiyuan Space Center, PRC",PRC,Long March 2D,Inactive,-,LEO,92.25,-1.0,PRC,China,97.42,Commercial,Earth Observation,45.0,45,-1.0,1,Long March
 49323,2021-091J,OBJECT J,2021-10-14,2021,"Taiyuan Space Center, PRC",PRC,Long March 2D,Inactive,-,LEO,90.86,-1.0,PRC,China,97.39,Civil,Technology Development,10.0,10,-1.0,1,Long March
@@ -13837,6 +13835,34 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 62367,2024-245C,TIANQI 35,2024-12-19,2024,"Yellow Sea Launch Area, PRC",PRC,,Active,+,LEO,101.83,-1.0,PRC,China,44.98,,,-1.0,,-1.0,0,
 62368,2024-245D,TIANQI 36,2024-12-19,2024,"Yellow Sea Launch Area, PRC",PRC,,Active,+,LEO,101.85,-1.0,PRC,China,44.98,,,-1.0,,-1.0,0,
 62374,2024-246A,TJS-12,2024-12-20,2024,"Xichang Launch Facility, PRC",PRC,,Active,+,GSO,1436.14,-1.0,PRC,China,1.95,,,-1.0,,-1.0,0,
+62378,2024-247B,OBJECT B,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.81,-1.0,TBD,To Be Determined,45.0,,,-1.0,,-1.0,0,
+62379,2024-247C,OBJECT C,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.79,-1.0,TBD,To Be Determined,45.0,,,-1.0,,-1.0,0,
+62380,2024-247D,OBJECT D,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.79,-1.0,TBD,To Be Determined,45.0,,,-1.0,,-1.0,0,
+62381,2024-247E,OBJECT E,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.79,-1.0,TBD,To Be Determined,45.0,,,-1.0,,-1.0,0,
+62382,2024-247F,OBJECT F,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.79,-1.0,TBD,To Be Determined,44.99,,,-1.0,,-1.0,0,
+62383,2024-247G,OBJECT G,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.78,-1.0,TBD,To Be Determined,45.0,,,-1.0,,-1.0,0,
+62384,2024-247H,OBJECT H,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,95.01,-1.0,TBD,To Be Determined,45.0,,,-1.0,,-1.0,0,
+62385,2024-247J,OBJECT J,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.73,-1.0,TBD,To Be Determined,44.99,,,-1.0,,-1.0,0,
+62386,2024-247K,OBJECT K,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.84,-1.0,TBD,To Be Determined,45.0,,,-1.0,,-1.0,0,
+62387,2024-247L,OBJECT L,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.73,-1.0,TBD,To Be Determined,45.0,,,-1.0,,-1.0,0,
+62388,2024-247M,OBJECT M,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.83,-1.0,TBD,To Be Determined,45.0,,,-1.0,,-1.0,0,
+62389,2024-247N,OBJECT N,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,95.0,-1.0,TBD,To Be Determined,45.0,,,-1.0,,-1.0,0,
+62390,2024-247P,OBJECT P,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.9,-1.0,TBD,To Be Determined,45.0,,,-1.0,,-1.0,0,
+62391,2024-247Q,OBJECT Q,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.81,-1.0,TBD,To Be Determined,44.99,,,-1.0,,-1.0,0,
+62392,2024-247R,OBJECT R,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.84,-1.0,TBD,To Be Determined,45.0,,,-1.0,,-1.0,0,
+62393,2024-247S,OBJECT S,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.8,-1.0,TBD,To Be Determined,44.99,,,-1.0,,-1.0,0,
+62394,2024-247T,OBJECT T,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.82,-1.0,TBD,To Be Determined,44.99,,,-1.0,,-1.0,0,
+62395,2024-247U,OBJECT U,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.72,-1.0,TBD,To Be Determined,45.0,,,-1.0,,-1.0,0,
+62396,2024-247V,OBJECT V,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.73,-1.0,TBD,To Be Determined,45.0,,,-1.0,,-1.0,0,
+62397,2024-247W,OBJECT W,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.7,-1.0,TBD,To Be Determined,45.0,,,-1.0,,-1.0,0,
+62398,2024-247X,OBJECT X,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.7,-1.0,TBD,To Be Determined,45.0,,,-1.0,,-1.0,0,
+62399,2024-247Y,OBJECT Y,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.73,-1.0,TBD,To Be Determined,44.99,,,-1.0,,-1.0,0,
+62400,2024-247Z,OBJECT Z,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.77,-1.0,TBD,To Be Determined,44.99,,,-1.0,,-1.0,0,
+62401,2024-247AA,OBJECT AA,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.73,-1.0,TBD,To Be Determined,44.99,,,-1.0,,-1.0,0,
+62402,2024-247AB,OBJECT AB,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.71,-1.0,TBD,To Be Determined,44.99,,,-1.0,,-1.0,0,
+62403,2024-247AC,OBJECT AC,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.83,-1.0,TBD,To Be Determined,44.99,,,-1.0,,-1.0,0,
+62404,2024-247AD,OBJECT AD,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.73,-1.0,TBD,To Be Determined,45.0,,,-1.0,,-1.0,0,
+62405,2024-247AE,OBJECT AE,2024-12-21,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.71,-1.0,TBD,To Be Determined,44.99,,,-1.0,,-1.0,0,
 62406,2024-248A,STRIX-2,2024-12-21,2024,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,95.99,-1.0,JPN,Japan,97.57,,,-1.0,,-1.0,0,
 62409,2024-249A,STARLINK-11444 [DTC],2024-12-23,2024,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,91.26,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 62410,2024-249B,STARLINK-11493 [DTC],2024-12-23,2024,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,91.26,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,

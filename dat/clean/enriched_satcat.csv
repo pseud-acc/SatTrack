@@ -4233,7 +4233,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 43813,BRIO,2018,93.7,4.0,+,97.54,Active,1,LEO,USA,USA,Commercial,Falcon,Technology Development
 43815,FALCONSAT-6,2018,94.86,181.0,+,97.55,Active,1,LEO,USA,USA,Civil/Military,Falcon,Technology Development
 43816,SPACEBEE-7,2018,94.46,2.0,+,97.52,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-43818,SPACEBEE-6,2018,87.95,2.0,+,97.48,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 43819,EXCITE,2018,95.82,155.0,+,97.47,Active,1,LEO,USA,USA,Military,Falcon,Technology Development
 43820,SEAHAWK-1,2018,95.28,4.0,+,97.48,Active,1,LEO,USA,USA,Civil,Falcon,Earth Observation
 43821,FLOCK 3S-2,2018,93.94,-1.0,-,97.51,Inactive,0,LEO,USA,USA,Unknown,Unknown,Unknown
@@ -6362,7 +6361,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 49317,OBJECT C,2021,93.46,50.0,-,97.43,Inactive,1,LEO,PRC,China,Commercial,Long March,Technology Development
 49318,OBJECT D,2021,102.87,-1.0,UNK,97.48,Inactive,0,LEO,PRC,China,Unknown,Unknown,Unknown
 49319,OBJECT E,2021,93.57,45.0,-,97.43,Inactive,1,LEO,PRC,China,Commercial,Long March,Earth Observation
-49320,OBJECT F,2021,88.48,-1.0,-,97.38,Inactive,0,LEO,PRC,China,Unknown,Unknown,Unknown
 49321,OBJECT G,2021,93.47,30.0,-,97.43,Inactive,1,LEO,PRC,China,Civil,Long March,Technology Development
 49322,OBJECT H,2021,92.25,45.0,-,97.42,Inactive,1,LEO,PRC,China,Commercial,Long March,Earth Observation
 49323,OBJECT J,2021,90.86,10.0,-,97.39,Inactive,1,LEO,PRC,China,Civil,Long March,Technology Development
@@ -13837,6 +13835,34 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 62367,TIANQI 35,2024,101.83,-1.0,+,44.98,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 62368,TIANQI 36,2024,101.85,-1.0,+,44.98,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 62374,TJS-12,2024,1436.14,-1.0,+,1.95,Active,0,GSO,PRC,China,Unknown,Unknown,Unknown
+62378,OBJECT B,2024,94.81,-1.0,+,45.0,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62379,OBJECT C,2024,94.79,-1.0,+,45.0,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62380,OBJECT D,2024,94.79,-1.0,+,45.0,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62381,OBJECT E,2024,94.79,-1.0,+,45.0,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62382,OBJECT F,2024,94.79,-1.0,+,44.99,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62383,OBJECT G,2024,94.78,-1.0,+,45.0,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62384,OBJECT H,2024,95.01,-1.0,+,45.0,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62385,OBJECT J,2024,94.73,-1.0,+,44.99,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62386,OBJECT K,2024,94.84,-1.0,+,45.0,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62387,OBJECT L,2024,94.73,-1.0,+,45.0,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62388,OBJECT M,2024,94.83,-1.0,+,45.0,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62389,OBJECT N,2024,95.0,-1.0,+,45.0,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62390,OBJECT P,2024,94.9,-1.0,+,45.0,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62391,OBJECT Q,2024,94.81,-1.0,+,44.99,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62392,OBJECT R,2024,94.84,-1.0,+,45.0,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62393,OBJECT S,2024,94.8,-1.0,+,44.99,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62394,OBJECT T,2024,94.82,-1.0,+,44.99,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62395,OBJECT U,2024,94.72,-1.0,+,45.0,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62396,OBJECT V,2024,94.73,-1.0,+,45.0,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62397,OBJECT W,2024,94.7,-1.0,+,45.0,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62398,OBJECT X,2024,94.7,-1.0,+,45.0,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62399,OBJECT Y,2024,94.73,-1.0,+,44.99,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62400,OBJECT Z,2024,94.77,-1.0,+,44.99,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62401,OBJECT AA,2024,94.73,-1.0,+,44.99,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62402,OBJECT AB,2024,94.71,-1.0,+,44.99,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62403,OBJECT AC,2024,94.83,-1.0,+,44.99,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62404,OBJECT AD,2024,94.73,-1.0,+,45.0,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+62405,OBJECT AE,2024,94.71,-1.0,+,44.99,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 62406,STRIX-2,2024,95.99,-1.0,+,97.57,Active,0,LEO,New Zealand,Japan,Unknown,Unknown,Unknown
 62409,STARLINK-11444 [DTC],2024,91.26,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 62410,STARLINK-11493 [DTC],2024,91.26,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
