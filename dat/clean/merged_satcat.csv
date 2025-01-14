@@ -5307,7 +5307,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 47399,2021-005BC,STARLINK-2121,2021-01-20,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 47400,2021-005BD,STARLINK-2122,2021-01-20,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 47401,2021-005BE,STARLINK-2123,2021-01-20,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
-47402,2021-005BF,STARLINK-2124,2021-01-20,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,88.51,-1.0,US,USA,53.04,Commercial,Communications,260.0,,4.0,1,Falcon
 47403,2021-005BG,STARLINK-2127,2021-01-20,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,92.54,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 47404,2021-005BH,STARLINK-2128,2021-01-20,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 47405,2021-005BJ,STARLINK-2130,2021-01-20,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
@@ -5410,7 +5409,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 47641,2021-012X,STARLINK-2019,2021-02-16,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 47643,2021-012Z,STARLINK-2022,2021-02-16,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 47645,2021-012AB,STARLINK-2027,2021-02-16,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,89.6,-1.0,US,USA,53.04,Commercial,Communications,260.0,,4.0,1,Falcon
-47646,2021-012AC,STARLINK-2028,2021-02-16,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,88.27,-1.0,US,USA,53.03,Commercial,Communications,260.0,,4.0,1,Falcon
 47647,2021-012AD,STARLINK-2030,2021-02-16,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 47648,2021-012AE,STARLINK-2031,2021-02-16,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 47649,2021-012AF,STARLINK-2032,2021-02-16,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
@@ -5539,7 +5537,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 47839,2021-018BE,STARLINK-2431,2021-03-11,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 47840,2021-018BF,STARLINK-2432,2021-03-11,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 47841,2021-018BG,STARLINK-2433,2021-03-11,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
-47842,2021-018BH,STARLINK-2434,2021-03-11,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,88.2,-1.0,US,USA,53.04,Commercial,Communications,260.0,,4.0,1,Falcon
 47843,2021-018BJ,STARLINK-2435,2021-03-11,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 47844,2021-018BK,STARLINK-2446,2021-03-11,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 47845,2021-018BL,STARLINK-2453,2021-03-11,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
@@ -13930,3 +13927,13 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 62482,2024-254W,STARLINK-32699,2024-12-31,2024,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.57,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 62483,2025-001A,THURAYA-4,2025-01-04,2025,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,MEO,1039.87,-1.0,UAE,UAE,25.71,,,-1.0,,-1.0,0,
 62485,2025-002A,SHIJIAN-25 (SJ-25),2025-01-06,2025,"Xichang Launch Facility, PRC",PRC,,Active,+,MEO,631.73,-1.0,PRC,China,28.48,,,-1.0,,-1.0,0,
+62576,2025-007B,OBJECT B,2025-01-13,2025,"Yellow Sea Launch Area, PRC",PRC,,Active,+,LEO,97.59,-1.0,PRC,China,54.98,,,-1.0,,-1.0,0,
+62577,2025-007C,OBJECT C,2025-01-13,2025,"Yellow Sea Launch Area, PRC",PRC,,Active,+,LEO,97.59,-1.0,PRC,China,54.98,,,-1.0,,-1.0,0,
+62578,2025-007D,OBJECT D,2025-01-13,2025,"Yellow Sea Launch Area, PRC",PRC,,Active,+,LEO,97.59,-1.0,PRC,China,54.99,,,-1.0,,-1.0,0,
+62579,2025-007E,OBJECT E,2025-01-13,2025,"Yellow Sea Launch Area, PRC",PRC,,Active,+,LEO,97.6,-1.0,PRC,China,54.99,,,-1.0,,-1.0,0,
+62580,2025-007F,OBJECT F,2025-01-13,2025,"Yellow Sea Launch Area, PRC",PRC,,Active,+,LEO,97.6,-1.0,PRC,China,54.98,,,-1.0,,-1.0,0,
+62581,2025-007G,OBJECT G,2025-01-13,2025,"Yellow Sea Launch Area, PRC",PRC,,Active,+,LEO,97.6,-1.0,PRC,China,54.97,,,-1.0,,-1.0,0,
+62582,2025-007H,OBJECT H,2025-01-13,2025,"Yellow Sea Launch Area, PRC",PRC,,Active,+,LEO,97.61,-1.0,PRC,China,54.98,,,-1.0,,-1.0,0,
+62583,2025-007J,OBJECT J,2025-01-13,2025,"Yellow Sea Launch Area, PRC",PRC,,Active,+,LEO,97.61,-1.0,PRC,China,54.98,,,-1.0,,-1.0,0,
+62584,2025-007K,OBJECT K,2025-01-13,2025,"Yellow Sea Launch Area, PRC",PRC,,Active,+,LEO,97.62,-1.0,PRC,China,54.98,,,-1.0,,-1.0,0,
+62585,2025-007L,OBJECT L,2025-01-13,2025,"Yellow Sea Launch Area, PRC",PRC,,Active,+,LEO,97.62,-1.0,PRC,China,54.98,,,-1.0,,-1.0,0,
