@@ -5983,7 +5983,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 49165,STARLINK-3052,2021,96.11,260.0,+,70.0,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 49166,STARLINK-3089,2021,96.11,260.0,+,70.0,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 49167,STARLINK-3054,2021,96.11,260.0,+,70.0,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-49168,STARLINK-3101,2021,87.99,260.0,P,69.99,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 49169,STARLINK-3046,2021,96.11,260.0,+,70.0,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 49171,STARLINK-3107,2021,96.11,260.0,+,70.0,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 49172,STARLINK-3091,2021,93.86,260.0,P,70.0,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -7406,7 +7405,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 53292,STARLINK-4159,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 53293,STARLINK-4148,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 53294,STARLINK-4146,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-53300,LZWN (JINAN 1),2022,88.55,-1.0,+,97.27,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 53301,OBJECT C,2022,90.6,-1.0,-,97.29,Inactive,0,LEO,PRC,China,Unknown,Unknown,Unknown
 53303,OBJECT E,2022,91.43,-1.0,+,97.31,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 53316,YAOGAN-35 03A,2022,93.65,300.0,+,35.0,Active,1,LEO,PRC,China,Military,Long March,Earth Observation
@@ -7521,7 +7519,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 53507,STARLINK-4444,2022,91.98,260.0,P,97.66,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 53508,STARLINK-4443,2022,95.92,260.0,+,97.65,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 53509,STARLINK-4402,2022,95.92,260.0,+,97.65,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-53510,STARLINK-4441,2022,88.29,260.0,P,97.65,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 53521,USA 337,2022,1422.99,-1.0,+,2.31,Active,0,GSO,USA,USA,Unknown,Unknown,Unknown
 53522,YAOGAN-35 04A,2022,94.56,-1.0,+,35.01,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 53524,YAOGAN-35 04B,2022,94.47,-1.0,+,34.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
@@ -7604,7 +7601,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 53612,STARLINK-4658,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 53613,STARLINK-4655,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 53616,STARLINK-4605,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-53618,STARLINK-4604,2022,88.44,260.0,P,53.2,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 53619,STARLINK-4609,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 53620,STARLINK-4615,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 53621,STARLINK-4608,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
