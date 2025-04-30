@@ -5174,7 +5174,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 47568,STARLINK-1967,2021,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47572,STARLINK-1971,2021,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47573,STARLINK-1975,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-47574,STARLINK-1976,2021,88.51,260.0,P,53.03,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47576,STARLINK-1978,2021,95.23,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47577,STARLINK-1979,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47580,STARLINK-1982,2021,91.88,260.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -8238,7 +8237,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 55028,FLOCK 4Y-5,2023,92.59,6.0,+,97.37,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 55029,FLOCK 4Y-10,2023,92.6,6.0,+,97.37,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 55030,FLOCK 4Y-29,2023,90.76,6.0,-,97.36,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
-55031,FLOCK 4Y-17,2023,92.35,6.0,+,97.37,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
+55031,FLOCK 4Y-17,2023,92.35,6.0,-,97.37,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 55032,FLOCK 4Y-7,2023,92.86,6.0,+,97.37,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 55034,LYNK TOWER 4,2023,94.37,80.0,+,97.38,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 55036,UMBRA-05,2023,93.8,65.0,+,97.37,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
@@ -12808,6 +12807,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 61680,STARLINK-32412,2024,94.11,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 61681,STARLINK-32426,2024,94.11,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 61682,STARLINK-32429,2024,94.11,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+61683,SHENZHOU-19 (SZ-19),2024,92.21,-1.0,+,41.46,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 61687,STARLINK-11335 [DTC],2024,91.74,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 61688,STARLINK-11344 [DTC],2024,91.74,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 61689,STARLINK-11312 [DTC],2024,91.74,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
