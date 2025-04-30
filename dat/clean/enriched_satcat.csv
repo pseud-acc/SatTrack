@@ -4769,7 +4769,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 46034,STARLINK-1557,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46035,STARLINK-1558,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46036,STARLINK-1560,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-46037,STARLINK-1565,2020,89.55,260.0,P,53.03,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46038,STARLINK-1567,2020,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46039,STARLINK-1569,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46043,STARLINK-1582,2020,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -12807,7 +12806,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 61680,STARLINK-32412,2024,94.11,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 61681,STARLINK-32426,2024,94.11,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 61682,STARLINK-32429,2024,94.11,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-61683,SHENZHOU-19 (SZ-19),2024,92.21,-1.0,+,41.46,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 61687,STARLINK-11335 [DTC],2024,91.74,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 61688,STARLINK-11344 [DTC],2024,91.74,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 61689,STARLINK-11312 [DTC],2024,91.74,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
