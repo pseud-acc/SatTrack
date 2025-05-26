@@ -239,10 +239,10 @@ def create_dash_layout(app,
                 html.P('Launch Year', className='fix_label',
                        style={'color': colours["btext"], 'font-weight': 'bold',
                               "marginTop": 5, "marginBottom": 0}),
-                dcc.RangeSlider(1955, 2025, 1,  # Launch Year
+                dcc.RangeSlider(1955, 2030, 1,  # Launch Year
                                 value=options_in["launchyear"],
                                 marks={str(year): {'label': str(year), 'style': {'font-size': fontsize["dropdown"]}} for
-                                       year in range(1955, 2030, 5)},
+                                       year in range(1955, 2035, 5)},
                                 id="launchyear-filter-slider",
                                 tooltip={"placement": "bottom", "always_visible": True})
             ],
