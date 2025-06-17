@@ -4017,7 +4017,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 43187,2018-014H,S-NET B,2018-02-01,2018,"Vostochny Cosmodrome, Russia",Russia,Soyuz-2.1a,Active,+,LEO,95.25,-1.0,GER,Germany,97.56,Civil,Technology Development,8.5,,1.0,1,Soyuz
 43188,2018-014J,S-NET A,2018-02-01,2018,"Vostochny Cosmodrome, Russia",Russia,Soyuz-2.1a,Active,+,LEO,95.24,-1.0,GER,Germany,97.56,Civil,Technology Development,9.0,,1.0,1,Soyuz
 43189,2018-014K,S-NET C,2018-02-01,2018,"Vostochny Cosmodrome, Russia",Russia,Soyuz-2.1a,Active,+,LEO,95.25,-1.0,GER,Germany,97.57,Civil,Technology Development,9.0,,1.0,1,Soyuz
-43194,2018-015C,ZHANGHENG 1-01 (CSES),2018-02-02,2018,"Jiuquan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,94.68,-1.0,PRC,China,97.65,Government,Earth Observation,730.0,,5.0,1,Long March
+43194,2018-015C,ZHANGHENG 1-01 (CSES-1),2018-02-02,2018,"Jiuquan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,94.68,-1.0,PRC,China,97.65,Government,Earth Observation,730.0,,5.0,1,Long March
 43207,2018-018A,BEIDOU-3 M4,2018-02-12,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,56.33,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
 43208,2018-018B,BEIDOU-3 M3,2018-02-12,2018,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,MEO,773.23,-1.0,PRC,China,56.33,Government/Military,Navigation (Global or Regional Positioning),800.0,280,8.0,1,Long March
 43215,2018-020A,PAZ,2018-02-22,2018,"Air Force Western Test Range, California, USA",USA,Falcon 9,Active,+,LEO,94.79,-1.0,SPN,Spain,97.45,Commercial/Military,Earth Observation,1450.0,,-1.0,1,Falcon
@@ -15026,4 +15026,4 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 64289,2022-144L,USA 546,2022-11-01,2022,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,,-1.0,-1.0,US,USA,-1.0,,,-1.0,,-1.0,0,
 64290,2025-122A,SXM-10,2025-06-07,2025,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,MEO,939.7,-1.0,US,USA,5.57,,,-1.0,,-1.0,0,
 64340,2025-125A,QPS-SAR-11 (YAMATSUMI-I),2025-06-11,2025,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,96.19,-1.0,JPN,Japan,42.01,,,-1.0,,-1.0,0,
-64393,2025-128A,ZHANGHENG 1-02,2025-06-14,2025,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,94.56,-1.0,PRC,China,97.32,,,-1.0,,-1.0,0,
+64393,2025-128A,ZHANGHENG 1-02 (CSES-2),2025-06-14,2025,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,94.56,-1.0,PRC,China,97.32,,,-1.0,,-1.0,0,

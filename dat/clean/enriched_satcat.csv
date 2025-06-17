@@ -4017,7 +4017,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 43187,S-NET B,2018,95.25,8.5,+,97.56,Active,1,LEO,Russia,Germany,Civil,Soyuz,Technology Development
 43188,S-NET A,2018,95.24,9.0,+,97.56,Active,1,LEO,Russia,Germany,Civil,Soyuz,Technology Development
 43189,S-NET C,2018,95.25,9.0,+,97.57,Active,1,LEO,Russia,Germany,Civil,Soyuz,Technology Development
-43194,ZHANGHENG 1-01 (CSES),2018,94.68,730.0,+,97.65,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
+43194,ZHANGHENG 1-01 (CSES-1),2018,94.68,730.0,+,97.65,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
 43207,BEIDOU-3 M4,2018,773.23,800.0,+,56.33,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 43208,BEIDOU-3 M3,2018,773.23,800.0,+,56.33,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 43215,PAZ,2018,94.79,1450.0,+,97.45,Active,1,LEO,USA,Spain,Commercial/Military,Falcon,Earth Observation
@@ -15026,4 +15026,4 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 64289,USA 546,2022,-1.0,-1.0,+,-1.0,Active,0,Unknown,USA,USA,Unknown,Unknown,Unknown
 64290,SXM-10,2025,939.7,-1.0,+,5.57,Active,0,MEO,USA,USA,Unknown,Unknown,Unknown
 64340,QPS-SAR-11 (YAMATSUMI-I),2025,96.19,-1.0,+,42.01,Active,0,LEO,New Zealand,Japan,Unknown,Unknown,Unknown
-64393,ZHANGHENG 1-02,2025,94.56,-1.0,+,97.32,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+64393,ZHANGHENG 1-02 (CSES-2),2025,94.56,-1.0,+,97.32,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
