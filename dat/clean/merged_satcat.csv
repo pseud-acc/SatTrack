@@ -2766,7 +2766,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 28935,2006-003A,ECHOSTAR 10,2006-02-15,2006,Sea Launch Platform (mobile),Sea Launch Platform,Zenit 3SL,Active,+,GSO,1436.1,-1.0,US,USA,0.03,Commercial,Communications,4333.0,,15.0,1,Zenit
 28937,2006-004A,HIMAWARI-7 (MTSAT-2),2006-02-18,2006,"Tanegashima Space Center, Japan",Japan,,Inactive,-,GSO,1453.43,-1.0,JPN,Japan,4.86,,,-1.0,,-1.0,0,
 28945,2006-007A,SPAINSAT,2006-03-11,2006,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1436.11,-1.0,SPN,Spain,0.04,Commercial,Communications,4100.0,1740,15.0,1,Ariane
-28946,2006-007B,EUTELSAT HOTBIRD 13E,2006-03-11,2006,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1467.61,-1.0,EUTE,EUTELSAT,1.15,Military,Communications,3680.0,1467,-1.0,1,Ariane
+28946,2006-007B,EUTELSAT HOTBIRD 13E,2006-03-11,2006,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,P,GSO,1467.61,-1.0,EUTE,EUTELSAT,1.15,Military,Communications,3680.0,1467,-1.0,1,Ariane
 28980,2006-008A,ST5-A,2006-03-22,2006,Western Range Airspace,Western Range Airspace,,Inactive,-,LEO,119.82,-1.0,US,USA,105.49,,,-1.0,,-1.0,0,
 28981,2006-008B,ST5-B,2006-03-22,2006,Western Range Airspace,Western Range Airspace,,Inactive,-,LEO,91.39,-1.0,US,USA,105.37,,,-1.0,,-1.0,0,
 28982,2006-008C,ST5-C,2006-03-22,2006,Western Range Airspace,Western Range Airspace,,Inactive,-,LEO,105.13,-1.0,US,USA,105.48,,,-1.0,,-1.0,0,
@@ -15048,7 +15048,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 64327,2025-124L,STARLINK-11674 [DTC],2025-06-10,2025,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.86,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 64328,2025-124M,STARLINK-11707 [DTC],2025-06-10,2025,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.86,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 64329,2025-124N,STARLINK-11734 [DTC],2025-06-10,2025,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.86,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
-64330,2025-124P,STARLINK-34352,2025-06-10,2025,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,91.73,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
+64330,2025-124P,STARLINK-34252,2025-06-10,2025,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,91.73,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 64331,2025-124Q,STARLINK-34050,2025-06-10,2025,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,91.73,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 64332,2025-124R,STARLINK-33782,2025-06-10,2025,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,91.73,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 64333,2025-124S,STARLINK-34207,2025-06-10,2025,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,91.73,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,

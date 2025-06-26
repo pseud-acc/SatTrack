@@ -2766,7 +2766,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 28935,ECHOSTAR 10,2006,1436.1,4333.0,+,0.03,Active,1,GSO,Sea Launch Platform,USA,Commercial,Zenit,Communications
 28937,HIMAWARI-7 (MTSAT-2),2006,1453.43,-1.0,-,4.86,Inactive,0,GSO,Japan,Japan,Unknown,Unknown,Unknown
 28945,SPAINSAT,2006,1436.11,4100.0,+,0.04,Active,1,GSO,French Guiana,Spain,Commercial,Ariane,Communications
-28946,EUTELSAT HOTBIRD 13E,2006,1467.61,3680.0,+,1.15,Active,1,GSO,French Guiana,EUTELSAT,Military,Ariane,Communications
+28946,EUTELSAT HOTBIRD 13E,2006,1467.61,3680.0,P,1.15,Active,1,GSO,French Guiana,EUTELSAT,Military,Ariane,Communications
 28980,ST5-A,2006,119.82,-1.0,-,105.49,Inactive,0,LEO,Western Range Airspace,USA,Unknown,Unknown,Unknown
 28981,ST5-B,2006,91.39,-1.0,-,105.37,Inactive,0,LEO,Western Range Airspace,USA,Unknown,Unknown,Unknown
 28982,ST5-C,2006,105.13,-1.0,-,105.48,Inactive,0,LEO,Western Range Airspace,USA,Unknown,Unknown,Unknown
@@ -15048,7 +15048,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 64327,STARLINK-11674 [DTC],2025,90.86,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 64328,STARLINK-11707 [DTC],2025,90.86,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 64329,STARLINK-11734 [DTC],2025,90.86,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-64330,STARLINK-34352,2025,91.73,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+64330,STARLINK-34252,2025,91.73,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 64331,STARLINK-34050,2025,91.73,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 64332,STARLINK-33782,2025,91.73,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 64333,STARLINK-34207,2025,91.73,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
