@@ -4805,7 +4805,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 46320,NAPA-1,2020,93.41,10.0,+,97.3,Active,1,LEO,French Guiana,Thailand,Military,Vega,Earth Observation
 46325,STARLINK-1734,2020,93.73,260.0,P,53.04,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46326,STARLINK-1654,2020,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-46327,STARLINK-1673,2020,88.33,260.0,P,53.01,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46328,STARLINK-1686,2020,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46329,STARLINK-1695,2020,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46330,STARLINK-1710,2020,94.43,260.0,P,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -15345,3 +15344,4 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 64780,STARLINK-34491,2025,90.09,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 64781,STARLINK-34582,2025,90.08,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 64782,STARLINK-34482,2025,90.07,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+64784,OBJECT A,2025,1201.38,-1.0,+,24.22,Active,0,MEO,USA,Israel,Unknown,Unknown,Unknown

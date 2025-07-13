@@ -4805,7 +4805,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 46320,2020-061BA,NAPA-1,2020-09-03,2020,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Vega,Active,+,LEO,93.41,-1.0,THAI,Thailand,97.3,Military,Earth Observation,10.0,,-1.0,1,Vega
 46325,2020-062A,STARLINK-1734,2020-09-03,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,93.73,-1.0,US,USA,53.04,Commercial,Communications,260.0,,4.0,1,Falcon
 46326,2020-062B,STARLINK-1654,2020-09-03,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
-46327,2020-062C,STARLINK-1673,2020-09-03,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,88.33,-1.0,US,USA,53.01,Commercial,Communications,260.0,,4.0,1,Falcon
 46328,2020-062D,STARLINK-1686,2020-09-03,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 46329,2020-062E,STARLINK-1695,2020-09-03,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 46330,2020-062F,STARLINK-1710,2020-09-03,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,94.43,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
@@ -15345,3 +15344,4 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 64780,2025-147AB,STARLINK-34491,2025-07-08,2025,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.09,-1.0,US,USA,53.16,,,-1.0,,-1.0,0,
 64781,2025-147AC,STARLINK-34582,2025-07-08,2025,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.08,-1.0,US,USA,53.16,,,-1.0,,-1.0,0,
 64782,2025-147AD,STARLINK-34482,2025-07-08,2025,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,90.07,-1.0,US,USA,53.16,,,-1.0,,-1.0,0,
+64784,2025-148A,OBJECT A,2025-07-13,2025,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,MEO,1201.38,-1.0,ISRA,Israel,24.22,,,-1.0,,-1.0,0,
