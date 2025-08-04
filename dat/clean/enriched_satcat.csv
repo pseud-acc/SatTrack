@@ -8119,7 +8119,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 55077,FLOCK 4Y-21,2023,91.9,6.0,-,97.37,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 55079,FLOCK 4Y-13,2023,90.17,6.0,-,97.35,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 55081,OBJECT CA,2023,92.37,2.0,-,97.36,Inactive,1,LEO,USA,To Be Determined,Civil,Falcon,Technology Development
-55082,FLOCK 4Y-34,2023,88.6,6.0,-,97.34,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 55084,GAMA-ALPHA,2023,92.61,10.0,+,97.37,Active,1,LEO,USA,France,Commercial,Falcon,Technology Development
 55085,KSF3-D,2023,91.94,10.0,+,97.36,Active,1,LEO,USA,Luxembourg,Commercial,Falcon,Earth Observation
 55086,KSF3-A,2023,92.67,10.0,+,97.37,Active,1,LEO,USA,Luxembourg,Commercial,Falcon,Earth Observation
@@ -15555,3 +15554,10 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 65051,HULIANWANG DIGUI 6J,2025,102.39,-1.0,+,50.01,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 65053,NISAR,2025,99.59,-1.0,+,98.44,Active,0,LEO,India,India,Unknown,Unknown,Unknown
 65055,PRSS-1,2025,95.66,-1.0,+,41.13,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+65107,HULIANWANG DIGUI 7B,2025,103.0,-1.0,+,50.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+65108,HULIANWANG DIGUI 7C,2025,103.0,-1.0,+,50.01,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+65109,HULIANWANG DIGUI 7D,2025,103.0,-1.0,+,50.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+65110,HULIANWANG DIGUI 7E,2025,103.0,-1.0,+,50.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+65111,HULIANWANG DIGUI 7F,2025,102.99,-1.0,+,50.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+65112,HULIANWANG DIGUI 7G,2025,102.97,-1.0,+,50.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+65113,HULIANWANG DIGUI 7H,2025,102.96,-1.0,+,50.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
