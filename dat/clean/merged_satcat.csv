@@ -2421,7 +2421,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 26298,2000-020A,GALAXY 4R (G-4R),2000-04-19,2000,"Europe's Spaceport, Kourou, French Guiana",French Guiana,,Inactive,-,GSO,1442.45,-1.0,US,USA,12.33,,,-1.0,,-1.0,0,
 26352,2000-022A,GOES 11,2000-05-03,2000,"Air Force Eastern Test Range, Florida, USA",USA,,Inactive,-,GSO,1453.89,-1.0,US,USA,11.13,,,-1.0,,-1.0,0,
 26356,2000-024A,USA 149 (DSP 20),2000-05-08,2000,"Air Force Eastern Test Range, Florida, USA",USA,Titan IVB,Active,+,GSO,1436.0,-1.0,US,USA,12.93,Military,Earth Observation,2380.0,,9.0,1,Titan
-26360,2000-025A,NAVSTAR 47 (USA 150),2000-05-11,2000,"Air Force Eastern Test Range, Florida, USA",USA,Delta 2,Active,+,MEO,717.93,-1.0,US,USA,54.97,Commercial/Military,Navigation (Global or Regional Positioning),2217.0,980,10.0,1,Delta
+26360,2000-025A,NAVSTAR 47 (USA 150),2000-05-11,2000,"Air Force Eastern Test Range, Florida, USA",USA,Delta 2,Inactive,-,MEO,717.93,-1.0,US,USA,54.97,Commercial/Military,Navigation (Global or Regional Positioning),2217.0,980,10.0,1,Delta
 26365,2000-026A,SIMSAT 1,2000-05-16,2000,"Plesetsk Missile and Space Complex, Russia",Russia,,Inactive,UNK,LEO,94.35,-1.0,CIS,Russia/USSR,86.34,,,-1.0,,-1.0,0,
 26366,2000-026B,SIMSAT 2,2000-05-16,2000,"Plesetsk Missile and Space Complex, Russia",Russia,,Inactive,UNK,LEO,94.28,-1.0,CIS,Russia/USSR,86.34,,,-1.0,,-1.0,0,
 26369,2000-028A,EUTELSAT 80A,2000-05-24,2000,"Air Force Eastern Test Range, Florida, USA",USA,Atlas 3A,Inactive,-,GSO,1462.39,-1.0,EUTE,EUTELSAT,7.81,Commercial,Communications,3190.0,1380,12.0,1,Atlas
@@ -5120,7 +5120,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 47655,2021-012AM,STARLINK-2039,2021-02-16,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 47656,2021-012AN,STARLINK-2040,2021-02-16,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 47657,2021-012AP,STARLINK-2041,2021-02-16,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
-47659,2021-012AR,STARLINK-2043,2021-02-16,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,88.51,-1.0,US,USA,53.02,Commercial,Communications,260.0,,4.0,1,Falcon
 47662,2021-012AU,STARLINK-2052,2021-02-16,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,94.21,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 47667,2021-012AZ,STARLINK-2058,2021-02-16,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 47672,2021-012BE,STARLINK-2065,2021-02-16,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
@@ -13363,7 +13362,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 62593,2025-008G,STARLINK-11413 [DTC],2025-01-13,2025,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,91.67,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 62594,2025-008H,STARLINK-11416 [DTC],2025-01-13,2025,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,91.67,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 62595,2025-008J,STARLINK-11535 [DTC],2025-01-13,2025,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,91.67,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
-62596,2025-008K,STARLINK-11532 [DTC],2025-01-13,2025,"Air Force Eastern Test Range, Florida, USA",USA,,Active,P,LEO,88.73,-1.0,US,USA,42.98,,,-1.0,,-1.0,0,
 62597,2025-008L,STARLINK-11521 [DTC],2025-01-13,2025,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,91.67,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 62598,2025-008M,STARLINK-11258 [DTC],2025-01-13,2025,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,91.67,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 62599,2025-008N,STARLINK-11529 [DTC],2025-01-13,2025,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,91.67,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
@@ -15560,3 +15558,4 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 65111,2025-168F,HULIANWANG DIGUI 7F,2025-08-04,2025,"Wenchang Satellite Launch Site, PRC",PRC,,Active,+,LEO,102.99,-1.0,PRC,China,50.0,,,-1.0,,-1.0,0,
 65112,2025-168G,HULIANWANG DIGUI 7G,2025-08-04,2025,"Wenchang Satellite Launch Site, PRC",PRC,,Active,+,LEO,102.97,-1.0,PRC,China,50.0,,,-1.0,,-1.0,0,
 65113,2025-168H,HULIANWANG DIGUI 7H,2025-08-04,2025,"Wenchang Satellite Launch Site, PRC",PRC,,Active,+,LEO,102.96,-1.0,PRC,China,50.0,,,-1.0,,-1.0,0,
+65116,2025-169A,QPS-SAR-12 (KUSHINADA-I),2025-08-05,2025,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,96.21,-1.0,JPN,Japan,42.01,,,-1.0,,-1.0,0,
