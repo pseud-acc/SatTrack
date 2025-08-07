@@ -4292,7 +4292,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 44476,INTELSAT 39 (IS-39),2019,1436.1,6600.0,+,0.01,Active,1,GSO,French Guiana,INTELSAT,Commercial,Ariane,Communications
 44479,AMOS-17,2019,1436.09,6500.0,+,0.01,Active,1,GSO,USA,Israel,Commercial/Military,Falcon,Communications
 44481,AEHF-5 (USA 292),2019,1436.15,6169.0,+,1.89,Active,1,GSO,USA,USA,Military,Atlas,Communications
-44486,QIANSHENG 1-01,2019,88.07,65.0,UNK,97.34,Inactive,1,LEO,PRC,China,Commercial,Jielong,Earth Observation
 44493,ZHONGXING-18,2019,424.45,-1.0,-,28.37,Inactive,0,MEO,PRC,China,Unknown,Unknown,Unknown
 44495,BRO-1,2019,93.22,8.0,+,45.01,Active,1,LEO,New Zealand,France,Commercial,Electron,Earth Observation
 44499,GLOBAL-4,2019,93.47,56.0,+,45.01,Active,1,LEO,New Zealand,USA,Commercial,Electron,Earth Observation

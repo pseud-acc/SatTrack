@@ -4292,7 +4292,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 44476,2019-049B,INTELSAT 39 (IS-39),2019-08-06,2019,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1436.1,-1.0,ITSO,INTELSAT,0.01,Commercial,Communications,6600.0,,15.0,1,Ariane
 44479,2019-050A,AMOS-17,2019-08-06,2019,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,GSO,1436.09,-1.0,ISRA,Israel,0.01,Commercial/Military,Communications,6500.0,,20.0,1,Falcon
 44481,2019-051A,AEHF-5 (USA 292),2019-08-08,2019,"Air Force Eastern Test Range, Florida, USA",USA,Atlas 5,Active,+,GSO,1436.15,-1.0,US,USA,1.89,Military,Communications,6169.0,,-1.0,1,Atlas
-44486,2019-052A,QIANSHENG 1-01,2019-08-17,2019,"Jiuquan Space Center, PRC",PRC,Jielong 1,Inactive,UNK,LEO,88.07,-1.0,PRC,China,97.34,Commercial,Earth Observation,65.0,,-1.0,1,Jielong
 44493,2019-053A,ZHONGXING-18,2019-08-19,2019,"Xichang Launch Facility, PRC",PRC,,Inactive,-,MEO,424.45,-1.0,PRC,China,28.37,,,-1.0,,-1.0,0,
 44495,2019-054A,BRO-1,2019-08-19,2019,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,93.22,-1.0,FR,France,45.01,Commercial,Earth Observation,8.0,8,-1.0,1,Electron
 44499,2019-054E,GLOBAL-4,2019-08-19,2019,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,93.47,-1.0,US,USA,45.01,Commercial,Earth Observation,56.0,,-1.0,1,Electron
