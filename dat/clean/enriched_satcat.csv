@@ -2224,7 +2224,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 25327,COSMOS 2351,1998,717.9,-1.0,UNK,63.62,Inactive,0,MEO,Russia,Russia/USSR,Unknown,Unknown,Unknown
 25331,ECHOSTAR 4,1998,1455.29,-1.0,-,11.25,Inactive,0,GSO,Kazakhstan,USA,Unknown,Unknown,Unknown
 25336,USA 139,1998,1436.13,5200.0,+,7.4,Active,1,GSO,USA,USA,Military,Titan,Earth Observation
-25338,NOAA 15,1998,100.91,2223.0,B,98.53,Active,1,LEO,USA,USA,Government,Titan,Earth Observation
+25338,NOAA 15,1998,100.91,2223.0,-,98.53,Inactive,1,LEO,USA,USA,Government,Titan,Earth Observation
 25344,IRIDIUM 73,1998,99.19,-1.0,-,86.44,Inactive,0,LEO,USA,USA,Unknown,Unknown,Unknown
 25354,ZHONGXING-5A,1998,1454.66,-1.0,-,8.22,Inactive,0,GSO,PRC,China,Unknown,Unknown,Unknown
 25358,THOR III,1998,1457.02,-1.0,-,11.23,Inactive,0,GSO,USA,Norway,Unknown,Unknown,Unknown
@@ -2727,7 +2727,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 28646,USA 182,2005,99.18,14500.0,+,57.01,Active,1,LEO,USA,USA,Military,Titan,Earth Observation
 28649,IRS-P5 (CARTOSAT-1),2005,96.65,1560.0,+,97.57,Active,1,LEO,India,India,Government,PSLV,Earth Observation
 28650,HAMSAT (VO-52),2005,95.63,-1.0,-,98.01,Inactive,0,LEO,India,India,Unknown,Unknown,Unknown
-28654,NOAA 18,2005,101.87,2223.0,B,98.84,Active,1,LEO,USA,USA,Government,Delta,Earth Observation
+28654,NOAA 18,2005,101.87,2223.0,-,98.84,Inactive,1,LEO,USA,USA,Government,Delta,Earth Observation
 28659,DIRECTV 8,2005,1436.09,3800.0,+,0.02,Active,1,GSO,Kazakhstan,USA,Commercial,Proton,Communications
 28702,GALAXY 28 (G-28),2005,1436.1,5493.0,+,2.52,Active,1,GSO,Sea Launch Platform,INTELSAT,Commercial,Zenit,Communications
 28707,EXPRESS-AM3,2005,1454.59,2600.0,-,6.55,Inactive,1,GSO,Kazakhstan,Russia/USSR,Commercial,Proton,Communications
@@ -4647,7 +4647,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 45699,STARLINK-1398,2020,93.63,227.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45700,STARLINK-1400,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45701,STARLINK-1403,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-45702,STARLINK-1405,2020,88.88,227.0,-,53.01,Inactive,1,LEO,USA,USA,Commercial,Falcon,Communications
 45703,STARLINK-1407,2020,94.09,227.0,P,53.04,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45706,STARLINK-1411,2020,94.75,227.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45710,STARLINK-1423,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -4680,7 +4679,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 45772,STARLINK-1470,2020,95.19,227.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45773,STARLINK-1482,2020,95.59,227.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45774,STARLINK-1485,2020,92.05,227.0,P,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-45778,STARLINK-1491,2020,88.27,227.0,P,53.02,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45780,STARLINK-1496,2020,95.59,227.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45781,STARLINK-1497,2020,93.64,227.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45784,STARLINK-1510,2020,92.78,227.0,P,53.04,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -7552,7 +7550,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 53815,STRIX-1,2022,94.39,150.0,+,97.5,Active,1,LEO,New Zealand,Japan,Commercial,Electron,Earth Observation
 53819,STARLINK-4738,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 53820,STARLINK-4758,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-53821,STARLINK-4752,2022,88.38,260.0,P,53.21,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 53823,STARLINK-4748,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 53824,STARLINK-4757,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 53825,STARLINK-4751,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
