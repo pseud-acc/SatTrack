@@ -15194,7 +15194,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 64587,IRIDE-MS2-HEO-8,2025,96.5,-1.0,+,97.75,Active,0,LEO,USA,Italy,Unknown,Unknown,Unknown
 64588,BIFROST-DNK,2025,96.5,-1.0,+,97.75,Active,0,LEO,USA,Denmark,Unknown,Unknown,Unknown
 64589,SATORO-T3,2025,96.49,-1.0,+,97.75,Active,0,LEO,USA,Taiwan,Unknown,Unknown,Unknown
-64590,HUBBLE BQ,2025,96.49,-1.0,+,97.75,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+64590,OBJECT BQ,2025,96.49,-1.0,+,97.75,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 64591,AE2A,2025,96.47,-1.0,+,97.75,Active,0,LEO,USA,Japan,Unknown,Unknown,Unknown
 64592,HUBBLE 7,2025,96.48,-1.0,+,97.75,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 64594,STARLINK-34280,2025,93.53,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
@@ -15683,7 +15683,12 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 65195,STARLINK-34928,2025,90.08,-1.0,+,97.6,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 65196,STARLINK-34927,2025,90.09,-1.0,+,97.6,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 65197,STARLINK-34952,2025,90.08,-1.0,+,97.6,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+65198,STARLINK-34981,2025,90.26,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+65199,STARLINK-34821,2025,90.36,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+65200,STARLINK-34865,2025,90.36,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 65201,STARLINK-34843,2025,90.36,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+65202,STARLINK-34905,2025,90.35,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+65203,STARLINK-34914,2025,90.35,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 65204,STARLINK-34787,2025,90.34,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 65205,STARLINK-34796,2025,90.33,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 65206,STARLINK-34763,2025,90.32,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
