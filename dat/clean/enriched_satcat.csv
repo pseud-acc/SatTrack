@@ -9116,9 +9116,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 56844,STARLINK-30136,2023,95.84,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56846,OBJECT A,2023,94.73,-1.0,+,97.41,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 56847,OBJECT B,2023,89.41,-1.0,+,97.31,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
-56851,OBJECT F,2023,88.52,-1.0,+,97.3,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 56856,OBJECT L,2023,88.99,-1.0,+,97.31,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
-56858,OBJECT N,2023,88.34,-1.0,+,97.3,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 56866,OBJECT W,2023,94.73,-1.0,+,97.33,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 56874,LONGJIANG 3,2023,94.18,-1.0,+,49.11,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 56876,STARLINK-6206,2023,95.84,-1.0,+,43.01,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
