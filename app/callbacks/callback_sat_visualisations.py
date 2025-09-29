@@ -8,7 +8,7 @@ Example:
 
         $ python callback_sat_visualisations.py
 
-Function:
+Functions:
     get_callbacks: wrapper function for callbacks
     update_3dviz: callback function for interactive 3d satellite visualisation
     update_2dviz: callback function for interactive 2d satellite visualisation
@@ -29,23 +29,21 @@ from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
 from dash import Dash, callback_context
 
-## Internal Scripts
+## Internal Modules
 
 # paths
 sys.path.append("../../")
-from app.helper.app_settings import *
+
+# app data
+from app.helper.initialise_app_data import (df, img, input_filter, tbl_col_map, surf_3d, layout_3d, fig3d_0, layout_2d)
+# app functions
 from app.helper.initialise_app import (filter_df, orbit_path, satellite_3d_hover, satellite_2d_hover)
+# app appearance settings
+from app.styles.styles_sat_visualisations import (colours, colorscale_marker, colorscale_markerpath)
+
 
 # Callback wrapper function
-def get_callbacks(app,
-                  df_in,
-                  input_filter_in,
-                  surf_3d_in,
-                  fig3d_0_in,
-                  layout_3d_in,
-                  layout_2d_in,
-                  tbl_col_map_in
-                 ):
+def get_callbacks(app):
     ''' 
     Wrapper function that defines callbacks using app instantiation.
 
@@ -53,9 +51,9 @@ def get_callbacks(app,
 
     @return:    
     '''
-    
-    # >>> Define Callbacks <<<    
-    
+
+    # >>> Define Callbacks <<<
+
     '''
     ------------------------
     3d visualisation 
@@ -63,42 +61,42 @@ def get_callbacks(app,
     Interactive Inputs: Filter dropdowns, Launch year slider, plot clicks, update time button, interval-timer
     Outputs: 3d Satellite scatter plot, 3d orbit line plot, camera view
     '''
+
     @app.callback(
-            [
+        [
             Output('3d-earth-satellite-plot', 'figure'),
             Output('3d-orbit-memory', 'data'),
-            Output('camera-memory',"data")
-            ],
+            Output('camera-memory', "data")
+        ],
         [
             Input('status-filter-checkbox', 'value'),
             Input('orbit-filter-checkbox', 'value'),
             Input('satname-filter-dropdown', 'value'),
-            Input('satcatid-filter-dropdown', 'value'),    
+            Input('satcatid-filter-dropdown', 'value'),
             Input('owner-filter-multi-dropdown', 'value'),
             Input('launchvehicle-filter-multi-dropdown', 'value'),
             Input('purpose-filter-multi-dropdown', 'value'),
             Input('launchyear-filter-slider', 'value'),
             Input("3d-earth-satellite-plot", "clickData"),
             Input('3d-orbit-memory', 'data'),
-            Input("sat-viz-tabs","active_tab"),
-            Input("time-update-btn","n_clicks"),
-            Input("clear-orbits-btn","n_clicks"),
-            Input('3d-viz-interval-component', "n_intervals") 
+            Input("sat-viz-tabs", "active_tab"),
+            Input("time-update-btn", "n_clicks"),
+            Input("clear-orbits-btn", "n_clicks"),
+            Input('3d-viz-interval-component', "n_intervals")
         ],
-            State('camera-memory',"data"),
-            State('3d-earth-satellite-plot','relayoutData')
+        State('camera-memory', "data"),
+        State('3d-earth-satellite-plot', 'relayoutData')
     )
-
     def update_3dviz(status, orbit, satname, satcatid,
                      owner, launchvehicle,
-                     purpose, year, clickData, orbit_list, tab, 
+                     purpose, year, clickData, orbit_list, tab,
                      update_time_btn, clear_orbits_btn,
                      time_intverval, cam_mem, cam_scene):
 
         if tab == "3d-viz":
             ctx = callback_context
-            input_type = ctx.triggered[0]['prop_id'].split('.')[1] 
-            input_name = ctx.triggered[0]['prop_id'].split('.')[0] 
+            input_type = ctx.triggered[0]['prop_id'].split('.')[1]
+            input_name = ctx.triggered[0]['prop_id'].split('.')[0]
 
             orbit_list_updated = orbit_list
 
@@ -112,8 +110,8 @@ def get_callbacks(app,
                 elif clickData["points"][0]["curveNumber"] != 1:
                     raise PreventUpdate
 
-            dff, time_now = filter_df(df_in, input_filter_in,
-                 status, orbit, satname, satcatid, owner, launchvehicle, purpose, year)
+            dff, time_now = filter_df(df, input_filter,
+                                      status, orbit, satname, satcatid, owner, launchvehicle, purpose, year)
 
             # Do not update if existing 3d orbit is clicked
             if input_type == "clickData":
@@ -121,41 +119,40 @@ def get_callbacks(app,
                     orbit_id = dff.iloc[[clickData["points"][0]["pointNumber"]]]["SatCatId"].values[0]
                     if orbit_id in orbit_list_updated:
                         raise PreventUpdate
-                        
-            sat_status_enc = np.where(dff["Status"]=="Active",1,0)
+
+            sat_status_enc = np.where(dff["Status"] == "Active", 1, 0)
 
             # 3D Visualisation Output
-            scatter_3d = go.Scatter3d(x = dff["xp"].astype(np.float32), y = dff["yp"].astype(np.float32), z = dff["zp"].astype(np.float32),
-                                   text = dff["ObjectName"], mode = "markers", showlegend = False,
-                                   hoverlabel=dict(namelength=0, font_family="Verdana",
-                                                  font_color=[colours["hboxtx"+str(a)] for a in sat_status_enc],
-                                                  bgcolor=[colours["hboxbg"+str(a)] for a in sat_status_enc],
-                                                  bordercolor = "white"), 
-                                   hoverinfo="text", hovertext=satellite_3d_hover(dff)[0],  
-                                   marker = dict(color = np.where(dff["Status"]=="Active",1,0), cmin=0, cmax=1,
-                                                 colorscale = colorscale_marker, opacity = 0.65, size = 2.5,
-                                                 line=dict(color=sat_status_enc,
-                                                   colorscale = colorscale_marker, width=0.01,
-                                                  cmin=0, cmax=1))
-                                        )
+            # Create scatter plot for active/inactive satellites
+            scatter_3d = go.Scatter3d(x=dff["xp"].astype(np.float32), y=dff["yp"].astype(np.float32),
+                                      z=dff["zp"].astype(np.float32),
+                                      text=dff["ObjectName"], mode="markers", showlegend=False,
+                                      hoverlabel=dict(namelength=0, font_family="Verdana",
+                                                      font_color=[colours["hboxtx" + str(a)] for a in sat_status_enc],
+                                                      bgcolor=[colours["hboxbg" + str(a)] for a in sat_status_enc],
+                                                      bordercolor="white"),
+                                      hoverinfo="text", hovertext=satellite_3d_hover(dff)[0],
+                                      marker=dict(color=np.where(dff["Status"] == "Active", 1, 0), cmin=0, cmax=1,
+                                                  colorscale=colorscale_marker, opacity=0.65, size=2.5,
+                                                  line=dict(color=sat_status_enc,
+                                                            colorscale=colorscale_marker, width=0.01,
+                                                            cmin=0, cmax=1))
+                                      )
+            # Update 3d plot
+            fig_3d = go.Figure(data=[surf_3d, scatter_3d], layout=layout_3d)
 
-            fig_3d = go.Figure(data=[surf_3d_in,scatter_3d], layout=layout_3d_in)
-
-            fig_3d.add_annotation(dict(font=dict(color=colours["atext"],size=12),
-                               x=0.005, y=0.99, showarrow=False,
-                               text=
-                               '<i>Satellite position as at: ' + 
-                               time_now.strftime("%H:%M:%S, %d/%m/%Y") + '</i> <br>' +
-                               '<i>Number of active/inactive satellites shown: ' + 
-                                "/".join([str(sum(dff.Status == "Active")),str(sum(dff.Status == "Inactive"))]) + 
-                                ' (' + str(dff.shape[0]) + ' in total)' + '</i>',
-                               textangle=0, xanchor='left',align='left',
-                               xref="paper", yref="paper"))   
-            fig_3d.add_annotation(dict(font=dict(color=colours["atext"],size=12),
-                               x=0.6, y=0.02, showarrow=False,
-                               text='Click satellite to show 3D orbital path',
-                               textangle=0, xanchor='left',align='left',
-                               xref="paper", yref="paper"))     
+            # Add annotations to 3d plot - satellite count + instructions
+            fig_3d.add_annotation(dict(font=dict(color=colours["atext"], size=12),
+                                       x=0.005, y=0.99, showarrow=False,
+                                       text=
+                                       '<i>Satellite position as at: ' +
+                                       time_now.strftime("%H:%M:%S, %d/%m/%Y") + '</i> <br>' +
+                                       '<i>Number of active/inactive satellites shown: ' +
+                                       "/".join(
+                                           [str(sum(dff.Status == "Active")), str(sum(dff.Status == "Inactive"))]) +
+                                       ' (' + str(dff.shape[0]) + ' in total)' + '</i>',
+                                       textangle=0, xanchor='left', align='left',
+                                       xref="paper", yref="paper"))
 
             try:
                 cam_scene["scene.camera"]
@@ -163,13 +160,12 @@ def get_callbacks(app,
                 try:
                     cam_mem["scene.camera"]
                 except:
-                    fig_3d.update_layout(scene_camera = fig3d_0_in["layout"]["scene"]["camera"])
+                    fig_3d.update_layout(scene_camera=fig3d_0["layout"]["scene"]["camera"])
                 else:
-                    fig_3d.update_layout(scene_camera = cam_mem["scene.camera"])
+                    fig_3d.update_layout(scene_camera=cam_mem["scene.camera"])
             else:
-                fig_3d.update_layout(scene_camera = cam_scene["scene.camera"])
+                fig_3d.update_layout(scene_camera=cam_scene["scene.camera"])
                 cam_mem = cam_scene["scene.camera"]
-
 
             # 3D Orbital Path - click-based
             if input_type == "clickData":
@@ -179,31 +175,85 @@ def get_callbacks(app,
             if len(orbit_list_updated) > 0:
                 for orbit_id in orbit_list_updated:
                     if orbit_id in dff["SatCatId"].values:
-                        d3d = orbit_path(dff[dff["SatCatId"]==orbit_id],
+                        d3d = orbit_path(dff[dff["SatCatId"] == orbit_id],
                                          720, time_now, True)
-                        sat_path_status_enc = np.where(d3d["Status"]=="Active",1,0)[0]
-                        fig_3d.add_scatter3d(x = d3d["xp"], y = d3d["yp"], z = d3d["zp"],
-                            line = dict(color = np.where(d3d["Status"]=="Active",1,0), cmin=0, cmax=1,
-                                        colorscale = colorscale_markerpath, width = 5),
-                            mode = "lines", showlegend = False,
-                            hoverlabel=dict(namelength=0), hoverinfo="text",
-                            hovertext='<b>Satellite Name</b>: ' + d3d["ObjectName"]) 
-                        fig_3d.add_scatter3d( x=[d3d["xp"][0]], y=[d3d["yp"][0]],  z=[d3d["zp"][0]],
-                                marker = dict(color = np.where(d3d["Status"]=="Active",1,0), 
-                                              colorscale = colorscale_markerpath,
-                                              cmin=0, cmax=1,opacity = 0.65, size = 8),
-                                mode = "markers", showlegend = False,
-                                hoverlabel=dict(namelength=0, font_family="Verdana",
-                                                font_color=colours["hboxtx"+str(sat_path_status_enc)],
-                                                bgcolor=colours["hboxbg"+str(sat_path_status_enc)]),
-                                             hoverinfo="text",    
-                                hovertext=satellite_3d_hover(d3d.iloc[[0]])[0]
-                                            )                
+                        sat_path_status_enc = np.where(d3d["Status"] == "Active", 1, 0)[0]
+                        # Update 3d plot with satellite orbital path
+                        fig_3d.add_scatter3d(x=d3d["xp"], y=d3d["yp"], z=d3d["zp"],
+                                             line=dict(color=np.where(d3d["Status"] == "Active", 1, 0), cmin=0, cmax=1,
+                                                       colorscale=colorscale_markerpath, width=5),
+                                             mode="lines", showlegend=False,
+                                             hoverlabel=dict(namelength=0), hoverinfo="text",
+                                             hovertext='<b>Satellite Name</b>: ' + d3d["ObjectName"])
+                        # Add oversized plot point for current position in orbital path
+                        fig_3d.add_scatter3d(x=[d3d["xp"][0]], y=[d3d["yp"][0]], z=[d3d["zp"][0]],
+                                             marker=dict(color=np.where(d3d["Status"] == "Active", 1, 0),
+                                                         colorscale=colorscale_markerpath,
+                                                         cmin=0, cmax=1, opacity=0.65, size=8),
+                                             mode="markers", showlegend=False,
+                                             hoverlabel=dict(namelength=0, font_family="Verdana",
+                                                             font_color=colours["hboxtx" + str(sat_path_status_enc)],
+                                                             bgcolor=colours["hboxbg" + str(sat_path_status_enc)]),
+                                             hoverinfo="text",
+                                             hovertext=satellite_3d_hover(d3d.iloc[[0]])[0]
+                                             )
         else:
             raise PreventUpdate
 
         return fig_3d, orbit_list_updated, cam_mem
 
+        # Optimisations for mobile
+        # Add mobile responsiveness callbacks
+        @app.callback(
+            Output("filter-collapse", "is_open"),
+            [Input("toggle-filters", "n_clicks")],
+            [State("filter-collapse", "is_open")]
+        )
+        def toggle_filters(n, is_open):
+            if n:
+                return not is_open
+            return is_open
+
+        # Optimize 3D visualization for mobile
+        @app.callback(
+            [Output('3d-earth-satellite-plot', 'figure'),
+             Output('3d-orbit-memory', 'data'),
+             Output('camera-memory', 'data')],
+            [Input('status-filter-checkbox', 'value'),
+             Input('orbit-filter-checkbox', 'value'),
+             Input('satname-filter-dropdown', 'value'),
+             Input('satcatid-filter-dropdown', 'value'),
+             Input('owner-filter-multi-dropdown', 'value'),
+             Input('launchvehicle-filter-multi-dropdown', 'value'),
+             Input('purpose-filter-multi-dropdown', 'value'),
+             Input('launchyear-filter-slider', 'value'),
+             Input("3d-earth-satellite-plot", "clickData"),
+             Input('3d-orbit-memory', 'data'),
+             Input("sat-viz-tabs", "active_tab"),
+             Input("time-update-btn", "n_clicks"),
+             Input("clear-orbits-btn", "n_clicks"),
+             Input('3d-viz-interval-component', "n_intervals"),
+             Input('viewport-width', 'data')],
+            [State('camera-memory', 'data'),
+             State('3d-earth-satellite-plot', 'relayoutData')]
+        )
+        def update_3dviz_mobile(status, orbit, satname, satcatid, owner, launchvehicle,
+                                purpose, year, clickData, orbit_list, tab, update_time_btn,
+                                clear_orbits_btn, time_interval, viewport_width, cam_mem, cam_scene):
+            # Original update_3dviz logic with mobile optimizations
+            # ... (keep existing logic but add these optimizations)
+
+            # Reduce satellite density on mobile
+            if viewport_width and viewport_width < 768:
+                # Limit number of satellites shown on mobile for performance
+                if len(dff) > 500:
+                    dff = dff.sample(n=500)
+
+            # Adjust marker sizes for mobile
+            marker_size = 2.5 if not viewport_width or viewport_width >= 768 else 3.5
+
+            # Continue with existing visualization logic...
+            return fig_3d, orbit_list_updated, cam_mem
 
     '''
     ------------------------
@@ -212,59 +262,61 @@ def get_callbacks(app,
     Interactive Inputs: Filter dropdowns, Launch year slider, update time button, interval-timer
     Outputs: 2d orbit path scatter plot
     '''
+
     @app.callback(
-            Output('2d-earth-satellite-plot', 'figure'),
+        Output('2d-earth-satellite-plot', 'figure'),
         [
             Input('status-filter-checkbox', 'value'),
             Input('orbit-filter-checkbox', 'value'),
             Input('satname-filter-dropdown', 'value'),
-            Input('satcatid-filter-dropdown', 'value'),    
+            Input('satcatid-filter-dropdown', 'value'),
             Input('owner-filter-multi-dropdown', 'value'),
             Input('launchvehicle-filter-multi-dropdown', 'value'),
             Input('purpose-filter-multi-dropdown', 'value'),
             Input('launchyear-filter-slider', 'value'),
-            Input("sat-viz-tabs","active_tab"),
-            Input("time-update-btn","n_clicks"),
-            Input('2d-viz-interval-component', "n_intervals")       
+            Input("sat-viz-tabs", "active_tab"),
+            Input("time-update-btn", "n_clicks"),
+            Input('2d-viz-interval-component', "n_intervals")
         ]
     )
-
     def update_2dviz(status, orbit, satname, satcatid,
                      owner, launchvehicle,
                      purpose, year, tab, update_time_btn, time_intverval):
 
-        if tab == "2d-viz":         
-            dff, time_now = filter_df(df_in, input_filter_in,
-                 status, orbit, satname, satcatid, owner, launchvehicle, purpose, year)
+        if tab == "2d-viz":
+            dff, time_now = filter_df(df, input_filter,
+                                      status, orbit, satname, satcatid, owner, launchvehicle, purpose, year)
 
-            #2D Visualisation
-            if (satname != None or satcatid != None) & dff.shape[0] == 1: 
+            # 2D Visualisation
+            if (satname != None or satcatid != None) & dff.shape[0] == 1:
                 d2d = orbit_path(dff, 3600, time_now, False)
 
                 scatter_2d = go.Scattermapbox(lat=d2d["lat"], lon=d2d["lon"],
-                    marker = dict(color = colours["marker1"], opacity = 0.1, size = 10),
-                    mode = "markers", showlegend = False,
-                    hoverlabel=dict(namelength=0), hoverinfo="text",    
-                    hovertext=satellite_2d_hover(d2d)[0]
-                ) 
+                                              marker=dict(color=colours["marker1"], opacity=0.1, size=10),
+                                              mode="markers", showlegend=False,
+                                              hoverlabel=dict(namelength=0), hoverinfo="text",
+                                              hovertext=satellite_2d_hover(d2d)[0]
+                                              )
                 scatter_2d1 = go.Scattermapbox(lat=[d2d["lat"][0]], lon=[d2d["lon"][0]],
-                        marker = dict(color = colours["marker2"], opacity = 0.6, size = 20),
-                        mode = "markers", showlegend = False,
-                        hoverlabel=dict(namelength=0), hoverinfo="text",    
-                        hovertext= '<b>Current Position</b>' + '<br>' + satellite_2d_hover(d2d.iloc[[0]])[0]
-                    )
+                                               marker=dict(color=colours["marker2"], opacity=0.6, size=20),
+                                               mode="markers", showlegend=False,
+                                               hoverlabel=dict(namelength=0), hoverinfo="text",
+                                               hovertext='<b>Current Position</b>' + '<br>' +
+                                                         satellite_2d_hover(d2d.iloc[[0]])[0]
+                                               )
 
             else:
                 scatter_2d = go.Scattermapbox(lat=[0], lon=[0],
-                    marker_opacity = 0, mode = "markers", showlegend = False,
-                    hoverinfo='none', hoverlabel=dict(namelength=0)
-                )        
+                                              marker_opacity=0, mode="markers", showlegend=False,
+                                              hoverinfo='none', hoverlabel=dict(namelength=0)
+                                              )
                 scatter_2d1 = scatter_2d
 
-            fig_2d = go.Figure(data=[scatter_2d,scatter_2d1], layout=layout_2d_in)         
+            fig_2d = go.Figure(data=[scatter_2d, scatter_2d1], layout=layout_2d)
 
             # Table output
-            dff["lat"] = round(dff["lat"],2); dff["lon"] = round(dff["lon"],2); 
+            dff["lat"] = round(dff["lat"], 2);
+            dff["lon"] = round(dff["lon"], 2);
             dff["alt"] = round(dff["alt"]).astype(int)
             dff["Datetime"] = time_now.strftime("%H:%M:%S, %d/%m/%Y")
         else:
@@ -279,41 +331,40 @@ def get_callbacks(app,
     Interactive Inputs: Filter dropdowns, Launch year slider, update time button
     Outputs: Table of satellites
     '''
+
     @app.callback(
-            Output('satellite-list', 'data'),
+        Output('satellite-list', 'data'),
         [
             Input('status-filter-checkbox', 'value'),
             Input('orbit-filter-checkbox', 'value'),
             Input('satname-filter-dropdown', 'value'),
-            Input('satcatid-filter-dropdown', 'value'),    
+            Input('satcatid-filter-dropdown', 'value'),
             Input('owner-filter-multi-dropdown', 'value'),
             Input('launchvehicle-filter-multi-dropdown', 'value'),
             Input('purpose-filter-multi-dropdown', 'value'),
             Input('launchyear-filter-slider', 'value'),
-            Input("sat-viz-tabs","active_tab"),
-            Input("time-update-btn","n_clicks")
+            Input("sat-viz-tabs", "active_tab"),
+            Input("time-update-btn", "n_clicks")
         ]
     )
-
-
     def update_tbl(status, orbit, satname, satcatid,
-                     owner, launchvehicle,
-                     purpose, year, tab, update_time_btn):
+                   owner, launchvehicle,
+                   purpose, year, tab, update_time_btn):
 
-        if tab == "tbl-viz":   
-            dff, time_now = filter_df(df_in, input_filter_in,
-                 status, orbit, satname, satcatid, owner, launchvehicle, purpose, year)
+        if tab == "tbl-viz":
+            dff, time_now = filter_df(df, input_filter,
+                                      status, orbit, satname, satcatid, owner, launchvehicle, purpose, year)
 
             # Table output
-            dff["lat"] = round(dff["lat"],2); dff["lon"] = round(dff["lon"],2); 
+            dff["lat"] = round(dff["lat"], 2);
+            dff["lon"] = round(dff["lon"], 2);
             dff["alt"] = round(dff["alt"]).astype(int)
             dff["Datetime"] = time_now.strftime("%H:%M:%S, %d/%m/%Y")
         else:
             raise PreventUpdate
 
-        return dff[tbl_col_map_in].sort_values(by=["ObjectName"]).rename(columns=tbl_col_map_in).to_dict("records")
+        return dff[tbl_col_map].sort_values(by=["ObjectName"]).rename(columns=tbl_col_map).to_dict("records")
 
-   
     '''
     ------------------------
     Dynamic dropdown 
@@ -321,33 +372,34 @@ def get_callbacks(app,
     Interactive Inputs: Filter dropdowns, Launch year slider
     Outputs: Satellite name and SATCAT number filter dropdown options
     '''
+
     @app.callback(
         [
             Output('satname-filter-dropdown', 'options'),
-            Output('satcatid-filter-dropdown', 'options'),            
+            Output('satcatid-filter-dropdown', 'options'),
             Output('satname-filter-dropdown', 'value'),
-            Output('satcatid-filter-dropdown', 'value')    
+            Output('satcatid-filter-dropdown', 'value')
         ],
         [
             Input('status-filter-checkbox', 'value'),
             Input('orbit-filter-checkbox', 'value'),
             Input('satname-filter-dropdown', 'value'),
-            Input('satcatid-filter-dropdown', 'value'),    
+            Input('satcatid-filter-dropdown', 'value'),
             Input('owner-filter-multi-dropdown', 'value'),
             Input('launchvehicle-filter-multi-dropdown', 'value'),
             Input('purpose-filter-multi-dropdown', 'value'),
             Input('launchyear-filter-slider', 'value')
         ]
     )
-
     def update_dropdown(status, orbit, satname, satcatid,
-                     owner, launchvehicle,
-                     purpose, year):
-        dff, _ = filter_df(df_in, input_filter_in,
-                 status, orbit, satname, satcatid, owner, launchvehicle, purpose, year)
+                        owner, launchvehicle,
+                        purpose, year):
+        dff, _ = filter_df(df, input_filter,
+                           status, orbit, satname, satcatid, owner, launchvehicle, purpose, year)
         if dff.shape[0] == 0:
             satname = None
             satcatid = None
-            dff, _ = filter_df(df_in, input_filter_in,
-                     status, orbit, satname, satcatid, owner, launchvehicle, purpose, year)            
-        return list(np.sort(dff.ObjectName.unique())), list(np.sort(dff.SatCatId.unique()).astype(str)), satname, satcatid
+            dff, _ = filter_df(df, input_filter,
+                               status, orbit, satname, satcatid, owner, launchvehicle, purpose, year)
+        return list(np.sort(dff.ObjectName.unique())), list(
+            np.sort(dff.SatCatId.unique()).astype(str)), satname, satcatid

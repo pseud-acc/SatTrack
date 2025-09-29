@@ -50,14 +50,14 @@ def import_data(satcat_loc, img_loc, res):
     '''          
     ## Satellite catalogue data - contains TLEs
 
-    satcat = pd.read_csv(satcat_loc)
-    # satcat = pd.read_csv('https://raw.githubusercontent.com/pseud-acc/SatTrack/refs/heads/main/dat/clean/satcat_tle.csv')
+    #satcat = pd.read_csv(satcat_loc)
+    satcat = pd.read_csv('https://raw.githubusercontent.com/pseud-acc/SatTrack/refs/heads/main/dat/clean/satcat_tle.csv')
     print("Satellite catalgoue and TLEs successfully imported!")
 
-    img = np.asarray(Image.open(img_loc))
-    # url = 'https://raw.githubusercontent.com/pseud-acc/SatTrack/refs/heads/main/static/gray_scale_earth_2048_1024.jpg'
-    # response = requests.get(url)
-    # img = np.asarray(Image.open((BytesIO(response.content))))
+   # img = np.asarray(Image.open(img_loc))
+    url = 'https://raw.githubusercontent.com/pseud-acc/SatTrack/refs/heads/main/static/gray_scale_earth_2048_1024.jpg'
+    response = requests.get(url) 
+    img = np.asarray(Image.open((BytesIO(response.content))))
     img = img.T
 
     print("Earth Map successfully imported!")
@@ -223,9 +223,9 @@ def initialise_2d():
         hoverlabel=dict(namelength=0)    
     )
 
-    layout_2d = go.Layout(
-        autosize=True,
-        # height=500,
+    layout_2d = go.Layout(    
+        width=500,
+        height=500,
         margin={"r":0,"t":0,"l":0,"b":0},
         mapbox=dict(
             style="white-bg",

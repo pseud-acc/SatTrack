@@ -38,16 +38,13 @@ from app.callbacks.callback_sat_visualisations import get_callbacks as get_callb
 # sat science layout + callback
 
 # sat applications layout + callback
-from app.layouts.layout_sat_applications import create_dash_layout as create_dash_layout_sat_applications
+from app.layouts.layout_sat_applications_old_v2 import create_dash_layout as create_dash_layout_sat_applications
 from app.callbacks.callback_sat_applications import get_callbacks as get_callbacks_sat_applications
 
 ## >>>>>>>> Create App <<<<<<<<<<<<
 
 # Instantiate  App
-external_stylesheets = [
-    dbc.themes.CYBORG,
-    "https://use.fontawesome.com/releases/v5.15.4/css/all.css"
-]
+external_stylesheets = [dbc.themes.CYBORG]
 app = Dash(__name__,
            external_stylesheets=external_stylesheets,
            meta_tags=[

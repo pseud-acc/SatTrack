@@ -99,24 +99,50 @@ def lla_to_xyz(lat, lon, alt, re):
     return x0,y0,z0
 
 def sphere(size, texture):
-    
-    ''' 
+
+    '''
     Compute location of Earth surface in Cartesian coordinates assuming Spherical Earth
 
     @param size: (float) single floating point array of Earth radius
     @param texture: (array) floating point array of two-dimensional Earth image
     @return: x0, y0, z0 (array) floating point array of x, y and z position of Earth surface
-    '''          
-    
+    '''
+
     N_lon = int(texture.shape[0])
     N_lat = int(texture.shape[1])
     lon = np.linspace(0,2*np.pi,N_lon)
     lat = np.linspace(0,np.pi,N_lat)
-    
+
     # Set up coordinates for points on the sphere
     x0 = size * np.outer(np.cos(lon),np.sin(lat))
     y0 = size * np.outer(np.sin(lon),np.sin(lat))
     z0 = size * np.outer(np.ones(N_lon),np.cos(lat))
-    
+
     # Set up trace
     return x0,y0,z0
+
+# def sphere(radius, texture):
+#     """
+#     Compute location of Earth surface in Cartesian coordinates with correct texture mapping
+#
+#     @param radius: (float) Earth radius
+#     @param texture: (array) 2D image array for Earth texture
+#     @return: x, y, z (array) 3D coordinates of Earth surface
+#     """
+#     # Get dimensions from texture
+#     N_lat = texture.shape[0]  # Rows correspond to latitude
+#     N_lon = texture.shape[1]  # Columns correspond to longitude
+#
+#     # Create coordinate grids
+#     lat = np.linspace(0, np.pi, N_lat)  # 0 to π (North to South pole)
+#     lon = np.linspace(0, 2 * np.pi, N_lon)  # 0 to 2π (full longitude)
+#
+#     # Create meshgrid for proper dimension ordering
+#     lon_grid, lat_grid = np.meshgrid(lon, lat)
+#
+#     # Calculate Cartesian coordinates
+#     x = radius * np.sin(lat_grid) * np.cos(lon_grid)
+#     y = radius * np.sin(lat_grid) * np.sin(lon_grid)
+#     z = radius * np.cos(lat_grid)
+#
+#     return x, y, z
