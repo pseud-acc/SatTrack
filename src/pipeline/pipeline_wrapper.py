@@ -165,6 +165,8 @@ def tle_pipeline(metadata,
             # Drop TLE staging tables
             drop_staging_tables(satdat_dbs)
             print("Remove TLE staging tables from database")
+        else:
+            return
         
 def app_data_export(satdat_dbs,
                 filename_satcat_tle):
