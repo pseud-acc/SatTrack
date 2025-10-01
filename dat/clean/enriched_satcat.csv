@@ -2419,7 +2419,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 26298,GALAXY 4R (G-4R),2000,1442.28,-1.0,-,12.4,Inactive,0,GSO,French Guiana,USA,Unknown,Unknown,Unknown
 26352,GOES 11,2000,1453.96,-1.0,-,11.25,Inactive,0,GSO,USA,USA,Unknown,Unknown,Unknown
 26356,USA 149 (DSP 20),2000,1435.99,2380.0,+,12.97,Active,1,GSO,USA,USA,Military,Titan,Earth Observation
-26360,NAVSTAR 47 (USA 150),2000,717.94,2217.0,-,55.0,Inactive,1,MEO,USA,USA,Commercial/Military,Delta,Navigation (Global or Regional Positioning)
+26360,NAVSTAR 47 (USA 150),2000,717.94,2217.0,B,55.0,Active,1,MEO,USA,USA,Commercial/Military,Delta,Navigation (Global or Regional Positioning)
 26365,SIMSAT 1,2000,94.33,-1.0,UNK,86.34,Inactive,0,LEO,Russia,Russia/USSR,Unknown,Unknown,Unknown
 26366,SIMSAT 2,2000,94.25,-1.0,UNK,86.34,Inactive,0,LEO,Russia,Russia/USSR,Unknown,Unknown,Unknown
 26369,EUTELSAT 80A,2000,1462.39,3190.0,-,7.94,Inactive,1,GSO,USA,EUTELSAT,Commercial,Atlas,Communications
@@ -5350,7 +5350,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 48284,STARLINK-2564,2021,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48286,STARLINK-2547,2021,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48287,STARLINK-2566,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-48288,STARLINK-2562,2021,87.93,260.0,P,53.03,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48289,STARLINK-2545,2021,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48290,STARLINK-2540,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48291,STARLINK-2555,2021,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -9169,7 +9168,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 57017,OBJECT P,2023,92.91,-1.0,+,97.48,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 57018,OBJECT Q,2023,89.69,-1.0,+,97.46,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 57019,OBJECT R,2023,92.73,-1.0,+,97.48,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
-57020,OBJECT S,2023,88.19,-1.0,+,97.45,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 57021,OBJECT T,2023,91.32,-1.0,+,97.47,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 57022,OBJECT U,2023,89.42,-1.0,+,97.47,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 57023,OBJECT V,2023,94.46,-1.0,+,97.48,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
