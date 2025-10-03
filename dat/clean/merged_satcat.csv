@@ -4466,7 +4466,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 45197,2020-012V,STARLINK-1269,2020-02-17,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,227.0,,-1.0,1,Falcon
 45198,2020-012W,STARLINK-1154,2020-02-17,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,227.0,,-1.0,1,Falcon
 45201,2020-012Z,STARLINK-1199,2020-02-17,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,227.0,,-1.0,1,Falcon
-45205,2020-012AD,STARLINK-1208,2020-02-17,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,87.94,-1.0,US,USA,53.03,Commercial,Communications,227.0,,-1.0,1,Falcon
 45206,2020-012AE,STARLINK-1209,2020-02-17,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,227.0,,-1.0,1,Falcon
 45207,2020-012AF,STARLINK-1210,2020-02-17,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,92.94,-1.0,US,USA,53.03,Commercial,Communications,227.0,,-1.0,1,Falcon
 45212,2020-012AL,STARLINK-1231,2020-02-17,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,95.36,-1.0,US,USA,53.06,Commercial,Communications,227.0,,-1.0,1,Falcon
@@ -4501,7 +4500,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 45376,2020-019S,STARLINK-1304,2020-03-18,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
 45377,2020-019T,STARLINK-1305,2020-03-18,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
 45379,2020-019V,STARLINK-1319,2020-03-18,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
-45381,2020-019X,STARLINK-1258,2020-03-18,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,88.03,-1.0,US,USA,53.03,Commercial,Communications,227.0,,-1.0,1,Falcon
 45383,2020-019Z,STARLINK-1266,2020-03-18,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
 45384,2020-019AA,STARLINK-1267,2020-03-18,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
 45386,2020-019AC,STARLINK-1272,2020-03-18,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
@@ -9164,7 +9162,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 57017,2023-085P,OBJECT P,2023-06-15,2023,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,92.86,-1.0,PRC,China,97.48,,,-1.0,,-1.0,0,
 57019,2023-085R,OBJECT R,2023-06-15,2023,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,92.68,-1.0,PRC,China,97.48,,,-1.0,,-1.0,0,
 57021,2023-085T,OBJECT T,2023-06-15,2023,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,91.18,-1.0,PRC,China,97.47,,,-1.0,,-1.0,0,
-57022,2023-085U,OBJECT U,2023-06-15,2023,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,88.56,-1.0,PRC,China,97.47,,,-1.0,,-1.0,0,
 57023,2023-085V,OBJECT V,2023-06-15,2023,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,94.45,-1.0,PRC,China,97.48,,,-1.0,,-1.0,0,
 57024,2023-085W,OBJECT W,2023-06-15,2023,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,90.15,-1.0,PRC,China,97.47,,,-1.0,,-1.0,0,
 57025,2023-085X,OBJECT X,2023-06-15,2023,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,89.55,-1.0,PRC,China,97.46,,,-1.0,,-1.0,0,

@@ -4466,7 +4466,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 45197,STARLINK-1269,2020,95.59,227.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45198,STARLINK-1154,2020,95.59,227.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45201,STARLINK-1199,2020,95.59,227.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-45205,STARLINK-1208,2020,87.94,227.0,P,53.03,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45206,STARLINK-1209,2020,95.59,227.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45207,STARLINK-1210,2020,92.94,227.0,P,53.03,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45212,STARLINK-1231,2020,95.36,227.0,P,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -4501,7 +4500,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 45376,STARLINK-1304,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45377,STARLINK-1305,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45379,STARLINK-1319,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-45381,STARLINK-1258,2020,88.03,227.0,P,53.03,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45383,STARLINK-1266,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45384,STARLINK-1267,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45386,STARLINK-1272,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -9164,7 +9162,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 57017,OBJECT P,2023,92.86,-1.0,+,97.48,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 57019,OBJECT R,2023,92.68,-1.0,+,97.48,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 57021,OBJECT T,2023,91.18,-1.0,+,97.47,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
-57022,OBJECT U,2023,88.56,-1.0,+,97.47,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 57023,OBJECT V,2023,94.45,-1.0,+,97.48,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 57024,OBJECT W,2023,90.15,-1.0,+,97.47,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 57025,OBJECT X,2023,89.55,-1.0,+,97.46,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
