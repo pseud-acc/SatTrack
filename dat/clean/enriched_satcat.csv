@@ -4122,7 +4122,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 43700,ES'HAIL 2,2018,1436.13,5300.0,+,0.02,Active,1,GSO,USA,Arabsat,Commercial/Military,Falcon,Communications
 43706,BEIDOU-3 M17,2018,773.24,800.0,+,54.18,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
 43707,BEIDOU-3 M18,2018,773.24,800.0,+,54.18,Active,1,MEO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
-43710,TIANZHI 1,2018,88.48,-1.0,+,97.32,Active,1,LEO,PRC,China,Government,Long March,Space Science
 43711,SHIYAN-6 01 (SY-6 01),2018,94.35,-1.0,+,97.37,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 43714,TIANPING 1B,2018,89.86,-1.0,+,97.29,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 43717,MOHAMMED VI-B,2018,97.49,1110.0,+,97.94,Active,1,LEO,French Guiana,Morroco,Government,Vega,Earth Observation
@@ -4313,7 +4312,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 44716,STARLINK-1010,2019,90.95,227.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 44717,STARLINK-1011,2019,91.54,227.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 44718,STARLINK-1012,2019,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-44721,STARLINK-1015,2019,88.16,227.0,P,53.03,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 44723,STARLINK-1017,2019,95.22,227.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 44724,STARLINK-1019,2019,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 44725,STARLINK-1020,2019,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -4330,7 +4328,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 44758,STARLINK-1053,2019,92.49,227.0,P,53.04,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 44759,STARLINK-1054,2019,91.58,227.0,P,53.04,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 44761,STARLINK-1056,2019,90.88,227.0,P,53.04,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-44762,STARLINK-1057,2019,88.1,227.0,P,53.03,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 44765,STARLINK-1060,2019,92.94,227.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 44768,STARLINK-1063,2019,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 44771,STARLINK-1067,2019,95.59,227.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -4413,7 +4410,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 45088,STARLINK-1183,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45090,STARLINK-1176,2020,90.7,227.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45093,STARLINK-1142,2020,92.7,227.0,P,53.04,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-45094,STARLINK-1146,2020,88.45,227.0,P,53.03,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45095,STARLINK-1147,2020,89.86,227.0,P,53.04,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45096,STARLINK-1152,2020,94.6,227.0,P,53.04,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45098,STARLINK-1184,2020,95.59,227.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -5253,7 +5249,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 48099,STARLINK-2428,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48100,STARLINK-2430,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48101,STARLINK-2436,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-48102,STARLINK-2437,2021,88.29,260.0,P,53.03,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48104,STARLINK-2439,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48105,STARLINK-2440,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48106,STARLINK-2442,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -7964,7 +7959,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 54846,STARLINK-5360,2022,95.84,260.0,+,43.0,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 54847,STARLINK-5061,2022,95.84,260.0,+,43.0,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 54848,STARLINK-5432,2022,95.84,260.0,+,43.0,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-54849,STARLINK-5434,2022,88.73,260.0,P,42.99,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 54850,STARLINK-5087,2022,95.84,260.0,+,43.0,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 54851,STARLINK-5084,2022,95.84,260.0,+,43.0,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 54852,STARLINK-5418,2022,95.84,260.0,+,43.0,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -7997,7 +7991,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 55015,BIRKELAND,2023,93.86,10.0,+,97.37,Active,1,LEO,USA,Norway,Military,Falcon,Earth Observation
 55016,OBJECT H,2023,93.88,-1.0,-,97.36,Inactive,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 55019,KSF3-B,2023,92.19,10.0,+,97.36,Active,1,LEO,USA,Luxembourg,Commercial,Falcon,Earth Observation
-55022,FLOCK 4Y-22,2023,89.08,6.0,-,97.34,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 55032,FLOCK 4Y-7,2023,90.76,6.0,-,97.35,Inactive,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
 55034,LYNK TOWER 4,2023,94.22,80.0,+,97.36,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 55036,UMBRA-05,2023,92.44,65.0,+,97.36,Active,1,LEO,USA,USA,Commercial,Falcon,Earth Observation
@@ -9167,7 +9160,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 57025,OBJECT X,2023,89.29,-1.0,+,97.46,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 57026,OBJECT Y,2023,94.36,-1.0,+,97.48,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 57027,OBJECT Z,2023,90.51,-1.0,+,97.47,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
-57028,OBJECT AA,2023,89.17,-1.0,+,97.47,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 57030,OBJECT AC,2023,91.66,-1.0,+,97.47,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 57031,OBJECT AD,2023,94.4,-1.0,+,97.48,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 57032,OBJECT AE,2023,89.83,-1.0,+,97.47,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
@@ -14157,11 +14149,11 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 63603,SHIYAN-27 E,2025,106.1,-1.0,+,99.69,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 63604,SHIYAN-27 F,2025,106.1,-1.0,+,99.69,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 63606,USA 523,2025,94.97,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-63607,USA 524,2025,91.55,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-63608,USA 525,2025,91.55,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+63607,USA 524,2025,96.06,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+63608,USA 525,2025,96.21,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 63609,USA 526,2025,91.55,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 63610,USA 527,2025,96.21,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-63611,USA 528,2025,91.55,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+63611,USA 528,2025,96.06,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 63612,USA 529,2025,93.28,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 63613,USA 530,2025,92.6,-1.0,+,69.96,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 63614,USA 531,2025,95.2,-1.0,+,69.97,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
@@ -14171,7 +14163,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 63618,USA 535,2025,96.21,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 63619,USA 536,2025,95.56,-1.0,+,69.96,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 63620,USA 537,2025,93.82,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-63621,USA 538,2025,91.55,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+63621,USA 538,2025,96.06,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 63622,USA 539,2025,96.21,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 63623,USA 540,2025,95.83,-1.0,+,69.98,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 63624,USA 541,2025,96.21,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
