@@ -7664,7 +7664,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 54078,STARLINK-5138,2022,93.06,260.0,P,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 54079,STARLINK-5175,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 54080,STARLINK-5160,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-54081,STARLINK-5165,2022,88.56,260.0,P,53.2,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 54082,STARLINK-5210,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 54083,STARLINK-5178,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 54084,STARLINK-5183,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -13555,7 +13554,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 63001,STARLINK-32437,2025,94.27,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 63002,OBJECT DM,2025,93.8,-1.0,+,97.43,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 63003,FOSSASAT-2E20 (TAT-O),2025,94.63,-1.0,+,97.34,Active,0,LEO,USA,Spain,Unknown,Unknown,Unknown
-63004,OBJECT DP,2025,89.53,-1.0,+,97.41,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 63005,STARLINK-11448 [DTC],2025,91.66,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 63006,STARLINK-11553 [DTC],2025,91.66,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 63007,STARLINK-11526 [DTC],2025,91.66,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
@@ -16169,3 +16167,4 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 65942,E-KAGAKU-1,1998,92.85,-1.0,+,51.63,Active,0,LEO,Kazakhstan,Japan,Unknown,Unknown,Unknown
 65943,BOTAN,1998,92.85,-1.0,+,51.63,Active,0,LEO,Kazakhstan,Japan,Unknown,Unknown,Unknown
 65945,SHIYAN-31,2025,94.73,-1.0,+,80.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+65972,STRIX B,2025,95.91,-1.0,+,41.93,Active,0,LEO,New Zealand,Japan,Unknown,Unknown,Unknown
