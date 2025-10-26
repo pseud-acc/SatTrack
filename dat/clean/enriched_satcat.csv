@@ -4890,7 +4890,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 47228,GONETS-M 21,2020,115.86,280.0,+,82.49,Active,1,LEO,Russia,Russia/USSR,Commercial,Soyuz,Communications
 47229,GONETS-M 22,2020,115.86,280.0,+,82.5,Active,1,LEO,Russia,Russia/USSR,Commercial,Soyuz,Communications
 47230,COSMOS 2548,2020,115.86,3.0,+,82.5,Active,1,LEO,Russia,Russia/USSR,Military,Soyuz,Technology Development
-47231,GAOFEN-14,2020,94.4,1000.0,+,97.25,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
+47231,GAOFEN-14 01,2020,94.4,1000.0,+,97.25,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
 47234,GECAM-A,2020,96.04,150.0,+,28.99,Active,1,LEO,PRC,China,Government,Long March,Space Science
 47235,GECAM-B,2020,95.95,150.0,+,29.0,Active,1,LEO,PRC,China,Government,Long March,Space Science
 47237,USA 311,2020,1436.11,5400.0,+,4.13,Active,1,GSO,USA,USA,Military,Delta,Earth Observation
@@ -5453,7 +5453,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 48481,STARLINK-2706,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48482,STARLINK-2525,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48483,STARLINK-2531,2021,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-48484,STARLINK-2696,2021,88.73,260.0,P,53.02,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48485,STARLINK-2500,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48487,STARLINK-2494,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48553,STARLINK-2063,2021,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -8789,7 +8788,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 56428,STARLINK-6238,2023,95.84,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56429,STARLINK-6264,2023,95.84,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56442,TROPICS-05,2023,91.69,-1.0,+,32.73,Active,0,LEO,New Zealand,USA,Unknown,Unknown,Unknown
-56444,TROPICS-06,2023,88.62,-1.0,+,32.71,Active,0,LEO,New Zealand,USA,Unknown,Unknown,Unknown
 56448,STARLINK-5990,2023,96.11,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56449,STARLINK-5993,2023,96.11,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 56450,STARLINK-5970,2023,96.11,-1.0,+,70.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
@@ -16290,3 +16288,4 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 66142,TJS-20,2025,834.29,-1.0,+,16.42,Active,0,MEO,PRC,China,Unknown,Unknown,Unknown
 66144,SPAINSAT NG II,2025,1232.3,-1.0,+,26.78,Active,0,MEO,USA,Spain,Unknown,Unknown,Unknown
 66145,USA 567,2024,-1.0,-1.0,+,-1.0,Active,0,Unknown,USA,USA,Unknown,Unknown,Unknown
+66175,GAOFEN-14 02,2025,94.28,-1.0,+,97.44,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
