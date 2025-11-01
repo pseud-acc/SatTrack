@@ -7272,7 +7272,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 53570,2022-101AV,STARLINK-4550,2022-08-19,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 53571,2022-101AW,STARLINK-4584,2022-08-19,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 53572,2022-101AX,STARLINK-4555,2022-08-19,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
-53573,2022-101AY,STARLINK-4547,2022-08-19,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,88.3,-1.0,US,USA,53.2,Commercial,Communications,260.0,,4.0,1,Falcon
 53574,2022-101AZ,STARLINK-4559,2022-08-19,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 53575,2022-101BA,STARLINK-4551,2022-08-19,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 53576,2022-101BB,STARLINK-4581,2022-08-19,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
@@ -16296,6 +16295,24 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 66030,2025-232AB,STARLINK-35431,2025-10-16,2025,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,91.62,-1.0,US,USA,53.16,,,-1.0,,-1.0,0,
 66031,2025-232AC,STARLINK-35326,2025-10-16,2025,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,91.62,-1.0,US,USA,53.16,,,-1.0,,-1.0,0,
 66032,2025-232AD,STARLINK-35311,2025-10-16,2025,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,91.62,-1.0,US,USA,53.16,,,-1.0,,-1.0,0,
+66033,2025-233A,QIANFAN 18A,2025-10-17,2025,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.99,-1.0,PRC,China,88.99,,,-1.0,,-1.0,0,
+66034,2025-233B,QIANFAN 18B,2025-10-17,2025,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.98,-1.0,PRC,China,88.99,,,-1.0,,-1.0,0,
+66035,2025-233C,QIANFAN 18C,2025-10-17,2025,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.98,-1.0,PRC,China,88.99,,,-1.0,,-1.0,0,
+66036,2025-233D,QIANFAN 18D,2025-10-17,2025,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.97,-1.0,PRC,China,88.99,,,-1.0,,-1.0,0,
+66037,2025-233E,QIANFAN 18E,2025-10-17,2025,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.97,-1.0,PRC,China,88.99,,,-1.0,,-1.0,0,
+66038,2025-233F,QIANFAN 18F,2025-10-17,2025,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.97,-1.0,PRC,China,88.99,,,-1.0,,-1.0,0,
+66039,2025-233G,QIANFAN 18G,2025-10-17,2025,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.97,-1.0,PRC,China,88.99,,,-1.0,,-1.0,0,
+66040,2025-233H,QIANFAN 18H,2025-10-17,2025,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.97,-1.0,PRC,China,88.99,,,-1.0,,-1.0,0,
+66041,2025-233J,QIANFAN 18J,2025-10-17,2025,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.97,-1.0,PRC,China,88.99,,,-1.0,,-1.0,0,
+66042,2025-233K,QIANFAN 18K,2025-10-17,2025,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.97,-1.0,PRC,China,88.99,,,-1.0,,-1.0,0,
+66043,2025-233L,QIANFAN 18L,2025-10-17,2025,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.94,-1.0,PRC,China,88.99,,,-1.0,,-1.0,0,
+66044,2025-233M,QIANFAN 18M,2025-10-17,2025,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.97,-1.0,PRC,China,88.99,,,-1.0,,-1.0,0,
+66045,2025-233N,QIANFAN 18N,2025-10-17,2025,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.96,-1.0,PRC,China,88.99,,,-1.0,,-1.0,0,
+66046,2025-233P,QIANFAN 18P,2025-10-17,2025,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.96,-1.0,PRC,China,88.99,,,-1.0,,-1.0,0,
+66047,2025-233Q,QIANFAN 18Q,2025-10-17,2025,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.96,-1.0,PRC,China,88.99,,,-1.0,,-1.0,0,
+66048,2025-233R,QIANFAN 18R,2025-10-17,2025,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.96,-1.0,PRC,China,88.99,,,-1.0,,-1.0,0,
+66049,2025-233S,QIANFAN 18S,2025-10-17,2025,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.96,-1.0,PRC,China,88.99,,,-1.0,,-1.0,0,
+66050,2025-233T,QIANFAN 18T,2025-10-17,2025,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,100.95,-1.0,PRC,China,88.99,,,-1.0,,-1.0,0,
 66054,2025-234B,OBJECT B,2025-10-19,2025,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,94.67,-1.0,PAKI,Pakistan,97.5,,,-1.0,,-1.0,0,
 66055,2025-234C,OBJECT C,2025-10-19,2025,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,94.66,-1.0,PRC,China,97.46,,,-1.0,,-1.0,0,
 66056,2025-234D,OBJECT D,2025-10-19,2025,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,94.64,-1.0,PRC,China,97.45,,,-1.0,,-1.0,0,

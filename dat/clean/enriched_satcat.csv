@@ -7272,7 +7272,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 53570,STARLINK-4550,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 53571,STARLINK-4584,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 53572,STARLINK-4555,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-53573,STARLINK-4547,2022,88.3,260.0,P,53.2,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 53574,STARLINK-4559,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 53575,STARLINK-4551,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 53576,STARLINK-4581,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -16296,6 +16295,24 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 66030,STARLINK-35431,2025,91.62,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 66031,STARLINK-35326,2025,91.62,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 66032,STARLINK-35311,2025,91.62,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66033,QIANFAN 18A,2025,100.99,-1.0,+,88.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+66034,QIANFAN 18B,2025,100.98,-1.0,+,88.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+66035,QIANFAN 18C,2025,100.98,-1.0,+,88.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+66036,QIANFAN 18D,2025,100.97,-1.0,+,88.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+66037,QIANFAN 18E,2025,100.97,-1.0,+,88.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+66038,QIANFAN 18F,2025,100.97,-1.0,+,88.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+66039,QIANFAN 18G,2025,100.97,-1.0,+,88.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+66040,QIANFAN 18H,2025,100.97,-1.0,+,88.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+66041,QIANFAN 18J,2025,100.97,-1.0,+,88.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+66042,QIANFAN 18K,2025,100.97,-1.0,+,88.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+66043,QIANFAN 18L,2025,100.94,-1.0,+,88.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+66044,QIANFAN 18M,2025,100.97,-1.0,+,88.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+66045,QIANFAN 18N,2025,100.96,-1.0,+,88.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+66046,QIANFAN 18P,2025,100.96,-1.0,+,88.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+66047,QIANFAN 18Q,2025,100.96,-1.0,+,88.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+66048,QIANFAN 18R,2025,100.96,-1.0,+,88.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+66049,QIANFAN 18S,2025,100.96,-1.0,+,88.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+66050,QIANFAN 18T,2025,100.95,-1.0,+,88.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 66054,OBJECT B,2025,94.67,-1.0,+,97.5,Active,0,LEO,PRC,Pakistan,Unknown,Unknown,Unknown
 66055,OBJECT C,2025,94.66,-1.0,+,97.46,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 66056,OBJECT D,2025,94.64,-1.0,+,97.45,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
