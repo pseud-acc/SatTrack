@@ -16396,6 +16396,34 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 66142,TJS-20,2025,1436.12,-1.0,+,5.98,Active,0,GSO,PRC,China,Unknown,Unknown,Unknown
 66144,SPAINSAT NG II,2025,1267.86,-1.0,+,24.97,Active,0,MEO,USA,Spain,Unknown,Unknown,Unknown
 66145,USA 567,2024,-1.0,-1.0,+,-1.0,Active,0,Unknown,USA,USA,Unknown,Unknown,Unknown
+66146,STARLINK-35318,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66147,STARLINK-33948,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66148,STARLINK-35081,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66149,STARLINK-35601,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66150,STARLINK-35605,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66151,STARLINK-35540,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66152,STARLINK-35455,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66153,STARLINK-34752,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66154,STARLINK-34625,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66155,STARLINK-35580,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66156,STARLINK-35621,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66157,STARLINK-35594,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66158,STARLINK-35587,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66159,STARLINK-35586,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66160,STARLINK-35636,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66161,STARLINK-35635,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66162,STARLINK-35633,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66163,STARLINK-35607,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66164,STARLINK-35614,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66165,STARLINK-35575,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66166,STARLINK-35624,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66167,STARLINK-35641,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66168,STARLINK-35578,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66169,STARLINK-35638,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66170,STARLINK-35585,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66171,STARLINK-35606,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66172,STARLINK-35627,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+66173,STARLINK-35634,2025,91.01,-1.0,+,53.15,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 66175,GAOFEN-14 02,2025,94.28,-1.0,+,97.44,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 66310,CMS-03 (GSAT-7R),2025,461.82,-1.0,+,21.32,Active,0,MEO,India,India,Unknown,Unknown,Unknown
 66313,YAOGAN-46,2025,202.77,-1.0,+,20.01,Active,0,MEO,PRC,China,Unknown,Unknown,Unknown
