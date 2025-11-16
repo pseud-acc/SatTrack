@@ -4985,7 +4985,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 47505,HAWK-2A,2021,94.06,15.0,+,97.27,Active,1,LEO,USA,USA,Commercial,Falcon,Surveillance
 47508,HAWK-2B,2021,94.05,15.0,+,97.25,Active,1,LEO,USA,USA,Commercial,Falcon,Surveillance
 47509,GHGSAT-C2,2021,93.84,15.0,+,97.25,Active,1,LEO,USA,Canada,Commercial,Falcon,Earth Observation
-47510,ICEYE-X8,2021,88.69,80.0,+,97.23,Active,1,LEO,USA,Finland,Commercial,Falcon,Earth Observation
 47517,ASTROCAST-0105,2021,92.7,4.0,+,97.25,Active,1,LEO,USA,Switzerland,Commercial,Falcon,Communications
 47519,ASTROCAST-0104,2021,90.87,4.0,+,97.27,Active,1,LEO,USA,Switzerland,Commercial,Falcon,Communications
 47532,YAOGAN-31 02A,2021,107.03,-1.0,+,63.41,Active,1,LEO,PRC,China,Military,Long March,Earth Observation
@@ -6705,7 +6704,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 52644,STARLINK-3985,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 52645,STARLINK-3973,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 52646,STARLINK-3832,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-52647,STARLINK-3846,2022,88.37,260.0,P,53.21,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 52648,STARLINK-3854,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 52649,STARLINK-3868,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 52650,STARLINK-3891,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications

@@ -4985,7 +4985,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 47505,2021-006CW,HAWK-2A,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9/Sherpa FX,Active,+,LEO,94.06,-1.0,US,USA,97.27,Commercial,Surveillance,15.0,,-1.0,1,Falcon
 47508,2021-006CZ,HAWK-2B,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9/Sherpa FX,Active,+,LEO,94.05,-1.0,US,USA,97.25,Commercial,Surveillance,15.0,,-1.0,1,Falcon
 47509,2021-006DA,GHGSAT-C2,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,93.84,-1.0,CA,Canada,97.25,Commercial,Earth Observation,15.0,15,-1.0,1,Falcon
-47510,2021-006DB,ICEYE-X8,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,88.69,-1.0,FIN,Finland,97.23,Commercial,Earth Observation,80.0,,-1.0,1,Falcon
 47517,2021-006DH,ASTROCAST-0105,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9/Sherpa FX,Active,+,LEO,92.7,-1.0,SWTZ,Switzerland,97.25,Commercial,Communications,4.0,,-1.0,1,Falcon
 47519,2021-006DK,ASTROCAST-0104,2021-01-24,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9/Sherpa FX,Active,+,LEO,90.87,-1.0,SWTZ,Switzerland,97.27,Commercial,Communications,4.0,,-1.0,1,Falcon
 47532,2021-007A,YAOGAN-31 02A,2021-01-29,2021,"Jiuquan Space Center, PRC",PRC,Long March 4C,Active,+,LEO,107.03,-1.0,PRC,China,63.41,Military,Earth Observation,-1.0,,-1.0,1,Long March
@@ -6705,7 +6704,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 52644,2022-052AY,STARLINK-3985,2022-05-14,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 52645,2022-052AZ,STARLINK-3973,2022-05-14,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 52646,2022-052BA,STARLINK-3832,2022-05-14,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
-52647,2022-052BB,STARLINK-3846,2022-05-14,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,88.37,-1.0,US,USA,53.21,Commercial,Communications,260.0,,4.0,1,Falcon
 52648,2022-052BC,STARLINK-3854,2022-05-14,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 52649,2022-052BD,STARLINK-3868,2022-05-14,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 52650,2022-052BE,STARLINK-3891,2022-05-14,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
