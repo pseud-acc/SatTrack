@@ -16714,6 +16714,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 66545,SHIJIAN-30A,2025,95.03,-1.0,+,51.8,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 66546,SHIJIAN-30B,2025,95.03,-1.0,+,51.8,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 66547,SHIJIAN-30C,2025,95.03,-1.0,+,51.8,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+66549,SHIJIAN-28,2025,631.52,-1.0,+,14.43,Active,0,MEO,PRC,China,Unknown,Unknown,Unknown
 66554,GLOBAL-33,2025,94.04,-1.0,+,42.02,Active,0,LEO,New Zealand,USA,Unknown,Unknown,Unknown
 66557,STARLINK-35699,2025,90.91,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 66558,STARLINK-35695,2025,90.91,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
