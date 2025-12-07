@@ -4292,7 +4292,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 44703,2019-072A,GAOFEN-7,2019-11-03,2019,"Taiyuan Space Center, PRC",PRC,Long March 4B,Active,+,LEO,94.64,-1.0,PRC,China,97.27,Government,Earth Observation,9.0,,-1.0,1,Long March
 44709,2019-073A,BEIDOU-3 IGSO-3,2019-11-04,2019,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,GSO,1436.41,-1.0,PRC,China,55.16,Government/Military,Navigation (Global or Regional Positioning),4200.0,,8.0,1,Long March
 44714,2019-074B,STARLINK-1008,2019-11-11,2019,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
-44717,2019-074E,STARLINK-1011,2019-11-11,2019,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,88.07,-1.0,US,USA,53.03,Commercial,Communications,227.0,,-1.0,1,Falcon
 44718,2019-074F,STARLINK-1012,2019-11-11,2019,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
 44723,2019-074L,STARLINK-1017,2019-11-11,2019,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,94.89,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
 44724,2019-074M,STARLINK-1019,2019-11-11,2019,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,92.57,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
@@ -6056,7 +6055,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 50835,2022-001AJ,STARLINK-3310,2022-01-06,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 50836,2022-001AK,STARLINK-3330,2022-01-06,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 50837,2022-001AL,STARLINK-3318,2022-01-06,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
-50838,2022-001AM,STARLINK-3322,2022-01-06,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,88.35,-1.0,US,USA,53.16,Commercial,Communications,260.0,,4.0,1,Falcon
 50839,2022-001AN,STARLINK-3320,2022-01-06,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 50840,2022-001AP,STARLINK-3295,2022-01-06,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
 50841,2022-001AQ,STARLINK-3300,2022-01-06,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.22,Commercial,Communications,260.0,,4.0,1,Falcon
@@ -8730,7 +8728,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 56427,2023-061BF,STARLINK-5724,2023-05-04,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,95.84,-1.0,US,USA,43.01,,,-1.0,,-1.0,0,
 56428,2023-061BG,STARLINK-6238,2023-05-04,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,95.84,-1.0,US,USA,43.01,,,-1.0,,-1.0,0,
 56429,2023-061BH,STARLINK-6264,2023-05-04,2023,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,95.84,-1.0,US,USA,43.01,,,-1.0,,-1.0,0,
-56442,2023-062A,TROPICS-05,2023-05-08,2023,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,88.65,-1.0,US,USA,32.71,,,-1.0,,-1.0,0,
 56448,2023-064A,STARLINK-5990,2023-05-10,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,96.11,-1.0,US,USA,70.0,,,-1.0,,-1.0,0,
 56449,2023-064B,STARLINK-5993,2023-05-10,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,96.11,-1.0,US,USA,70.0,,,-1.0,,-1.0,0,
 56450,2023-064C,STARLINK-5970,2023-05-10,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,96.11,-1.0,US,USA,70.0,,,-1.0,,-1.0,0,
@@ -16795,7 +16792,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 66647,2025-273A,COSMOS 2597 (RODNIK-S 22),2025-11-25,2025,"Plesetsk Missile and Space Complex, Russia",Russia,,Active,+,LEO,115.95,-1.0,CIS,Russia/USSR,82.5,,,-1.0,,-1.0,0,
 66648,2025-273B,COSMOS 2598 (RODNIK-S 23),2025-11-25,2025,"Plesetsk Missile and Space Complex, Russia",Russia,,Active,+,LEO,115.92,-1.0,CIS,Russia/USSR,82.5,,,-1.0,,-1.0,0,
 66649,2025-273C,COSMOS 2599 (RODNIK-S 24),2025-11-25,2025,"Plesetsk Missile and Space Complex, Russia",Russia,,Active,+,LEO,115.97,-1.0,CIS,Russia/USSR,82.5,,,-1.0,,-1.0,0,
-66650,2025-274A,OBJECT A,2025-11-26,2025,"Naro Space Complex, Republic of Korea",Republic of Korea,,Active,+,LEO,96.54,-1.0,SKOR,South Korea,97.74,,,-1.0,,-1.0,0,
+66650,2025-274A,BEE-1000,2025-11-26,2025,"Naro Space Complex, Republic of Korea",Republic of Korea,,Active,+,LEO,96.54,-1.0,SKOR,South Korea,97.74,,,-1.0,,-1.0,0,
 66651,2025-274B,OBJECT B,2025-11-26,2025,"Naro Space Complex, Republic of Korea",Republic of Korea,,Active,+,LEO,96.53,-1.0,SKOR,South Korea,97.74,,,-1.0,,-1.0,0,
 66652,2025-274C,OBJECT C,2025-11-26,2025,"Naro Space Complex, Republic of Korea",Republic of Korea,,Active,+,LEO,96.52,-1.0,SKOR,South Korea,97.74,,,-1.0,,-1.0,0,
 66653,2025-274D,OBJECT D,2025-11-26,2025,"Naro Space Complex, Republic of Korea",Republic of Korea,,Active,+,LEO,96.52,-1.0,SKOR,South Korea,97.74,,,-1.0,,-1.0,0,
@@ -16816,3 +16813,13 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 66910,1998-067XW,OBJECT XW,1998-11-20,1998,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Active,+,LEO,92.87,-1.0,TBD,To Be Determined,51.63,,,-1.0,,-1.0,0,
 66911,1998-067XX,OBJECT XX,1998-11-20,1998,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Active,+,LEO,92.86,-1.0,TBD,To Be Determined,51.63,,,-1.0,,-1.0,0,
 66912,1998-067XY,OBJECT XY,1998-11-20,1998,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,,Active,+,LEO,92.89,-1.0,TBD,To Be Determined,51.63,,,-1.0,,-1.0,0,
+66913,2025-284A,OBJECT A,2025-12-05,2025,"Jiuquan Space Center, PRC",PRC,,Active,+,LEO,94.73,-1.0,PRC,China,80.4,,,-1.0,,-1.0,0,
+66915,2025-285A,HULIANWANG DIGUI 14A,2025-12-06,2025,"Wenchang Satellite Launch Site, PRC",PRC,,Active,+,LEO,102.4,-1.0,PRC,China,49.99,,,-1.0,,-1.0,0,
+66916,2025-285B,HULIANWANG DIGUI 14B,2025-12-06,2025,"Wenchang Satellite Launch Site, PRC",PRC,,Active,+,LEO,102.42,-1.0,PRC,China,50.01,,,-1.0,,-1.0,0,
+66917,2025-285C,HULIANWANG DIGUI 14C,2025-12-06,2025,"Wenchang Satellite Launch Site, PRC",PRC,,Active,+,LEO,94.56,-1.0,PRC,China,51.91,,,-1.0,,-1.0,0,
+66918,2025-285D,HULIANWANG DIGUI 14D,2025-12-06,2025,"Wenchang Satellite Launch Site, PRC",PRC,,Active,+,LEO,94.56,-1.0,PRC,China,51.91,,,-1.0,,-1.0,0,
+66919,2025-285E,HULIANWANG DIGUI 14E,2025-12-06,2025,"Wenchang Satellite Launch Site, PRC",PRC,,Active,+,LEO,94.56,-1.0,PRC,China,51.91,,,-1.0,,-1.0,0,
+66920,2025-285F,HULIANWANG DIGUI 14F,2025-12-06,2025,"Wenchang Satellite Launch Site, PRC",PRC,,Active,+,LEO,94.56,-1.0,PRC,China,51.91,,,-1.0,,-1.0,0,
+66921,2025-285G,HULIANWANG DIGUI 14G,2025-12-06,2025,"Wenchang Satellite Launch Site, PRC",PRC,,Active,+,LEO,94.56,-1.0,PRC,China,51.91,,,-1.0,,-1.0,0,
+66922,2025-285H,HULIANWANG DIGUI 14H,2025-12-06,2025,"Wenchang Satellite Launch Site, PRC",PRC,,Active,+,LEO,94.56,-1.0,PRC,China,51.91,,,-1.0,,-1.0,0,
+66923,2025-285J,HULIANWANG DIGUI 14J,2025-12-06,2025,"Wenchang Satellite Launch Site, PRC",PRC,,Active,+,LEO,94.56,-1.0,PRC,China,51.91,,,-1.0,,-1.0,0,
