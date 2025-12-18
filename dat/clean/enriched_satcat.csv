@@ -6335,7 +6335,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 51973,STARLINK-3679,2022,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 51974,STARLINK-3672,2022,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 51975,STARLINK-3674,2022,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-51976,STARLINK-3663,2022,88.13,260.0,P,53.19,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 51977,STARLINK-3660,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 51980,STARLINK-3649,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 51981,STARLINK-3635,2022,95.44,260.0,+,53.22,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -17005,6 +17004,62 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 66999,OBJECT G,2025,95.69,-1.0,+,97.66,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 67000,OBJECT H,2025,95.69,-1.0,+,97.66,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 67001,OBJECT J,2025,95.72,-1.0,+,97.66,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+67003,STARLINK-35660,2025,90.17,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67004,STARLINK-35913,2025,90.17,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67005,STARLINK-36148,2025,90.16,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67006,STARLINK-36156,2025,90.15,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67007,STARLINK-36123,2025,90.16,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67008,STARLINK-36163,2025,90.15,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67009,STARLINK-36118,2025,90.14,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67010,STARLINK-36189,2025,90.13,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67011,STARLINK-36167,2025,90.14,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67012,STARLINK-36175,2025,90.13,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67013,STARLINK-35856,2025,90.13,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67014,STARLINK-36207,2025,90.12,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67015,STARLINK-36093,2025,90.11,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67016,STARLINK-36120,2025,90.12,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67017,STARLINK-35498,2025,90.11,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67018,STARLINK-36106,2025,90.1,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67019,STARLINK-35688,2025,90.1,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67020,STARLINK-36172,2025,90.09,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67021,STARLINK-36184,2025,90.09,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67022,STARLINK-36209,2025,90.08,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67023,STARLINK-36191,2025,90.07,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67024,STARLINK-36192,2025,90.07,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67025,STARLINK-36178,2025,90.07,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67026,STARLINK-36176,2025,90.06,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67027,STARLINK-36171,2025,90.06,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67028,STARLINK-36132,2025,90.05,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67029,STARLINK-36190,2025,90.05,-1.0,+,69.99,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67030,STARLINK-36138,2025,90.3,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67031,STARLINK-36150,2025,90.29,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67032,STARLINK-36131,2025,90.28,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67033,STARLINK-36137,2025,90.29,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67034,STARLINK-36140,2025,90.28,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67035,STARLINK-36085,2025,90.27,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67036,STARLINK-36125,2025,90.27,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67037,STARLINK-35732,2025,90.26,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67038,STARLINK-35775,2025,90.26,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67039,STARLINK-35705,2025,90.25,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67040,STARLINK-35786,2025,90.25,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67041,STARLINK-35765,2025,90.24,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67042,STARLINK-35773,2025,90.24,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67043,STARLINK-35901,2025,90.24,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67044,STARLINK-35884,2025,90.23,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67045,STARLINK-35891,2025,90.22,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67046,STARLINK-35721,2025,90.22,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67047,STARLINK-35779,2025,90.21,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67048,STARLINK-35905,2025,90.21,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67049,STARLINK-35877,2025,90.2,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67050,STARLINK-36078,2025,90.2,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67051,STARLINK-35706,2025,90.19,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67052,STARLINK-35720,2025,90.19,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67053,STARLINK-35739,2025,90.18,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67054,STARLINK-35754,2025,90.18,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67055,STARLINK-35790,2025,90.17,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67056,STARLINK-36143,2025,90.16,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67057,STARLINK-36141,2025,90.16,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+67058,STARLINK-35767,2025,90.18,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 67059,HULIANWANG DIGUI 16A,2025,101.01,-1.0,+,50.01,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 67060,HULIANWANG DIGUI 16B,2025,101.0,-1.0,+,50.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 67061,HULIANWANG DIGUI 16C,2025,101.0,-1.0,+,50.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
