@@ -16455,7 +16455,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,45.41,2025-11-02,AFETR,66297,2025-248E,BANDWAGON-4E,PAY,+,EA,LEO,ORB,TBD,94.75,Active,To Be Determined,"Air Force Eastern Test Range, Florida, USA",USA
 ,45.41,2025-11-02,AFETR,66298,2025-248F,BANDWAGON-4F,PAY,+,EA,LEO,ORB,TBD,94.76,Active,To Be Determined,"Air Force Eastern Test Range, Florida, USA",USA
 ,45.4,2025-11-02,AFETR,66299,2025-248G,BANDWAGON-4G,PAY,+,EA,LEO,ORB,TBD,94.82,Active,To Be Determined,"Air Force Eastern Test Range, Florida, USA",USA
-,45.41,2025-11-02,AFETR,66300,2025-248H,ICEYE-X65,PAY,+,EA,LEO,ORB,FIN,94.82,Active,Finland,"Air Force Eastern Test Range, Florida, USA",USA
+,45.41,2025-11-02,AFETR,66300,2025-248H,ICEYE-X65,PAY,+,EA,LEO,ORB,UAE,94.82,Active,UAE,"Air Force Eastern Test Range, Florida, USA",USA
 ,45.4,2025-11-02,AFETR,66301,2025-248J,ICEYE-X66,PAY,+,EA,LEO,ORB,UAE,94.83,Active,UAE,"Air Force Eastern Test Range, Florida, USA",USA
 ,45.41,2025-11-02,AFETR,66302,2025-248K,ICEYE-X67,PAY,+,EA,LEO,ORB,UAE,94.81,Active,UAE,"Air Force Eastern Test Range, Florida, USA",USA
 ,45.4,2025-11-02,AFETR,66303,2025-248L,BANDWAGON-4L,PAY,+,EA,LEO,ORB,TBD,94.81,Active,To Be Determined,"Air Force Eastern Test Range, Florida, USA",USA
@@ -16798,6 +16798,118 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.74,2025-11-26,NSC,66660,2025-274L,K-HERO,PAY,+,EA,LEO,ORB,SKOR,96.45,Active,South Korea,"Naro Space Complex, Republic of Korea",Republic of Korea
 ,97.74,2025-11-26,NSC,66661,2025-274M,SNUGLITE-III,PAY,+,EA,LEO,ORB,SKOR,96.44,Active,South Korea,"Naro Space Complex, Republic of Korea",Republic of Korea
 ,97.74,2025-11-26,NSC,66662,2025-274N,OBJECT N,PAY,+,EA,LEO,ORB,SKOR,96.44,Active,South Korea,"Naro Space Complex, Republic of Korea",Republic of Korea
+,97.66,2025-11-28,AFWTR,66666,2025-276A,TRANSPORTER-15 A,PAY,+,EA,LEO,ORB,TBD,95.98,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66667,2025-276B,PELICAN-5,PAY,+,EA,LEO,ORB,US,94.89,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.43,2025-11-28,AFWTR,66668,2025-276C,TRANSPORTER-15 C,PAY,+,EA,LEO,ORB,TBD,94.93,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.43,2025-11-28,AFWTR,66669,2025-276D,TRANSPORTER-15 D,PAY,+,EA,LEO,ORB,TBD,94.91,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.43,2025-11-28,AFWTR,66670,2025-276E,TRANSPORTER-15 E,PAY,+,EA,LEO,ORB,TBD,94.92,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66671,2025-276F,TRANSPORTER-15 F,PAY,+,EA,LEO,ORB,TBD,94.92,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66672,2025-276G,TRANSPORTER-15 G,PAY,+,EA,LEO,ORB,TBD,94.95,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66673,2025-276H,TRANSPORTER-15 H,PAY,+,EA,LEO,ORB,TBD,94.92,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66674,2025-276J,TRANSPORTER-15 J,PAY,+,EA,LEO,ORB,TBD,94.94,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66675,2025-276K,TRANSPORTER-15 K,PAY,+,EA,LEO,ORB,TBD,94.93,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66676,2025-276L,TRANSPORTER-15 L,PAY,+,EA,LEO,ORB,TBD,94.94,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66677,2025-276M,TRANSPORTER-15 M,PAY,+,EA,LEO,ORB,TBD,94.9,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66678,2025-276N,TRANSPORTER-15 N,PAY,+,EA,LEO,ORB,TBD,94.94,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66679,2025-276P,TRANSPORTER-15 P,PAY,+,EA,LEO,ORB,TBD,94.95,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66680,2025-276Q,TRANSPORTER-15 Q,PAY,+,EA,LEO,ORB,TBD,94.94,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.43,2025-11-28,AFWTR,66681,2025-276R,TRANSPORTER-15 R,PAY,+,EA,LEO,ORB,TBD,94.9,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.45,2025-11-28,AFWTR,66682,2025-276S,TRANSPORTER-15 S,PAY,+,EA,LEO,ORB,TBD,94.92,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.45,2025-11-28,AFWTR,66683,2025-276T,TRANSPORTER-15 T,PAY,+,EA,LEO,ORB,TBD,94.93,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.45,2025-11-28,AFWTR,66684,2025-276U,TRANSPORTER-15 U,PAY,+,EA,LEO,ORB,TBD,94.91,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66685,2025-276V,TRANSPORTER-15 V,PAY,+,EA,LEO,ORB,TBD,94.9,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.45,2025-11-28,AFWTR,66686,2025-276W,TRANSPORTER-15 W,PAY,+,EA,LEO,ORB,TBD,94.93,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66687,2025-276X,TRANSPORTER-15 X,PAY,+,EA,LEO,ORB,TBD,94.95,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66688,2025-276Y,TRANSPORTER-15 Y,PAY,+,EA,LEO,ORB,TBD,94.92,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66689,2025-276Z,TRANSPORTER-15 Z,PAY,+,EA,LEO,ORB,TBD,94.91,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66690,2025-276AA,TRANSPORTER-15 AA,PAY,+,EA,LEO,ORB,TBD,94.92,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66691,2025-276AB,TRANSPORTER-15 AB,PAY,+,EA,LEO,ORB,TBD,94.91,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66692,2025-276AC,TRANSPORTER-15 AC,PAY,+,EA,LEO,ORB,TBD,94.9,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66693,2025-276AD,TRANSPORTER-15 AD,PAY,+,EA,LEO,ORB,TBD,94.89,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66694,2025-276AE,TRANSPORTER-15 AE,PAY,+,EA,LEO,ORB,TBD,94.89,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66695,2025-276AF,TRANSPORTER-15 AF,PAY,+,EA,LEO,ORB,TBD,94.85,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66696,2025-276AG,TRANSPORTER-15 AG,PAY,+,EA,LEO,ORB,TBD,94.9,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66697,2025-276AH,TRANSPORTER-15 AH,PAY,+,EA,LEO,ORB,TBD,94.86,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66698,2025-276AJ,TRANSPORTER-15 AJ,PAY,+,EA,LEO,ORB,TBD,94.91,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66699,2025-276AK,TRANSPORTER-15 AK,PAY,+,EA,LEO,ORB,TBD,94.9,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66700,2025-276AL,TRANSPORTER-15 AL,PAY,+,EA,LEO,ORB,TBD,94.85,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66701,2025-276AM,TRANSPORTER-15 AM,PAY,+,EA,LEO,ORB,TBD,94.91,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66702,2025-276AN,TRANSPORTER-15 AN,PAY,+,EA,LEO,ORB,TBD,94.9,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66703,2025-276AP,PELICAN-6,PAY,+,EA,LEO,ORB,US,94.9,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66704,2025-276AQ,FLOCK 4H-1,PAY,+,EA,LEO,ORB,US,94.86,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66705,2025-276AR,FLOCK 4H-2,PAY,+,EA,LEO,ORB,US,94.86,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.45,2025-11-28,AFWTR,66706,2025-276AS,FLOCK 4H-3,PAY,+,EA,LEO,ORB,US,94.9,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66707,2025-276AT,FLOCK 4H-4,PAY,+,EA,LEO,ORB,US,94.91,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66708,2025-276AU,FLOCK 4H-5,PAY,+,EA,LEO,ORB,US,94.85,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66709,2025-276AV,FLOCK 4H-6,PAY,+,EA,LEO,ORB,US,94.87,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66710,2025-276AW,FLOCK 4H-7,PAY,+,EA,LEO,ORB,US,94.9,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66711,2025-276AX,FLOCK 4H-8,PAY,+,EA,LEO,ORB,US,94.9,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66712,2025-276AY,FLOCK 4H-9,PAY,+,EA,LEO,ORB,US,94.87,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66713,2025-276AZ,FLOCK 4H-10,PAY,+,EA,LEO,ORB,US,94.91,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66714,2025-276BA,FLOCK 4H-11,PAY,+,EA,LEO,ORB,US,94.88,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66715,2025-276BB,FLOCK 4H-12,PAY,+,EA,LEO,ORB,US,94.86,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66716,2025-276BC,FLOCK 4H-13,PAY,+,EA,LEO,ORB,US,94.85,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66717,2025-276BD,FLOCK 4H-14,PAY,+,EA,LEO,ORB,US,94.84,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66718,2025-276BE,FLOCK 4H-15,PAY,+,EA,LEO,ORB,US,94.92,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.45,2025-11-28,AFWTR,66719,2025-276BF,FLOCK 4H-16,PAY,+,EA,LEO,ORB,US,94.91,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.45,2025-11-28,AFWTR,66720,2025-276BG,FLOCK 4H-17,PAY,+,EA,LEO,ORB,US,94.86,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66721,2025-276BH,FLOCK 4H-18,PAY,+,EA,LEO,ORB,US,94.92,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66722,2025-276BJ,FLOCK 4H-19,PAY,+,EA,LEO,ORB,US,94.85,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66723,2025-276BK,FLOCK 4H-20,PAY,+,EA,LEO,ORB,US,94.85,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66724,2025-276BL,FLOCK 4H-21,PAY,+,EA,LEO,ORB,US,94.84,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66725,2025-276BM,FLOCK 4H-22,PAY,+,EA,LEO,ORB,US,94.9,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.45,2025-11-28,AFWTR,66726,2025-276BN,FLOCK 4H-23,PAY,+,EA,LEO,ORB,US,94.91,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.45,2025-11-28,AFWTR,66727,2025-276BP,FLOCK 4H-24,PAY,+,EA,LEO,ORB,US,94.91,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66728,2025-276BQ,FLOCK 4H-25,PAY,+,EA,LEO,ORB,US,94.85,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66729,2025-276BR,FLOCK 4H-26,PAY,+,EA,LEO,ORB,US,94.92,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66730,2025-276BS,FLOCK 4H-27,PAY,+,EA,LEO,ORB,US,94.86,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66731,2025-276BT,FLOCK 4H-28,PAY,+,EA,LEO,ORB,US,94.92,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66732,2025-276BU,FLOCK 4H-29,PAY,+,EA,LEO,ORB,US,94.91,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66733,2025-276BV,FLOCK 4H-30,PAY,+,EA,LEO,ORB,US,94.91,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66734,2025-276BW,FLOCK 4H-31,PAY,+,EA,LEO,ORB,US,94.91,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66735,2025-276BX,FLOCK 4H-32,PAY,+,EA,LEO,ORB,US,94.91,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66736,2025-276BY,FLOCK 4H-33,PAY,+,EA,LEO,ORB,US,94.85,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.45,2025-11-28,AFWTR,66737,2025-276BZ,FLOCK 4H-34,PAY,+,EA,LEO,ORB,US,94.85,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66738,2025-276CA,FLOCK 4H-35,PAY,+,EA,LEO,ORB,US,94.85,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.45,2025-11-28,AFWTR,66739,2025-276CB,FLOCK 4H-36,PAY,+,EA,LEO,ORB,US,94.87,Active,USA,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66740,2025-276CC,TRANSPORTER-15 CC,PAY,+,EA,LEO,ORB,TBD,94.88,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66741,2025-276CD,TRANSPORTER-15 CD,PAY,+,EA,LEO,ORB,TBD,94.89,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66742,2025-276CE,TRANSPORTER-15 CE,PAY,+,EA,LEO,ORB,TBD,94.88,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66743,2025-276CF,TRANSPORTER-15 CF,PAY,+,EA,LEO,ORB,TBD,94.9,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66744,2025-276CG,TRANSPORTER-15 CG,PAY,+,EA,LEO,ORB,TBD,94.91,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66745,2025-276CH,TRANSPORTER-15 CH,PAY,+,EA,LEO,ORB,TBD,94.9,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66746,2025-276CJ,TRANSPORTER-15 CJ,PAY,+,EA,LEO,ORB,TBD,94.9,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66747,2025-276CK,TRANSPORTER-15 CK,PAY,+,EA,LEO,ORB,TBD,94.89,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66748,2025-276CL,TRANSPORTER-15 CL,PAY,+,EA,LEO,ORB,TBD,94.84,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66749,2025-276CM,TRANSPORTER-15 CM,PAY,+,EA,LEO,ORB,TBD,94.87,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.45,2025-11-28,AFWTR,66750,2025-276CN,TRANSPORTER-15 CN,PAY,+,EA,LEO,ORB,TBD,94.86,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66751,2025-276CP,TRANSPORTER-15 CP,PAY,+,EA,LEO,ORB,TBD,94.88,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66752,2025-276CQ,TRANSPORTER-15 CQ,PAY,+,EA,LEO,ORB,TBD,94.89,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66753,2025-276CR,TRANSPORTER-15 CR,PAY,+,EA,LEO,ORB,TBD,94.9,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66754,2025-276CS,TRANSPORTER-15 CS,PAY,+,EA,LEO,ORB,TBD,94.87,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66755,2025-276CT,TRANSPORTER-15 CT,PAY,+,EA,LEO,ORB,TBD,94.89,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66756,2025-276CU,TRANSPORTER-15 CU,PAY,+,EA,LEO,ORB,TBD,94.87,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66757,2025-276CV,TRANSPORTER-15 CV,PAY,+,EA,LEO,ORB,TBD,94.86,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66758,2025-276CW,TRANSPORTER-15 CW,PAY,+,EA,LEO,ORB,TBD,94.86,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66759,2025-276CX,TRANSPORTER-15 CX,PAY,+,EA,LEO,ORB,TBD,94.85,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66760,2025-276CY,TRANSPORTER-15 CY,PAY,+,EA,LEO,ORB,TBD,94.85,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66761,2025-276CZ,TRANSPORTER-15 CZ,PAY,+,EA,LEO,ORB,TBD,94.84,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66762,2025-276DA,TRANSPORTER-15 DA,PAY,+,EA,LEO,ORB,TBD,94.91,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66763,2025-276DB,TRANSPORTER-15 DB,PAY,+,EA,LEO,ORB,TBD,94.9,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66764,2025-276DC,TRANSPORTER-15 DC,PAY,+,EA,LEO,ORB,TBD,94.88,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66765,2025-276DD,TRANSPORTER-15 DD,PAY,+,EA,LEO,ORB,TBD,94.82,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66766,2025-276DE,TRANSPORTER-15 DE,PAY,+,EA,LEO,ORB,TBD,94.84,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66767,2025-276DF,TRANSPORTER-15 DF,PAY,+,EA,LEO,ORB,TBD,94.85,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66768,2025-276DG,TRANSPORTER-15 DG,PAY,+,EA,LEO,ORB,TBD,94.83,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66769,2025-276DH,TRANSPORTER-15 DH,PAY,+,EA,LEO,ORB,TBD,94.84,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.45,2025-11-28,AFWTR,66770,2025-276DJ,TRANSPORTER-15 DJ,PAY,+,EA,LEO,ORB,TBD,94.84,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.45,2025-11-28,AFWTR,66771,2025-276DK,TRANSPORTER-15 DK,PAY,+,EA,LEO,ORB,TBD,94.84,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66772,2025-276DL,TRANSPORTER-15 DL,PAY,+,EA,LEO,ORB,TBD,94.82,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66773,2025-276DM,TRANSPORTER-15 DM,PAY,+,EA,LEO,ORB,TBD,94.83,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66774,2025-276DN,TRANSPORTER-15 DN,PAY,+,EA,LEO,ORB,TBD,94.83,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66775,2025-276DP,TRANSPORTER-15 DP,PAY,+,EA,LEO,ORB,TBD,94.82,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66776,2025-276DQ,TRANSPORTER-15 DQ,PAY,+,EA,LEO,ORB,TBD,94.82,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
+,97.45,2025-11-28,AFWTR,66777,2025-276DR,TRANSPORTER-15 DR,PAY,+,EA,LEO,ORB,TBD,94.81,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
 ,43.0,2025-12-01,AFETR,66791,2025-278A,STARLINK-35867,PAY,+,EA,LEO,ORB,US,91.68,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,43.0,2025-12-01,AFETR,66792,2025-278B,STARLINK-35990,PAY,+,EA,LEO,ORB,US,91.69,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,43.0,2025-12-01,AFETR,66793,2025-278C,STARLINK-36051,PAY,+,EA,LEO,ORB,US,91.68,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
