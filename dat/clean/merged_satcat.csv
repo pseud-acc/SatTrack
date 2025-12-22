@@ -5390,7 +5390,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 48444,2021-040S,STARLINK-2645,2021-05-09,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 48445,2021-040T,STARLINK-2634,2021-05-09,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 48449,2021-040X,STARLINK-2655,2021-05-09,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
-48450,2021-040Y,STARLINK-2660,2021-05-09,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,88.33,-1.0,US,USA,53.03,Commercial,Communications,260.0,,4.0,1,Falcon
 48452,2021-040AA,STARLINK-2703,2021-05-09,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 48453,2021-040AB,STARLINK-2620,2021-05-09,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 48454,2021-040AC,STARLINK-2654,2021-05-09,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
@@ -17245,3 +17244,5 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 67220,2025-305B,DISKSAT B,2025-12-18,2025,"Wallops Island, Virginia, USA",USA,,Active,+,LEO,95.64,-1.0,US,USA,45.01,,,-1.0,,-1.0,0,
 67221,2025-305C,DISKSAT C,2025-12-18,2025,"Wallops Island, Virginia, USA",USA,,Active,+,LEO,95.64,-1.0,US,USA,45.01,,,-1.0,,-1.0,0,
 67222,2025-305D,DISKSAT D,2025-12-18,2025,"Wallops Island, Virginia, USA",USA,,Active,+,LEO,95.65,-1.0,US,USA,45.01,,,-1.0,,-1.0,0,
+67226,2025-306A,TJS-23,2025-12-20,2025,"Wenchang Satellite Launch Site, PRC",PRC,,Active,+,MEO,833.8,-1.0,PRC,China,16.41,,,-1.0,,-1.0,0,
+67228,2025-307A,QPS-SAR-15,2025-12-21,2025,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,,Active,+,LEO,96.2,-1.0,JPN,Japan,42.01,,,-1.0,,-1.0,0,
