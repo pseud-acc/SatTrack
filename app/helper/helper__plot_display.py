@@ -343,8 +343,6 @@ def create_3d_orbit_hover_label(dff):
         '<b>Status:</b> <span style="color: {status_color};">●</span> '
         '<span style="color: {status_color};">{Status}</span><br>'
         '<b>Orbit:</b> <span style="color: rgba(255, 255, 255, 0.9);">{OrbitClass}</span><br>'
-        '<b>Launch:</b> <span style="color: rgba(255, 255, 255, 0.9);">{LaunchYear}</span><br>'
-        '<b>Owner:</b> <span style="color: rgba(255, 255, 255, 0.9);">{Owner}</span><br>'
     )
 
     # Generate hover texts
