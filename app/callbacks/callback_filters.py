@@ -108,6 +108,23 @@ def register(app):
 
         return satname_options, satcatid_options, satname, satcatid
 
+    '''------------------------
+    Mobile responsiveness
+    -------------------------
+    Interactive Inputs: Toggle filter button
+    Outputs: Filter collapse state
+    '''
+
+    @app.callback(
+        Output("filter-collapse", "is_open"),
+        [Input("toggle-filters", "n_clicks")],
+        [State("filter-collapse", "is_open")]
+    )
+    def toggle_filters(n, is_open):
+        if n:
+            return not is_open
+        return is_open        
+
     '''
     ------------------------
     Year range display
@@ -146,7 +163,7 @@ def register(app):
         ],
         Input('launchyear-filter-slider', 'value')
     )
-    def update_year_display(year_range):
+    def update_min_max_year_display(year_range):
 
         # define year output
 
