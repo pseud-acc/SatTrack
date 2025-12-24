@@ -59,13 +59,6 @@ def create_navbar():
                                         href="/sat_visualisation",
                                         id="nav-viz"
                                     )
-                                ),
-                                dbc.NavItem(
-                                    dbc.NavLink(
-                                        "Learn",
-                                        href="/sat_applications",
-                                        id="nav-learn"
-                                    )
                                 )
                             ],
                             className="ms-auto",

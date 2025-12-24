@@ -44,7 +44,6 @@ from app.callbacks.callback_registry import register_all_callbacks
 from app.layouts.layout_navbar import create_navbar
 from app.layouts.layout_home import create_dash_layout as create_dash_layout_home
 from app.layouts.layout_sat_visualisations import create_dash_layout as create_dash_layout_sat_visualisations
-from app.layouts.layout_sat_applications import create_dash_layout as create_dash_layout_sat_applications
 
 ## >>>>>>>> Initialize App <<<<<<<<<<<<
 
@@ -111,8 +110,6 @@ def display_page(pathname):
     """
     if pathname == '/sat_visualisation':
         return create_dash_layout_sat_visualisations(app)
-    elif pathname == '/sat_applications':
-        return create_dash_layout_sat_applications(app)
     else:
         return create_dash_layout_home(app)
 

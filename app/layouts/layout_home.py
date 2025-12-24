@@ -98,28 +98,6 @@ def create_dash_layout(app):
         # Use Cases
         dbc.Row([
             dbc.Col([
-                html.H2("Who Uses SatTrack?", className="mb-4"),
-                dbc.ListGroup([
-                    dbc.ListGroupItem([
-                        html.Strong("Students & Educators"),
-                        " - Learn about orbital mechanics and space systems"
-                    ], className="border-0"),
-                    dbc.ListGroupItem([
-                        html.Strong("Amateur Radio Operators"),
-                        " - Track communication satellites for contacts"
-                    ], className="border-0"),
-                    dbc.ListGroupItem([
-                        html.Strong("Researchers"),
-                        " - Analyze satellite deployment patterns and trends"
-                    ], className="border-0"),
-                    dbc.ListGroupItem([
-                        html.Strong("Space Enthusiasts"),
-                        " - Follow ISS, Starlink, and other spacecraft"
-                    ], className="border-0")
-                ], flush=True)
-            ], lg=6, className="mb-4"),
-
-            dbc.Col([
                 html.H2("Data Sources", className="mb-4"),
                 html.P("Powered by accurate, up-to-date information:", className="mb-3"),
                 html.Ul([
