@@ -1,40 +1,47 @@
 #!/usr/bin/env python
 
 """
+SatTrack Production Server
 
 This module runs the SatTrack App on a production server.
 
-Example:
+Usage:
+    $ python run_app.py
 
-        $ python app.py
-
-Attributes:
+Features:
+    - Production-ready satellite visualization
+    - Google Analytics integration
+    - Optimized for Heroku deployment
 
 Todo:
     *
 
 """
 
-
-
 ## Packages
 
 import pandas as pd
 from dash import Dash
+from dash import Dash, html, dcc, page_registry, page_container
 import dash_bootstrap_components as dbc
+from dash.dependencies import Input, Output
 
-## Internal Scripts
+## Internal Modules
 
-# helper scrips
-from app.helper.initialise_app import (import_data, filter_setup, initialise_2d, initialise_3d_ls)
-# app layout
-from app.layouts.layout_sat_visualisations import create_dash_layout
-# app callbacks
-from app.callbacks.callback_sat_visualisations import get_callbacks
+# app data initialization
+from app.core.state import get_app_data
 
-## >>>>>>>> Initilise App <<<<<<<<<<<<
+# Callback registry
+from app.callbacks.callback_registry import register_all_callbacks
 
-# Instantiate  App
+# Layout components
+from app.layouts.layout_navbar import create_navbar
+from app.layouts.layout_home import create_dash_layout as create_dash_layout_home
+from app.layouts.layout_sat_visualisations import create_dash_layout as create_dash_layout_sat_visualisations
+
+## >>>>>>>> Initialize App <<<<<<<<<<<<
+
+# Instantiate Dash App
 external_stylesheets = [dbc.themes.CYBORG]
 app = Dash(__name__, external_stylesheets=external_stylesheets)
 
@@ -53,9 +60,10 @@ app.index_string = """<!DOCTYPE html>
           gtag('js', new Date());
 
           gtag('config', 'G-LF4EP2J2F8');
-        </script>    
+        </script>
         {%metas%}
         <title>{%title%}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         {%favicon%}
         {%css%}
     </head>
@@ -69,58 +77,58 @@ app.index_string = """<!DOCTYPE html>
     </body>
 </html>"""
 
+## >>>>>>>> Initialize App Data <<<<<<<<<<<<
 
+# Initialize app data (satellite catalog, filters, visualization configs)
+app_data = get_app_data()
 
-## >>>>>>>> Setup App Inputs <<<<<<<<<<<<
+# Create persistent navigation bar
+navbar = create_navbar()
 
-# Import Data
-"""
-    Dynamic Satellite catalogue data - contains TLEs
-"""
-satcat_loc = "./dat/clean/satcat_tle.csv"
+# Define app layout with URL routing
+app.layout = html.Div([
+    dcc.Location(id='url', refresh=False),  # URL router component
+    navbar,  # Persistent navigation bar
+    html.Div(id='navbar-content'),  # Container for navbar state updates
+    html.Div(id='page-content')  # Main content area (dynamically updated)
+])
 
-"""
-    Greyscale Earth Map
-"""
-img_loc = "./app/assets/images/gray_scale_earth_2048_1024.jpg"
-resolution = 8
-df, img, radius_earth = import_data(satcat_loc, img_loc, resolution)
+## >>>>>>>> Register Callbacks <<<<<<<<<<<<
 
-# Initialise Filter 
-options, input_filter, tbl_col_map = filter_setup(df)
+# Register all callbacks using the centralized registry
+# This includes: 3D viz, 2D viz, table, filters, navbar, home, and sat_applications
+register_all_callbacks(app)
 
-# Initilise Visualisations
-surf_3d, layout_3d, fig3d_0 = initialise_3d_ls(df, img)
-scatter_2d, layout_2d, fig2d_0  = initialise_2d()
+## >>>>>>>> Define Page Routing + Layouts <<<<<<<<<<<<
 
-# Import metadata
-metadata_loc = "./dat/meta/last_data_update.csv"
-metadata = pd.read_csv(metadata_loc)
-tle_update = metadata[metadata["Source"]=="Celestrak_TLE"]["Last Update"].values[0]
+@app.callback(
+    Output('page-content', 'children'),
+    Input('url', 'pathname')
+)
+def display_page(pathname):
+    """
+    Route URL pathname to appropriate page layout.
 
-## >>>>>>>> Create App Layout <<<<<<<<<<<<
+    Args:
+        pathname (str): URL pathname from dcc.Location
 
-create_dash_layout(app = app,
-                   tle_update_in = tle_update,
-                   options_in = options,
-                   fig3d_0_in = fig3d_0,
-                   fig2d_0_in = fig2d_0,
-                   tbl_col_map_in = tbl_col_map);
+    Returns:
+        Dash component: Page layout corresponding to pathname
 
-
-## >>>>>>>> Define App Interactivity <<<<<<<<<<<<
-
-# import callback functions
-get_callbacks(app = app,
-              df_in = df,
-              input_filter_in = input_filter,
-              surf_3d_in = surf_3d,
-              fig3d_0_in = fig3d_0,
-              layout_3d_in = layout_3d,
-              layout_2d_in = layout_2d,
-              tbl_col_map_in = tbl_col_map)
+    Routes:
+        / - Home page (landing/welcome)
+        /sat_visualisation - Live satellite tracking (3D/2D/Table)
+    """
+    if pathname == '/sat_visualisation':
+        return create_dash_layout_sat_visualisations(app)
+    else:
+        return create_dash_layout_home(app)
 
 
 ## >>>>>>>> Run App <<<<<<<<<<<<
 
-if __name__ == "__main__": app.run_server(debug=False, host='0.0.0.0', port=8050)
+if __name__ == "__main__": 
+    app.run_server(
+        debug=False, 
+        host='0.0.0.0', 
+        port=8050)

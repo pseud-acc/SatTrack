@@ -80,6 +80,11 @@ def export_satcat_tle(dbs_name, satcat_tle_filename):
     # Medium Earth Orbit (MEO): 128 < period(mins) < 97% * 1436 (between LEO and GSO orbits)
     # High Earth Orbit (HEO): period(mins) > 103% * 1436 (above GSO orbits)
     def OrbitType(row):
+        """
+
+        :param row: (dict) Row from tle pandas data frame
+        :return: row: (dict) Modified row with OrbitClass added
+        """
         incl = row["Inclination"]            
         mm = row["MeanMotion"]
         ecc = row["Eccentricity"]
@@ -91,7 +96,7 @@ def export_satcat_tle(dbs_name, satcat_tle_filename):
                 row["OrbitClass"] = "GEO" #Geostationary orbit
             elif p >= 1436*0.97 and p <= 1436*1.03:
                 row["OrbitClass"] = "GSO" #Geosynchronous orbit
-            elif p >= 128 and p < 1436*0.98:
+            elif p >= 128 and p < 1436*0.97:
                 row["OrbitClass"] = "MEO" #Medium Earth orbit
             else:
                 row["OrbitClass"] = "HEO" #High Earth orbit

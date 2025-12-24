@@ -1,99 +1,125 @@
 #!/usr/bin/env python
 
 """
+SatTrack Development Server (v2)
 
-This module runs the SatTrack App on a local (development) server.
+This module runs the SatTrack App on a local development server with hot reload.
+Uses the modularized callback registry for clean callback management.
 
-Example:
+Usage:
+    $ python run_app_dev_v2.py
 
-        $ python app.py
+Features:
+    - Multi-page navigation (Home, Visualizations, Applications)
+    - Modular callback registration via callback_registry
+    - Hot reload for development
+    - Responsive mobile-first design
+    - Component-based layout architecture
 
-Attributes:
+Pages:
+    / (Home) - Landing page with feature overview
+    /sat_visualisation - Live 3D/2D satellite tracking
+    /sat_applications - Educational content about satellites
 
 Todo:
     *
-
 """
 
 ## Packages
 
-import pandas as pd
-from dash import Dash
+from dash import Dash, html, dcc, page_registry, page_container
 import dash_bootstrap_components as dbc
-import sys
+from dash.dependencies import Input, Output
 
-## Internal Scripts
 
-# helper scrips
-from app.helper.initialise_app import (import_data, filter_setup, initialise_2d, initialise_3d_ls)
-# app layout
-from app.layouts.layout_sat_visualisations import create_dash_layout
-# app callbacks
-from app.callbacks.callback_sat_visualisations import get_callbacks
+## Internal Modules
 
-## >>>>>>>> Initilise App <<<<<<<<<<<<
+# app data initialization
+from app.core.state import get_app_data
 
-# Instantiate  App
-external_stylesheets = [dbc.themes.CYBORG]
-app = Dash(__name__, external_stylesheets=external_stylesheets)
+# Callback registry
+from app.callbacks.callback_registry import register_all_callbacks
 
-# Reference the underlying flask app (Used by gunicorn webserver in Heroku production deployment)
+# Layout components
+from app.layouts.layout_navbar import create_navbar
+from app.layouts.layout_home import create_dash_layout as create_dash_layout_home
+from app.layouts.layout_sat_visualisations import create_dash_layout as create_dash_layout_sat_visualisations
+
+## >>>>>>>> Initialize App <<<<<<<<<<<<
+
+# Instantiate Dash App with Bootstrap theme
+external_stylesheets = [
+    dbc.themes.CYBORG,  # Dark theme for space-themed UI
+    "https://use.fontawesome.com/releases/v5.15.4/css/all.css"  # Icons for filters and UI
+]
+app = Dash(
+    __name__,
+    external_stylesheets=external_stylesheets,
+    meta_tags=[
+        {
+            "name": "viewport",
+            "content": "width=device-width, initial-scale=1, maximum-scale=1",
+        }
+    ]
+)
+
+# Reference underlying Flask server (for production deployment)
 server = app.server
 
-# Enable Whitenoise for serving static files from Heroku (the /static folder is seen as root by Heroku) 
-#server.wsgi_app = WhiteNoise(server.wsgi_app, root='static/') 
+# Initialize app data (satellite catalog, filters, visualization configs)
+app_data = get_app_data()
 
-## >>>>>>>> Setup App Inputs <<<<<<<<<<<<
+# Create persistent navigation bar
+navbar = create_navbar()
 
-# Import Data
-"""
-    Dynamic Satellite catalogue data - contains TLEs
-"""
-satcat_loc = "./dat/clean/satcat_tle.csv"
+# Define app layout with URL routing
+app.layout = html.Div([
+    dcc.Location(id='url', refresh=False),  # URL router component
+    navbar,  # Persistent navigation bar
+    html.Div(id='navbar-content'),  # Container for navbar state updates
+    html.Div(id='page-content')  # Main content area (dynamically updated)
+])
 
-"""
-    Greyscale Earth Map
-"""
-img_loc = "./app/assets/images/gray_scale_earth_2048_1024.jpg"
-resolution = 8
-df, img, radius_earth = import_data(satcat_loc, img_loc, resolution)
+## >>>>>>>> Register Callbacks <<<<<<<<<<<<
 
-# Initialise Filter 
-options, input_filter, tbl_col_map = filter_setup(df)
-
-# Initilise Visualisations
-surf_3d, layout_3d, fig3d_0 = initialise_3d_ls(df, img)
-scatter_2d, layout_2d, fig2d_0  = initialise_2d()
-
-# Import metadata
-metadata_loc = "./dat/meta/last_data_update.csv"
-metadata = pd.read_csv(metadata_loc)
-tle_update = metadata[metadata["Source"]=="Celestrak_TLE"]["Last Update"].values[0]
+# Register all callbacks using the centralized registry
+# This includes: 3D viz, 2D viz, table, filters, navbar, home, and sat_applications
+register_all_callbacks(app)
 
 
-## >>>>>>>> Create App Layout <<<<<<<<<<<<
+## >>>>>>>> Define Page Routing <<<<<<<<<<<<
 
-create_dash_layout(app = app,
-                   tle_update_in = tle_update,
-                   options_in = options,
-                   fig3d_0_in = fig3d_0,
-                   fig2d_0_in = fig2d_0,
-                   tbl_col_map_in = tbl_col_map);
+@app.callback(
+    Output('page-content', 'children'),
+    Input('url', 'pathname')
+)
+def display_page(pathname):
+    """
+    Route URL pathname to appropriate page layout.
+
+    Args:
+        pathname (str): URL pathname from dcc.Location
+
+    Returns:
+        Dash component: Page layout corresponding to pathname
+
+    Routes:
+        / - Home page (landing/welcome)
+        /sat_visualisation - Live satellite tracking (3D/2D/Table)
+        /sat_applications - Educational content about satellites
+    """
+    if pathname == '/sat_visualisation':
+        return create_dash_layout_sat_visualisations(app)
+    else:
+        return create_dash_layout_home(app)
 
 
-## >>>>>>>> Define App Interactivity <<<<<<<<<<<<
+## >>>>>>>> Run Development Server <<<<<<<<<<<<
 
-# import callback functions
-get_callbacks(app = app,
-              df_in = df,
-              input_filter_in = input_filter,
-              surf_3d_in = surf_3d,
-              fig3d_0_in = fig3d_0,
-              layout_3d_in = layout_3d,
-              layout_2d_in = layout_2d,
-              tbl_col_map_in = tbl_col_map)
-
-## >>>>>>>> Run App <<<<<<<<<<<<
-
-app.run_server(port = 8090, dev_tools_ui=True, #debug=True,
-              dev_tools_hot_reload =True, threaded=True)
+if __name__ == "__main__":
+    app.run_server(
+        port=8090,
+        dev_tools_ui=True,
+        dev_tools_hot_reload=True,
+        threaded=True
+    )
