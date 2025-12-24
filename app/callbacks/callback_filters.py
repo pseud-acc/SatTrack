@@ -112,18 +112,24 @@ def register(app):
     Mobile responsiveness
     -------------------------
     Interactive Inputs: Toggle filter button
-    Outputs: Filter collapse state
+    Outputs: Filter collapse state and icon rotation
     '''
 
     @app.callback(
-        Output("filter-collapse", "is_open"),
+        [
+            Output("filter-collapse", "is_open"),
+            Output("toggle-icon", "className")
+        ],
         [Input("toggle-filters", "n_clicks")],
         [State("filter-collapse", "is_open")]
     )
     def toggle_filters(n, is_open):
         if n:
-            return not is_open
-        return is_open        
+            new_state = not is_open
+            icon_class = "fas fa-chevron-up" if new_state else "fas fa-chevron-down"
+            return new_state, icon_class
+        # Initial state: filters are collapsed, so show down chevron
+        return is_open, "fas fa-chevron-down"        
 
     '''
     ------------------------
