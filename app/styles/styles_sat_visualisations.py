@@ -15,7 +15,7 @@ colours = {
     "marker2": "#00ff88",  # Better visibility current position
     "markeredge" : "#bab6b7", #greyish-red - marker edge for Satellites
     "markerpath" : "#59ff00", #bright green - path for satellite in 3d
-    "markerpath0" : "#e3e7e8", #light grey - path for inactive satellite in 3d
+    "markerpath0" : "#b5bdbf", #light grey - path for inactive satellite in 3d
     "markerpath1" : "#e00000", #bright red - path for active satellite in 3d
     "dropdownbox": "#2b3035",  # Darker dropdown background
     "tab": "#1a1d21",

@@ -12,7 +12,7 @@ def create_dash_layout(app):
                         className="display-4 fw-bold mb-3"),
                 html.P(
                     "Watch thousands of satellites orbit Earth. Explore their missions, "
-                    "trajectories, and real-time positions in 3D.",
+                    "trajectories, and real-time positions in stunning 3D.",
                     className="lead mb-4",
                     style={'fontSize': '1.25rem'}
                 ),

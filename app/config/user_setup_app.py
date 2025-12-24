@@ -23,9 +23,4 @@ Todo:
 #satcat_loc = "./dat/clean/satcat_tle.csv"
 satcat_loc = "https://raw.githubusercontent.com/pseud-acc/SatTrack/refs/heads/main/dat/clean/satcat_tle.csv"
 img_loc = "./assets/images/gray_scale_earth_2048_1024.jpg"
-metadata_loc = "./dat/meta/last_data_update.csv"
-
-"""
-    Greyscale Earth Map Resolution
-"""
-resolution = 8
+metadata_loc = "https://raw.githubusercontent.com/pseud-acc/SatTrack/refs/heads/main/dat/meta/last_data_update.csv"

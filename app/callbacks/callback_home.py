@@ -9,7 +9,7 @@ from dash.dependencies import Input, Output
 # paths
 sys.path.append("../../")
 
-def get_callbacks(app):
+def register(app):
     @app.callback(
         Output("url", "pathname"),
         Input("get-started-button", "n_clicks"),
