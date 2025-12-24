@@ -23,7 +23,9 @@ def create_2d_tab(fig2d_0):
                 figure=fig2d_0,
                 config={
                     'displayModeBar': False,
-                    'responsive': True
+                    'responsive': True,
+                    'scrollZoom': True,
+                    'doubleClick': 'reset'
                 },
                 style={
                     'height': '50vh',

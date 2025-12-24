@@ -24,7 +24,17 @@ def create_3d_tab(fig3d_0):
                 'displayModeBar': True,
                 'displaylogo': False,
                 'modeBarButtonsToRemove': ['pan3d', 'select3d', 'lasso3d'],
-                'responsive': True
+                'responsive': True,
+                'scrollZoom': True,
+                'doubleClick': 'reset',
+                'modeBarButtonsToAdd': [],
+                'toImageButtonOptions': {
+                    'format': 'png',
+                    'filename': 'satellite_3d_view',
+                    'height': 1080,
+                    'width': 1920,
+                    'scale': 2
+                }
             },
             style={'height': 'calc(70vh - 100px)', 'minHeight': '400px'}
         ),
