@@ -26,10 +26,11 @@ def create_filter_sidebar(options):
             dbc.CardHeader([
                 html.H5("Filters", className="mb-0 d-inline-block"),
                 dbc.Button(
-                    html.I(className="fas fa-chevron-down"),
+                    html.I(className="fas fa-chevron-down", id="toggle-icon"),
                     id="toggle-filters",
                     color="link",
-                    className="float-end d-md-none p-0"
+                    className="float-end d-md-none",
+                    style={"fontSize": "1.2rem", "color": "#00d4ff"}
                 )
             ]),
             dbc.Collapse([
