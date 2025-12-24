@@ -1,6 +1,6 @@
 # Development code #
 ####################
-*.ipynb
+*ipynb*
 
 # Cached files #
 ################
