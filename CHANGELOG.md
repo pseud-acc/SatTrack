@@ -27,8 +27,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Filter toggle drop-down functionality
 - Mobile zoom interactions
-
-## [Unreleased]
-
-### Planned
-- Automated pipeline with Airflow
