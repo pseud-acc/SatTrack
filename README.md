@@ -23,10 +23,10 @@ The project consists of two parts - (1) data pipeline; (2) interactive app. In t
 ## Requirements
 
 ### Python Version
-- Python 3.8 or higher
+- Python 3.12 or higher
 
 ### Dependencies
-Key dependencies (see [requirements.txt](requirements.txt) for full list):
+Key dependencies (see [pyproject.toml](pyproject.toml) for full list):
 - Dash 2.12.1
 - Plotly 5.7.0
 - Dash Bootstrap Components 1.1.0
@@ -37,16 +37,46 @@ Key dependencies (see [requirements.txt](requirements.txt) for full list):
 
 ## Installation
 
+This project uses [Poetry](https://python-poetry.org/) for dependency management.
+
+### Option 1: Using Poetry (Recommended)
+
 1. Clone the repository:
    ```bash
    git clone <repository-url>
    cd SatTrack
    ```
 
-2. Create and activate a virtual environment (recommended):
+2. Install Poetry if you haven't already:
    ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   pip install poetry
+   ```
+
+3. Install dependencies using Poetry:
+   ```bash
+   poetry install
+   ```
+   This will create a virtual environment and install all dependencies specified in `pyproject.toml`.
+
+4. Activate the Poetry shell:
+   ```bash
+   poetry shell
+   ```
+
+### Option 2: Using pip (Legacy)
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd SatTrack
+   ```
+
+2. Create and activate a virtual environment with Python 3.12:
+   ```bash
+   py -3.12 -m venv venv
+   source venv/Scripts/activate  # On Windows Git Bash
+   # or
+   venv\Scripts\activate  # On Windows CMD
    ```
 
 3. Install required packages:
@@ -54,16 +84,49 @@ Key dependencies (see [requirements.txt](requirements.txt) for full list):
    pip install -r requirements.txt
    ``` 
 
+## Dependency Management
+
+This project uses Poetry for dependency management. The `requirements.txt` file is automatically generated from `pyproject.toml` for Heroku deployment compatibility.
+
+### Updating Dependencies
+
+When you add, update, or remove dependencies in `pyproject.toml`:
+
+1. **Locally:** Update `requirements.txt` manually:
+   ```bash
+   poetry export -f requirements.txt --output requirements_temp.txt --without-hashes --without dev
+   python -c "import re; content = open('requirements_temp.txt').read(); open('requirements.txt', 'w').write(re.sub(r' ;.*', '', content))"
+   rm requirements_temp.txt
+   ```
+
+2. **CI/CD:** The GitHub Action workflow automatically updates `requirements.txt` when you push changes to `pyproject.toml` or `poetry.lock`. The updated file will be committed to your PR automatically.
+
 ## Run Pipeline
 
-- Run `python run_pipeline_manual.py` script - calls wrapper functions to extract, clean and dump satellite catalogue and TLE data
+Run the data pipeline to extract, clean and dump satellite catalogue and TLE data:
+
+**Using Poetry:**
+```bash
+poetry run python run_pipeline.py
+```
+
+**Using pip:**
+```bash
+python run_pipeline.py
+```
 
 ## Run App
 
-To run the app:
+**Using Poetry:**
+```bash
+poetry run python run_app.py
+```
+
+**Using pip:**
 ```bash
 python run_app.py
 ```
+
 The app will be available at http://127.0.0.1:8050/
 
 ## Version History
@@ -80,7 +143,6 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed version history and release notes.
 - CSV export functionality
 
 #### Planned Improvements (Future Versions)
-- Upgrade python version to 3.12
 - Satellite pass predictor visualisation
 - Satellite pass predictor export
 - Enhanced logging for data pipeline
@@ -92,9 +154,22 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed version history and release notes.
 ## Versioning
 
 This project follows [Semantic Versioning](https://semver.org/):
-- **MAJOR** version for incompatible API changes
-- **MINOR** version for new functionality in a backward-compatible manner
-- **PATCH** version for backward-compatible bug fixes
+- **MAJOR** version (`major/` prefix) for incompatible API changes (breaking changes)
+- **MINOR** version (`feature/` prefix) for new functionality in a backward-compatible manner
+- **PATCH** version (`fix/` prefix) for backward-compatible bug fixes
+
+### PR Naming Convention
+
+Pull requests should be prefixed with the change type:
+- `major/` - Breaking changes (e.g., `major/python-version-update`)
+- `feature/` - New features (e.g., `feature/satellite-pass-predictor`)
+- `fix/` - Bug fixes (e.g., `fix/csv-export-encoding`)
+- `docs/` - Documentation updates
+- `refactor/` - Code refactoring
+- `test/` - Test additions/updates
+- `chore/` - Maintenance tasks
+
+See [CHANGELOG.md](CHANGELOG.md) for detailed version history.
 
 ## Contributors
 
