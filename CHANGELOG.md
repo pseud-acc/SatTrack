@@ -28,9 +28,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Filter toggle drop-down functionality
 - Mobile zoom interactions
 
-### Removed
-- Satellite explained pages
-
 ## [Unreleased]
 
 ### Planned
