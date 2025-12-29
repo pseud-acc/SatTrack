@@ -92,14 +92,32 @@ This project uses Poetry for dependency management. The `requirements.txt` file 
 
 When you add, update, or remove dependencies in `pyproject.toml`:
 
-1. **Locally:** Update `requirements.txt` manually:
-   ```bash
-   poetry export -f requirements.txt --output requirements_temp.txt --without-hashes --without dev
-   python -c "import re; content = open('requirements_temp.txt').read(); open('requirements.txt', 'w').write(re.sub(r' ;.*', '', content))"
-   rm requirements_temp.txt
-   ```
+#### Option 1: Automatic Sync (Recommended)
+Simply push your changes to GitHub. The GitHub Action workflow will automatically:
+- Install dependencies
+- Update `requirements.txt`
+- Commit the changes to your PR
 
-2. **CI/CD:** The GitHub Action workflow automatically updates `requirements.txt` when you push changes to `pyproject.toml` or `poetry.lock`. The updated file will be committed to your PR automatically.
+**No manual action required!**
+
+#### Option 2: Manual Sync (Local Convenience)
+For immediate local verification before pushing:
+
+```bash
+# Run the sync script
+./sync_dependencies.sh
+```
+
+This script will:
+1. Install dependencies with Poetry
+2. Update `requirements.txt`
+3. Show you what changed
+4. Provide next steps
+
+**Manual update (if you prefer one-liners):**
+```bash
+poetry install && poetry export -f requirements.txt --output requirements_temp.txt --without-hashes --without dev && python -c "import re; content = open('requirements_temp.txt').read(); open('requirements.txt', 'w').write(re.sub(r' ;.*', '', content))" && rm requirements_temp.txt
+```
 
 ## Run Pipeline
 
@@ -128,6 +146,67 @@ python run_app.py
 ```
 
 The app will be available at http://127.0.0.1:8050/
+
+## Testing Heroku Deployment
+
+Before deploying to Heroku, test your app locally to ensure it works with the production environment.
+
+### Local Testing on Windows
+
+**Note:** Gunicorn (Heroku's production server) doesn't work on Windows because it requires Unix-specific modules. Use one of these alternatives:
+
+#### Option 1: Test with Development Server (Current Method)
+```bash
+python run_app.py
+```
+Visit http://127.0.0.1:8050/ - If this works, your app should work on Heroku.
+
+#### Option 2: Use Waitress (Windows-Compatible Production Server)
+```bash
+# Install waitress
+pip install waitress
+
+# Run with waitress (production-quality server that works on Windows)
+waitress-serve --listen=*:8000 run_app:server
+```
+Visit http://localhost:8000 to test.
+
+#### Option 3: Deploy to Heroku Staging App (Most Accurate)
+```bash
+# Create a staging app
+heroku create sattrack-staging
+
+# Deploy your branch
+git push heroku your-branch:main
+
+# Check logs
+heroku logs --tail --app sattrack-staging
+
+# Open the app
+heroku open --app sattrack-staging
+```
+
+### Local Testing on Linux/Mac
+
+If you're on Linux or Mac, you can test with gunicorn directly:
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Test with gunicorn (same as Heroku)
+gunicorn run_app:server
+```
+Visit http://localhost:8000 to verify.
+
+### Pre-Deployment Checklist
+
+Before deploying, verify:
+- ✅ App runs locally with Python 3.12 (`python --version`)
+- ✅ All dependencies install from `requirements.txt`
+- ✅ `runtime.txt` specifies `python-3.12`
+- ✅ `Procfile` contains `web: gunicorn run_app:server`
+- ✅ No errors in the app functionality
 
 ## Version History
 
