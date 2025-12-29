@@ -28,6 +28,22 @@ When creating pull requests, use the following prefixes to indicate the type of 
 ### Fixed
 - Track bug fixes here
 
+## [2.0.1] - 2025-12-29
+
+### Fixed
+- Heroku deployment failure due to multiple package manager files
+  - Added `poetry.lock` to `.gitignore` for Heroku compatibility
+  - Heroku now uses only `requirements.txt` (auto-synced via GitHub Actions)
+  - Poetry remains available for local dependency management
+
+### Changed
+- Configured Poetry for local development only
+  - `poetry.lock` no longer tracked in git
+  - Prevents Heroku buildpack conflicts
+- Migrated from `runtime.txt` to `.python-version` (Heroku recommendation)
+  - Removed deprecated `runtime.txt`
+  - Created `.python-version` with `3.12`
+
 ## [2.0.0] - 2025-12-29
 
 ### Breaking Changes

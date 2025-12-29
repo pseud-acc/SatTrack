@@ -15,3 +15,10 @@ src/__pycache__/*
 ################
 run_pipeline.sh
 run_pipeline_script.sh
+
+# Poetry #
+##########
+# Ignore poetry.lock for Heroku compatibility
+# Heroku uses requirements.txt (auto-generated via GitHub Actions)
+# Poetry is for local development only
+poetry.lock

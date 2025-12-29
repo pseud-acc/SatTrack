@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sattrack"
-version = "1.0.0"
+version = "2.0.1"
 description = "An open-source real-time satellite tracking app for visualising active and inactive satellites orbiting the Earth"
 authors = ["Francis Nwobu"]
 readme = "README.md"
