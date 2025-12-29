@@ -28,6 +28,19 @@ When creating pull requests, use the following prefixes to indicate the type of 
 ### Fixed
 - Track bug fixes here
 
+## [2.0.1] - 2025-12-29
+
+### Fixed
+- Heroku deployment failure due to multiple package manager files
+  - Added `poetry.lock` to `.gitignore` for Heroku compatibility
+  - Heroku now uses only `requirements.txt` (auto-synced via GitHub Actions)
+  - Poetry remains available for local dependency management
+
+### Changed
+- Configured Poetry for local development only
+  - `poetry.lock` no longer tracked in git
+  - Prevents Heroku buildpack conflicts
+
 ## [2.0.0] - 2025-12-29
 
 ### Breaking Changes
@@ -70,10 +83,6 @@ When creating pull requests, use the following prefixes to indicate the type of 
   - Heroku deployment testing section
   - Updated dependency versions in documentation
 - Fixed table display helper to use list indexing instead of dict indexing (pandas 2.x compatibility)
-- Configured Poetry for local development only:
-  - Added `poetry.lock` to `.gitignore` for Heroku compatibility
-  - Heroku uses `requirements.txt` (auto-synced via GitHub Actions)
-  - Poetry used for local dependency management and development
 
 ### Fixed
 - Pandas 2.x compatibility: Changed `dff[dict]` to `dff[list(dict.keys())]` in table display helper

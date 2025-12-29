@@ -1,6 +1,6 @@
 # SatTrack
 
-**Version:** 1.0.0
+**Version:** 2.0.1
 
 ## Description
 
@@ -212,9 +212,16 @@ Before deploying, verify:
 
 See [CHANGELOG.md](CHANGELOG.md) for detailed version history and release notes.
 
-### Current Version: 1.0.0
+### Current Version: 2.0.1
 
-#### Key Features
+#### Latest Updates (2.0.1)
+- Fixed Heroku deployment issue with Poetry
+- Configured for Python 3.12 compatibility
+
+#### Key Features (2.0.0)
+- Upgraded to Python 3.12
+- Modern dependency management with Poetry
+- Automated requirements.txt synchronization
 - Real-time satellite position tracking using TLE data
 - 3D visualisation of active and inactive satellites
 - 2D visualisation of satellite path
