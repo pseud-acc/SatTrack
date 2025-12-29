@@ -28,6 +28,53 @@ When creating pull requests, use the following prefixes to indicate the type of 
 ### Fixed
 - Track bug fixes here
 
+## [2.0.0] - 2025-12-29
+
+### Breaking Changes
+- **MAJOR**: Upgraded Python from 3.9 to 3.12
+  - Minimum Python version is now 3.12
+  - Updated all dependencies to Python 3.12-compatible versions
+- **MAJOR**: Upgraded pandas from 1.x to 2.x
+  - Fixed pandas 2.x compatibility issues (dict indexing in table display)
+- **MAJOR**: Updated core dependencies:
+  - numpy: 1.22.3 → 1.26.0+
+  - pandas: 1.4.2 → 2.1.0+
+  - astropy: 5.0.4 → 6.0.0+
+  - Pillow: 9.1.0 → 10.0.0+
+  - whitenoise: 5.2.0 → 6.0.0+
+
+### Added
+- Poetry dependency management with `pyproject.toml`
+  - Replaced requirements.txt-only workflow with Poetry
+  - Added `package-mode = false` for application-style projects
+  - Development dependencies (pytest, black, flake8, mypy)
+  - Code quality tools configuration (black, mypy)
+- GitHub Actions workflow for automated requirements.txt synchronization
+  - Auto-updates requirements.txt when pyproject.toml or poetry.lock changes
+  - Commits changes automatically to PRs via github-actions bot
+- Convenience script `sync_dependencies.sh` for local dependency management
+  - Install dependencies with Poetry
+  - Update requirements.txt locally
+  - Show git diff of changes
+- Heroku deployment testing documentation
+  - Windows-specific testing instructions (Waitress alternative to Gunicorn)
+  - Pre-deployment checklist
+  - Staging app deployment guide
+
+### Changed
+- Updated `runtime.txt` from `python-3.9.21` to `python-3.12`
+- Restructured README.md with:
+  - Poetry installation instructions (Option 1 - Recommended)
+  - Legacy pip installation (Option 2)
+  - Dependency management section with automation details
+  - Heroku deployment testing section
+  - Updated dependency versions in documentation
+- Fixed table display helper to use list indexing instead of dict indexing (pandas 2.x compatibility)
+
+### Fixed
+- Pandas 2.x compatibility: Changed `dff[dict]` to `dff[list(dict.keys())]` in table display helper
+- Python 3.12 compatibility for all dependencies
+
 ## [1.0.0] - 2024-12-28
 
 ### Added
