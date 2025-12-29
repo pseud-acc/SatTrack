@@ -40,6 +40,9 @@ When creating pull requests, use the following prefixes to indicate the type of 
 - Configured Poetry for local development only
   - `poetry.lock` no longer tracked in git
   - Prevents Heroku buildpack conflicts
+- Migrated from `runtime.txt` to `.python-version` (Heroku recommendation)
+  - Removed deprecated `runtime.txt`
+  - Created `.python-version` with `3.12`
 
 ## [2.0.0] - 2025-12-29
 
