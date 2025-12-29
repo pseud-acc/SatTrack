@@ -13,4 +13,5 @@ src/__pycache__/*
 
 # Executables #
 ################
-*.sh
+run_pipeline.sh
+run_pipeline_script.sh
