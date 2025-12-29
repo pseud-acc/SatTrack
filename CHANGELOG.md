@@ -70,6 +70,10 @@ When creating pull requests, use the following prefixes to indicate the type of 
   - Heroku deployment testing section
   - Updated dependency versions in documentation
 - Fixed table display helper to use list indexing instead of dict indexing (pandas 2.x compatibility)
+- Configured Poetry for local development only:
+  - Added `poetry.lock` to `.gitignore` for Heroku compatibility
+  - Heroku uses `requirements.txt` (auto-synced via GitHub Actions)
+  - Poetry used for local dependency management and development
 
 ### Fixed
 - Pandas 2.x compatibility: Changed `dff[dict]` to `dff[list(dict.keys())]` in table display helper
