@@ -40,6 +40,6 @@ def format_table_data(dff, time_now):
     dff["Datetime"] = time_now.strftime("%H:%M:%S, %d/%m/%Y")
 
     # Generate table display output
-    tbl_display_output = dff[tbl_column_map].sort_values(by=["ObjectName"]).rename(columns=tbl_column_map).to_dict("records")
+    tbl_display_output = dff[list(tbl_column_map.keys())].sort_values(by=["ObjectName"]).rename(columns=tbl_column_map).to_dict("records")
 
     return tbl_display_output
