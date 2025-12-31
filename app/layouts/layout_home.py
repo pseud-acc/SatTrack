@@ -21,11 +21,7 @@ def create_dash_layout(app):
                                id="get-started-button",
                                color="primary",
                                size="lg",
-                               className="px-4"),
-                    dbc.Button("Learn More",
-                               color="outline-primary",
-                               size="lg",
-                               href="/sat_applications",
+                               href="/sat_visualisation",
                                className="px-4")
                 ], className="mb-4"),
 
