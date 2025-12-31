@@ -21,26 +21,22 @@ def create_dash_layout(app):
                                id="get-started-button",
                                color="primary",
                                size="lg",
-                               className="px-4"),
-                    dbc.Button("Learn More",
-                               color="outline-primary",
-                               size="lg",
-                               href="/sat_applications",
+                               href="/sat_visualisation",
                                className="px-4")
                 ], className="mb-4"),
 
                 # Quick Stats
                 dbc.Row([
                     dbc.Col([
-                        html.H3("15,000+", className="text-primary mb-0"),
+                        html.H3("15,000+", className="text-primary mb-0 fs-2 fs-md-1"),
                         html.P("Satellites", className="text-muted small")
                     ], width=4),
                     dbc.Col([
-                        html.H3("Live", className="text-success mb-0"),
+                        html.H3("Live", className="text-success mb-0 fs-2 fs-md-1"),
                         html.P("Real-Time Tracking", className="text-muted small")
                     ], width=4),
                     dbc.Col([
-                        html.H3("Free", className="text-info mb-0"),
+                        html.H3("Free", className="text-info mb-0 fs-2 fs-md-1"),
                         html.P("Open Source Codebase", className="text-muted small")
                     ], width=4)
                 ], className="mt-4")

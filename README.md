@@ -215,6 +215,7 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed version history and release notes.
 #### Latest Updates (2.0.1)
 - Fixed Heroku deployment issue with Poetry
 - Configured for Python 3.12 compatibility
+- Improved responsive text sizing for mobile devices
 
 #### Key Features (2.0.0)
 - Upgraded to Python 3.12
