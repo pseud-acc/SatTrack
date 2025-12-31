@@ -229,15 +229,15 @@ def annotate_3d_figure(fig_3d, dff, time_now):
 
     @return: (Figure) Updated 3D figure with annotations
     """
-    fig_3d.add_annotation(dict(font=dict(color=colours["atext"], size=12),
+    fig_3d.add_annotation(dict(font=dict(color=colours["atext"], size=10),
                                 x=0.005, y=0.99, showarrow=False,
                                 text=
-                                '<i>Satellite position as at: ' +
-                                time_now.strftime("%H:%M:%S, %d/%m/%Y") + '</i> <br>' +
-                                '<i>Number of active/inactive satellites shown: ' +
+                                '<i><span style="font-size: clamp(8px, 2vw, 12px);">Satellite position as at: ' +
+                                time_now.strftime("%H:%M:%S, %d/%m/%Y") + '</span></i> <br>' +
+                                '<i><span style="font-size: clamp(8px, 2vw, 12px);">Number of active/inactive satellites shown: ' +
                                 "/".join(
                                     [str(sum(dff.Status == "Active")), str(sum(dff.Status == "Inactive"))]) +
-                                ' (' + str(dff.shape[0]) + ' in total)' + '</i>',
+                                ' (' + str(dff.shape[0]) + ' in total)' + '</span></i>',
                                 textangle=0, xanchor='left', align='left',
                                 xref="paper", yref="paper"))
     return fig_3d

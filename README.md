@@ -17,8 +17,6 @@ The project consists of two parts - (1) data pipeline; (2) interactive app. In t
 - 3D visualisation of satellite orbital path
 - 2D real-time satellite tracker (shows latitude, longitude and altitude)
 - Tabular export (to csv) of satellite details and position
-- TODO:
-  - Automate pipeline with airflow
 
 ## Requirements
 
@@ -217,6 +215,7 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed version history and release notes.
 #### Latest Updates (2.0.1)
 - Fixed Heroku deployment issue with Poetry
 - Configured for Python 3.12 compatibility
+- Improved responsive text sizing for mobile devices
 
 #### Key Features (2.0.0)
 - Upgraded to Python 3.12
