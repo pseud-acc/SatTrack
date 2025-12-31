@@ -23,7 +23,9 @@ When creating pull requests, use the following prefixes to indicate the type of 
 - Track work in progress here
 
 ### Changed
-- Track modifications here
+- Improved responsive text sizing for better mobile experience
+  - Home page stats now use Bootstrap responsive font-size utilities (fs-2 on mobile, fs-md-1 on tablets/desktop)
+  - 3D plot annotations now use CSS clamp() for fluid typography (8px-12px range)
 
 ### Fixed
 - Track bug fixes here
