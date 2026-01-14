@@ -5306,7 +5306,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 48329,STARLINK-2510,2021,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48330,STARLINK-2501,2021,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48331,STARLINK-2514,2021,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-48332,STARLINK-2511,2021,88.56,260.0,P,53.04,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48333,STARLINK-2518,2021,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48334,STARLINK-2470,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48340,YAOGAN-34 01,2021,107.03,500.0,+,63.4,Active,1,LEO,PRC,China,Military,Long March,Earth Observation
@@ -9940,7 +9939,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 58259,LEMUR-2-BASS,2023,93.66,-1.0,+,97.4,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 58262,PLATERO,2023,92.76,-1.0,+,97.4,Active,0,LEO,USA,Spain,Unknown,Unknown,Unknown
 58264,BRO-11,2023,94.4,-1.0,+,97.41,Active,0,LEO,USA,France,Unknown,Unknown,Unknown
-58265,PEARL 1H,2023,88.34,-1.0,+,97.36,Active,0,LEO,USA,Taiwan,Unknown,Unknown,Unknown
 58270,FLOCK 4Q-1,2023,92.74,-1.0,-,97.4,Inactive,0,LEO,USA,USA,Unknown,Unknown,Unknown
 58271,FLOCK 4Q-16,2023,93.4,-1.0,+,97.4,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 58272,TIGER-6,2023,92.39,-1.0,+,97.4,Active,0,LEO,USA,Rwanda,Unknown,Unknown,Unknown
@@ -17341,7 +17339,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 67288,OBJECT AS,2025,94.66,-1.0,+,97.41,Active,0,LEO,Russia,To Be Determined,Unknown,Unknown,Unknown
 67289,NASBSAT-1,2025,94.65,-1.0,+,97.41,Active,0,LEO,Russia,Belarus,Unknown,Unknown,Unknown
 67290,SAKHACUBE-CHOLBON (RS-18S),2025,94.65,-1.0,+,97.41,Active,0,LEO,Russia,Russia/USSR,Unknown,Unknown,Unknown
-67291,OBJECT AV,2025,94.65,-1.0,+,97.41,Active,0,LEO,Russia,To Be Determined,Unknown,Unknown,Unknown
+67291,QMR-KWT-2,2025,94.65,-1.0,+,97.41,Active,0,LEO,Russia,Unknown,Unknown,Unknown,Unknown
 67292,SITRO-AIS-64,2025,94.64,-1.0,+,97.41,Active,0,LEO,Russia,Russia/USSR,Unknown,Unknown,Unknown
 67293,OBJECT AX,2025,94.66,-1.0,+,97.41,Active,0,LEO,Russia,To Be Determined,Unknown,Unknown,Unknown
 67294,SITRO-AIS-63,2025,94.64,-1.0,+,97.41,Active,0,LEO,Russia,Russia/USSR,Unknown,Unknown,Unknown

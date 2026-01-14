@@ -5306,7 +5306,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 48329,2021-036BF,STARLINK-2510,2021-04-29,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 48330,2021-036BG,STARLINK-2501,2021-04-29,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 48331,2021-036BH,STARLINK-2514,2021-04-29,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
-48332,2021-036BJ,STARLINK-2511,2021-04-29,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,88.56,-1.0,US,USA,53.04,Commercial,Communications,260.0,,4.0,1,Falcon
 48333,2021-036BK,STARLINK-2518,2021-04-29,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 48334,2021-036BL,STARLINK-2470,2021-04-29,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 48340,2021-037A,YAOGAN-34 01,2021-04-30,2021,"Jiuquan Space Center, PRC",PRC,Long March 4C,Active,+,LEO,107.03,-1.0,PRC,China,63.4,Military,Earth Observation,500.0,,-1.0,1,Long March
@@ -9940,7 +9939,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 58259,2023-174D,LEMUR-2-BASS,2023-11-11,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,93.66,-1.0,US,USA,97.4,,,-1.0,,-1.0,0,
 58262,2023-174G,PLATERO,2023-11-11,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,92.76,-1.0,SPN,Spain,97.4,,,-1.0,,-1.0,0,
 58264,2023-174J,BRO-11,2023-11-11,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.4,-1.0,FR,France,97.41,,,-1.0,,-1.0,0,
-58265,2023-174K,PEARL 1H,2023-11-11,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,88.34,-1.0,ROC,Taiwan,97.36,,,-1.0,,-1.0,0,
 58270,2023-174Q,FLOCK 4Q-1,2023-11-11,2023,"Air Force Western Test Range, California, USA",USA,,Inactive,-,LEO,92.74,-1.0,US,USA,97.4,,,-1.0,,-1.0,0,
 58271,2023-174R,FLOCK 4Q-16,2023-11-11,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,93.4,-1.0,US,USA,97.4,,,-1.0,,-1.0,0,
 58272,2023-174S,TIGER-6,2023-11-11,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,92.39,-1.0,RWA,Rwanda,97.4,,,-1.0,,-1.0,0,
@@ -17341,7 +17339,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 67288,2025-313AS,OBJECT AS,2025-12-28,2025,"Vostochny Cosmodrome, Russia",Russia,,Active,+,LEO,94.66,-1.0,TBD,To Be Determined,97.41,,,-1.0,,-1.0,0,
 67289,2025-313AT,NASBSAT-1,2025-12-28,2025,"Vostochny Cosmodrome, Russia",Russia,,Active,+,LEO,94.65,-1.0,BELA,Belarus,97.41,,,-1.0,,-1.0,0,
 67290,2025-313AU,SAKHACUBE-CHOLBON (RS-18S),2025-12-28,2025,"Vostochny Cosmodrome, Russia",Russia,,Active,+,LEO,94.65,-1.0,CIS,Russia/USSR,97.41,,,-1.0,,-1.0,0,
-67291,2025-313AV,OBJECT AV,2025-12-28,2025,"Vostochny Cosmodrome, Russia",Russia,,Active,+,LEO,94.65,-1.0,TBD,To Be Determined,97.41,,,-1.0,,-1.0,0,
+67291,2025-313AV,QMR-KWT-2,2025-12-28,2025,"Vostochny Cosmodrome, Russia",Russia,,Active,+,LEO,94.65,-1.0,KWT,,97.41,,,-1.0,,-1.0,0,
 67292,2025-313AW,SITRO-AIS-64,2025-12-28,2025,"Vostochny Cosmodrome, Russia",Russia,,Active,+,LEO,94.64,-1.0,CIS,Russia/USSR,97.41,,,-1.0,,-1.0,0,
 67293,2025-313AX,OBJECT AX,2025-12-28,2025,"Vostochny Cosmodrome, Russia",Russia,,Active,+,LEO,94.66,-1.0,TBD,To Be Determined,97.41,,,-1.0,,-1.0,0,
 67294,2025-313AY,SITRO-AIS-63,2025-12-28,2025,"Vostochny Cosmodrome, Russia",Russia,,Active,+,LEO,94.64,-1.0,CIS,Russia/USSR,97.41,,,-1.0,,-1.0,0,
