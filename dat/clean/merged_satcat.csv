@@ -2560,7 +2560,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 27534,2002-046A,NADEZHDA 7,2002-09-26,2002,"Plesetsk Missile and Space Complex, Russia",Russia,,Inactive,-,LEO,104.88,-1.0,CIS,Russia/USSR,82.93,,,-1.0,,-1.0,0,
 27540,2002-048A,INTEGRAL,2002-10-17,2002,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton,Inactive,-,HEO,3832.5,-1.0,ESA,ESA,90.84,Government,Space Science,4000.0,3414,2.0,1,Proton
 27554,2002-051A,EUTELSAT 33B,2002-11-20,2002,"Air Force Eastern Test Range, Florida, USA",USA,,Inactive,-,GSO,1437.45,-1.0,EUTE,EUTELSAT,8.61,,,-1.0,,-1.0,0,
-27559,2002-054A,ALSAT 1,2002-11-28,2002,"Plesetsk Missile and Space Complex, Russia",Russia,,Inactive,UNK,LEO,97.44,-1.0,ALG,Algeria,98.23,,,-1.0,,-1.0,0,
+27559,2002-054A,ALSAT-1,2002-11-28,2002,"Plesetsk Missile and Space Complex, Russia",Russia,,Inactive,UNK,LEO,97.44,-1.0,ALG,Algeria,98.23,,,-1.0,,-1.0,0,
 27560,2002-054B,MOZHAETS,2002-11-28,2002,"Plesetsk Missile and Space Complex, Russia",Russia,,Inactive,UNK,LEO,98.52,-1.0,CIS,Russia/USSR,98.46,,,-1.0,,-1.0,0,
 27561,2002-054C,RUBIN-3 & SL-8 R/B,2002-11-28,2002,"Plesetsk Missile and Space Complex, Russia",Russia,,Inactive,UNK,LEO,98.74,-1.0,GER,Germany,98.48,,,-1.0,,-1.0,0,
 27566,2002-055A,TDRS 10,2002-12-05,2002,"Air Force Eastern Test Range, Florida, USA",USA,Atlas 2A,Inactive,-,GSO,1456.57,-1.0,US,USA,9.78,Government,Communications,3180.0,1600,11.0,1,Atlas
@@ -3075,7 +3075,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 36795,2010-035A,CARTOSAT-2B,2010-07-12,2010,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,97.38,-1.0,IND,India,97.78,Government,Earth Observation,694.0,,5.0,1,PSLV
 36796,2010-035B,STUDSAT,2010-07-12,2010,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,95.79,-1.0,IND,India,98.11,,,-1.0,,-1.0,0,
 36797,2010-035C,AISSAT 1,2010-07-12,2010,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Inactive,-,LEO,96.22,-1.0,NOR,Norway,98.11,Government,Communications,6.0,,3.0,1,PSLV
-36798,2010-035D,ALSAT 2A,2010-07-12,2010,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,97.68,-1.0,ALG,Algeria,97.76,Government,Earth Observation,130.0,,5.0,1,PSLV
+36798,2010-035D,ALSAT-2A,2010-07-12,2010,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,97.68,-1.0,ALG,Algeria,97.76,Government,Earth Observation,130.0,,5.0,1,PSLV
 36799,2010-035E,TISAT 1,2010-07-12,2010,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Active,+,LEO,94.43,-1.0,SWTZ,Switzerland,98.06,,,-1.0,,-1.0,0,
 36827,2010-028F,PRISMA (TANGO),2010-06-15,2010,"Dombarovskiy Launch Site, Russia",Russia,,Inactive,UNK,LEO,99.68,-1.0,SWED,Sweden,98.45,,,-1.0,,-1.0,0,
 36828,2010-036A,BEIDOU-2 IGSO-1,2010-07-31,2010,"Xichang Launch Facility, PRC",PRC,Long March 3A,Active,+,GSO,1436.17,-1.0,PRC,China,54.29,Government/Military,Navigation (Global or Regional Positioning),4200.0,1900,8.0,1,Long March
@@ -3543,7 +3543,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 40146,2014-054A,OPTUS 10,2014-09-11,2014,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5 ECA,Active,+,GSO,1436.89,-1.0,AUS,Australia,0.09,Commercial,Communications,3270.0,,15.0,1,Ariane
 40147,2014-054B,MEASAT-3B,2014-09-11,2014,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5 ECA,Active,+,GSO,1436.1,-1.0,MALA,Malaysia,0.03,Commercial,Communications,5800.0,,15.0,1,Ariane
 40208,2014-055A,USA 257 (CLIO),2014-09-17,2014,"Air Force Eastern Test Range, Florida, USA",USA,Atlas 5,Active,+,GSO,1436.06,-1.0,US,USA,0.11,Military,Communications,-1.0,,-1.0,1,Atlas
-40258,2014-058A,LUCH (OLYMP-K 1),2014-09-27,2014,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Active,+,GSO,1452.83,-1.0,CIS,Russia/USSR,1.5,Military,Communications,-1.0,,15.0,1,Proton
+40258,2014-058A,LUCH (OLYMP-K 1),2014-09-27,2014,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan,Proton M,Inactive,-,GSO,1452.83,-1.0,CIS,Russia/USSR,1.5,Military,Communications,-1.0,,15.0,1,Proton
 40261,2014-059A,SJ-11-07,2014-09-28,2014,"Jiuquan Space Center, PRC",PRC,Long March 2C,Active,+,LEO,98.39,-1.0,PRC,China,98.01,Government,Technology Development,-1.0,,-1.0,1,Long March
 40267,2014-060A,HIMAWARI-8,2014-10-07,2014,"Tanegashima Space Center, Japan",Japan,H2A,Active,+,GSO,1436.1,-1.0,JPN,Japan,0.01,Government,Earth Observation,3500.0,1300,8.0,1,H2A
 40269,2014-061A,IRNSS-1C,2014-10-15,2014,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV-XL,Active,P,GSO,1436.12,-1.0,IND,India,6.13,Government,Navigation (Global or Regional Positioning),1425.0,598,12.0,1,PSLV
@@ -3761,10 +3761,10 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 41774,2016-058E,SKYSAT-C3,2016-09-16,2016,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Vega,Active,+,LEO,93.16,-1.0,US,USA,96.93,Commercial,Earth Observation,110.0,,-1.0,1,Vega
 41783,2016-059A,PRATHAM,2016-09-26,2016,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,,Inactive,-,LEO,98.17,-1.0,IND,India,97.83,,,-1.0,,-1.0,0,
 41784,2016-059B,PISAT,2016-09-26,2016,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,98.05,-1.0,IND,India,97.82,Government,Technology Development,6.0,,-1.0,1,PSLV
-41785,2016-059C,ALSAT 1B,2016-09-26,2016,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,97.82,-1.0,ALG,Algeria,97.78,Government,Earth Observation,103.0,,5.0,1,PSLV
-41786,2016-059D,ALSAT 2B,2016-09-26,2016,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,97.92,-1.0,ALG,Algeria,98.01,Government,Earth Observation,117.0,,5.0,1,PSLV
+41785,2016-059C,ALSAT-1B,2016-09-26,2016,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,97.82,-1.0,ALG,Algeria,97.78,Government,Earth Observation,103.0,,5.0,1,PSLV
+41786,2016-059D,ALSAT-2B,2016-09-26,2016,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,97.92,-1.0,ALG,Algeria,98.01,Government,Earth Observation,117.0,,5.0,1,PSLV
 41787,2016-059E,PATHFINDER 1,2016-09-26,2016,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,98.13,-1.0,US,USA,97.81,Commercial,Earth Observation,44.0,,3.0,1,PSLV
-41789,2016-059G,ALSAT 1N,2016-09-26,2016,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Inactive,-,LEO,98.03,-1.0,ALG,Algeria,97.8,Government,Technology Development,10.0,,-1.0,1,PSLV
+41789,2016-059G,ALSAT-1N,2016-09-26,2016,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Inactive,-,LEO,98.03,-1.0,ALG,Algeria,97.8,Government,Technology Development,10.0,,-1.0,1,PSLV
 41790,2016-059H,SCATSAT 1,2016-09-26,2016,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India,PSLV,Active,+,LEO,97.36,-1.0,IND,India,98.14,Government,Earth Observation,371.0,,5.0,1,PSLV
 41793,2016-060A,GSAT-18,2016-10-05,2016,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1436.08,-1.0,IND,India,0.04,Government,Communications,3404.0,,15.0,1,Ariane
 41794,2016-060B,SKY MUSTER 2 (NBN1B),2016-10-05,2016,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1436.07,-1.0,AUS,Australia,0.01,Commercial,Communications,6405.0,,15.0,1,Ariane
@@ -4529,7 +4529,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 45570,2020-025AR,STARLINK-1376,2020-04-22,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.33,-1.0,US,USA,53.15,Commercial,Communications,227.0,,-1.0,1,Falcon
 45572,2020-025AT,STARLINK-1320,2020-04-22,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,92.55,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
 45573,2020-025AU,STARLINK-1321,2020-04-22,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,93.51,-1.0,US,USA,53.06,Commercial,Communications,227.0,,-1.0,1,Falcon
-45576,2020-025AX,STARLINK-1328,2020-04-22,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,88.08,-1.0,US,USA,53.03,Commercial,Communications,227.0,,-1.0,1,Falcon
 45578,2020-025AZ,STARLINK-1331,2020-04-22,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.26,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
 45580,2020-025BB,STARLINK-1333,2020-04-22,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.53,-1.0,US,USA,53.13,Commercial,Communications,227.0,,-1.0,1,Falcon
 45581,2020-025BC,STARLINK-1335,2020-04-22,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,227.0,,-1.0,1,Falcon
@@ -4910,7 +4909,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 47366,2021-005T,STARLINK-2081,2021-01-20,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 47367,2021-005U,STARLINK-2082,2021-01-20,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 47368,2021-005V,STARLINK-2084,2021-01-20,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
-47370,2021-005X,STARLINK-2086,2021-01-20,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,88.18,-1.0,US,USA,53.02,Commercial,Communications,260.0,,4.0,1,Falcon
 47371,2021-005Y,STARLINK-2088,2021-01-20,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 47373,2021-005AA,STARLINK-2092,2021-01-20,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.59,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
 47374,2021-005AB,STARLINK-2093,2021-01-20,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.25,-1.0,US,USA,53.06,Commercial,Communications,260.0,,4.0,1,Falcon
@@ -16751,6 +16749,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 66672,2025-276G,BRO-17,2025-11-28,2025,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.94,-1.0,FR,France,97.44,,,-1.0,,-1.0,0,
 66673,2025-276H,TRANSPORTER-15H,2025-11-28,2025,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.86,-1.0,TBD,To Be Determined,97.43,,,-1.0,,-1.0,0,
 66674,2025-276J,BRO-20,2025-11-28,2025,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.93,-1.0,FR,France,97.43,,,-1.0,,-1.0,0,
+66675,2025-276K,TRANSPORTER-15K,2025-11-28,2025,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.89,-1.0,TBD,To Be Determined,97.44,,,-1.0,,-1.0,0,
 66676,2025-276L,TRANSPORTER-15L,2025-11-28,2025,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.92,-1.0,TBD,To Be Determined,97.44,,,-1.0,,-1.0,0,
 66677,2025-276M,TRANSPORTER-15M,2025-11-28,2025,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.85,-1.0,TBD,To Be Determined,97.44,,,-1.0,,-1.0,0,
 66678,2025-276N,TRANSPORTER-15N,2025-11-28,2025,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.91,-1.0,TBD,To Be Determined,97.44,,,-1.0,,-1.0,0,

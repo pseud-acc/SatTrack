@@ -2560,7 +2560,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 27534,NADEZHDA 7,2002,104.88,-1.0,-,82.93,Inactive,0,LEO,Russia,Russia/USSR,Unknown,Unknown,Unknown
 27540,INTEGRAL,2002,3832.5,4000.0,-,90.84,Inactive,1,HEO,Kazakhstan,ESA,Government,Proton,Space Science
 27554,EUTELSAT 33B,2002,1437.45,-1.0,-,8.61,Inactive,0,GSO,USA,EUTELSAT,Unknown,Unknown,Unknown
-27559,ALSAT 1,2002,97.44,-1.0,UNK,98.23,Inactive,0,LEO,Russia,Algeria,Unknown,Unknown,Unknown
+27559,ALSAT-1,2002,97.44,-1.0,UNK,98.23,Inactive,0,LEO,Russia,Algeria,Unknown,Unknown,Unknown
 27560,MOZHAETS,2002,98.52,-1.0,UNK,98.46,Inactive,0,LEO,Russia,Russia/USSR,Unknown,Unknown,Unknown
 27561,RUBIN-3 & SL-8 R/B,2002,98.74,-1.0,UNK,98.48,Inactive,0,LEO,Russia,Germany,Unknown,Unknown,Unknown
 27566,TDRS 10,2002,1456.57,3180.0,-,9.78,Inactive,1,GSO,USA,USA,Government,Atlas,Communications
@@ -3075,7 +3075,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 36795,CARTOSAT-2B,2010,97.38,694.0,+,97.78,Active,1,LEO,India,India,Government,PSLV,Earth Observation
 36796,STUDSAT,2010,95.79,-1.0,-,98.11,Inactive,0,LEO,India,India,Unknown,Unknown,Unknown
 36797,AISSAT 1,2010,96.22,6.0,-,98.11,Inactive,1,LEO,India,Norway,Government,PSLV,Communications
-36798,ALSAT 2A,2010,97.68,130.0,+,97.76,Active,1,LEO,India,Algeria,Government,PSLV,Earth Observation
+36798,ALSAT-2A,2010,97.68,130.0,+,97.76,Active,1,LEO,India,Algeria,Government,PSLV,Earth Observation
 36799,TISAT 1,2010,94.43,-1.0,+,98.06,Active,0,LEO,India,Switzerland,Unknown,Unknown,Unknown
 36827,PRISMA (TANGO),2010,99.68,-1.0,UNK,98.45,Inactive,0,LEO,Russia,Sweden,Unknown,Unknown,Unknown
 36828,BEIDOU-2 IGSO-1,2010,1436.17,4200.0,+,54.29,Active,1,GSO,PRC,China,Government/Military,Long March,Navigation (Global or Regional Positioning)
@@ -3543,7 +3543,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 40146,OPTUS 10,2014,1436.89,3270.0,+,0.09,Active,1,GSO,French Guiana,Australia,Commercial,Ariane,Communications
 40147,MEASAT-3B,2014,1436.1,5800.0,+,0.03,Active,1,GSO,French Guiana,Malaysia,Commercial,Ariane,Communications
 40208,USA 257 (CLIO),2014,1436.06,-1.0,+,0.11,Active,1,GSO,USA,USA,Military,Atlas,Communications
-40258,LUCH (OLYMP-K 1),2014,1452.83,-1.0,+,1.5,Active,1,GSO,Kazakhstan,Russia/USSR,Military,Proton,Communications
+40258,LUCH (OLYMP-K 1),2014,1452.83,-1.0,-,1.5,Inactive,1,GSO,Kazakhstan,Russia/USSR,Military,Proton,Communications
 40261,SJ-11-07,2014,98.39,-1.0,+,98.01,Active,1,LEO,PRC,China,Government,Long March,Technology Development
 40267,HIMAWARI-8,2014,1436.1,3500.0,+,0.01,Active,1,GSO,Japan,Japan,Government,H2A,Earth Observation
 40269,IRNSS-1C,2014,1436.12,1425.0,P,6.13,Active,1,GSO,India,India,Government,PSLV,Navigation (Global or Regional Positioning)
@@ -3761,10 +3761,10 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 41774,SKYSAT-C3,2016,93.16,110.0,+,96.93,Active,1,LEO,French Guiana,USA,Commercial,Vega,Earth Observation
 41783,PRATHAM,2016,98.17,-1.0,-,97.83,Inactive,0,LEO,India,India,Unknown,Unknown,Unknown
 41784,PISAT,2016,98.05,6.0,+,97.82,Active,1,LEO,India,India,Government,PSLV,Technology Development
-41785,ALSAT 1B,2016,97.82,103.0,+,97.78,Active,1,LEO,India,Algeria,Government,PSLV,Earth Observation
-41786,ALSAT 2B,2016,97.92,117.0,+,98.01,Active,1,LEO,India,Algeria,Government,PSLV,Earth Observation
+41785,ALSAT-1B,2016,97.82,103.0,+,97.78,Active,1,LEO,India,Algeria,Government,PSLV,Earth Observation
+41786,ALSAT-2B,2016,97.92,117.0,+,98.01,Active,1,LEO,India,Algeria,Government,PSLV,Earth Observation
 41787,PATHFINDER 1,2016,98.13,44.0,+,97.81,Active,1,LEO,India,USA,Commercial,PSLV,Earth Observation
-41789,ALSAT 1N,2016,98.03,10.0,-,97.8,Inactive,1,LEO,India,Algeria,Government,PSLV,Technology Development
+41789,ALSAT-1N,2016,98.03,10.0,-,97.8,Inactive,1,LEO,India,Algeria,Government,PSLV,Technology Development
 41790,SCATSAT 1,2016,97.36,371.0,+,98.14,Active,1,LEO,India,India,Government,PSLV,Earth Observation
 41793,GSAT-18,2016,1436.08,3404.0,+,0.04,Active,1,GSO,French Guiana,India,Government,Ariane,Communications
 41794,SKY MUSTER 2 (NBN1B),2016,1436.07,6405.0,+,0.01,Active,1,GSO,French Guiana,Australia,Commercial,Ariane,Communications
@@ -4529,7 +4529,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 45570,STARLINK-1376,2020,94.33,227.0,+,53.15,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45572,STARLINK-1320,2020,92.55,227.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45573,STARLINK-1321,2020,93.51,227.0,P,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-45576,STARLINK-1328,2020,88.08,227.0,P,53.03,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45578,STARLINK-1331,2020,95.26,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45580,STARLINK-1333,2020,94.53,227.0,+,53.13,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 45581,STARLINK-1335,2020,95.59,227.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -4910,7 +4909,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 47366,STARLINK-2081,2021,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47367,STARLINK-2082,2021,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47368,STARLINK-2084,2021,95.59,260.0,+,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-47370,STARLINK-2086,2021,88.18,260.0,P,53.02,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47371,STARLINK-2088,2021,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47373,STARLINK-2092,2021,95.59,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 47374,STARLINK-2093,2021,95.25,260.0,+,53.06,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -16751,6 +16749,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 66672,BRO-17,2025,94.94,-1.0,+,97.44,Active,0,LEO,USA,France,Unknown,Unknown,Unknown
 66673,TRANSPORTER-15H,2025,94.86,-1.0,+,97.43,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 66674,BRO-20,2025,94.93,-1.0,+,97.43,Active,0,LEO,USA,France,Unknown,Unknown,Unknown
+66675,TRANSPORTER-15K,2025,94.89,-1.0,+,97.44,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 66676,TRANSPORTER-15L,2025,94.92,-1.0,+,97.44,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 66677,TRANSPORTER-15M,2025,94.85,-1.0,+,97.44,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 66678,TRANSPORTER-15N,2025,94.91,-1.0,+,97.44,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown

@@ -2560,7 +2560,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,82.93,2002-09-26,PLMSC,27534,2002-046A,NADEZHDA 7,PAY,-,EA,LEO,ORB,CIS,104.88,Inactive,Russia/USSR,"Plesetsk Missile and Space Complex, Russia",Russia
 ,90.84,2002-10-17,TYMSC,27540,2002-048A,INTEGRAL,PAY,-,EA,HEO,ORB,ESA,3832.5,Inactive,ESA,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,8.61,2002-11-20,AFETR,27554,2002-051A,EUTELSAT 33B,PAY,-,EA,GSO,ORB,EUTE,1437.45,Inactive,EUTELSAT,"Air Force Eastern Test Range, Florida, USA",USA
-,98.23,2002-11-28,PLMSC,27559,2002-054A,ALSAT 1,PAY,UNK,EA,LEO,ORB,ALG,97.44,Inactive,Algeria,"Plesetsk Missile and Space Complex, Russia",Russia
+,98.23,2002-11-28,PLMSC,27559,2002-054A,ALSAT-1,PAY,UNK,EA,LEO,ORB,ALG,97.44,Inactive,Algeria,"Plesetsk Missile and Space Complex, Russia",Russia
 ,98.46,2002-11-28,PLMSC,27560,2002-054B,MOZHAETS,PAY,UNK,EA,LEO,ORB,CIS,98.52,Inactive,Russia/USSR,"Plesetsk Missile and Space Complex, Russia",Russia
 ,98.48,2002-11-28,PLMSC,27561,2002-054C,RUBIN-3 & SL-8 R/B,PAY,UNK,EA,LEO,ORB,GER,98.74,Inactive,Germany,"Plesetsk Missile and Space Complex, Russia",Russia
 ,9.78,2002-12-05,AFETR,27566,2002-055A,TDRS 10,PAY,-,EA,GSO,ORB,US,1456.57,Inactive,USA,"Air Force Eastern Test Range, Florida, USA",USA
@@ -3075,7 +3075,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.78,2010-07-12,SRILR,36795,2010-035A,CARTOSAT-2B,PAY,+,EA,LEO,ORB,IND,97.38,Active,India,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,98.11,2010-07-12,SRILR,36796,2010-035B,STUDSAT,PAY,-,EA,LEO,ORB,IND,95.79,Inactive,India,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,98.11,2010-07-12,SRILR,36797,2010-035C,AISSAT 1,PAY,-,EA,LEO,ORB,NOR,96.22,Inactive,Norway,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
-,97.76,2010-07-12,SRILR,36798,2010-035D,ALSAT 2A,PAY,+,EA,LEO,ORB,ALG,97.68,Active,Algeria,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
+,97.76,2010-07-12,SRILR,36798,2010-035D,ALSAT-2A,PAY,+,EA,LEO,ORB,ALG,97.68,Active,Algeria,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,98.06,2010-07-12,SRILR,36799,2010-035E,TISAT 1,PAY,+,EA,LEO,ORB,SWTZ,94.43,Active,Switzerland,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,98.45,2010-06-15,DLS,36827,2010-028F,PRISMA (TANGO),PAY,UNK,EA,LEO,ORB,SWED,99.68,Inactive,Sweden,"Dombarovskiy Launch Site, Russia",Russia
 ,54.29,2010-07-31,XICLF,36828,2010-036A,BEIDOU-2 IGSO-1,PAY,+,EA,GSO,ORB,PRC,1436.17,Active,China,"Xichang Launch Facility, PRC",PRC
@@ -3543,7 +3543,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,0.09,2014-09-11,FRGUI,40146,2014-054A,OPTUS 10,PAY,+,EA,GSO,ORB,AUS,1436.89,Active,Australia,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,0.03,2014-09-11,FRGUI,40147,2014-054B,MEASAT-3B,PAY,+,EA,GSO,ORB,MALA,1436.1,Active,Malaysia,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,0.11,2014-09-17,AFETR,40208,2014-055A,USA 257 (CLIO),PAY,+,EA,GSO,ORB,US,1436.06,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
-,1.5,2014-09-27,TYMSC,40258,2014-058A,LUCH (OLYMP-K 1),PAY,+,EA,GSO,ORB,CIS,1452.83,Active,Russia/USSR,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
+,1.5,2014-09-27,TYMSC,40258,2014-058A,LUCH (OLYMP-K 1),PAY,-,EA,GSO,ORB,CIS,1452.83,Inactive,Russia/USSR,"Tyuratam Missile and Space Center, Kazakhstan(Also known as Baikonur Cosmodrome)",Kazakhstan
 ,98.01,2014-09-28,JSC,40261,2014-059A,SJ-11-07,PAY,+,EA,LEO,ORB,PRC,98.39,Active,China,"Jiuquan Space Center, PRC",PRC
 ,0.01,2014-10-07,TANSC,40267,2014-060A,HIMAWARI-8,PAY,+,EA,GSO,ORB,JPN,1436.1,Active,Japan,"Tanegashima Space Center, Japan",Japan
 ,6.13,2014-10-15,SRILR,40269,2014-061A,IRNSS-1C,PAY,P,EA,GSO,ORB,IND,1436.12,Active,India,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
@@ -3761,10 +3761,10 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,96.93,2016-09-16,FRGUI,41774,2016-058E,SKYSAT-C3,PAY,+,EA,LEO,ORB,US,93.16,Active,USA,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,97.83,2016-09-26,SRILR,41783,2016-059A,PRATHAM,PAY,-,EA,LEO,ORB,IND,98.17,Inactive,India,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.82,2016-09-26,SRILR,41784,2016-059B,PISAT,PAY,+,EA,LEO,ORB,IND,98.05,Active,India,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
-,97.78,2016-09-26,SRILR,41785,2016-059C,ALSAT 1B,PAY,+,EA,LEO,ORB,ALG,97.82,Active,Algeria,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
-,98.01,2016-09-26,SRILR,41786,2016-059D,ALSAT 2B,PAY,+,EA,LEO,ORB,ALG,97.92,Active,Algeria,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
+,97.78,2016-09-26,SRILR,41785,2016-059C,ALSAT-1B,PAY,+,EA,LEO,ORB,ALG,97.82,Active,Algeria,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
+,98.01,2016-09-26,SRILR,41786,2016-059D,ALSAT-2B,PAY,+,EA,LEO,ORB,ALG,97.92,Active,Algeria,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,97.81,2016-09-26,SRILR,41787,2016-059E,PATHFINDER 1,PAY,+,EA,LEO,ORB,US,98.13,Active,USA,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
-,97.8,2016-09-26,SRILR,41789,2016-059G,ALSAT 1N,PAY,-,EA,LEO,ORB,ALG,98.03,Inactive,Algeria,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
+,97.8,2016-09-26,SRILR,41789,2016-059G,ALSAT-1N,PAY,-,EA,LEO,ORB,ALG,98.03,Inactive,Algeria,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,98.14,2016-09-26,SRILR,41790,2016-059H,SCATSAT 1,PAY,+,EA,LEO,ORB,IND,97.36,Active,India,"Satish Dhawan Space Centre, India(Formerly Sriharikota Launching Range)",India
 ,0.04,2016-10-05,FRGUI,41793,2016-060A,GSAT-18,PAY,+,EA,GSO,ORB,IND,1436.08,Active,India,"Europe's Spaceport, Kourou, French Guiana",French Guiana
 ,0.01,2016-10-05,FRGUI,41794,2016-060B,SKY MUSTER 2 (NBN1B),PAY,+,EA,GSO,ORB,AUS,1436.07,Active,Australia,"Europe's Spaceport, Kourou, French Guiana",French Guiana
@@ -4529,7 +4529,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,53.15,2020-04-22,AFETR,45570,2020-025AR,STARLINK-1376,PAY,+,EA,LEO,ORB,US,94.33,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.05,2020-04-22,AFETR,45572,2020-025AT,STARLINK-1320,PAY,P,EA,LEO,ORB,US,92.55,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.06,2020-04-22,AFETR,45573,2020-025AU,STARLINK-1321,PAY,P,EA,LEO,ORB,US,93.51,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
-,53.03,2020-04-22,AFETR,45576,2020-025AX,STARLINK-1328,PAY,P,EA,LEO,ORB,US,88.08,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.05,2020-04-22,AFETR,45578,2020-025AZ,STARLINK-1331,PAY,+,EA,LEO,ORB,US,95.26,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.13,2020-04-22,AFETR,45580,2020-025BB,STARLINK-1333,PAY,+,EA,LEO,ORB,US,94.53,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.05,2020-04-22,AFETR,45581,2020-025BC,STARLINK-1335,PAY,+,EA,LEO,ORB,US,95.59,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
@@ -4910,7 +4909,6 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,53.06,2021-01-20,AFETR,47366,2021-005T,STARLINK-2081,PAY,+,EA,LEO,ORB,US,95.59,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.06,2021-01-20,AFETR,47367,2021-005U,STARLINK-2082,PAY,+,EA,LEO,ORB,US,95.59,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.05,2021-01-20,AFETR,47368,2021-005V,STARLINK-2084,PAY,+,EA,LEO,ORB,US,95.59,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
-,53.02,2021-01-20,AFETR,47370,2021-005X,STARLINK-2086,PAY,P,EA,LEO,ORB,US,88.18,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.06,2021-01-20,AFETR,47371,2021-005Y,STARLINK-2088,PAY,+,EA,LEO,ORB,US,95.59,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.06,2021-01-20,AFETR,47373,2021-005AA,STARLINK-2092,PAY,+,EA,LEO,ORB,US,95.59,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
 ,53.06,2021-01-20,AFETR,47374,2021-005AB,STARLINK-2093,PAY,+,EA,LEO,ORB,US,95.25,Active,USA,"Air Force Eastern Test Range, Florida, USA",USA
@@ -16751,6 +16749,7 @@ DECAY_DATE,INCLINATION,LAUNCH_DATE,LAUNCH_SITE,NORAD_CAT_ID,OBJECT_ID,OBJECT_NAM
 ,97.44,2025-11-28,AFWTR,66672,2025-276G,BRO-17,PAY,+,EA,LEO,ORB,FR,94.94,Active,France,"Air Force Western Test Range, California, USA",USA
 ,97.43,2025-11-28,AFWTR,66673,2025-276H,TRANSPORTER-15H,PAY,+,EA,LEO,ORB,TBD,94.86,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
 ,97.43,2025-11-28,AFWTR,66674,2025-276J,BRO-20,PAY,+,EA,LEO,ORB,FR,94.93,Active,France,"Air Force Western Test Range, California, USA",USA
+,97.44,2025-11-28,AFWTR,66675,2025-276K,TRANSPORTER-15K,PAY,+,EA,LEO,ORB,TBD,94.89,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
 ,97.44,2025-11-28,AFWTR,66676,2025-276L,TRANSPORTER-15L,PAY,+,EA,LEO,ORB,TBD,94.92,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
 ,97.44,2025-11-28,AFWTR,66677,2025-276M,TRANSPORTER-15M,PAY,+,EA,LEO,ORB,TBD,94.85,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
 ,97.44,2025-11-28,AFWTR,66678,2025-276N,TRANSPORTER-15N,PAY,+,EA,LEO,ORB,TBD,94.91,Active,To Be Determined,"Air Force Western Test Range, California, USA",USA
