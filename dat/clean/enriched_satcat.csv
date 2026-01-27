@@ -3747,7 +3747,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 41725,TIANTONG-1 1,2016,1436.12,-1.0,+,3.58,Active,1,GSO,PRC,China,Government,Long March,Communications
 41727,GAOFEN-3,2016,99.85,1000.0,+,98.4,Active,1,LEO,PRC,China,Government,Long March,Earth Observation
 41729,JCSAT-16,2016,1436.12,4500.0,+,0.02,Active,1,GSO,USA,Japan,Commercial,Falcon,Communications
-41731,QSS (MOZI),2016,87.84,700.0,+,97.29,Active,1,LEO,PRC,China,Government,Long March,Space Science
 41744,USA 270,2016,1436.69,500.0,+,3.48,Active,1,GSO,USA,USA,Military,Delta,Space Science
 41745,USA 271,2016,1435.02,500.0,+,3.49,Active,1,GSO,USA,USA,Military,Delta,Space Science
 41747,INTELSAT 36 (IS-36),2016,1436.12,3250.0,+,0.01,Active,1,GSO,French Guiana,INTELSAT,Commercial,Ariane,Communications
@@ -4748,7 +4747,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 46537,STARLINK-1672,2020,93.04,260.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46538,STARLINK-1678,2020,92.51,260.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46541,STARLINK-1687,2020,91.43,260.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-46549,STARLINK-1700,2020,88.52,260.0,P,53.02,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46553,STARLINK-1664,2020,93.99,260.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46556,STARLINK-1676,2020,93.39,260.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 46557,STARLINK-1679,2020,93.05,260.0,P,53.05,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -6487,7 +6485,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 52389,JILIN-1 GAOFEN 3D04,2022,92.04,43.0,+,97.49,Active,1,LEO,Sea Launch Platform,China,Commercial,Long March,Earth Observation
 52390,JILIN-1 GAOFEN 3D05,2022,91.93,43.0,+,97.48,Active,1,LEO,Sea Launch Platform,China,Commercial,Long March,Earth Observation
 52391,JILIN-1 GAOFEN 3D06,2022,91.99,43.0,+,97.5,Active,1,LEO,Sea Launch Platform,China,Commercial,Long March,Earth Observation
-52392,JILIN-1 GAOFEN 3D07,2022,87.93,43.0,+,97.47,Active,1,LEO,Sea Launch Platform,China,Commercial,Long March,Earth Observation
 52422,BRO-6,2022,93.32,8.0,+,97.35,Active,1,LEO,New Zealand,France,Commercial,Electron,Earth Observation
 52443,JILIN-1 KUANFU 01C,2022,95.34,95.0,+,97.54,Active,1,LEO,PRC,China,Commercial,Long March,Earth Observation
 52444,JILIN-1 GAOFEN 3D27,2022,92.73,43.0,+,97.57,Active,1,LEO,PRC,China,Commercial,Long March,Earth Observation
@@ -17315,7 +17312,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 67283,HORS 5,2025,94.65,-1.0,+,97.41,Active,0,LEO,Russia,Russia/USSR,Unknown,Unknown,Unknown
 67284,LOBACHEVSKY (RS83S),2025,94.67,-1.0,+,97.41,Active,0,LEO,Russia,To Be Determined,Unknown,Unknown,Unknown
 67285,NASBSAT-2,2025,94.64,-1.0,+,97.41,Active,0,LEO,Russia,Belarus,Unknown,Unknown,Unknown
-67286,OBJECT AQ,2025,94.64,-1.0,+,97.41,Active,0,LEO,Russia,To Be Determined,Unknown,Unknown,Unknown
+67286,MULE 4T,2025,94.64,-1.0,+,97.41,Active,0,LEO,Russia,Russia/USSR,Unknown,Unknown,Unknown
 67287,LUCA (RS90S),2025,94.63,-1.0,+,97.41,Active,0,LEO,Russia,Montenegro,Unknown,Unknown,Unknown
 67288,OBJECT AS,2025,94.65,-1.0,+,97.41,Active,0,LEO,Russia,To Be Determined,Unknown,Unknown,Unknown
 67289,NASBSAT-1,2025,94.62,-1.0,+,97.41,Active,0,LEO,Russia,Belarus,Unknown,Unknown,Unknown
@@ -17415,7 +17412,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 67387,TWILIGHT AA,2026,96.74,-1.0,+,97.8,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 67388,TWILIGHT AB,2026,96.73,-1.0,+,97.8,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 67389,TWILIGHT AC,2026,94.92,-1.0,+,97.46,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
-67390,TWILIGHT AD,2026,94.92,-1.0,+,97.46,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+67390,CONNECTA IOT-16,2026,94.92,-1.0,+,97.46,Active,0,LEO,USA,Türkiye,Unknown,Unknown,Unknown
 67391,TWILIGHT AE,2026,94.91,-1.0,+,97.45,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 67392,TWILIGHT AF,2026,94.87,-1.0,+,97.45,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 67393,TWILIGHT AG,2026,94.87,-1.0,+,97.45,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
@@ -17425,9 +17422,9 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 67397,TWILIGHT AL,2026,94.89,-1.0,+,97.45,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 67398,TWILIGHT AM,2026,94.87,-1.0,+,97.46,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 67399,TWILIGHT AN,2026,94.86,-1.0,+,97.46,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
-67400,TWILIGHT AP,2026,94.84,-1.0,+,97.46,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
-67401,TWILIGHT AQ,2026,94.84,-1.0,+,97.45,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
-67402,TWILIGHT AR,2026,94.94,-1.0,+,97.46,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
+67400,CONNECTA IOT-13,2026,94.84,-1.0,+,97.46,Active,0,LEO,USA,Türkiye,Unknown,Unknown,Unknown
+67401,CONNECTA IOT-14,2026,94.84,-1.0,+,97.45,Active,0,LEO,USA,Türkiye,Unknown,Unknown,Unknown
+67402,CONNECTA IOT-15,2026,94.94,-1.0,+,97.46,Active,0,LEO,USA,Türkiye,Unknown,Unknown,Unknown
 67403,SHIJIAN-29B (SJ-29B),2025,1436.07,-1.0,+,3.04,Active,0,GSO,PRC,China,Unknown,Unknown,Unknown
 67404,STARLINK-36484,2026,91.23,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 67405,STARLINK-36452,2026,91.23,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown

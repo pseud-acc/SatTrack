@@ -3747,7 +3747,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 41725,2016-048A,TIANTONG-1 1,2016-08-05,2016,"Xichang Launch Facility, PRC",PRC,Long March 3B,Active,+,GSO,1436.12,-1.0,PRC,China,3.58,Government,Communications,-1.0,,-1.0,1,Long March
 41727,2016-049A,GAOFEN-3,2016-08-09,2016,"Taiyuan Space Center, PRC",PRC,Long March 4C,Active,+,LEO,99.85,-1.0,PRC,China,98.4,Government,Earth Observation,1000.0,,8.0,1,Long March
 41729,2016-050A,JCSAT-16,2016-08-14,2016,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,GSO,1436.12,-1.0,JPN,Japan,0.02,Commercial,Communications,4500.0,,15.0,1,Falcon
-41731,2016-051A,QSS (MOZI),2016-08-15,2016,"Jiuquan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,87.84,-1.0,PRC,China,97.29,Government,Space Science,700.0,,2.0,1,Long March
 41744,2016-052A,USA 270,2016-08-19,2016,"Air Force Eastern Test Range, Florida, USA",USA,Delta 4M+,Active,+,GSO,1436.69,-1.0,US,USA,3.48,Military,Space Science,500.0,,-1.0,1,Delta
 41745,2016-052B,USA 271,2016-08-19,2016,"Air Force Eastern Test Range, Florida, USA",USA,Delta 4M+,Active,+,GSO,1435.02,-1.0,US,USA,3.49,Military,Space Science,500.0,,-1.0,1,Delta
 41747,2016-053A,INTELSAT 36 (IS-36),2016-08-24,2016,"Europe's Spaceport, Kourou, French Guiana",French Guiana,Ariane 5,Active,+,GSO,1436.12,-1.0,ITSO,INTELSAT,0.01,Commercial,Communications,3250.0,,15.0,1,Ariane
@@ -4748,7 +4747,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 46537,2020-070F,STARLINK-1672,2020-10-06,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,93.04,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 46538,2020-070G,STARLINK-1678,2020-10-06,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,92.51,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 46541,2020-070K,STARLINK-1687,2020-10-06,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,91.43,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
-46549,2020-070T,STARLINK-1700,2020-10-06,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,88.52,-1.0,US,USA,53.02,Commercial,Communications,260.0,,4.0,1,Falcon
 46553,2020-070X,STARLINK-1664,2020-10-06,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,93.99,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 46556,2020-070AA,STARLINK-1676,2020-10-06,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,93.39,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
 46557,2020-070AB,STARLINK-1679,2020-10-06,2020,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,93.05,-1.0,US,USA,53.05,Commercial,Communications,260.0,,4.0,1,Falcon
@@ -6487,7 +6485,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 52389,2022-046B,JILIN-1 GAOFEN 3D04,2022-04-30,2022,Sea Launch Platform (mobile),Sea Launch Platform,Long March 11,Active,+,LEO,92.04,-1.0,PRC,China,97.49,Commercial,Earth Observation,43.0,,-1.0,1,Long March
 52390,2022-046C,JILIN-1 GAOFEN 3D05,2022-04-30,2022,Sea Launch Platform (mobile),Sea Launch Platform,Long March 11,Active,+,LEO,91.93,-1.0,PRC,China,97.48,Commercial,Earth Observation,43.0,,-1.0,1,Long March
 52391,2022-046D,JILIN-1 GAOFEN 3D06,2022-04-30,2022,Sea Launch Platform (mobile),Sea Launch Platform,Long March 11,Active,+,LEO,91.99,-1.0,PRC,China,97.5,Commercial,Earth Observation,43.0,,-1.0,1,Long March
-52392,2022-046E,JILIN-1 GAOFEN 3D07,2022-04-30,2022,Sea Launch Platform (mobile),Sea Launch Platform,Long March 11,Active,+,LEO,87.93,-1.0,PRC,China,97.47,Commercial,Earth Observation,43.0,,-1.0,1,Long March
 52422,2022-047AE,BRO-6,2022-05-02,2022,"Rocket Lab Launch Base, Mahia Peninsula, New Zealand",New Zealand,Electron,Active,+,LEO,93.32,-1.0,FR,France,97.35,Commercial,Earth Observation,8.0,8,-1.0,1,Electron
 52443,2022-048A,JILIN-1 KUANFU 01C,2022-05-05,2022,"Taiyuan Space Center, PRC",PRC,Long March 2D,Active,+,LEO,95.34,-1.0,PRC,China,97.54,Commercial,Earth Observation,95.0,,-1.0,1,Long March
 52444,2022-048B,JILIN-1 GAOFEN 3D27,2022-05-05,2022,"Taiyuan Space Center, PRC",PRC,Long March 2,Active,+,LEO,92.73,-1.0,PRC,China,97.57,Commercial,Earth Observation,43.0,,-1.0,1,Long March
@@ -17315,7 +17312,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 67283,2025-313AM,HORS 5,2025-12-28,2025,"Vostochny Cosmodrome, Russia",Russia,,Active,+,LEO,94.65,-1.0,CIS,Russia/USSR,97.41,,,-1.0,,-1.0,0,
 67284,2025-313AN,LOBACHEVSKY (RS83S),2025-12-28,2025,"Vostochny Cosmodrome, Russia",Russia,,Active,+,LEO,94.67,-1.0,TBD,To Be Determined,97.41,,,-1.0,,-1.0,0,
 67285,2025-313AP,NASBSAT-2,2025-12-28,2025,"Vostochny Cosmodrome, Russia",Russia,,Active,+,LEO,94.64,-1.0,BELA,Belarus,97.41,,,-1.0,,-1.0,0,
-67286,2025-313AQ,OBJECT AQ,2025-12-28,2025,"Vostochny Cosmodrome, Russia",Russia,,Active,+,LEO,94.64,-1.0,TBD,To Be Determined,97.41,,,-1.0,,-1.0,0,
+67286,2025-313AQ,MULE 4T,2025-12-28,2025,"Vostochny Cosmodrome, Russia",Russia,,Active,+,LEO,94.64,-1.0,CIS,Russia/USSR,97.41,,,-1.0,,-1.0,0,
 67287,2025-313AR,LUCA (RS90S),2025-12-28,2025,"Vostochny Cosmodrome, Russia",Russia,,Active,+,LEO,94.63,-1.0,MNE,Montenegro,97.41,,,-1.0,,-1.0,0,
 67288,2025-313AS,OBJECT AS,2025-12-28,2025,"Vostochny Cosmodrome, Russia",Russia,,Active,+,LEO,94.65,-1.0,TBD,To Be Determined,97.41,,,-1.0,,-1.0,0,
 67289,2025-313AT,NASBSAT-1,2025-12-28,2025,"Vostochny Cosmodrome, Russia",Russia,,Active,+,LEO,94.62,-1.0,BELA,Belarus,97.41,,,-1.0,,-1.0,0,
@@ -17415,7 +17412,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 67387,2026-004AA,TWILIGHT AA,2026-01-11,2026,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,96.74,-1.0,TBD,To Be Determined,97.8,,,-1.0,,-1.0,0,
 67388,2026-004AB,TWILIGHT AB,2026-01-11,2026,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,96.73,-1.0,TBD,To Be Determined,97.8,,,-1.0,,-1.0,0,
 67389,2026-004AC,TWILIGHT AC,2026-01-11,2026,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.92,-1.0,TBD,To Be Determined,97.46,,,-1.0,,-1.0,0,
-67390,2026-004AD,TWILIGHT AD,2026-01-11,2026,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.92,-1.0,TBD,To Be Determined,97.46,,,-1.0,,-1.0,0,
+67390,2026-004AD,CONNECTA IOT-16,2026-01-11,2026,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.92,-1.0,TURK,Türkiye,97.46,,,-1.0,,-1.0,0,
 67391,2026-004AE,TWILIGHT AE,2026-01-11,2026,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.91,-1.0,TBD,To Be Determined,97.45,,,-1.0,,-1.0,0,
 67392,2026-004AF,TWILIGHT AF,2026-01-11,2026,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.87,-1.0,TBD,To Be Determined,97.45,,,-1.0,,-1.0,0,
 67393,2026-004AG,TWILIGHT AG,2026-01-11,2026,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.87,-1.0,TBD,To Be Determined,97.45,,,-1.0,,-1.0,0,
@@ -17425,9 +17422,9 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 67397,2026-004AL,TWILIGHT AL,2026-01-11,2026,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.89,-1.0,TBD,To Be Determined,97.45,,,-1.0,,-1.0,0,
 67398,2026-004AM,TWILIGHT AM,2026-01-11,2026,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.87,-1.0,TBD,To Be Determined,97.46,,,-1.0,,-1.0,0,
 67399,2026-004AN,TWILIGHT AN,2026-01-11,2026,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.86,-1.0,TBD,To Be Determined,97.46,,,-1.0,,-1.0,0,
-67400,2026-004AP,TWILIGHT AP,2026-01-11,2026,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.84,-1.0,TBD,To Be Determined,97.46,,,-1.0,,-1.0,0,
-67401,2026-004AQ,TWILIGHT AQ,2026-01-11,2026,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.84,-1.0,TBD,To Be Determined,97.45,,,-1.0,,-1.0,0,
-67402,2026-004AR,TWILIGHT AR,2026-01-11,2026,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.94,-1.0,TBD,To Be Determined,97.46,,,-1.0,,-1.0,0,
+67400,2026-004AP,CONNECTA IOT-13,2026-01-11,2026,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.84,-1.0,TURK,Türkiye,97.46,,,-1.0,,-1.0,0,
+67401,2026-004AQ,CONNECTA IOT-14,2026-01-11,2026,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.84,-1.0,TURK,Türkiye,97.45,,,-1.0,,-1.0,0,
+67402,2026-004AR,CONNECTA IOT-15,2026-01-11,2026,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.94,-1.0,TURK,Türkiye,97.46,,,-1.0,,-1.0,0,
 67403,2025-315C,SHIJIAN-29B (SJ-29B),2025-12-30,2025,"Wenchang Satellite Launch Site, PRC",PRC,,Active,+,GSO,1436.07,-1.0,PRC,China,3.04,,,-1.0,,-1.0,0,
 67404,2026-005A,STARLINK-36484,2026-01-12,2026,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,91.23,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
 67405,2026-005B,STARLINK-36452,2026-01-12,2026,"Air Force Eastern Test Range, Florida, USA",USA,,Active,+,LEO,91.23,-1.0,US,USA,43.0,,,-1.0,,-1.0,0,
