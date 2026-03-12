@@ -11627,7 +11627,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 60508,EAGLEEYE,2024,92.5,-1.0,+,97.38,Active,0,LEO,USA,Poland,Unknown,Unknown,Unknown
 60509,FLOCK 4BE-29,2024,93.48,-1.0,+,97.38,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 60510,TRANSPORTER-11 OBJECT AU,2024,93.67,-1.0,+,97.38,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
-60511,FLOCK 4BE-2,2024,93.31,-1.0,+,97.38,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+60511,FLOCK 4BE-2,2024,93.31,-1.0,P,97.38,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 60512,FLOCK 4BE-13,2024,93.58,-1.0,+,97.38,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 60513,FLOCK 4BE-27,2024,93.96,-1.0,+,97.39,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 60514,FLOCK 4BE-9,2024,93.65,-1.0,+,97.38,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
@@ -12176,7 +12176,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 61762,ARCTICSAT 1 (RS74S),2024,91.96,-1.0,+,97.31,Active,0,LEO,Russia,Russia/USSR,Unknown,Unknown,Unknown
 61763,SIT-HSE,2024,93.05,-1.0,+,97.31,Active,0,LEO,Russia,Russia/USSR,Unknown,Unknown,Unknown
 61764,SIT-2086,2024,93.04,-1.0,+,97.31,Active,0,LEO,Russia,Russia/USSR,Unknown,Unknown,Unknown
-61766,RUZAEVKA 390 (RS44S),2024,87.68,-1.0,+,97.26,Active,0,LEO,Russia,Russia/USSR,Unknown,Unknown,Unknown
 61768,OBJECT AK,2024,93.18,-1.0,+,97.31,Active,0,LEO,Russia,To Be Determined,Unknown,Unknown,Unknown
 61769,KOSAR,2024,93.02,-1.0,+,97.31,Active,0,LEO,Russia,Iran,Unknown,Unknown,Unknown
 61771,SITRO-AIS 48,2024,92.91,-1.0,+,97.31,Active,0,LEO,Russia,Russia/USSR,Unknown,Unknown,Unknown
@@ -15713,7 +15712,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 65722,GEESAT-6 10,2025,97.1,-1.0,+,49.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 65723,GEESAT-6 11,2025,97.1,-1.0,+,49.98,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 65724,USA 566,2024,1446.59,-1.0,+,0.8,Active,0,GSO,USA,USA,Unknown,Unknown,Unknown
-65731,ISS OBJECT XK,1998,88.54,-1.0,+,51.61,Active,0,LEO,Kazakhstan,Japan,Unknown,Unknown,Unknown
 65734,STARLINK-34086,2025,94.11,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 65735,STARLINK-35099,2025,94.11,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 65736,STARLINK-35167,2025,94.11,-1.0,+,53.16,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
@@ -17625,6 +17623,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 67750,OBJECT E,2026,94.85,-1.0,+,97.49,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 67751,OBJECT F,2026,94.85,-1.0,+,97.49,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 67752,OBJECT G,2026,95.23,-1.0,+,97.49,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+67755,OBJECT BF,2025,94.1,-1.0,+,97.4,Active,0,LEO,Russia,To Be Determined,Unknown,Unknown,Unknown
 67756,OBJECT A,2026,1436.5,-1.0,+,0.47,Active,0,GSO,Kazakhstan,Russia/USSR,Unknown,Unknown,Unknown
 67757,JAM-E JAM 1,2026,1436.69,-1.0,+,0.49,Active,0,GSO,Kazakhstan,Iran,Unknown,Unknown,Unknown
 67759,USA 582,2026,-1.0,-1.0,+,-1.0,Active,0,Unknown,USA,USA,Unknown,Unknown,Unknown
