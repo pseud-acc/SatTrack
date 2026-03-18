@@ -9973,7 +9973,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 58468,SPIRIT,2023,92.1,-1.0,+,97.34,Active,0,LEO,USA,Australia,Unknown,Unknown,Unknown
 58469,ION SCV-015,2023,94.01,-1.0,+,97.58,Active,0,LEO,USA,Italy,Unknown,Unknown,Unknown
 58473,STARLINK-30947,2023,94.32,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-58474,STARLINK-30995,2023,89.53,-1.0,P,42.97,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 58475,STARLINK-30941,2023,94.32,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 58476,STARLINK-30980,2023,94.32,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 58477,STARLINK-30965,2023,94.32,-1.0,+,43.0,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
@@ -17995,3 +17994,12 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 68137,GUOWANG GROUP 20 OBJECT J,2026,102.38,-1.0,+,50.01,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 68139,SHIYAN-30 03,2026,96.46,-1.0,+,35.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 68140,SHIYAN-30 04,2026,96.48,-1.0,+,34.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+68196,YAOGAN-50 02,2026,101.69,-1.0,+,142.0,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+68198,OBJECT A,2026,95.38,-1.0,+,97.54,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+68199,OBJECT B,2026,95.37,-1.0,+,97.54,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+68200,OBJECT C,2026,95.36,-1.0,+,97.54,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+68201,OBJECT D,2026,95.35,-1.0,+,97.54,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+68202,OBJECT E,2026,95.35,-1.0,+,97.54,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+68203,OBJECT F,2026,95.33,-1.0,+,97.54,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+68204,OBJECT G,2026,95.33,-1.0,+,97.54,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+68205,OBJECT H,2026,98.19,-1.0,+,97.34,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
