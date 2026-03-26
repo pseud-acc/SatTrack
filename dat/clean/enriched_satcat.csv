@@ -5149,7 +5149,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 48142,STARLINK-2485,2021,94.16,260.0,+,53.15,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48143,STARLINK-2486,2021,94.08,260.0,P,53.16,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48144,STARLINK-2487,2021,94.16,260.0,+,53.16,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-48145,STARLINK-2488,2021,88.42,260.0,P,53.03,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48148,STARLINK-2491,2021,94.1,260.0,+,53.16,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48149,STARLINK-2492,2021,94.16,260.0,+,53.16,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 48150,STARLINK-2493,2021,94.16,260.0,+,53.16,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -9827,7 +9826,7 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 58300,ION SCV-013,2023,95.7,-1.0,+,97.62,Active,0,LEO,USA,Italy,Unknown,Unknown,Unknown
 58301,LEO EXPRESS 1,2023,93.92,-1.0,+,97.52,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 58302,ICEYE-X35,2023,93.16,-1.0,+,97.38,Active,0,LEO,USA,Finland,Unknown,Unknown,Unknown
-58303,FLOCK 4Q-25,2023,92.43,-1.0,+,97.38,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
+58303,FLOCK 4Q-25,2023,92.43,-1.0,-,97.38,Inactive,0,LEO,USA,USA,Unknown,Unknown,Unknown
 58304,FLOCK 4Q-29,2023,92.87,-1.0,+,97.39,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 58306,FLOCK 4Q-22,2023,92.7,-1.0,+,97.38,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 58307,FLOCK 4Q-23,2023,92.49,-1.0,+,97.39,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
@@ -10462,7 +10461,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 59135,VSP RF A1,2024,94.34,-1.0,+,97.53,Active,0,LEO,USA,Belgium,Unknown,Unknown,Unknown
 59136,VSP RF C1,2024,94.14,-1.0,+,97.55,Active,0,LEO,USA,Belgium,Unknown,Unknown,Unknown
 59137,VSP RF B1,2024,94.31,-1.0,+,97.55,Active,0,LEO,USA,Belgium,Unknown,Unknown,Unknown
-59140,SENTRY,2024,88.39,-1.0,+,97.51,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 59141,TIGER-7,2024,93.12,-1.0,+,97.54,Active,0,LEO,USA,Rwanda,Unknown,Unknown,Unknown
 59142,TRANSPORTER-10 OBJECT AW,2024,91.48,-1.0,+,97.54,Active,0,LEO,USA,To Be Determined,Unknown,Unknown,Unknown
 59146,LEMUR-2-JOHNNYTRUONG,2024,92.64,-1.0,+,97.53,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
@@ -18160,3 +18158,5 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 68357,CENTISPACE-1 OBJECT H,2026,97.6,-1.0,+,54.98,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 68358,CENTISPACE-1 OBJECT J,2026,97.6,-1.0,+,54.99,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
 68359,CENTISPACE-1 OBJECT K,2026,97.59,-1.0,+,54.98,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+68377,SUPERVIEW NEO-2 OBJECT A,2026,94.76,-1.0,+,97.44,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown
+68378,SUPERVIEW NEO-2 OBJECT B,2026,94.77,-1.0,+,97.43,Active,0,LEO,PRC,China,Unknown,Unknown,Unknown

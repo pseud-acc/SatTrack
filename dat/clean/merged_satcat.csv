@@ -5149,7 +5149,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 48142,2021-027BC,STARLINK-2485,2021-04-07,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.16,-1.0,US,USA,53.15,Commercial,Communications,260.0,,4.0,1,Falcon
 48143,2021-027BD,STARLINK-2486,2021-04-07,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,94.08,-1.0,US,USA,53.16,Commercial,Communications,260.0,,4.0,1,Falcon
 48144,2021-027BE,STARLINK-2487,2021-04-07,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.16,-1.0,US,USA,53.16,Commercial,Communications,260.0,,4.0,1,Falcon
-48145,2021-027BF,STARLINK-2488,2021-04-07,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,88.42,-1.0,US,USA,53.03,Commercial,Communications,260.0,,4.0,1,Falcon
 48148,2021-027BJ,STARLINK-2491,2021-04-07,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.1,-1.0,US,USA,53.16,Commercial,Communications,260.0,,4.0,1,Falcon
 48149,2021-027BK,STARLINK-2492,2021-04-07,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.16,-1.0,US,USA,53.16,Commercial,Communications,260.0,,4.0,1,Falcon
 48150,2021-027BL,STARLINK-2493,2021-04-07,2021,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,94.16,-1.0,US,USA,53.16,Commercial,Communications,260.0,,4.0,1,Falcon
@@ -9827,7 +9826,7 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 58300,2023-174AW,ION SCV-013,2023-11-11,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,95.7,-1.0,IT,Italy,97.62,,,-1.0,,-1.0,0,
 58301,2023-174AX,LEO EXPRESS 1,2023-11-11,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,93.92,-1.0,US,USA,97.52,,,-1.0,,-1.0,0,
 58302,2023-174AY,ICEYE-X35,2023-11-11,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,93.16,-1.0,FIN,Finland,97.38,,,-1.0,,-1.0,0,
-58303,2023-174AZ,FLOCK 4Q-25,2023-11-11,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,92.43,-1.0,US,USA,97.38,,,-1.0,,-1.0,0,
+58303,2023-174AZ,FLOCK 4Q-25,2023-11-11,2023,"Air Force Western Test Range, California, USA",USA,,Inactive,-,LEO,92.43,-1.0,US,USA,97.38,,,-1.0,,-1.0,0,
 58304,2023-174BA,FLOCK 4Q-29,2023-11-11,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,92.87,-1.0,US,USA,97.39,,,-1.0,,-1.0,0,
 58306,2023-174BC,FLOCK 4Q-22,2023-11-11,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,92.7,-1.0,US,USA,97.38,,,-1.0,,-1.0,0,
 58307,2023-174BD,FLOCK 4Q-23,2023-11-11,2023,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,92.49,-1.0,US,USA,97.39,,,-1.0,,-1.0,0,
@@ -10462,7 +10461,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 59135,2024-043AP,VSP RF A1,2024-03-04,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.34,-1.0,BEL,Belgium,97.53,,,-1.0,,-1.0,0,
 59136,2024-043AQ,VSP RF C1,2024-03-04,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.14,-1.0,BEL,Belgium,97.55,,,-1.0,,-1.0,0,
 59137,2024-043AR,VSP RF B1,2024-03-04,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.31,-1.0,BEL,Belgium,97.55,,,-1.0,,-1.0,0,
-59140,2024-043AU,SENTRY,2024-03-04,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,88.39,-1.0,US,USA,97.51,,,-1.0,,-1.0,0,
 59141,2024-043AV,TIGER-7,2024-03-04,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,93.12,-1.0,RWA,Rwanda,97.54,,,-1.0,,-1.0,0,
 59142,2024-043AW,TRANSPORTER-10 OBJECT AW,2024-03-04,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,91.48,-1.0,TBD,To Be Determined,97.54,,,-1.0,,-1.0,0,
 59146,2024-043BA,LEMUR-2-JOHNNYTRUONG,2024-03-04,2024,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,92.64,-1.0,US,USA,97.53,,,-1.0,,-1.0,0,
@@ -18160,3 +18158,5 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 68357,2026-060H,CENTISPACE-1 OBJECT H,2026-03-22,2026,"Yellow Sea Launch Area, PRC",PRC,,Active,+,LEO,97.6,-1.0,PRC,China,54.98,,,-1.0,,-1.0,0,
 68358,2026-060J,CENTISPACE-1 OBJECT J,2026-03-22,2026,"Yellow Sea Launch Area, PRC",PRC,,Active,+,LEO,97.6,-1.0,PRC,China,54.99,,,-1.0,,-1.0,0,
 68359,2026-060K,CENTISPACE-1 OBJECT K,2026-03-22,2026,"Yellow Sea Launch Area, PRC",PRC,,Active,+,LEO,97.59,-1.0,PRC,China,54.98,,,-1.0,,-1.0,0,
+68377,2026-062A,SUPERVIEW NEO-2 OBJECT A,2026-03-25,2026,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,94.76,-1.0,PRC,China,97.44,,,-1.0,,-1.0,0,
+68378,2026-062B,SUPERVIEW NEO-2 OBJECT B,2026-03-25,2026,"Taiyuan Space Center, PRC",PRC,,Active,+,LEO,94.77,-1.0,PRC,China,97.43,,,-1.0,,-1.0,0,
