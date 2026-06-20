@@ -7338,7 +7338,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 54076,STARLINK-5201,2022,95.44,260.0,+,53.16,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 54077,STARLINK-5171,2022,95.44,260.0,+,53.16,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 54079,STARLINK-5175,2022,95.44,260.0,+,53.16,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
-54080,STARLINK-5160,2022,88.0,260.0,P,53.2,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 54082,STARLINK-5210,2022,95.44,260.0,+,53.16,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 54083,STARLINK-5178,2022,95.44,260.0,+,53.16,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
 54084,STARLINK-5183,2022,95.44,260.0,+,53.16,Active,1,LEO,USA,USA,Commercial,Falcon,Communications
@@ -12697,7 +12696,6 @@ SatCatId,ObjectName,LaunchYear,OrbitalPeriod,LaunchMass,StatusCode,Inclination,S
 62640,NUSAT-45 (UZMASAT-1),2025,94.12,-1.0,+,97.36,Active,0,LEO,USA,Argentina,Unknown,Unknown,Unknown
 62641,FLOCK 4G-27,2025,94.16,-1.0,+,97.39,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 62642,FLOCK 4G-29,2025,94.15,-1.0,+,97.4,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
-62643,FLOCK 4G-32,2025,88.52,-1.0,-,97.37,Inactive,0,LEO,USA,USA,Unknown,Unknown,Unknown
 62644,ANSER LEADER-S,2025,93.07,-1.0,+,97.4,Active,0,LEO,USA,Spain,Unknown,Unknown,Unknown
 62645,FLOCK 4G-22,2025,94.16,-1.0,+,97.4,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown
 62646,FLOCK 4G-25,2025,94.15,-1.0,+,97.4,Active,0,LEO,USA,USA,Unknown,Unknown,Unknown

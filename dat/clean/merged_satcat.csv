@@ -7338,7 +7338,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 54076,2022-136AB,STARLINK-5201,2022-10-20,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.16,Commercial,Communications,260.0,,4.0,1,Falcon
 54077,2022-136AC,STARLINK-5171,2022-10-20,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.16,Commercial,Communications,260.0,,4.0,1,Falcon
 54079,2022-136AE,STARLINK-5175,2022-10-20,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.16,Commercial,Communications,260.0,,4.0,1,Falcon
-54080,2022-136AF,STARLINK-5160,2022-10-20,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,P,LEO,88.0,-1.0,US,USA,53.2,Commercial,Communications,260.0,,4.0,1,Falcon
 54082,2022-136AH,STARLINK-5210,2022-10-20,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.16,Commercial,Communications,260.0,,4.0,1,Falcon
 54083,2022-136AJ,STARLINK-5178,2022-10-20,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.16,Commercial,Communications,260.0,,4.0,1,Falcon
 54084,2022-136AK,STARLINK-5183,2022-10-20,2022,"Air Force Eastern Test Range, Florida, USA",USA,Falcon 9,Active,+,LEO,95.44,-1.0,US,USA,53.16,Commercial,Communications,260.0,,4.0,1,Falcon
@@ -12697,7 +12696,6 @@ SatCatId,ObjectId,ObjectName,LaunchDate,LaunchYear,LaunchSite,LaunchSiteCountry,
 62640,2025-009AH,NUSAT-45 (UZMASAT-1),2025-01-14,2025,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.12,-1.0,ARGN,Argentina,97.36,,,-1.0,,-1.0,0,
 62641,2025-009AJ,FLOCK 4G-27,2025-01-14,2025,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.16,-1.0,US,USA,97.39,,,-1.0,,-1.0,0,
 62642,2025-009AK,FLOCK 4G-29,2025-01-14,2025,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.15,-1.0,US,USA,97.4,,,-1.0,,-1.0,0,
-62643,2025-009AL,FLOCK 4G-32,2025-01-14,2025,"Air Force Western Test Range, California, USA",USA,,Inactive,-,LEO,88.52,-1.0,US,USA,97.37,,,-1.0,,-1.0,0,
 62644,2025-009AM,ANSER LEADER-S,2025-01-14,2025,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,93.07,-1.0,SPN,Spain,97.4,,,-1.0,,-1.0,0,
 62645,2025-009AN,FLOCK 4G-22,2025-01-14,2025,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.16,-1.0,US,USA,97.4,,,-1.0,,-1.0,0,
 62646,2025-009AP,FLOCK 4G-25,2025-01-14,2025,"Air Force Western Test Range, California, USA",USA,,Active,+,LEO,94.15,-1.0,US,USA,97.4,,,-1.0,,-1.0,0,
