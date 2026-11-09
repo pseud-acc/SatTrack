@@ -7,7 +7,7 @@ Source: https://planet4589.org/space/gcat/web/cat/cols.html (Batch 1).
 {% enddocs %}
 
 {% docs col__attitude_control %}
-Type of attitude control: G gravity gradient, P pointed/3-axis, PS Sun-pointed, PN/N nadir-pointed, S spin, U unstabilised, `-` unknown. GCAT says it "has not yet been systematically filled in".
+GCAT: "The field describes the type of attitude control"; not yet systematically filled in. From GCAT psatcat `Att`. E.g. `P` ("Pointed, 3-axis stabilized"), `S` (spin stabilized).
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
@@ -73,7 +73,7 @@ Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
 
 {% docs col__control_centre %}
-Location of the spacecraft operations control centre. Not systematically filled in, but filled values should be reliable.
+GCAT: "Location of the spacecraft operations control center"; not filled in systematically. From GCAT psatcat `Control`. E.g. `TsUP`, `JSC`, `IKI`, the most common values.
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
@@ -97,25 +97,25 @@ Source: https://planet4589.org/space/gcat/web/cat/cols.html (Batch 1).
 {% enddocs %}
 
 {% docs col__disposal_apogee_km %}
-Apogee of the end-of-life orbit of a maneuverable satellite.
+GCAT: "Disposal apogee; apogee of the orbit at the end of life for a manueverable satellite" (km). From GCAT psatcat `DispApo`; experimental. E.g. 423 km for the ISS Zarya module.
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
 
 {% docs col__disposal_epoch %}
-Epoch of the disposal orbit, only for maneuverable payloads in Earth orbit. For other objects, the disposal orbit is the initial orbit. A trailing `*` should be ignored. GCAT says the disposal data "should not be relied upon at present" (Oct 2024).
+GCAT: "the epoch of the disposal orbit", for manoeuvrable payloads in Earth orbit; experimental data. From GCAT psatcat `DispEpoch`. Not carried into SatTrack's models.
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
 
 {% docs col__disposal_inclination_deg %}
-Inclination of the end-of-life orbit of a maneuverable satellite.
+GCAT: "Disposal inclination; inclination of the orbit at the end of life for a manueverable satellite" (degrees). From GCAT psatcat `DispInc`; experimental. E.g. 51.63° for the ISS Zarya module.
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
 
 {% docs col__disposal_perigee_km %}
-Perigee of the end-of-life orbit of a maneuverable satellite.
+GCAT: "Disposal perigee; perigee of the orbit at the end of life for a manueverable satellite" (km). From GCAT psatcat `DispPeri`; experimental. E.g. 413 km for the ISS Zarya module.
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
@@ -133,37 +133,37 @@ Source: https://planet4589.org/space/gcat/web/cat/cols.html (Batch 1).
 {% enddocs %}
 
 {% docs col__end_of_life_flag %}
-End-of-life special flag: D = recovery capsule, a separate orbiting object for only seconds before the deorbit burn; E = deep-space mission, may be operating outside Earth orbit; U = thought still working, but the UCS active satellite list suggests not; X = end-of-life date is a guess and the satellite could still be partly operating; Z = zombie satellite, no longer controlled but still emitting a beacon.
+GCAT: "End of life special flags." From GCAT psatcat `TF`. E.g. `Z` ("Zombie satellite: no longer controlled, but continues emitting a beacon signal"), `X` (end-of-life date is a guess).
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
 
 {% docs col__end_operation_date %}
-End Operation Date: when the satellite is believed to have completed regular operations. After it, the satellite may still be used for tests or keep a beacon, but not for its primary purpose. This isn't the "end of primary mission", which can be much earlier. `*` = believed still operating.
+GCAT: "The date on which the satellite is believed to have completed regular operations." From GCAT psatcat `TOp` (a Vague Date); NULL while still operating. E.g. 1988-01-01.
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
 
 {% docs col__end_transmission_date %}
-End of Transmission Date (GCAT's "Dead, Dead, Dead" date): after it, the satellite became completely silent and unresponsive, or its owners made no further contact. GCAT's preferred end-of-life date. `*` = believed still transmitting.
+GCAT: "the date after which the satellite became completely silent and unresponsive, or when no further contact was made by its owners." From GCAT psatcat `TDate` (a Vague Date). E.g. 1988-01-01.
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
 
 {% docs col__flag_still_operating %}
-TRUE when TOp is `*`, which GCAT documents as "the payload is believed to be still operating".
+TRUE when GCAT says the payload is still operating (psatcat `TOp` is `*`, "believed to be still operating"); derived by SatTrack. E.g. TRUE for the ISS Zarya module.
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
 
 {% docs col__flag_still_transmitting %}
-TRUE when TDate is `*`, which GCAT documents as "the payload is believed to be still transmitting".
+TRUE when GCAT says the payload is still transmitting (psatcat `TDate` is `*`, "believed to be still transmitting"); derived by SatTrack. E.g. TRUE for the ISS Zarya module.
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
 
 {% docs col__gcat_comment %}
-Descriptive free-text comment from GCAT, which may be empty.
+GCAT: "A descriptive comment, which I may or may not have felt moved to fill in." From GCAT psatcat `Comment`. E.g. `Microgravity`, `Operational geodesy`.
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
@@ -187,7 +187,7 @@ Source: https://planet4589.org/space/gcat/web/cat/cols.html (Batch 1).
 {% enddocs %}
 
 {% docs col__last_active_date %}
-Last Known Active Time: the date the satellite was most recently known to GCAT to be active. GCAT updates it "infrequently and patchily", so an old date doesn't prove the satellite is inactive. `*` = no information. Vague Date format.
+GCAT: "The date on which the satellite was most recently known (by me) to be active." From GCAT psatcat `TLast` (a Vague Date). E.g. 2023-02-01 for the ISS Zarya module.
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
@@ -211,7 +211,7 @@ Source: https://planet4589.org/space/gcat/web/cat/cols.html (Batch 1).
 {% enddocs %}
 
 {% docs col__maneuverability %}
-Whether the satellite has or had propulsion able to change its orbit. M = maneuverable; D = can make a single deorbit burn.
+GCAT: "whether the satellite has or had a propulsion system capable of changing its orbit." From GCAT psatcat `Mvr`. E.g. `M` (manoeuvrable) for the ISS Zarya module; `D` (deorbit burn only).
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
@@ -235,13 +235,13 @@ Source: https://planet4589.org/space/gcat/web/cat/cols.html (Batch 1).
 {% enddocs %}
 
 {% docs col__mission_category %}
-General purpose of the satellite, independent of Class. One or two values joined by `/` (e.g. `IMG/TECH`). A trailing `?` = uncertain, and `*` = orbit data kept secret by the US government. Codes include COM, NAV, IMG, IMG-R, MET, SIG, TECH, SCI and AST (full list on the source page).
+GCAT: "It describes the general purpose of the satellite. A satellite may have one or two categories." From GCAT psatcat `Category`. E.g. `SS` (spaceship) for the ISS Zarya module; `COM` (communications).
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
 
 {% docs col__mission_result %}
-Flags satellites that failed early in their mission: S success, F failed, U unknown, N no test (e.g. the rocket failed before the satellite could operate).
+GCAT: "a single letter used to identify satellites which failed early in their mission." From GCAT psatcat `Result`. E.g. `S` (success) for the ISS Zarya module; `F` (failed), `U` (unknown).
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
@@ -271,7 +271,7 @@ Source: https://planet4589.org/space/gcat/web/cat/cols.html (Batch 1).
 {% enddocs %}
 
 {% docs col__ownership_class %}
-One- or (rarely) two-letter use class, usually based on the owner/operator's status: A amateur/academic/non-profit, B business (commercial), C civil (government, non-military), D defence (military, intelligence). Two letters = clearly shared dual use (e.g. BD).
+GCAT: "used to classify satellites as military, commercial, etc." From GCAT psatcat `Class`. E.g. `C` (civil) for the ISS Zarya module; `B` (business), `D` (defense), `A` (amateur/academic).
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
@@ -325,13 +325,13 @@ Source: https://planet4589.org/space/gcat/web/cat/cols.html (Batch 1).
 {% enddocs %}
 
 {% docs col__satellite_program %}
-Identifies groups of related satellites. GCAT uses it to organise its mission logs.
+GCAT: "This field identifies groups of related satellites." From GCAT psatcat `Program`. E.g. `TsM` for the ISS Zarya module; `Starlink 2MO S1`; `FY-1`.
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
 
 {% docs col__science_discipline %}
-For scientific satellites, one or more research areas (e.g. ATM, ION, SOL, XRA; full list on the source page). Old `*` = major mission, which GCAT says to ignore.
+GCAT: "For scientific satellites, this field may note one or more specific scientific areas in which the satellite is carrying out research." From GCAT psatcat `Discipline`. E.g. `PL` (planetary science), `ATM` (atmospheric science).
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
@@ -373,43 +373,43 @@ Source: https://planet4589.org/space/gcat/web/cat/cols.html (Batch 1).
 {% enddocs %}
 
 {% docs col__un_apogee_km %}
-Apogee height in km, as reported in the UN registration document.
+GCAT: "the orbital apogee height in km reported in the UN registration document, if any." From GCAT psatcat `UNApogee`. E.g. 349 km for the ISS Zarya module.
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
 
 {% docs col__un_inclination_deg %}
-Inclination in degrees, as reported in the UN registration document.
+GCAT: "the orbital inclination in degrees reported in the UN registration document, if any." From GCAT psatcat `UNInc`. E.g. 51.6° for the ISS Zarya module.
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
 
 {% docs col__un_perigee_km %}
-Perigee height in km, as reported in the UN registration document.
+GCAT: "the orbital perigee height in km reported in the UN registration document, if any." From GCAT psatcat `UNPerigee`. E.g. 184 km for the ISS Zarya module.
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
 
 {% docs col__un_period_min %}
-Nodal period in minutes, as reported in the UN registration document. GCAT recommends preferring the main catalog's orbital data.
+GCAT: "the nodal period in minutes reported in the UN registration document, if any." From GCAT psatcat `UNPeriod`. E.g. 89.5 minutes for the ISS Zarya module.
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
 
 {% docs col__un_reg_doc %}
-ID of the UN registration document (usually ST/SG/SER.E or A/AC.105/INF series). `*` = listed online, but the document isn't yet available. Blank = not registered.
+GCAT: "the ID of the UN registration document in which the satellite was registered, if it was." From GCAT psatcat `UNReg`. E.g. `ST/SG/SER.E/614` for the ISS Zarya module.
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
 
 {% docs col__un_registry_name %}
-Name given in the UN satellite registry, where available. Otherwise GCAT fills in another name for readability. `[Name]` in square brackets = registered, but no name given in the registration. GCAT advises preferring the object catalog name.
+GCAT: "The name in the payload catalog is the name given in the UN satellite registry, where available." From GCAT psatcat `Name`. E.g. `Zarya Cargo Block` for the ISS Zarya module.
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
 
 {% docs col__un_state %}
-OrgCode of the country that registered the satellite with the UN. `*` = differs from the owner country in the object catalog. `[XX]` = not registered, with the country GCAT thinks ought to have registered it. Blank = not registered and not considered to need it.
+GCAT: "If the satellite is registered with the UN, this field contains the OrgCode string corresponding to the country which registered it." From GCAT psatcat `UNState`. E.g. `US` (ISS Zarya); `[US]` = unregistered.
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
