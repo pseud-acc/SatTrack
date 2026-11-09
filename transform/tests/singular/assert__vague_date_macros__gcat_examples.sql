@@ -33,6 +33,9 @@ with cte_gcat_examples as (
         , ('21C?', timestamp '2001-01-01 00:00:00', timestamp '1901-01-01 00:00:00', timestamp '2201-01-01 00:00:00', 'century?')
         , ('3M', timestamp '2001-01-01 00:00:00', timestamp '2001-01-01 00:00:00', timestamp '3001-01-01 00:00:00', 'millennium')
         , ('3M?', timestamp '2001-01-01 00:00:00', timestamp '1001-01-01 00:00:00', timestamp '4001-01-01 00:00:00', 'millennium?')
+        -- not in the example table: three-digit years as GCAT orgs write them (TStart of ENG and DK)
+        , ('927 Jul 12', timestamp '0927-07-12 00:00:00', timestamp '0927-07-12 00:00:00', timestamp '0927-07-13 00:00:00', 'day')
+        , ('700?', timestamp '0700-01-01 00:00:00', timestamp '0699-01-01 00:00:00', timestamp '0702-01-01 00:00:00', 'year?')
     ) as t(vague_date, expected_base, expected_start, expected_end, expected_precision)
 )
 
