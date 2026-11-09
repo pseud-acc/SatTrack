@@ -48,7 +48,7 @@ jobs:
   pipeline:
     name: daily pipeline
     # Forks never run this job (a fork's token could not assume the role anyway).
-    if: github.repository == 'REPO_OWNER/REPO_NAME'  # TODO: set to the real owner/name
+    if: github.repository == 'pseud-acc/SatTrack'
     runs-on: ubuntu-24.04
     environment: production
     timeout-minutes: 120

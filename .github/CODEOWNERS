@@ -1,8 +1,8 @@
 # DRAFT. Changes to anything that controls what runs with AWS access need the owner's review.
-# TODO: replace @REPO_OWNER with your GitHub username. Effective once a branch ruleset on main
+# Effective once a branch ruleset on main
 # requires pull requests with code-owner review (see infra/aws/README.md, GitHub settings).
-/.github/                                   @REPO_OWNER
-/infra/                                     @REPO_OWNER
-/run_pipeline.py                            @REPO_OWNER
-/ingestion/sattrack_ingest/credentials.py   @REPO_OWNER
-/scripts/export_app_csvs.py                 @REPO_OWNER
+/.github/                                   @pseud-acc
+/infra/                                     @pseud-acc
+/run_pipeline.py                            @pseud-acc
+/ingestion/sattrack_ingest/credentials.py   @pseud-acc
+/scripts/export_app_csvs.py                 @pseud-acc

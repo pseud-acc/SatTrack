@@ -42,7 +42,7 @@ defaults:
 jobs:
   build:
     name: build docs
-    if: github.repository == 'REPO_OWNER/REPO_NAME'  # TODO: set to the real owner/name
+    if: github.repository == 'pseud-acc/SatTrack'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     permissions:

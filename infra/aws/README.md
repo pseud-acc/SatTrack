@@ -37,9 +37,9 @@ Run every command below yourself, from the repo root, signed in as your **admin*
 ## 1. Create the public GitHub repo and read its ids
 
 ```bash
-gh repo create <owner>/<repo> --public --source . --push      # after the pre-publish checks in step 5
-gh api repos/<owner>/<repo> --jq '.id, .owner.id'              # repo id, owner id
-gh api repos/<owner>/<repo>/actions/oidc/customization/sub     # subject-claim settings (new repos: immutable ids)
+gh repo create pseud-acc/SatTrack --public --source . --push      # after the pre-publish checks in step 5
+gh api repos/pseud-acc/SatTrack --jq '.id, .owner.id'              # repo id, owner id
+gh api repos/pseud-acc/SatTrack/actions/oidc/customization/sub     # subject-claim settings (new repos: immutable ids)
 ```
 
 Repos created after 2026-07-15 send `sub = repo:OWNER@OWNER_ID/REPO@REPO_ID:environment:production`
@@ -62,7 +62,7 @@ aws cloudformation deploy --region <region> --stack-name sattrack-core \
   --template-file infra/aws/sattrack-core.yaml --capabilities CAPABILITY_NAMED_IAM \
   --parameter-overrides \
     BucketName=<private-bucket-name> \
-    GitHubOwner=<owner> GitHubOwnerId=<owner-id> GitHubRepo=<repo> GitHubRepoId=<repo-id> \
+    GitHubOwner=pseud-acc GitHubOwnerId=<owner-id> GitHubRepo=SatTrack GitHubRepoId=<repo-id> \
     SpaceTrackSecretArn=<full-secret-arn> \
     AdminPrincipalArn=<your-admin-user-or-role-arn> \
     BudgetEmail=<you@example.com>        # RollbackDays defaults to 30
@@ -104,7 +104,7 @@ Settings:
 - **Variables**: repository variable `AWS_REGION` = `eu-west-1`.
 - **Rules → Rulesets** on `main`: block force pushes and deletion; require a pull request with code-owner
   review once anyone else has write access (as sole maintainer you can add yourself as a bypass actor).
-- Edit `.github/CODEOWNERS` (`@REPO_OWNER`) and the `if:` guard in `pipeline.yml` (`REPO_OWNER/REPO_NAME`).
+- `.github/CODEOWNERS` and the `if:` guards in both workflows are already set to `pseud-acc/SatTrack`.
 
 ## 6. First run
 
@@ -139,7 +139,7 @@ Rotate every 90 days: create the second key, update Heroku, confirm the app load
    its storage cost is included in API destination pricing.)
 3. Deploy, then confirm the SNS subscription email:
 ```bash
-aws cloudformation deploy --region eu-west-1 --stack-name sattrack-scheduler   --template-file infra/aws/sattrack-scheduler.yaml --capabilities CAPABILITY_NAMED_IAM   --parameter-overrides ConnectionArn=<connection-arn> GitHubOwner=<owner> GitHubRepo=<repo> AlarmEmail=<you@example.com>
+aws cloudformation deploy --region eu-west-1 --stack-name sattrack-scheduler   --template-file infra/aws/sattrack-scheduler.yaml --capabilities CAPABILITY_NAMED_IAM   --parameter-overrides ConnectionArn=<connection-arn> GitHubOwner=pseud-acc GitHubRepo=SatTrack AlarmEmail=<you@example.com>
 ```
 Expect one "no successful dispatch" alarm email right after deploying, until the first 03:17 dispatch succeeds.
 Renewing the token yearly: edit the connection's API key value in the console; no redeploy.
