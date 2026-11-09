@@ -1,0 +1,35 @@
+# Dependabot version updates (DRAFT). Keeps the SHA-pinned actions current: Dependabot rewrites the
+# SHA and the "# vX.Y.Z" comment together. Note: Dependabot *alerts* do not cover SHA-pinned actions,
+# so these weekly version-update PRs are the mechanism that picks up fixes.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    cooldown:
+      # Do not propose a release until it is a week old: most hijacked releases are caught sooner.
+      default-days: 7
+    groups:
+      actions:
+        patterns:
+          - "*"
+    labels:
+      - dependencies
+  # The CI locks requirements/{pipeline,charts,docs}.txt, compiled with hashes from the .in files beside them.
+  # Dependabot leaves the two URL-pinned dbt wheels alone: bump those by hand (new URL + the sha256 from the
+  # release's assets.json) together with requirements.txt and the laptop venv.
+  - package-ecosystem: pip
+    directory: /requirements
+    schedule:
+      interval: weekly
+      day: monday
+    cooldown:
+      default-days: 7
+    groups:
+      python:
+        patterns:
+          - "*"
+    labels:
+      - dependencies

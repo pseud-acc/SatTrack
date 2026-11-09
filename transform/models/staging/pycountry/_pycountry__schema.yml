@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: stg__pycountry__iso_countries
+    description: "ISO 3166 countries (current and historic), renamed and cast."
+    data_tests:
+      - model_health:
+          name: mh__stg__pycountry__iso_countries__pk_unique
+          arguments: {check: pk_unique, columns: [iso_alpha3, is_historic]}
+      - model_health:
+          name: mh__stg__pycountry__iso_countries__pk_not_null
+          arguments: {check: pk_not_null, columns: [iso_alpha3, is_historic]}
+      - model_health:
+          name: mh__stg__pycountry__iso_countries__row_count_match
+          arguments: {check: row_count_match, compare_to: "source('pycountry', 'iso_countries')", relationship: equal}

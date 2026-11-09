@@ -1,0 +1,9 @@
+version: 2
+
+macros:
+  - name: helper__derive_lv_brand
+    description: "Deterministic launch-vehicle brand from GCAT's vehicle name (decided 2026-10-25, no manual list): 1) drop the upper stage after '/'; 2) strip trailing variant tokens (digits, Roman numerals, XL/DL/QL, Block, Heavy, Mk, short configuration codes); 3) a 1-2 character stem keeps the next token's Roman core (H-IIA -> H-II); 4) a letters-only stub of 3 characters or fewer reverts to the full first segment (SS-520, KT-2). Parity-tested against the Python prototype on all GCAT launch-vehicle names (analyses/migration/lv_brand_parity.sql)."
+    arguments:
+      - name: col
+        type: string
+        description: "SQL expression with the GCAT launch-vehicle name."

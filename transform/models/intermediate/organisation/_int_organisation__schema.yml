@@ -1,0 +1,226 @@
+models:
+  - name: int__jsr__org_organisations
+    description: "One row per GCAT Org Code (organisation phase), with the display name rule: English short name, else the host-language short name (GCAT: ShortEName 'can be omitted when ShortName is itself English'). Undocumented class values become NULL."
+    data_tests:
+      - model_health:
+          name: mh__int__jsr__org_organisations__pk_unique
+          arguments: {check: pk_unique, columns: [org_code]}
+      - model_health:
+          name: mh__int__jsr__org_organisations__pk_not_null
+          arguments: {check: pk_not_null, columns: [org_code]}
+      - model_health:
+          name: mh__int__jsr__org_organisations__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('stg__jsr__orgs')"
+            relationship: equal
+    columns:
+      - name: org_code
+        description: '{{ doc("col__org_code") }}'
+      - name: org_ucode
+        description: '{{ doc("col__org_ucode") }}'
+      - name: org_state_code
+        description: '{{ doc("col__org_state_code") }}'
+      - name: org_type
+        description: '{{ doc("col__org_type") }}'
+      - name: org_class
+        description: '{{ doc("col__org_class") }}'
+      - name: org_display_name
+      - name: org_display_full_name
+      - name: org_short_name
+        description: '{{ doc("col__org_short_name") }}'
+      - name: org_full_name
+        description: '{{ doc("col__org_full_name") }}'
+      - name: org_short_name_en
+        description: '{{ doc("col__org_short_name_en") }}'
+      - name: org_full_name_en
+        description: '{{ doc("col__org_full_name_en") }}'
+      - name: org_location
+        description: '{{ doc("col__org_location") }}'
+      - name: org_latitude
+        description: '{{ doc("col__org_latitude") }}'
+      - name: org_longitude
+        description: '{{ doc("col__org_longitude") }}'
+      - name: org_parent_code
+        description: '{{ doc("col__org_parent_code") }}'
+      - name: org_start_date
+        description: '{{ doc("col__org_start_date") }}'
+      - name: org_start_date_start
+        description: '{{ doc("col__org_start_date_start") }}'
+      - name: org_start_date_end
+      - name: org_start_date_precision
+      - name: org_stop_date
+        description: '{{ doc("col__org_stop_date") }}'
+      - name: org_stop_date_start
+        description: '{{ doc("col__org_stop_date_start") }}'
+      - name: org_stop_date_end
+      - name: org_stop_date_precision
+      - name: flag_org_active
+      - name: flag_country_like
+      - name: _source_updated_at
+        description: '{{ doc("col___source_updated_at") }}'
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'
+  - name: int__jsr__org_satellite_owner_map
+    description: "One row per jcat per owner org, from GCAT composite codes (keeps every co-org)."
+    data_tests:
+      - model_health:
+          name: mh__int__jsr__org_satellite_owner_map__pk_unique
+          arguments: {check: pk_unique, columns: [map_id]}
+      - model_health:
+          name: mh__int__jsr__org_satellite_owner_map__pk_not_null
+          arguments: {check: pk_not_null, columns: [map_id]}
+      - model_health:
+          name: mh__int__jsr__org_satellite_owner_map__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('int__jsr__satellite_catalogue')"
+            relationship: gte
+    columns:
+      - name: map_id
+        description: '{{ doc("col__map_id") }}'
+      - name: jcat
+        description: '{{ doc("col__jcat") }}'
+      - name: org_role
+      - name: org_code
+        description: '{{ doc("col__org_code") }}'
+        data_tests:
+          - relationships:
+              name: fk__int__jsr__org_satellite_owner_map__org_code
+              arguments: {to: "ref('int__jsr__org_organisations')", field: org_code}
+              config: {severity: warn}   # GCAT may cite codes not (yet) in orgs
+      - name: org_code_ord
+        description: '{{ doc("col__org_code_ord") }}'
+      - name: org_code_raw
+      - name: is_composite
+        description: '{{ doc("col__is_composite") }}'
+      - name: is_uncertain
+        description: '{{ doc("col__is_uncertain") }}'
+      - name: parse_rule
+        description: '{{ doc("col__parse_rule") }}'
+      - name: org_name
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'
+  - name: int__jsr__org_satellite_manufacturer_map
+    description: "One row per jcat per manufacturer org, from GCAT composite codes (keeps every co-org)."
+    data_tests:
+      - model_health:
+          name: mh__int__jsr__org_satellite_manufacturer_map__pk_unique
+          arguments: {check: pk_unique, columns: [map_id]}
+      - model_health:
+          name: mh__int__jsr__org_satellite_manufacturer_map__pk_not_null
+          arguments: {check: pk_not_null, columns: [map_id]}
+      - model_health:
+          name: mh__int__jsr__org_satellite_manufacturer_map__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('int__jsr__satellite_catalogue')"
+            relationship: lte
+    columns:
+      - name: map_id
+        description: '{{ doc("col__map_id") }}'
+      - name: jcat
+        description: '{{ doc("col__jcat") }}'
+      - name: org_role
+      - name: org_code
+        description: '{{ doc("col__org_code") }}'
+        data_tests:
+          - relationships:
+              name: fk__int__jsr__org_satellite_manufacturer_map__org_code
+              arguments: {to: "ref('int__jsr__org_organisations')", field: org_code}
+              config: {severity: warn}
+      - name: org_code_ord
+        description: '{{ doc("col__org_code_ord") }}'
+      - name: org_code_raw
+      - name: is_composite
+        description: '{{ doc("col__is_composite") }}'
+      - name: is_uncertain
+        description: '{{ doc("col__is_uncertain") }}'
+      - name: parse_rule
+        description: '{{ doc("col__parse_rule") }}'
+      - name: org_name
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'
+  - name: int__jsr__org_launch_agency_map
+    description: "One row per jcat per launch agency org, from GCAT composite codes (keeps every co-org)."
+    data_tests:
+      - model_health:
+          name: mh__int__jsr__org_launch_agency_map__pk_unique
+          arguments: {check: pk_unique, columns: [map_id]}
+      - model_health:
+          name: mh__int__jsr__org_launch_agency_map__pk_not_null
+          arguments: {check: pk_not_null, columns: [map_id]}
+      - model_health:
+          name: mh__int__jsr__org_launch_agency_map__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('int__jsr__launch_events')"
+            relationship: gte
+    columns:
+      - name: map_id
+        description: '{{ doc("col__map_id") }}'
+      - name: jcat
+        description: '{{ doc("col__jcat") }}'
+      - name: org_role
+      - name: org_code
+        description: '{{ doc("col__org_code") }}'
+        data_tests:
+          - relationships:
+              name: fk__int__jsr__org_launch_agency_map__org_code
+              arguments: {to: "ref('int__jsr__org_organisations')", field: org_code}
+              config: {severity: warn}
+      - name: org_code_ord
+        description: '{{ doc("col__org_code_ord") }}'
+      - name: org_code_raw
+      - name: is_composite
+        description: '{{ doc("col__is_composite") }}'
+      - name: is_uncertain
+        description: '{{ doc("col__is_uncertain") }}'
+      - name: parse_rule
+        description: '{{ doc("col__parse_rule") }}'
+      - name: org_name
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'
+  - name: int__jsr__org_satellite_org_lists
+    description: "One row per jcat: ordered lists of every owner, manufacturer and launch agency org (codes and names) for the app's multi-select org filter (VARCHAR[])."
+    data_tests:
+      - model_health:
+          name: mh__int__jsr__org_satellite_org_lists__pk_unique
+          arguments: {check: pk_unique, columns: [jcat]}
+      - model_health:
+          name: mh__int__jsr__org_satellite_org_lists__pk_not_null
+          arguments: {check: pk_not_null, columns: [jcat]}
+      - model_health:
+          name: mh__int__jsr__org_satellite_org_lists__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('int__jsr__satellite_catalogue')"
+            relationship: equal
+    columns:
+      - name: jcat
+        description: '{{ doc("col__jcat") }}'
+      - name: owner_org_codes
+        description: '{{ doc("col__owner_org_codes") }}'
+      - name: owner_org_names
+      - name: manufacturer_org_codes
+        description: '{{ doc("col__manufacturer_org_codes") }}'
+      - name: manufacturer_org_names
+      - name: launch_agency_org_codes
+        description: '{{ doc("col__launch_agency_org_codes") }}'
+      - name: launch_agency_org_names
+      - name: operator_name
+        description: '{{ doc("col__operator_name") }}'
+      - name: manufacturer_name
+        description: '{{ doc("col__manufacturer_name") }}'
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'

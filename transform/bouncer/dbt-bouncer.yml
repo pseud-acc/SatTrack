@@ -1,0 +1,405 @@
+# SatTrack conventions: the one place every project rule is defined, built-in or bespoke.
+#
+# Run from transform/ after `dbt parse` (needs target/manifest.json only, no warehouse):
+#   dbt-bouncer --config-file bouncer/dbt-bouncer.yml
+# dbt-bouncer lives in its own environment (it pins duckdb < 2, the pipeline uses duckdb 2.x).
+#
+# Every entry carries `description: "[RULE-ID] the rule in plain words"`. A rule may need several checks;
+# they share the rule ID. Built-in checks keep their dbt-bouncer code (MO/SO/MA/LI);
+# bespoke checks (check_bespoke_*) are generic Python in bouncer/bespoke/manifest/, configured only here.
+# `include` / `exclude` are regexes on the file path relative to transform/. Severity defaults to error.
+dbt_artifacts_dir: ../target          # paths here resolve from this file's folder
+custom_checks_dir: bespoke             # bespoke checks: bouncer/bespoke/manifest/*.py
+package_name: sattrack
+
+manifest_checks:
+  # ============================================================ NAM: naming and folders
+  - name: check_model_directories
+    description: "[NAM-01] Models sit in models/staging, models/intermediate or models/marts."
+    include: "^models"
+    permitted_sub_directories:
+      - staging
+      - intermediate
+      - marts
+
+  - name: check_model_directories
+    description: "[NAM-02] Staging folders are named after the raw schema they read (raw_<x> -> staging/<x>)."
+    include: "^models/staging"
+    permitted_sub_directories:
+      - spacetrack
+      - jsr
+      - pycountry
+      - geonames
+
+  - name: check_model_directories
+    description: "[NAM-03] Intermediate folders are business domains."
+    include: "^models/intermediate"
+    permitted_sub_directories:
+      - tracking
+      - satellite
+      - geography
+      - organisation
+      - launch
+
+  - name: check_model_directories
+    description: "[NAM-03] Mart folders are business domains."
+    include: "^models/marts"
+    permitted_sub_directories:
+      - tracking
+      - satellite
+      - geography
+      - organisation
+      - launch
+
+  - name: check_model_names
+    description: "[NAM-04] Staging models are stg__<source>__<table>."
+    include: "^models/staging/spacetrack/"
+    model_name_pattern: "^stg__spacetrack__[a-z0-9_]+$"
+
+  - name: check_model_names
+    description: "[NAM-04] Staging models are stg__<source>__<table>."
+    include: "^models/staging/jsr/"
+    model_name_pattern: "^stg__jsr__[a-z0-9_]+$"
+
+  - name: check_model_names
+    description: "[NAM-04] Staging models are stg__<source>__<table>."
+    include: "^models/staging/pycountry/"
+    model_name_pattern: "^stg__pycountry__[a-z0-9_]+$"
+
+  - name: check_model_names
+    description: "[NAM-04] Staging models are stg__<source>__<table>."
+    include: "^models/staging/geonames/"
+    model_name_pattern: "^stg__geonames__[a-z0-9_]+$"
+
+  - name: check_model_names
+    description: "[NAM-05] Intermediate models are int__<origin>__<topic>_<model>."
+    include: "^models/intermediate/"
+    model_name_pattern: "^int__[a-z0-9]+__[a-z0-9]+_[a-z0-9_]+$"
+
+  - name: check_model_names
+    description: "[NAM-06] Marts are fct__<name> or dim__<name>."
+    include: "^models/marts/"
+    model_name_pattern: "^(fct|dim)__[a-z0-9_]+$"
+
+  - name: check_model_column_names
+    description: "[NAM-07] Column names are lower snake case."
+    column_name_pattern: "^[a-z_][a-z0-9_]*$"
+
+  # ============================================================ MAT: materialisation, contracts, access
+  - name: check_model_materialization_permitted
+    description: "[MAT-01] Staging models are views."
+    include: "^models/staging/"
+    permitted_materializations:
+      - view
+
+  - name: check_model_materialization_permitted
+    description: "[MAT-02] Intermediate models and marts are tables."
+    include: "^models/(intermediate|marts)/"
+    permitted_materializations:
+      - table
+
+  - name: check_model_has_contracts_enforced
+    description: "[MAT-03] Marts enforce a contract."
+    include: "^models/marts/"
+
+  - name: check_model_columns_have_types
+    description: "[MAT-03] Mart contract columns declare a data_type."
+    include: "^models/marts/"
+
+  - name: check_bespoke_model_config_value
+    description: "[MAT-04] Contracts are on marts only; staging and intermediate models enforce none."
+    include: "^models/(staging|intermediate)/"
+    config_path: contract.enforced
+    expected: false
+
+  - name: check_model_access
+    description: "[MAT-05] Marts are public."
+    include: "^models/marts/"
+    access: public
+
+  - name: check_model_access
+    description: "[MAT-05] Staging and intermediate models are protected."
+    include: "^models/(staging|intermediate)/"
+    access: protected
+
+  - name: check_model_contract_enforced_for_public_model
+    description: "[MAT-05] Any public model enforces a contract."
+
+  # ============================================================ AUD: audit fields
+  - name: check_model_depends_on_macros
+    description: "[AUD-01] Intermediate models and marts add audit fields with helper__audit_fields()."
+    include: "^models/(intermediate|marts)/"
+    required_macros:
+      - sattrack.helper__audit_fields
+
+  - name: check_bespoke_model_required_columns
+    description: "[AUD-01] Intermediate models and marts declare inserted_date_time and inserted_by."
+    include: "^models/(intermediate|marts)/"
+    required_columns:
+      - inserted_date_time
+      - inserted_by
+
+  - name: check_model_code_does_not_contain_regexp_pattern
+    description: "[AUD-02] Staging models carry no audit fields."
+    include: "^models/staging/"
+    regexp_pattern: ".*(helper__audit_fields|inserted_date_time|inserted_by)"
+
+  # ============================================================ LIN: lineage and layering
+  - name: check_model_max_upstream_dependencies
+    description: "[LIN-01] A staging model reads exactly one source."
+    include: "^models/staging/"
+    max_upstream_sources: 1
+    max_upstream_macros: 50
+
+  - name: check_lineage_permitted_upstream_models
+    description: "[LIN-01] Staging models ref() no other model."
+    include: "^models/staging/"
+    upstream_path_pattern: "(?!)"
+
+  - name: check_source_used_by_only_one_model
+    description: "[LIN-01] Each source table feeds exactly one staging model."
+
+  - name: check_model_code_does_not_contain_regexp_pattern
+    description: "[LIN-02] Staging only renames and casts: no joins, grouping or unions (proxy)."
+    include: "^models/staging/"
+    regexp_pattern: "(?i).*(\\bjoin\\b|\\bgroup\\s+by\\b|\\bunion\\b)"
+
+  - name: check_bespoke_model_select_targets_allowed
+    description: "[LIN-02] Staging only renames, casts and cleans: select targets use only the allowed functions and macros."
+    include: "^models/staging/"
+    allowed_functions:
+      - nullif
+      - trim
+    allowed_macros:
+      - helper__clean_gcat_text
+      - helper__cast_gcat_value
+
+  - name: check_lineage_source_cannot_be_used
+    description: "[LIN-03] Only staging models read sources."
+    include: "^models/(intermediate|marts)/"
+
+  - name: check_lineage_permitted_upstream_models
+    description: "[LIN-04] Marts read intermediate models only."
+    include: "^models/marts/"
+    upstream_path_pattern: "^models/intermediate/"
+
+  - name: check_lineage_permitted_upstream_models
+    description: "[LIN-05] Intermediate models read staging or intermediate models."
+    include: "^models/intermediate/"
+    upstream_path_pattern: "^models/(staging|intermediate)/"
+
+  - name: check_model_max_upstream_dependencies
+    description: "[LIN-06] At most 6 parent models (evaluator too_many_joins threshold 7)."
+    max_upstream_models: 6
+    max_upstream_macros: 50
+
+  - name: check_bespoke_model_max_joins
+    description: "[LIN-06] At most 6 JOINs in one model."
+    max_joins: 6
+
+  - name: check_model_does_not_rejoin_upstream_concepts
+    description: "[LIN-07] No rejoining of upstream concepts (A->B->C where C also reads A and B feeds only C)."
+
+  - name: check_model_does_not_directly_join_to_source
+    description: "[LIN-07] No model joins a source to a model."
+
+  - name: check_model_depends_on_multiple_sources
+    description: "[LIN-07] No model reads more than one source."
+
+  - name: check_model_has_no_upstream_dependencies
+    description: "[LIN-07] No root models (every model reads a source or model)."
+
+  - name: check_model_max_chained_views
+    description: "[LIN-07] No long chains of views."
+
+  - name: check_model_hard_coded_references
+    description: "[LIN-08] No hard-coded relation names; use ref() and source()."
+
+  - name: check_bespoke_model_max_leaf_fanout
+    description: "[LIN-09] At most 3 direct leaf children per model (evaluator fct_model_fanout)."
+    max_leaf_children: 3
+    severity: warn
+
+  # ============================================================ MRT: marts assemble only (parsed with sqlglot)
+  - name: check_bespoke_model_assembly_only
+    description: "[MRT-01] Marts only join, default and cast: logic reading one upstream model belongs in that model."
+    include: "^models/marts/"
+    import_cte_template: "cte_{ref}"
+    final_cte: cte_final
+    default_functions:
+      - coalesce
+    min_relations_for_logic: 2
+    allowed_macros:
+      - helper__audit_fields
+
+  - name: check_bespoke_model_final_casts
+    description: "[MRT-02] Every mart column is explicitly cast in cte_final: cast(<column> as <type>) as <column>."
+    include: "^models/marts/"
+    final_cte: cte_final
+    allowed_macros:
+      - helper__audit_fields
+
+  # ============================================================ TST: tests
+  - name: check_bespoke_model_has_generic_test
+    description: "[TST-01] Every model has a primary key: model_health pk_unique and pk_not_null."
+    test_name: model_health
+    kwarg: check
+    required_values:
+      - pk_unique
+      - pk_not_null
+
+  - name: check_model_test_coverage
+    description: "[TST-02] Every model has at least one test."
+    min_model_test_coverage_pct: 100
+
+  - name: check_bespoke_test_names
+    description: "[TST-03] Test names: mh__<model>__<check> for model_health, <check>__<model>[__<column>] otherwise."
+    exact_name_templates:
+      model_health: "mh__{model}__{check}"
+    default_name_pattern: "^(?!mh__)[a-z][a-z0-9_]*?__{model}{column_suffix}$"
+
+  # ============================================================ DOC: properties files and documentation
+  - name: check_model_documented_in_same_directory
+    description: "[DOC-01] A model is documented in its own folder's properties file."
+
+  - name: check_bespoke_model_properties_file_name
+    description: "[DOC-02] Intermediate properties files are _int_<folder>__schema.yml."
+    include: "^models/intermediate/"
+    file_name_template: "_int_{folder}__schema.yml"
+
+  - name: check_bespoke_model_properties_file_name
+    description: "[DOC-02] Staging and mart properties files are _<folder>__schema.yml."
+    include: "^models/(staging|marts)/"
+    file_name_template: "_{folder}__schema.yml"
+
+  - name: check_model_description_populated
+    description: "[DOC-03] Every model has a description."
+
+  - name: check_model_documentation_coverage
+    description: "[DOC-03] 100% of models are documented."
+    min_model_documentation_coverage_pct: 100
+
+  - name: check_model_column_description_populated
+    description: "[DOC-04] Every column has a description. WARN until the M8 sourced definitions land."
+    severity: warn
+
+  - name: check_bespoke_model_column_doc_blocks
+    description: "[DOC-05] Column descriptions are doc() blocks from the registry (transform/docs). WARN until M8."
+    doc_name_pattern: "^col__"
+    project_dir: "."
+    severity: warn
+
+  - name: check_bespoke_column_descriptions_consistent
+    description: "[DOC-05] A column name has the same description everywhere, except composites that keep a source's column name but have their own definition."
+    severity: warn
+    own_meaning_blocks:    # column name -> doc block of the composite meaning (Space-Track value, else GCAT fallback)
+      object_type: col__object_type__resolved
+      launch_date: col__launch_date__resolved
+
+  # ============================================================ SQL: model SQL layout and style (sqlfluff would be the full linter)
+  - name: check_bespoke_model_cte_layout
+    description: "[SQL-01] cte_<ref'd model> per ref(), named transform CTEs, cte_final last, select * only in `select * from cte_final`."
+    include: "^models/(intermediate|marts)/"
+
+  - name: check_bespoke_model_cte_layout
+    description: "[SQL-01] Staging is a single cte_final (or one staging helper macro)."
+    include: "^models/staging/"
+
+  - name: check_bespoke_model_leading_commas
+    description: "[SQL-02] Select lists and CTE lists use leading commas, one item per line."
+
+  - name: check_bespoke_macro_leading_commas
+    description: "[SQL-02] SQL in macros and generic tests uses leading commas, one item per line."
+    include: "^(macros|tests)/"
+
+  - name: check_bespoke_model_explicit_joins
+    description: "[SQL-03] Joins use a JOIN keyword, never a comma."
+
+  - name: check_bespoke_macro_explicit_joins
+    description: "[SQL-03] Macro SQL joins use a JOIN keyword, never a comma."
+    include: "^macros/"
+
+  - name: check_model_has_semi_colon
+    description: "[SQL-04] Model SQL does not end with a semicolon."
+
+  - name: check_bespoke_model_no_unused_ctes
+    description: "[SQL-05] Every CTE is read by a later CTE or the final select."
+
+  - name: check_bespoke_model_no_subqueries_in_from
+    description: "[SQL-06] FROM and JOIN read named CTEs, never inline subqueries."
+
+  # ============================================================ SRC: sources
+  - name: check_bespoke_source_file_path
+    description: "[SRC-01] Sources are defined in models/staging/<source>/_<source>__sources.yml."
+    path_template: "models/staging/{source_name}/_{source_name}__sources.yml"
+
+  - name: check_source_property_file_location
+    description: "[SRC-01] Source properties files follow dbt's naming."
+
+  - name: check_source_used_by_models_in_same_directory
+    description: "[SRC-01] A source is used by staging models in its own folder."
+
+  - name: check_source_names
+    description: "[SRC-02] Source table names are lower snake case."
+    source_name_pattern: "^[a-z][a-z0-9_]*$"
+
+  - name: check_source_freshness_populated
+    description: "[SRC-03] Every source has freshness configured."
+
+  - name: check_bespoke_source_loaded_at_field
+    description: "[SRC-03] Every source sets loaded_at_field so freshness can be measured."
+
+  - name: check_source_has_meta_keys
+    description: "[SRC-04] Source meta records owner, origin_type, update_frequency and ingestion_module."
+    keys:
+      - owner
+      - origin_type
+      - update_frequency
+      - ingestion_module
+
+  - name: check_source_loader_populated
+    description: "[SRC-04] Every source names its loader."
+
+  - name: check_source_description_populated
+    description: "[SRC-05] Every source table has a description."
+
+  - name: check_source_top_level_description_populated
+    description: "[SRC-05] Every source has a description."
+
+  - name: check_source_not_orphaned
+    description: "[SRC-06] Every source is used."
+
+  - name: check_duplicate_sources
+    description: "[SRC-06] No source table is declared twice."
+
+  # ============================================================ MAC: macros
+  - name: check_macro_names
+    description: "[MAC-01] Macros are named helper__<action>. Exceptions: generate_schema_name, Elementary duckdb__ overrides."
+    exclude: "^(macros/elementary/|macros/project/generate_schema_name\\.sql|tests/)"
+    macro_name_pattern: "^helper__[a-z0-9_]+$"
+
+  - name: check_macro_name_matches_file_name
+    description: "[MAC-02] A macro file is named after its macro."
+    exclude: "^tests/"
+
+  - name: check_bespoke_one_macro_per_file
+    description: "[MAC-02] One macro per file."
+
+  - name: check_macro_description_populated
+    description: "[MAC-03] Every macro has a description."
+    exclude: "^tests/"
+
+  - name: check_bespoke_macro_arguments_documented
+    description: "[MAC-04] Every macro argument is documented with a type and description."
+    exclude: "^tests/"
+    require_type: true
+    min_description_length: 4
+
+  - name: check_macro_property_file_location
+    description: "[MAC-05] Macros are documented in _<domain>__macros.yml in their folder."
+    exclude: "^tests/"
+
+  - name: check_macro_is_used
+    description: "[MAC-06] Every helper macro is used."
+    include: "^macros/(?!elementary/|project/generate_schema_name)"
+    severity: warn

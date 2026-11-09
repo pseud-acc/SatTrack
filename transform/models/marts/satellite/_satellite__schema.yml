@@ -1,0 +1,319 @@
+models:
+  - name: fct__satellite_master
+    description: "One row per object in the Space-Track GP feed, combining Space-Track and GCAT primitives under the decided composite rules (field review 2026-10-25). The app's satellite table."
+    config:
+      access: public
+    data_tests:
+      - model_health:
+          name: mh__fct__satellite_master__pk_unique
+          arguments: {check: pk_unique, columns: [canonical_satellite_id]}
+      - model_health:
+          name: mh__fct__satellite_master__pk_not_null
+          arguments: {check: pk_not_null, columns: [canonical_satellite_id]}
+      - model_health:
+          name: mh__fct__satellite_master__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('int__xsrc__satellite_gcat_matched')"
+            relationship: equal
+    columns:
+      - name: canonical_satellite_id
+        data_type: varchar
+        description: '{{ doc("col__canonical_satellite_id") }}'
+        constraints:
+          - type: not_null
+      - name: satcat_id
+        data_type: integer
+        description: '{{ doc("col__satcat_id") }}'
+      - name: jcat
+        data_type: varchar
+        description: '{{ doc("col__jcat") }}'
+      - name: jcat_link_method
+        data_type: varchar
+        description: '{{ doc("col__jcat_link_method") }}'
+      - name: flag_gcat_matched
+        data_type: boolean
+        description: '{{ doc("col__flag_gcat_matched") }}'
+      - name: object_name
+        data_type: varchar
+        description: '{{ doc("col__object_name") }}'
+      - name: object_id
+        data_type: varchar
+        description: '{{ doc("col__object_id") }}'
+      - name: object_type
+        data_type: varchar
+        description: '{{ doc("col__object_type__resolved") }}'
+      - name: object_type_source
+        data_type: varchar
+      - name: flag_in_orbit
+        data_type: boolean
+        description: '{{ doc("col__flag_in_orbit") }}'
+      - name: flag_orbit_conflict
+        data_type: boolean
+      - name: status
+        data_type: varchar
+        description: '{{ doc("col__status") }}'
+        data_tests:
+          - accepted_values:
+              name: accepted_values__fct__satellite_master__status
+              arguments: {values: ["Active", "Inactive"]}
+      - name: status_source
+        data_type: varchar
+      - name: flag_still_operating
+        data_type: boolean
+        description: '{{ doc("col__flag_still_operating") }}'
+      - name: flag_still_transmitting
+        data_type: boolean
+        description: '{{ doc("col__flag_still_transmitting") }}'
+      - name: end_operation_date
+        data_type: timestamp
+        description: '{{ doc("col__end_operation_date") }}'
+      - name: end_operation_date_precision
+        data_type: varchar
+      - name: end_transmission_date
+        data_type: timestamp
+        description: '{{ doc("col__end_transmission_date") }}'
+      - name: end_transmission_date_precision
+        data_type: varchar
+      - name: end_of_life_flag
+        data_type: varchar
+        description: '{{ doc("col__end_of_life_flag") }}'
+      - name: activity_type
+        data_type: varchar
+        description: '{{ doc("col__activity_type") }}'
+      - name: current_status
+        data_type: varchar
+        description: '{{ doc("col__current_status") }}'
+      - name: launch_date
+        data_type: date
+        description: '{{ doc("col__launch_date__resolved") }}'
+      - name: launch_date_source
+        data_type: varchar
+      - name: launch_year
+        data_type: bigint
+        description: '{{ doc("col__launch_year") }}'
+      - name: owner_country
+        data_type: varchar
+        description: '{{ doc("col__owner_country") }}'
+        data_tests:
+          - elementary.column_anomalies:
+              name: anomaly_column__fct__satellite_master__owner_country
+              arguments: {column_anomalies: [null_percent]}
+              config: {severity: warn}
+      - name: owner_country_codes
+        data_type: varchar[]
+        description: '{{ doc("col__owner_country_codes") }}'
+      - name: owner_country_is_org
+        data_type: boolean
+        description: '{{ doc("col__owner_country_is_org") }}'
+      - name: owner_country_source
+        data_type: varchar
+        description: '{{ doc("col__owner_country_source") }}'
+        data_tests:
+          - accepted_values:
+              name: accepted_values__fct__satellite_master__owner_country_source
+              arguments:
+                values:
+                  - iso_exact
+                  - iso_split
+                  - geonames_name
+                  - iso_historic
+                  - spacetrack_name
+                  - unknown
+                  - gcat_state
+                  - gcat_state_tbd
+                  - none
+      - name: spacetrack_country_code
+        data_type: varchar
+      - name: owner_code
+        data_type: varchar
+        description: '{{ doc("col__owner_code") }}'
+      - name: operator_name
+        data_type: varchar
+        description: '{{ doc("col__operator_name") }}'
+      - name: manufacturer_name
+        data_type: varchar
+        description: '{{ doc("col__manufacturer_name") }}'
+      - name: owner_org_codes
+        data_type: varchar[]
+        description: '{{ doc("col__owner_org_codes") }}'
+      - name: owner_org_names
+        data_type: varchar[]
+      - name: manufacturer_org_codes
+        data_type: varchar[]
+        description: '{{ doc("col__manufacturer_org_codes") }}'
+      - name: manufacturer_org_names
+        data_type: varchar[]
+      - name: launch_agency_org_codes
+        data_type: varchar[]
+        description: '{{ doc("col__launch_agency_org_codes") }}'
+      - name: launch_agency_org_names
+        data_type: varchar[]
+      - name: ownership_class
+        data_type: varchar
+        description: '{{ doc("col__ownership_class") }}'
+      - name: ownership_class_labels
+        data_type: varchar[]
+        description: '{{ doc("col__ownership_class_labels") }}'
+      - name: mission_category_list
+        data_type: varchar[]
+        description: '{{ doc("col__mission_category_list") }}'
+      - name: mission_category_labels
+        data_type: varchar[]
+        description: '{{ doc("col__mission_category_labels") }}'
+      - name: launch_tag
+        data_type: varchar
+        description: '{{ doc("col__launch_tag") }}'
+      - name: launch_datetime
+        data_type: timestamp
+      - name: launch_datetime_precision
+        data_type: varchar
+      - name: site_code
+        data_type: varchar
+        description: '{{ doc("col__site_code") }}'
+        data_tests:
+          - relationships:
+              name: fk__fct__satellite_master__site_code
+              arguments:
+                to: "ref('dim__launch_site')"
+                field: site_code
+      - name: site_name
+        data_type: varchar
+        description: '{{ doc("col__site_name") }}'
+      - name: site_state
+        data_type: varchar
+        description: '{{ doc("col__site_state") }}'
+      - name: site_location_country
+        data_type: varchar
+        description: '{{ doc("col__site_location_country") }}'
+      - name: site_latitude
+        data_type: double
+        description: '{{ doc("col__site_latitude") }}'
+      - name: site_longitude
+        data_type: double
+        description: '{{ doc("col__site_longitude") }}'
+      - name: lv_type
+        data_type: varchar
+        description: '{{ doc("col__lv_type") }}'
+        data_tests:
+          - relationships:
+              name: fk__fct__satellite_master__lv_type
+              arguments:
+                to: "ref('dim__launch_vehicle')"
+                field: lv_name
+      - name: lv_brand
+        data_type: varchar
+        description: '{{ doc("col__lv_brand") }}'
+      - name: lv_family
+        data_type: varchar
+        description: '{{ doc("col__lv_family") }}'
+      - name: flight_id
+        data_type: varchar
+        description: '{{ doc("col__flight_id") }}'
+      - name: launch_agency_code
+        data_type: varchar
+        description: '{{ doc("col__launch_agency_code") }}'
+      - name: launch_agency_name
+        data_type: varchar
+        description: '{{ doc("col__launch_agency_name") }}'
+      - name: launch_category
+        data_type: varchar
+        description: '{{ doc("col__launch_category") }}'
+      - name: flag_catalog_match_uncertain
+        data_type: boolean
+        description: '{{ doc("col__flag_catalog_match_uncertain") }}'
+      - name: launch_fields_source
+        data_type: varchar
+        description: "Where the object's launch fields come from: 'own' = its own GCAT launch-log row (payloads); 'inherited_launch' = the launch-level fields of the launch named by its GCAT satcat Launch_Tag (rocket stages, components, debris, and payloads without a launch-log row); 'none' = no launch-log launch for the tag."
+        constraints:
+          - type: not_null
+        data_tests:
+          - accepted_values:
+              name: accepted_values__fct__satellite_master__launch_fields_source
+              arguments:
+                values:
+                  - own
+                  - inherited_launch
+                  - none
+      - name: satellite_program
+        data_type: varchar
+        description: '{{ doc("col__satellite_program") }}'
+      - name: satellite_program_family
+        data_type: varchar
+        description: '{{ doc("col__satellite_program_family") }}'
+      - name: constellation_plane
+        data_type: varchar
+        description: '{{ doc("col__constellation_plane") }}'
+      - name: payload_fields_source
+        data_type: varchar
+        description: "Where the object's mission category and programme come from: 'own' = its own GCAT payload-catalogue record; 'inherited_parent' = the record of the first payload reached by following GCAT Parent links (rocket stages, components and debris only); 'none' = neither."
+        constraints:
+          - type: not_null
+        data_tests:
+          - accepted_values:
+              name: accepted_values__fct__satellite_master__payload_fields_source
+              arguments:
+                values:
+                  - own
+                  - inherited_parent
+                  - none
+      - name: payload_fields_parent_jcat
+        data_type: varchar
+        description: "JCAT of the payload whose mission category and programme were inherited (payload_fields_source = 'inherited_parent'); NULL otherwise."
+      - name: orbit_class
+        data_type: varchar
+        description: '{{ doc("col__orbit_class") }}'
+      - name: orbit_regime
+        data_type: varchar
+        description: '{{ doc("col__orbit_regime") }}'
+      - name: orbital_period
+        data_type: double
+        description: '{{ doc("col__orbital_period") }}'
+      - name: inclination
+        data_type: double
+        description: '{{ doc("col__inclination") }}'
+      - name: eccentricity
+        data_type: double
+        description: '{{ doc("col__eccentricity") }}'
+      - name: apoapsis
+        data_type: double
+        description: '{{ doc("col__apoapsis") }}'
+      - name: periapsis
+        data_type: double
+        description: '{{ doc("col__periapsis") }}'
+      - name: rcs_size
+        data_type: varchar
+        description: '{{ doc("col__rcs_size") }}'
+      - name: mass_kg
+        data_type: double
+        description: '{{ doc("col__mass_kg") }}'
+      - name: flag_mass_estimated
+        data_type: boolean
+      - name: dry_mass_kg
+        data_type: double
+        description: '{{ doc("col__dry_mass_kg") }}'
+      - name: span_m
+        data_type: double
+        description: '{{ doc("col__span_m") }}'
+      - name: epoch
+        data_type: timestamp
+        description: '{{ doc("col__epoch") }}'
+      - name: tle_age_days
+        data_type: double
+        description: '{{ doc("col__tle_age_days") }}'
+      - name: tle_line_1
+        data_type: varchar
+        description: '{{ doc("col__tle_line_1") }}'
+      - name: tle_line_2
+        data_type: varchar
+        description: '{{ doc("col__tle_line_2") }}'
+      - name: positions_as_of
+        data_type: timestamp
+      - name: details_as_of
+        data_type: timestamp
+      - name: inserted_date_time
+        data_type: timestamp
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        data_type: varchar
+        description: '{{ doc("col__inserted_by") }}'

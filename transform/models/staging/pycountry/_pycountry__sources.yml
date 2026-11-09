@@ -1,0 +1,20 @@
+version: 2
+
+sources:
+  - name: pycountry
+    description: "ISO 3166 country codes and names from the pinned pycountry package (a copy of Debian pkg-isocodes), exported by ingestion."
+    schema: raw_pycountry
+    loader: sattrack_ingest
+    config:
+      tags: ["enrichment"]   # selects the source and its schema-drift guards with its swap unit
+      meta:
+        owner: "pycountry (ISO 3166-1 and ISO 3166-3, copy of Debian pkg-isocodes)"
+        origin_type: python_library
+        update_frequency: "Per pinned package release"
+        ingestion_module: sattrack_ingest.extractors.ingest_pycountry
+      loaded_at_field: "cast(_loaded_at as timestamp)"
+      freshness:
+        warn_after: {count: 365, period: day}
+    tables:
+      - name: iso_countries
+        description: "ISO 3166-1 countries plus historic (ISO 3166-3) countries from pycountry."

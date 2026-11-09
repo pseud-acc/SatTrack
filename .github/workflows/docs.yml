@@ -1,0 +1,121 @@
+# SatTrack dbt docs site on GitHub Pages (DRAFT - not yet enabled).
+#
+# The docs describe code only, so this workflow is separate from the data pipeline:
+#   * dbt 2.0 `docs generate` builds against an EMPTY DuckDB file: no AWS access, no secrets, no data.
+#   * `docs generate --output-dir` writes only the files the site loads (index.html, assets/, info_schema/) to the
+#     site dir. The target dir (compiled SQL, manifest, catalog, stored test failures) is never uploaded.
+#   * The entity relationship diagram of the marts is built from that manifest by scripts/erd/build_erd.sh (the
+#     `fk__*` relationships tests; dbterd + PyYAML pinned in requirements-docs.txt) and rendered to SVG by the
+#     pinned @mermaid-js/mermaid-cli with the runner's Chrome. It is the only thing copied into the site besides
+#     dbt's own files: erd/erd_marts.svg, .mmd and .dbml, embedded in the overview page (transform/docs/overview.md).
+#   * DO_NOT_TRACK=1 turns off the telemetry flag dbt writes into the generated page.
+#   * Same public-repo rules as pipeline.yml: no pull_request triggers, minimal permissions, actions pinned
+#     to full commit SHAs (tag in the comment; SHAs checked with git ls-remote on 2026-11-08).
+#
+# One-off setup: Settings -> Pages -> Source: "GitHub Actions"; the `github-pages` environment limited to main.
+
+name: sattrack-docs
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - transform/**
+      - scripts/erd/**
+      - requirements/pipeline.txt
+      - requirements/docs.txt
+      - .github/workflows/docs.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sattrack-docs
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    name: build docs
+    if: github.repository == 'REPO_OWNER/REPO_NAME'  # TODO: set to the real owner/name
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    env:
+      DO_NOT_TRACK: "1"
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - name: Check out code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0  # v7.1.0
+        with:
+          python-version: "3.12.3"
+
+      - name: Install dbt
+        # Same hash-locked environment as pipeline.yml (dbt-oss 2.0.8 pinned by URL and SHA-256).
+        run: |
+          set -euo pipefail
+          python -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/pip" install --quiet --require-hashes --only-binary :all: -r requirements/pipeline.txt
+
+      - name: Install dbterd
+        run: |
+          set -euo pipefail
+          python -m venv "$RUNNER_TEMP/erd_venv"
+          "$RUNNER_TEMP/erd_venv/bin/pip" install --quiet --require-hashes --only-binary :all: -r requirements/docs.txt
+
+      - name: Generate docs against an empty database
+        working-directory: transform
+        env:
+          SATTRACK_DB_PATH: ${{ runner.temp }}/empty/sattrack.duckdb
+          SATTRACK_OPS_PATH: ${{ runner.temp }}/empty/sattrack_ops.duckdb
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/empty"
+          "$RUNNER_TEMP/venv/bin/dbt" deps --profiles-dir .
+          # --output-dir writes only the site files (index.html, assets/, info_schema/) to the site dir;
+          # --write-catalog adds catalog.json to the target dir for dbterd (it is empty here: no database)
+          "$RUNNER_TEMP/venv/bin/dbt" docs generate --profiles-dir . \
+            --target-path "$RUNNER_TEMP/docs_target" --write-catalog --output-dir "$RUNNER_TEMP/site"
+          grep -q '"enabled":false' "$RUNNER_TEMP/site/index.html"  # telemetry flag must be off
+
+      - name: Build the entity relationship diagram
+        # Node and Chrome are on the ubuntu runner image; mermaid-cli and puppeteer are pinned in build_erd.sh.
+        env:
+          PY: ${{ runner.temp }}/erd_venv/bin/python
+          DBTERD: ${{ runner.temp }}/erd_venv/bin/dbterd
+        run: |
+          set -euo pipefail
+          scripts/erd/build_erd.sh "$RUNNER_TEMP/docs_target" "$RUNNER_TEMP/site"
+          test -s "$RUNNER_TEMP/site/erd/erd_marts.svg"
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9  # v5.0.0
+        with:
+          path: ${{ runner.temp }}/site
+
+  deploy:
+    name: deploy to Pages
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deploy
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346  # v5.0.1

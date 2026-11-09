@@ -1,0 +1,261 @@
+models:
+  - name: int__jsr__launch_events
+    description: "One row per payload launch (GCAT launch log). Launch_Code is split into the documented category (O, M, T, A, S, D, H, R, X, Y; undocumented letters -> NULL) and the success code."
+    data_tests:
+      - model_health:
+          name: mh__int__jsr__launch_events__pk_unique
+          arguments: {check: pk_unique, columns: [jcat]}
+      - model_health:
+          name: mh__int__jsr__launch_events__pk_not_null
+          arguments: {check: pk_not_null, columns: [jcat]}
+      - model_health:
+          name: mh__int__jsr__launch_events__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('stg__jsr__launchlog')"
+            relationship: equal
+    columns:
+      - name: jcat
+        description: '{{ doc("col__jcat") }}'
+      - name: launch_tag
+        description: '{{ doc("col__launch_tag") }}'
+      - name: launch_datetime
+      - name: launch_datetime_start
+        description: '{{ doc("col__launch_datetime_start") }}'
+      - name: launch_datetime_end
+      - name: launch_datetime_precision
+      - name: cospar_id
+        description: '{{ doc("col__cospar_id") }}'
+      - name: flag_catalog_match_uncertain
+        description: '{{ doc("col__flag_catalog_match_uncertain") }}'
+      - name: site_code
+        description: '{{ doc("col__site_code") }}'
+        data_tests:
+          - relationships:
+              name: fk__int__jsr__launch_events__site_code
+              arguments: {to: "ref('int__jsr__launch_sites')", field: site_code}
+      - name: flag_site_uncertain
+      - name: launch_pad
+        description: '{{ doc("col__launch_pad") }}'
+      - name: ascent_site_code
+        description: '{{ doc("col__ascent_site_code") }}'
+      - name: ascent_pad
+        description: '{{ doc("col__ascent_pad") }}'
+      - name: launch_platform
+        description: '{{ doc("col__launch_platform") }}'
+      - name: lv_type
+        description: '{{ doc("col__lv_type") }}'
+        data_tests:
+          - relationships:
+              name: fk__int__jsr__launch_events__lv_type
+              arguments: {to: "ref('int__jsr__launch_vehicles')", field: lv_name}
+      - name: lv_brand
+        description: '{{ doc("col__lv_brand") }}'
+      - name: flight_id
+        description: '{{ doc("col__flight_id") }}'
+      - name: launch_agency_code
+        description: '{{ doc("col__launch_agency_code") }}'
+      - name: launch_agency_country
+        description: '{{ doc("col__launch_agency_country") }}'
+      - name: launch_code
+        description: '{{ doc("col__launch_code") }}'
+      - name: launch_category
+        description: '{{ doc("col__launch_category") }}'
+      - name: launch_success_code
+        description: '{{ doc("col__launch_success_code") }}'
+      - name: launch_time_ref
+        description: '{{ doc("col__launch_time_ref") }}'
+      - name: current_owner_code
+        description: '{{ doc("col__current_owner_code") }}'
+      - name: current_state_code
+        description: '{{ doc("col__current_state_code") }}'
+      - name: _source_updated_at
+        description: '{{ doc("col___source_updated_at") }}'
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'
+  - name: int__jsr__launch_sites
+    description: "One row per GCAT launch site, with both country fields (decided 2026-10-25): site_state = the responsible state (GCAT StateCode), named from GCAT's country-like orgs; site_location_country = where the site physically is: country of the nearest pinned GeoNames city to the GCAT coordinates. Astronomical-polity states (e.g. LUNA) give that body; GCAT type LC (launch cruise) or a site > 150 km from any city whose name says ocean/sea gives 'At sea'."
+    data_tests:
+      - model_health:
+          name: mh__int__jsr__launch_sites__pk_unique
+          arguments: {check: pk_unique, columns: [site_code]}
+      - model_health:
+          name: mh__int__jsr__launch_sites__pk_not_null
+          arguments: {check: pk_not_null, columns: [site_code]}
+      - model_health:
+          name: mh__int__jsr__launch_sites__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('stg__jsr__sites')"
+            relationship: equal
+    columns:
+      - name: site_code
+        description: '{{ doc("col__site_code") }}'
+      - name: site_ucode
+        description: '{{ doc("col__site_ucode") }}'
+      - name: site_type
+        description: '{{ doc("col__site_type") }}'
+      - name: site_short_name
+        description: '{{ doc("col__site_short_name") }}'
+      - name: site_name
+        description: '{{ doc("col__site_name") }}'
+      - name: site_display_name
+      - name: site_latitude
+        description: '{{ doc("col__site_latitude") }}'
+      - name: site_longitude
+        description: '{{ doc("col__site_longitude") }}'
+      - name: site_location
+        description: '{{ doc("col__site_location") }}'
+      - name: site_operator_code
+        description: '{{ doc("col__site_operator_code") }}'
+      - name: site_state_code
+        description: '{{ doc("col__site_state_code") }}'
+      - name: site_state
+        description: '{{ doc("col__site_state") }}'
+      - name: site_location_country
+        description: '{{ doc("col__site_location_country") }}'
+      - name: site_location_iso_alpha2
+        description: '{{ doc("col__site_location_iso_alpha2") }}'
+      - name: site_location_country_key
+        description: '{{ doc("col__site_location_country_key") }}'
+      - name: site_location_method
+        data_tests:
+          - accepted_values:
+              name: accepted_values__int__jsr__launch_sites__site_location_method
+              arguments: {values: ["nearest_city", "astronomical_polity", "launch_cruise", "at_sea", "no_coordinates"]}
+      - name: nearest_city
+      - name: nearest_city_km
+      - name: site_start_date
+        description: '{{ doc("col__site_start_date") }}'
+      - name: site_start_date_start
+        description: '{{ doc("col__site_start_date_start") }}'
+      - name: site_start_date_end
+      - name: site_start_date_precision
+      - name: flag_site_active
+      - name: _source_updated_at
+        description: '{{ doc("col___source_updated_at") }}'
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'
+  - name: int__jsr__launch_vehicles
+    description: "One row per launch vehicle name (the launch log joins on name only). GCAT's own key is name + variant; the row without a variant is preferred, then the first variant. Manufacturers from every variant are kept as a list (no manual override, plan section 15.1). Undocumented class values (e.g. 'B') become NULL."
+    data_tests:
+      - model_health:
+          name: mh__int__jsr__launch_vehicles__pk_unique
+          arguments: {check: pk_unique, columns: [lv_name]}
+      - model_health:
+          name: mh__int__jsr__launch_vehicles__pk_not_null
+          arguments: {check: pk_not_null, columns: [lv_name]}
+      - model_health:
+          name: mh__int__jsr__launch_vehicles__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('stg__jsr__lv')"
+            relationship: lte
+    columns:
+      - name: lv_name
+        description: '{{ doc("col__lv_name") }}'
+      - name: lv_brand
+        description: '{{ doc("col__lv_brand") }}'
+      - name: lv_family
+        description: '{{ doc("col__lv_family") }}'
+      - name: lv_generic_name
+        description: '{{ doc("col__lv_generic_name") }}'
+      - name: lv_class
+        description: '{{ doc("col__lv_class") }}'
+      - name: lv_manufacturer_codes
+      - name: lv_manufacturer_names
+      - name: lv_variant
+        description: '{{ doc("col__lv_variant") }}'
+      - name: lv_alias
+        description: '{{ doc("col__lv_alias") }}'
+      - name: lv_length_m
+        description: '{{ doc("col__lv_length_m") }}'
+      - name: lv_diameter_m
+        description: '{{ doc("col__lv_diameter_m") }}'
+      - name: lv_launch_mass_t
+        description: '{{ doc("col__lv_launch_mass_t") }}'
+      - name: lv_leo_capacity_kg
+        description: '{{ doc("col__lv_leo_capacity_kg") }}'
+      - name: lv_gto_capacity_kg
+        description: '{{ doc("col__lv_gto_capacity_kg") }}'
+      - name: lv_takeoff_thrust_kn
+        description: '{{ doc("col__lv_takeoff_thrust_kn") }}'
+      - name: _source_updated_at
+        description: '{{ doc("col___source_updated_at") }}'
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'
+  - name: int__jsr__satellite_launch_details
+    description: "One row per GCAT object (satcat + satcat100k): the launch it came from, with the site, vehicle family and launch agency names resolved. Payloads use their own launch-log row; rocket stages, components and debris take the launch-level fields of their satcat Launch_Tag (GCAT cols.html: the tag 'matches the launch tag in the launch lists and may be used to join the two databases'). launch_fields_source says which."
+    data_tests:
+      - model_health:
+          name: mh__int__jsr__satellite_launch_details__pk_unique
+          arguments: {check: pk_unique, columns: [jcat]}
+      - model_health:
+          name: mh__int__jsr__satellite_launch_details__pk_not_null
+          arguments: {check: pk_not_null, columns: [jcat]}
+      - model_health:
+          name: mh__int__jsr__satellite_launch_details__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('int__jsr__satellite_catalogue')"
+            relationship: equal
+    columns:
+      - name: jcat
+        description: '{{ doc("col__jcat") }}'
+      - name: launch_tag
+        description: '{{ doc("col__launch_tag") }}'
+      - name: launch_datetime
+      - name: launch_datetime_precision
+      - name: site_code
+        description: '{{ doc("col__site_code") }}'
+      - name: site_name
+        description: '{{ doc("col__site_name") }}'
+      - name: site_state
+        description: '{{ doc("col__site_state") }}'
+      - name: site_location_country
+        description: '{{ doc("col__site_location_country") }}'
+      - name: site_latitude
+        description: '{{ doc("col__site_latitude") }}'
+      - name: site_longitude
+        description: '{{ doc("col__site_longitude") }}'
+      - name: lv_type
+        description: '{{ doc("col__lv_type") }}'
+      - name: lv_brand
+        description: '{{ doc("col__lv_brand") }}'
+      - name: lv_family
+        description: '{{ doc("col__lv_family") }}'
+      - name: flight_id
+        description: '{{ doc("col__flight_id") }}'
+      - name: launch_agency_code
+        description: '{{ doc("col__launch_agency_code") }}'
+      - name: launch_agency_name
+        description: '{{ doc("col__launch_agency_name") }}'
+      - name: launch_agency_org_codes
+        description: '{{ doc("col__launch_agency_org_codes") }}'
+      - name: launch_agency_org_names
+      - name: launch_category
+        description: '{{ doc("col__launch_category") }}'
+      - name: flag_catalog_match_uncertain
+        description: '{{ doc("col__flag_catalog_match_uncertain") }}'
+      - name: launch_fields_source
+        description: "Where the object's launch fields come from: 'own' = its own GCAT launch-log row (payloads); 'inherited_launch' = the launch-level fields of the launch named by its GCAT satcat Launch_Tag (rocket stages, components, debris, and payloads without a launch-log row); 'none' = no launch-log launch for the tag."
+        data_tests:
+          - not_null:
+              name: not_null__int__jsr__satellite_launch_details__launch_fields_source
+          - accepted_values:
+              name: accepted_values__int__jsr__satellite_launch_details__launch_fields_source
+              arguments:
+                values:
+                  - own
+                  - inherited_launch
+                  - none
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'

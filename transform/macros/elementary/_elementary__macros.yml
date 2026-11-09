@@ -1,0 +1,20 @@
+version: 2
+
+macros:
+  - name: duckdb__edr_get_create_table_as_sql
+    description: "Elementary dispatch override for DuckDB: on Fusion, creates a regular table where Elementary asks for a temp table (Elementary cleans it up afterwards)."
+    arguments:
+      - name: temporary
+        type: boolean
+        description: "Whether Elementary requested a temp table."
+      - name: relation
+        type: relation
+        description: "Table to create."
+      - name: sql_query
+        type: string
+        description: "Query to materialise."
+      - name: expiration_hours
+        type: integer
+        description: "Unused on DuckDB (kept for Elementary's signature)."
+  - name: duckdb__has_temp_table_support
+    description: "Elementary dispatch override for DuckDB. dbt v2 (Fusion) pools connections, so a DuckDB temp table created in one adapter call is invisible to the next. Reports no temp-table support on Fusion, mirroring Elementary's own Redshift-on-Fusion fix."

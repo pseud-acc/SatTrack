@@ -1,0 +1,18 @@
+version: 2
+
+macros:
+  - name: helper__classify_orbit_class
+    description: "The live app's 5-class orbit rule (export_app_data.py), ported 2026-10-25. LEO: period < 128 min and e < 0.25; GEO: mean motion 0.99-1.01 rev/day, e < 0.01, i < 1 deg; GSO: period within 0.97-1.03 x 1436 min; MEO: 128 min <= period < 0.97 x 1436 min; otherwise HEO. NULL when the period is NULL."
+    arguments:
+      - name: period
+        type: string
+        description: "Orbital period in minutes (SQL expression)."
+      - name: ecc
+        type: string
+        description: "Eccentricity."
+      - name: mean_motion
+        type: string
+        description: "Mean motion in revolutions per day."
+      - name: inc
+        type: string
+        description: "Inclination in degrees."
