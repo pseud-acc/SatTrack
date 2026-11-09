@@ -19,7 +19,7 @@ Source: retired SatTrack seed files with no publisher (dropped or replaced 2026-
 {% enddocs %}
 
 {% docs col__country_common_name %}
-Common name, where provided.
+The country's common name, where pycountry gives one (11 countries). From pycountry `common_name`. E.g. "Bolivia", "Iran", "Laos".
 
 Source: https://pypi.org/project/pycountry/ (Batch 7).
 {% enddocs %}
@@ -31,31 +31,31 @@ Source: https://pypi.org/project/pycountry/ (Batch 7).
 {% enddocs %}
 
 {% docs col__country_name %}
-Short English country name from ISO 3166 (e.g. "United Kingdom").
+The country's short English name in ISO 3166. From pycountry `name`. E.g. "United Kingdom"; "USSR, Union of Soviet Socialist Republics" for the former USSR.
 
 Source: https://pypi.org/project/pycountry/ (Batch 7).
 {% enddocs %}
 
 {% docs col__country_official_name %}
-Official name, where the standard gives one (e.g. "United Kingdom of Great Britain and Northern Ireland").
+The country's official ISO 3166 name, where the standard gives one. From pycountry `official_name`. E.g. "United Kingdom of Great Britain and Northern Ireland", "French Republic".
 
 Source: https://pypi.org/project/pycountry/ (Batch 7).
 {% enddocs %}
 
 {% docs col__gcat_code %}
-A code from one of GCAT's code tables on pcols.html: a payload Category code (domain `mission_category`, batch 2 #16, e.g. COM, IMG, NAV) or an ownership Class letter (domain `ownership_class`, batch 2 #15: A, B, C, D).
+A code from GCAT's payload code tables, landed by SatTrack from GCAT pcols.html: a mission `Category` (e.g. `COM`, `IMG`) or an ownership `Class` letter (e.g. `C`).
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 7).
 {% enddocs %}
 
 {% docs col__gcat_meaning %}
-GCAT's full meaning text for the code, verbatim from the code table on pcols.html (HTML tags removed, whitespace collapsed).
+GCAT's full meaning text for a code, verbatim from the code tables on GCAT pcols.html. E.g. `Communications` for `COM`; "Civil (government but not military)" for class `C`.
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 7).
 {% enddocs %}
 
 {% docs col__geonameid %}
-"integer id of record in geonames database" (GeoNames export readme). For a country, the id of the country's record.
+GeoNames: "integer id of record in geonames database"; for a country, its country record. From GeoNames `geonameid`. E.g. 3017382 (France), 298795 (Turkey).
 
 Source: https://download.geonames.org/export/dump/readme.txt (Batch 7).
 {% enddocs %}
@@ -73,37 +73,37 @@ Source: retired SatTrack seed files with no publisher (dropped or replaced 2026-
 {% enddocs %}
 
 {% docs col__is_historic %}
-TRUE for rows from pycountry `historic_countries` (ISO 3166-3), FALSE for rows from `countries` (ISO 3166-1). Set at ingestion by `ingest_pycountry`.
+TRUE for a former country (pycountry `historic_countries`, ISO 3166-3), FALSE for a current one (ISO 3166-1); set by SatTrack at ingestion. E.g. TRUE for the USSR, FALSE for France.
 
 Source: https://pypi.org/project/pycountry/ (Batch 7).
 {% enddocs %}
 
 {% docs col__iso_alpha2 %}
-ISO 3166-1 alpha-2 code (historic countries also carry one, e.g. SU). (pycountry / ISO 3166)
+ISO 3166-1 alpha-2 country code; former countries keep theirs. From pycountry `alpha_2`. E.g. `GB` (United Kingdom), `SU` (USSR).
 
 Source: https://pypi.org/project/pycountry/ (Batch 7).
 {% enddocs %}
 
 {% docs col__iso_alpha3 %}
-ISO 3166-1 alpha-3 code (e.g. GBR, SUN).
+ISO 3166-1 alpha-3 country code. From pycountry `alpha_3`. E.g. `GBR` (United Kingdom), `SUN` (USSR).
 
 Source: https://pypi.org/project/pycountry/ (Batch 7).
 {% enddocs %}
 
 {% docs col__iso_alpha4 %}
-ISO 3166-3 four-letter code for a deleted country (e.g. SUHH).
+ISO 3166-3 four-letter code for a former country. From pycountry historic `alpha_4`. E.g. `SUHH` (USSR), `ANHH` (Netherlands Antilles).
 
 Source: https://pypi.org/project/pycountry/ (Batch 7).
 {% enddocs %}
 
 {% docs col__iso_numeric %}
-ISO 3166-1 numeric code (e.g. 826).
+ISO 3166-1 numeric country code. From pycountry `numeric`. E.g. `826` (United Kingdom), `810` (USSR).
 
 Source: https://pypi.org/project/pycountry/ (Batch 7).
 {% enddocs %}
 
 {% docs col__iso_withdrawal_date %}
-Date the country was removed from ISO 3166-1 (e.g. 1992-08-30 for the USSR).
+The date the country was removed from ISO 3166-1. From pycountry historic `withdrawal_date`. E.g. 1992-08-30 for the USSR.
 
 Source: https://pypi.org/project/pycountry/ (Batch 7).
 {% enddocs %}
@@ -121,7 +121,7 @@ Source: retired SatTrack seed files with no publisher (dropped or replaced 2026-
 {% enddocs %}
 
 {% docs col__short_label %}
-Short label made from GCAT's meaning text by a fixed rule at ingestion (`gcat_docs.short_label`): cut at the first comma or sentence end outside brackets, then drop a bracketed part of 18 or more characters, e.g. "Civil (government but not military)" → "Civil", while short qualifiers stay ("Imaging (optical)", "Business (commercial)"). Ingestion fails if two labels in a domain collide.
+A short display label SatTrack cuts from GCAT's meaning text at ingestion (first clause, long brackets dropped). E.g. "Civil (government but not military)" → `Civil`; `IMG` → "Imaging (optical)".
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 7).
 {% enddocs %}
