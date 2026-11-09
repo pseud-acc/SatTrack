@@ -42,9 +42,9 @@ with cte_stg__jsr__orgs as (
         , {{ helper__parse_vague_date_columns('org_start_date_raw', 'org_start_date') }}
         , {{ helper__parse_vague_date_columns('org_stop_date_raw', 'org_stop_date') }}
         -- GCAT: a null stop date means "still in operation, or assumed to be so"
-        , (org_stop_date_raw is null or org_stop_date_raw = '*') as flag_org_active
+        , cast(org_stop_date_raw is null or org_stop_date_raw = '*' as integer) as flag_org_active
         -- GCAT: only CY, IGO and AP types are reliable; they mark country-like organisations
-        , list_has_any(string_split(coalesce(org_type, ''), '/'), ['CY', 'IGO', 'AP']) as flag_country_like
+        , cast(list_has_any(string_split(coalesce(org_type, ''), '/'), ['CY', 'IGO', 'AP']) as integer) as flag_country_like
         , _source_updated_at
         , {{ helper__audit_fields() }}
     from cte_stg__jsr__orgs

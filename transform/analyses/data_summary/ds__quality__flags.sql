@@ -14,10 +14,10 @@ with cte_fct__satellite_master as (
         , f.flag.raised as raised
     from cte_fct__satellite_master
     cross join unnest([
-        {'name': 'flag_gcat_matched = false', 'raised': not flag_gcat_matched}
-        , {'name': 'flag_orbit_conflict', 'raised': flag_orbit_conflict}
-        , {'name': 'flag_catalog_match_uncertain', 'raised': flag_catalog_match_uncertain}
-        , {'name': 'flag_mass_estimated', 'raised': flag_mass_estimated}
+        {'name': 'flag_gcat_matched = false', 'raised': flag_gcat_matched = 0}
+        , {'name': 'flag_orbit_conflict', 'raised': flag_orbit_conflict = 1}
+        , {'name': 'flag_catalog_match_uncertain', 'raised': flag_catalog_match_uncertain = 1}
+        , {'name': 'flag_mass_estimated', 'raised': flag_mass_estimated = 1}
     ]) as f(flag)
 )
 

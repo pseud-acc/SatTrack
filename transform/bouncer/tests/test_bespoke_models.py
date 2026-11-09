@@ -317,3 +317,19 @@ def test_column_descriptions_consistent_fail_third_variant_beside_declared_meani
 def test_column_descriptions_consistent_fail_declared_block_missing():
     fails("check_bespoke_column_descriptions_consistent", match="does not exist",
           ctx_models=[_col_model("a", object_type="Raw.")], own_meaning_blocks=OWN_MEANING)
+
+
+# ---------------------------------------------------------------- check_bespoke_model_flag_columns (SQL-08)
+def test_flag_columns_pass():
+    passes("check_bespoke_model_flag_columns",
+           model=model(columns={"flag_in_orbit": {"data_type": "integer"}, "x_id": {"data_type": "varchar"}}))
+
+
+def test_flag_columns_fail_wrong_type():
+    fails("check_bespoke_model_flag_columns", match=r"wrong type \['flag_in_orbit \(boolean\)'\]",
+          model=model(columns={"flag_in_orbit": {"data_type": "boolean"}}))
+
+
+def test_flag_columns_fail_boolean_not_named_flag():
+    fails("check_bespoke_model_flag_columns", match=r"\['is_historic'\]",
+          model=model(columns={"is_historic": {"data_type": "boolean"}}))

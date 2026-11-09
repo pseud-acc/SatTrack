@@ -45,7 +45,7 @@ with cte_fct__satellite_master as (
         , tle_line_2
     from cte_fct__satellite_master
     where object_type = 'PAYLOAD'
-        and flag_in_orbit
+        and flag_in_orbit = 1
         and tle_line_1 is not null
         and tle_line_2 is not null
         and orbital_period > 0

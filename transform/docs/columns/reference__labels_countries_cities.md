@@ -42,6 +42,12 @@ The country's official ISO 3166 name, where the standard gives one. From pycount
 Source: https://pypi.org/project/pycountry/ (Batch 7).
 {% enddocs %}
 
+{% docs col__flag_historic %}
+1 for a former country (pycountry `historic_countries`, ISO 3166-3), 0 for a current one (ISO 3166-1); set by SatTrack at ingestion. E.g. 1 for the USSR, 0 for France.
+
+Source: https://pypi.org/project/pycountry/ (Batch 7).
+{% enddocs %}
+
 {% docs col__gcat_code %}
 A code from GCAT's payload code tables, landed by SatTrack from GCAT pcols.html: a mission `Category` (e.g. `COM`, `IMG`) or an ownership `Class` letter (e.g. `C`).
 
@@ -70,12 +76,6 @@ Source: https://download.geonames.org/export/dump/readme.txt (Batch 7).
 Retired: no current model produces this column. It switched a manufacturer override row on (former seed file).
 
 Source: retired SatTrack seed files with no publisher (dropped or replaced 2026-10-25, plan §15.1); no current model produces their columns (Batch 7).
-{% enddocs %}
-
-{% docs col__is_historic %}
-TRUE for a former country (pycountry `historic_countries`, ISO 3166-3), FALSE for a current one (ISO 3166-1); set by SatTrack at ingestion. E.g. TRUE for the USSR, FALSE for France.
-
-Source: https://pypi.org/project/pycountry/ (Batch 7).
 {% enddocs %}
 
 {% docs col__iso_alpha2 %}

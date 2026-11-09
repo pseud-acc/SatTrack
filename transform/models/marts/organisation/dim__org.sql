@@ -55,8 +55,8 @@ with cte_int__jsr__org_organisations as (
         , cast(org_stop_date_start as timestamp) as org_stop_date_start
         , cast(org_stop_date_end as timestamp) as org_stop_date_end
         , cast(org_stop_date_precision as varchar) as org_stop_date_precision
-        , cast(flag_org_active as boolean) as flag_org_active
-        , cast(flag_country_like as boolean) as flag_country_like
+        , cast(flag_org_active as integer) as flag_org_active
+        , cast(flag_country_like as integer) as flag_country_like
         , cast(_source_updated_at as timestamp) as _source_updated_at
         , {{ helper__audit_fields() }}
     from cte_int__jsr__org_organisations

@@ -23,8 +23,8 @@ models:
         description: '{{ doc("col__owner_country") }}'
       - name: owner_country_codes
         description: '{{ doc("col__owner_country_codes") }}'
-      - name: owner_country_is_org
-        description: '{{ doc("col__owner_country_is_org") }}'
+      - name: flag_owner_country_is_org
+        description: '{{ doc("col__flag_owner_country_is_org") }}'
       - name: owner_country_method
         description: '{{ doc("col__owner_country_method") }}'
       - name: inserted_date_time
@@ -115,8 +115,8 @@ models:
         description: '{{ doc("col__country_name") }}'
       - name: country_official_name
         description: '{{ doc("col__country_official_name") }}'
-      - name: is_historic
-        description: '{{ doc("col__is_historic") }}'
+      - name: flag_historic
+        description: '{{ doc("col__flag_historic") }}'
       - name: iso_withdrawal_date
         description: '{{ doc("col__iso_withdrawal_date") }}'
       - name: inserted_date_time

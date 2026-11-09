@@ -74,7 +74,7 @@ with cte_stg__spacetrack__boxscore as (
             else {{ helper__title_case_name('spacetrack_country_name') }}
         end as owner_country
         , case when n_matched = n_parts then iso_codes else cast([] as varchar[]) end as owner_country_codes
-        , country_code <> 'TBD' and n_matched < n_parts as owner_country_is_org
+        , cast(country_code <> 'TBD' and n_matched < n_parts as integer) as flag_owner_country_is_org
         , case
             when country_code = 'TBD' then 'unknown'
             when n_matched < n_parts then 'spacetrack_name'

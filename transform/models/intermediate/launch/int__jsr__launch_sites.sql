@@ -39,7 +39,7 @@ with cte_stg__jsr__sites as (
         iso_alpha2
         , country_name
         , country_common_name
-        , is_historic
+        , flag_historic
     from {{ ref('stg__pycountry__iso_countries') }}
 )
 
@@ -47,7 +47,7 @@ with cte_stg__jsr__sites as (
     select
         country_sk
         , iso_alpha2
-        , is_historic
+        , flag_historic
     from {{ ref('int__pycountry__geo_countries') }}
 )
 
@@ -76,7 +76,7 @@ with cte_stg__jsr__sites as (
         iso_alpha2
         , coalesce(country_common_name, country_name) as country_name
     from cte_stg__pycountry__iso_countries
-    where not is_historic
+    where flag_historic = 0
 )
 
 , cte_country_key_by_alpha2 as ( -- one country key per alpha-2 code: a current country before a former one
@@ -84,7 +84,7 @@ with cte_stg__jsr__sites as (
         iso_alpha2
         , country_sk
     from cte_int__pycountry__geo_countries
-    qualify row_number() over (partition by iso_alpha2 order by is_historic, country_sk) = 1
+    qualify row_number() over (partition by iso_alpha2 order by flag_historic, country_sk) = 1
 )
 
 , cte_sites_located as ( -- each site with its responsible state and how its location country is decided
@@ -132,7 +132,7 @@ with cte_stg__jsr__sites as (
         , c.nearest_city
         , round(c.nearest_km, 1) as nearest_city_km
         , {{ helper__parse_vague_date_columns('c.site_start_date_raw', 'site_start_date') }}
-        , (c.site_stop_date_raw is null or c.site_stop_date_raw = '*') as flag_site_active
+        , cast(c.site_stop_date_raw is null or c.site_stop_date_raw = '*' as integer) as flag_site_active
         , c._source_updated_at
         , {{ helper__audit_fields() }}
     from cte_sites_located as c

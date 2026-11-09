@@ -11,7 +11,7 @@ with cte_stg__pycountry__iso_countries as (
         , country_name
         , country_official_name
         , country_common_name
-        , is_historic
+        , flag_historic
     from {{ ref('stg__pycountry__iso_countries') }}
 )
 
@@ -29,7 +29,7 @@ with cte_stg__pycountry__iso_countries as (
         , country_name as display_name
         , country_name as name_variant
     from cte_stg__pycountry__iso_countries
-    where not is_historic
+    where flag_historic = 0
     union all
     select
         'iso' as name_tier
@@ -37,7 +37,7 @@ with cte_stg__pycountry__iso_countries as (
         , country_name as display_name
         , country_official_name as name_variant
     from cte_stg__pycountry__iso_countries
-    where not is_historic and country_official_name is not null
+    where flag_historic = 0 and country_official_name is not null
     union all
     select
         'iso' as name_tier
@@ -45,7 +45,7 @@ with cte_stg__pycountry__iso_countries as (
         , country_common_name as display_name
         , country_common_name as name_variant
     from cte_stg__pycountry__iso_countries
-    where not is_historic and country_common_name is not null
+    where flag_historic = 0 and country_common_name is not null
     union all
     select
         'geonames_name' as name_tier
@@ -53,7 +53,7 @@ with cte_stg__pycountry__iso_countries as (
         , coalesce(i.country_common_name, i.country_name) as display_name
         , g.geonames_country_name as name_variant
     from cte_stg__geonames__countries as g
-    inner join cte_stg__pycountry__iso_countries as i on i.iso_alpha2 = g.iso_alpha2 and not i.is_historic
+    inner join cte_stg__pycountry__iso_countries as i on i.iso_alpha2 = g.iso_alpha2 and i.flag_historic = 0
     union all
     select
         'iso_historic' as name_tier
@@ -61,7 +61,7 @@ with cte_stg__pycountry__iso_countries as (
         , split_part(country_name, ',', 1) as display_name
         , country_name as name_variant
     from cte_stg__pycountry__iso_countries
-    where is_historic and iso_alpha4 is not null
+    where flag_historic = 1 and iso_alpha4 is not null
     union all
     select
         'iso_historic' as name_tier
@@ -69,7 +69,7 @@ with cte_stg__pycountry__iso_countries as (
         , split_part(country_name, ',', 1) as display_name
         , split_part(country_name, ',', 1) as name_variant
     from cte_stg__pycountry__iso_countries
-    where is_historic and iso_alpha4 is not null
+    where flag_historic = 1 and iso_alpha4 is not null
 )
 
 , cte_name_keys as ( -- each name variant as a full key and a reduced key

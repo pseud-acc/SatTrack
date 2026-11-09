@@ -32,7 +32,7 @@ models:
         data_type: varchar
         description: '{{ doc("col__jcat_link_method") }}'
       - name: flag_gcat_matched
-        data_type: boolean
+        data_type: integer
         description: '{{ doc("col__flag_gcat_matched") }}'
       - name: object_name
         data_type: varchar
@@ -47,10 +47,10 @@ models:
         data_type: varchar
         description: '{{ doc("col__object_type_source") }}'
       - name: flag_in_orbit
-        data_type: boolean
+        data_type: integer
         description: '{{ doc("col__flag_in_orbit") }}'
       - name: flag_orbit_conflict
-        data_type: boolean
+        data_type: integer
         description: '{{ doc("col__flag_orbit_conflict") }}'
       - name: status
         data_type: varchar
@@ -63,10 +63,10 @@ models:
         data_type: varchar
         description: '{{ doc("col__status_source") }}'
       - name: flag_still_operating
-        data_type: boolean
+        data_type: integer
         description: '{{ doc("col__flag_still_operating") }}'
       - name: flag_still_transmitting
-        data_type: boolean
+        data_type: integer
         description: '{{ doc("col__flag_still_transmitting") }}'
       - name: end_operation_date
         data_type: timestamp
@@ -109,9 +109,9 @@ models:
       - name: owner_country_codes
         data_type: varchar[]
         description: '{{ doc("col__owner_country_codes") }}'
-      - name: owner_country_is_org
-        data_type: boolean
-        description: '{{ doc("col__owner_country_is_org") }}'
+      - name: flag_owner_country_is_org
+        data_type: integer
+        description: '{{ doc("col__flag_owner_country_is_org") }}'
       - name: owner_country_source
         data_type: varchar
         description: '{{ doc("col__owner_country_source") }}'
@@ -232,7 +232,7 @@ models:
         data_type: varchar
         description: '{{ doc("col__launch_category") }}'
       - name: flag_catalog_match_uncertain
-        data_type: boolean
+        data_type: integer
         description: '{{ doc("col__flag_catalog_match_uncertain") }}'
       - name: launch_fields_source
         data_type: varchar
@@ -300,7 +300,7 @@ models:
         data_type: double
         description: '{{ doc("col__mass_kg") }}'
       - name: flag_mass_estimated
-        data_type: boolean
+        data_type: integer
         description: '{{ doc("col__flag_mass_estimated") }}'
       - name: dry_mass_kg
         data_type: double

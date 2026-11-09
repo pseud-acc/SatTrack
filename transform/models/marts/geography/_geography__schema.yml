@@ -43,9 +43,9 @@ models:
       - name: country_official_name
         data_type: varchar
         description: '{{ doc("col__country_official_name") }}'
-      - name: is_historic
-        data_type: boolean
-        description: '{{ doc("col__is_historic") }}'
+      - name: flag_historic
+        data_type: integer
+        description: '{{ doc("col__flag_historic") }}'
       - name: iso_withdrawal_date
         data_type: date
         description: '{{ doc("col__iso_withdrawal_date") }}'

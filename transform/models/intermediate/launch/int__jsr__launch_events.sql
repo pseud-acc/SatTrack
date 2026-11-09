@@ -31,9 +31,9 @@ with cte_stg__jsr__launchlog as (
         , {{ helper__parse_vague_date_columns('launch_datetime_raw', 'launch_datetime') }}
         , cospar_id
         -- GCAT llog.html: a '?' in SatType position 9 marks an arbitrary match to the launch's catalog slots
-        , coalesce(substr(sat_type, 9, 1) = '?', false) as flag_catalog_match_uncertain
+        , cast(coalesce(substr(sat_type, 9, 1) = '?', false) as integer) as flag_catalog_match_uncertain
         , rtrim(site_code_raw, '?') as site_code
-        , coalesce(site_code_raw like '%?', false) as flag_site_uncertain
+        , cast(coalesce(site_code_raw like '%?', false) as integer) as flag_site_uncertain
         , launch_pad
         , ascent_site_code
         , ascent_pad

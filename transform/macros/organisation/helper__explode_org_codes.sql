@@ -7,8 +7,8 @@ select
     , rtrim(part, '?') as org_code
     , cast(ord as integer) as org_code_ord
     , raw_code as org_code_raw
-    , raw_code like '%/%' as is_composite
-    , part like '%?' as is_uncertain
+    , cast(raw_code like '%/%' as integer) as flag_composite
+    , cast(part like '%?' as integer) as flag_uncertain
     , case when raw_code like '%/%' then 'split_slash' else 'single' end as parse_rule
 from (
     select

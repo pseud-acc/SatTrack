@@ -26,14 +26,14 @@ with cte_int__jsr__org_organisations as (
         , 1 as candidate_rank
         , org_short_name_en as candidate_name
     from cte_int__jsr__org_organisations
-    where flag_country_like and org_short_name_en is not null
+    where flag_country_like = 1 and org_short_name_en is not null
     union all
     select
         org_code
         , 2 as candidate_rank
         , org_full_name_en as candidate_name
     from cte_int__jsr__org_organisations
-    where flag_country_like and org_full_name_en is not null
+    where flag_country_like = 1 and org_full_name_en is not null
 )
 
 , cte_org_names_matched as ( -- best match per org

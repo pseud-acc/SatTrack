@@ -158,3 +158,22 @@ def check_bespoke_column_descriptions_consistent(ctx, *, own_meaning_blocks: dic
     conflicts = sorted(name for name, found in variants.items() if len(found) > 1)
     if conflicts:
         fail(f"Columns have conflicting descriptions across models: {conflicts}.")
+
+
+@check
+def check_bespoke_model_flag_columns(model, *, prefix: str = "flag_", flag_data_type: str = "integer",
+                                     banned_data_types: list[str] | None = None):
+    """Yes/no columns are `<prefix>*` with the flag data type (1/0); no column uses a banned type such as boolean."""
+    banned = {t.lower() for t in (banned_data_types or ["boolean", "bool"])}
+    wrong_type, banned_cols = [], []
+    for name, col in (model.columns or {}).items():
+        dtype = str((col or {}).get("data_type") or "").lower()
+        if name.startswith(prefix) and dtype and dtype != flag_data_type.lower():
+            wrong_type.append(f"{name} ({dtype})")
+        if dtype in banned:
+            banned_cols.append(name)
+    if wrong_type or banned_cols:
+        fail(f"`{model.name}`: flag columns must be {flag_data_type} 1/0 named {prefix}*: "
+             + (f"wrong type {wrong_type}" if wrong_type else "")
+             + ("; " if wrong_type and banned_cols else "")
+             + (f"yes/no columns typed {sorted(banned)}: {banned_cols}" if banned_cols else ""))

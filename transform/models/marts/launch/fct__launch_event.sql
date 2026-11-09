@@ -39,9 +39,9 @@ with cte_int__jsr__launch_events as (
         , cast(launch_datetime_end as timestamp) as launch_datetime_end
         , cast(launch_datetime_precision as varchar) as launch_datetime_precision
         , cast(cospar_id as varchar) as cospar_id
-        , cast(flag_catalog_match_uncertain as boolean) as flag_catalog_match_uncertain
+        , cast(flag_catalog_match_uncertain as integer) as flag_catalog_match_uncertain
         , cast(site_code as varchar) as site_code
-        , cast(flag_site_uncertain as boolean) as flag_site_uncertain
+        , cast(flag_site_uncertain as integer) as flag_site_uncertain
         , cast(launch_pad as varchar) as launch_pad
         , cast(ascent_site_code as varchar) as ascent_site_code
         , cast(ascent_pad as varchar) as ascent_pad

@@ -11,7 +11,7 @@ with cte_fct__satellite_master as (
     select
         floor(log10(mass_kg) * 10) / 10 as log10_mass_kg
         , case
-            when flag_mass_estimated then 'Estimated'
+            when flag_mass_estimated = 1 then 'Estimated'
             else 'Reported'
         end as mass_basis
     from cte_fct__satellite_master

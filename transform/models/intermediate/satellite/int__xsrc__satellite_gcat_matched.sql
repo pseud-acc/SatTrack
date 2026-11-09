@@ -51,7 +51,7 @@ with cte_int__spacetrack__satellite_catalogue as (
         country_code
         , owner_country
         , owner_country_codes
-        , owner_country_is_org
+        , flag_owner_country_is_org
         , owner_country_method
     from {{ ref('int__xsrc__geo_owner_country') }}
 )
@@ -116,7 +116,7 @@ with cte_int__spacetrack__satellite_catalogue as (
         , cast(gp.satcat_id as varchar) as canonical_satellite_id
         , link.jcat
         , coalesce(link.jcat_link_method, 'none') as jcat_link_method
-        , link.jcat is not null as flag_gcat_matched
+        , cast(link.jcat is not null as integer) as flag_gcat_matched
         , gp.object_name
         , gp.object_id
         -- object type: GP, falling back to GCAT Type[0] when GP says UNKNOWN
@@ -131,7 +131,7 @@ with cte_int__spacetrack__satellite_catalogue as (
         , gp.object_type as spacetrack_object_type
         , cat.sat_type_class
         -- in orbit: every object in the GP feed is on orbit
-        , true as flag_in_orbit
+        , 1 as flag_in_orbit
         , gp.country_code as spacetrack_country_code
         -- owner country rule, then the owner fields that follow it (aliases read by the lines below)
         , case
@@ -152,8 +152,8 @@ with cte_int__spacetrack__satellite_catalogue as (
         end as owner_country_codes
         , case
             when owner_country_source in ('gcat_state', 'gcat_state_tbd') then false
-            else coalesce(geo.owner_country_is_org, false)
-        end as owner_country_is_org
+            else coalesce(geo.flag_owner_country_is_org, 0)
+        end as flag_owner_country_is_org
         -- launch date: GP, falling back to GCAT LDate
         , coalesce(gp.launch_date, cast(cat.gcat_launch_date as date)) as launch_date
         , case

@@ -20,7 +20,7 @@ with cte_stg__jsr__currentcat as (
         , current_state_code
         , {{ helper__parse_vague_date_columns('descent_date_raw', 'descent_date') }}
         -- GCAT curcols.html: DDate "If blank, the object is still in orbit."
-        , descent_date_raw is null as flag_gcat_in_orbit
+        , cast(descent_date_raw is null as integer) as flag_gcat_in_orbit
         , _source_updated_at
         , {{ helper__audit_fields() }}
     from cte_stg__jsr__currentcat

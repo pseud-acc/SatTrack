@@ -15,7 +15,7 @@ with cte_int__xsrc__satellite_gcat_matched as (
         , spacetrack_country_code
         , owner_country
         , owner_country_codes
-        , owner_country_is_org
+        , flag_owner_country_is_org
         , owner_country_source
         , owner_code
         , launch_date
@@ -120,7 +120,7 @@ with cte_int__xsrc__satellite_gcat_matched as (
         , sat.object_type_source
         , sat.flag_in_orbit
         -- in the GP feed (so on orbit) while GCAT says it came down
-        , coalesce(st.flag_gcat_descended, false) as flag_orbit_conflict
+        , coalesce(st.flag_gcat_descended, 0) as flag_orbit_conflict
         -- objects without a GCAT status record default to Inactive
         , coalesce(st.status, 'Inactive') as status
         , coalesce(st.status_source, 'default_inactive') as status_source
@@ -139,7 +139,7 @@ with cte_int__xsrc__satellite_gcat_matched as (
         -- owner country: Space-Track code via boxscore, with the GCAT State rules for CIS and TBD (int__xsrc__satellite_gcat_matched)
         , sat.owner_country
         , sat.owner_country_codes
-        , sat.owner_country_is_org
+        , sat.flag_owner_country_is_org
         , sat.owner_country_source
         , sat.spacetrack_country_code
         , sat.owner_code
@@ -212,17 +212,17 @@ with cte_int__xsrc__satellite_gcat_matched as (
         , cast(satcat_id as integer) as satcat_id
         , cast(jcat as varchar) as jcat
         , cast(jcat_link_method as varchar) as jcat_link_method
-        , cast(flag_gcat_matched as boolean) as flag_gcat_matched
+        , cast(flag_gcat_matched as integer) as flag_gcat_matched
         , cast(object_name as varchar) as object_name
         , cast(object_id as varchar) as object_id
         , cast(object_type as varchar) as object_type
         , cast(object_type_source as varchar) as object_type_source
-        , cast(flag_in_orbit as boolean) as flag_in_orbit
-        , cast(flag_orbit_conflict as boolean) as flag_orbit_conflict
+        , cast(flag_in_orbit as integer) as flag_in_orbit
+        , cast(flag_orbit_conflict as integer) as flag_orbit_conflict
         , cast(status as varchar) as status
         , cast(status_source as varchar) as status_source
-        , cast(flag_still_operating as boolean) as flag_still_operating
-        , cast(flag_still_transmitting as boolean) as flag_still_transmitting
+        , cast(flag_still_operating as integer) as flag_still_operating
+        , cast(flag_still_transmitting as integer) as flag_still_transmitting
         , cast(end_operation_date as timestamp) as end_operation_date
         , cast(end_operation_date_precision as varchar) as end_operation_date_precision
         , cast(end_transmission_date as timestamp) as end_transmission_date
@@ -235,7 +235,7 @@ with cte_int__xsrc__satellite_gcat_matched as (
         , cast(launch_year as bigint) as launch_year
         , cast(owner_country as varchar) as owner_country
         , cast(owner_country_codes as varchar[]) as owner_country_codes
-        , cast(owner_country_is_org as boolean) as owner_country_is_org
+        , cast(flag_owner_country_is_org as integer) as flag_owner_country_is_org
         , cast(owner_country_source as varchar) as owner_country_source
         , cast(spacetrack_country_code as varchar) as spacetrack_country_code
         , cast(owner_code as varchar) as owner_code
@@ -267,7 +267,7 @@ with cte_int__xsrc__satellite_gcat_matched as (
         , cast(launch_agency_code as varchar) as launch_agency_code
         , cast(launch_agency_name as varchar) as launch_agency_name
         , cast(launch_category as varchar) as launch_category
-        , cast(flag_catalog_match_uncertain as boolean) as flag_catalog_match_uncertain
+        , cast(flag_catalog_match_uncertain as integer) as flag_catalog_match_uncertain
         , cast(launch_fields_source as varchar) as launch_fields_source
         , cast(satellite_program as varchar) as satellite_program
         , cast(satellite_program_family as varchar) as satellite_program_family
@@ -283,7 +283,7 @@ with cte_int__xsrc__satellite_gcat_matched as (
         , cast(periapsis as double) as periapsis
         , cast(rcs_size as varchar) as rcs_size
         , cast(mass_kg as double) as mass_kg
-        , cast(flag_mass_estimated as boolean) as flag_mass_estimated
+        , cast(flag_mass_estimated as integer) as flag_mass_estimated
         , cast(dry_mass_kg as double) as dry_mass_kg
         , cast(span_m as double) as span_m
         , cast(epoch as timestamp) as epoch

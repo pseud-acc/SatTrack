@@ -52,7 +52,7 @@ with cte_int__jsr__launch_sites as (
         , cast(site_start_date_start as timestamp) as site_start_date_start
         , cast(site_start_date_end as timestamp) as site_start_date_end
         , cast(site_start_date_precision as varchar) as site_start_date_precision
-        , cast(flag_site_active as boolean) as flag_site_active
+        , cast(flag_site_active as integer) as flag_site_active
         , cast(_source_updated_at as timestamp) as _source_updated_at
         , {{ helper__audit_fields() }}
     from cte_int__jsr__launch_sites

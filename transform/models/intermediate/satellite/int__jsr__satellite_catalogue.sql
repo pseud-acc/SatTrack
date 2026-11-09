@@ -145,7 +145,7 @@ with cte_stg__jsr__satcat as (
         , manufacturer_code
         , bus
         , mass_kg
-        , coalesce(mass_flag = '?', false) as flag_mass_estimated
+        , cast(coalesce(mass_flag = '?', false) as integer) as flag_mass_estimated
         , dry_mass_kg
         , length_m
         , diameter_m

@@ -13,7 +13,7 @@ Source: https://planet4589.org/space/gcat/web/cat/llog.html (Batch 4).
 {% enddocs %}
 
 {% docs col__flag_catalog_match_uncertain %}
-TRUE when GCAT matched this satellite to its catalog number arbitrarily, so it may be swapped with another payload on the same launch; derived from launch log `SatType` (a `?` in position 9). E.g. TRUE for 674 rows.
+1 when GCAT matched this satellite to its catalog number arbitrarily, so it may be swapped with another payload on the same launch; derived from launch log `SatType` (a `?` in position 9). E.g. 1 for 674 rows.
 
 Source: https://planet4589.org/space/gcat/web/cat/llog.html (Batch 4).
 {% enddocs %}

@@ -8,14 +8,14 @@ with cte_stg__pycountry__iso_countries as (
         , country_name
         , country_official_name
         , country_common_name
-        , is_historic
+        , flag_historic
         , iso_withdrawal_date
     from {{ ref('stg__pycountry__iso_countries') }}
 )
 
 , cte_final as (
     select
-        iso_alpha3 || case when is_historic then '-H' else '' end as country_sk
+        iso_alpha3 || case when flag_historic = 1 then '-H' else '' end as country_sk
         , iso_alpha2
         , iso_alpha3
         , iso_alpha4
@@ -23,7 +23,7 @@ with cte_stg__pycountry__iso_countries as (
         , coalesce(country_common_name, country_name) as country_display_name
         , country_name
         , country_official_name
-        , is_historic
+        , flag_historic
         , iso_withdrawal_date
         , {{ helper__audit_fields() }}
     from cte_stg__pycountry__iso_countries

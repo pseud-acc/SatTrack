@@ -92,7 +92,7 @@ models:
         data_type: varchar
         description: '{{ doc("col__site_start_date_precision") }}'
       - name: flag_site_active
-        data_type: boolean
+        data_type: integer
         description: '{{ doc("col__flag_site_active") }}'
       - name: _source_updated_at
         data_type: timestamp
@@ -219,7 +219,7 @@ models:
         data_type: varchar
         description: '{{ doc("col__cospar_id") }}'
       - name: flag_catalog_match_uncertain
-        data_type: boolean
+        data_type: integer
         description: '{{ doc("col__flag_catalog_match_uncertain") }}'
       - name: site_code
         data_type: varchar
@@ -231,7 +231,7 @@ models:
                 to: "ref('dim__launch_site')"
                 field: site_code
       - name: flag_site_uncertain
-        data_type: boolean
+        data_type: integer
         description: '{{ doc("col__flag_site_uncertain") }}'
       - name: launch_pad
         data_type: varchar

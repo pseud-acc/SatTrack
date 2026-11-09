@@ -2,7 +2,7 @@ version: 2
 
 macros:
   - name: helper__explode_org_codes
-    description: "Renders a query that explodes a GCAT composite organisation code (e.g. 'GSFC/ESA', 'ESA?') into one row per organisation. Keeps every co-organisation (the app's multi-select organisation filter needs them). Output: map_sk (hashed surrogate key, D6), entity_key, org_role, org_code, org_code_ord, org_code_raw, is_composite, is_uncertain, parse_rule."
+    description: "Renders a query that explodes a GCAT composite organisation code (e.g. 'GSFC/ESA', 'ESA?') into one row per organisation. Keeps every co-organisation (the app's multi-select organisation filter needs them). Output: map_sk (hashed surrogate key, D6), entity_key, org_role, org_code, org_code_ord, org_code_raw, flag_composite, flag_uncertain, parse_rule."
     arguments:
       - name: relation
         type: relation

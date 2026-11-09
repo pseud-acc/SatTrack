@@ -151,13 +151,13 @@ Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
 
 {% docs col__flag_still_operating %}
-TRUE when GCAT says the payload is still operating (psatcat `TOp` is `*`, "believed to be still operating"); derived by SatTrack. E.g. TRUE for the ISS Zarya module.
+1 when GCAT says the payload is still operating (psatcat `TOp` is `*`, "believed to be still operating"); derived by SatTrack. E.g. 1 for the ISS Zarya module.
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}
 
 {% docs col__flag_still_transmitting %}
-TRUE when GCAT says the payload is still transmitting (psatcat `TDate` is `*`, "believed to be still transmitting"); derived by SatTrack. E.g. TRUE for the ISS Zarya module.
+1 when GCAT says the payload is still transmitting (psatcat `TDate` is `*`, "believed to be still transmitting"); derived by SatTrack. E.g. 1 for the ISS Zarya module.
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}

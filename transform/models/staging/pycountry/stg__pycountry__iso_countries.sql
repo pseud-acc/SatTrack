@@ -9,7 +9,7 @@ with cte_final as (
         , cast(nullif(common_name, '') as varchar) as country_common_name
         , cast(nullif(alpha_4, '') as varchar) as iso_alpha4
         , try_cast(nullif(withdrawal_date, '') as date) as iso_withdrawal_date
-        , cast(is_historic as boolean) as is_historic
+        , cast(cast(is_historic as boolean) as integer) as flag_historic
         , cast(_loaded_at as timestamp) as _loaded_at
         , _source_url
     from {{ source('pycountry', 'iso_countries') }}

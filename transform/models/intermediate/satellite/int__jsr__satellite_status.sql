@@ -1,6 +1,6 @@
 -- One row per GCAT object in the Current Catalog or the payload catalogs: operating / transmitting primitives (D9),
 -- current-catalog activity, and the GCAT activity signal used by the status rule (decided 2026-10-25):
--- gcat_active = (TOp = '*' OR currentcat Active = 'A') AND TF <> 'Z' (zombie = Inactive), set for payload rows only.
+-- flag_gcat_active = (TOp = '*' OR currentcat Active = 'A') AND TF <> 'Z' (zombie = Inactive), set for payload rows only.
 -- Ownership class and mission category codes get GCAT's rule-derived short labels; unlabelled codes show raw.
 -- Rocket stages, components and debris without a payload record take the mission category and programme of the payload
 -- their GCAT Parent chain leads to (int__jsr__satellite_parent_payload); an object's own payload record always wins.
@@ -131,10 +131,10 @@ with cte_stg__jsr__psatcat as (
 , cte_gcat_object_status as ( -- payload and current-catalog primitives per JCAT
     select
         coalesce(p.jcat, c.jcat) as jcat
-        , p.jcat is not null as has_psatcat_record
-        , c.jcat is not null as has_currentcat_record
-        , p.end_operation_date_raw = '*' as flag_still_operating
-        , p.end_transmission_date_raw = '*' as flag_still_transmitting
+        , cast(p.jcat is not null as integer) as flag_has_psatcat_record
+        , cast(c.jcat is not null as integer) as flag_has_currentcat_record
+        , cast(p.end_operation_date_raw = '*' as integer) as flag_still_operating
+        , cast(p.end_transmission_date_raw = '*' as integer) as flag_still_transmitting
         , {{ helper__parse_vague_date_columns('p.end_operation_date_raw', 'end_operation_date') }}
         , {{ helper__parse_vague_date_columns('p.end_transmission_date_raw', 'end_transmission_date') }}
         -- GCAT: TLast '*' means "no information" (TOp / TDate '*' mean "still operating / transmitting"), so it has no date
@@ -154,8 +154,8 @@ with cte_stg__jsr__psatcat as (
         , p.mission_category_list
         , list_transform(p.mission_category_list,
             lambda x: coalesce(map_extract_value(labels.mission_map, x), x)) as mission_category_labels
-        , coalesce(p.mission_category like '%?%', false) as flag_category_uncertain
-        , coalesce(p.mission_category like '%*%', false) as flag_orbit_data_secret
+        , cast(coalesce(p.mission_category like '%?%', false) as integer) as flag_category_uncertain
+        , cast(coalesce(p.mission_category like '%*%', false) as integer) as flag_orbit_data_secret
         , p.satellite_program
         , p.satellite_program_family
         , p.constellation_plane
@@ -163,11 +163,11 @@ with cte_stg__jsr__psatcat as (
         , c.current_status
         , c.flag_gcat_in_orbit
         -- GCAT says the object came down (currentcat DDate set); NULL when it isn't in the Current Catalog
-        , not c.flag_gcat_in_orbit as flag_gcat_descended
-        , case when p.jcat is not null then
+        , 1 - c.flag_gcat_in_orbit as flag_gcat_descended
+        , case when p.jcat is not null then cast(
             ((p.end_operation_date_raw = '*') or coalesce(c.activity_type = 'A', false))
-                and coalesce(p.end_of_life_flag, '') <> 'Z'
-        end as gcat_active
+                and coalesce(p.end_of_life_flag, '') <> 'Z' as integer)
+        end as flag_gcat_active
         , p._source_file
         , p._source_updated_at
     from cte_payload_status as p
@@ -178,28 +178,28 @@ with cte_stg__jsr__psatcat as (
 , cte_payload_field_inheritance as ( -- own payload record, else the parent payload's record (payload-level fields only)
     select
         obj.jcat
-        , case when obj.has_psatcat_record then obj.mission_category_list else parent.mission_category_list end as mission_category_list
-        , case when obj.has_psatcat_record then obj.mission_category_labels else parent.mission_category_labels end as mission_category_labels
-        , case when obj.has_psatcat_record then obj.satellite_program else parent.satellite_program end as satellite_program
-        , case when obj.has_psatcat_record then obj.satellite_program_family else parent.satellite_program_family end as satellite_program_family
+        , case when obj.flag_has_psatcat_record = 1 then obj.mission_category_list else parent.mission_category_list end as mission_category_list
+        , case when obj.flag_has_psatcat_record = 1 then obj.mission_category_labels else parent.mission_category_labels end as mission_category_labels
+        , case when obj.flag_has_psatcat_record = 1 then obj.satellite_program else parent.satellite_program end as satellite_program
+        , case when obj.flag_has_psatcat_record = 1 then obj.satellite_program_family else parent.satellite_program_family end as satellite_program_family
         , case
-            when obj.has_psatcat_record then 'own'
+            when obj.flag_has_psatcat_record = 1 then 'own'
             when parent.jcat is not null then 'inherited_parent'
             else 'none'
         end as payload_fields_source
-        , case when not obj.has_psatcat_record then parent.jcat end as payload_fields_parent_jcat
+        , case when obj.flag_has_psatcat_record = 0 then parent.jcat end as payload_fields_parent_jcat
     from cte_gcat_object_status as obj
     left join cte_int__jsr__satellite_parent_payload as chain on chain.jcat = obj.jcat
     left join cte_gcat_object_status as parent
         on parent.jcat = chain.parent_payload_jcat
-        and parent.has_psatcat_record
+        and parent.flag_has_psatcat_record = 1
 )
 
 , cte_final as (
     select
         jcat
-        , has_psatcat_record
-        , has_currentcat_record
+        , flag_has_psatcat_record
+        , flag_has_currentcat_record
         , flag_still_operating
         , flag_still_transmitting
         , end_operation_date
@@ -232,10 +232,10 @@ with cte_stg__jsr__psatcat as (
         , current_status
         , flag_gcat_in_orbit
         , flag_gcat_descended
-        , gcat_active
+        , flag_gcat_active
         -- status: Active / Inactive from GCAT only (decided 2026-10-25): the payload rule, else currentcat Active
-        , case when coalesce(gcat_active, activity_type = 'A', false) then 'Active' else 'Inactive' end as status
-        , case when has_psatcat_record then 'gcat_psatcat' else 'gcat_currentcat' end as status_source
+        , case when coalesce(flag_gcat_active = 1, activity_type = 'A', false) then 'Active' else 'Inactive' end as status
+        , case when flag_has_psatcat_record = 1 then 'gcat_psatcat' else 'gcat_currentcat' end as status_source
         , _source_file
         , _source_updated_at
         , {{ helper__audit_fields() }}

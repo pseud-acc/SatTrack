@@ -344,6 +344,14 @@ manifest_checks:
     allowed_columns:
       - name_key
 
+  - name: check_bespoke_model_flag_columns
+    description: "[SQL-08] Yes/no columns are flag_* integers 1/0, never BOOLEAN TRUE/FALSE."
+    prefix: "flag_"
+    flag_data_type: "integer"
+    banned_data_types:
+      - boolean
+      - bool
+
   # ============================================================ SRC: sources
   - name: check_bespoke_source_file_path
     description: "[SRC-01] Sources are defined in models/staging/<source>/_<source>__sources.yml."

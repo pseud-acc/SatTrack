@@ -104,10 +104,10 @@ models:
         description: '{{ doc("col__org_code_ord") }}'
       - name: org_code_raw
         description: '{{ doc("col__org_code_raw") }}'
-      - name: is_composite
-        description: '{{ doc("col__is_composite") }}'
-      - name: is_uncertain
-        description: '{{ doc("col__is_uncertain") }}'
+      - name: flag_composite
+        description: '{{ doc("col__flag_composite") }}'
+      - name: flag_uncertain
+        description: '{{ doc("col__flag_uncertain") }}'
       - name: parse_rule
         description: '{{ doc("col__parse_rule") }}'
       - name: org_name
@@ -149,10 +149,10 @@ models:
         description: '{{ doc("col__org_code_ord") }}'
       - name: org_code_raw
         description: '{{ doc("col__org_code_raw") }}'
-      - name: is_composite
-        description: '{{ doc("col__is_composite") }}'
-      - name: is_uncertain
-        description: '{{ doc("col__is_uncertain") }}'
+      - name: flag_composite
+        description: '{{ doc("col__flag_composite") }}'
+      - name: flag_uncertain
+        description: '{{ doc("col__flag_uncertain") }}'
       - name: parse_rule
         description: '{{ doc("col__parse_rule") }}'
       - name: org_name
@@ -194,10 +194,10 @@ models:
         description: '{{ doc("col__org_code_ord") }}'
       - name: org_code_raw
         description: '{{ doc("col__org_code_raw") }}'
-      - name: is_composite
-        description: '{{ doc("col__is_composite") }}'
-      - name: is_uncertain
-        description: '{{ doc("col__is_uncertain") }}'
+      - name: flag_composite
+        description: '{{ doc("col__flag_composite") }}'
+      - name: flag_uncertain
+        description: '{{ doc("col__flag_uncertain") }}'
       - name: parse_rule
         description: '{{ doc("col__parse_rule") }}'
       - name: org_name

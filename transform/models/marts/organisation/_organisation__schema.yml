@@ -97,10 +97,10 @@ models:
         data_type: varchar
         description: '{{ doc("col__org_stop_date_precision") }}'
       - name: flag_org_active
-        data_type: boolean
+        data_type: integer
         description: '{{ doc("col__flag_org_active") }}'
       - name: flag_country_like
-        data_type: boolean
+        data_type: integer
         description: '{{ doc("col__flag_country_like") }}'
       - name: _source_updated_at
         data_type: timestamp
@@ -155,12 +155,12 @@ models:
       - name: org_code_raw
         data_type: varchar
         description: '{{ doc("col__org_code_raw") }}'
-      - name: is_composite
-        data_type: boolean
-        description: '{{ doc("col__is_composite") }}'
-      - name: is_uncertain
-        data_type: boolean
-        description: '{{ doc("col__is_uncertain") }}'
+      - name: flag_composite
+        data_type: integer
+        description: '{{ doc("col__flag_composite") }}'
+      - name: flag_uncertain
+        data_type: integer
+        description: '{{ doc("col__flag_uncertain") }}'
       - name: parse_rule
         data_type: varchar
         description: '{{ doc("col__parse_rule") }}'
@@ -217,12 +217,12 @@ models:
       - name: org_code_raw
         data_type: varchar
         description: '{{ doc("col__org_code_raw") }}'
-      - name: is_composite
-        data_type: boolean
-        description: '{{ doc("col__is_composite") }}'
-      - name: is_uncertain
-        data_type: boolean
-        description: '{{ doc("col__is_uncertain") }}'
+      - name: flag_composite
+        data_type: integer
+        description: '{{ doc("col__flag_composite") }}'
+      - name: flag_uncertain
+        data_type: integer
+        description: '{{ doc("col__flag_uncertain") }}'
       - name: parse_rule
         data_type: varchar
         description: '{{ doc("col__parse_rule") }}'
@@ -285,12 +285,12 @@ models:
       - name: org_code_raw
         data_type: varchar
         description: '{{ doc("col__org_code_raw") }}'
-      - name: is_composite
-        data_type: boolean
-        description: '{{ doc("col__is_composite") }}'
-      - name: is_uncertain
-        data_type: boolean
-        description: '{{ doc("col__is_uncertain") }}'
+      - name: flag_composite
+        data_type: integer
+        description: '{{ doc("col__flag_composite") }}'
+      - name: flag_uncertain
+        data_type: integer
+        description: '{{ doc("col__flag_uncertain") }}'
       - name: parse_rule
         data_type: varchar
         description: '{{ doc("col__parse_rule") }}'

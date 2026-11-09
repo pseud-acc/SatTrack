@@ -9,7 +9,7 @@ with cte_int__pycountry__geo_countries as (
         , country_display_name
         , country_name
         , country_official_name
-        , is_historic
+        , flag_historic
         , iso_withdrawal_date
     from {{ ref('int__pycountry__geo_countries') }}
 )
@@ -24,7 +24,7 @@ with cte_int__pycountry__geo_countries as (
         , cast(country_display_name as varchar) as country_display_name
         , cast(country_name as varchar) as country_name
         , cast(country_official_name as varchar) as country_official_name
-        , cast(is_historic as boolean) as is_historic
+        , cast(flag_historic as integer) as flag_historic
         , cast(iso_withdrawal_date as date) as iso_withdrawal_date
         , {{ helper__audit_fields() }}
     from cte_int__pycountry__geo_countries

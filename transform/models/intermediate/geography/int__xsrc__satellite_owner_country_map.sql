@@ -15,7 +15,7 @@ with cte_int__xsrc__satellite_gcat_matched as (
         country_sk
         , iso_alpha2
         , iso_alpha4
-        , is_historic
+        , flag_historic
     from {{ ref('int__pycountry__geo_countries') }}
 )
 
@@ -40,8 +40,8 @@ with cte_int__xsrc__satellite_gcat_matched as (
         , {{ helper__audit_fields() }}
     from cte_owner_country_codes as m
     left join cte_int__pycountry__geo_countries as g
-        on (not g.is_historic and g.iso_alpha2 = m.owner_country_iso_code)
-        or (g.is_historic and g.iso_alpha4 = m.owner_country_iso_code)
+        on (g.flag_historic = 0 and g.iso_alpha2 = m.owner_country_iso_code)
+        or (g.flag_historic = 1 and g.iso_alpha4 = m.owner_country_iso_code)
 )
 
 select * from cte_final

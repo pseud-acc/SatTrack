@@ -130,7 +130,7 @@ models:
       - name: inserted_by
         description: '{{ doc("col__inserted_by") }}'
   - name: int__jsr__satellite_status
-    description: "One row per GCAT object in the Current Catalog or the payload catalogs: operating / transmitting primitives (D9), current-catalog activity, and the GCAT activity signal used by the status rule (decided 2026-10-25): gcat_active = (TOp = '*' OR currentcat Active = 'A') AND TF <> 'Z' (zombie = Inactive), set for payload rows only. Ownership class and mission category codes get GCAT's rule-derived short labels; unlabelled codes show raw. Rocket stages, components and debris without a payload record take mission_category_list / mission_category_labels / satellite_program / satellite_program_family from the payload their GCAT Parent chain leads to (int__jsr__satellite_parent_payload); payload_fields_source says which. The raw mission_category stays the object's own."
+    description: "One row per GCAT object in the Current Catalog or the payload catalogs: operating / transmitting primitives (D9), current-catalog activity, and the GCAT activity signal used by the status rule (decided 2026-10-25): flag_gcat_active = (TOp = '*' OR currentcat Active = 'A') AND TF <> 'Z' (zombie = Inactive), set for payload rows only. Ownership class and mission category codes get GCAT's rule-derived short labels; unlabelled codes show raw. Rocket stages, components and debris without a payload record take mission_category_list / mission_category_labels / satellite_program / satellite_program_family from the payload their GCAT Parent chain leads to (int__jsr__satellite_parent_payload); payload_fields_source says which. The raw mission_category stays the object's own."
     data_tests:
       - model_health:
           name: mh__int__jsr__satellite_status__pk_unique
@@ -147,10 +147,10 @@ models:
     columns:
       - name: jcat
         description: '{{ doc("col__jcat") }}'
-      - name: has_psatcat_record
-        description: '{{ doc("col__has_psatcat_record") }}'
-      - name: has_currentcat_record
-        description: '{{ doc("col__has_currentcat_record") }}'
+      - name: flag_has_psatcat_record
+        description: '{{ doc("col__flag_has_psatcat_record") }}'
+      - name: flag_has_currentcat_record
+        description: '{{ doc("col__flag_has_currentcat_record") }}'
       - name: flag_still_operating
         description: '{{ doc("col__flag_still_operating") }}'
       - name: flag_still_transmitting
@@ -231,8 +231,8 @@ models:
         description: '{{ doc("col__flag_gcat_in_orbit") }}'
       - name: flag_gcat_descended
         description: '{{ doc("col__flag_gcat_descended") }}'
-      - name: gcat_active
-        description: '{{ doc("col__gcat_active") }}'
+      - name: flag_gcat_active
+        description: '{{ doc("col__flag_gcat_active") }}'
       - name: status
         description: '{{ doc("col__status") }}'
       - name: status_source
@@ -357,8 +357,8 @@ models:
         description: '{{ doc("col__owner_country") }}'
       - name: owner_country_codes
         description: '{{ doc("col__owner_country_codes") }}'
-      - name: owner_country_is_org
-        description: '{{ doc("col__owner_country_is_org") }}'
+      - name: flag_owner_country_is_org
+        description: '{{ doc("col__flag_owner_country_is_org") }}'
       - name: owner_country_source
         description: '{{ doc("col__owner_country_source") }}'
       - name: launch_date

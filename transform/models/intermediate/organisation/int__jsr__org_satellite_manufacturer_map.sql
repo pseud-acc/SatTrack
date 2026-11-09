@@ -25,8 +25,8 @@ with cte_int__jsr__satellite_catalogue as (
         , m.org_code
         , m.org_code_ord
         , m.org_code_raw
-        , m.is_composite
-        , m.is_uncertain
+        , m.flag_composite
+        , m.flag_uncertain
         , m.parse_rule
         , o.org_display_name as org_name
         , {{ helper__audit_fields() }}

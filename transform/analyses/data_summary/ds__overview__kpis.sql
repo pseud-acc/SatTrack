@@ -16,7 +16,7 @@ with cte_fct__satellite_master as (
         count(*) as objects
         , count(*) filter (where object_type = 'PAYLOAD') as payloads
         , count(*) filter (where status = 'Active') as active_objects
-        , avg(cast(flag_gcat_matched as integer)) as gcat_match_rate
+        , avg(flag_gcat_matched) as gcat_match_rate
         , count(distinct satellite_program) as programs
         , strftime(max(positions_as_of), '%Y-%m-%d %H:%M UTC') as positions_as_of
         , strftime(max(details_as_of), '%Y-%m-%d %H:%M UTC') as details_as_of
