@@ -26,6 +26,7 @@ models:
       - name: sat_type
         description: '{{ doc("col__sat_type") }}'
       - name: sat_type_class
+        description: '{{ doc("col__sat_type_class") }}'
       - name: gcat_name
         description: '{{ doc("col__gcat_name") }}'
       - name: pre_launch_name
@@ -35,7 +36,9 @@ models:
       - name: gcat_launch_date_start
         description: '{{ doc("col__gcat_launch_date_start") }}'
       - name: gcat_launch_date_end
+        description: '{{ doc("col__gcat_launch_date_end") }}'
       - name: gcat_launch_date_precision
+        description: '{{ doc("col__gcat_launch_date_precision") }}'
       - name: parent_ref
         description: '{{ doc("col__parent_ref") }}'
       - name: phase_end_date
@@ -43,7 +46,9 @@ models:
       - name: phase_end_date_start
         description: '{{ doc("col__phase_end_date_start") }}'
       - name: phase_end_date_end
+        description: '{{ doc("col__phase_end_date_end") }}'
       - name: phase_end_date_precision
+        description: '{{ doc("col__phase_end_date_precision") }}'
       - name: phase_status
         description: '{{ doc("col__phase_status") }}'
       - name: owner_code
@@ -57,6 +62,7 @@ models:
       - name: mass_kg
         description: '{{ doc("col__mass_kg") }}'
       - name: flag_mass_estimated
+        description: '{{ doc("col__flag_mass_estimated") }}'
       - name: dry_mass_kg
         description: '{{ doc("col__dry_mass_kg") }}'
       - name: length_m
@@ -112,8 +118,11 @@ models:
       - name: descent_date_start
         description: '{{ doc("col__descent_date_start") }}'
       - name: descent_date_end
+        description: '{{ doc("col__descent_date_end") }}'
       - name: descent_date_precision
+        description: '{{ doc("col__descent_date_precision") }}'
       - name: flag_gcat_in_orbit
+        description: '{{ doc("col__flag_gcat_in_orbit") }}'
       - name: _source_updated_at
         description: '{{ doc("col___source_updated_at") }}'
       - name: inserted_date_time
@@ -139,7 +148,9 @@ models:
       - name: jcat
         description: '{{ doc("col__jcat") }}'
       - name: has_psatcat_record
+        description: '{{ doc("col__has_psatcat_record") }}'
       - name: has_currentcat_record
+        description: '{{ doc("col__has_currentcat_record") }}'
       - name: flag_still_operating
         description: '{{ doc("col__flag_still_operating") }}'
       - name: flag_still_transmitting
@@ -149,19 +160,25 @@ models:
       - name: end_operation_date_start
         description: '{{ doc("col__end_operation_date_start") }}'
       - name: end_operation_date_end
+        description: '{{ doc("col__end_operation_date_end") }}'
       - name: end_operation_date_precision
+        description: '{{ doc("col__end_operation_date_precision") }}'
       - name: end_transmission_date
         description: '{{ doc("col__end_transmission_date") }}'
       - name: end_transmission_date_start
         description: '{{ doc("col__end_transmission_date_start") }}'
       - name: end_transmission_date_end
+        description: '{{ doc("col__end_transmission_date_end") }}'
       - name: end_transmission_date_precision
+        description: '{{ doc("col__end_transmission_date_precision") }}'
       - name: last_active_date
         description: '{{ doc("col__last_active_date") }}'
       - name: last_active_date_start
         description: '{{ doc("col__last_active_date_start") }}'
       - name: last_active_date_end
+        description: '{{ doc("col__last_active_date_end") }}'
       - name: last_active_date_precision
+        description: '{{ doc("col__last_active_date_precision") }}'
       - name: end_of_life_flag
         description: '{{ doc("col__end_of_life_flag") }}'
       - name: maneuverability
@@ -177,7 +194,9 @@ models:
       - name: mission_category_labels
         description: '{{ doc("col__mission_category_labels") }}'
       - name: flag_category_uncertain
+        description: '{{ doc("col__flag_category_uncertain") }}'
       - name: flag_orbit_data_secret
+        description: '{{ doc("col__flag_orbit_data_secret") }}'
       - name: satellite_program
         description: '{{ doc("col__satellite_program") }}'
       - name: satellite_program_family
@@ -209,11 +228,15 @@ models:
       - name: current_status
         description: '{{ doc("col__current_status") }}'
       - name: flag_gcat_in_orbit
+        description: '{{ doc("col__flag_gcat_in_orbit") }}'
       - name: flag_gcat_descended
+        description: '{{ doc("col__flag_gcat_descended") }}'
       - name: gcat_active
+        description: '{{ doc("col__gcat_active") }}'
       - name: status
         description: '{{ doc("col__status") }}'
       - name: status_source
+        description: '{{ doc("col__status_source") }}'
       - name: _source_file
         description: '{{ doc("col___source_file") }}'
       - name: _source_updated_at
@@ -247,6 +270,7 @@ models:
       - name: jcat
         description: '{{ doc("col__jcat") }}'
       - name: sat_type_class
+        description: '{{ doc("col__sat_type_class") }}'
       - name: parent_ref
         description: '{{ doc("col__parent_ref") }}'
       - name: parent_jcat
@@ -320,11 +344,15 @@ models:
       - name: object_type
         description: '{{ doc("col__object_type__resolved") }}'
       - name: object_type_source
+        description: '{{ doc("col__object_type_source") }}'
       - name: spacetrack_object_type
+        description: '{{ doc("col__spacetrack_object_type") }}'
       - name: sat_type_class
+        description: '{{ doc("col__sat_type_class") }}'
       - name: flag_in_orbit
         description: '{{ doc("col__flag_in_orbit") }}'
       - name: spacetrack_country_code
+        description: '{{ doc("col__spacetrack_country_code") }}'
       - name: owner_country
         description: '{{ doc("col__owner_country") }}'
       - name: owner_country_codes
@@ -336,9 +364,11 @@ models:
       - name: launch_date
         description: '{{ doc("col__launch_date__resolved") }}'
       - name: launch_date_source
+        description: '{{ doc("col__launch_date_source") }}'
       - name: launch_year
         description: '{{ doc("col__launch_year") }}'
       - name: spacetrack_launch_date
+        description: '{{ doc("col__spacetrack_launch_date") }}'
       - name: gcat_launch_date
         description: '{{ doc("col__gcat_launch_date") }}'
       - name: orbit_class
@@ -364,6 +394,7 @@ models:
       - name: tle_line_2
         description: '{{ doc("col__tle_line_2") }}'
       - name: positions_as_of
+        description: '{{ doc("col__positions_as_of") }}'
       - name: state_code
         description: '{{ doc("col__state_code") }}'
       - name: owner_code
@@ -373,11 +404,13 @@ models:
       - name: mass_kg
         description: '{{ doc("col__mass_kg") }}'
       - name: flag_mass_estimated
+        description: '{{ doc("col__flag_mass_estimated") }}'
       - name: dry_mass_kg
         description: '{{ doc("col__dry_mass_kg") }}'
       - name: span_m
         description: '{{ doc("col__span_m") }}'
       - name: details_as_of
+        description: '{{ doc("col__details_as_of") }}'
       - name: inserted_date_time
         description: '{{ doc("col__inserted_date_time") }}'
       - name: inserted_by

@@ -26,7 +26,9 @@ models:
       - name: org_class
         description: '{{ doc("col__org_class") }}'
       - name: org_display_name
+        description: '{{ doc("col__org_display_name") }}'
       - name: org_display_full_name
+        description: '{{ doc("col__org_display_full_name") }}'
       - name: org_short_name
         description: '{{ doc("col__org_short_name") }}'
       - name: org_full_name
@@ -48,15 +50,21 @@ models:
       - name: org_start_date_start
         description: '{{ doc("col__org_start_date_start") }}'
       - name: org_start_date_end
+        description: '{{ doc("col__org_start_date_end") }}'
       - name: org_start_date_precision
+        description: '{{ doc("col__org_start_date_precision") }}'
       - name: org_stop_date
         description: '{{ doc("col__org_stop_date") }}'
       - name: org_stop_date_start
         description: '{{ doc("col__org_stop_date_start") }}'
       - name: org_stop_date_end
+        description: '{{ doc("col__org_stop_date_end") }}'
       - name: org_stop_date_precision
+        description: '{{ doc("col__org_stop_date_precision") }}'
       - name: flag_org_active
+        description: '{{ doc("col__flag_org_active") }}'
       - name: flag_country_like
+        description: '{{ doc("col__flag_country_like") }}'
       - name: _source_updated_at
         description: '{{ doc("col___source_updated_at") }}'
       - name: inserted_date_time
@@ -84,6 +92,7 @@ models:
       - name: jcat
         description: '{{ doc("col__jcat") }}'
       - name: org_role
+        description: '{{ doc("col__org_role") }}'
       - name: org_code
         description: '{{ doc("col__org_code") }}'
         data_tests:
@@ -94,6 +103,7 @@ models:
       - name: org_code_ord
         description: '{{ doc("col__org_code_ord") }}'
       - name: org_code_raw
+        description: '{{ doc("col__org_code_raw") }}'
       - name: is_composite
         description: '{{ doc("col__is_composite") }}'
       - name: is_uncertain
@@ -101,6 +111,7 @@ models:
       - name: parse_rule
         description: '{{ doc("col__parse_rule") }}'
       - name: org_name
+        description: '{{ doc("col__org_name") }}'
       - name: inserted_date_time
         description: '{{ doc("col__inserted_date_time") }}'
       - name: inserted_by
@@ -126,6 +137,7 @@ models:
       - name: jcat
         description: '{{ doc("col__jcat") }}'
       - name: org_role
+        description: '{{ doc("col__org_role") }}'
       - name: org_code
         description: '{{ doc("col__org_code") }}'
         data_tests:
@@ -136,6 +148,7 @@ models:
       - name: org_code_ord
         description: '{{ doc("col__org_code_ord") }}'
       - name: org_code_raw
+        description: '{{ doc("col__org_code_raw") }}'
       - name: is_composite
         description: '{{ doc("col__is_composite") }}'
       - name: is_uncertain
@@ -143,6 +156,7 @@ models:
       - name: parse_rule
         description: '{{ doc("col__parse_rule") }}'
       - name: org_name
+        description: '{{ doc("col__org_name") }}'
       - name: inserted_date_time
         description: '{{ doc("col__inserted_date_time") }}'
       - name: inserted_by
@@ -168,6 +182,7 @@ models:
       - name: jcat
         description: '{{ doc("col__jcat") }}'
       - name: org_role
+        description: '{{ doc("col__org_role") }}'
       - name: org_code
         description: '{{ doc("col__org_code") }}'
         data_tests:
@@ -178,6 +193,7 @@ models:
       - name: org_code_ord
         description: '{{ doc("col__org_code_ord") }}'
       - name: org_code_raw
+        description: '{{ doc("col__org_code_raw") }}'
       - name: is_composite
         description: '{{ doc("col__is_composite") }}'
       - name: is_uncertain
@@ -185,6 +201,7 @@ models:
       - name: parse_rule
         description: '{{ doc("col__parse_rule") }}'
       - name: org_name
+        description: '{{ doc("col__org_name") }}'
       - name: inserted_date_time
         description: '{{ doc("col__inserted_date_time") }}'
       - name: inserted_by
@@ -210,12 +227,15 @@ models:
       - name: owner_org_codes
         description: '{{ doc("col__owner_org_codes") }}'
       - name: owner_org_names
+        description: '{{ doc("col__owner_org_names") }}'
       - name: manufacturer_org_codes
         description: '{{ doc("col__manufacturer_org_codes") }}'
       - name: manufacturer_org_names
+        description: '{{ doc("col__manufacturer_org_names") }}'
       - name: launch_agency_org_codes
         description: '{{ doc("col__launch_agency_org_codes") }}'
       - name: launch_agency_org_names
+        description: '{{ doc("col__launch_agency_org_names") }}'
       - name: operator_name
         description: '{{ doc("col__operator_name") }}'
       - name: manufacturer_name

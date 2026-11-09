@@ -45,11 +45,13 @@ models:
         description: '{{ doc("col__object_type__resolved") }}'
       - name: object_type_source
         data_type: varchar
+        description: '{{ doc("col__object_type_source") }}'
       - name: flag_in_orbit
         data_type: boolean
         description: '{{ doc("col__flag_in_orbit") }}'
       - name: flag_orbit_conflict
         data_type: boolean
+        description: '{{ doc("col__flag_orbit_conflict") }}'
       - name: status
         data_type: varchar
         description: '{{ doc("col__status") }}'
@@ -59,6 +61,7 @@ models:
               arguments: {values: ["Active", "Inactive"]}
       - name: status_source
         data_type: varchar
+        description: '{{ doc("col__status_source") }}'
       - name: flag_still_operating
         data_type: boolean
         description: '{{ doc("col__flag_still_operating") }}'
@@ -70,11 +73,13 @@ models:
         description: '{{ doc("col__end_operation_date") }}'
       - name: end_operation_date_precision
         data_type: varchar
+        description: '{{ doc("col__end_operation_date_precision") }}'
       - name: end_transmission_date
         data_type: timestamp
         description: '{{ doc("col__end_transmission_date") }}'
       - name: end_transmission_date_precision
         data_type: varchar
+        description: '{{ doc("col__end_transmission_date_precision") }}'
       - name: end_of_life_flag
         data_type: varchar
         description: '{{ doc("col__end_of_life_flag") }}'
@@ -89,6 +94,7 @@ models:
         description: '{{ doc("col__launch_date__resolved") }}'
       - name: launch_date_source
         data_type: varchar
+        description: '{{ doc("col__launch_date_source") }}'
       - name: launch_year
         data_type: bigint
         description: '{{ doc("col__launch_year") }}'
@@ -125,6 +131,7 @@ models:
                   - none
       - name: spacetrack_country_code
         data_type: varchar
+        description: '{{ doc("col__spacetrack_country_code") }}'
       - name: owner_code
         data_type: varchar
         description: '{{ doc("col__owner_code") }}'
@@ -139,16 +146,19 @@ models:
         description: '{{ doc("col__owner_org_codes") }}'
       - name: owner_org_names
         data_type: varchar[]
+        description: '{{ doc("col__owner_org_names") }}'
       - name: manufacturer_org_codes
         data_type: varchar[]
         description: '{{ doc("col__manufacturer_org_codes") }}'
       - name: manufacturer_org_names
         data_type: varchar[]
+        description: '{{ doc("col__manufacturer_org_names") }}'
       - name: launch_agency_org_codes
         data_type: varchar[]
         description: '{{ doc("col__launch_agency_org_codes") }}'
       - name: launch_agency_org_names
         data_type: varchar[]
+        description: '{{ doc("col__launch_agency_org_names") }}'
       - name: ownership_class
         data_type: varchar
         description: '{{ doc("col__ownership_class") }}'
@@ -166,8 +176,10 @@ models:
         description: '{{ doc("col__launch_tag") }}'
       - name: launch_datetime
         data_type: timestamp
+        description: '{{ doc("col__launch_datetime") }}'
       - name: launch_datetime_precision
         data_type: varchar
+        description: '{{ doc("col__launch_datetime_precision") }}'
       - name: site_code
         data_type: varchar
         description: '{{ doc("col__site_code") }}'
@@ -289,6 +301,7 @@ models:
         description: '{{ doc("col__mass_kg") }}'
       - name: flag_mass_estimated
         data_type: boolean
+        description: '{{ doc("col__flag_mass_estimated") }}'
       - name: dry_mass_kg
         data_type: double
         description: '{{ doc("col__dry_mass_kg") }}'
@@ -309,8 +322,10 @@ models:
         description: '{{ doc("col__tle_line_2") }}'
       - name: positions_as_of
         data_type: timestamp
+        description: '{{ doc("col__positions_as_of") }}'
       - name: details_as_of
         data_type: timestamp
+        description: '{{ doc("col__details_as_of") }}'
       - name: inserted_date_time
         data_type: timestamp
         description: '{{ doc("col__inserted_date_time") }}'

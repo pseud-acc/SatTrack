@@ -36,8 +36,10 @@ models:
         description: '{{ doc("col__org_class") }}'
       - name: org_display_name
         data_type: varchar
+        description: '{{ doc("col__org_display_name") }}'
       - name: org_display_full_name
         data_type: varchar
+        description: '{{ doc("col__org_display_full_name") }}'
       - name: org_short_name
         data_type: varchar
         description: '{{ doc("col__org_short_name") }}'
@@ -78,8 +80,10 @@ models:
         description: '{{ doc("col__org_start_date_start") }}'
       - name: org_start_date_end
         data_type: timestamp
+        description: '{{ doc("col__org_start_date_end") }}'
       - name: org_start_date_precision
         data_type: varchar
+        description: '{{ doc("col__org_start_date_precision") }}'
       - name: org_stop_date
         data_type: timestamp
         description: '{{ doc("col__org_stop_date") }}'
@@ -88,12 +92,16 @@ models:
         description: '{{ doc("col__org_stop_date_start") }}'
       - name: org_stop_date_end
         data_type: timestamp
+        description: '{{ doc("col__org_stop_date_end") }}'
       - name: org_stop_date_precision
         data_type: varchar
+        description: '{{ doc("col__org_stop_date_precision") }}'
       - name: flag_org_active
         data_type: boolean
+        description: '{{ doc("col__flag_org_active") }}'
       - name: flag_country_like
         data_type: boolean
+        description: '{{ doc("col__flag_country_like") }}'
       - name: _source_updated_at
         data_type: timestamp
         description: '{{ doc("col___source_updated_at") }}'
@@ -131,6 +139,7 @@ models:
         description: '{{ doc("col__jcat") }}'
       - name: org_role
         data_type: varchar
+        description: '{{ doc("col__org_role") }}'
       - name: org_code
         data_type: varchar
         description: '{{ doc("col__org_code") }}'
@@ -145,6 +154,7 @@ models:
         description: '{{ doc("col__org_code_ord") }}'
       - name: org_code_raw
         data_type: varchar
+        description: '{{ doc("col__org_code_raw") }}'
       - name: is_composite
         data_type: boolean
         description: '{{ doc("col__is_composite") }}'
@@ -156,6 +166,7 @@ models:
         description: '{{ doc("col__parse_rule") }}'
       - name: org_name
         data_type: varchar
+        description: '{{ doc("col__org_name") }}'
       - name: inserted_date_time
         data_type: timestamp
         description: '{{ doc("col__inserted_date_time") }}'
@@ -190,6 +201,7 @@ models:
         description: '{{ doc("col__jcat") }}'
       - name: org_role
         data_type: varchar
+        description: '{{ doc("col__org_role") }}'
       - name: org_code
         data_type: varchar
         description: '{{ doc("col__org_code") }}'
@@ -204,6 +216,7 @@ models:
         description: '{{ doc("col__org_code_ord") }}'
       - name: org_code_raw
         data_type: varchar
+        description: '{{ doc("col__org_code_raw") }}'
       - name: is_composite
         data_type: boolean
         description: '{{ doc("col__is_composite") }}'
@@ -215,6 +228,7 @@ models:
         description: '{{ doc("col__parse_rule") }}'
       - name: org_name
         data_type: varchar
+        description: '{{ doc("col__org_name") }}'
       - name: inserted_date_time
         data_type: timestamp
         description: '{{ doc("col__inserted_date_time") }}'
@@ -255,6 +269,7 @@ models:
                 field: jcat
       - name: org_role
         data_type: varchar
+        description: '{{ doc("col__org_role") }}'
       - name: org_code
         data_type: varchar
         description: '{{ doc("col__org_code") }}'
@@ -269,6 +284,7 @@ models:
         description: '{{ doc("col__org_code_ord") }}'
       - name: org_code_raw
         data_type: varchar
+        description: '{{ doc("col__org_code_raw") }}'
       - name: is_composite
         data_type: boolean
         description: '{{ doc("col__is_composite") }}'
@@ -280,6 +296,7 @@ models:
         description: '{{ doc("col__parse_rule") }}'
       - name: org_name
         data_type: varchar
+        description: '{{ doc("col__org_name") }}'
       - name: inserted_date_time
         data_type: timestamp
         description: '{{ doc("col__inserted_date_time") }}'

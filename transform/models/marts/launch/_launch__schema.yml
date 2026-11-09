@@ -36,6 +36,7 @@ models:
         description: '{{ doc("col__site_name") }}'
       - name: site_display_name
         data_type: varchar
+        description: '{{ doc("col__site_display_name") }}'
       - name: site_latitude
         data_type: double
         description: '{{ doc("col__site_latitude") }}'
@@ -71,10 +72,13 @@ models:
                 field: country_key
       - name: site_location_method
         data_type: varchar
+        description: '{{ doc("col__site_location_method") }}'
       - name: nearest_city
         data_type: varchar
+        description: '{{ doc("col__nearest_city") }}'
       - name: nearest_city_km
         data_type: double
+        description: '{{ doc("col__nearest_city_km") }}'
       - name: site_start_date
         data_type: timestamp
         description: '{{ doc("col__site_start_date") }}'
@@ -83,10 +87,13 @@ models:
         description: '{{ doc("col__site_start_date_start") }}'
       - name: site_start_date_end
         data_type: timestamp
+        description: '{{ doc("col__site_start_date_end") }}'
       - name: site_start_date_precision
         data_type: varchar
+        description: '{{ doc("col__site_start_date_precision") }}'
       - name: flag_site_active
         data_type: boolean
+        description: '{{ doc("col__flag_site_active") }}'
       - name: _source_updated_at
         data_type: timestamp
         description: '{{ doc("col___source_updated_at") }}'
@@ -133,8 +140,10 @@ models:
         description: '{{ doc("col__lv_class") }}'
       - name: lv_manufacturer_codes
         data_type: varchar[]
+        description: '{{ doc("col__lv_manufacturer_codes") }}'
       - name: lv_manufacturer_names
         data_type: varchar[]
+        description: '{{ doc("col__lv_manufacturer_names") }}'
       - name: lv_variant
         data_type: varchar
         description: '{{ doc("col__lv_variant") }}'
@@ -196,13 +205,16 @@ models:
         description: '{{ doc("col__launch_tag") }}'
       - name: launch_datetime
         data_type: timestamp
+        description: '{{ doc("col__launch_datetime") }}'
       - name: launch_datetime_start
         data_type: timestamp
         description: '{{ doc("col__launch_datetime_start") }}'
       - name: launch_datetime_end
         data_type: timestamp
+        description: '{{ doc("col__launch_datetime_end") }}'
       - name: launch_datetime_precision
         data_type: varchar
+        description: '{{ doc("col__launch_datetime_precision") }}'
       - name: cospar_id
         data_type: varchar
         description: '{{ doc("col__cospar_id") }}'
@@ -220,6 +232,7 @@ models:
                 field: site_code
       - name: flag_site_uncertain
         data_type: boolean
+        description: '{{ doc("col__flag_site_uncertain") }}'
       - name: launch_pad
         data_type: varchar
         description: '{{ doc("col__launch_pad") }}'

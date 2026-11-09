@@ -36,6 +36,7 @@ models:
         description: '{{ doc("col__iso_numeric") }}'
       - name: country_display_name
         data_type: varchar
+        description: '{{ doc("col__country_display_name") }}'
       - name: country_name
         data_type: varchar
         description: '{{ doc("col__country_name") }}'

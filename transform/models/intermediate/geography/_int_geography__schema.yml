@@ -110,6 +110,7 @@ models:
       - name: iso_numeric
         description: '{{ doc("col__iso_numeric") }}'
       - name: country_display_name
+        description: '{{ doc("col__country_display_name") }}'
       - name: country_name
         description: '{{ doc("col__country_name") }}'
       - name: country_official_name

@@ -20,10 +20,13 @@ models:
       - name: launch_tag
         description: '{{ doc("col__launch_tag") }}'
       - name: launch_datetime
+        description: '{{ doc("col__launch_datetime") }}'
       - name: launch_datetime_start
         description: '{{ doc("col__launch_datetime_start") }}'
       - name: launch_datetime_end
+        description: '{{ doc("col__launch_datetime_end") }}'
       - name: launch_datetime_precision
+        description: '{{ doc("col__launch_datetime_precision") }}'
       - name: cospar_id
         description: '{{ doc("col__cospar_id") }}'
       - name: flag_catalog_match_uncertain
@@ -35,6 +38,7 @@ models:
               name: fk__int__jsr__launch_events__site_code
               arguments: {to: "ref('int__jsr__launch_sites')", field: site_code}
       - name: flag_site_uncertain
+        description: '{{ doc("col__flag_site_uncertain") }}'
       - name: launch_pad
         description: '{{ doc("col__launch_pad") }}'
       - name: ascent_site_code
@@ -102,6 +106,7 @@ models:
       - name: site_name
         description: '{{ doc("col__site_name") }}'
       - name: site_display_name
+        description: '{{ doc("col__site_display_name") }}'
       - name: site_latitude
         description: '{{ doc("col__site_latitude") }}'
       - name: site_longitude
@@ -121,19 +126,25 @@ models:
       - name: site_location_country_key
         description: '{{ doc("col__site_location_country_key") }}'
       - name: site_location_method
+        description: '{{ doc("col__site_location_method") }}'
         data_tests:
           - accepted_values:
               name: accepted_values__int__jsr__launch_sites__site_location_method
               arguments: {values: ["nearest_city", "astronomical_polity", "launch_cruise", "at_sea", "no_coordinates"]}
       - name: nearest_city
+        description: '{{ doc("col__nearest_city") }}'
       - name: nearest_city_km
+        description: '{{ doc("col__nearest_city_km") }}'
       - name: site_start_date
         description: '{{ doc("col__site_start_date") }}'
       - name: site_start_date_start
         description: '{{ doc("col__site_start_date_start") }}'
       - name: site_start_date_end
+        description: '{{ doc("col__site_start_date_end") }}'
       - name: site_start_date_precision
+        description: '{{ doc("col__site_start_date_precision") }}'
       - name: flag_site_active
+        description: '{{ doc("col__flag_site_active") }}'
       - name: _source_updated_at
         description: '{{ doc("col___source_updated_at") }}'
       - name: inserted_date_time
@@ -167,7 +178,9 @@ models:
       - name: lv_class
         description: '{{ doc("col__lv_class") }}'
       - name: lv_manufacturer_codes
+        description: '{{ doc("col__lv_manufacturer_codes") }}'
       - name: lv_manufacturer_names
+        description: '{{ doc("col__lv_manufacturer_names") }}'
       - name: lv_variant
         description: '{{ doc("col__lv_variant") }}'
       - name: lv_alias
@@ -211,7 +224,9 @@ models:
       - name: launch_tag
         description: '{{ doc("col__launch_tag") }}'
       - name: launch_datetime
+        description: '{{ doc("col__launch_datetime") }}'
       - name: launch_datetime_precision
+        description: '{{ doc("col__launch_datetime_precision") }}'
       - name: site_code
         description: '{{ doc("col__site_code") }}'
       - name: site_name
@@ -239,6 +254,7 @@ models:
       - name: launch_agency_org_codes
         description: '{{ doc("col__launch_agency_org_codes") }}'
       - name: launch_agency_org_names
+        description: '{{ doc("col__launch_agency_org_names") }}'
       - name: launch_category
         description: '{{ doc("col__launch_category") }}'
       - name: flag_catalog_match_uncertain
