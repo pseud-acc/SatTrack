@@ -123,8 +123,8 @@ models:
         description: '{{ doc("col__site_location_country") }}'
       - name: site_location_iso_alpha2
         description: '{{ doc("col__site_location_iso_alpha2") }}'
-      - name: site_location_country_key
-        description: '{{ doc("col__site_location_country_key") }}'
+      - name: site_location_country_sk
+        description: '{{ doc("col__site_location_country_sk") }}'
       - name: site_location_method
         description: '{{ doc("col__site_location_method") }}'
         data_tests:

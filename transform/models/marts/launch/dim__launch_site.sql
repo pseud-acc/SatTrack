@@ -15,7 +15,7 @@ with cte_int__jsr__launch_sites as (
         , site_state
         , site_location_country
         , site_location_iso_alpha2
-        , site_location_country_key
+        , site_location_country_sk
         , site_location_method
         , nearest_city
         , nearest_city_km
@@ -44,7 +44,7 @@ with cte_int__jsr__launch_sites as (
         , cast(site_state as varchar) as site_state
         , cast(site_location_country as varchar) as site_location_country
         , cast(site_location_iso_alpha2 as varchar) as site_location_iso_alpha2
-        , cast(site_location_country_key as varchar) as site_location_country_key
+        , cast(site_location_country_sk as varchar) as site_location_country_sk
         , cast(site_location_method as varchar) as site_location_method
         , cast(nearest_city as varchar) as nearest_city
         , cast(nearest_city_km as double) as nearest_city_km

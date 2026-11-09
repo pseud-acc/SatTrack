@@ -19,7 +19,7 @@ with cte_int__jsr__launch_events as (
 
 , cte_final as (
     select
-        m.map_id
+        m.map_sk
         , m.entity_key as jcat
         , m.org_role
         , m.org_code

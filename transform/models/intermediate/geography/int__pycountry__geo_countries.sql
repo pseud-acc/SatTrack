@@ -15,7 +15,7 @@ with cte_stg__pycountry__iso_countries as (
 
 , cte_final as (
     select
-        iso_alpha3 || case when is_historic then '-H' else '' end as country_key
+        iso_alpha3 || case when is_historic then '-H' else '' end as country_sk
         , iso_alpha2
         , iso_alpha3
         , iso_alpha4

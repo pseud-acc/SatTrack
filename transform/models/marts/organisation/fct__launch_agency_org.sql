@@ -1,7 +1,7 @@
 -- One row per launched payload per launch agency organisation (every co-agency in a GCAT composite code).
 with cte_int__jsr__org_launch_agency_map as (
     select
-        map_id
+        map_sk
         , jcat
         , org_role
         , org_code
@@ -16,7 +16,7 @@ with cte_int__jsr__org_launch_agency_map as (
 
 , cte_final as (
     select
-        cast(map_id as varchar) as map_id
+        cast(map_sk as varchar) as map_sk
         , cast(jcat as varchar) as jcat
         , cast(org_role as varchar) as org_role
         , cast(org_code as varchar) as org_code

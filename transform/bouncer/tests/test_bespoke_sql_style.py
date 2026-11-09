@@ -124,3 +124,52 @@ def test_macro_explicit_joins_pass():
 def test_macro_explicit_joins_fail():
     fails("check_bespoke_macro_explicit_joins", match="Macro `helper__m` joins with a comma",
           macro=macro(macro_sql="{% macro helper__m(rel) %}\nselect\n    a.x\nfrom {{ rel }} as a, b\n{% endmacro %}"))
+
+
+# ---------------------------------------------------------------- surrogate-key naming (SQL-07)
+SK_GOOD = sql("""
+    select
+        {{ dbt_utils.generate_surrogate_key(['a', 'b']) }} as map_sk
+        , a
+    from cte_x
+""")
+
+
+def test_model_surrogate_key_suffix_pass():
+    passes("check_bespoke_model_surrogate_key_suffix", model=model(raw_code=SK_GOOD), suffix="_sk")
+
+
+def test_model_surrogate_key_suffix_fail():
+    code = SK_GOOD.replace("as map_sk", "as map_id")
+    fails("check_bespoke_model_surrogate_key_suffix", match=r"\['map_id'\]", model=model(raw_code=code), suffix="_sk")
+
+
+def test_model_surrogate_key_suffix_ignores_other_macros():
+    code = sql("""
+        select
+            {{ helper__clean(a) }} as a_id
+        from cte_x
+    """)
+    passes("check_bespoke_model_surrogate_key_suffix", model=model(raw_code=code), suffix="_sk")
+
+
+def test_macro_surrogate_key_suffix_fail():
+    code = "{{ dbt_utils.generate_surrogate_key(['entity_key', \"'\" ~ role ~ \"'\", 'ord']) }} as map_id"
+    fails("check_bespoke_macro_surrogate_key_suffix", match=r"Macro `helper__m`.*\['map_id'\]",
+          macro=macro(macro_sql=code), suffix="_sk")
+
+
+def test_macro_surrogate_key_suffix_pass():
+    code = "{{ dbt_utils.generate_surrogate_key(['entity_key', 'ord']) }} as map_sk"
+    passes("check_bespoke_macro_surrogate_key_suffix", macro=macro(macro_sql=code), suffix="_sk")
+
+
+def test_column_suffix_not_allowed_fail():
+    fails("check_bespoke_model_column_suffix_not_allowed", match=r"\['country_key'\]",
+          model=model(columns={"country_key": {}, "name_key": {}, "country_sk": {}}),
+          suffixes=["_key"], allowed_columns=["name_key"])
+
+
+def test_column_suffix_not_allowed_pass_with_exception():
+    passes("check_bespoke_model_column_suffix_not_allowed",
+           model=model(columns={"name_key": {}, "country_sk": {}}), suffixes=["_key"], allowed_columns=["name_key"])

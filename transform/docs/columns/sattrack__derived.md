@@ -12,26 +12,26 @@ pycountry `common_name` when present, else `name` (ISO 3166 short English name).
 Source: SatTrack-derived: see `int__pycountry__geo_countries`, `dim__country`. Inputs: pycountry https://pypi.org/project/pycountry/ (Batch 9a).
 {% enddocs %}
 
-{% docs col__country_key %}
+{% docs col__country_sk %}
 Primary key of the country dimension: the ISO 3166-1 alpha-3 code, with `-H` appended for historic (ISO 3166-3) rows (e.g. `GBR`, `SUN-H`). Rows without an alpha-3 code are left out.
 
 Source: SatTrack-derived: see `int__pycountry__geo_countries`, `dim__country`. Inputs: pycountry https://pypi.org/project/pycountry/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__descent_date_end %}
-Companions of `descent_date`, the date as written in the GCAT currentcat `DDate` Vague Date (batch 3 #14). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `current` for `*`; `unknown` for `?` alone; `unparsed` otherwise; NULL when blank.
+Start, end and precision of the GCAT date range of `descent_date` (GCAT currentcat `DDate`), by the Vague Date rule of batch 8 #24. NULL when blank.
 
 Source: SatTrack-derived: see `int__jsr__satellite_current`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__descent_date_precision %}
-Companions of `descent_date`, the date as written in the GCAT currentcat `DDate` Vague Date (batch 3 #14). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `current` for `*`; `unknown` for `?` alone; `unparsed` otherwise; NULL when blank.
+Start, end and precision of the GCAT date range of `descent_date` (GCAT currentcat `DDate`), by the Vague Date rule of batch 8 #24. NULL when blank.
 
 Source: SatTrack-derived: see `int__jsr__satellite_current`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__descent_date_start %}
-Companions of `descent_date`, the date as written in the GCAT currentcat `DDate` Vague Date (batch 3 #14). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `current` for `*`; `unknown` for `?` alone; `unparsed` otherwise; NULL when blank.
+Start, end and precision of the GCAT date range of `descent_date` (GCAT currentcat `DDate`), by the Vague Date rule of batch 8 #24. NULL when blank.
 
 Source: SatTrack-derived: see `int__jsr__satellite_current`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
@@ -43,37 +43,37 @@ Source: SatTrack-derived: see `int__xsrc__satellite_gcat_matched`, `fct__satelli
 {% enddocs %}
 
 {% docs col__end_operation_date_end %}
-Companions of `end_operation_date`, the date as written in the GCAT psatcat `TOp` Vague Date (batch 2 #6). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `current` for `*` ("believed still operating"); `unknown` for `?` alone; `unparsed` otherwise; NULL when blank or when the object has no payload-catalog record.
+Start, end and precision of the GCAT date range of `end_operation_date` (GCAT psatcat `TOp`), by the Vague Date rule of batch 8 #24. `*` ("believed still operating") gives precision `current`. NULL when blank or when the object has no payload-catalog record.
 
 Source: SatTrack-derived: see `int__jsr__satellite_status`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__end_operation_date_precision %}
-Companions of `end_operation_date`, the date as written in the GCAT psatcat `TOp` Vague Date (batch 2 #6). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `current` for `*` ("believed still operating"); `unknown` for `?` alone; `unparsed` otherwise; NULL when blank or when the object has no payload-catalog record.
+Start, end and precision of the GCAT date range of `end_operation_date` (GCAT psatcat `TOp`), by the Vague Date rule of batch 8 #24. `*` ("believed still operating") gives precision `current`. NULL when blank or when the object has no payload-catalog record.
 
 Source: SatTrack-derived: see `int__jsr__satellite_status`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__end_operation_date_start %}
-Companions of `end_operation_date`, the date as written in the GCAT psatcat `TOp` Vague Date (batch 2 #6). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `current` for `*` ("believed still operating"); `unknown` for `?` alone; `unparsed` otherwise; NULL when blank or when the object has no payload-catalog record.
+Start, end and precision of the GCAT date range of `end_operation_date` (GCAT psatcat `TOp`), by the Vague Date rule of batch 8 #24. `*` ("believed still operating") gives precision `current`. NULL when blank or when the object has no payload-catalog record.
 
 Source: SatTrack-derived: see `int__jsr__satellite_status`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__end_transmission_date_end %}
-Companions of `end_transmission_date`, the date as written in the GCAT psatcat `TDate` Vague Date (batch 2 #8). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `current` for `*` ("believed still transmitting"); `unknown` for `?` alone; `unparsed` otherwise; NULL when blank or when the object has no payload-catalog record.
+Start, end and precision of the GCAT date range of `end_transmission_date` (GCAT psatcat `TDate`), by the Vague Date rule of batch 8 #24. `*` ("believed still transmitting") gives precision `current`. NULL when blank or when the object has no payload-catalog record.
 
 Source: SatTrack-derived: see `int__jsr__satellite_status`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__end_transmission_date_precision %}
-Companions of `end_transmission_date`, the date as written in the GCAT psatcat `TDate` Vague Date (batch 2 #8). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `current` for `*` ("believed still transmitting"); `unknown` for `?` alone; `unparsed` otherwise; NULL when blank or when the object has no payload-catalog record.
+Start, end and precision of the GCAT date range of `end_transmission_date` (GCAT psatcat `TDate`), by the Vague Date rule of batch 8 #24. `*` ("believed still transmitting") gives precision `current`. NULL when blank or when the object has no payload-catalog record.
 
 Source: SatTrack-derived: see `int__jsr__satellite_status`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__end_transmission_date_start %}
-Companions of `end_transmission_date`, the date as written in the GCAT psatcat `TDate` Vague Date (batch 2 #8). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `current` for `*` ("believed still transmitting"); `unknown` for `?` alone; `unparsed` otherwise; NULL when blank or when the object has no payload-catalog record.
+Start, end and precision of the GCAT date range of `end_transmission_date` (GCAT psatcat `TDate`), by the Vague Date rule of batch 8 #24. `*` ("believed still transmitting") gives precision `current`. NULL when blank or when the object has no payload-catalog record.
 
 Source: SatTrack-derived: see `int__jsr__satellite_status`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
@@ -157,19 +157,19 @@ Source: SatTrack-derived: see `int__jsr__satellite_status`. Inputs: GCAT https:/
 {% enddocs %}
 
 {% docs col__gcat_launch_date_end %}
-Companions of `gcat_launch_date`, the date as written in the GCAT satcat `LDate` Vague Date (batch 1 #8). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `current` for `*`; `unknown` for `?` alone; `unparsed` otherwise; NULL when blank.
+Start, end and precision of the GCAT date range of `gcat_launch_date` (GCAT satcat `LDate`), by the Vague Date rule of batch 8 #24. NULL when blank.
 
 Source: SatTrack-derived: see `int__jsr__satellite_catalogue`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__gcat_launch_date_precision %}
-Companions of `gcat_launch_date`, the date as written in the GCAT satcat `LDate` Vague Date (batch 1 #8). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `current` for `*`; `unknown` for `?` alone; `unparsed` otherwise; NULL when blank.
+Start, end and precision of the GCAT date range of `gcat_launch_date` (GCAT satcat `LDate`), by the Vague Date rule of batch 8 #24. NULL when blank.
 
 Source: SatTrack-derived: see `int__jsr__satellite_catalogue`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__gcat_launch_date_start %}
-Companions of `gcat_launch_date`, the date as written in the GCAT satcat `LDate` Vague Date (batch 1 #8). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `current` for `*`; `unknown` for `?` alone; `unparsed` otherwise; NULL when blank.
+Start, end and precision of the GCAT date range of `gcat_launch_date` (GCAT satcat `LDate`), by the Vague Date rule of batch 8 #24. NULL when blank.
 
 Source: SatTrack-derived: see `int__jsr__satellite_catalogue`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
@@ -211,19 +211,19 @@ Source: SatTrack-derived: see `int__xsrc__geo_country_name_keys` (Batch 9a).
 {% enddocs %}
 
 {% docs col__last_active_date_end %}
-Companions of `last_active_date`, the date as written in the GCAT psatcat `TLast` Vague Date (batch 2 #5). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `no_information` for `*`, which GCAT documents for TLast as "An asterisk in this field indicates that no information is available" (pcols.html; `last_active_date` is NULL); `unknown` for `?` alone; `unparsed` otherwise; NULL when blank or when the object has no payload-catalog record.
+Start, end and precision of the GCAT date range of `last_active_date` (GCAT psatcat `TLast`), by the Vague Date rule of batch 8 #24. `*` gives precision `no_information` (GCAT: "An asterisk in this field indicates that no information is available"). NULL when blank or when the object has no payload-catalog record.
 
 Source: SatTrack-derived: see `int__jsr__satellite_status`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__last_active_date_precision %}
-Companions of `last_active_date`, the date as written in the GCAT psatcat `TLast` Vague Date (batch 2 #5). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `no_information` for `*`, which GCAT documents for TLast as "An asterisk in this field indicates that no information is available" (pcols.html; `last_active_date` is NULL); `unknown` for `?` alone; `unparsed` otherwise; NULL when blank or when the object has no payload-catalog record.
+Start, end and precision of the GCAT date range of `last_active_date` (GCAT psatcat `TLast`), by the Vague Date rule of batch 8 #24. `*` gives precision `no_information` (GCAT: "An asterisk in this field indicates that no information is available"). NULL when blank or when the object has no payload-catalog record.
 
 Source: SatTrack-derived: see `int__jsr__satellite_status`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__last_active_date_start %}
-Companions of `last_active_date`, the date as written in the GCAT psatcat `TLast` Vague Date (batch 2 #5). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `no_information` for `*`, which GCAT documents for TLast as "An asterisk in this field indicates that no information is available" (pcols.html; `last_active_date` is NULL); `unknown` for `?` alone; `unparsed` otherwise; NULL when blank or when the object has no payload-catalog record.
+Start, end and precision of the GCAT date range of `last_active_date` (GCAT psatcat `TLast`), by the Vague Date rule of batch 8 #24. `*` gives precision `no_information` (GCAT: "An asterisk in this field indicates that no information is available"). NULL when blank or when the object has no payload-catalog record.
 
 Source: SatTrack-derived: see `int__jsr__satellite_status`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
@@ -259,25 +259,25 @@ Source: SatTrack-derived: see `int__xsrc__satellite_gcat_matched`, `fct__satelli
 {% enddocs %}
 
 {% docs col__launch_datetime %}
-`launch_datetime` = the date as written in the GCAT launch log `Launch_Date` ("the UTC Gregorian calendar date of launch", batch 4 #2), parsed as a Vague Date to a UTC timestamp. `launch_datetime_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `launch_datetime_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). The master has `launch_datetime` and `launch_datetime_precision` only; `launch_datetime_start` and `launch_datetime_end` are in `fct__launch_event`. `launch_datetime_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `unknown` for `?` alone; `unparsed` otherwise; NULL when blank.
+`launch_datetime`: the GCAT launch log `Launch_Date` ("the UTC Gregorian calendar date of launch") as written, as a UTC timestamp; `_start`, `_end` and `_precision` by the Vague Date rule of batch 8 #24. `fct__launch_event` has all four; the master has `launch_datetime` and `launch_datetime_precision`.
 
 Source: SatTrack-derived: see `int__jsr__launch_events`, `fct__launch_event`, `int__jsr__satellite_launch_details`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__launch_datetime_end %}
-`launch_datetime` = the date as written in the GCAT launch log `Launch_Date` ("the UTC Gregorian calendar date of launch", batch 4 #2), parsed as a Vague Date to a UTC timestamp. `launch_datetime_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `launch_datetime_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). The master has `launch_datetime` and `launch_datetime_precision` only; `launch_datetime_start` and `launch_datetime_end` are in `fct__launch_event`. `launch_datetime_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `unknown` for `?` alone; `unparsed` otherwise; NULL when blank.
+`launch_datetime`: the GCAT launch log `Launch_Date` ("the UTC Gregorian calendar date of launch") as written, as a UTC timestamp; `_start`, `_end` and `_precision` by the Vague Date rule of batch 8 #24. `fct__launch_event` has all four; the master has `launch_datetime` and `launch_datetime_precision`.
 
 Source: SatTrack-derived: see `int__jsr__launch_events`, `fct__launch_event`, `int__jsr__satellite_launch_details`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__launch_datetime_precision %}
-`launch_datetime` = the date as written in the GCAT launch log `Launch_Date` ("the UTC Gregorian calendar date of launch", batch 4 #2), parsed as a Vague Date to a UTC timestamp. `launch_datetime_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `launch_datetime_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). The master has `launch_datetime` and `launch_datetime_precision` only; `launch_datetime_start` and `launch_datetime_end` are in `fct__launch_event`. `launch_datetime_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `unknown` for `?` alone; `unparsed` otherwise; NULL when blank.
+`launch_datetime`: the GCAT launch log `Launch_Date` ("the UTC Gregorian calendar date of launch") as written, as a UTC timestamp; `_start`, `_end` and `_precision` by the Vague Date rule of batch 8 #24. `fct__launch_event` has all four; the master has `launch_datetime` and `launch_datetime_precision`.
 
 Source: SatTrack-derived: see `int__jsr__launch_events`, `fct__launch_event`, `int__jsr__satellite_launch_details`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__launch_datetime_start %}
-`launch_datetime` = the date as written in the GCAT launch log `Launch_Date` ("the UTC Gregorian calendar date of launch", batch 4 #2), parsed as a Vague Date to a UTC timestamp. `launch_datetime_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `launch_datetime_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). The master has `launch_datetime` and `launch_datetime_precision` only; `launch_datetime_start` and `launch_datetime_end` are in `fct__launch_event`. `launch_datetime_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `unknown` for `?` alone; `unparsed` otherwise; NULL when blank.
+`launch_datetime`: the GCAT launch log `Launch_Date` ("the UTC Gregorian calendar date of launch") as written, as a UTC timestamp; `_start`, `_end` and `_precision` by the Vague Date rule of batch 8 #24. `fct__launch_event` has all four; the master has `launch_datetime` and `launch_datetime_precision`.
 
 Source: SatTrack-derived: see `int__jsr__launch_events`, `fct__launch_event`, `int__jsr__satellite_launch_details`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
@@ -330,7 +330,7 @@ Display names for the matching `*_org_codes` list (batch 8 #14), in the same ord
 Source: SatTrack-derived: see `int__jsr__org_satellite_org_lists`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
-{% docs col__map_id %}
+{% docs col__map_sk %}
 Hashed surrogate key `dbt_utils.generate_surrogate_key([jcat, role, position, code part as written])` for one row of a satellite↔org bridge, or `dbt_utils.generate_surrogate_key([satcat_id, 'owner', position, ISO code])` for one row of `fct__satellite_owner_country`.
 
 Source: SatTrack-derived: see `helper__explode_org_codes`. Inputs: pycountry https://pypi.org/project/pycountry/ (Batch 8).
@@ -457,49 +457,49 @@ Source: SatTrack-derived: see `int__jsr__org_satellite_owner_map`, `int__jsr__or
 {% enddocs %}
 
 {% docs col__org_start_date_end %}
-Companions of `org_start_date`, the date as written in the GCAT orgs `TStart` Vague Date (batch 5 #6). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `current` for `*`; `unknown` for `?` alone; `unparsed` otherwise; NULL when blank or `-`.
+Start, end and precision of the GCAT date range of `org_start_date` (GCAT orgs `TStart`), by the Vague Date rule of batch 8 #24. NULL when blank or `-`.
 
 Source: SatTrack-derived: see `int__jsr__org_organisations`, `dim__org`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__org_start_date_precision %}
-Companions of `org_start_date`, the date as written in the GCAT orgs `TStart` Vague Date (batch 5 #6). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `current` for `*`; `unknown` for `?` alone; `unparsed` otherwise; NULL when blank or `-`.
+Start, end and precision of the GCAT date range of `org_start_date` (GCAT orgs `TStart`), by the Vague Date rule of batch 8 #24. NULL when blank or `-`.
 
 Source: SatTrack-derived: see `int__jsr__org_organisations`, `dim__org`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__org_start_date_start %}
-Companions of `org_start_date`, the date as written in the GCAT orgs `TStart` Vague Date (batch 5 #6). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `current` for `*`; `unknown` for `?` alone; `unparsed` otherwise; NULL when blank or `-`.
+Start, end and precision of the GCAT date range of `org_start_date` (GCAT orgs `TStart`), by the Vague Date rule of batch 8 #24. NULL when blank or `-`.
 
 Source: SatTrack-derived: see `int__jsr__org_organisations`, `dim__org`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__org_stop_date_end %}
-Companions of `org_stop_date`, the date as written in the GCAT orgs `TStop` Vague Date (batch 5 #7). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `current` for `*`; `unknown` for `?` alone; `unparsed` otherwise; NULL when blank or `-` (GCAT: null = "still in operation, or assumed to be so").
+Start, end and precision of the GCAT date range of `org_stop_date` (GCAT orgs `TStop`), by the Vague Date rule of batch 8 #24. NULL when blank or `-` (GCAT: "still in operation, or assumed to be so").
 
 Source: SatTrack-derived: see `int__jsr__org_organisations`, `dim__org`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__org_stop_date_precision %}
-Companions of `org_stop_date`, the date as written in the GCAT orgs `TStop` Vague Date (batch 5 #7). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `current` for `*`; `unknown` for `?` alone; `unparsed` otherwise; NULL when blank or `-` (GCAT: null = "still in operation, or assumed to be so").
+Start, end and precision of the GCAT date range of `org_stop_date` (GCAT orgs `TStop`), by the Vague Date rule of batch 8 #24. NULL when blank or `-` (GCAT: "still in operation, or assumed to be so").
 
 Source: SatTrack-derived: see `int__jsr__org_organisations`, `dim__org`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__org_stop_date_start %}
-Companions of `org_stop_date`, the date as written in the GCAT orgs `TStop` Vague Date (batch 5 #7). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `current` for `*`; `unknown` for `?` alone; `unparsed` otherwise; NULL when blank or `-` (GCAT: null = "still in operation, or assumed to be so").
+Start, end and precision of the GCAT date range of `org_stop_date` (GCAT orgs `TStop`), by the Vague Date rule of batch 8 #24. NULL when blank or `-` (GCAT: "still in operation, or assumed to be so").
 
 Source: SatTrack-derived: see `int__jsr__org_organisations`, `dim__org`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__owner_country %}
-GP `COUNTRY_CODE` looked up in the Space-Track `boxscore` table. Its Space-Track name is split on `/` and each part is matched by a normalised name key (lower case, accents and non-letters removed): the full key first, then a reduced key without common words (the, of, republic, people(s), democratic, federal, state(s), islamic, kingdom, commonwealth, union), against three name lists in turn: (1) every pycountry ISO 3166-1 name, official name and common name; (2) the GeoNames country names (geonamescache), for countries that also have an ISO 3166-1 row; (3) the former countries of ISO 3166-3 (pycountry `historic_countries`), by full name and by the part before the first comma ("Czechoslovakia, Czechoslovak Socialist Republic" → "Czechoslovakia"). A key counts only when it identifies one country within its list, and a later list is tried only for a part the earlier lists did not match. All parts matched → the country names joined " / " (ISO 3166-1 and GeoNames matches show the ISO 3166-1 name of the country, e.g. "France / Germany"; ISO 3166-3 matches show the name before the first comma). Matching uses exact keys only (no near or fuzzy match). A part no list matches → the title-cased Space-Track name, with `owner_country_is_org` TRUE. `TBD` → the country of the object's GCAT `State` when that resolves (below), else "Unknown". `CIS` → the country of the GCAT `State` when it is SU or RU, named by the State resolution below: "USSR" (the ISO 3166-3 name before the first comma) for SU and "Russian Federation" (ISO 3166-1) for RU, the same labels the `TBD` rule gives. No GP code, or a code missing from boxscore → NULL. GCAT `State` resolution (`int__xsrc__geo_state_country`): the GCAT org with that code, when country-like (type CY, IGO or AP), has its English short name (`ShortEName`) and then its English full name (`EName`) matched by the same three lists; the first name that matches wins. `owner_country_code` is not produced by any current model.
+The country or countries that own the object, from its Space-Track GP `COUNTRY_CODE`: the code's Space-Track name (`boxscore` table) matched by exact name key to a country, trying ISO 3166-1, then GeoNames country names, then former countries (ISO 3166-3); several countries are joined " / " (e.g. "France / Germany"). A name that matches no country is kept, title-cased, as an organisation (`owner_country_is_org` TRUE, e.g. ESA). `TBD` and `CIS` take the country of the object's GCAT `State` (`CIS`: "USSR" for SU, "Russian Federation" for RU; `TBD` without a resolvable State: "Unknown"). NULL when GP has no code or boxscore lacks it. `owner_country_code` is not produced by any current model.
 
 Source: SatTrack-derived: see `int__xsrc__geo_owner_country`, `int__xsrc__geo_state_country`, `int__xsrc__geo_country_name_keys`, `int__xsrc__satellite_gcat_matched`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/; Space-Track https://www.space-track.org/documentation; pycountry https://pypi.org/project/pycountry/; GeoNames https://download.geonames.org/export/dump/readme.txt (Batch 8).
 {% enddocs %}
 
 {% docs col__owner_country_code %}
-GP `COUNTRY_CODE` looked up in the Space-Track `boxscore` table. Its Space-Track name is split on `/` and each part is matched by a normalised name key (lower case, accents and non-letters removed): the full key first, then a reduced key without common words (the, of, republic, people(s), democratic, federal, state(s), islamic, kingdom, commonwealth, union), against three name lists in turn: (1) every pycountry ISO 3166-1 name, official name and common name; (2) the GeoNames country names (geonamescache), for countries that also have an ISO 3166-1 row; (3) the former countries of ISO 3166-3 (pycountry `historic_countries`), by full name and by the part before the first comma ("Czechoslovakia, Czechoslovak Socialist Republic" → "Czechoslovakia"). A key counts only when it identifies one country within its list, and a later list is tried only for a part the earlier lists did not match. All parts matched → the country names joined " / " (ISO 3166-1 and GeoNames matches show the ISO 3166-1 name of the country, e.g. "France / Germany"; ISO 3166-3 matches show the name before the first comma). Matching uses exact keys only (no near or fuzzy match). A part no list matches → the title-cased Space-Track name, with `owner_country_is_org` TRUE. `TBD` → the country of the object's GCAT `State` when that resolves (below), else "Unknown". `CIS` → the country of the GCAT `State` when it is SU or RU, named by the State resolution below: "USSR" (the ISO 3166-3 name before the first comma) for SU and "Russian Federation" (ISO 3166-1) for RU, the same labels the `TBD` rule gives. No GP code, or a code missing from boxscore → NULL. GCAT `State` resolution (`int__xsrc__geo_state_country`): the GCAT org with that code, when country-like (type CY, IGO or AP), has its English short name (`ShortEName`) and then its English full name (`EName`) matched by the same three lists; the first name that matches wins. `owner_country_code` is not produced by any current model.
+The country or countries that own the object, from its Space-Track GP `COUNTRY_CODE`: the code's Space-Track name (`boxscore` table) matched by exact name key to a country, trying ISO 3166-1, then GeoNames country names, then former countries (ISO 3166-3); several countries are joined " / " (e.g. "France / Germany"). A name that matches no country is kept, title-cased, as an organisation (`owner_country_is_org` TRUE, e.g. ESA). `TBD` and `CIS` take the country of the object's GCAT `State` (`CIS`: "USSR" for SU, "Russian Federation" for RU; `TBD` without a resolvable State: "Unknown"). NULL when GP has no code or boxscore lacks it. `owner_country_code` is not produced by any current model.
 
 Source: SatTrack-derived: see `int__xsrc__geo_owner_country`, `int__xsrc__geo_state_country`, `int__xsrc__geo_country_name_keys`, `int__xsrc__satellite_gcat_matched`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/; Space-Track https://www.space-track.org/documentation; pycountry https://pypi.org/project/pycountry/; GeoNames https://download.geonames.org/export/dump/readme.txt (Batch 8).
 {% enddocs %}
@@ -517,13 +517,13 @@ Source: SatTrack-derived: see `int__xsrc__geo_owner_country`, `int__xsrc__satell
 {% enddocs %}
 
 {% docs col__owner_country_iso_code %}
-One code of the object's `owner_country_codes` list (batch 8 #35: an ISO 3166-1 alpha-2 code for a current country, an ISO 3166-3 alpha-4 code for a former country, e.g. SUHH) and its position in that list, starting at 1. `country_key` in the same row is the `dim__country` key of that code (batch 8 #33): a current country by `iso_alpha2`, a former country by `iso_alpha4`.
+One code of the object's `owner_country_codes` list (batch 8 #35: an ISO 3166-1 alpha-2 code for a current country, an ISO 3166-3 alpha-4 code for a former country, e.g. SUHH) and its position in that list, starting at 1. `country_sk` in the same row is the `dim__country` key of that code (batch 8 #33): a current country by `iso_alpha2`, a former country by `iso_alpha4`.
 
 Source: SatTrack-derived: see `int__xsrc__satellite_owner_country_map`, `fct__satellite_owner_country`. Inputs: pycountry https://pypi.org/project/pycountry/ (Batch 10).
 {% enddocs %}
 
 {% docs col__owner_country_iso_code_ord %}
-One code of the object's `owner_country_codes` list (batch 8 #35: an ISO 3166-1 alpha-2 code for a current country, an ISO 3166-3 alpha-4 code for a former country, e.g. SUHH) and its position in that list, starting at 1. `country_key` in the same row is the `dim__country` key of that code (batch 8 #33): a current country by `iso_alpha2`, a former country by `iso_alpha4`.
+One code of the object's `owner_country_codes` list (batch 8 #35: an ISO 3166-1 alpha-2 code for a current country, an ISO 3166-3 alpha-4 code for a former country, e.g. SUHH) and its position in that list, starting at 1. `country_sk` in the same row is the `dim__country` key of that code (batch 8 #33): a current country by `iso_alpha2`, a former country by `iso_alpha4`.
 
 Source: SatTrack-derived: see `int__xsrc__satellite_owner_country_map`, `fct__satellite_owner_country`. Inputs: pycountry https://pypi.org/project/pycountry/ (Batch 10).
 {% enddocs %}
@@ -601,19 +601,19 @@ Source: SatTrack-derived: see `int__jsr__satellite_status`, `fct__satellite_mast
 {% enddocs %}
 
 {% docs col__phase_end_date_end %}
-Companions of `phase_end_date`, the date as written in the GCAT satcat `DDate` Vague Date (batch 1 #12). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `current` for `*`; `unknown` for `?` alone; `unparsed` otherwise; NULL when blank.
+Start, end and precision of the GCAT date range of `phase_end_date` (GCAT satcat `DDate`), by the Vague Date rule of batch 8 #24. NULL when blank.
 
 Source: SatTrack-derived: see `int__jsr__satellite_catalogue`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__phase_end_date_precision %}
-Companions of `phase_end_date`, the date as written in the GCAT satcat `DDate` Vague Date (batch 1 #12). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `current` for `*`; `unknown` for `?` alone; `unparsed` otherwise; NULL when blank.
+Start, end and precision of the GCAT date range of `phase_end_date` (GCAT satcat `DDate`), by the Vague Date rule of batch 8 #24. NULL when blank.
 
 Source: SatTrack-derived: see `int__jsr__satellite_catalogue`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__phase_end_date_start %}
-Companions of `phase_end_date`, the date as written in the GCAT satcat `DDate` Vague Date (batch 1 #12). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `current` for `*`; `unknown` for `?` alone; `unparsed` otherwise; NULL when blank.
+Start, end and precision of the GCAT date range of `phase_end_date` (GCAT satcat `DDate`), by the Vague Date rule of batch 8 #24. NULL when blank.
 
 Source: SatTrack-derived: see `int__jsr__satellite_catalogue`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
@@ -655,19 +655,19 @@ Source: SatTrack-derived: see `int__jsr__launch_sites`, `dim__launch_site`. Inpu
 {% enddocs %}
 
 {% docs col__site_location_country %}
-`site_state` = `org_display_name` of the GCAT org named by the site's `StateCode` (NULL if not found). `site_location_country`, by `site_location_method`, first match wins: the state org's type includes AP (astronomical polity) → `site_state` (e.g. "Moon"); GCAT site type `LC` (launch cruise) → "At sea"; nearest GeoNames city more than 150 km away and the site `Name` contains "ocean" or "sea" → "At sea"; otherwise the current ISO country (pycountry common name, else name) of the nearest city in `stg__geonames__cities` to the GCAT site coordinates (haversine distance); NULL without coordinates. `site_location_iso_alpha2` = that city's GeoNames country code (ISO 3166-1 alpha-2), only for the nearest-city method. `site_location_country_key` = the `dim__country` key of that code (batch 10 #1).
+`site_state`: the name of the GCAT organisation named by the site's `StateCode` (NULL if not found). `site_location_country`: the country the site physically lies in, normally the current ISO country of the GeoNames city nearest the site's coordinates; "At sea" for launch cruises and remote ocean or sea sites; the state itself (e.g. "Moon") for an astronomical polity; NULL without coordinates. `site_location_iso_alpha2`: that country's ISO 3166-1 alpha-2 code (nearest-city method only). `site_location_country_sk`: its `dim__country` key (batch 10 #1).
 
 Source: SatTrack-derived: see `int__jsr__launch_sites`, `dim__launch_site`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/; pycountry https://pypi.org/project/pycountry/; GeoNames https://download.geonames.org/export/dump/readme.txt (Batch 8).
 {% enddocs %}
 
-{% docs col__site_location_country_key %}
-The `country_key` of `dim__country` (batch 8 #33) for the location country of the site: the country whose ISO 3166 alpha-2 code is `site_location_iso_alpha2` (the GeoNames country code of the nearest city, ISO 3166-1 alpha-2), a current country (ISO 3166-1) before a former one (ISO 3166-3, which keeps reassigned alpha-2 codes). NULL when `site_location_iso_alpha2` is NULL (astronomical polity, launch cruise, at sea, no coordinates) or no ISO 3166 country has the code.
+{% docs col__site_location_country_sk %}
+The `country_sk` of `dim__country` (batch 8 #33) for the location country of the site: the country whose ISO 3166 alpha-2 code is `site_location_iso_alpha2` (the GeoNames country code of the nearest city, ISO 3166-1 alpha-2), a current country (ISO 3166-1) before a former one (ISO 3166-3, which keeps reassigned alpha-2 codes). NULL when `site_location_iso_alpha2` is NULL (astronomical polity, launch cruise, at sea, no coordinates) or no ISO 3166 country has the code.
 
 Source: SatTrack-derived: see `int__jsr__launch_sites`, `dim__launch_site`. Inputs: pycountry https://pypi.org/project/pycountry/; GeoNames https://download.geonames.org/export/dump/readme.txt (Batch 10).
 {% enddocs %}
 
 {% docs col__site_location_iso_alpha2 %}
-`site_state` = `org_display_name` of the GCAT org named by the site's `StateCode` (NULL if not found). `site_location_country`, by `site_location_method`, first match wins: the state org's type includes AP (astronomical polity) → `site_state` (e.g. "Moon"); GCAT site type `LC` (launch cruise) → "At sea"; nearest GeoNames city more than 150 km away and the site `Name` contains "ocean" or "sea" → "At sea"; otherwise the current ISO country (pycountry common name, else name) of the nearest city in `stg__geonames__cities` to the GCAT site coordinates (haversine distance); NULL without coordinates. `site_location_iso_alpha2` = that city's GeoNames country code (ISO 3166-1 alpha-2), only for the nearest-city method. `site_location_country_key` = the `dim__country` key of that code (batch 10 #1).
+`site_state`: the name of the GCAT organisation named by the site's `StateCode` (NULL if not found). `site_location_country`: the country the site physically lies in, normally the current ISO country of the GeoNames city nearest the site's coordinates; "At sea" for launch cruises and remote ocean or sea sites; the state itself (e.g. "Moon") for an astronomical polity; NULL without coordinates. `site_location_iso_alpha2`: that country's ISO 3166-1 alpha-2 code (nearest-city method only). `site_location_country_sk`: its `dim__country` key (batch 10 #1).
 
 Source: SatTrack-derived: see `int__jsr__launch_sites`, `dim__launch_site`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/; pycountry https://pypi.org/project/pycountry/; GeoNames https://download.geonames.org/export/dump/readme.txt (Batch 8).
 {% enddocs %}
@@ -679,25 +679,25 @@ Source: SatTrack-derived: see `int__jsr__launch_sites`, `dim__launch_site` (Batc
 {% enddocs %}
 
 {% docs col__site_start_date_end %}
-Companions of `site_start_date`, the date as written in the GCAT sites `TStart` Vague Date (batch 5 #23). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `current` for `*`; `unknown` for `?` alone; `unparsed` otherwise; NULL when blank or `-`.
+Start, end and precision of the GCAT date range of `site_start_date` (GCAT sites `TStart`), by the Vague Date rule of batch 8 #24. NULL when blank or `-`.
 
 Source: SatTrack-derived: see `int__jsr__launch_sites`, `dim__launch_site`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__site_start_date_precision %}
-Companions of `site_start_date`, the date as written in the GCAT sites `TStart` Vague Date (batch 5 #23). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `current` for `*`; `unknown` for `?` alone; `unparsed` otherwise; NULL when blank or `-`.
+Start, end and precision of the GCAT date range of `site_start_date` (GCAT sites `TStart`), by the Vague Date rule of batch 8 #24. NULL when blank or `-`.
 
 Source: SatTrack-derived: see `int__jsr__launch_sites`, `dim__launch_site`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__site_start_date_start %}
-Companions of `site_start_date`, the date as written in the GCAT sites `TStart` Vague Date (batch 5 #23). `_start` = start of the interval: the date as written, less one unit of the precision when the value ends in `?`. `_end` = end of the interval: the date as written plus one unit of the precision, or two units when the value ends in `?` (batch 8 #24). `_precision` = `second`, `minute`, `hour`, `centiday`, `day`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`, with `?` appended when GCAT flags uncertainty; `current` for `*`; `unknown` for `?` alone; `unparsed` otherwise; NULL when blank or `-`.
+Start, end and precision of the GCAT date range of `site_start_date` (GCAT sites `TStart`), by the Vague Date rule of batch 8 #24. NULL when blank or `-`.
 
 Source: SatTrack-derived: see `int__jsr__launch_sites`, `dim__launch_site`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__site_state %}
-`site_state` = `org_display_name` of the GCAT org named by the site's `StateCode` (NULL if not found). `site_location_country`, by `site_location_method`, first match wins: the state org's type includes AP (astronomical polity) → `site_state` (e.g. "Moon"); GCAT site type `LC` (launch cruise) → "At sea"; nearest GeoNames city more than 150 km away and the site `Name` contains "ocean" or "sea" → "At sea"; otherwise the current ISO country (pycountry common name, else name) of the nearest city in `stg__geonames__cities` to the GCAT site coordinates (haversine distance); NULL without coordinates. `site_location_iso_alpha2` = that city's GeoNames country code (ISO 3166-1 alpha-2), only for the nearest-city method. `site_location_country_key` = the `dim__country` key of that code (batch 10 #1).
+`site_state`: the name of the GCAT organisation named by the site's `StateCode` (NULL if not found). `site_location_country`: the country the site physically lies in, normally the current ISO country of the GeoNames city nearest the site's coordinates; "At sea" for launch cruises and remote ocean or sea sites; the state itself (e.g. "Moon") for an astronomical polity; NULL without coordinates. `site_location_iso_alpha2`: that country's ISO 3166-1 alpha-2 code (nearest-city method only). `site_location_country_sk`: its `dim__country` key (batch 10 #1).
 
 Source: SatTrack-derived: see `int__jsr__launch_sites`, `dim__launch_site`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/; pycountry https://pypi.org/project/pycountry/; GeoNames https://download.geonames.org/export/dump/readme.txt (Batch 8).
 {% enddocs %}

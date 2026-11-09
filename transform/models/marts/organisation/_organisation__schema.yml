@@ -118,10 +118,10 @@ models:
     data_tests:
       - model_health:
           name: mh__fct__satellite_owner_org__pk_unique
-          arguments: {check: pk_unique, columns: [map_id]}
+          arguments: {check: pk_unique, columns: [map_sk]}
       - model_health:
           name: mh__fct__satellite_owner_org__pk_not_null
-          arguments: {check: pk_not_null, columns: [map_id]}
+          arguments: {check: pk_not_null, columns: [map_sk]}
       - model_health:
           name: mh__fct__satellite_owner_org__row_count_match
           arguments:
@@ -129,9 +129,9 @@ models:
             compare_to: "ref('int__jsr__org_satellite_owner_map')"
             relationship: equal
     columns:
-      - name: map_id
+      - name: map_sk
         data_type: varchar
-        description: '{{ doc("col__map_id") }}'
+        description: '{{ doc("col__map_sk") }}'
         constraints:
           - type: not_null
       - name: jcat
@@ -180,10 +180,10 @@ models:
     data_tests:
       - model_health:
           name: mh__fct__satellite_manufacturer_org__pk_unique
-          arguments: {check: pk_unique, columns: [map_id]}
+          arguments: {check: pk_unique, columns: [map_sk]}
       - model_health:
           name: mh__fct__satellite_manufacturer_org__pk_not_null
-          arguments: {check: pk_not_null, columns: [map_id]}
+          arguments: {check: pk_not_null, columns: [map_sk]}
       - model_health:
           name: mh__fct__satellite_manufacturer_org__row_count_match
           arguments:
@@ -191,9 +191,9 @@ models:
             compare_to: "ref('int__jsr__org_satellite_manufacturer_map')"
             relationship: equal
     columns:
-      - name: map_id
+      - name: map_sk
         data_type: varchar
-        description: '{{ doc("col__map_id") }}'
+        description: '{{ doc("col__map_sk") }}'
         constraints:
           - type: not_null
       - name: jcat
@@ -242,10 +242,10 @@ models:
     data_tests:
       - model_health:
           name: mh__fct__launch_agency_org__pk_unique
-          arguments: {check: pk_unique, columns: [map_id]}
+          arguments: {check: pk_unique, columns: [map_sk]}
       - model_health:
           name: mh__fct__launch_agency_org__pk_not_null
-          arguments: {check: pk_not_null, columns: [map_id]}
+          arguments: {check: pk_not_null, columns: [map_sk]}
       - model_health:
           name: mh__fct__launch_agency_org__row_count_match
           arguments:
@@ -253,9 +253,9 @@ models:
             compare_to: "ref('int__jsr__org_launch_agency_map')"
             relationship: equal
     columns:
-      - name: map_id
+      - name: map_sk
         data_type: varchar
-        description: '{{ doc("col__map_id") }}'
+        description: '{{ doc("col__map_sk") }}'
         constraints:
           - type: not_null
       - name: jcat

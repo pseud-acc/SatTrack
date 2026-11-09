@@ -1,7 +1,7 @@
 -- One row per object per owner country: owner_country_codes of the GP object, one row per code in list order, with the
 -- dim__country key of the country (int__pycountry__geo_countries). A code is an ISO 3166-1 alpha-2 code (current
 -- country) or an ISO 3166-3 alpha-4 code (former country). Objects whose owner is an organisation or unresolved have
--- no codes and so no rows. A code with no ISO country keeps its row with a NULL country_key (the key test fails).
+-- no codes and so no rows. A code with no ISO country keeps its row with a NULL country_sk (the key test fails).
 with cte_int__xsrc__satellite_gcat_matched as (
     select
         satcat_id
@@ -12,7 +12,7 @@ with cte_int__xsrc__satellite_gcat_matched as (
 
 , cte_int__pycountry__geo_countries as (
     select
-        country_key
+        country_sk
         , iso_alpha2
         , iso_alpha4
         , is_historic
@@ -31,9 +31,9 @@ with cte_int__xsrc__satellite_gcat_matched as (
 
 , cte_final as (
     select
-        {{ dbt_utils.generate_surrogate_key(['m.satcat_id', "'owner'", 'm.owner_country_iso_code_ord', 'm.owner_country_iso_code']) }} as map_id
+        {{ dbt_utils.generate_surrogate_key(['m.satcat_id', "'owner'", 'm.owner_country_iso_code_ord', 'm.owner_country_iso_code']) }} as map_sk
         , m.satcat_id
-        , g.country_key
+        , g.country_sk
         , m.owner_country_iso_code
         , m.owner_country_iso_code_ord
         , m.owner_country_source

@@ -1,7 +1,7 @@
 -- One row per ISO 3166 country (current and historic): codes and display names. The app's country dimension.
 with cte_int__pycountry__geo_countries as (
     select
-        country_key
+        country_sk
         , iso_alpha2
         , iso_alpha3
         , iso_alpha4
@@ -16,7 +16,7 @@ with cte_int__pycountry__geo_countries as (
 
 , cte_final as (
     select
-        cast(country_key as varchar) as country_key
+        cast(country_sk as varchar) as country_sk
         , cast(iso_alpha2 as varchar) as iso_alpha2
         , cast(iso_alpha3 as varchar) as iso_alpha3
         , cast(iso_alpha4 as varchar) as iso_alpha4

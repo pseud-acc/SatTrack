@@ -61,15 +61,15 @@ models:
       - name: site_location_iso_alpha2
         data_type: varchar
         description: '{{ doc("col__site_location_iso_alpha2") }}'
-      - name: site_location_country_key
+      - name: site_location_country_sk
         data_type: varchar
-        description: '{{ doc("col__site_location_country_key") }}'
+        description: '{{ doc("col__site_location_country_sk") }}'
         data_tests:
           - relationships:
-              name: fk__dim__launch_site__site_location_country_key
+              name: fk__dim__launch_site__site_location_country_sk
               arguments:
                 to: "ref('dim__country')"
-                field: country_key
+                field: country_sk
       - name: site_location_method
         data_type: varchar
         description: '{{ doc("col__site_location_method") }}'

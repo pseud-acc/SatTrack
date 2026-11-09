@@ -3,7 +3,7 @@
 --   site_location_country = where the site physically is: country of the nearest pinned GeoNames city to the
 --                           GCAT coordinates. Astronomical-polity states (e.g. LUNA) give that body; GCAT type LC
 --                           (launch cruise) or a site > 150 km from any city whose name says ocean/sea gives 'At sea'.
---   site_location_country_key = the country_key (int__pycountry__geo_countries) of the nearest city's ISO alpha-2 code, a
+--   site_location_country_sk = the country_sk (int__pycountry__geo_countries) of the nearest city's ISO alpha-2 code, a
 --                           current country before a former one; NULL unless the location country comes from the nearest city.
 with cte_stg__jsr__sites as (
     select
@@ -45,7 +45,7 @@ with cte_stg__jsr__sites as (
 
 , cte_int__pycountry__geo_countries as (
     select
-        country_key
+        country_sk
         , iso_alpha2
         , is_historic
     from {{ ref('int__pycountry__geo_countries') }}
@@ -82,9 +82,9 @@ with cte_stg__jsr__sites as (
 , cte_country_key_by_alpha2 as ( -- one country key per alpha-2 code: a current country before a former one
     select
         iso_alpha2
-        , country_key
+        , country_sk
     from cte_int__pycountry__geo_countries
-    qualify row_number() over (partition by iso_alpha2 order by is_historic, country_key) = 1
+    qualify row_number() over (partition by iso_alpha2 order by is_historic, country_sk) = 1
 )
 
 , cte_sites_located as ( -- each site with its responsible state and how its location country is decided
@@ -127,7 +127,7 @@ with cte_stg__jsr__sites as (
             else iso.country_name
         end as site_location_country
         , case when c.site_location_method = 'nearest_city' then c.nearest_iso_alpha2 end as site_location_iso_alpha2
-        , case when c.site_location_method = 'nearest_city' then ck.country_key end as site_location_country_key
+        , case when c.site_location_method = 'nearest_city' then ck.country_sk end as site_location_country_sk
         , c.site_location_method
         , c.nearest_city
         , round(c.nearest_km, 1) as nearest_city_km

@@ -76,10 +76,10 @@ models:
     data_tests:
       - model_health:
           name: mh__int__jsr__org_satellite_owner_map__pk_unique
-          arguments: {check: pk_unique, columns: [map_id]}
+          arguments: {check: pk_unique, columns: [map_sk]}
       - model_health:
           name: mh__int__jsr__org_satellite_owner_map__pk_not_null
-          arguments: {check: pk_not_null, columns: [map_id]}
+          arguments: {check: pk_not_null, columns: [map_sk]}
       - model_health:
           name: mh__int__jsr__org_satellite_owner_map__row_count_match
           arguments:
@@ -87,8 +87,8 @@ models:
             compare_to: "ref('int__jsr__satellite_catalogue')"
             relationship: gte
     columns:
-      - name: map_id
-        description: '{{ doc("col__map_id") }}'
+      - name: map_sk
+        description: '{{ doc("col__map_sk") }}'
       - name: jcat
         description: '{{ doc("col__jcat") }}'
       - name: org_role
@@ -121,10 +121,10 @@ models:
     data_tests:
       - model_health:
           name: mh__int__jsr__org_satellite_manufacturer_map__pk_unique
-          arguments: {check: pk_unique, columns: [map_id]}
+          arguments: {check: pk_unique, columns: [map_sk]}
       - model_health:
           name: mh__int__jsr__org_satellite_manufacturer_map__pk_not_null
-          arguments: {check: pk_not_null, columns: [map_id]}
+          arguments: {check: pk_not_null, columns: [map_sk]}
       - model_health:
           name: mh__int__jsr__org_satellite_manufacturer_map__row_count_match
           arguments:
@@ -132,8 +132,8 @@ models:
             compare_to: "ref('int__jsr__satellite_catalogue')"
             relationship: lte
     columns:
-      - name: map_id
-        description: '{{ doc("col__map_id") }}'
+      - name: map_sk
+        description: '{{ doc("col__map_sk") }}'
       - name: jcat
         description: '{{ doc("col__jcat") }}'
       - name: org_role
@@ -166,10 +166,10 @@ models:
     data_tests:
       - model_health:
           name: mh__int__jsr__org_launch_agency_map__pk_unique
-          arguments: {check: pk_unique, columns: [map_id]}
+          arguments: {check: pk_unique, columns: [map_sk]}
       - model_health:
           name: mh__int__jsr__org_launch_agency_map__pk_not_null
-          arguments: {check: pk_not_null, columns: [map_id]}
+          arguments: {check: pk_not_null, columns: [map_sk]}
       - model_health:
           name: mh__int__jsr__org_launch_agency_map__row_count_match
           arguments:
@@ -177,8 +177,8 @@ models:
             compare_to: "ref('int__jsr__launch_events')"
             relationship: gte
     columns:
-      - name: map_id
-        description: '{{ doc("col__map_id") }}'
+      - name: map_sk
+        description: '{{ doc("col__map_sk") }}'
       - name: jcat
         description: '{{ doc("col__jcat") }}'
       - name: org_role

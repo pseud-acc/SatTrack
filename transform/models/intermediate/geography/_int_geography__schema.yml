@@ -88,10 +88,10 @@ models:
     data_tests:
       - model_health:
           name: mh__int__pycountry__geo_countries__pk_unique
-          arguments: {check: pk_unique, columns: [country_key]}
+          arguments: {check: pk_unique, columns: [country_sk]}
       - model_health:
           name: mh__int__pycountry__geo_countries__pk_not_null
-          arguments: {check: pk_not_null, columns: [country_key]}
+          arguments: {check: pk_not_null, columns: [country_sk]}
       - model_health:
           name: mh__int__pycountry__geo_countries__row_count_match
           arguments:
@@ -99,8 +99,8 @@ models:
             compare_to: "ref('stg__pycountry__iso_countries')"
             relationship: lte   # rows without an alpha-3 code are dropped
     columns:
-      - name: country_key
-        description: '{{ doc("col__country_key") }}'
+      - name: country_sk
+        description: '{{ doc("col__country_sk") }}'
       - name: iso_alpha2
         description: '{{ doc("col__iso_alpha2") }}'
       - name: iso_alpha3
@@ -131,16 +131,16 @@ models:
           arguments:
             check: pk_unique
             columns:
-              - map_id
+              - map_sk
       - model_health:
           name: mh__int__xsrc__satellite_owner_country_map__pk_not_null
           arguments:
             check: pk_not_null
             columns:
-              - map_id
+              - map_sk
     columns:
-      - name: map_id
-        description: '{{ doc("col__map_id") }}'
+      - name: map_sk
+        description: '{{ doc("col__map_sk") }}'
       - name: satcat_id
         description: '{{ doc("col__satcat_id") }}'
         data_tests:
@@ -149,16 +149,16 @@ models:
               arguments:
                 to: "ref('int__xsrc__satellite_gcat_matched')"
                 field: satcat_id
-      - name: country_key
-        description: '{{ doc("col__country_key") }}'
+      - name: country_sk
+        description: '{{ doc("col__country_sk") }}'
         data_tests:
           - not_null:
-              name: not_null__int__xsrc__satellite_owner_country_map__country_key
+              name: not_null__int__xsrc__satellite_owner_country_map__country_sk
           - relationships:
-              name: fk__int__xsrc__satellite_owner_country_map__country_key
+              name: fk__int__xsrc__satellite_owner_country_map__country_sk
               arguments:
                 to: "ref('int__pycountry__geo_countries')"
-                field: country_key
+                field: country_sk
       - name: owner_country_iso_code
         description: '{{ doc("col__owner_country_iso_code") }}'
       - name: owner_country_iso_code_ord

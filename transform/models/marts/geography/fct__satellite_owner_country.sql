@@ -1,9 +1,9 @@
 -- One row per satellite per owner country (every country in the owner_country_codes list of fct__satellite_master).
 with cte_int__xsrc__satellite_owner_country_map as (
     select
-        map_id
+        map_sk
         , satcat_id
-        , country_key
+        , country_sk
         , owner_country_iso_code
         , owner_country_iso_code_ord
         , owner_country_source
@@ -12,9 +12,9 @@ with cte_int__xsrc__satellite_owner_country_map as (
 
 , cte_final as (
     select
-        cast(map_id as varchar) as map_id
+        cast(map_sk as varchar) as map_sk
         , cast(satcat_id as integer) as satcat_id
-        , cast(country_key as varchar) as country_key
+        , cast(country_sk as varchar) as country_sk
         , cast(owner_country_iso_code as varchar) as owner_country_iso_code
         , cast(owner_country_iso_code_ord as integer) as owner_country_iso_code_ord
         , cast(owner_country_source as varchar) as owner_country_source

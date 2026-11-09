@@ -67,7 +67,7 @@ Source: https://planet4589.org/space/gcat/web/cat/cols.html (Batch 1).
 {% enddocs %}
 
 {% docs col__constellation_plane %}
-Labels orbital planes or shells in a constellation. GCAT's note says it currently holds numeric shell numbers for OneWeb.
+The constellation plane or shell label GCAT gives the payload, as a short string: as observed, one or two numbers (e.g. `1 1`, `9 0`, `2`), sometimes with letters (e.g. `1 PA`, `X`). For example, STARLINK-38457 (NORAD 101256) has `10 1` and ONEWEB-0708 (NORAD 61613) has `1 1`. GCAT doesn't document the parts of the label.
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
 {% enddocs %}

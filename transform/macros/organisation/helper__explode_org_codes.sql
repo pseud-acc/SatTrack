@@ -1,7 +1,7 @@
 {#- One row per organisation in a GCAT composite code ('GSFC/ESA', 'ESA?'); see _organisation__macros.yml. -#}
 {% macro helper__explode_org_codes(relation, key_col, code_col, role) -%}
 select
-    {{ dbt_utils.generate_surrogate_key(['entity_key', "'" ~ role ~ "'", 'ord', 'part']) }} as map_id
+    {{ dbt_utils.generate_surrogate_key(['entity_key', "'" ~ role ~ "'", 'ord', 'part']) }} as map_sk
     , entity_key
     , '{{ role }}' as org_role
     , rtrim(part, '?') as org_code

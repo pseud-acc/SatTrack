@@ -6,10 +6,10 @@ models:
     data_tests:
       - model_health:
           name: mh__dim__country__pk_unique
-          arguments: {check: pk_unique, columns: [country_key]}
+          arguments: {check: pk_unique, columns: [country_sk]}
       - model_health:
           name: mh__dim__country__pk_not_null
-          arguments: {check: pk_not_null, columns: [country_key]}
+          arguments: {check: pk_not_null, columns: [country_sk]}
       - model_health:
           name: mh__dim__country__row_count_match
           arguments:
@@ -17,9 +17,9 @@ models:
             compare_to: "ref('int__pycountry__geo_countries')"
             relationship: equal
     columns:
-      - name: country_key
+      - name: country_sk
         data_type: varchar
-        description: '{{ doc("col__country_key") }}'
+        description: '{{ doc("col__country_sk") }}'
         constraints:
           - type: not_null
       - name: iso_alpha2
@@ -65,13 +65,13 @@ models:
           arguments:
             check: pk_unique
             columns:
-              - map_id
+              - map_sk
       - model_health:
           name: mh__fct__satellite_owner_country__pk_not_null
           arguments:
             check: pk_not_null
             columns:
-              - map_id
+              - map_sk
       - model_health:
           name: mh__fct__satellite_owner_country__row_count_match
           arguments:
@@ -79,9 +79,9 @@ models:
             compare_to: "ref('int__xsrc__satellite_owner_country_map')"
             relationship: equal
     columns:
-      - name: map_id
+      - name: map_sk
         data_type: varchar
-        description: '{{ doc("col__map_id") }}'
+        description: '{{ doc("col__map_sk") }}'
         constraints:
           - type: not_null
       - name: satcat_id
@@ -93,15 +93,15 @@ models:
               arguments:
                 to: "ref('fct__satellite_master')"
                 field: satcat_id
-      - name: country_key
+      - name: country_sk
         data_type: varchar
-        description: '{{ doc("col__country_key") }}'
+        description: '{{ doc("col__country_sk") }}'
         data_tests:
           - relationships:
-              name: fk__fct__satellite_owner_country__country_key
+              name: fk__fct__satellite_owner_country__country_sk
               arguments:
                 to: "ref('dim__country')"
-                field: country_key
+                field: country_sk
       - name: owner_country_iso_code
         data_type: varchar
         description: '{{ doc("col__owner_country_iso_code") }}'

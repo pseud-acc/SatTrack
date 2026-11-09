@@ -110,3 +110,38 @@ def check_bespoke_macro_explicit_joins(macro):
     _, comma_joins = scan_commas(macro.macro_sql)
     if comma_joins:
         fail(f"Macro `{macro.name}` joins with a comma; write an explicit join (e.g. `cross join`): {comma_joins}")
+
+
+_SURROGATE_ALIAS = re.compile(r"(\w+)\s*\(.*?\)\s*\}\}\s*as\s+(\w+)", re.S | re.I)
+
+
+def _surrogate_aliases(code: str, key_macro: str, suffix: str) -> list[str]:
+    """Aliases given to the output of `key_macro(...)` that don't end in `suffix`."""
+    return [alias for macro_name, alias in _SURROGATE_ALIAS.findall(code or "")
+            if macro_name.lower() == key_macro.lower() and not alias.lower().endswith(suffix)]
+
+
+@check
+def check_bespoke_model_surrogate_key_suffix(model, *, key_macro: str = "generate_surrogate_key", suffix: str = "_sk"):
+    """A column built by the surrogate-key macro is named with the surrogate-key suffix."""
+    bad = _surrogate_aliases(model.raw_code, key_macro, suffix)
+    if bad:
+        fail(f"`{model.name}` names surrogate key(s) {bad} without the `{suffix}` suffix.")
+
+
+@check
+def check_bespoke_macro_surrogate_key_suffix(macro, *, key_macro: str = "generate_surrogate_key", suffix: str = "_sk"):
+    """A column a macro builds with the surrogate-key macro is named with the surrogate-key suffix."""
+    bad = _surrogate_aliases(macro.macro_sql, key_macro, suffix)
+    if bad:
+        fail(f"Macro `{macro.name}` names surrogate key(s) {bad} without the `{suffix}` suffix.")
+
+
+@check
+def check_bespoke_model_column_suffix_not_allowed(model, *, suffixes: list[str], allowed_columns: list[str] | None = None):
+    """No declared column ends in a reserved suffix (e.g. `_key`), apart from the listed exceptions."""
+    allowed = set(allowed_columns or [])
+    bad = sorted(c for c in (model.columns or {}) if c not in allowed and any(c.endswith(s) for s in suffixes))
+    if bad:
+        fail(f"`{model.name}` has column(s) {bad} ending in {suffixes}; name a made-up key `*_sk`, "
+             "or give the column its natural name.")

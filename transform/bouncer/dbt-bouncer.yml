@@ -328,6 +328,22 @@ manifest_checks:
   - name: check_bespoke_model_no_subqueries_in_from
     description: "[SQL-06] FROM and JOIN read named CTEs, never inline subqueries."
 
+  - name: check_bespoke_model_surrogate_key_suffix
+    description: "[SQL-07] A key built with dbt_utils.generate_surrogate_key is named *_sk."
+    suffix: "_sk"
+
+  - name: check_bespoke_macro_surrogate_key_suffix
+    description: "[SQL-07] A key a macro builds with dbt_utils.generate_surrogate_key is named *_sk."
+    include: "^macros/"
+    suffix: "_sk"
+
+  - name: check_bespoke_model_column_suffix_not_allowed
+    description: "[SQL-07] No `*_key` columns: a made-up key is `*_sk` (name_key is a name-matching key, not a table key)."
+    suffixes:
+      - "_key"
+    allowed_columns:
+      - name_key
+
   # ============================================================ SRC: sources
   - name: check_bespoke_source_file_path
     description: "[SRC-01] Sources are defined in models/staging/<source>/_<source>__sources.yml."
