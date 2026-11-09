@@ -361,7 +361,7 @@ Source: SatTrack-derived: see `int__jsr__satellite_status`, `fct__satellite_mast
 {% enddocs %}
 
 {% docs col__name_key %}
-The normalised name key (see `key_type`) of a country name from the list named by `name_tier`. A key is kept only when it identifies exactly one country within that list.
+The normalised name key (see `key_type`) of a country name from the list named by `name_tier`. A key is kept only when it identifies exactly one country within that list. Examples: `france` (`iso`, full) → FR; `korea` (`iso`, reduced, from "Korea, Republic of") → KR; `turkey` (`geonames_name`) → TR, shown as "Türkiye"; `czechoslovakia` (`iso_historic`) → CSHH.
 
 Source: SatTrack-derived: see `int__xsrc__geo_country_name_keys` (Batch 9a).
 {% enddocs %}
@@ -517,13 +517,13 @@ Source: SatTrack-derived: see `int__xsrc__geo_owner_country`, `int__xsrc__satell
 {% enddocs %}
 
 {% docs col__owner_country_iso_code %}
-One code of the object's `owner_country_codes` list (batch 8 #35: an ISO 3166-1 alpha-2 code for a current country, an ISO 3166-3 alpha-4 code for a former country, e.g. SUHH) and its position in that list, starting at 1. `country_sk` in the same row is the `dim__country` key of that code (batch 8 #33): a current country by `iso_alpha2`, a former country by `iso_alpha4`.
+One code of the object's `owner_country_codes` list (batch 9a #35: an ISO 3166-1 alpha-2 code for a current country, an ISO 3166-3 alpha-4 code for a former country, e.g. SUHH) and its position in that list, starting at 1. `country_sk` in the same row is the `dim__country` key of that code (batch 9a #33): a current country by `iso_alpha2`, a former country by `iso_alpha4`.
 
 Source: SatTrack-derived: see `int__xsrc__satellite_owner_country_map`, `fct__satellite_owner_country`. Inputs: pycountry https://pypi.org/project/pycountry/ (Batch 10).
 {% enddocs %}
 
 {% docs col__owner_country_iso_code_ord %}
-One code of the object's `owner_country_codes` list (batch 8 #35: an ISO 3166-1 alpha-2 code for a current country, an ISO 3166-3 alpha-4 code for a former country, e.g. SUHH) and its position in that list, starting at 1. `country_sk` in the same row is the `dim__country` key of that code (batch 8 #33): a current country by `iso_alpha2`, a former country by `iso_alpha4`.
+One code of the object's `owner_country_codes` list (batch 9a #35: an ISO 3166-1 alpha-2 code for a current country, an ISO 3166-3 alpha-4 code for a former country, e.g. SUHH) and its position in that list, starting at 1. `country_sk` in the same row is the `dim__country` key of that code (batch 9a #33): a current country by `iso_alpha2`, a former country by `iso_alpha4`.
 
 Source: SatTrack-derived: see `int__xsrc__satellite_owner_country_map`, `fct__satellite_owner_country`. Inputs: pycountry https://pypi.org/project/pycountry/ (Batch 10).
 {% enddocs %}
@@ -661,7 +661,7 @@ Source: SatTrack-derived: see `int__jsr__launch_sites`, `dim__launch_site`, `fct
 {% enddocs %}
 
 {% docs col__site_location_country_sk %}
-The `country_sk` of `dim__country` (batch 8 #33) for the location country of the site: the country whose ISO 3166 alpha-2 code is `site_location_iso_alpha2` (the GeoNames country code of the nearest city, ISO 3166-1 alpha-2), a current country (ISO 3166-1) before a former one (ISO 3166-3, which keeps reassigned alpha-2 codes). NULL when `site_location_iso_alpha2` is NULL (astronomical polity, launch cruise, at sea, no coordinates) or no ISO 3166 country has the code.
+The `country_sk` of `dim__country` (batch 9a #33) for the location country of the site: the country whose ISO 3166 alpha-2 code is `site_location_iso_alpha2` (the GeoNames country code of the nearest city, ISO 3166-1 alpha-2), a current country (ISO 3166-1) before a former one (ISO 3166-3, which keeps reassigned alpha-2 codes). NULL when `site_location_iso_alpha2` is NULL (astronomical polity, launch cruise, at sea, no coordinates) or no ISO 3166 country has the code.
 
 Source: SatTrack-derived: see `int__jsr__launch_sites`, `dim__launch_site`. Inputs: pycountry https://pypi.org/project/pycountry/; GeoNames https://download.geonames.org/export/dump/readme.txt (Batch 10).
 {% enddocs %}

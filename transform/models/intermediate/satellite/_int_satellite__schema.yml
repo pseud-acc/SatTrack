@@ -204,7 +204,7 @@ models:
       - name: constellation_plane
         description: '{{ doc("col__constellation_plane") }}'
       - name: payload_fields_source
-        description: "Where the object's mission category and programme come from: 'own' = its own GCAT payload-catalogue record; 'inherited_parent' = the record of the first payload reached by following GCAT Parent links (rocket stages, components and debris only); 'none' = neither."
+        description: '{{ doc("col__payload_fields_source") }}'
         data_tests:
           - not_null:
               name: not_null__int__jsr__satellite_status__payload_fields_source
@@ -216,7 +216,7 @@ models:
                   - inherited_parent
                   - none
       - name: payload_fields_parent_jcat
-        description: "JCAT of the payload whose mission category and programme were inherited (payload_fields_source = 'inherited_parent'); NULL otherwise."
+        description: '{{ doc("col__payload_fields_parent_jcat") }}'
         data_tests:
           - relationships:
               name: fk__int__jsr__satellite_status__payload_fields_parent_jcat
@@ -274,9 +274,9 @@ models:
       - name: parent_ref
         description: '{{ doc("col__parent_ref") }}'
       - name: parent_jcat
-        description: "The JCAT ID at the start of the GCAT Parent field (port suffix and trailing '*' dropped); NULL when Parent is empty or names a central body."
+        description: '{{ doc("col__parent_jcat") }}'
       - name: parent_payload_jcat
-        description: "JCAT of the first payload (GCAT Type P) reached by following Parent links from a rocket stage, component or debris object; NULL when none is reached."
+        description: '{{ doc("col__parent_payload_jcat") }}'
         data_tests:
           - relationships:
               name: fk__int__jsr__satellite_parent_payload__parent_payload_jcat
@@ -284,9 +284,9 @@ models:
                 to: "ref('int__jsr__satellite_catalogue')"
                 field: jcat
       - name: parent_payload_depth
-        description: "Number of Parent links followed to reach parent_payload_jcat (1 = the direct parent)."
+        description: '{{ doc("col__parent_payload_depth") }}'
       - name: parent_chain_outcome
-        description: "Why the walk ended: payload_found, payload_object (the object is a payload; no walk), no_parent_object (Parent empty or a central body), parent_not_in_catalogue (the chain reaches a JCAT outside satcat/satcat100k, e.g. an auxcat 'A' or rcat 'R' object), chain_ends_without_payload, chain_limit (cycle or 10 steps), type_unclassified (no documented GCAT Type class)."
+        description: '{{ doc("col__parent_chain_outcome") }}'
         data_tests:
           - not_null:
               name: not_null__int__jsr__satellite_parent_payload__parent_chain_outcome

@@ -260,7 +260,7 @@ models:
       - name: flag_catalog_match_uncertain
         description: '{{ doc("col__flag_catalog_match_uncertain") }}'
       - name: launch_fields_source
-        description: "Where the object's launch fields come from: 'own' = its own GCAT launch-log row (payloads); 'inherited_launch' = the launch-level fields of the launch named by its GCAT satcat Launch_Tag (rocket stages, components, debris, and payloads without a launch-log row); 'none' = no launch-log launch for the tag."
+        description: '{{ doc("col__launch_fields_source") }}'
         data_tests:
           - not_null:
               name: not_null__int__jsr__satellite_launch_details__launch_fields_source

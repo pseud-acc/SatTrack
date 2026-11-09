@@ -236,7 +236,7 @@ models:
         description: '{{ doc("col__flag_catalog_match_uncertain") }}'
       - name: launch_fields_source
         data_type: varchar
-        description: "Where the object's launch fields come from: 'own' = its own GCAT launch-log row (payloads); 'inherited_launch' = the launch-level fields of the launch named by its GCAT satcat Launch_Tag (rocket stages, components, debris, and payloads without a launch-log row); 'none' = no launch-log launch for the tag."
+        description: '{{ doc("col__launch_fields_source") }}'
         constraints:
           - type: not_null
         data_tests:
@@ -258,7 +258,7 @@ models:
         description: '{{ doc("col__constellation_plane") }}'
       - name: payload_fields_source
         data_type: varchar
-        description: "Where the object's mission category and programme come from: 'own' = its own GCAT payload-catalogue record; 'inherited_parent' = the record of the first payload reached by following GCAT Parent links (rocket stages, components and debris only); 'none' = neither."
+        description: '{{ doc("col__payload_fields_source") }}'
         constraints:
           - type: not_null
         data_tests:
@@ -271,7 +271,7 @@ models:
                   - none
       - name: payload_fields_parent_jcat
         data_type: varchar
-        description: "JCAT of the payload whose mission category and programme were inherited (payload_fields_source = 'inherited_parent'); NULL otherwise."
+        description: '{{ doc("col__payload_fields_parent_jcat") }}'
       - name: orbit_class
         data_type: varchar
         description: '{{ doc("col__orbit_class") }}'
