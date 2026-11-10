@@ -113,5 +113,18 @@ def record_login(con, service: str, ok: bool, error: str | None = None) -> None:
         )
 
 
+def elementary_recorded(con, invocation_id: str | None) -> bool:
+    """True when Elementary logged this dbt invocation (schema `elementary` in the ops DB, see dbt_project.yml).
+    Only a missing table (before Elementary's first run) counts as not recorded; other errors are raised."""
+    if not invocation_id:
+        return False
+    exists = con.execute("select count(*) from information_schema.tables "
+                         "where table_schema = 'elementary' and table_name = 'dbt_invocations'").fetchone()[0]
+    if not exists:
+        return False
+    return con.execute("select count(*) from elementary.dbt_invocations where invocation_id = ?",
+                       [invocation_id]).fetchone()[0] > 0
+
+
 def json_dumps(obj) -> str:
     return json.dumps(obj, default=str)

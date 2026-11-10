@@ -35,3 +35,14 @@ def test_old_boolean_columns_migrate_once_keeping_values():
     assert "skipped_fresh" not in _cols(con, "ingestion_call")
     assert con.execute("select run_id, flag_skipped_fresh from audit.ingestion_call order by 1").fetchall() == [("r1", 1), ("r2", 0)]
     assert con.execute("select flag_elementary_recorded from audit.dbt_crash_capture").fetchall() == [(0,)]
+
+
+def test_elementary_recorded_reads_the_elementary_schema():
+    con = duckdb.connect()
+    assert audit.elementary_recorded(con, "abc") is False  # Elementary not run yet: no table
+    con.execute("create schema elementary")
+    con.execute("create table elementary.dbt_invocations (invocation_id varchar)")
+    con.execute("insert into elementary.dbt_invocations values ('abc')")
+    assert audit.elementary_recorded(con, "abc") is True
+    assert audit.elementary_recorded(con, "xyz") is False
+    assert audit.elementary_recorded(con, None) is False

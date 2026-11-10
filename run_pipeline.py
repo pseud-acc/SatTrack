@@ -218,13 +218,7 @@ def main() -> int:
         stages.append({"stage": f"dbt:{unit}", "status": unit_status[unit], "duration_s": res["duration_s"],
                        "statuses": res["statuses"], "exit_code": res["exit_code"]})
         with audit.ops() as ops:
-            recorded = False
-            if res["invocation_id"]:
-                try:
-                    recorded = ops.execute("select count(*) from main_elementary.dbt_invocations where invocation_id = ?",
-                                           [res["invocation_id"]]).fetchone()[0] > 0
-                except duckdb.Error:
-                    recorded = False
+            recorded = audit.elementary_recorded(ops, res["invocation_id"])
             ops.execute("insert into audit.dbt_crash_capture (run_id, unit, exit_code, flag_elementary_recorded, results) "
                         "values (?, ?, ?, ?, ?)",
                         [ctx.run_id, unit, res["exit_code"], int(recorded),
