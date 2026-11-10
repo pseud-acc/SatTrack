@@ -1,0 +1,14 @@
+# Full lock for the SatTrack pipeline: `pip freeze` of virtualenvs/py312/sattrack_dbt_venv (Python 3.12.3), 2026-11-08.
+# Install the top-level pins from requirements.txt; use this file to reproduce the exact environment.
+certifi==2026.10.23
+charset-normalizer==3.5.2
+dbt-oss==2.0.8
+duckdb==2.0.0
+geonamescache==3.0.2
+idna==3.20
+mashumaro==3.23
+msgpack==1.2.3
+pycountry==24.6.1
+requests==2.34.2
+typing_extensions==4.16.0
+urllib3==2.8.0

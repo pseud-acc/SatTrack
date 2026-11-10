@@ -1,0 +1,119 @@
+models:
+  - name: dim__country
+    description: "One row per ISO 3166 country (current and historic): codes and display names. The app's country dimension."
+    config:
+      access: public
+    data_tests:
+      - model_health:
+          name: mh__dim__country__pk_unique
+          arguments: {check: pk_unique, columns: [country_sk]}
+      - model_health:
+          name: mh__dim__country__pk_not_null
+          arguments: {check: pk_not_null, columns: [country_sk]}
+      - model_health:
+          name: mh__dim__country__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('int__pycountry__geo_countries')"
+            relationship: equal
+    columns:
+      - name: country_sk
+        data_type: varchar
+        description: '{{ doc("col__country_sk") }}'
+        constraints:
+          - type: not_null
+      - name: iso_alpha2
+        data_type: varchar
+        description: '{{ doc("col__iso_alpha2") }}'
+      - name: iso_alpha3
+        data_type: varchar
+        description: '{{ doc("col__iso_alpha3") }}'
+      - name: iso_alpha4
+        data_type: varchar
+        description: '{{ doc("col__iso_alpha4") }}'
+      - name: iso_numeric
+        data_type: varchar
+        description: '{{ doc("col__iso_numeric") }}'
+      - name: country_display_name
+        data_type: varchar
+        description: '{{ doc("col__country_display_name") }}'
+      - name: country_name
+        data_type: varchar
+        description: '{{ doc("col__country_name") }}'
+      - name: country_official_name
+        data_type: varchar
+        description: '{{ doc("col__country_official_name") }}'
+      - name: flag_historic
+        data_type: integer
+        description: '{{ doc("col__flag_historic") }}'
+      - name: iso_withdrawal_date
+        data_type: date
+        description: '{{ doc("col__iso_withdrawal_date") }}'
+      - name: inserted_date_time
+        data_type: timestamp
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        data_type: varchar
+        description: '{{ doc("col__inserted_by") }}'
+  - name: fct__satellite_owner_country
+    description: "One row per satellite per owner country (every country in the owner_country_codes list of fct__satellite_master)."
+    config:
+      access: public
+    data_tests:
+      - model_health:
+          name: mh__fct__satellite_owner_country__pk_unique
+          arguments:
+            check: pk_unique
+            columns:
+              - map_sk
+      - model_health:
+          name: mh__fct__satellite_owner_country__pk_not_null
+          arguments:
+            check: pk_not_null
+            columns:
+              - map_sk
+      - model_health:
+          name: mh__fct__satellite_owner_country__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('int__xsrc__satellite_owner_country_map')"
+            relationship: equal
+    columns:
+      - name: map_sk
+        data_type: varchar
+        description: '{{ doc("col__map_sk") }}'
+        constraints:
+          - type: not_null
+      - name: satcat_id
+        data_type: integer
+        description: '{{ doc("col__satcat_id") }}'
+        data_tests:
+          - relationships:
+              name: fk__fct__satellite_owner_country__satcat_id
+              arguments:
+                to: "ref('fct__satellite_master')"
+                field: satcat_id
+      - name: country_sk
+        data_type: varchar
+        description: '{{ doc("col__country_sk") }}'
+        data_tests:
+          - relationships:
+              name: fk__fct__satellite_owner_country__country_sk
+              arguments:
+                to: "ref('dim__country')"
+                field: country_sk
+      - name: owner_country_iso_code
+        data_type: varchar
+        description: '{{ doc("col__owner_country_iso_code") }}'
+      - name: owner_country_iso_code_order
+        data_type: integer
+        description: '{{ doc("col__owner_country_iso_code_order") }}'
+      - name: owner_country_source
+        data_type: varchar
+        description: '{{ doc("col__owner_country_source") }}'
+      - name: inserted_date_time
+        data_type: timestamp
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        data_type: varchar
+        description: '{{ doc("col__inserted_by") }}'

@@ -1,0 +1,14 @@
+version: 2
+
+macros:
+  - name: generate_schema_name
+    description: "Overrides dbt's schema naming so models land in clean schemas (staging, intermediate, marts, marts_tracking) instead of <target>_<custom>. Falls back to the target schema when a node sets no custom schema."
+    arguments:
+      - name: custom_schema_name
+        type: string
+        description: "The +schema configured for the node, or none."
+      - name: node
+        type: any
+        description: "The node being built (required by dbt's signature; unused)."
+  - name: helper__audit_fields
+    description: "Renders the two audit columns every model ends its cte_final with: inserted_date_time (build timestamp, dbt.current_timestamp) and inserted_by (the job run id from env var SATTRACK_RUN_ID, set by run_pipeline.py; 'manual' for local or ad hoc runs)."

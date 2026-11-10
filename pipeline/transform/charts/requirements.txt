@@ -1,0 +1,7 @@
+# dbt Charts, for the data summary dashboard (scripts/build_data_summary.py). Its own venv: it brings
+# Python dbt-core/dbt-duckdb, which must not mix with the pipeline's dbt Fusion install.
+# Venv: virtualenvs/py312/sattrack_dbtcharts_venv (Python 3.12.3). Pinned 2026-11-08 from what is installed there.
+# Top-level dependencies only; requirements.lock.txt is the full `pip freeze` of the same venv
+# (dbt-core 1.12.6, dbt-duckdb 1.11.1, duckdb 2.0.0, PyYAML 6.0.3, all brought in by dbt-charts).
+# 0.9.1, not 0.10.0: the 0.10.0 Windows wheel ships schema files with CRLF line endings and fails its own checksum.
+dbt-charts==0.9.1

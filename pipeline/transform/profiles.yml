@@ -1,0 +1,11 @@
+sattrack:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      # The orchestrator points this at the run's working copy (sattrack_build.duckdb).
+      path: "{{ env_var('SATTRACK_DB_PATH', '../data/warehouse/sattrack_build.duckdb') }}"
+      threads: 4
+      attach:
+        - path: "{{ env_var('SATTRACK_OPS_PATH', '../data/warehouse/sattrack_ops.duckdb') }}"
+          alias: ops

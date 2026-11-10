@@ -1,0 +1,15 @@
+version: 2
+
+macros:
+  - name: helper__stage_gcat_psatcat
+    description: "Full staging model body for the GCAT psatcat-format catalogs (psatcat, psatcat100k): renames and casts the raw columns (staging carries no audit fields). Shared, so the pair can't drift apart."
+    arguments:
+      - name: table
+        type: string
+        description: "Source table in the jsr source: psatcat or psatcat100k."
+  - name: helper__stage_gcat_satcat
+    description: "Full staging model body for the GCAT satcat-format catalogs (satcat, satcat100k): renames and casts the raw columns (staging carries no audit fields). Shared, so the pair can't drift apart."
+    arguments:
+      - name: table
+        type: string
+        description: "Source table in the jsr source: satcat or satcat100k."

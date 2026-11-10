@@ -1,0 +1,582 @@
+# SatTrack data summary dashboard (dbt Charts).
+# Charts and layout only: every query comes from transform/analyses/data_summary/*.sql through the generated
+# query file below. Build with scripts/build_data_summary.py, never by editing the generated file.
+title: "SatTrack data summary"
+notes: "Distribution of the key fields in the app mart (fct__satellite_master), where they come from, and how complete they are."
+tags:
+  - sattrack
+  - data-summary
+source: sattrack
+extends:
+  - vivid
+  - ./_generated/data_summary_queries.yml
+
+style:
+  charts:
+    category_colors:
+      object_type:
+        values:
+          PAYLOAD: "#2563eb"
+          DEBRIS: "#dc2626"
+          ROCKET BODY: "#f59e0b"
+          UNKNOWN: "#9ca3af"
+      operational_status:
+        values:
+          Active: "#16a34a"
+          Inactive: "#94a3b8"
+      publisher:
+        values:
+          Space-Track: "#0ea5e9"
+          GCAT: "#8b5cf6"
+          ISO 3166 (pycountry): "#14b8a6"
+          Not resolved: "#d1d5db"
+      orbit_class:
+        values:
+          LEO: "#0284c7"
+          MEO: "#7c3aed"
+          GSO: "#db2777"
+          GEO: "#ea580c"
+          HEO: "#65a30d"
+          Not classified: "#d1d5db"
+
+charts:
+  # ---------- Overview ----------
+  kpi_objects:
+    query: ds__overview__kpis
+    type: kpi
+    value: objects
+    label: "Objects in the app"
+    style:
+      value:
+        format: integer
+  kpi_payloads:
+    query: ds__overview__kpis
+    type: kpi
+    value: payloads
+    label: "Payloads"
+    style:
+      value:
+        format: integer
+  kpi_active:
+    query: ds__overview__kpis
+    type: kpi
+    value: active_objects
+    label: "Active objects"
+    style:
+      value:
+        format: integer
+  kpi_gcat_match:
+    query: ds__overview__kpis
+    type: kpi
+    value: gcat_match_rate
+    label: "Linked to GCAT"
+    style:
+      value:
+        format: percent
+  kpi_programs:
+    query: ds__overview__kpis
+    type: kpi
+    value: programs
+    label: "GCAT programmes"
+    style:
+      value:
+        format: integer
+  kpi_positions_as_of:
+    query: ds__overview__kpis
+    type: kpi
+    value: positions_as_of
+    label: "Positions as of (Space-Track)"
+  kpi_details_as_of:
+    query: ds__overview__kpis
+    type: kpi
+    value: gcat_updated_at
+    label: "Details as of (GCAT)"
+  source_contributions:
+    query: ds__overview__source_contributions
+    type: bar
+    title: "Who supplies each resolved field"
+    subtitle: "Share of objects by the publisher whose value the mart used (from the *_source provenance columns)"
+    x: field
+    y: objects
+    color: publisher
+    style:
+      orientation: horizontal
+      stack: normalize
+  field_origin:
+    query: gen__field_origin_counts
+    type: bar
+    title: "Where the mart's columns come from"
+    subtitle: "Columns of fct__satellite_master by origin, from each column's documented definition"
+    x: origin
+    y: columns
+    style:
+      orientation: horizontal
+      color:
+        static: "#6366f1"
+      marks:
+        bar:
+          labels:
+            visible: true
+  field_catalogue:
+    query: gen__field_catalogue
+    type: table
+    title: "Field catalogue"
+    subtitle: "Every column the app reads, its origin and its documented definition"
+    style:
+      columns:
+        column_name:
+          label: Column
+          font:
+            weight: "600"
+        data_type:
+          label: Type
+        origin:
+          label: Origin
+        definition:
+          label: Definition
+          width: 520
+        cited_source:
+          label: Cited source
+    conditional_formatting:
+      origin:
+        when:
+          - eq: Undocumented
+            background: warning.bg
+            font:
+              color: warning.text
+          - eq: Resolved across sources
+            background: info.bg
+          - eq: Computed (SatTrack rule)
+            background: positive.bg
+
+  # ---------- Objects ----------
+  object_type_donut:
+    query: ds__objects__object_type
+    type: donut
+    title: "Object type"
+    theta: objects
+    color: object_type
+    total:
+      label: Objects
+    style:
+      total:
+        value:
+          format: integer
+  status_by_type:
+    query: ds__objects__status_by_type
+    type: bar
+    title: "Status by object type"
+    subtitle: "Status as defined in the field catalogue (from GCAT operating status)"
+    x: object_type
+    y: objects
+    color: operational_status
+    sort:
+      by: objects
+      order: desc
+    style:
+      orientation: horizontal
+      stack: zero
+  rcs_by_type:
+    query: ds__objects__rcs_size_by_type
+    type: bar
+    title: "Radar cross-section size by object type"
+    subtitle: "Share of objects; Space-Track RCS size class"
+    x: object_type
+    y: objects
+    color: rcs_size
+    style:
+      orientation: horizontal
+      stack: normalize
+  mission_category:
+    query: ds__objects__mission_category
+    type: bar
+    title: "Top mission categories (payloads)"
+    subtitle: "GCAT mission category labels; a payload can have several"
+    x: mission_category
+    y: payloads
+    color: operational_status
+    sort:
+      by: payloads
+      order: desc
+    style:
+      orientation: horizontal
+      stack: zero
+  mass_density:
+    query: ds__objects__mass_density
+    type: area
+    title: "Payload mass distribution"
+    subtitle: "log10 of launch mass in kg: 1 = 10 kg, 2 = 100 kg, 3 = 1 t, 4 = 10 t"
+    x: log10_mass_kg
+    y: payloads
+    color: mass_basis
+    x_label: "log10 mass (kg)"
+    style:
+      stack: zero
+
+  # ---------- Orbits ----------
+  orbit_class:
+    query: ds__orbits__orbit_class
+    type: bar
+    title: "Orbit class"
+    subtitle: "From each object's TLE (Space-Track element set) with the app's 5-class rule, by object type"
+    x: orbit_class
+    y: objects
+    color: object_type
+    sort:
+      by: objects
+      order: desc
+    style:
+      orientation: horizontal
+      stack: zero
+  orbit_class_by_status:
+    query: ds__orbits__orbit_class_by_status
+    type: bar
+    title: "Orbit class by status"
+    subtitle: "TLE-based orbit class, active vs inactive"
+    x: orbit_class
+    y: objects
+    color: operational_status
+    sort:
+      by: objects
+      order: desc
+    style:
+      orientation: horizontal
+      stack: zero
+  perigee_density:
+    query: ds__orbits__perigee_density
+    type: area
+    title: "Perigee altitude density (100 to 2,000 km)"
+    subtitle: "Objects per 10 km band; the low-Earth shells used by large constellations stand out"
+    x: perigee_km
+    y: objects
+    color: object_type
+    x_label: "Perigee altitude (km)"
+    height: 340
+    style:
+      stack: zero
+  inclination_density:
+    query: ds__orbits__inclination_density
+    type: area
+    title: "Inclination density"
+    subtitle: "Objects per 2 degree band, by orbit class (0 = equatorial, 90 = polar, 98 = sun-synchronous)"
+    x: inclination_deg
+    y: objects
+    color: orbit_class
+    x_label: "Inclination (degrees)"
+    height: 340
+    style:
+      stack: zero
+
+  # ---------- Launches ----------
+  objects_by_year:
+    query: ds__launches__objects_by_year
+    type: bar
+    title: "Objects by launch year"
+    subtitle: "Objects in today's catalogue, by the year they were launched"
+    x: launch_year
+    y: objects
+    color: object_type
+    height: 340
+    style:
+      orientation: vertical
+      stack: zero
+  site_map:
+    query: ds__launches__site_map
+    type: bubble_map
+    title: "Launch sites"
+    subtitle: "Bubble size = objects launched from the site"
+    latitude: latitude
+    longitude: longitude
+    size: objects
+    basemap:
+      source: world-countries
+      fill: "#e5e7eb"
+      stroke: "#ffffff"
+  top_sites:
+    query: ds__launches__top_sites
+    type: bar
+    title: "Top launch sites"
+    x: site_name
+    y: objects
+    color: object_type
+    sort:
+      by: objects
+      order: desc
+    style:
+      orientation: horizontal
+      stack: zero
+  launch_vehicle_brand:
+    query: ds__launches__launch_vehicle_brand
+    type: bar
+    title: "Top launch vehicle brands (payloads)"
+    x: launch_vehicle_brand
+    y: payloads
+    style:
+      orientation: horizontal
+      color:
+        static: "#0891b2"
+
+  # ---------- Ownership ----------
+  owner_country:
+    query: ds__ownership__owner_country
+    type: bar
+    title: "Top owners"
+    subtitle: "Owner country or international organisation, by object type"
+    x: owner_country
+    y: objects
+    color: object_type
+    sort:
+      by: objects
+      order: desc
+    style:
+      orientation: horizontal
+      stack: zero
+  ownership_class:
+    query: ds__ownership__ownership_class
+    type: bar
+    title: "Ownership class (payloads)"
+    subtitle: "GCAT ownership class labels"
+    x: ownership_class
+    y: payloads
+    style:
+      orientation: horizontal
+      color:
+        static: "#7c3aed"
+  top_operators:
+    query: ds__ownership__top_operators
+    type: bar
+    title: "Top operators (payloads)"
+    x: operator_name
+    y: payloads
+    color: operational_status
+    sort:
+      by: payloads
+      order: desc
+    style:
+      orientation: horizontal
+      stack: zero
+  top_manufacturers:
+    query: ds__ownership__top_manufacturers
+    type: bar
+    title: "Top manufacturers (payloads)"
+    x: manufacturer_name
+    y: payloads
+    style:
+      orientation: horizontal
+      color:
+        static: "#db2777"
+
+  # ---------- Programme families ----------
+  family_note:
+    type: callout
+    message: "Families come from the published GCAT Program field via the documented satellite_program_family rule: the leading letters of the programme name (Starlink 2MO S1 becomes Starlink). Some families are true constellations (Starlink, OneWeb), others are long-running series (Meteor, FY, YG). A family is a naming-based grouping, not a published constellation."
+    style:
+      tone: warning
+  kpi_large_families:
+    query: ds__families__kpis
+    type: kpi
+    value: large_families
+    label: "Families with 50+ payloads"
+    style:
+      value:
+        format: integer
+  kpi_payloads_in_large_families:
+    query: ds__families__kpis
+    type: kpi
+    value: payloads_in_large_families
+    label: "Payloads in those families"
+    style:
+      value:
+        format: integer
+  kpi_share_in_large_families:
+    query: ds__families__kpis
+    type: kpi
+    value: share_in_large_families
+    label: "Share of payloads"
+    style:
+      value:
+        format: percent
+  program_families:
+    query: ds__families__program_families
+    type: bar
+    title: "Largest programme families"
+    subtitle: "Families with at least 50 payloads, by status"
+    x: satellite_program_family
+    y: payloads
+    color: operational_status
+    sort:
+      by: payloads
+      order: desc
+    style:
+      orientation: horizontal
+      stack: zero
+  family_by_year:
+    query: ds__families__family_by_year
+    type: area
+    title: "Payloads launched per year by programme family"
+    subtitle: "The six largest families; everything else is Other or No programme"
+    x: launch_year
+    y: payloads
+    color: program_group
+    height: 340
+    style:
+      stack: zero
+  top_programs:
+    query: ds__families__top_programs
+    type: bar
+    title: "Top GCAT programmes (shell level)"
+    x: satellite_program
+    y: payloads
+    style:
+      orientation: horizontal
+      color:
+        static: "#4f46e5"
+
+  # ---------- Data quality ----------
+  fill_rates:
+    query: ds__quality__fill_rates
+    type: heatmap
+    title: "Field completeness"
+    subtitle: "Share of objects with a value, by field and object type"
+    x: object_type
+    y: field
+    color: fill_rate
+    style:
+      color:
+        gradient:
+          palette: dbt-seq-blue
+  resolution_mix:
+    query: ds__overview__source_contributions
+    type: bar
+    title: "Resolved fields by publisher"
+    x: field
+    y: objects
+    color: publisher
+    style:
+      orientation: horizontal
+      stack: normalize
+  resolution_methods:
+    query: ds__quality__resolution_methods
+    type: table
+    title: "Resolution methods"
+    subtitle: "How each resolved field was filled (provenance column values)"
+    style:
+      columns:
+        objects:
+          format: integer
+          align: right
+        share:
+          format: percent
+          align: right
+          scale:
+            background:
+              palette: dbt-seq-blue
+              domain: data
+  tle_age:
+    query: ds__quality__tle_age
+    type: bar
+    title: "Element set age at load"
+    subtitle: "Days between the latest element set's epoch and the load time"
+    x: tle_age_band
+    y: objects
+    color: object_type
+    sort:
+      by: band_order
+      order: asc
+    style:
+      orientation: vertical
+      stack: zero
+  flags:
+    query: ds__quality__flags
+    type: table
+    title: "Caution flags"
+    subtitle: "Definitions are in the field catalogue on the Overview tab"
+    style:
+      columns:
+        objects:
+          format: integer
+          align: right
+        share:
+          format: percent
+          align: right
+
+tabs:
+  position: top
+  items:
+    - title: Overview
+      rows:
+        - cols:
+            - kpi_objects
+            - kpi_payloads
+            - kpi_active
+            - kpi_gcat_match
+            - kpi_programs
+        - cols:
+            - kpi_positions_as_of
+            - kpi_details_as_of
+        - text: |
+            ### About this data
+            Every chart reads the app mart **fct__satellite_master** (one row per object in the Space-Track GP feed), so it shows exactly what the app shows.
+
+            | Publisher | What it supplies |
+            |---|---|
+            | **Space-Track** (GP feed) | The object list itself, element sets (positions), object type, launch date, RCS size |
+            | **GCAT** (Jonathan McDowell) | Status, owner, operator, manufacturer, launch site and vehicle, mission, programme, mass, orbit class rules |
+            | **ISO 3166** (pycountry) | Country names for owner codes |
+
+            Queries live in `transform/analyses/data_summary/` and are documented in `_data_summary__analyses.yml`.
+        - cols:
+            - source_contributions
+            - field_origin
+        - field_catalogue
+    - title: Objects
+      rows:
+        - cols:
+            - object_type_donut
+            - status_by_type
+        - cols:
+            - rcs_by_type
+            - mission_category
+        - mass_density
+    - title: Orbits
+      rows:
+        - cols:
+            - orbit_class
+            - orbit_class_by_status
+        - perigee_density
+        - inclination_density
+    - title: Launches
+      rows:
+        - objects_by_year
+        - cols:
+            - site_map
+            - top_sites
+        - launch_vehicle_brand
+    - title: Ownership
+      rows:
+        - cols:
+            - owner_country
+            - ownership_class
+        - cols:
+            - top_operators
+            - top_manufacturers
+    - title: Programme families
+      rows:
+        - family_note
+        - cols:
+            - kpi_large_families
+            - kpi_payloads_in_large_families
+            - kpi_share_in_large_families
+        - cols:
+            - program_families
+            - top_programs
+        - family_by_year
+    - title: Data quality
+      rows:
+        - fill_rates
+        - cols:
+            - resolution_mix
+            - tle_age
+        - cols:
+            - resolution_methods
+            - flags

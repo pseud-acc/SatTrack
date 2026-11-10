@@ -1,0 +1,406 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >-
+  SatTrack core hosting (DRAFT, not applied; region eu-west-1). GitHub OIDC provider, the pipeline role that GitHub
+  Actions assumes, the private data bucket with its policy and lifecycle, the Heroku app reader user,
+  and a monthly cost budget. See infra/aws/README.md for the apply steps and the verification checklist.
+
+# Design: hosting_security_plan.html (agents/hosting). Nothing in this template creates access keys;
+# the app reader's key is created by hand (README step 7) so it never appears in stack outputs or events.
+
+Parameters:
+  BucketName:
+    Type: String
+    Description: Globally unique name of the private data bucket. Do not publish it in the repo.
+    AllowedPattern: "^[a-z0-9][a-z0-9.-]{1,61}[a-z0-9]$"
+  GitHubOwner:
+    Type: String
+    Description: GitHub user or organisation that owns the repository (case as shown by GitHub).
+  GitHubOwnerId:
+    Type: String
+    Description: Numeric owner id (gh api repos/OWNER/REPO --jq .owner.id). Used by the immutable subject claim.
+    AllowedPattern: "^[0-9]+$"
+  GitHubRepo:
+    Type: String
+    Description: Repository name.
+  GitHubRepoId:
+    Type: String
+    Description: Numeric repository id (gh api repos/OWNER/REPO --jq .id). Used by the immutable subject claim.
+    AllowedPattern: "^[0-9]+$"
+  GitHubEnvironment:
+    Type: String
+    Default: production
+    Description: GitHub environment the pipeline job references. Only this environment can assume the role.
+  UseImmutableSubject:
+    Type: String
+    Default: "true"
+    AllowedValues:
+      - "true"
+      - "false"
+    Description: >-
+      "true" for repositories created after 2026-07-15 (or opted in): the OIDC sub carries owner and repo ids,
+      repo:OWNER@OWNER_ID/REPO@REPO_ID:environment:ENV. "false" uses the legacy name-only form.
+  CreateOidcProvider:
+    Type: String
+    Default: "true"
+    AllowedValues:
+      - "true"
+      - "false"
+    Description: An account can hold one provider per URL. Set "false" and pass ExistingOidcProviderArn if it exists already.
+  ExistingOidcProviderArn:
+    Type: String
+    Default: ""
+    Description: ARN of an existing token.actions.githubusercontent.com provider (only when CreateOidcProvider is "false").
+  SpaceTrackSecretArn:
+    Type: String
+    Description: Full ARN of the Secrets Manager secret holding the Space-Track login (including the 6-character suffix).
+    AllowedPattern: "^arn:aws[a-z-]*:secretsmanager:[a-z0-9-]+:[0-9]{12}:secret:.+$"
+  SpaceTrackSecretKmsKeyArn:
+    Type: String
+    Default: ""
+    Description: Only if the secret is encrypted with a customer managed KMS key. Leave empty for the default aws/secretsmanager key.
+  AdminPrincipalArn:
+    Type: String
+    Description: >-
+      Your own admin IAM user or role ARN (wildcards allowed, e.g. an IAM Identity Center role). It is the only
+      identity besides the pipeline role and the app reader that may touch objects in the bucket. The account
+      root user can always remove a bucket policy if you lock yourself out.
+  RollbackDays:
+    Type: Number
+    Default: 30
+    MinValue: 1
+    Description: Days a superseded version of the warehouse, state and app objects is kept for rollback.
+  RawHistoryDays:
+    Type: Number
+    Default: 91
+    MinValue: 1
+    Description: Days raw-history parquet files are kept (pipeline retention is 90 days; one day of margin).
+  LogDays:
+    Type: Number
+    Default: 90
+    MinValue: 1
+    Description: Days private run logs are kept.
+  BudgetEmail:
+    Type: String
+    Default: ""
+    Description: Email for the monthly cost budget alert. Empty skips the budget.
+  BudgetLimitUsd:
+    Type: Number
+    Default: 5
+    Description: Monthly budget in USD; alerts at 80 percent actual and 100 percent forecast.
+
+Conditions:
+  ImmutableSubject: !Equals
+    - !Ref UseImmutableSubject
+    - "true"
+  MakeOidcProvider: !Equals
+    - !Ref CreateOidcProvider
+    - "true"
+  SecretUsesCmk: !Not
+    - !Equals
+      - !Ref SpaceTrackSecretKmsKeyArn
+      - ""
+  HasBudget: !Not
+    - !Equals
+      - !Ref BudgetEmail
+      - ""
+
+Resources:
+  # ---------------------------------------------------------------- GitHub OIDC
+  GitHubOidcProvider:
+    Type: AWS::IAM::OIDCProvider
+    Condition: MakeOidcProvider
+    Properties:
+      Url: https://token.actions.githubusercontent.com
+      ClientIdList:
+        - sts.amazonaws.com
+      # ThumbprintList omitted: IAM retrieves the top intermediate CA thumbprint itself (CFN reference).
+      Tags:
+        - Key: project
+          Value: sattrack
+
+  # ---------------------------------------------------------------- pipeline role
+  PipelineRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: sattrack-pipeline-github
+      Path: /sattrack/
+      Description: Assumed by the SatTrack GitHub Actions job (environment-pinned OIDC). No long-lived keys.
+      MaxSessionDuration: 3600
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: GitHubActionsProductionEnvironmentOnly
+            Effect: Allow
+            Principal:
+              Federated: !If
+                - MakeOidcProvider
+                - !Ref GitHubOidcProvider
+                - !Ref ExistingOidcProviderArn
+            Action: sts:AssumeRoleWithWebIdentity
+            Condition:
+              StringEquals:
+                "token.actions.githubusercontent.com:aud": sts.amazonaws.com
+                "token.actions.githubusercontent.com:sub": !If
+                  - ImmutableSubject
+                  - !Sub "repo:${GitHubOwner}@${GitHubOwnerId}/${GitHubRepo}@${GitHubRepoId}:environment:${GitHubEnvironment}"
+                  - !Sub "repo:${GitHubOwner}/${GitHubRepo}:environment:${GitHubEnvironment}"
+      Tags:
+        - Key: project
+          Value: sattrack
+
+  PipelinePolicy:
+    Type: AWS::IAM::RolePolicy
+    Properties:
+      RoleName: !Ref PipelineRole
+      PolicyName: sattrack-pipeline-least-privilege
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: ListOwnBucket
+            # Without ListBucket a missing key returns 403 instead of 404, which would make
+            # "no state yet" indistinguishable from "access broken". Lists key names of this bucket only.
+            Effect: Allow
+            Action:
+              - s3:ListBucket
+            Resource: !Sub "arn:${AWS::Partition}:s3:::${BucketName}"
+          - Sid: ReadState
+            Effect: Allow
+            Action:
+              - s3:GetObject
+              - s3:GetObjectVersion
+            Resource:
+              - !Sub "arn:${AWS::Partition}:s3:::${BucketName}/state/manifest.json"
+              - !Sub "arn:${AWS::Partition}:s3:::${BucketName}/warehouse/*"
+          - Sid: WriteOwnPrefixesNoDelete
+            # No s3:DeleteObject*: retention is done by lifecycle rules, rollback by versioning.
+            Effect: Allow
+            Action:
+              - s3:PutObject
+            Resource:
+              - !Sub "arn:${AWS::Partition}:s3:::${BucketName}/state/manifest.json"
+              - !Sub "arn:${AWS::Partition}:s3:::${BucketName}/warehouse/*"
+              - !Sub "arn:${AWS::Partition}:s3:::${BucketName}/raw_history/*"
+              - !Sub "arn:${AWS::Partition}:s3:::${BucketName}/reports/*"
+              - !Sub "arn:${AWS::Partition}:s3:::${BucketName}/app/*"
+              - !Sub "arn:${AWS::Partition}:s3:::${BucketName}/logs/*"
+          - Sid: ReadSpaceTrackSecretOnly
+            Effect: Allow
+            Action:
+              - secretsmanager:GetSecretValue
+            Resource: !Ref SpaceTrackSecretArn
+          - !If
+            - SecretUsesCmk
+            - Sid: DecryptSecretViaSecretsManagerOnly
+              Effect: Allow
+              Action:
+                - kms:Decrypt
+              Resource: !Ref SpaceTrackSecretKmsKeyArn
+              Condition:
+                StringEquals:
+                  "kms:ViaService": !Sub "secretsmanager.${AWS::Region}.amazonaws.com"
+            - !Ref AWS::NoValue
+
+  # ---------------------------------------------------------------- Heroku app reader
+  AppReaderUser:
+    Type: AWS::IAM::User
+    Properties:
+      UserName: sattrack-app-reader
+      Path: /sattrack/
+      # No console password, no access key here: create the key by hand (README step 7) and rotate it.
+      Policies:
+        - PolicyName: sattrack-app-read-only
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Sid: ReadPublishedAppDataOnly
+                # GetObjectVersion: the app reads app/current.json, then the exact object versions it names, so both
+                # CSVs always come from the same run. No ListBucket: it never lists.
+                Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                Resource: !Sub "arn:${AWS::Partition}:s3:::${BucketName}/app/*"
+      Tags:
+        - Key: project
+          Value: sattrack
+
+  # ---------------------------------------------------------------- bucket
+  DataBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      BucketName: !Ref BucketName
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      VersioningConfiguration:
+        Status: Enabled
+      LifecycleConfiguration:
+        Rules:
+          - Id: abort-incomplete-multipart
+            Status: Enabled
+            Prefix: ""
+            AbortIncompleteMultipartUpload:
+              DaysAfterInitiation: 1
+          - Id: remove-expired-delete-markers
+            Status: Enabled
+            Prefix: ""
+            ExpiredObjectDeleteMarker: true
+          - Id: warehouse-rollback-window
+            # The current version never expires; only superseded versions do.
+            Status: Enabled
+            Prefix: warehouse/
+            NoncurrentVersionExpiration:
+              NoncurrentDays: !Ref RollbackDays
+          - Id: state-rollback-window
+            Status: Enabled
+            Prefix: state/
+            NoncurrentVersionExpiration:
+              NoncurrentDays: !Ref RollbackDays
+          - Id: app-rollback-window
+            Status: Enabled
+            Prefix: app/
+            NoncurrentVersionExpiration:
+              NoncurrentDays: !Ref RollbackDays
+          - Id: reports-rollback-window
+            Status: Enabled
+            Prefix: reports/
+            NoncurrentVersionExpiration:
+              NoncurrentDays: !Ref RollbackDays
+          - Id: raw-history-retention
+            Status: Enabled
+            Prefix: raw_history/
+            ExpirationInDays: !Ref RawHistoryDays
+            NoncurrentVersionExpiration:
+              NoncurrentDays: 1
+          - Id: logs-retention
+            Status: Enabled
+            Prefix: logs/
+            ExpirationInDays: !Ref LogDays
+            NoncurrentVersionExpiration:
+              NoncurrentDays: 1
+      Tags:
+        - Key: project
+          Value: sattrack
+
+  DataBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref DataBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: DenyNonTls
+            Effect: Deny
+            Principal: "*"
+            Action: s3:*
+            Resource:
+              - !Sub "arn:${AWS::Partition}:s3:::${BucketName}"
+              - !Sub "arn:${AWS::Partition}:s3:::${BucketName}/*"
+            Condition:
+              Bool:
+                "aws:SecureTransport": "false"
+          - Sid: DenyOldTls
+            Effect: Deny
+            Principal: "*"
+            Action: s3:*
+            Resource:
+              - !Sub "arn:${AWS::Partition}:s3:::${BucketName}"
+              - !Sub "arn:${AWS::Partition}:s3:::${BucketName}/*"
+            Condition:
+              NumericLessThan:
+                "s3:TlsVersion": "1.2"
+          - Sid: DenyObjectAccessToEveryoneElse
+            # Data-plane actions only, so CloudFormation (run as the admin) can still manage the bucket.
+            Effect: Deny
+            Principal: "*"
+            Action:
+              - s3:GetObject*
+              - s3:PutObject*
+              - s3:DeleteObject*
+              - s3:ListBucket*
+              - s3:RestoreObject
+              - s3:ReplicateObject
+            Resource:
+              - !Sub "arn:${AWS::Partition}:s3:::${BucketName}"
+              - !Sub "arn:${AWS::Partition}:s3:::${BucketName}/*"
+            Condition:
+              ArnNotLike:
+                "aws:PrincipalArn":
+                  - !GetAtt PipelineRole.Arn
+                  - !GetAtt AppReaderUser.Arn
+                  - !Ref AdminPrincipalArn
+          - Sid: DenyAppReaderOutsideAppPrefix
+            Effect: Deny
+            Principal:
+              AWS: !GetAtt AppReaderUser.Arn
+            Action: s3:*
+            NotResource: !Sub "arn:${AWS::Partition}:s3:::${BucketName}/app/*"
+          - Sid: ManifestWritesMustBeConditional
+            # The manifest is the commit point: every write is a compare-and-swap (If-Match) or a
+            # create-only (If-None-Match), so two runs can never both "win".
+            Effect: Deny
+            Principal: "*"
+            Action: s3:PutObject
+            Resource: !Sub "arn:${AWS::Partition}:s3:::${BucketName}/state/manifest.json"
+            Condition:
+              "Null":
+                "s3:if-match": "true"
+                "s3:if-none-match": "true"
+
+  # ---------------------------------------------------------------- cost guard
+  MonthlyBudget:
+    Type: AWS::Budgets::Budget
+    Condition: HasBudget
+    Properties:
+      Budget:
+        BudgetName: sattrack-monthly
+        BudgetType: COST
+        TimeUnit: MONTHLY
+        BudgetLimit:
+          Amount: !Ref BudgetLimitUsd
+          Unit: USD
+      NotificationsWithSubscribers:
+        - Notification:
+            NotificationType: ACTUAL
+            ComparisonOperator: GREATER_THAN
+            Threshold: 80
+            ThresholdType: PERCENTAGE
+          Subscribers:
+            - SubscriptionType: EMAIL
+              Address: !Ref BudgetEmail
+        - Notification:
+            NotificationType: FORECASTED
+            ComparisonOperator: GREATER_THAN
+            Threshold: 100
+            ThresholdType: PERCENTAGE
+          Subscribers:
+            - SubscriptionType: EMAIL
+              Address: !Ref BudgetEmail
+
+Outputs:
+  PipelineRoleArn:
+    Description: Put in the GitHub environment secret AWS_PIPELINE_ROLE_ARN.
+    Value: !GetAtt PipelineRole.Arn
+  BucketName:
+    Description: Put in the GitHub environment secret SATTRACK_BUCKET and the Heroku config var SATTRACK_S3_BUCKET.
+    Value: !Ref DataBucket
+  AppReaderUserName:
+    Description: Create its access key by hand (README step 7); never in CloudFormation.
+    Value: !Ref AppReaderUser
+  ExpectedOidcSubject:
+    Description: The exact sub claim the role trusts. Compare with the token sub if AssumeRoleWithWebIdentity fails.
+    Value: !If
+      - ImmutableSubject
+      - !Sub "repo:${GitHubOwner}@${GitHubOwnerId}/${GitHubRepo}@${GitHubRepoId}:environment:${GitHubEnvironment}"
+      - !Sub "repo:${GitHubOwner}/${GitHubRepo}:environment:${GitHubEnvironment}"

@@ -1,0 +1,17 @@
+# Queries behind the app CSV export (lift-and-shift for the live SatTrack Dash app).
+# Each analysis produces one CSV file the app reads today, with the app's file name, column names, order and formats.
+# scripts/export_app_csvs.py reads each analysis's SQL from this folder, resolves ref() to the live mart and writes
+# <analysis name without "app__">.csv into DATA_DIR/app/. Edit the SQL here; the script holds no query logic.
+version: 2
+
+analyses:
+  - name: app__satcat_tle
+    description: >-
+      satcat_tle.csv for the app: one row per Earth-orbiting payload with a TLE, in the old file's 20 columns
+      (SatCatId ... OrbitClass), with 'Unknown' / -1.0 for gaps because the app drops rows with any missing value.
+      Reads only fct__satellite_master.
+  - name: app__last_data_update
+    description: >-
+      last_data_update.csv for the app: Source, Last Download, Last Update (dd/mm/YYYY, HH:MM:SS). The app shows
+      the Celestrak_TLE row's Last Update, which now carries the Space-Track GP download time. Reads only
+      fct__satellite_master.
