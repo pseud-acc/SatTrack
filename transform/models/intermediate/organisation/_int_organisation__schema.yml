@@ -100,16 +100,16 @@ models:
               name: fk__int__jsr__org_satellite_owner_map__org_code
               arguments: {to: "ref('int__jsr__org_organisations')", field: org_code}
               config: {severity: warn}   # GCAT may cite codes not (yet) in orgs
-      - name: org_code_ord
-        description: '{{ doc("col__org_code_ord") }}'
+      - name: org_code_order
+        description: '{{ doc("col__org_code_order") }}'
       - name: org_code_raw
         description: '{{ doc("col__org_code_raw") }}'
-      - name: flag_composite
-        description: '{{ doc("col__flag_composite") }}'
-      - name: flag_uncertain
-        description: '{{ doc("col__flag_uncertain") }}'
-      - name: parse_rule
-        description: '{{ doc("col__parse_rule") }}'
+      - name: flag_multiple_orgs
+        description: '{{ doc("col__flag_multiple_orgs") }}'
+      - name: flag_org_uncertain
+        description: '{{ doc("col__flag_org_uncertain") }}'
+      - name: org_code_split_rule
+        description: '{{ doc("col__org_code_split_rule") }}'
       - name: org_name
         description: '{{ doc("col__org_name") }}'
       - name: inserted_date_time
@@ -145,16 +145,16 @@ models:
               name: fk__int__jsr__org_satellite_manufacturer_map__org_code
               arguments: {to: "ref('int__jsr__org_organisations')", field: org_code}
               config: {severity: warn}
-      - name: org_code_ord
-        description: '{{ doc("col__org_code_ord") }}'
+      - name: org_code_order
+        description: '{{ doc("col__org_code_order") }}'
       - name: org_code_raw
         description: '{{ doc("col__org_code_raw") }}'
-      - name: flag_composite
-        description: '{{ doc("col__flag_composite") }}'
-      - name: flag_uncertain
-        description: '{{ doc("col__flag_uncertain") }}'
-      - name: parse_rule
-        description: '{{ doc("col__parse_rule") }}'
+      - name: flag_multiple_orgs
+        description: '{{ doc("col__flag_multiple_orgs") }}'
+      - name: flag_org_uncertain
+        description: '{{ doc("col__flag_org_uncertain") }}'
+      - name: org_code_split_rule
+        description: '{{ doc("col__org_code_split_rule") }}'
       - name: org_name
         description: '{{ doc("col__org_name") }}'
       - name: inserted_date_time
@@ -190,16 +190,16 @@ models:
               name: fk__int__jsr__org_launch_agency_map__org_code
               arguments: {to: "ref('int__jsr__org_organisations')", field: org_code}
               config: {severity: warn}
-      - name: org_code_ord
-        description: '{{ doc("col__org_code_ord") }}'
+      - name: org_code_order
+        description: '{{ doc("col__org_code_order") }}'
       - name: org_code_raw
         description: '{{ doc("col__org_code_raw") }}'
-      - name: flag_composite
-        description: '{{ doc("col__flag_composite") }}'
-      - name: flag_uncertain
-        description: '{{ doc("col__flag_uncertain") }}'
-      - name: parse_rule
-        description: '{{ doc("col__parse_rule") }}'
+      - name: flag_multiple_orgs
+        description: '{{ doc("col__flag_multiple_orgs") }}'
+      - name: flag_org_uncertain
+        description: '{{ doc("col__flag_org_uncertain") }}'
+      - name: org_code_split_rule
+        description: '{{ doc("col__org_code_split_rule") }}'
       - name: org_name
         description: '{{ doc("col__org_name") }}'
       - name: inserted_date_time

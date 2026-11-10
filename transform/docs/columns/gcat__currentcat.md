@@ -48,6 +48,12 @@ GCAT: "the organization which currently owns the object if it is still in space,
 Source: https://planet4589.org/space/gcat/web/cat/curcols.html (Batch 3).
 {% enddocs %}
 
+{% docs col__current_owner_state_code %}
+GCAT: "The country (or equivalent) associated with the owner." The owner is the current one, or the last before re-entry. Uses GCAT codes, not ISO. From GCAT currentcat `State`. E.g. `US` (ISS Zarya), `SU` (USSR), `I-ESA` (ESA).
+
+Source: https://planet4589.org/space/gcat/web/cat/curcols.html (Batch 3).
+{% enddocs %}
+
 {% docs col__current_perigee_flag %}
 Marks the most recent perigee as a guess, from GCAT currentcat `PF`: `?` or blank. Rare: about 120 objects.
 
@@ -62,12 +68,6 @@ Source: https://planet4589.org/space/gcat/web/cat/curcols.html (Batch 3).
 
 {% docs col__current_period_min %}
 Apparently the orbital period in minutes of the most recent orbit; GCAT doesn't describe this column. From GCAT currentcat `Period`. E.g. 92.9 for the ISS Zarya module. SatTrack uses GP `PERIOD` instead.
-
-Source: https://planet4589.org/space/gcat/web/cat/curcols.html (Batch 3).
-{% enddocs %}
-
-{% docs col__current_state_code %}
-GCAT: "The country (or equivalent) associated with the owner." From GCAT currentcat `State`. E.g. `US` for the ISS Zarya module; `SU`, `CN`.
 
 Source: https://planet4589.org/space/gcat/web/cat/curcols.html (Batch 3).
 {% enddocs %}

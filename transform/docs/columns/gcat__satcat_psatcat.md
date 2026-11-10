@@ -132,7 +132,7 @@ GCAT: "Dry mass of this GCAT object (which is a reasonable proxy for the mass of
 Source: https://planet4589.org/space/gcat/web/cat/cols.html (Batch 1).
 {% enddocs %}
 
-{% docs col__end_of_life_flag %}
+{% docs col__end_of_life_code %}
 GCAT: "End of life special flags." From GCAT psatcat `TF`. E.g. `Z` ("Zombie satellite: no longer controlled, but continues emitting a beacon signal"), `X` (end-of-life date is a guess).
 
 Source: https://planet4589.org/space/gcat/web/cat/pcols.html (Batch 2).
@@ -270,6 +270,12 @@ GCAT: "The OrgCode for the owner/operator of this object." From GCAT satcat `Own
 Source: https://planet4589.org/space/gcat/web/cat/cols.html (Batch 1).
 {% enddocs %}
 
+{% docs col__owner_state_code %}
+GCAT: "The OrgCode for the country/state associated with the owner/operator." From GCAT satcat `State`. E.g. `US` for the ISS Zarya module; `SU` for Soviet objects.
+
+Source: https://planet4589.org/space/gcat/web/cat/cols.html (Batch 1).
+{% enddocs %}
+
 {% docs col__ownership_class %}
 GCAT: "used to classify satellites as military, commercial, etc." From GCAT psatcat `Class`. E.g. `C` (civil) for the ISS Zarya module; `B` (business), `D` (defense), `A` (amateur/academic).
 
@@ -350,12 +356,6 @@ Source: https://planet4589.org/space/gcat/web/cat/cols.html (Batch 1).
 
 {% docs col__span_m %}
 GCAT: "the largest dimension in metres of the entire object across all appendages (booms, solar arrays, antennae)." From GCAT satcat `Span`. E.g. 23.9 m for the ISS Zarya module.
-
-Source: https://planet4589.org/space/gcat/web/cat/cols.html (Batch 1).
-{% enddocs %}
-
-{% docs col__state_code %}
-GCAT: "The OrgCode for the country/state associated with the owner/operator." From GCAT satcat `State`. E.g. `US` for the ISS Zarya module; `SU` for Soviet objects.
 
 Source: https://planet4589.org/space/gcat/web/cat/cols.html (Batch 1).
 {% enddocs %}

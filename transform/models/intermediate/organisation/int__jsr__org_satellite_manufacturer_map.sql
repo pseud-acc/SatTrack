@@ -23,11 +23,11 @@ with cte_int__jsr__satellite_catalogue as (
         , m.entity_key as jcat
         , m.org_role
         , m.org_code
-        , m.org_code_ord
+        , m.org_code_order
         , m.org_code_raw
-        , m.flag_composite
-        , m.flag_uncertain
-        , m.parse_rule
+        , m.flag_multiple_orgs
+        , m.flag_org_uncertain
+        , m.org_code_split_rule
         , o.org_display_name as org_name
         , {{ helper__audit_fields() }}
     from cte_manufacturer_org_codes as m

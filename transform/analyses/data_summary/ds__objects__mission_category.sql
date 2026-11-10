@@ -3,7 +3,7 @@
 with cte_fct__satellite_master as (
     select
         object_type
-        , status
+        , operational_status
         , mission_category_labels
     from {{ ref('fct__satellite_master') }}
 )
@@ -11,7 +11,7 @@ with cte_fct__satellite_master as (
 , cte_payload_categories as (
     select
         category.mission_category
-        , status
+        , operational_status
     from cte_fct__satellite_master
     cross join unnest(mission_category_labels) as category(mission_category)
     where object_type = 'PAYLOAD'
@@ -29,14 +29,14 @@ with cte_fct__satellite_master as (
 , cte_final as (
     select
         cte_payload_categories.mission_category
-        , cte_payload_categories.status
+        , cte_payload_categories.operational_status
         , count(*) as payloads
     from cte_payload_categories
     inner join cte_top_categories
         on cte_payload_categories.mission_category = cte_top_categories.mission_category
     group by
         cte_payload_categories.mission_category
-        , cte_payload_categories.status
+        , cte_payload_categories.operational_status
 )
 
 select * from cte_final

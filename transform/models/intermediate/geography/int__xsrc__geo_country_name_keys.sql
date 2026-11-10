@@ -24,7 +24,7 @@ with cte_stg__pycountry__iso_countries as (
 
 , cte_name_variants as ( -- every name of every list, with the code it resolves to and the name to display
     select
-        'iso' as name_tier
+        'iso' as name_key_list
         , iso_alpha2 as iso_code
         , country_name as display_name
         , country_name as name_variant
@@ -32,7 +32,7 @@ with cte_stg__pycountry__iso_countries as (
     where flag_historic = 0
     union all
     select
-        'iso' as name_tier
+        'iso' as name_key_list
         , iso_alpha2 as iso_code
         , country_name as display_name
         , country_official_name as name_variant
@@ -40,7 +40,7 @@ with cte_stg__pycountry__iso_countries as (
     where flag_historic = 0 and country_official_name is not null
     union all
     select
-        'iso' as name_tier
+        'iso' as name_key_list
         , iso_alpha2 as iso_code
         , country_common_name as display_name
         , country_common_name as name_variant
@@ -48,7 +48,7 @@ with cte_stg__pycountry__iso_countries as (
     where flag_historic = 0 and country_common_name is not null
     union all
     select
-        'geonames_name' as name_tier
+        'geonames_name' as name_key_list
         , g.iso_alpha2 as iso_code
         , coalesce(i.country_common_name, i.country_name) as display_name
         , g.geonames_country_name as name_variant
@@ -56,7 +56,7 @@ with cte_stg__pycountry__iso_countries as (
     inner join cte_stg__pycountry__iso_countries as i on i.iso_alpha2 = g.iso_alpha2 and i.flag_historic = 0
     union all
     select
-        'iso_historic' as name_tier
+        'iso_historic' as name_key_list
         , iso_alpha4 as iso_code
         , split_part(country_name, ',', 1) as display_name
         , country_name as name_variant
@@ -64,7 +64,7 @@ with cte_stg__pycountry__iso_countries as (
     where flag_historic = 1 and iso_alpha4 is not null
     union all
     select
-        'iso_historic' as name_tier
+        'iso_historic' as name_key_list
         , iso_alpha4 as iso_code
         , split_part(country_name, ',', 1) as display_name
         , split_part(country_name, ',', 1) as name_variant
@@ -74,16 +74,16 @@ with cte_stg__pycountry__iso_countries as (
 
 , cte_name_keys as ( -- each name variant as a full key and a reduced key
     select
-        name_tier
-        , 'full' as key_type
+        name_key_list
+        , 'full' as name_key_type
         , {{ helper__build_country_key_full('name_variant') }} as name_key
         , iso_code
         , display_name
     from cte_name_variants
     union all
     select
-        name_tier
-        , 'reduced' as key_type
+        name_key_list
+        , 'reduced' as name_key_type
         , {{ helper__build_country_key_reduced('name_variant') }} as name_key
         , iso_code
         , display_name
@@ -92,15 +92,15 @@ with cte_stg__pycountry__iso_countries as (
 
 , cte_final as ( -- keep only keys that identify exactly one country within their list
     select
-        name_tier
-        , key_type
+        name_key_list
+        , name_key_type
         , name_key
         , any_value(iso_code) as matched_iso_code
         , max(display_name) as matched_country_name
         , {{ helper__audit_fields() }}
     from cte_name_keys
     where name_key <> ''
-    group by name_tier, key_type, name_key
+    group by name_key_list, name_key_type, name_key
     having count(distinct iso_code) = 1
 )
 

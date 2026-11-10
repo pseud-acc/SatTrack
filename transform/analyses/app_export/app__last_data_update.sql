@@ -8,14 +8,14 @@
 with cte_fct__satellite_master as (
     select
         positions_as_of
-        , details_as_of
+        , gcat_updated_at
     from {{ ref('fct__satellite_master') }}
 )
 
 , cte_as_of as (
     select
         max(positions_as_of) as positions_as_of
-        , max(details_as_of) as details_as_of
+        , max(gcat_updated_at) as gcat_updated_at
     from cte_fct__satellite_master
 )
 
@@ -39,7 +39,7 @@ with cte_fct__satellite_master as (
     select
         'GCAT' as source
         , cast(null as timestamp) as last_download
-        , details_as_of as last_update
+        , gcat_updated_at as last_update
     from cte_as_of
 )
 

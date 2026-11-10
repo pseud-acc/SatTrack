@@ -156,7 +156,7 @@ def export(out_dir: Path, db: Path) -> Path:
             as_of = con.execute(f"""
                 select
                     max(positions_as_of) as positions_as_of
-                    , max(details_as_of) as details_as_of
+                    , max(gcat_updated_at) as gcat_updated_at
                     , max(inserted_by) as run_id
                     , max(inserted_date_time) as mart_built_at
                 from {mart}
@@ -167,7 +167,7 @@ def export(out_dir: Path, db: Path) -> Path:
             "run_id": as_of[2],
             "mart_built_at": _iso(as_of[3]),
             "positions_as_of": _iso(as_of[0]),
-            "details_as_of": _iso(as_of[1]),
+            "gcat_updated_at": _iso(as_of[1]),
             "files": files,
         }
         mtmp = out_dir / ".manifest.json.tmp"

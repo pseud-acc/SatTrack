@@ -15,8 +15,8 @@ with cte_int__jsr__launch_events as (
         , ascent_site_code
         , ascent_pad
         , launch_platform
-        , lv_type
-        , lv_brand
+        , launch_vehicle_type
+        , launch_vehicle_brand
         , flight_id
         , launch_agency_code
         , launch_agency_country
@@ -25,7 +25,7 @@ with cte_int__jsr__launch_events as (
         , launch_success_code
         , launch_time_ref
         , current_owner_code
-        , current_state_code
+        , current_owner_state_code
         , _source_updated_at
     from {{ ref('int__jsr__launch_events') }}
 )
@@ -46,8 +46,8 @@ with cte_int__jsr__launch_events as (
         , cast(ascent_site_code as varchar) as ascent_site_code
         , cast(ascent_pad as varchar) as ascent_pad
         , cast(launch_platform as varchar) as launch_platform
-        , cast(lv_type as varchar) as lv_type
-        , cast(lv_brand as varchar) as lv_brand
+        , cast(launch_vehicle_type as varchar) as launch_vehicle_type
+        , cast(launch_vehicle_brand as varchar) as launch_vehicle_brand
         , cast(flight_id as varchar) as flight_id
         , cast(launch_agency_code as varchar) as launch_agency_code
         , cast(launch_agency_country as varchar) as launch_agency_country
@@ -56,7 +56,7 @@ with cte_int__jsr__launch_events as (
         , cast(launch_success_code as varchar) as launch_success_code
         , cast(launch_time_ref as varchar) as launch_time_ref
         , cast(current_owner_code as varchar) as current_owner_code
-        , cast(current_state_code as varchar) as current_state_code
+        , cast(current_owner_state_code as varchar) as current_owner_state_code
         , cast(_source_updated_at as timestamp) as _source_updated_at
         , {{ helper__audit_fields() }}
     from cte_int__jsr__launch_events

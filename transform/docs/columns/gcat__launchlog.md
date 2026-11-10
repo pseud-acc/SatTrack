@@ -78,7 +78,7 @@ GCAT: "this citation is the primary reference for the existence of the launch an
 Source: https://planet4589.org/space/gcat/web/cat/llog.html (Batch 4).
 {% enddocs %}
 
-{% docs col__lv_type %}
+{% docs col__launch_vehicle_type %}
 GCAT: "name of the type of rocket used, as given in the LV table." From GCAT launch log `LV_Type`. E.g. `Proton-K` (ISS Zarya launch); `Falcon 9` is the most common.
 
 Source: https://planet4589.org/space/gcat/web/cat/llog.html (Batch 4).

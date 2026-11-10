@@ -2,13 +2,13 @@
 with cte_fct__satellite_master as (
     select
         object_type
-        , status
+        , operational_status
         , launch_date
         , owner_country
         , operator_name
         , manufacturer_name
         , site_name
-        , lv_brand
+        , launch_vehicle_brand
         , satellite_program
         , orbit_class
         , rcs_size
@@ -24,13 +24,13 @@ with cte_fct__satellite_master as (
         , f.field.filled as filled
     from cte_fct__satellite_master
     cross join unnest([
-        {'name': 'status', 'filled': status is not null}
+        {'name': 'operational_status', 'filled': operational_status is not null}
         , {'name': 'launch_date', 'filled': launch_date is not null}
         , {'name': 'owner_country', 'filled': owner_country is not null}
         , {'name': 'operator_name', 'filled': operator_name is not null}
         , {'name': 'manufacturer_name', 'filled': manufacturer_name is not null}
         , {'name': 'site_name', 'filled': site_name is not null}
-        , {'name': 'lv_brand', 'filled': lv_brand is not null}
+        , {'name': 'launch_vehicle_brand', 'filled': launch_vehicle_brand is not null}
         , {'name': 'satellite_program', 'filled': satellite_program is not null}
         , {'name': 'orbit_class', 'filled': orbit_class is not null}
         , {'name': 'rcs_size', 'filled': rcs_size is not null}

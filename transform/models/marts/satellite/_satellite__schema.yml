@@ -52,16 +52,16 @@ models:
       - name: flag_orbit_conflict
         data_type: integer
         description: '{{ doc("col__flag_orbit_conflict") }}'
-      - name: status
+      - name: operational_status
         data_type: varchar
-        description: '{{ doc("col__status") }}'
+        description: '{{ doc("col__operational_status") }}'
         data_tests:
           - accepted_values:
-              name: accepted_values__fct__satellite_master__status
+              name: accepted_values__fct__satellite_master__operational_status
               arguments: {values: ["Active", "Inactive"]}
-      - name: status_source
+      - name: operational_status_source
         data_type: varchar
-        description: '{{ doc("col__status_source") }}'
+        description: '{{ doc("col__operational_status_source") }}'
       - name: flag_still_operating
         data_type: integer
         description: '{{ doc("col__flag_still_operating") }}'
@@ -80,9 +80,9 @@ models:
       - name: end_transmission_date_precision
         data_type: varchar
         description: '{{ doc("col__end_transmission_date_precision") }}'
-      - name: end_of_life_flag
+      - name: end_of_life_code
         data_type: varchar
-        description: '{{ doc("col__end_of_life_flag") }}'
+        description: '{{ doc("col__end_of_life_code") }}'
       - name: activity_type
         data_type: varchar
         description: '{{ doc("col__activity_type") }}'
@@ -204,21 +204,21 @@ models:
       - name: site_longitude
         data_type: double
         description: '{{ doc("col__site_longitude") }}'
-      - name: lv_type
+      - name: launch_vehicle_type
         data_type: varchar
-        description: '{{ doc("col__lv_type") }}'
+        description: '{{ doc("col__launch_vehicle_type") }}'
         data_tests:
           - relationships:
-              name: fk__fct__satellite_master__lv_type
+              name: fk__fct__satellite_master__launch_vehicle_type
               arguments:
                 to: "ref('dim__launch_vehicle')"
-                field: lv_name
-      - name: lv_brand
+                field: launch_vehicle_name
+      - name: launch_vehicle_brand
         data_type: varchar
-        description: '{{ doc("col__lv_brand") }}'
-      - name: lv_family
+        description: '{{ doc("col__launch_vehicle_brand") }}'
+      - name: launch_vehicle_family
         data_type: varchar
-        description: '{{ doc("col__lv_family") }}'
+        description: '{{ doc("col__launch_vehicle_family") }}'
       - name: flight_id
         data_type: varchar
         description: '{{ doc("col__flight_id") }}'
@@ -234,14 +234,14 @@ models:
       - name: flag_catalog_match_uncertain
         data_type: integer
         description: '{{ doc("col__flag_catalog_match_uncertain") }}'
-      - name: launch_fields_source
+      - name: launch_details_source
         data_type: varchar
-        description: '{{ doc("col__launch_fields_source") }}'
+        description: '{{ doc("col__launch_details_source") }}'
         constraints:
           - type: not_null
         data_tests:
           - accepted_values:
-              name: accepted_values__fct__satellite_master__launch_fields_source
+              name: accepted_values__fct__satellite_master__launch_details_source
               arguments:
                 values:
                   - own
@@ -256,22 +256,22 @@ models:
       - name: constellation_plane
         data_type: varchar
         description: '{{ doc("col__constellation_plane") }}'
-      - name: payload_fields_source
+      - name: mission_details_source
         data_type: varchar
-        description: '{{ doc("col__payload_fields_source") }}'
+        description: '{{ doc("col__mission_details_source") }}'
         constraints:
           - type: not_null
         data_tests:
           - accepted_values:
-              name: accepted_values__fct__satellite_master__payload_fields_source
+              name: accepted_values__fct__satellite_master__mission_details_source
               arguments:
                 values:
                   - own
                   - inherited_parent
                   - none
-      - name: payload_fields_parent_jcat
+      - name: mission_details_parent_jcat
         data_type: varchar
-        description: '{{ doc("col__payload_fields_parent_jcat") }}'
+        description: '{{ doc("col__mission_details_parent_jcat") }}'
       - name: orbit_class
         data_type: varchar
         description: '{{ doc("col__orbit_class") }}'
@@ -323,9 +323,9 @@ models:
       - name: positions_as_of
         data_type: timestamp
         description: '{{ doc("col__positions_as_of") }}'
-      - name: details_as_of
+      - name: gcat_updated_at
         data_type: timestamp
-        description: '{{ doc("col__details_as_of") }}'
+        description: '{{ doc("col__gcat_updated_at") }}'
       - name: inserted_date_time
         data_type: timestamp
         description: '{{ doc("col__inserted_date_time") }}'

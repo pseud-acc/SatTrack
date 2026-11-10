@@ -14,7 +14,7 @@ with cte_stg__jsr__satcat as (
         , phase_end_date_raw
         , phase_status
         , owner_code
-        , state_code
+        , owner_state_code
         , manufacturer_code
         , bus
         , mass_kg
@@ -45,7 +45,7 @@ with cte_stg__jsr__satcat as (
         , phase_end_date_raw
         , phase_status
         , owner_code
-        , state_code
+        , owner_state_code
         , manufacturer_code
         , bus
         , mass_kg
@@ -76,7 +76,7 @@ with cte_stg__jsr__satcat as (
         , phase_end_date_raw
         , phase_status
         , owner_code
-        , state_code
+        , owner_state_code
         , manufacturer_code
         , bus
         , mass_kg
@@ -105,7 +105,7 @@ with cte_stg__jsr__satcat as (
         , phase_end_date_raw
         , phase_status
         , owner_code
-        , state_code
+        , owner_state_code
         , manufacturer_code
         , bus
         , mass_kg
@@ -141,7 +141,7 @@ with cte_stg__jsr__satcat as (
                                    'EVA DP', 'EVA RP', 'REFLT', 'EO', 'EAO', 'EN', 'OI', 'OE', 'ERR')
              then phase_status end as phase_status
         , owner_code
-        , state_code
+        , owner_state_code
         , manufacturer_code
         , bus
         , mass_kg

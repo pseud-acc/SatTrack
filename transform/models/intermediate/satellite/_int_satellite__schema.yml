@@ -53,8 +53,8 @@ models:
         description: '{{ doc("col__phase_status") }}'
       - name: owner_code
         description: '{{ doc("col__owner_code") }}'
-      - name: state_code
-        description: '{{ doc("col__state_code") }}'
+      - name: owner_state_code
+        description: '{{ doc("col__owner_state_code") }}'
       - name: manufacturer_code
         description: '{{ doc("col__manufacturer_code") }}'
       - name: bus
@@ -111,8 +111,8 @@ models:
         description: '{{ doc("col__current_status") }}'
       - name: current_owner_code
         description: '{{ doc("col__current_owner_code") }}'
-      - name: current_state_code
-        description: '{{ doc("col__current_state_code") }}'
+      - name: current_owner_state_code
+        description: '{{ doc("col__current_owner_state_code") }}'
       - name: descent_date
         description: '{{ doc("col__descent_date") }}'
       - name: descent_date_start
@@ -130,7 +130,7 @@ models:
       - name: inserted_by
         description: '{{ doc("col__inserted_by") }}'
   - name: int__jsr__satellite_status
-    description: "One row per GCAT object in the Current Catalog or the payload catalogs: operating / transmitting primitives (D9), current-catalog activity, and the GCAT activity signal used by the status rule (decided 2026-10-25): flag_gcat_active = (TOp = '*' OR currentcat Active = 'A') AND TF <> 'Z' (zombie = Inactive), set for payload rows only. Ownership class and mission category codes get GCAT's rule-derived short labels; unlabelled codes show raw. Rocket stages, components and debris without a payload record take mission_category_list / mission_category_labels / satellite_program / satellite_program_family from the payload their GCAT Parent chain leads to (int__jsr__satellite_parent_payload); payload_fields_source says which. The raw mission_category stays the object's own."
+    description: "One row per GCAT object in the Current Catalog or the payload catalogs: operating / transmitting primitives (D9), current-catalog activity, and the GCAT activity signal used by the status rule (decided 2026-10-25): flag_gcat_active = (TOp = '*' OR currentcat Active = 'A') AND TF <> 'Z' (zombie = Inactive), set for payload rows only. Ownership class and mission category codes get GCAT's rule-derived short labels; unlabelled codes show raw. Rocket stages, components and debris without a payload record take mission_category_list / mission_category_labels / satellite_program / satellite_program_family from the payload their GCAT Parent chain leads to (int__jsr__satellite_parent_payload); mission_details_source says which. The raw mission_category stays the object's own."
     data_tests:
       - model_health:
           name: mh__int__jsr__satellite_status__pk_unique
@@ -179,8 +179,8 @@ models:
         description: '{{ doc("col__last_active_date_end") }}'
       - name: last_active_date_precision
         description: '{{ doc("col__last_active_date_precision") }}'
-      - name: end_of_life_flag
-        description: '{{ doc("col__end_of_life_flag") }}'
+      - name: end_of_life_code
+        description: '{{ doc("col__end_of_life_code") }}'
       - name: maneuverability
         description: '{{ doc("col__maneuverability") }}'
       - name: ownership_class
@@ -193,8 +193,8 @@ models:
         description: '{{ doc("col__mission_category_list") }}'
       - name: mission_category_labels
         description: '{{ doc("col__mission_category_labels") }}'
-      - name: flag_category_uncertain
-        description: '{{ doc("col__flag_category_uncertain") }}'
+      - name: flag_mission_category_uncertain
+        description: '{{ doc("col__flag_mission_category_uncertain") }}'
       - name: flag_orbit_data_secret
         description: '{{ doc("col__flag_orbit_data_secret") }}'
       - name: satellite_program
@@ -203,23 +203,23 @@ models:
         description: '{{ doc("col__satellite_program_family") }}'
       - name: constellation_plane
         description: '{{ doc("col__constellation_plane") }}'
-      - name: payload_fields_source
-        description: '{{ doc("col__payload_fields_source") }}'
+      - name: mission_details_source
+        description: '{{ doc("col__mission_details_source") }}'
         data_tests:
           - not_null:
-              name: not_null__int__jsr__satellite_status__payload_fields_source
+              name: not_null__int__jsr__satellite_status__mission_details_source
           - accepted_values:
-              name: accepted_values__int__jsr__satellite_status__payload_fields_source
+              name: accepted_values__int__jsr__satellite_status__mission_details_source
               arguments:
                 values:
                   - own
                   - inherited_parent
                   - none
-      - name: payload_fields_parent_jcat
-        description: '{{ doc("col__payload_fields_parent_jcat") }}'
+      - name: mission_details_parent_jcat
+        description: '{{ doc("col__mission_details_parent_jcat") }}'
         data_tests:
           - relationships:
-              name: fk__int__jsr__satellite_status__payload_fields_parent_jcat
+              name: fk__int__jsr__satellite_status__mission_details_parent_jcat
               arguments:
                 to: "ref('int__jsr__satellite_catalogue')"
                 field: jcat
@@ -233,10 +233,10 @@ models:
         description: '{{ doc("col__flag_gcat_descended") }}'
       - name: flag_gcat_active
         description: '{{ doc("col__flag_gcat_active") }}'
-      - name: status
-        description: '{{ doc("col__status") }}'
-      - name: status_source
-        description: '{{ doc("col__status_source") }}'
+      - name: operational_status
+        description: '{{ doc("col__operational_status") }}'
+      - name: operational_status_source
+        description: '{{ doc("col__operational_status_source") }}'
       - name: _source_file
         description: '{{ doc("col___source_file") }}'
       - name: _source_updated_at
@@ -285,13 +285,13 @@ models:
                 field: jcat
       - name: parent_payload_depth
         description: '{{ doc("col__parent_payload_depth") }}'
-      - name: parent_chain_outcome
-        description: '{{ doc("col__parent_chain_outcome") }}'
+      - name: parent_payload_search_outcome
+        description: '{{ doc("col__parent_payload_search_outcome") }}'
         data_tests:
           - not_null:
-              name: not_null__int__jsr__satellite_parent_payload__parent_chain_outcome
+              name: not_null__int__jsr__satellite_parent_payload__parent_payload_search_outcome
           - accepted_values:
-              name: accepted_values__int__jsr__satellite_parent_payload__parent_chain_outcome
+              name: accepted_values__int__jsr__satellite_parent_payload__parent_payload_search_outcome
               arguments:
                 values:
                   - payload_found
@@ -395,8 +395,8 @@ models:
         description: '{{ doc("col__tle_line_2") }}'
       - name: positions_as_of
         description: '{{ doc("col__positions_as_of") }}'
-      - name: state_code
-        description: '{{ doc("col__state_code") }}'
+      - name: owner_state_code
+        description: '{{ doc("col__owner_state_code") }}'
       - name: owner_code
         description: '{{ doc("col__owner_code") }}'
       - name: orbit_regime
@@ -409,8 +409,8 @@ models:
         description: '{{ doc("col__dry_mass_kg") }}'
       - name: span_m
         description: '{{ doc("col__span_m") }}'
-      - name: details_as_of
-        description: '{{ doc("col__details_as_of") }}'
+      - name: gcat_updated_at
+        description: '{{ doc("col__gcat_updated_at") }}'
       - name: inserted_date_time
         description: '{{ doc("col__inserted_date_time") }}'
       - name: inserted_by

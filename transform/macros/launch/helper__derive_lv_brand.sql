@@ -1,4 +1,4 @@
-{#- lv_brand: deterministic launch-vehicle brand from GCAT's own vehicle name (decided 2026-10-25).
+{#- launch_vehicle_brand: deterministic launch-vehicle brand from GCAT's own vehicle name (decided 2026-10-25).
     1. drop the upper stage after '/';  2. strip trailing variant tokens (digits, Roman numerals,
     XL/DL/QL, Block, Heavy, Mk, short config codes);  3. a 1-2 char stem keeps the next token's Roman
     core (H-IIA -> H-II);  4. a letters-only stub of <= 3 chars reverts to the full first segment

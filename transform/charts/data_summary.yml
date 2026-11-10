@@ -20,7 +20,7 @@ style:
           DEBRIS: "#dc2626"
           ROCKET BODY: "#f59e0b"
           UNKNOWN: "#9ca3af"
-      status:
+      operational_status:
         values:
           Active: "#16a34a"
           Inactive: "#94a3b8"
@@ -89,7 +89,7 @@ charts:
   kpi_details_as_of:
     query: ds__overview__kpis
     type: kpi
-    value: details_as_of
+    value: gcat_updated_at
     label: "Details as of (GCAT)"
   source_contributions:
     query: ds__overview__source_contributions
@@ -169,7 +169,7 @@ charts:
     subtitle: "Status as defined in the field catalogue (from GCAT operating status)"
     x: object_type
     y: objects
-    color: status
+    color: operational_status
     sort:
       by: objects
       order: desc
@@ -194,7 +194,7 @@ charts:
     subtitle: "GCAT mission category labels; a payload can have several"
     x: mission_category
     y: payloads
-    color: status
+    color: operational_status
     sort:
       by: payloads
       order: desc
@@ -235,7 +235,7 @@ charts:
     subtitle: "TLE-based orbit class, active vs inactive"
     x: orbit_class
     y: objects
-    color: status
+    color: operational_status
     sort:
       by: objects
       order: desc
@@ -305,11 +305,11 @@ charts:
     style:
       orientation: horizontal
       stack: zero
-  lv_brand:
-    query: ds__launches__lv_brand
+  launch_vehicle_brand:
+    query: ds__launches__launch_vehicle_brand
     type: bar
     title: "Top launch vehicle brands (payloads)"
-    x: lv_brand
+    x: launch_vehicle_brand
     y: payloads
     style:
       orientation: horizontal
@@ -348,7 +348,7 @@ charts:
     title: "Top operators (payloads)"
     x: operator_name
     y: payloads
-    color: status
+    color: operational_status
     sort:
       by: payloads
       order: desc
@@ -403,7 +403,7 @@ charts:
     subtitle: "Families with at least 50 payloads, by status"
     x: satellite_program_family
     y: payloads
-    color: status
+    color: operational_status
     sort:
       by: payloads
       order: desc
@@ -551,7 +551,7 @@ tabs:
         - cols:
             - site_map
             - top_sites
-        - lv_brand
+        - launch_vehicle_brand
     - title: Ownership
       rows:
         - cols:

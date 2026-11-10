@@ -11,7 +11,7 @@ with cte_final as (
         , {{ helper__clean_gcat_text('LDate') }} as gcat_launch_date_raw
         , {{ helper__clean_gcat_text('Parent') }} as parent_ref
         , {{ helper__clean_gcat_text('Owner') }} as current_owner_code
-        , {{ helper__clean_gcat_text('State') }} as current_state_code
+        , {{ helper__clean_gcat_text('State') }} as current_owner_state_code
         , {{ helper__clean_gcat_text('SDate') }} as first_separation_date_raw
         , {{ helper__clean_gcat_text('ExpandedStatus') }} as current_status
         , {{ helper__clean_gcat_text('DDate') }} as descent_date_raw

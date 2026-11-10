@@ -36,12 +36,6 @@ Start, end and precision of the GCAT date range of `descent_date` (GCAT currentc
 Source: SatTrack-derived: see `int__jsr__satellite_current`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
-{% docs col__details_as_of %}
-GCAT's own update time for the catalog file behind this row (its `# Updated` line); NULL without a GCAT link. Taken by SatTrack. E.g. 2026-11-09 00:53 UTC.
-
-Source: SatTrack-derived: see `int__xsrc__satellite_gcat_matched`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
-{% enddocs %}
-
 {% docs col__end_operation_date_end %}
 Start, end and precision of the GCAT date range of `end_operation_date` (GCAT psatcat `TOp`), by the Vague Date rule of batch 8 #24. `*` ("believed still operating") gives precision `current`. NULL when blank or when the object has no payload-catalog record. E.g. `1960?`: 1959-01-01 to 1962-01-01, `year?`.
 
@@ -76,18 +70,6 @@ Source: SatTrack-derived: see `int__jsr__satellite_status`, `fct__satellite_mast
 Start, end and precision of the GCAT date range of `end_transmission_date` (GCAT psatcat `TDate`), by the Vague Date rule of batch 8 #24. `*` ("believed still transmitting") gives precision `current`. NULL when blank or when the object has no payload-catalog record. E.g. `1964 Mar`: 1964-03-01 to 1964-04-01, `month`.
 
 Source: SatTrack-derived: see `int__jsr__satellite_status`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
-{% enddocs %}
-
-{% docs col__flag_category_uncertain %}
-1 when GCAT marks the payload's mission category as uncertain (a `?` in psatcat `Category`); derived by SatTrack. E.g. 0 for the ISS; 1 for 119 objects.
-
-Source: SatTrack-derived: see `int__jsr__satellite_status`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
-{% enddocs %}
-
-{% docs col__flag_composite %}
-Details of one organisation in a split GCAT code, derived by SatTrack: its position (`org_code_ord`), whether the code had several (`flag_composite`), was marked `?` (`flag_uncertain`), and how it was split. E.g. 1, 0, 0, `single`.
-
-Source: SatTrack-derived: see `helper__explode_org_codes`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 8).
 {% enddocs %}
 
 {% docs col__flag_country_like %}
@@ -144,6 +126,18 @@ Source: SatTrack-derived: see `int__xsrc__satellite_gcat_matched`, `fct__satelli
 Source: SatTrack-derived: see `int__jsr__satellite_catalogue`, `int__xsrc__satellite_gcat_matched`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
+{% docs col__flag_mission_category_uncertain %}
+1 when GCAT marks the payload's mission category as uncertain (a `?` in psatcat `Category`); derived by SatTrack. E.g. 0 for the ISS; 1 for 119 objects.
+
+Source: SatTrack-derived: see `int__jsr__satellite_status`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
+{% enddocs %}
+
+{% docs col__flag_multiple_orgs %}
+Details of one organisation in a split GCAT code, derived by SatTrack: its position (`org_code_order`), whether the code had several (`flag_multiple_orgs`), was marked `?` (`flag_org_uncertain`), and how it was split. E.g. 1, 0, 0, `single`.
+
+Source: SatTrack-derived: see `helper__explode_org_codes`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 8).
+{% enddocs %}
+
 {% docs col__flag_orbit_conflict %}
 1 when Space-Track still tracks the object in orbit but GCAT says it has come down; flags a disagreement. Derived by SatTrack. E.g. 0 for the ISS; 1 for 36 objects.
 
@@ -160,6 +154,12 @@ Source: SatTrack-derived: see `int__jsr__satellite_status`. Inputs: GCAT https:/
 1 when the GCAT organisation is still operating (orgs `TStop` blank, `-` or `*`); derived by SatTrack. E.g. 1 for SpaceX/Seattle.
 
 Source: SatTrack-derived: see `int__jsr__org_organisations`, `dim__org`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
+{% enddocs %}
+
+{% docs col__flag_org_uncertain %}
+Details of one organisation in a split GCAT code, derived by SatTrack: its position (`org_code_order`), whether the code had several (`flag_multiple_orgs`), was marked `?` (`flag_org_uncertain`), and how it was split. E.g. 1, 0, 0, `single`.
+
+Source: SatTrack-derived: see `helper__explode_org_codes`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 8).
 {% enddocs %}
 
 {% docs col__flag_owner_country_is_org %}
@@ -180,12 +180,6 @@ Source: SatTrack-derived: see `int__jsr__launch_sites`, `dim__launch_site`. Inpu
 Source: SatTrack-derived: see `int__jsr__launch_events`, `fct__launch_event`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
-{% docs col__flag_uncertain %}
-Details of one organisation in a split GCAT code, derived by SatTrack: its position (`org_code_ord`), whether the code had several (`flag_composite`), was marked `?` (`flag_uncertain`), and how it was split. E.g. 1, 0, 0, `single`.
-
-Source: SatTrack-derived: see `helper__explode_org_codes`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 8).
-{% enddocs %}
-
 {% docs col__gcat_launch_date_end %}
 Start, end and precision of the GCAT date range of `gcat_launch_date` (GCAT satcat `LDate`), by the Vague Date rule of batch 8 #24. NULL when blank. E.g. the ISS Zarya module: 1998-11-20 to 1998-11-21, `day`.
 
@@ -204,16 +198,16 @@ Start, end and precision of the GCAT date range of `gcat_launch_date` (GCAT satc
 Source: SatTrack-derived: see `int__jsr__satellite_catalogue`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
+{% docs col__gcat_updated_at %}
+GCAT's own update time for the catalog file behind this row (its `# Updated` line); NULL without a GCAT link. Taken by SatTrack. E.g. 2026-11-09 00:53 UTC.
+
+Source: SatTrack-derived: see `int__xsrc__satellite_gcat_matched`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
+{% enddocs %}
+
 {% docs col__jcat_link_method %}
 How SatTrack linked the Space-Track object to its GCAT record: `s_norad` (GCAT ID S + NORAD number), `cospar` (matching international designator) or `none`. E.g. `s_norad` for the ISS (S25544).
 
 Source: SatTrack-derived: see `int__xsrc__satellite_gcat_matched`. Inputs: GCAT https://planet4589.org/space/gcat/; Space-Track https://www.space-track.org/documentation (Batch 8).
-{% enddocs %}
-
-{% docs col__key_type %}
-Whether a matching key uses the whole country name (`full`) or drops common words like "republic" and "of" (`reduced`). Set by SatTrack. E.g. `reduced` for `korea` ("Korea, Republic of").
-
-Source: SatTrack-derived: see `int__xsrc__geo_country_name_keys` (Batch 9a).
 {% enddocs %}
 
 {% docs col__last_active_date_end %}
@@ -288,34 +282,34 @@ Source: SatTrack-derived: see `int__jsr__launch_events`, `fct__launch_event`, `i
 Source: SatTrack-derived: see `int__jsr__launch_events`, `fct__launch_event`, `int__jsr__satellite_launch_details`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
-{% docs col__launch_fields_source %}
+{% docs col__launch_details_source %}
 Where the object's launch details come from: `own` (its own GCAT launch-log row), `inherited_launch` (its launch's row, for stages and debris) or `none`. Set by SatTrack. E.g. `own` for the ISS.
 
 Source: SatTrack-derived: see `int__jsr__satellite_launch_details`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
+{% enddocs %}
+
+{% docs col__launch_vehicle_brand %}
+A brand-level rocket name SatTrack derives from GCAT's vehicle name by dropping upper stages and variant suffixes. E.g. `Falcon` for Falcon 9; `Chang Zheng` for Chang Zheng 6A.
+
+Source: SatTrack-derived: see `helper__derive_lv_brand`, `int__jsr__launch_events`, `int__jsr__launch_vehicles`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 8).
+{% enddocs %}
+
+{% docs col__launch_vehicle_manufacturer_codes %}
+Every GCAT organisation code that built the launch vehicle, across its variants, collected by SatTrack from GCAT lv `LV_Manufacturer`. E.g. [SPX] for Falcon 9.
+
+Source: SatTrack-derived: see `int__jsr__launch_vehicles`, `dim__launch_vehicle`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
+{% enddocs %}
+
+{% docs col__launch_vehicle_manufacturer_names %}
+Display names for `launch_vehicle_manufacturer_codes`, in the same order, from GCAT's orgs table via SatTrack. E.g. [SpaceX] for Falcon 9.
+
+Source: SatTrack-derived: see `int__jsr__launch_vehicles`, `dim__launch_vehicle`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__launch_year %}
 The year of `launch_date`, computed by SatTrack. E.g. 1998 for the ISS; 2025 is the most common.
 
 Source: SatTrack-derived: see `int__xsrc__satellite_gcat_matched`, `fct__satellite_master` (Batch 9a).
-{% enddocs %}
-
-{% docs col__lv_brand %}
-A brand-level rocket name SatTrack derives from GCAT's vehicle name by dropping upper stages and variant suffixes. E.g. `Falcon` for Falcon 9; `Chang Zheng` for Chang Zheng 6A.
-
-Source: SatTrack-derived: see `helper__derive_lv_brand`, `int__jsr__launch_events`, `int__jsr__launch_vehicles`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 8).
-{% enddocs %}
-
-{% docs col__lv_manufacturer_codes %}
-Every GCAT organisation code that built the launch vehicle, across its variants, collected by SatTrack from GCAT lv `LV_Manufacturer`. E.g. [SPX] for Falcon 9.
-
-Source: SatTrack-derived: see `int__jsr__launch_vehicles`, `dim__launch_vehicle`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
-{% enddocs %}
-
-{% docs col__lv_manufacturer_names %}
-Display names for `lv_manufacturer_codes`, in the same order, from GCAT's orgs table via SatTrack. E.g. [SpaceX] for Falcon 9.
-
-Source: SatTrack-derived: see `int__jsr__launch_vehicles`, `dim__launch_vehicle`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__manufacturer_name %}
@@ -366,16 +360,34 @@ The payload's mission categories as a list of codes and readable labels, split b
 Source: SatTrack-derived: see `int__jsr__satellite_status`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 8).
 {% enddocs %}
 
+{% docs col__mission_details_parent_jcat %}
+The GCAT ID of the payload whose mission and programme an object inherited (when `mission_details_source` is `inherited_parent`). Set by SatTrack. E.g. `S25730` (Feng Yun 1C) for its debris.
+
+Source: SatTrack-derived: see `int__jsr__satellite_status`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
+{% enddocs %}
+
+{% docs col__mission_details_source %}
+Where the object's mission category and programme come from: `own` (its GCAT payload record), `inherited_parent` (the payload it came from, for stages and debris) or `none`. Set by SatTrack. E.g. `own` for the ISS.
+
+Source: SatTrack-derived: see `int__jsr__satellite_status`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
+{% enddocs %}
+
 {% docs col__name_key %}
 A country name normalised by SatTrack for exact matching (lower case, no accents or spaces); kept only if it identifies one country. E.g. `france` → FR; `korea` → KR; `czechoslovakia` → CSHH.
 
 Source: SatTrack-derived: see `int__xsrc__geo_country_name_keys` (Batch 9a).
 {% enddocs %}
 
-{% docs col__name_tier %}
+{% docs col__name_key_list %}
 Which country-name list a matching key comes from: `iso` (ISO 3166-1, pycountry), `geonames_name` (GeoNames) or `iso_historic` (former countries). Used by SatTrack's owner-country matching. E.g. `iso` for `france`.
 
 Source: SatTrack-derived: see `int__xsrc__geo_country_name_keys`. Inputs: pycountry https://pypi.org/project/pycountry/; GeoNames https://download.geonames.org/export/dump/readme.txt (Batch 9a).
+{% enddocs %}
+
+{% docs col__name_key_type %}
+Whether a matching key uses the whole country name (`full`) or drops common words like "republic" and "of" (`reduced`). Set by SatTrack. E.g. `reduced` for `korea` ("Korea, Republic of").
+
+Source: SatTrack-derived: see `int__xsrc__geo_country_name_keys` (Batch 9a).
 {% enddocs %}
 
 {% docs col__nearest_city %}
@@ -402,6 +414,18 @@ Where `object_type` came from: `spacetrack` (Space-Track GP) or `gcat` (GCAT, us
 Source: SatTrack-derived: see `int__xsrc__satellite_gcat_matched`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/; Space-Track https://www.space-track.org/documentation (Batch 9a).
 {% enddocs %}
 
+{% docs col__operational_status %}
+Whether the object is working, from GCAT only: `Active` when GCAT says it's still operating (and not a zombie), else `Inactive`. Derived by SatTrack. E.g. `Active` for the ISS.
+
+Source: SatTrack-derived: see `int__jsr__satellite_status`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 8).
+{% enddocs %}
+
+{% docs col__operational_status_source %}
+Which GCAT record set `operational_status`: `gcat_psatcat` (payload catalog), `gcat_currentcat` (current catalog only) or `default_inactive` (no GCAT record). Set by SatTrack. E.g. `gcat_psatcat` for the ISS.
+
+Source: SatTrack-derived: see `int__jsr__satellite_status`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
+{% enddocs %}
+
 {% docs col__operator_name %}
 Display name of the object's owner/operator: the first organisation in GCAT satcat `Owner`, named by SatTrack from GCAT's orgs table. E.g. "NASA JSC" for the ISS; "SpaceX/Seattle".
 
@@ -426,8 +450,8 @@ The two halves of GCAT's orbit class `OpOrbit`, split by SatTrack at the `/`: th
 Source: SatTrack-derived: see `int__jsr__satellite_catalogue`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 8).
 {% enddocs %}
 
-{% docs col__org_code_ord %}
-Details of one organisation in a split GCAT code, derived by SatTrack: its position (`org_code_ord`), whether the code had several (`flag_composite`), was marked `?` (`flag_uncertain`), and how it was split. E.g. 1, 0, 0, `single`.
+{% docs col__org_code_order %}
+Details of one organisation in a split GCAT code, derived by SatTrack: its position (`org_code_order`), whether the code had several (`flag_multiple_orgs`), was marked `?` (`flag_org_uncertain`), and how it was split. E.g. 1, 0, 0, `single`.
 
 Source: SatTrack-derived: see `helper__explode_org_codes`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 8).
 {% enddocs %}
@@ -436,6 +460,12 @@ Source: SatTrack-derived: see `helper__explode_org_codes`. Inputs: GCAT https://
 The GCAT organisation code exactly as written, before SatTrack splits it. E.g. `RVSNR` (the ISS launch agency); `GSFC/ESA`, `ESA?`.
 
 Source: SatTrack-derived: see `int__jsr__org_satellite_owner_map`, `int__jsr__org_satellite_manufacturer_map`, `int__jsr__org_launch_agency_map`, `fct__*_org`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
+{% enddocs %}
+
+{% docs col__org_code_split_rule %}
+Details of one organisation in a split GCAT code, derived by SatTrack: its position (`org_code_order`), whether the code had several (`flag_multiple_orgs`), was marked `?` (`flag_org_uncertain`), and how it was split. E.g. 1, 0, 0, `single`.
+
+Source: SatTrack-derived: see `helper__explode_org_codes`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 8).
 {% enddocs %}
 
 {% docs col__org_display_full_name %}
@@ -522,7 +552,7 @@ One owning country of an object (its ISO code) and its position in the owner lis
 Source: SatTrack-derived: see `int__xsrc__satellite_owner_country_map`, `fct__satellite_owner_country`. Inputs: pycountry https://pypi.org/project/pycountry/ (Batch 10).
 {% enddocs %}
 
-{% docs col__owner_country_iso_code_ord %}
+{% docs col__owner_country_iso_code_order %}
 One owning country of an object (its ISO code) and its position in the owner list, one row each in SatTrack's owner-country link table. E.g. (`CN`, 1) and (`BR`, 2) for a China / Brazil satellite.
 
 Source: SatTrack-derived: see `int__xsrc__satellite_owner_country_map`, `fct__satellite_owner_country`. Inputs: pycountry https://pypi.org/project/pycountry/ (Batch 10).
@@ -558,12 +588,6 @@ The payload's ownership class as readable labels, mapped by SatTrack from GCAT p
 Source: SatTrack-derived: see `int__jsr__satellite_status`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 8).
 {% enddocs %}
 
-{% docs col__parent_chain_outcome %}
-Why SatTrack's walk up GCAT `Parent` links ended, e.g. `payload_found`, `payload_object` (already a payload, like the ISS Zarya module), `parent_not_in_catalogue`, `chain_ends_without_payload`.
-
-Source: SatTrack-derived: see `int__jsr__satellite_parent_payload`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
-{% enddocs %}
-
 {% docs col__parent_jcat %}
 The GCAT ID of the object's parent, taken by SatTrack from GCAT satcat `Parent` without suffixes; NULL for a central body. E.g. `S25545` for the ISS Zarya module.
 
@@ -582,22 +606,10 @@ The first payload reached by following GCAT `Parent` links up from a rocket stag
 Source: SatTrack-derived: see `int__jsr__satellite_parent_payload`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
-{% docs col__parse_rule %}
-Details of one organisation in a split GCAT code, derived by SatTrack: its position (`org_code_ord`), whether the code had several (`flag_composite`), was marked `?` (`flag_uncertain`), and how it was split. E.g. 1, 0, 0, `single`.
+{% docs col__parent_payload_search_outcome %}
+Why SatTrack's walk up GCAT `Parent` links ended, e.g. `payload_found`, `payload_object` (already a payload, like the ISS Zarya module), `parent_not_in_catalogue`, `chain_ends_without_payload`.
 
-Source: SatTrack-derived: see `helper__explode_org_codes`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 8).
-{% enddocs %}
-
-{% docs col__payload_fields_parent_jcat %}
-The GCAT ID of the payload whose mission and programme an object inherited (when `payload_fields_source` is `inherited_parent`). Set by SatTrack. E.g. `S25730` (Feng Yun 1C) for its debris.
-
-Source: SatTrack-derived: see `int__jsr__satellite_status`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
-{% enddocs %}
-
-{% docs col__payload_fields_source %}
-Where the object's mission category and programme come from: `own` (its GCAT payload record), `inherited_parent` (the payload it came from, for stages and debris) or `none`. Set by SatTrack. E.g. `own` for the ISS.
-
-Source: SatTrack-derived: see `int__jsr__satellite_status`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
+Source: SatTrack-derived: see `int__jsr__satellite_parent_payload`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__phase_end_date_end %}
@@ -700,18 +712,6 @@ Source: SatTrack-derived: see `int__jsr__launch_sites`, `dim__launch_site`. Inpu
 The launch site's responsible state (`site_state`, from GCAT) and the country it physically lies in (`site_location_country`, from the nearest GeoNames city), with its ISO code; derived by SatTrack. E.g. "USSR"; "At sea".
 
 Source: SatTrack-derived: see `int__jsr__launch_sites`, `dim__launch_site`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/; pycountry https://pypi.org/project/pycountry/; GeoNames https://download.geonames.org/export/dump/readme.txt (Batch 8).
-{% enddocs %}
-
-{% docs col__status %}
-Whether the object is working, from GCAT only: `Active` when GCAT says it's still operating (and not a zombie), else `Inactive`. Derived by SatTrack. E.g. `Active` for the ISS.
-
-Source: SatTrack-derived: see `int__jsr__satellite_status`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 8).
-{% enddocs %}
-
-{% docs col__status_source %}
-Which GCAT record set `status`: `gcat_psatcat` (payload catalog), `gcat_currentcat` (current catalog only) or `default_inactive` (no GCAT record). Set by SatTrack. E.g. `gcat_psatcat` for the ISS.
-
-Source: SatTrack-derived: see `int__jsr__satellite_status`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
 {% docs col__tle_age_days %}

@@ -149,21 +149,21 @@ models:
               arguments:
                 to: "ref('dim__org')"
                 field: org_code
-      - name: org_code_ord
+      - name: org_code_order
         data_type: integer
-        description: '{{ doc("col__org_code_ord") }}'
+        description: '{{ doc("col__org_code_order") }}'
       - name: org_code_raw
         data_type: varchar
         description: '{{ doc("col__org_code_raw") }}'
-      - name: flag_composite
+      - name: flag_multiple_orgs
         data_type: integer
-        description: '{{ doc("col__flag_composite") }}'
-      - name: flag_uncertain
+        description: '{{ doc("col__flag_multiple_orgs") }}'
+      - name: flag_org_uncertain
         data_type: integer
-        description: '{{ doc("col__flag_uncertain") }}'
-      - name: parse_rule
+        description: '{{ doc("col__flag_org_uncertain") }}'
+      - name: org_code_split_rule
         data_type: varchar
-        description: '{{ doc("col__parse_rule") }}'
+        description: '{{ doc("col__org_code_split_rule") }}'
       - name: org_name
         data_type: varchar
         description: '{{ doc("col__org_name") }}'
@@ -211,21 +211,21 @@ models:
               arguments:
                 to: "ref('dim__org')"
                 field: org_code
-      - name: org_code_ord
+      - name: org_code_order
         data_type: integer
-        description: '{{ doc("col__org_code_ord") }}'
+        description: '{{ doc("col__org_code_order") }}'
       - name: org_code_raw
         data_type: varchar
         description: '{{ doc("col__org_code_raw") }}'
-      - name: flag_composite
+      - name: flag_multiple_orgs
         data_type: integer
-        description: '{{ doc("col__flag_composite") }}'
-      - name: flag_uncertain
+        description: '{{ doc("col__flag_multiple_orgs") }}'
+      - name: flag_org_uncertain
         data_type: integer
-        description: '{{ doc("col__flag_uncertain") }}'
-      - name: parse_rule
+        description: '{{ doc("col__flag_org_uncertain") }}'
+      - name: org_code_split_rule
         data_type: varchar
-        description: '{{ doc("col__parse_rule") }}'
+        description: '{{ doc("col__org_code_split_rule") }}'
       - name: org_name
         data_type: varchar
         description: '{{ doc("col__org_name") }}'
@@ -279,21 +279,21 @@ models:
               arguments:
                 to: "ref('dim__org')"
                 field: org_code
-      - name: org_code_ord
+      - name: org_code_order
         data_type: integer
-        description: '{{ doc("col__org_code_ord") }}'
+        description: '{{ doc("col__org_code_order") }}'
       - name: org_code_raw
         data_type: varchar
         description: '{{ doc("col__org_code_raw") }}'
-      - name: flag_composite
+      - name: flag_multiple_orgs
         data_type: integer
-        description: '{{ doc("col__flag_composite") }}'
-      - name: flag_uncertain
+        description: '{{ doc("col__flag_multiple_orgs") }}'
+      - name: flag_org_uncertain
         data_type: integer
-        description: '{{ doc("col__flag_uncertain") }}'
-      - name: parse_rule
+        description: '{{ doc("col__flag_org_uncertain") }}'
+      - name: org_code_split_rule
         data_type: varchar
-        description: '{{ doc("col__parse_rule") }}'
+        description: '{{ doc("col__org_code_split_rule") }}'
       - name: org_name
         data_type: varchar
         description: '{{ doc("col__org_name") }}'

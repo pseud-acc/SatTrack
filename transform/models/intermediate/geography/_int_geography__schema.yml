@@ -36,15 +36,15 @@ models:
     data_tests:
       - model_health:
           name: mh__int__xsrc__geo_country_name_keys__pk_unique
-          arguments: {check: pk_unique, columns: [name_tier, key_type, name_key]}
+          arguments: {check: pk_unique, columns: [name_key_list, name_key_type, name_key]}
       - model_health:
           name: mh__int__xsrc__geo_country_name_keys__pk_not_null
-          arguments: {check: pk_not_null, columns: [name_tier, key_type, name_key]}
+          arguments: {check: pk_not_null, columns: [name_key_list, name_key_type, name_key]}
     columns:
-      - name: name_tier
-        description: '{{ doc("col__name_tier") }}'
-      - name: key_type
-        description: '{{ doc("col__key_type") }}'
+      - name: name_key_list
+        description: '{{ doc("col__name_key_list") }}'
+      - name: name_key_type
+        description: '{{ doc("col__name_key_type") }}'
       - name: name_key
         description: '{{ doc("col__name_key") }}'
       - name: matched_iso_code
@@ -60,10 +60,10 @@ models:
     data_tests:
       - model_health:
           name: mh__int__xsrc__geo_state_country__pk_unique
-          arguments: {check: pk_unique, columns: [state_code]}
+          arguments: {check: pk_unique, columns: [owner_state_code]}
       - model_health:
           name: mh__int__xsrc__geo_state_country__pk_not_null
-          arguments: {check: pk_not_null, columns: [state_code]}
+          arguments: {check: pk_not_null, columns: [owner_state_code]}
       - model_health:
           name: mh__int__xsrc__geo_state_country__row_count_match
           arguments:
@@ -71,8 +71,8 @@ models:
             compare_to: "ref('int__jsr__org_organisations')"
             relationship: lte   # orgs whose names match no country are dropped
     columns:
-      - name: state_code
-        description: '{{ doc("col__state_code") }}'
+      - name: owner_state_code
+        description: '{{ doc("col__owner_state_code") }}'
       - name: owner_country
         description: '{{ doc("col__owner_country") }}'
       - name: owner_country_codes
@@ -161,8 +161,8 @@ models:
                 field: country_sk
       - name: owner_country_iso_code
         description: '{{ doc("col__owner_country_iso_code") }}'
-      - name: owner_country_iso_code_ord
-        description: '{{ doc("col__owner_country_iso_code_ord") }}'
+      - name: owner_country_iso_code_order
+        description: '{{ doc("col__owner_country_iso_code_order") }}'
       - name: owner_country_source
         description: '{{ doc("col__owner_country_source") }}'
       - name: inserted_date_time

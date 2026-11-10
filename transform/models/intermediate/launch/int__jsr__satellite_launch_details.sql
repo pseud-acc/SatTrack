@@ -16,8 +16,8 @@ with cte_int__jsr__satellite_catalogue as (
         , launch_datetime
         , launch_datetime_precision
         , site_code
-        , lv_type
-        , lv_brand
+        , launch_vehicle_type
+        , launch_vehicle_brand
         , flight_id
         , launch_agency_code
         , launch_category
@@ -29,7 +29,7 @@ with cte_int__jsr__satellite_catalogue as (
     select
         jcat
         , org_code
-        , org_code_ord
+        , org_code_order
         , org_name
     from {{ ref('int__jsr__org_launch_agency_map') }}
 )
@@ -47,8 +47,8 @@ with cte_int__jsr__satellite_catalogue as (
 
 , cte_int__jsr__launch_vehicles as (
     select
-        lv_name
-        , lv_family
+        launch_vehicle_name
+        , launch_vehicle_family
     from {{ ref('int__jsr__launch_vehicles') }}
 )
 
@@ -65,13 +65,13 @@ with cte_int__jsr__satellite_catalogue as (
         , ev.launch_datetime
         , ev.launch_datetime_precision
         , ev.site_code
-        , ev.lv_type
-        , ev.lv_brand
+        , ev.launch_vehicle_type
+        , ev.launch_vehicle_brand
         , ev.flight_id
         , ev.launch_agency_code
         , ev.launch_category
         -- every co-agency of the launch in GCAT order (the same list on each payload row of the launch)
-        , list_sort(list(distinct {'ord': agency.org_code_ord, 'code': agency.org_code, 'name': coalesce(agency.org_name, agency.org_code)})
+        , list_sort(list(distinct {'ord': agency.org_code_order, 'code': agency.org_code, 'name': coalesce(agency.org_name, agency.org_code)})
             filter (where agency.org_code is not null)) as launch_agency_orgs
     from cte_int__jsr__launch_events as ev
     left join cte_int__jsr__org_launch_agency_map as agency on agency.jcat = ev.jcat
@@ -100,9 +100,9 @@ with cte_int__jsr__satellite_catalogue as (
         , site.site_location_country
         , site.site_latitude
         , site.site_longitude
-        , launch.lv_type
-        , launch.lv_brand
-        , lv.lv_family
+        , launch.launch_vehicle_type
+        , launch.launch_vehicle_brand
+        , lv.launch_vehicle_family
         , launch.flight_id
         , launch.launch_agency_code
         -- the first listed agency names a composite code ('NASA/ESA' -> NASA); every agency is in the org lists
@@ -116,12 +116,12 @@ with cte_int__jsr__satellite_catalogue as (
             when obj.has_own_launch_record then 'own'
             when launch.launch_tag is not null then 'inherited_launch'
             else 'none'
-        end as launch_fields_source
+        end as launch_details_source
         , {{ helper__audit_fields() }}
     from cte_object_launches as obj
     left join cte_launches as launch on launch.launch_tag = obj.launch_tag
     left join cte_int__jsr__launch_sites as site on site.site_code = launch.site_code
-    left join cte_int__jsr__launch_vehicles as lv on lv.lv_name = launch.lv_type
+    left join cte_int__jsr__launch_vehicles as lv on lv.launch_vehicle_name = launch.launch_vehicle_type
     left join cte_int__jsr__org_organisations as agency
         on agency.org_code = split_part(rtrim(launch.launch_agency_code, '?'), '/', 1)
 )

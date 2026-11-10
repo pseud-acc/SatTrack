@@ -33,7 +33,7 @@ analyses:
     description: Objects per launch site with site coordinates.
   - name: ds__launches__top_sites
     description: The 15 launch sites with the most catalogued objects, by object type.
-  - name: ds__launches__lv_brand
+  - name: ds__launches__launch_vehicle_brand
     description: The 15 launch vehicle brands with the most catalogued payloads.
   - name: ds__ownership__owner_country
     description: The 15 owner countries or organisations with the most objects, by object type.

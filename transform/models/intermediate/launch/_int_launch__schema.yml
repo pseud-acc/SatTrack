@@ -47,14 +47,14 @@ models:
         description: '{{ doc("col__ascent_pad") }}'
       - name: launch_platform
         description: '{{ doc("col__launch_platform") }}'
-      - name: lv_type
-        description: '{{ doc("col__lv_type") }}'
+      - name: launch_vehicle_type
+        description: '{{ doc("col__launch_vehicle_type") }}'
         data_tests:
           - relationships:
-              name: fk__int__jsr__launch_events__lv_type
-              arguments: {to: "ref('int__jsr__launch_vehicles')", field: lv_name}
-      - name: lv_brand
-        description: '{{ doc("col__lv_brand") }}'
+              name: fk__int__jsr__launch_events__launch_vehicle_type
+              arguments: {to: "ref('int__jsr__launch_vehicles')", field: launch_vehicle_name}
+      - name: launch_vehicle_brand
+        description: '{{ doc("col__launch_vehicle_brand") }}'
       - name: flight_id
         description: '{{ doc("col__flight_id") }}'
       - name: launch_agency_code
@@ -71,8 +71,8 @@ models:
         description: '{{ doc("col__launch_time_ref") }}'
       - name: current_owner_code
         description: '{{ doc("col__current_owner_code") }}'
-      - name: current_state_code
-        description: '{{ doc("col__current_state_code") }}'
+      - name: current_owner_state_code
+        description: '{{ doc("col__current_owner_state_code") }}'
       - name: _source_updated_at
         description: '{{ doc("col___source_updated_at") }}'
       - name: inserted_date_time
@@ -156,10 +156,10 @@ models:
     data_tests:
       - model_health:
           name: mh__int__jsr__launch_vehicles__pk_unique
-          arguments: {check: pk_unique, columns: [lv_name]}
+          arguments: {check: pk_unique, columns: [launch_vehicle_name]}
       - model_health:
           name: mh__int__jsr__launch_vehicles__pk_not_null
-          arguments: {check: pk_not_null, columns: [lv_name]}
+          arguments: {check: pk_not_null, columns: [launch_vehicle_name]}
       - model_health:
           name: mh__int__jsr__launch_vehicles__row_count_match
           arguments:
@@ -167,36 +167,36 @@ models:
             compare_to: "ref('stg__jsr__lv')"
             relationship: lte
     columns:
-      - name: lv_name
-        description: '{{ doc("col__lv_name") }}'
-      - name: lv_brand
-        description: '{{ doc("col__lv_brand") }}'
-      - name: lv_family
-        description: '{{ doc("col__lv_family") }}'
-      - name: lv_generic_name
-        description: '{{ doc("col__lv_generic_name") }}'
-      - name: lv_class
-        description: '{{ doc("col__lv_class") }}'
-      - name: lv_manufacturer_codes
-        description: '{{ doc("col__lv_manufacturer_codes") }}'
-      - name: lv_manufacturer_names
-        description: '{{ doc("col__lv_manufacturer_names") }}'
-      - name: lv_variant
-        description: '{{ doc("col__lv_variant") }}'
-      - name: lv_alias
-        description: '{{ doc("col__lv_alias") }}'
-      - name: lv_length_m
-        description: '{{ doc("col__lv_length_m") }}'
-      - name: lv_diameter_m
-        description: '{{ doc("col__lv_diameter_m") }}'
-      - name: lv_launch_mass_t
-        description: '{{ doc("col__lv_launch_mass_t") }}'
-      - name: lv_leo_capacity_kg
-        description: '{{ doc("col__lv_leo_capacity_kg") }}'
-      - name: lv_gto_capacity_kg
-        description: '{{ doc("col__lv_gto_capacity_kg") }}'
-      - name: lv_takeoff_thrust_kn
-        description: '{{ doc("col__lv_takeoff_thrust_kn") }}'
+      - name: launch_vehicle_name
+        description: '{{ doc("col__launch_vehicle_name") }}'
+      - name: launch_vehicle_brand
+        description: '{{ doc("col__launch_vehicle_brand") }}'
+      - name: launch_vehicle_family
+        description: '{{ doc("col__launch_vehicle_family") }}'
+      - name: launch_vehicle_generic_name
+        description: '{{ doc("col__launch_vehicle_generic_name") }}'
+      - name: launch_vehicle_class
+        description: '{{ doc("col__launch_vehicle_class") }}'
+      - name: launch_vehicle_manufacturer_codes
+        description: '{{ doc("col__launch_vehicle_manufacturer_codes") }}'
+      - name: launch_vehicle_manufacturer_names
+        description: '{{ doc("col__launch_vehicle_manufacturer_names") }}'
+      - name: launch_vehicle_variant
+        description: '{{ doc("col__launch_vehicle_variant") }}'
+      - name: launch_vehicle_alias
+        description: '{{ doc("col__launch_vehicle_alias") }}'
+      - name: launch_vehicle_length_m
+        description: '{{ doc("col__launch_vehicle_length_m") }}'
+      - name: launch_vehicle_diameter_m
+        description: '{{ doc("col__launch_vehicle_diameter_m") }}'
+      - name: launch_vehicle_launch_mass_t
+        description: '{{ doc("col__launch_vehicle_launch_mass_t") }}'
+      - name: launch_vehicle_leo_capacity_kg
+        description: '{{ doc("col__launch_vehicle_leo_capacity_kg") }}'
+      - name: launch_vehicle_gto_capacity_kg
+        description: '{{ doc("col__launch_vehicle_gto_capacity_kg") }}'
+      - name: launch_vehicle_takeoff_thrust_kn
+        description: '{{ doc("col__launch_vehicle_takeoff_thrust_kn") }}'
       - name: _source_updated_at
         description: '{{ doc("col___source_updated_at") }}'
       - name: inserted_date_time
@@ -204,7 +204,7 @@ models:
       - name: inserted_by
         description: '{{ doc("col__inserted_by") }}'
   - name: int__jsr__satellite_launch_details
-    description: "One row per GCAT object (satcat + satcat100k): the launch it came from, with the site, vehicle family and launch agency names resolved. Payloads use their own launch-log row; rocket stages, components and debris take the launch-level fields of their satcat Launch_Tag (GCAT cols.html: the tag 'matches the launch tag in the launch lists and may be used to join the two databases'). launch_fields_source says which."
+    description: "One row per GCAT object (satcat + satcat100k): the launch it came from, with the site, vehicle family and launch agency names resolved. Payloads use their own launch-log row; rocket stages, components and debris take the launch-level fields of their satcat Launch_Tag (GCAT cols.html: the tag 'matches the launch tag in the launch lists and may be used to join the two databases'). launch_details_source says which."
     data_tests:
       - model_health:
           name: mh__int__jsr__satellite_launch_details__pk_unique
@@ -239,12 +239,12 @@ models:
         description: '{{ doc("col__site_latitude") }}'
       - name: site_longitude
         description: '{{ doc("col__site_longitude") }}'
-      - name: lv_type
-        description: '{{ doc("col__lv_type") }}'
-      - name: lv_brand
-        description: '{{ doc("col__lv_brand") }}'
-      - name: lv_family
-        description: '{{ doc("col__lv_family") }}'
+      - name: launch_vehicle_type
+        description: '{{ doc("col__launch_vehicle_type") }}'
+      - name: launch_vehicle_brand
+        description: '{{ doc("col__launch_vehicle_brand") }}'
+      - name: launch_vehicle_family
+        description: '{{ doc("col__launch_vehicle_family") }}'
       - name: flight_id
         description: '{{ doc("col__flight_id") }}'
       - name: launch_agency_code
@@ -259,13 +259,13 @@ models:
         description: '{{ doc("col__launch_category") }}'
       - name: flag_catalog_match_uncertain
         description: '{{ doc("col__flag_catalog_match_uncertain") }}'
-      - name: launch_fields_source
-        description: '{{ doc("col__launch_fields_source") }}'
+      - name: launch_details_source
+        description: '{{ doc("col__launch_details_source") }}'
         data_tests:
           - not_null:
-              name: not_null__int__jsr__satellite_launch_details__launch_fields_source
+              name: not_null__int__jsr__satellite_launch_details__launch_details_source
           - accepted_values:
-              name: accepted_values__int__jsr__satellite_launch_details__launch_fields_source
+              name: accepted_values__int__jsr__satellite_launch_details__launch_details_source
               arguments:
                 values:
                   - own

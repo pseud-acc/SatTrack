@@ -10,13 +10,13 @@ with cte_fct__satellite_master as (
         , object_name
         , object_type
         , flag_in_orbit
-        , status
+        , operational_status
         , launch_year
         , owner_country
         , site_location_country
         , ownership_class_labels
         , mission_category_labels
-        , lv_brand
+        , launch_vehicle_brand
         , orbit_class
         , orbital_period
         , inclination
@@ -30,13 +30,13 @@ with cte_fct__satellite_master as (
     select
         satcat_id
         , object_name
-        , status
+        , operational_status
         , launch_year
         , owner_country
         , site_location_country
         , ownership_class_labels
         , mission_category_labels
-        , lv_brand
+        , launch_vehicle_brand
         , orbit_class
         , round(orbital_period, 2) as orbital_period
         , round(inclination, 2) as inclination
@@ -62,7 +62,7 @@ with cte_fct__satellite_master as (
         -- CelesTrak operational status code: no source in the new pipeline; 'UNK' is the old file's own "no code" value
         , 'UNK' as status_code
         , coalesce(inclination, -1.0) as inclination
-        , coalesce(status, 'Inactive') as status
+        , coalesce(operational_status, 'Inactive') as operational_status
         -- 1 when UCS data matched in the old pipeline; UCS is not a source of the new pipeline
         , 0 as ucs_data
         -- the old CelesTrak-import rule, period only: LEO <= 128 min, MEO < 1400, GSO 1400-1500, HEO above
@@ -78,7 +78,7 @@ with cte_fct__satellite_master as (
         , coalesce(nullif(array_to_string(list_sort(ownership_class_labels), '/'), ''), 'Unknown') as use_type
         -- joined with '/': the app splits Purpose on '/' to build its multi-select filter
         , coalesce(nullif(array_to_string(mission_category_labels, '/'), ''), 'Unknown') as purpose
-        , coalesce(lv_brand, 'Unknown') as launch_vehicle_class
+        , coalesce(launch_vehicle_brand, 'Unknown') as launch_vehicle_class
         , tle_line_1
         , tle_line_2
         -- parsed from TLE line 2 exactly as the old export did: TLE2[52:63] and '0.' + TLE2[26:33]
@@ -97,7 +97,7 @@ with cte_fct__satellite_master as (
         , cast(launch_mass as double) as "LaunchMass"
         , cast(status_code as varchar) as "StatusCode"
         , cast(inclination as double) as "Inclination"
-        , cast(status as varchar) as "Status"
+        , cast(operational_status as varchar) as "Status"
         , cast(ucs_data as bigint) as "UcsData"
         , cast(orbit_class_estimated as varchar) as "OrbitClassEstimated"
         , cast(launch_site_country as varchar) as "LaunchSiteCountry"

@@ -110,10 +110,10 @@ models:
     data_tests:
       - model_health:
           name: mh__dim__launch_vehicle__pk_unique
-          arguments: {check: pk_unique, columns: [lv_name]}
+          arguments: {check: pk_unique, columns: [launch_vehicle_name]}
       - model_health:
           name: mh__dim__launch_vehicle__pk_not_null
-          arguments: {check: pk_not_null, columns: [lv_name]}
+          arguments: {check: pk_not_null, columns: [launch_vehicle_name]}
       - model_health:
           name: mh__dim__launch_vehicle__row_count_match
           arguments:
@@ -121,53 +121,53 @@ models:
             compare_to: "ref('int__jsr__launch_vehicles')"
             relationship: equal
     columns:
-      - name: lv_name
+      - name: launch_vehicle_name
         data_type: varchar
-        description: '{{ doc("col__lv_name") }}'
+        description: '{{ doc("col__launch_vehicle_name") }}'
         constraints:
           - type: not_null
-      - name: lv_brand
+      - name: launch_vehicle_brand
         data_type: varchar
-        description: '{{ doc("col__lv_brand") }}'
-      - name: lv_family
+        description: '{{ doc("col__launch_vehicle_brand") }}'
+      - name: launch_vehicle_family
         data_type: varchar
-        description: '{{ doc("col__lv_family") }}'
-      - name: lv_generic_name
+        description: '{{ doc("col__launch_vehicle_family") }}'
+      - name: launch_vehicle_generic_name
         data_type: varchar
-        description: '{{ doc("col__lv_generic_name") }}'
-      - name: lv_class
+        description: '{{ doc("col__launch_vehicle_generic_name") }}'
+      - name: launch_vehicle_class
         data_type: varchar
-        description: '{{ doc("col__lv_class") }}'
-      - name: lv_manufacturer_codes
+        description: '{{ doc("col__launch_vehicle_class") }}'
+      - name: launch_vehicle_manufacturer_codes
         data_type: varchar[]
-        description: '{{ doc("col__lv_manufacturer_codes") }}'
-      - name: lv_manufacturer_names
+        description: '{{ doc("col__launch_vehicle_manufacturer_codes") }}'
+      - name: launch_vehicle_manufacturer_names
         data_type: varchar[]
-        description: '{{ doc("col__lv_manufacturer_names") }}'
-      - name: lv_variant
+        description: '{{ doc("col__launch_vehicle_manufacturer_names") }}'
+      - name: launch_vehicle_variant
         data_type: varchar
-        description: '{{ doc("col__lv_variant") }}'
-      - name: lv_alias
+        description: '{{ doc("col__launch_vehicle_variant") }}'
+      - name: launch_vehicle_alias
         data_type: varchar
-        description: '{{ doc("col__lv_alias") }}'
-      - name: lv_length_m
+        description: '{{ doc("col__launch_vehicle_alias") }}'
+      - name: launch_vehicle_length_m
         data_type: double
-        description: '{{ doc("col__lv_length_m") }}'
-      - name: lv_diameter_m
+        description: '{{ doc("col__launch_vehicle_length_m") }}'
+      - name: launch_vehicle_diameter_m
         data_type: double
-        description: '{{ doc("col__lv_diameter_m") }}'
-      - name: lv_launch_mass_t
+        description: '{{ doc("col__launch_vehicle_diameter_m") }}'
+      - name: launch_vehicle_launch_mass_t
         data_type: double
-        description: '{{ doc("col__lv_launch_mass_t") }}'
-      - name: lv_leo_capacity_kg
+        description: '{{ doc("col__launch_vehicle_launch_mass_t") }}'
+      - name: launch_vehicle_leo_capacity_kg
         data_type: double
-        description: '{{ doc("col__lv_leo_capacity_kg") }}'
-      - name: lv_gto_capacity_kg
+        description: '{{ doc("col__launch_vehicle_leo_capacity_kg") }}'
+      - name: launch_vehicle_gto_capacity_kg
         data_type: double
-        description: '{{ doc("col__lv_gto_capacity_kg") }}'
-      - name: lv_takeoff_thrust_kn
+        description: '{{ doc("col__launch_vehicle_gto_capacity_kg") }}'
+      - name: launch_vehicle_takeoff_thrust_kn
         data_type: double
-        description: '{{ doc("col__lv_takeoff_thrust_kn") }}'
+        description: '{{ doc("col__launch_vehicle_takeoff_thrust_kn") }}'
       - name: _source_updated_at
         data_type: timestamp
         description: '{{ doc("col___source_updated_at") }}'
@@ -245,18 +245,18 @@ models:
       - name: launch_platform
         data_type: varchar
         description: '{{ doc("col__launch_platform") }}'
-      - name: lv_type
+      - name: launch_vehicle_type
         data_type: varchar
-        description: '{{ doc("col__lv_type") }}'
+        description: '{{ doc("col__launch_vehicle_type") }}'
         data_tests:
           - relationships:
-              name: fk__fct__launch_event__lv_type
+              name: fk__fct__launch_event__launch_vehicle_type
               arguments:
                 to: "ref('dim__launch_vehicle')"
-                field: lv_name
-      - name: lv_brand
+                field: launch_vehicle_name
+      - name: launch_vehicle_brand
         data_type: varchar
-        description: '{{ doc("col__lv_brand") }}'
+        description: '{{ doc("col__launch_vehicle_brand") }}'
       - name: flight_id
         data_type: varchar
         description: '{{ doc("col__flight_id") }}'
@@ -281,9 +281,9 @@ models:
       - name: current_owner_code
         data_type: varchar
         description: '{{ doc("col__current_owner_code") }}'
-      - name: current_state_code
+      - name: current_owner_state_code
         data_type: varchar
-        description: '{{ doc("col__current_state_code") }}'
+        description: '{{ doc("col__current_owner_state_code") }}'
       - name: _source_updated_at
         data_type: timestamp
         description: '{{ doc("col___source_updated_at") }}'

@@ -5,7 +5,7 @@ with cte_int__xsrc__satellite_owner_country_map as (
         , satcat_id
         , country_sk
         , owner_country_iso_code
-        , owner_country_iso_code_ord
+        , owner_country_iso_code_order
         , owner_country_source
     from {{ ref('int__xsrc__satellite_owner_country_map') }}
 )
@@ -16,7 +16,7 @@ with cte_int__xsrc__satellite_owner_country_map as (
         , cast(satcat_id as integer) as satcat_id
         , cast(country_sk as varchar) as country_sk
         , cast(owner_country_iso_code as varchar) as owner_country_iso_code
-        , cast(owner_country_iso_code_ord as integer) as owner_country_iso_code_ord
+        , cast(owner_country_iso_code_order as integer) as owner_country_iso_code_order
         , cast(owner_country_source as varchar) as owner_country_source
         , {{ helper__audit_fields() }}
     from cte_int__xsrc__satellite_owner_country_map

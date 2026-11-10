@@ -5,11 +5,11 @@ select
     , entity_key
     , '{{ role }}' as org_role
     , rtrim(part, '?') as org_code
-    , cast(ord as integer) as org_code_ord
+    , cast(ord as integer) as org_code_order
     , raw_code as org_code_raw
-    , cast(raw_code like '%/%' as integer) as flag_composite
-    , cast(part like '%?' as integer) as flag_uncertain
-    , case when raw_code like '%/%' then 'split_slash' else 'single' end as parse_rule
+    , cast(raw_code like '%/%' as integer) as flag_multiple_orgs
+    , cast(part like '%?' as integer) as flag_org_uncertain
+    , case when raw_code like '%/%' then 'split_slash' else 'single' end as org_code_split_rule
 from (
     select
         {{ key_col }} as entity_key

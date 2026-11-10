@@ -12,14 +12,14 @@ with cte_stg__jsr__launchlog as (
         , ascent_site_code
         , ascent_pad
         , launch_platform
-        , lv_type
+        , launch_vehicle_type
         , flight_id
         , launch_agency_code
         , launch_agency_country
         , launch_code
         , launch_time_ref
         , current_owner_code
-        , current_state_code
+        , current_owner_state_code
         , _source_updated_at
     from {{ ref('stg__jsr__launchlog') }}
 )
@@ -38,8 +38,8 @@ with cte_stg__jsr__launchlog as (
         , ascent_site_code
         , ascent_pad
         , launch_platform
-        , lv_type
-        , {{ helper__derive_lv_brand('lv_type') }} as lv_brand
+        , launch_vehicle_type
+        , {{ helper__derive_lv_brand('launch_vehicle_type') }} as launch_vehicle_brand
         , flight_id
         , launch_agency_code
         , launch_agency_country
@@ -48,7 +48,7 @@ with cte_stg__jsr__launchlog as (
         , nullif(substr(launch_code, 2), '') as launch_success_code
         , launch_time_ref
         , current_owner_code
-        , current_state_code
+        , current_owner_state_code
         , _source_updated_at
         , {{ helper__audit_fields() }}
     from cte_stg__jsr__launchlog

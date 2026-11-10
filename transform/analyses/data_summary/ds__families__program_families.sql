@@ -3,7 +3,7 @@
 with cte_fct__satellite_master as (
     select
         object_type
-        , status
+        , operational_status
         , satellite_program_family
     from {{ ref('fct__satellite_master') }}
 )
@@ -11,7 +11,7 @@ with cte_fct__satellite_master as (
 , cte_families as (
     select
         satellite_program_family
-        , status
+        , operational_status
     from cte_fct__satellite_master
     where object_type = 'PAYLOAD'
         and satellite_program_family is not null
@@ -30,14 +30,14 @@ with cte_fct__satellite_master as (
 , cte_final as (
     select
         cte_families.satellite_program_family
-        , cte_families.status
+        , cte_families.operational_status
         , count(*) as payloads
     from cte_families
     inner join cte_large_families
         on cte_families.satellite_program_family = cte_large_families.satellite_program_family
     group by
         cte_families.satellite_program_family
-        , cte_families.status
+        , cte_families.operational_status
 )
 
 select * from cte_final

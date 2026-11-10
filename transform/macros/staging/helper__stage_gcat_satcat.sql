@@ -16,7 +16,7 @@ with cte_final as (
         , {{ sattrack.helper__clean_gcat_text('Status') }} as phase_status
         , {{ sattrack.helper__clean_gcat_text('Dest') }} as phase_destination
         , {{ sattrack.helper__clean_gcat_text('Owner') }} as owner_code
-        , {{ sattrack.helper__clean_gcat_text('State') }} as state_code
+        , {{ sattrack.helper__clean_gcat_text('State') }} as owner_state_code
         , {{ sattrack.helper__clean_gcat_text('Manufacturer') }} as manufacturer_code
         , {{ sattrack.helper__clean_gcat_text('Bus') }} as bus
         , {{ sattrack.helper__clean_gcat_text('Motor') }} as motor

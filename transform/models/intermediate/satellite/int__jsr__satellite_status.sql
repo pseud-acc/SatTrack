@@ -11,7 +11,7 @@ with cte_stg__jsr__psatcat as (
         , end_operation_date_raw
         , end_transmission_date_raw
         , last_active_date_raw
-        , end_of_life_flag
+        , end_of_life_code
         , maneuverability
         , ownership_class
         , mission_category
@@ -29,7 +29,7 @@ with cte_stg__jsr__psatcat as (
         , end_operation_date_raw
         , end_transmission_date_raw
         , last_active_date_raw
-        , end_of_life_flag
+        , end_of_life_code
         , maneuverability
         , ownership_class
         , mission_category
@@ -71,7 +71,7 @@ with cte_stg__jsr__psatcat as (
         , end_operation_date_raw
         , end_transmission_date_raw
         , last_active_date_raw
-        , end_of_life_flag
+        , end_of_life_code
         , maneuverability
         , ownership_class
         , mission_category
@@ -87,7 +87,7 @@ with cte_stg__jsr__psatcat as (
         , end_operation_date_raw
         , end_transmission_date_raw
         , last_active_date_raw
-        , end_of_life_flag
+        , end_of_life_code
         , maneuverability
         , ownership_class
         , mission_category
@@ -112,7 +112,7 @@ with cte_stg__jsr__psatcat as (
         , end_operation_date_raw
         , end_transmission_date_raw
         , last_active_date_raw
-        , case when end_of_life_flag in ('D', 'E', 'U', 'X', 'Z') then end_of_life_flag end as end_of_life_flag
+        , case when end_of_life_code in ('D', 'E', 'U', 'X', 'Z') then end_of_life_code end as end_of_life_code
         , case when maneuverability in ('M', 'D') then maneuverability end as maneuverability
         , case when regexp_full_match(ownership_class, '[ABCD]{1,2}') then ownership_class end as ownership_class
         , mission_category
@@ -145,7 +145,7 @@ with cte_stg__jsr__psatcat as (
             when p.last_active_date_raw = '*' then 'no_information'
             else {{ helper__parse_vague_date_precision('p.last_active_date_raw') }}
         end as last_active_date_precision
-        , p.end_of_life_flag
+        , p.end_of_life_code
         , p.maneuverability
         , p.ownership_class
         , list_transform(list_filter(string_split(coalesce(p.ownership_class, ''), ''), lambda x: x <> ''),
@@ -154,7 +154,7 @@ with cte_stg__jsr__psatcat as (
         , p.mission_category_list
         , list_transform(p.mission_category_list,
             lambda x: coalesce(map_extract_value(labels.mission_map, x), x)) as mission_category_labels
-        , cast(coalesce(p.mission_category like '%?%', false) as integer) as flag_category_uncertain
+        , cast(coalesce(p.mission_category like '%?%', false) as integer) as flag_mission_category_uncertain
         , cast(coalesce(p.mission_category like '%*%', false) as integer) as flag_orbit_data_secret
         , p.satellite_program
         , p.satellite_program_family
@@ -166,7 +166,7 @@ with cte_stg__jsr__psatcat as (
         , 1 - c.flag_gcat_in_orbit as flag_gcat_descended
         , case when p.jcat is not null then cast(
             ((p.end_operation_date_raw = '*') or coalesce(c.activity_type = 'A', false))
-                and coalesce(p.end_of_life_flag, '') <> 'Z' as integer)
+                and coalesce(p.end_of_life_code, '') <> 'Z' as integer)
         end as flag_gcat_active
         , p._source_file
         , p._source_updated_at
@@ -186,8 +186,8 @@ with cte_stg__jsr__psatcat as (
             when obj.flag_has_psatcat_record = 1 then 'own'
             when parent.jcat is not null then 'inherited_parent'
             else 'none'
-        end as payload_fields_source
-        , case when obj.flag_has_psatcat_record = 0 then parent.jcat end as payload_fields_parent_jcat
+        end as mission_details_source
+        , case when obj.flag_has_psatcat_record = 0 then parent.jcat end as mission_details_parent_jcat
     from cte_gcat_object_status as obj
     left join cte_int__jsr__satellite_parent_payload as chain on chain.jcat = obj.jcat
     left join cte_gcat_object_status as parent
@@ -214,28 +214,28 @@ with cte_stg__jsr__psatcat as (
         , last_active_date_start
         , last_active_date_end
         , last_active_date_precision
-        , end_of_life_flag
+        , end_of_life_code
         , maneuverability
         , ownership_class
         , ownership_class_labels
         , obj.mission_category
         , inherit.mission_category_list
         , inherit.mission_category_labels
-        , flag_category_uncertain
+        , flag_mission_category_uncertain
         , flag_orbit_data_secret
         , inherit.satellite_program
         , inherit.satellite_program_family
         , obj.constellation_plane
-        , inherit.payload_fields_source
-        , inherit.payload_fields_parent_jcat
+        , inherit.mission_details_source
+        , inherit.mission_details_parent_jcat
         , activity_type
         , current_status
         , flag_gcat_in_orbit
         , flag_gcat_descended
         , flag_gcat_active
         -- status: Active / Inactive from GCAT only (decided 2026-10-25): the payload rule, else currentcat Active
-        , case when coalesce(flag_gcat_active = 1, activity_type = 'A', false) then 'Active' else 'Inactive' end as status
-        , case when flag_has_psatcat_record = 1 then 'gcat_psatcat' else 'gcat_currentcat' end as status_source
+        , case when coalesce(flag_gcat_active = 1, activity_type = 'A', false) then 'Active' else 'Inactive' end as operational_status
+        , case when flag_has_psatcat_record = 1 then 'gcat_psatcat' else 'gcat_currentcat' end as operational_status_source
         , _source_file
         , _source_updated_at
         , {{ helper__audit_fields() }}

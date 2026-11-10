@@ -10,7 +10,7 @@ with cte_int__jsr__satellite_catalogue as (
     select
         jcat
         , org_code
-        , org_code_ord
+        , org_code_order
         , org_name
     from {{ ref('int__jsr__org_satellite_owner_map') }}
 )
@@ -19,7 +19,7 @@ with cte_int__jsr__satellite_catalogue as (
     select
         jcat
         , org_code
-        , org_code_ord
+        , org_code_order
         , org_name
     from {{ ref('int__jsr__org_satellite_manufacturer_map') }}
 )
@@ -28,7 +28,7 @@ with cte_int__jsr__satellite_catalogue as (
     select
         jcat
         , org_code
-        , org_code_ord
+        , org_code_order
         , org_name
     from {{ ref('int__jsr__org_launch_agency_map') }}
 )
@@ -36,8 +36,8 @@ with cte_int__jsr__satellite_catalogue as (
 , cte_owner_org_lists as (
     select
         jcat
-        , list(org_code order by org_code_ord) as codes
-        , list(coalesce(org_name, org_code) order by org_code_ord) as names
+        , list(org_code order by org_code_order) as codes
+        , list(coalesce(org_name, org_code) order by org_code_order) as names
     from cte_int__jsr__org_satellite_owner_map
     group by jcat
 )
@@ -45,8 +45,8 @@ with cte_int__jsr__satellite_catalogue as (
 , cte_manufacturer_org_lists as (
     select
         jcat
-        , list(org_code order by org_code_ord) as codes
-        , list(coalesce(org_name, org_code) order by org_code_ord) as names
+        , list(org_code order by org_code_order) as codes
+        , list(coalesce(org_name, org_code) order by org_code_order) as names
     from cte_int__jsr__org_satellite_manufacturer_map
     group by jcat
 )
@@ -54,8 +54,8 @@ with cte_int__jsr__satellite_catalogue as (
 , cte_launch_agency_org_lists as (
     select
         jcat
-        , list(org_code order by org_code_ord) as codes
-        , list(coalesce(org_name, org_code) order by org_code_ord) as names
+        , list(org_code order by org_code_order) as codes
+        , list(coalesce(org_name, org_code) order by org_code_order) as names
     from cte_int__jsr__org_launch_agency_map
     group by jcat
 )

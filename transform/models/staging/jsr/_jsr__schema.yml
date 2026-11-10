@@ -121,10 +121,10 @@ models:
     data_tests:
       - model_health:
           name: mh__stg__jsr__lv__pk_unique
-          arguments: {check: pk_unique, columns: [lv_name, lv_variant]}
+          arguments: {check: pk_unique, columns: [launch_vehicle_name, launch_vehicle_variant]}
       - model_health:
           name: mh__stg__jsr__lv__pk_not_null
-          arguments: {check: pk_not_null, columns: [lv_name]}
+          arguments: {check: pk_not_null, columns: [launch_vehicle_name]}
       - model_health:
           name: mh__stg__jsr__lv__row_count_match
           arguments: {check: row_count_match, compare_to: "source('jsr', 'lv')", relationship: equal}

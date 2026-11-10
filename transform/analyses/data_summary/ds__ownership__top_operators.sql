@@ -3,14 +3,14 @@ with cte_fct__satellite_master as (
     select
         operator_name
         , object_type
-        , status
+        , operational_status
     from {{ ref('fct__satellite_master') }}
 )
 
 , cte_payloads as (
     select
         operator_name
-        , status
+        , operational_status
     from cte_fct__satellite_master
     where object_type = 'PAYLOAD'
         and operator_name is not null
@@ -28,14 +28,14 @@ with cte_fct__satellite_master as (
 , cte_final as (
     select
         cte_payloads.operator_name
-        , cte_payloads.status
+        , cte_payloads.operational_status
         , count(*) as payloads
     from cte_payloads
     inner join cte_top_operators
         on cte_payloads.operator_name = cte_top_operators.operator_name
     group by
         cte_payloads.operator_name
-        , cte_payloads.status
+        , cte_payloads.operational_status
 )
 
 select * from cte_final

@@ -112,8 +112,8 @@ def collect() -> dict:
     if LIVE_DB.exists():
         with connect(LIVE_DB, read_only=True) as live:
             try:
-                data["as_of"] = rows(live, "select max(positions_as_of) as positions_as_of, max(details_as_of) as details_as_of, "
-                                           "count(*) as objects, count(*) filter (where status = 'Active') as active "
+                data["as_of"] = rows(live, "select max(positions_as_of) as positions_as_of, max(gcat_updated_at) as gcat_updated_at, "
+                                           "count(*) as objects, count(*) filter (where operational_status = 'Active') as active "
                                            "from marts.fct__satellite_master")[0]
             except Exception:  # noqa: BLE001
                 data["as_of"] = {}
@@ -192,7 +192,7 @@ def render(d: dict) -> str:
         f'<div class="panel"><div style="display:flex;justify-content:space-between;gap:8px"><h3>{esc(n.title())}</h3>{pill(units.get(n, {}).get("status"))}</div>'
         f'<span class="muted">{esc(lbl)}</span><span class="big" style="font-size:20px">{esc(val)}</span></div>'
         for n, lbl, val in [("tracking", "Positions as of", as_of.get("positions_as_of")),
-                            ("enrichment", "Details as of", as_of.get("details_as_of"))])
+                            ("enrichment", "Details as of", as_of.get("gcat_updated_at"))])
     failing = [t for t in d.get("tests", []) if t["status"] not in ("pass",)]
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SatTrack Pipeline Health</title>

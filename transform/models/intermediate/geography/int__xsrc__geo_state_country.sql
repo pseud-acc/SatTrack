@@ -12,8 +12,8 @@ with cte_int__jsr__org_organisations as (
 
 , cte_int__xsrc__geo_country_name_keys as (
     select
-        name_tier
-        , key_type
+        name_key_list
+        , name_key_type
         , name_key
         , matched_iso_code
         , matched_country_name
@@ -39,28 +39,28 @@ with cte_int__jsr__org_organisations as (
 , cte_org_names_matched as ( -- best match per org
     select
         cand.org_code
-        , keys.name_tier
+        , keys.name_key_list
         , keys.matched_iso_code
         , keys.matched_country_name
     from cte_org_name_candidates as cand
     inner join cte_int__xsrc__geo_country_name_keys as keys
-        on (keys.key_type = 'full' and keys.name_key = {{ helper__build_country_key_full('cand.candidate_name') }})
-        or (keys.key_type = 'reduced' and keys.name_key = {{ helper__build_country_key_reduced('cand.candidate_name') }})
+        on (keys.name_key_type = 'full' and keys.name_key = {{ helper__build_country_key_full('cand.candidate_name') }})
+        or (keys.name_key_type = 'reduced' and keys.name_key = {{ helper__build_country_key_reduced('cand.candidate_name') }})
     qualify row_number() over (
         partition by cand.org_code
         order by
             cand.candidate_rank
-            , case keys.name_tier when 'iso' then 1 when 'geonames_name' then 2 else 3 end
-            , case keys.key_type when 'full' then 1 else 2 end
+            , case keys.name_key_list when 'iso' then 1 when 'geonames_name' then 2 else 3 end
+            , case keys.name_key_type when 'full' then 1 else 2 end
     ) = 1
 )
 
 , cte_final as (
     select
-        org_code as state_code
+        org_code as owner_state_code
         , matched_country_name as owner_country
         , [matched_iso_code] as owner_country_codes
-        , case name_tier
+        , case name_key_list
             when 'iso' then 'iso_exact'
             when 'geonames_name' then 'geonames_name'
             else 'iso_historic'

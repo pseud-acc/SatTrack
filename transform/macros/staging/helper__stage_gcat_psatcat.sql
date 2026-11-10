@@ -8,7 +8,7 @@ with cte_final as (
         , {{ sattrack.helper__clean_gcat_text('TLast') }} as last_active_date_raw
         , {{ sattrack.helper__clean_gcat_text('TOp') }} as end_operation_date_raw
         , {{ sattrack.helper__clean_gcat_text('TDate') }} as end_transmission_date_raw
-        , {{ sattrack.helper__clean_gcat_text('TF') }} as end_of_life_flag
+        , {{ sattrack.helper__clean_gcat_text('TF') }} as end_of_life_code
         , {{ sattrack.helper__clean_gcat_text('Program') }} as satellite_program
         , {{ sattrack.helper__clean_gcat_text('Plane') }} as constellation_plane
         , {{ sattrack.helper__clean_gcat_text('Att') }} as attitude_control

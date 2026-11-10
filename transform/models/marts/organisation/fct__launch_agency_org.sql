@@ -5,11 +5,11 @@ with cte_int__jsr__org_launch_agency_map as (
         , jcat
         , org_role
         , org_code
-        , org_code_ord
+        , org_code_order
         , org_code_raw
-        , flag_composite
-        , flag_uncertain
-        , parse_rule
+        , flag_multiple_orgs
+        , flag_org_uncertain
+        , org_code_split_rule
         , org_name
     from {{ ref('int__jsr__org_launch_agency_map') }}
 )
@@ -20,11 +20,11 @@ with cte_int__jsr__org_launch_agency_map as (
         , cast(jcat as varchar) as jcat
         , cast(org_role as varchar) as org_role
         , cast(org_code as varchar) as org_code
-        , cast(org_code_ord as integer) as org_code_ord
+        , cast(org_code_order as integer) as org_code_order
         , cast(org_code_raw as varchar) as org_code_raw
-        , cast(flag_composite as integer) as flag_composite
-        , cast(flag_uncertain as integer) as flag_uncertain
-        , cast(parse_rule as varchar) as parse_rule
+        , cast(flag_multiple_orgs as integer) as flag_multiple_orgs
+        , cast(flag_org_uncertain as integer) as flag_org_uncertain
+        , cast(org_code_split_rule as varchar) as org_code_split_rule
         , cast(org_name as varchar) as org_name
         , {{ helper__audit_fields() }}
     from cte_int__jsr__org_launch_agency_map

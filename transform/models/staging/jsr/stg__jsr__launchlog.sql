@@ -9,8 +9,8 @@ with cte_final as (
         , {{ helper__clean_gcat_text('PLName') }} as pre_launch_name
         , {{ helper__clean_gcat_text('JCAT') }} as jcat
         , {{ helper__clean_gcat_text('SatOwner') }} as current_owner_code
-        , {{ helper__clean_gcat_text('SatState') }} as current_state_code
-        , {{ helper__clean_gcat_text('LV_Type') }} as lv_type
+        , {{ helper__clean_gcat_text('SatState') }} as current_owner_state_code
+        , {{ helper__clean_gcat_text('LV_Type') }} as launch_vehicle_type
         , {{ helper__clean_gcat_text('Flight_ID') }} as flight_id
         , {{ helper__clean_gcat_text('Platform') }} as launch_platform
         , {{ helper__clean_gcat_text('Launch_Site') }} as site_code_raw

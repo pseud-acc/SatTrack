@@ -2,19 +2,19 @@
 with cte_fct__satellite_master as (
     select
         orbit_class
-        , status
+        , operational_status
     from {{ ref('fct__satellite_master') }}
 )
 
 , cte_final as (
     select
         coalesce(orbit_class, 'Not classified') as orbit_class
-        , status
+        , operational_status
         , count(*) as objects
     from cte_fct__satellite_master
     group by
         coalesce(orbit_class, 'Not classified')
-        , status
+        , operational_status
 )
 
 select * from cte_final

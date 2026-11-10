@@ -35,7 +35,7 @@ with cte_int__spacetrack__satellite_catalogue as (
         , cospar_id
         , sat_type_class
         , gcat_launch_date
-        , state_code
+        , owner_state_code
         , owner_code
         , orbit_regime
         , mass_kg
@@ -58,7 +58,7 @@ with cte_int__spacetrack__satellite_catalogue as (
 
 , cte_int__xsrc__geo_state_country as (
     select
-        state_code
+        owner_state_code
         , owner_country
         , owner_country_codes
     from {{ ref('int__xsrc__geo_state_country') }}
@@ -135,8 +135,8 @@ with cte_int__spacetrack__satellite_catalogue as (
         , gp.country_code as spacetrack_country_code
         -- owner country rule, then the owner fields that follow it (aliases read by the lines below)
         , case
-            when gp.country_code = 'CIS' and cat.state_code in ('SU', 'RU') and gst.state_code is not null then 'gcat_state'
-            when gp.country_code = 'TBD' and gst.state_code is not null then 'gcat_state_tbd'
+            when gp.country_code = 'CIS' and cat.owner_state_code in ('SU', 'RU') and gst.owner_state_code is not null then 'gcat_state'
+            when gp.country_code = 'TBD' and gst.owner_state_code is not null then 'gcat_state_tbd'
             when geo.country_code is not null then geo.owner_country_method
             else 'none'
         end as owner_country_source
@@ -176,20 +176,20 @@ with cte_int__spacetrack__satellite_catalogue as (
         , gp.tle_line_1
         , gp.tle_line_2
         , gp._loaded_at as positions_as_of
-        , cat.state_code
+        , cat.owner_state_code
         , cat.owner_code
         , cat.orbit_regime
         , cat.mass_kg
         , cat.flag_mass_estimated
         , cat.dry_mass_kg
         , cat.span_m
-        , cat._source_updated_at as details_as_of
+        , cat._source_updated_at as gcat_updated_at
         , {{ helper__audit_fields() }}
     from cte_int__spacetrack__satellite_catalogue as gp
     left join cte_jcat_links as link using (satcat_id)
     left join cte_int__jsr__satellite_catalogue as cat on cat.jcat = link.jcat
     left join cte_int__xsrc__geo_owner_country as geo on geo.country_code = gp.country_code
-    left join cte_int__xsrc__geo_state_country as gst on gst.state_code = cat.state_code
+    left join cte_int__xsrc__geo_state_country as gst on gst.owner_state_code = cat.owner_state_code
 )
 
 select * from cte_final

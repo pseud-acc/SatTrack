@@ -103,7 +103,7 @@ Source: https://pypi.org/project/pycountry/ (Batch 7).
 {% enddocs %}
 
 {% docs col__iso_withdrawal_date %}
-The date the country was removed from ISO 3166-1. From pycountry historic `withdrawal_date`. E.g. 1992-08-30 for the USSR.
+The date ISO withdrew a former country's code from its list of current countries (ISO 3166-1). NULL for current countries, and for former ones where pycountry gives no date. From pycountry historic `withdrawal_date`. E.g. 1992-08-30 (USSR), 1990-10-30 (East Germany).
 
 Source: https://pypi.org/project/pycountry/ (Batch 7).
 {% enddocs %}

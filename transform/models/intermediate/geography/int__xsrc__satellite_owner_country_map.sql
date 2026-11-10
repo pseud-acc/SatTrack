@@ -24,18 +24,18 @@ with cte_int__xsrc__satellite_gcat_matched as (
         sat.satcat_id
         , sat.owner_country_source
         , c.code as owner_country_iso_code
-        , cast(c.ord as integer) as owner_country_iso_code_ord
+        , cast(c.ord as integer) as owner_country_iso_code_order
     from cte_int__xsrc__satellite_gcat_matched as sat
     cross join unnest(sat.owner_country_codes) with ordinality as c(code, ord)
 )
 
 , cte_final as (
     select
-        {{ dbt_utils.generate_surrogate_key(['m.satcat_id', "'owner'", 'm.owner_country_iso_code_ord', 'm.owner_country_iso_code']) }} as map_sk
+        {{ dbt_utils.generate_surrogate_key(['m.satcat_id', "'owner'", 'm.owner_country_iso_code_order', 'm.owner_country_iso_code']) }} as map_sk
         , m.satcat_id
         , g.country_sk
         , m.owner_country_iso_code
-        , m.owner_country_iso_code_ord
+        , m.owner_country_iso_code_order
         , m.owner_country_source
         , {{ helper__audit_fields() }}
     from cte_owner_country_codes as m

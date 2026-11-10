@@ -77,7 +77,7 @@ with recursive cte_parent_walk_limits as ( -- guard against cycles and runaway c
             when not ends.step_in_catalogue then 'parent_not_in_catalogue'
             when not ends.step_has_parent then 'chain_ends_without_payload'
             else 'chain_limit'
-        end as parent_chain_outcome
+        end as parent_payload_search_outcome
         , {{ helper__audit_fields() }}
     from cte_parent_links as link
     left join cte_walk_ends as ends on ends.start_jcat = link.jcat

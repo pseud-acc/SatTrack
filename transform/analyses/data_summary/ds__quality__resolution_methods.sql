@@ -3,7 +3,7 @@ with cte_fct__satellite_master as (
     select
         object_type_source
         , launch_date_source
-        , status_source
+        , operational_status_source
         , owner_country_source
         , jcat_link_method
     from {{ ref('fct__satellite_master') }}
@@ -17,7 +17,7 @@ with cte_fct__satellite_master as (
     cross join unnest([
         {'field': 'object_type', 'method': object_type_source}
         , {'field': 'launch_date', 'method': launch_date_source}
-        , {'field': 'status', 'method': status_source}
+        , {'field': 'operational_status', 'method': operational_status_source}
         , {'field': 'owner_country', 'method': owner_country_source}
         , {'field': 'gcat link (jcat)', 'method': jcat_link_method}
     ]) as p(provenance)

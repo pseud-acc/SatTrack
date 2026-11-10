@@ -38,15 +38,15 @@ with cte_int__xsrc__satellite_gcat_matched as (
         , tle_line_1
         , tle_line_2
         , positions_as_of
-        , details_as_of
+        , gcat_updated_at
     from {{ ref('int__xsrc__satellite_gcat_matched') }}
 )
 
 , cte_int__jsr__satellite_status as (
     select
         jcat
-        , status
-        , status_source
+        , operational_status
+        , operational_status_source
         , flag_gcat_descended
         , flag_still_operating
         , flag_still_transmitting
@@ -54,7 +54,7 @@ with cte_int__xsrc__satellite_gcat_matched as (
         , end_operation_date_precision
         , end_transmission_date
         , end_transmission_date_precision
-        , end_of_life_flag
+        , end_of_life_code
         , activity_type
         , current_status
         , ownership_class
@@ -64,8 +64,8 @@ with cte_int__xsrc__satellite_gcat_matched as (
         , satellite_program
         , satellite_program_family
         , constellation_plane
-        , payload_fields_source
-        , payload_fields_parent_jcat
+        , mission_details_source
+        , mission_details_parent_jcat
     from {{ ref('int__jsr__satellite_status') }}
 )
 
@@ -93,9 +93,9 @@ with cte_int__xsrc__satellite_gcat_matched as (
         , site_location_country
         , site_latitude
         , site_longitude
-        , lv_type
-        , lv_brand
-        , lv_family
+        , launch_vehicle_type
+        , launch_vehicle_brand
+        , launch_vehicle_family
         , flight_id
         , launch_agency_code
         , launch_agency_name
@@ -103,7 +103,7 @@ with cte_int__xsrc__satellite_gcat_matched as (
         , launch_agency_org_names
         , launch_category
         , flag_catalog_match_uncertain
-        , launch_fields_source
+        , launch_details_source
     from {{ ref('int__jsr__satellite_launch_details') }}
 )
 
@@ -122,15 +122,15 @@ with cte_int__xsrc__satellite_gcat_matched as (
         -- in the GP feed (so on orbit) while GCAT says it came down
         , coalesce(st.flag_gcat_descended, 0) as flag_orbit_conflict
         -- objects without a GCAT status record default to Inactive
-        , coalesce(st.status, 'Inactive') as status
-        , coalesce(st.status_source, 'default_inactive') as status_source
+        , coalesce(st.operational_status, 'Inactive') as operational_status
+        , coalesce(st.operational_status_source, 'default_inactive') as operational_status_source
         , st.flag_still_operating
         , st.flag_still_transmitting
         , st.end_operation_date
         , st.end_operation_date_precision
         , st.end_transmission_date
         , st.end_transmission_date_precision
-        , st.end_of_life_flag
+        , st.end_of_life_code
         , st.activity_type
         , st.current_status
         , sat.launch_date
@@ -150,15 +150,15 @@ with cte_int__xsrc__satellite_gcat_matched as (
         , coalesce(orgs.owner_org_names, cast([] as varchar[])) as owner_org_names
         , coalesce(orgs.manufacturer_org_codes, cast([] as varchar[])) as manufacturer_org_codes
         , coalesce(orgs.manufacturer_org_names, cast([] as varchar[])) as manufacturer_org_names
-        -- launch agencies are launch-level: own launch-log row, else inherited from the launch (see launch_fields_source)
+        -- launch agencies are launch-level: own launch-log row, else inherited from the launch (see launch_details_source)
         , coalesce(ld.launch_agency_org_codes, cast([] as varchar[])) as launch_agency_org_codes
         , coalesce(ld.launch_agency_org_names, cast([] as varchar[])) as launch_agency_org_names
         , st.ownership_class
         , coalesce(st.ownership_class_labels, cast([] as varchar[])) as ownership_class_labels
-        -- payload-level: own payload record, else inherited from the GCAT Parent chain (see payload_fields_source)
+        -- payload-level: own payload record, else inherited from the GCAT Parent chain (see mission_details_source)
         , st.mission_category_list
         , st.mission_category_labels
-        -- launch: own launch-log row, else inherited from the satcat Launch_Tag (see launch_fields_source)
+        -- launch: own launch-log row, else inherited from the satcat Launch_Tag (see launch_details_source)
         , ld.launch_tag
         , ld.launch_datetime
         , ld.launch_datetime_precision
@@ -168,20 +168,20 @@ with cte_int__xsrc__satellite_gcat_matched as (
         , ld.site_location_country
         , ld.site_latitude
         , ld.site_longitude
-        , ld.lv_type
-        , ld.lv_brand
-        , ld.lv_family
+        , ld.launch_vehicle_type
+        , ld.launch_vehicle_brand
+        , ld.launch_vehicle_family
         , ld.flight_id
         , ld.launch_agency_code
         , ld.launch_agency_name
         , ld.launch_category
         , ld.flag_catalog_match_uncertain
-        , coalesce(ld.launch_fields_source, 'none') as launch_fields_source
+        , coalesce(ld.launch_details_source, 'none') as launch_details_source
         , st.satellite_program
         , st.satellite_program_family
         , st.constellation_plane
-        , coalesce(st.payload_fields_source, 'none') as payload_fields_source
-        , st.payload_fields_parent_jcat
+        , coalesce(st.mission_details_source, 'none') as mission_details_source
+        , st.mission_details_parent_jcat
         , sat.orbit_class
         , sat.orbit_regime
         , sat.orbital_period
@@ -199,7 +199,7 @@ with cte_int__xsrc__satellite_gcat_matched as (
         , sat.tle_line_1
         , sat.tle_line_2
         , sat.positions_as_of
-        , sat.details_as_of
+        , sat.gcat_updated_at
     from cte_int__xsrc__satellite_gcat_matched as sat
     left join cte_int__jsr__satellite_status as st on st.jcat = sat.jcat
     left join cte_int__jsr__org_satellite_org_lists as orgs on orgs.jcat = sat.jcat
@@ -219,15 +219,15 @@ with cte_int__xsrc__satellite_gcat_matched as (
         , cast(object_type_source as varchar) as object_type_source
         , cast(flag_in_orbit as integer) as flag_in_orbit
         , cast(flag_orbit_conflict as integer) as flag_orbit_conflict
-        , cast(status as varchar) as status
-        , cast(status_source as varchar) as status_source
+        , cast(operational_status as varchar) as operational_status
+        , cast(operational_status_source as varchar) as operational_status_source
         , cast(flag_still_operating as integer) as flag_still_operating
         , cast(flag_still_transmitting as integer) as flag_still_transmitting
         , cast(end_operation_date as timestamp) as end_operation_date
         , cast(end_operation_date_precision as varchar) as end_operation_date_precision
         , cast(end_transmission_date as timestamp) as end_transmission_date
         , cast(end_transmission_date_precision as varchar) as end_transmission_date_precision
-        , cast(end_of_life_flag as varchar) as end_of_life_flag
+        , cast(end_of_life_code as varchar) as end_of_life_code
         , cast(activity_type as varchar) as activity_type
         , cast(current_status as varchar) as current_status
         , cast(launch_date as date) as launch_date
@@ -260,20 +260,20 @@ with cte_int__xsrc__satellite_gcat_matched as (
         , cast(site_location_country as varchar) as site_location_country
         , cast(site_latitude as double) as site_latitude
         , cast(site_longitude as double) as site_longitude
-        , cast(lv_type as varchar) as lv_type
-        , cast(lv_brand as varchar) as lv_brand
-        , cast(lv_family as varchar) as lv_family
+        , cast(launch_vehicle_type as varchar) as launch_vehicle_type
+        , cast(launch_vehicle_brand as varchar) as launch_vehicle_brand
+        , cast(launch_vehicle_family as varchar) as launch_vehicle_family
         , cast(flight_id as varchar) as flight_id
         , cast(launch_agency_code as varchar) as launch_agency_code
         , cast(launch_agency_name as varchar) as launch_agency_name
         , cast(launch_category as varchar) as launch_category
         , cast(flag_catalog_match_uncertain as integer) as flag_catalog_match_uncertain
-        , cast(launch_fields_source as varchar) as launch_fields_source
+        , cast(launch_details_source as varchar) as launch_details_source
         , cast(satellite_program as varchar) as satellite_program
         , cast(satellite_program_family as varchar) as satellite_program_family
         , cast(constellation_plane as varchar) as constellation_plane
-        , cast(payload_fields_source as varchar) as payload_fields_source
-        , cast(payload_fields_parent_jcat as varchar) as payload_fields_parent_jcat
+        , cast(mission_details_source as varchar) as mission_details_source
+        , cast(mission_details_parent_jcat as varchar) as mission_details_parent_jcat
         , cast(orbit_class as varchar) as orbit_class
         , cast(orbit_regime as varchar) as orbit_regime
         , cast(orbital_period as double) as orbital_period
@@ -291,7 +291,7 @@ with cte_int__xsrc__satellite_gcat_matched as (
         , cast(tle_line_1 as varchar) as tle_line_1
         , cast(tle_line_2 as varchar) as tle_line_2
         , cast(positions_as_of as timestamp) as positions_as_of
-        , cast(details_as_of as timestamp) as details_as_of
+        , cast(gcat_updated_at as timestamp) as gcat_updated_at
         , {{ helper__audit_fields() }}
     from cte_satellite_master
 )

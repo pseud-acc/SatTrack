@@ -6,7 +6,7 @@ with cte_int__jsr__launch_events as (
         , launch_datetime
         , launch_datetime_precision
         , site_code
-        , lv_type
+        , launch_vehicle_type
         , flight_id
         , launch_agency_code
         , launch_category
@@ -16,7 +16,7 @@ with cte_int__jsr__launch_events as (
 , cte_launch_variants as (
     select
         launch_tag
-        , count(distinct (launch_datetime, launch_datetime_precision, site_code, lv_type, flight_id, launch_agency_code, launch_category)) as n_variants
+        , count(distinct (launch_datetime, launch_datetime_precision, site_code, launch_vehicle_type, flight_id, launch_agency_code, launch_category)) as n_variants
     from cte_int__jsr__launch_events
     group by launch_tag
 )
