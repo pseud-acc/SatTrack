@@ -225,8 +225,9 @@ def main() -> int:
                                            [res["invocation_id"]]).fetchone()[0] > 0
                 except duckdb.Error:
                     recorded = False
-            ops.execute("insert into audit.dbt_crash_capture values (?, ?, ?, ?, ?)",
-                        [ctx.run_id, unit, res["exit_code"], recorded,
+            ops.execute("insert into audit.dbt_crash_capture (run_id, unit, exit_code, flag_elementary_recorded, results) "
+                        "values (?, ?, ?, ?, ?)",
+                        [ctx.run_id, unit, res["exit_code"], int(recorded),
                          None if recorded else audit.json_dumps({"results": res["results"], "log_tail": res["log_tail"]})])
 
     # 4. publish: keep the last good version of any unit that didn't pass

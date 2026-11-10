@@ -20,7 +20,7 @@ create table if not exists audit.pipeline_run (
 create table if not exists audit.ingestion_call (
     run_id varchar, source varchar, target_table varchar, url varchar, started_at timestamp,
     duration_s double, http_status integer, bytes bigint, rows bigint, retries integer,
-    skipped_fresh boolean, error varchar
+    flag_skipped_fresh integer, error varchar
 );
 create table if not exists audit.login_state (
     service varchar primary key, consecutive_failures integer, last_failure_at timestamp,
@@ -36,7 +36,7 @@ create table if not exists audit.source_freshness (
     run_id varchar, source_table varchar, max_loaded_at timestamp, age_s double, status varchar, warn_after varchar
 );
 create table if not exists audit.dbt_crash_capture (
-    run_id varchar, unit varchar, exit_code integer, elementary_recorded boolean, results varchar
+    run_id varchar, unit varchar, exit_code integer, flag_elementary_recorded integer, results varchar
 );
 """
 
@@ -56,11 +56,32 @@ def scrub(text: str | None) -> str | None:
     return text[:2000]
 
 
+# Yes/no columns are flag_* integers 1/0 (2026-11-09). Ops DBs created before then hold the old BOOLEAN
+# columns; they are converted in place, once, when the tables are opened.
+_FLAG_MIGRATIONS = [
+    ("ingestion_call", "skipped_fresh", "flag_skipped_fresh"),
+    ("dbt_crash_capture", "elementary_recorded", "flag_elementary_recorded"),
+]
+
+
+def _migrate_flags(con) -> None:
+    for table, old, new in _FLAG_MIGRATIONS:
+        cols = {r[0] for r in con.execute(
+            "select column_name from information_schema.columns where table_schema = 'audit' and table_name = ?",
+            [table]).fetchall()}
+        if old in cols:
+            if new not in cols:
+                con.execute(f"alter table audit.{table} add column {new} integer")
+            con.execute(f"update audit.{table} set {new} = cast({old} as integer)")
+            con.execute(f"alter table audit.{table} drop column {old}")
+
+
 @contextmanager
 def ops():
     OPS_DB.parent.mkdir(parents=True, exist_ok=True)
     with connect(OPS_DB) as con:
         con.execute(DDL)
+        _migrate_flags(con)
         yield con
 
 

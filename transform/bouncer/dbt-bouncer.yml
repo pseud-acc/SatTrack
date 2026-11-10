@@ -280,18 +280,15 @@ manifest_checks:
     min_model_documentation_coverage_pct: 100
 
   - name: check_model_column_description_populated
-    description: "[DOC-04] Every column has a description. WARN until the M8 sourced definitions land."
-    severity: warn
+    description: "[DOC-04] Every column has a description. Error since 2026-11-09 (sourced definitions done)."
 
   - name: check_bespoke_model_column_doc_blocks
-    description: "[DOC-05] Column descriptions are doc() blocks from the registry (transform/docs). WARN until M8."
+    description: "[DOC-05] Column descriptions are doc() blocks from the registry (transform/docs)."
     doc_name_pattern: "^col__"
     project_dir: "."
-    severity: warn
 
   - name: check_bespoke_column_descriptions_consistent
     description: "[DOC-05] A column name has the same description everywhere, except composites that keep a source's column name but have their own definition."
-    severity: warn
     own_meaning_blocks:    # column name -> doc block of the composite meaning (Space-Track value, else GCAT fallback)
       object_type: col__object_type__resolved
       launch_date: col__launch_date__resolved

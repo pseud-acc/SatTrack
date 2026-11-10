@@ -57,7 +57,7 @@ def _fresh(con, table: str, limit_key: str, *, fail_safe_skip: bool = False) -> 
 
 def _log_skip(ops, ctx, source, table, url):
     audit.record_call(ops, ctx.run_id, source=source, target_table=table, url=url, started_at=datetime.now(timezone.utc),
-                      duration_s=0.0, http_status=None, bytes=0, rows=None, retries=0, skipped_fresh=True, error=None)
+                      duration_s=0.0, http_status=None, bytes=0, rows=None, retries=0, flag_skipped_fresh=1, error=None)
 
 
 def _get(session, url, *, retries=2, timeout=120):
@@ -96,7 +96,7 @@ def ingest_spacetrack(con, ops, ctx: RunContext) -> dict:
         audit.record_login(ops, "spacetrack", ok, None if ok else f"login HTTP {resp.status_code}")
         audit.record_call(ops, ctx.run_id, source="spacetrack", target_table="(login)", url=SPACETRACK_BASE + "/ajaxauth/login",
                           started_at=datetime.fromtimestamp(t0, timezone.utc), duration_s=time.time() - t0,
-                          http_status=resp.status_code, bytes=0, rows=0, retries=0, skipped_fresh=False,
+                          http_status=resp.status_code, bytes=0, rows=0, retries=0, flag_skipped_fresh=0,
                           error=None if ok else "login failed")
         if not ok:
             raise RuntimeError("Space-Track login failed")
@@ -114,7 +114,7 @@ def ingest_spacetrack(con, ops, ctx: RunContext) -> dict:
                 audit.record_call(ops, ctx.run_id, source="spacetrack", target_table=f"raw_spacetrack.{table}",
                                   url=SPACETRACK_BASE + query, started_at=datetime.fromtimestamp(t0, timezone.utc),
                                   duration_s=time.time() - t0, http_status=r.status_code, bytes=len(r.content), rows=rows,
-                                  retries=retries, skipped_fresh=False, error=err)
+                                  retries=retries, flag_skipped_fresh=0, error=err)
                 if err:
                     raise RuntimeError(f"Space-Track {table}: {err}")
         finally:
@@ -159,7 +159,7 @@ def ingest_gcat(con, ops, ctx: RunContext) -> dict:
             audit.record_call(ops, ctx.run_id, source="jsr", target_table=f"raw_jsr.{f.table}", url=url,
                               started_at=datetime.fromtimestamp(t0, timezone.utc), duration_s=time.time() - t0,
                               http_status=r.status_code, bytes=len(r.content), rows=rows, retries=retries,
-                              skipped_fresh=False, error=err)
+                              flag_skipped_fresh=0, error=err)
             if err:
                 raise RuntimeError(f"GCAT {f.table}: {err}")
         out["gcat_code_labels"] = _ingest_gcat_code_labels(con, ops, ctx, s)
@@ -188,7 +188,7 @@ def _ingest_gcat_code_labels(con, ops, ctx: RunContext, session):
     audit.record_call(ops, ctx.run_id, source="jsr", target_table=table, url=CODE_LABELS_URL,
                       started_at=datetime.fromtimestamp(t0, timezone.utc), duration_s=time.time() - t0,
                       http_status=r.status_code, bytes=len(r.content), rows=rows, retries=retries,
-                      skipped_fresh=False, error=err)
+                      flag_skipped_fresh=0, error=err)
     if err:
         raise RuntimeError(f"GCAT code labels: {err}")
     return rows
@@ -214,7 +214,7 @@ def ingest_pycountry(con, ops, ctx: RunContext) -> dict:
                      source_updated_at=None, source_file=f"pycountry-{ver}")
     audit.record_call(ops, ctx.run_id, source="pycountry", target_table="raw_pycountry.iso_countries", url=f"pycountry=={ver}",
                       started_at=datetime.fromtimestamp(t0, timezone.utc), duration_s=time.time() - t0,
-                      http_status=None, bytes=0, rows=n, retries=0, skipped_fresh=False, error=None)
+                      http_status=None, bytes=0, rows=n, retries=0, flag_skipped_fresh=0, error=None)
     return {"iso_countries": n}
 
 
@@ -234,7 +234,7 @@ def ingest_geonames(con, ops, ctx: RunContext) -> dict:
                      source_updated_at=None, source_file=f"geonamescache-{gver}")
     audit.record_call(ops, ctx.run_id, source="geonames", target_table="raw_geonames.cities", url=f"geonamescache=={gver}",
                       started_at=datetime.fromtimestamp(t0, timezone.utc), duration_s=time.time() - t0,
-                      http_status=None, bytes=0, rows=n, retries=0, skipped_fresh=False, error=None)
+                      http_status=None, bytes=0, rows=n, retries=0, flag_skipped_fresh=0, error=None)
     t1 = time.time()
     countries = [{"geonameid": c["geonameid"], "name": c["name"], "iso": c["iso"], "iso3": c["iso3"]}
                  for c in gc.get_countries().values()]
@@ -242,5 +242,5 @@ def ingest_geonames(con, ops, ctx: RunContext) -> dict:
                                source_updated_at=None, source_file=f"geonamescache-{gver}")
     audit.record_call(ops, ctx.run_id, source="geonames", target_table="raw_geonames.countries", url=f"geonamescache=={gver}",
                       started_at=datetime.fromtimestamp(t1, timezone.utc), duration_s=time.time() - t1,
-                      http_status=None, bytes=0, rows=n_countries, retries=0, skipped_fresh=False, error=None)
+                      http_status=None, bytes=0, rows=n_countries, retries=0, flag_skipped_fresh=0, error=None)
     return {"cities": n, "countries": n_countries}

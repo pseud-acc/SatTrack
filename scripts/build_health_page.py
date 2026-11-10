@@ -52,16 +52,16 @@ def collect() -> dict:
             # skipped everything as fresh still shows rows, size, HTTP status and when it was fetched.
             "ingestion": rows(ops, """
                 with this_run as (
-                    select target_table, source, skipped_fresh, error from audit.ingestion_call
+                    select target_table, source, flag_skipped_fresh, error from audit.ingestion_call
                     where run_id = ? and target_table <> '(login)'
                 ),
                 last_fetch as (
                     select * from audit.ingestion_call
-                    where not skipped_fresh and target_table <> '(login)'
+                    where flag_skipped_fresh = 0 and target_table <> '(login)'
                     qualify row_number() over (partition by target_table order by started_at desc) = 1
                 )
                 select t.source, t.target_table,
-                       case when t.error is not null then 'error' when t.skipped_fresh then 'skipped (fresh)' else 'fetched' end as this_run,
+                       case when t.error is not null then 'error' when t.flag_skipped_fresh = 1 then 'skipped (fresh)' else 'fetched' end as this_run,
                        strftime(f.started_at, '%Y-%m-%d %H:%M') as last_fetched_utc,
                        round(date_diff('second', f.started_at, now()::timestamp) / 3600.0, 1) as age_h,
                        f.http_status, f.rows, round(f.bytes / 1048576.0, 1) as mb, round(f.duration_s, 1) as duration_s,
