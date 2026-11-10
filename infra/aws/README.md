@@ -3,7 +3,9 @@
 The pipeline runs daily in GitHub Actions (public repo) and keeps all data in one private S3 bucket in
 **eu-west-1 (Ireland)**, next to the Heroku EU app. An AWS EventBridge schedule is the **only** trigger: it
 calls GitHub's `workflow_dispatch` API once a day at 03:17 UTC. GitHub reaches AWS only through OIDC; no AWS
-keys exist in GitHub. The `production` environment has **no required reviewer** (decided 2026-11-08): the run is
+keys exist in GitHub. **One public repo** holds the app, the pipeline and this infra: `pseud-acc/SatTrack`
+(the existing Heroku app repo; app at the root, pipeline in `pipeline/`, infra in `infra/`; decided 2026-11-10).
+The `production` environment has **no required reviewer** (decided 2026-11-08): the run is
 unattended and the environment's "main only" deployment branch rule is the gate. Full design, threat model and
 reasoning: `hosting_security_plan.html` (the design page).
 
@@ -17,8 +19,9 @@ reasoning: `hosting_security_plan.html` (the design page).
 Apply order: core stack (step 3) -> seed and first manual run (steps 4-6) -> app key (step 7) -> scheduler stack
 (step 8). The scheduler goes last so nothing triggers a run before the state is seeded.
 
-Run every command below yourself, from the repo root, signed in as your **admin** identity
-(not the pipeline role). Replace the `<...>` placeholders. Nothing here prints secret values.
+Run every command below yourself, from the root of `pseud-acc/SatTrack`, signed in as your **admin** identity
+(not the pipeline role): the IAM Identity Center profile, e.g. `aws sso login --profile admin` then
+`export AWS_PROFILE=admin`. Replace the `<...>` placeholders. Nothing here prints secret values.
 
 ## 0. Before you start
 
@@ -27,23 +30,29 @@ Run every command below yourself, from the repo root, signed in as your **admin*
 2. Make the secret a JSON object with exactly these keys (what `credentials.py` reads):
    `{"username": "...", "password": "..."}`. Console: Secrets Manager → the secret → *Retrieve secret value* → *Edit*.
 3. Note the secret's **full ARN** (ends in `-` plus 6 random characters) and its **region**.
-4. AWS account hygiene: MFA on the root user; an admin IAM user or Identity Center role for daily work;
+4. AWS account hygiene: MFA on the root user and no root access keys; IAM Identity Center (eu-west-1) with
+   group `Admins` and permission set `AdministratorAccess` for daily work, used through `aws configure sso`;
    confirm the account is on the **paid plan** (an account opened Dec 2025 has left the 6-month free plan;
    leftover credits still apply until they expire).
 5. Region: everything new goes in **eu-west-1** (the Heroku app runs in Heroku's EU region, so S3 -> app
    traffic stays in-region). The Space-Track secret may stay in another region: the pipeline reads the region
    from the secret ARN. Use `--region eu-west-1` (or `AWS_REGION=eu-west-1`) in every command below.
 
-## 1. Create the public GitHub repo and read its ids
+## 1. Read the repo's ids (the repo already exists)
+
+`pseud-acc/SatTrack` is the existing app repo; the pipeline was moved into it under `pipeline/` (do not create
+a second repo). After the merged `main` is pushed (secret scan first, see step 5):
 
 ```bash
-gh repo create pseud-acc/SatTrack --public --source . --push      # after the pre-publish checks in step 5
 gh api repos/pseud-acc/SatTrack --jq '.id, .owner.id'              # repo id, owner id
-gh api repos/pseud-acc/SatTrack/actions/oidc/customization/sub     # subject-claim settings (new repos: immutable ids)
+gh api repos/pseud-acc/SatTrack/actions/oidc/customization/sub     # subject-claim settings
 ```
 
 Repos created after 2026-07-15 send `sub = repo:OWNER@OWNER_ID/REPO@REPO_ID:environment:production`
-(GitHub OIDC reference). Keep `UseImmutableSubject=true` unless the repo is older.
+(GitHub OIDC reference). This repo is older, so it likely still sends the legacy
+`repo:OWNER/REPO:environment:production`: set `UseImmutableSubject` to match what the second command reports
+(`false` for the legacy form). A history reset (orphan commit + force push) keeps the repo id; deleting and
+re-creating the repo does not, so then update `GitHubRepoId`.
 
 ## 2. Account-level S3 Block Public Access
 
@@ -64,7 +73,7 @@ aws cloudformation deploy --region <region> --stack-name sattrack-core \
     BucketName=<private-bucket-name> \
     GitHubOwner=pseud-acc GitHubOwnerId=<owner-id> GitHubRepo=SatTrack GitHubRepoId=<repo-id> \
     SpaceTrackSecretArn=<full-secret-arn> \
-    AdminPrincipalArn=<your-admin-user-or-role-arn> \
+    AdminPrincipalArn='arn:aws:iam::<account-id>:role/aws-reserved/sso.amazonaws.com/*/AWSReservedSSO_AdministratorAccess_*' \
     BudgetEmail=<you@example.com>        # RollbackDays defaults to 30
 aws cloudformation describe-stacks --stack-name sattrack-core --query 'Stacks[0].Outputs'
 ```
@@ -79,16 +88,20 @@ progress finish, then upload its last good DuckDB files as the starting state. T
 Space-Track login-backoff counter and the freshness timestamps.
 
 ```bash
-export SATTRACK_BUCKET=<private-bucket-name> SATTRACK_DATA_DIR=<laptop data dir> AWS_REGION=eu-west-1
-python infra/state/sattrack_state.py seed     # uses your admin credentials; refuses if state already exists
+aws sso login --profile admin
+export AWS_PROFILE=admin SATTRACK_BUCKET=<private-bucket-name> SATTRACK_DATA_DIR=<laptop data dir> AWS_REGION=eu-west-1
+python infra/state/sattrack_state.py seed     # uses your SSO admin session; refuses if state already exists
 ```
 
 ## 5. GitHub repository settings (before the first push of the workflow)
 
 Pre-publish checks:
-- Run a secret scanner over the working tree (for example `gitleaks dir .`); the repo root must be this
-  `sattrack/` folder so the key files elsewhere under `SatTrack_dev/` are outside it.
-- `.gitignore` already excludes `data/*`, `*.duckdb`, `.env.sh`.
+- Run a secret scanner over the full history and the working tree of the merged repo (`gitleaks git .`,
+  `gitleaks dir .`). The repo root is `Space_Junk/SatTrack/`, so the key files under `SatTrack_dev/` are outside it.
+- `.gitignore` excludes `pipeline/data/*`, `*.duckdb`, `.env.sh`.
+- `.slugignore` keeps `pipeline/`, `infra/` and docs out of the Heroku build.
+- The app's `sync-requirements.yml` must pass the Actions settings below: actions pinned to SHAs, no
+  `ad-m/github-push-action` (plain `git push` instead), `permissions: contents: write`, push to `main` only.
 
 Settings:
 - **Security**: secret scanning + push protection on (free for public repos); Dependabot alerts on.
@@ -103,8 +116,10 @@ Settings:
   These are identifiers, not credentials; they are secrets only so they are masked in public logs.
 - **Variables**: repository variable `AWS_REGION` = `eu-west-1`.
 - **Rules → Rulesets** on `main`: block force pushes and deletion; require a pull request with code-owner
-  review once anyone else has write access (as sole maintainer you can add yourself as a bypass actor).
-- `.github/CODEOWNERS` and the `if:` guards in both workflows are already set to `pseud-acc/SatTrack`.
+  review once anyone else has write access (as sole maintainer you can add yourself as a bypass actor; the
+  planned history reset needs one force push, so do it as the bypass actor or before enabling the ruleset).
+- `.github/CODEOWNERS` and the `if:` guards in both workflows are set to `pseud-acc/SatTrack` with
+  `pipeline/` paths.
 
 ## 6. First run
 
@@ -149,7 +164,9 @@ after a lost response) rather than dropping it, and that second run would hit Sp
 ## 9. Retire the laptop as a runner
 
 Delete the Task Scheduler entry; remove `SPACETRACK_USER`/`SPACETRACK_PASS` from the laptop's `.env.sh`
-(the rotated password never lived there). Local development uses a downloaded copy of the state and no
+(the rotated password never lived there). Stop the old laptop job (`run_pipeline.sh`, which commits `dat/*.csv`)
+and, once the app reads S3, delete the old pipeline from the repo in one commit: `src/`, `dat/` and the root
+`run_pipeline.py`. After that the history can be reset (orphan commit, force push to `origin` and `heroku`). Local development uses a downloaded copy of the state and no
 Space-Track login.
 
 ## Verification checklist
