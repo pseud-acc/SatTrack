@@ -12,7 +12,8 @@ Layout in the private bucket (versioning on):
   app/last_data_update.csv
   app/manifest.json              the export's own manifest (rows, sha256, as-of dates)
   app/current.json               pointer, written LAST: names the exact VersionId + SHA-256 of each CSV
-  logs/<run>.log                 the full private run log (never printed to the public Actions log)
+  logs/YYYY/MM/DD/<run_id>.log   the run's summary log (command, stage results; never printed to the
+                                 public Actions log). <run_tag>_console.log only if the pipeline wrote none.
 
 Rules (fail closed, keep last good data):
   * pull: no manifest -> exit 1 (state must be seeded once with `seed`); a download whose SHA-256 does
@@ -225,9 +226,14 @@ def cmd_push(args) -> int:
     now = utcnow()
     run_tag = os.environ.get("GITHUB_RUN_ID", now.strftime("%Y%m%dT%H%M%SZ"))
 
-    # Private log first: it is useful even when nothing else is promoted.
-    if args.log_file and Path(args.log_file).exists():
-        put_file(client, f"logs/{now:%Y/%m/%d}/{run_tag}.log", Path(args.log_file))
+    # Private log first: it is useful even when nothing else is promoted. run_pipeline.py writes one summary
+    # log per run at <data>/logs/YYYY/MM/DD/<run_id>.log; it goes to the same key. Only when the pipeline
+    # wrote none (it never started) is the console output uploaded instead, so there is always a record.
+    summaries = sorted((d / "logs").rglob("*.log")) if (d / "logs").exists() else []
+    for p in summaries:
+        put_file(client, p.relative_to(d).as_posix(), p)
+    if not summaries and args.log_file and Path(args.log_file).exists():
+        put_file(client, f"logs/{now:%Y/%m/%d}/{run_tag}_console.log", Path(args.log_file))
 
     run_id, status = latest_run(wh / "sattrack_ops.duckdb")
     finished = run_id is not None and run_id != marker["prior_run_id"]

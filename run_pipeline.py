@@ -30,7 +30,7 @@ import duckdb
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "ingestion"))
 
-from sattrack_ingest import audit, extractors  # noqa: E402
+from sattrack_ingest import audit, extractors, runlog  # noqa: E402
 from sattrack_ingest.config import BUILD_DB, DATA_DIR, LIVE_DB, OPS_DB, WAREHOUSE_DIR, RunContext, connect  # noqa: E402
 from sattrack_ingest.raw_writer import prune_history  # noqa: E402
 
@@ -39,6 +39,8 @@ DBT = os.environ.get("SATTRACK_DBT_BIN", "dbt")
 UNITS = {"tracking": ["marts_tracking"], "enrichment": ["marts"]}   # unit -> schemas it publishes
 REMOTE_LIVE_MARKER = DATA_DIR / "remote_live"
 EXIT_LOCAL_BLOCKED = 3
+# What the run log needs if the run crashes part-way (filled in by main as it goes).
+RUN_STATE: dict = {"versions": {}}
 
 
 def local_run_blocked(allow_local: bool) -> bool:
@@ -71,11 +73,14 @@ def dbt_build(unit: str, run_id: str) -> dict:
                           cwd=TRANSFORM, env=env, capture_output=True, text=True)
     res_path = target / "run_results.json"
     results = json.loads(res_path.read_text(encoding="utf-8")) if res_path.exists() else None
-    statuses = {}
+    statuses, issues = {}, []
     for r in (results or {}).get("results", []):
         statuses[r["status"]] = statuses.get(r["status"], 0) + 1
+        if r["status"] not in ("success", "pass"):
+            issues.append({"node": r["unique_id"].split(".")[2], "status": r["status"], "failures": r.get("failures")})
     failed = proc.returncode != 0 or any(s in statuses for s in ("error", "fail", "runtime error"))
     return {"unit": unit, "exit_code": proc.returncode, "duration_s": round(time.time() - t0, 1), "statuses": statuses,
+            "issues": issues, "dbt_version": (results or {}).get("metadata", {}).get("dbt_version"),
             "failed": failed, "invocation_id": (results or {}).get("metadata", {}).get("invocation_id"),
             "results": results, "log_tail": audit.scrub(proc.stdout[-3000:] + proc.stderr[-1000:])}
 
@@ -159,6 +164,9 @@ def main() -> int:
     ctx = RunContext(run_id="run_" + started.strftime("%Y-%m-%dT%H%M%SZ"), loaded_at=started.isoformat())
     WAREHOUSE_DIR.mkdir(parents=True, exist_ok=True)
     stages: list[dict] = []
+    unit_status: dict = {}
+    RUN_STATE.update(run_id=ctx.run_id, started=started, stages=stages, units=unit_status, reports={})
+    RUN_STATE["versions"].update(python=sys.version.split()[0], duckdb=duckdb.__version__)
 
     # 1. working copy of the live DB
     BUILD_DB.unlink(missing_ok=True)
@@ -197,11 +205,15 @@ def main() -> int:
             ops.execute("insert into audit.source_freshness values (?, ?, ?, ?, ?, ?)",
                         [ctx.run_id, f.get("unique_id", "").replace("source.sattrack.", ""), f.get("max_loaded_at"),
                          f.get("max_loaded_at_time_ago_in_s"), f.get("status"), f"{crit.get('count')} {crit.get('period')}"])
-    stages.append({"stage": "source_freshness", "status": "ok" if all(str(f.get("status")).lower() == "pass" for f in fresh) else "warn",
-                   "sources": len(fresh)})
+    not_pass = [f"{f.get('unique_id', '').replace('source.sattrack.', '')} {str(f.get('status')).lower()}: "
+                f"{(f.get('max_loaded_at_time_ago_in_s') or 0) / 3600:.1f} h old (warn after "
+                f"{((f.get('criteria') or {}).get('warn_after') or {}).get('count')} "
+                f"{((f.get('criteria') or {}).get('warn_after') or {}).get('period')})"
+                for f in fresh if str(f.get("status")).lower() != "pass"]
+    stages.append({"stage": "source_freshness", "status": "warn" if not_pass else "ok",
+                   "sources": len(fresh), "not_pass": not_pass})
 
     # 3. dbt, one unit at a time (connections above are closed: DuckDB allows one writer process)
-    unit_status = {}
     for unit in ["tracking", "enrichment"]:
         # enrichment is built on the tracking (GP) data, so it is held whenever tracking didn't pass;
         # the reverse never applies (GCAT problems must not block positions).
@@ -216,7 +228,9 @@ def main() -> int:
         res = dbt_build(unit, ctx.run_id)
         unit_status[unit] = "error" if res["failed"] else "ok"
         stages.append({"stage": f"dbt:{unit}", "status": unit_status[unit], "duration_s": res["duration_s"],
-                       "statuses": res["statuses"], "exit_code": res["exit_code"]})
+                       "statuses": res["statuses"], "exit_code": res["exit_code"], "issues": res["issues"]})
+        if res["dbt_version"]:
+            RUN_STATE["versions"]["dbt"] = res["dbt_version"]
         with audit.ops() as ops:
             recorded = audit.elementary_recorded(ops, res["invocation_id"])
             ops.execute("insert into audit.dbt_crash_capture (run_id, unit, exit_code, flag_elementary_recorded, results) "
@@ -255,13 +269,16 @@ def main() -> int:
                         [ctx.run_id, unit, st, finished if st == "ok" else None, None])
         ops.execute("insert into audit.pipeline_run values (?, ?, ?, ?, ?, ?, ?, ?)",
                     [ctx.run_id, started, finished, overall, os.environ.get("SATTRACK_TRIGGER", "manual"),
-                     os.environ.get("SATTRACK_GIT_SHA"), audit.json_dumps({"python": sys.version.split()[0], "duckdb": duckdb.__version__}),
+                     os.environ.get("SATTRACK_GIT_SHA"), audit.json_dumps(RUN_STATE["versions"]),
                      audit.json_dumps(stages)])
     if not args.quiet:
         print(json.dumps({"run_id": ctx.run_id, "overall": overall, "units": unit_status, "stages": stages}, indent=2, default=str))
 
+    RUN_STATE.update(finished=finished, overall=overall)
+
     # 6. health page (never fails the run)
-    reports = {"health": run_report([sys.executable, str(ROOT / "scripts" / "build_health_page.py")], args.quiet)}
+    reports = RUN_STATE["reports"]
+    reports["health"] = run_report([sys.executable, str(ROOT / "scripts" / "build_health_page.py")], args.quiet)
 
     # 7. data summary dashboard (never fails the run). dbt Charts lives in its own venv, so its Python is
     # named by SATTRACK_REPORTS_PYTHON; without it the step is skipped.
@@ -275,12 +292,52 @@ def main() -> int:
     # 8. app CSV export for the live Dash app (never fails the run; the script keeps the last good files on error
     # and prints "app csv: <dir>" or the error)
     reports["app_csv"] = run_report([sys.executable, str(ROOT / "scripts" / "export_app_csvs.py")], args.quiet)
+    path = write_run_log()
     if args.quiet:
         units = " ".join(f"{u}={s}" for u, s in unit_status.items())
         rep = " ".join(f"{k}={'ok' if v == 0 else f'exit {v}'}" for k, v in reports.items())
-        print(f"{ctx.run_id} overall={overall} {units} | reports: {rep}")
+        print(f"{ctx.run_id} overall={overall} {units} | reports: {rep} | log: {path}")
     return 0 if overall != "error" else 1
 
 
+def mart_row_changes(run_id: str) -> list[tuple[str, int, int | None]]:
+    """(schema.table, rows this run, rows in the previous run's snapshot or None) for the published marts."""
+    with audit.ops() as ops:
+        return ops.execute(
+            "with prev as (select max(run_id) as run_id from audit.table_snapshot where run_id < ?) "
+            "select c.table_schema || '.' || c.table_name, c.row_count, p.row_count "
+            "from audit.table_snapshot as c "
+            "left join audit.table_snapshot as p on p.run_id = (select run_id from prev) "
+            "and p.table_schema = c.table_schema and p.table_name = c.table_name "
+            "where c.run_id = ? and c.table_schema in ('marts', 'marts_tracking') order by 1",
+            [run_id, run_id]).fetchall()
+
+
+def write_run_log(crash: str | None = None) -> Path | None:
+    """Write this run's summary log (see sattrack_ingest.runlog). Never raises: a log problem must not fail the run."""
+    st = RUN_STATE
+    if "run_id" not in st:
+        return None
+    try:
+        changes = [] if crash else mart_row_changes(st["run_id"])
+    except Exception:  # noqa: BLE001 - the counts are a nice-to-have
+        changes = []
+    try:
+        text = runlog.render(
+            run_id=st["run_id"], command=" ".join(["run_pipeline.py"] + sys.argv[1:]),
+            trigger=os.environ.get("SATTRACK_TRIGGER", "manual"), git_sha=os.environ.get("SATTRACK_GIT_SHA"),
+            versions=st["versions"], started=st["started"], finished=st.get("finished") or now(),
+            overall=st.get("overall") or "error", units=st["units"], stages=st["stages"], reports=st["reports"],
+            row_changes=changes, crash=crash)
+        return runlog.write(runlog.log_path(DATA_DIR, st["run_id"], st["started"]), text)
+    except Exception as exc:  # noqa: BLE001
+        print(f"run log not written ({type(exc).__name__})", file=sys.stderr)
+        return None
+
+
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        sys.exit(main())
+    except Exception as exc:
+        write_run_log(crash=audit.scrub(f"{type(exc).__name__}: {exc}"))
+        raise
