@@ -1,31 +1,33 @@
 name: Sync requirements.txt
 
+# Regenerates the app's root requirements.txt (what Heroku installs) from pyproject.toml.
+# Public-repo rules as in pipeline.yml: push to main only (no pull_request trigger), actions pinned to
+# full commit SHAs, and only this job may write repository contents.
+
 on:
-  pull_request:
-    paths:
-      - 'pyproject.toml'
-      - 'poetry.lock'
   push:
     branches:
       - main
-      - master
     paths:
       - 'pyproject.toml'
       - 'poetry.lock'
 
+permissions:
+  contents: read
+
 jobs:
   sync-requirements:
+    if: github.repository == 'pseud-acc/SatTrack'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          ref: ${{ github.head_ref }}
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
 
       - name: Set up Python 3.12
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0  # v7.1.0
         with:
           python-version: '3.12'
 
@@ -48,17 +50,11 @@ jobs:
         run: |
           git diff --quiet requirements.txt || echo "changed=true" >> $GITHUB_OUTPUT
 
-      - name: Commit changes
+      - name: Commit and push changes
         if: steps.verify_diff.outputs.changed == 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add requirements.txt
           git commit -m "chore: auto-update requirements.txt from Poetry dependencies"
-
-      - name: Push changes
-        if: steps.verify_diff.outputs.changed == 'true'
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.head_ref }}
+          git push origin HEAD:main

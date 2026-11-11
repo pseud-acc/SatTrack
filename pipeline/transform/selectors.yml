@@ -1,0 +1,17 @@
+selectors:
+  - name: tracking
+    description: "Swap unit 1: Space-Track GP elements. Must refresh independently of GCAT (plan section 15.2)."
+    definition:
+      union:
+        - method: tag
+          value: tracking
+        - method: package
+          value: elementary
+  - name: enrichment
+    description: "Swap unit 2: GCAT enrichment + reference data. Held at last good build when its tests fail."
+    definition:
+      union:
+        - method: tag
+          value: enrichment
+        - method: package
+          value: elementary

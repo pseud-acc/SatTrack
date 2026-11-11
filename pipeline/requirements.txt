@@ -1,0 +1,13 @@
+# SatTrack pipeline: ingestion/, transform/ (dbt), run_pipeline.py, scripts/build_health_page.py.
+# Venv: virtualenvs/py312/sattrack_dbt_venv (Python 3.12.3). Pinned 2026-11-08 from what is installed there.
+# Top-level dependencies only; requirements.lock.txt is the full `pip freeze` of the same venv.
+# dbt packages are pinned separately: transform/package-lock.yml (exact versions, installed by `dbt deps`).
+# Other environments: transform/bouncer/requirements.txt (dbt-bouncer, needs duckdb<2) and
+# transform/charts/requirements.txt (dbt Charts); keep them in their own venvs.
+dbt-oss==2.0.8
+duckdb==2.0.0
+geonamescache==3.0.2
+pycountry==24.6.1
+requests==2.34.2
+# Optional, not installed: boto3 (ingestion/sattrack_ingest/credentials.py imports it lazily, only for the
+# AWS Secrets Manager credential path).

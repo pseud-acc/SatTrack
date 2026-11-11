@@ -1,0 +1,305 @@
+models:
+  - name: dim__org
+    description: "One row per GCAT organisation code, with its display name, type, class, location and active dates."
+    config:
+      access: public
+    data_tests:
+      - model_health:
+          name: mh__dim__org__pk_unique
+          arguments: {check: pk_unique, columns: [org_code]}
+      - model_health:
+          name: mh__dim__org__pk_not_null
+          arguments: {check: pk_not_null, columns: [org_code]}
+      - model_health:
+          name: mh__dim__org__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('int__jsr__org_organisations')"
+            relationship: equal
+    columns:
+      - name: org_code
+        data_type: varchar
+        description: '{{ doc("col__org_code") }}'
+        constraints:
+          - type: not_null
+      - name: org_ucode
+        data_type: varchar
+        description: '{{ doc("col__org_ucode") }}'
+      - name: org_state_code
+        data_type: varchar
+        description: '{{ doc("col__org_state_code") }}'
+      - name: org_type
+        data_type: varchar
+        description: '{{ doc("col__org_type") }}'
+      - name: org_class
+        data_type: varchar
+        description: '{{ doc("col__org_class") }}'
+      - name: org_display_name
+        data_type: varchar
+        description: '{{ doc("col__org_display_name") }}'
+      - name: org_display_full_name
+        data_type: varchar
+        description: '{{ doc("col__org_display_full_name") }}'
+      - name: org_short_name
+        data_type: varchar
+        description: '{{ doc("col__org_short_name") }}'
+      - name: org_full_name
+        data_type: varchar
+        description: '{{ doc("col__org_full_name") }}'
+      - name: org_short_name_en
+        data_type: varchar
+        description: '{{ doc("col__org_short_name_en") }}'
+      - name: org_full_name_en
+        data_type: varchar
+        description: '{{ doc("col__org_full_name_en") }}'
+      - name: org_location
+        data_type: varchar
+        description: '{{ doc("col__org_location") }}'
+      - name: org_latitude
+        data_type: double
+        description: '{{ doc("col__org_latitude") }}'
+      - name: org_longitude
+        data_type: double
+        description: '{{ doc("col__org_longitude") }}'
+      - name: org_parent_code
+        data_type: varchar
+        description: '{{ doc("col__org_parent_code") }}'
+        data_tests:
+          - relationships:
+              name: fk__dim__org__org_parent_code
+              arguments:
+                to: "ref('dim__org')"
+                field: org_code
+              config:
+                severity: warn   # 2 known orphan parent codes
+      - name: org_start_date
+        data_type: timestamp
+        description: '{{ doc("col__org_start_date") }}'
+      - name: org_start_date_start
+        data_type: timestamp
+        description: '{{ doc("col__org_start_date_start") }}'
+      - name: org_start_date_end
+        data_type: timestamp
+        description: '{{ doc("col__org_start_date_end") }}'
+      - name: org_start_date_precision
+        data_type: varchar
+        description: '{{ doc("col__org_start_date_precision") }}'
+      - name: org_stop_date
+        data_type: timestamp
+        description: '{{ doc("col__org_stop_date") }}'
+      - name: org_stop_date_start
+        data_type: timestamp
+        description: '{{ doc("col__org_stop_date_start") }}'
+      - name: org_stop_date_end
+        data_type: timestamp
+        description: '{{ doc("col__org_stop_date_end") }}'
+      - name: org_stop_date_precision
+        data_type: varchar
+        description: '{{ doc("col__org_stop_date_precision") }}'
+      - name: flag_org_active
+        data_type: integer
+        description: '{{ doc("col__flag_org_active") }}'
+      - name: flag_country_like
+        data_type: integer
+        description: '{{ doc("col__flag_country_like") }}'
+      - name: _source_updated_at
+        data_type: timestamp
+        description: '{{ doc("col___source_updated_at") }}'
+      - name: inserted_date_time
+        data_type: timestamp
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        data_type: varchar
+        description: '{{ doc("col__inserted_by") }}'
+  - name: fct__satellite_owner_org
+    description: "One row per satellite per owner organisation (every co-owner in a GCAT composite code)."
+    config:
+      access: public
+    data_tests:
+      - model_health:
+          name: mh__fct__satellite_owner_org__pk_unique
+          arguments: {check: pk_unique, columns: [map_sk]}
+      - model_health:
+          name: mh__fct__satellite_owner_org__pk_not_null
+          arguments: {check: pk_not_null, columns: [map_sk]}
+      - model_health:
+          name: mh__fct__satellite_owner_org__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('int__jsr__org_satellite_owner_map')"
+            relationship: equal
+    columns:
+      - name: map_sk
+        data_type: varchar
+        description: '{{ doc("col__map_sk") }}'
+        constraints:
+          - type: not_null
+      - name: jcat
+        data_type: varchar
+        description: '{{ doc("col__jcat") }}'
+      - name: org_role
+        data_type: varchar
+        description: '{{ doc("col__org_role") }}'
+      - name: org_code
+        data_type: varchar
+        description: '{{ doc("col__org_code") }}'
+        data_tests:
+          - relationships:
+              name: fk__fct__satellite_owner_org__org_code
+              arguments:
+                to: "ref('dim__org')"
+                field: org_code
+      - name: org_code_order
+        data_type: integer
+        description: '{{ doc("col__org_code_order") }}'
+      - name: org_code_raw
+        data_type: varchar
+        description: '{{ doc("col__org_code_raw") }}'
+      - name: flag_multiple_orgs
+        data_type: integer
+        description: '{{ doc("col__flag_multiple_orgs") }}'
+      - name: flag_org_uncertain
+        data_type: integer
+        description: '{{ doc("col__flag_org_uncertain") }}'
+      - name: org_code_split_rule
+        data_type: varchar
+        description: '{{ doc("col__org_code_split_rule") }}'
+      - name: org_name
+        data_type: varchar
+        description: '{{ doc("col__org_name") }}'
+      - name: inserted_date_time
+        data_type: timestamp
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        data_type: varchar
+        description: '{{ doc("col__inserted_by") }}'
+  - name: fct__satellite_manufacturer_org
+    description: "One row per satellite per manufacturer organisation (every co-manufacturer in a GCAT composite code)."
+    config:
+      access: public
+    data_tests:
+      - model_health:
+          name: mh__fct__satellite_manufacturer_org__pk_unique
+          arguments: {check: pk_unique, columns: [map_sk]}
+      - model_health:
+          name: mh__fct__satellite_manufacturer_org__pk_not_null
+          arguments: {check: pk_not_null, columns: [map_sk]}
+      - model_health:
+          name: mh__fct__satellite_manufacturer_org__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('int__jsr__org_satellite_manufacturer_map')"
+            relationship: equal
+    columns:
+      - name: map_sk
+        data_type: varchar
+        description: '{{ doc("col__map_sk") }}'
+        constraints:
+          - type: not_null
+      - name: jcat
+        data_type: varchar
+        description: '{{ doc("col__jcat") }}'
+      - name: org_role
+        data_type: varchar
+        description: '{{ doc("col__org_role") }}'
+      - name: org_code
+        data_type: varchar
+        description: '{{ doc("col__org_code") }}'
+        data_tests:
+          - relationships:
+              name: fk__fct__satellite_manufacturer_org__org_code
+              arguments:
+                to: "ref('dim__org')"
+                field: org_code
+      - name: org_code_order
+        data_type: integer
+        description: '{{ doc("col__org_code_order") }}'
+      - name: org_code_raw
+        data_type: varchar
+        description: '{{ doc("col__org_code_raw") }}'
+      - name: flag_multiple_orgs
+        data_type: integer
+        description: '{{ doc("col__flag_multiple_orgs") }}'
+      - name: flag_org_uncertain
+        data_type: integer
+        description: '{{ doc("col__flag_org_uncertain") }}'
+      - name: org_code_split_rule
+        data_type: varchar
+        description: '{{ doc("col__org_code_split_rule") }}'
+      - name: org_name
+        data_type: varchar
+        description: '{{ doc("col__org_name") }}'
+      - name: inserted_date_time
+        data_type: timestamp
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        data_type: varchar
+        description: '{{ doc("col__inserted_by") }}'
+  - name: fct__launch_agency_org
+    description: "One row per launched payload per launch agency organisation (every co-agency in a GCAT composite code)."
+    config:
+      access: public
+    data_tests:
+      - model_health:
+          name: mh__fct__launch_agency_org__pk_unique
+          arguments: {check: pk_unique, columns: [map_sk]}
+      - model_health:
+          name: mh__fct__launch_agency_org__pk_not_null
+          arguments: {check: pk_not_null, columns: [map_sk]}
+      - model_health:
+          name: mh__fct__launch_agency_org__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('int__jsr__org_launch_agency_map')"
+            relationship: equal
+    columns:
+      - name: map_sk
+        data_type: varchar
+        description: '{{ doc("col__map_sk") }}'
+        constraints:
+          - type: not_null
+      - name: jcat
+        data_type: varchar
+        description: '{{ doc("col__jcat") }}'
+        data_tests:
+          - relationships:
+              name: fk__fct__launch_agency_org__jcat
+              arguments:
+                to: "ref('fct__launch_event')"
+                field: jcat
+      - name: org_role
+        data_type: varchar
+        description: '{{ doc("col__org_role") }}'
+      - name: org_code
+        data_type: varchar
+        description: '{{ doc("col__org_code") }}'
+        data_tests:
+          - relationships:
+              name: fk__fct__launch_agency_org__org_code
+              arguments:
+                to: "ref('dim__org')"
+                field: org_code
+      - name: org_code_order
+        data_type: integer
+        description: '{{ doc("col__org_code_order") }}'
+      - name: org_code_raw
+        data_type: varchar
+        description: '{{ doc("col__org_code_raw") }}'
+      - name: flag_multiple_orgs
+        data_type: integer
+        description: '{{ doc("col__flag_multiple_orgs") }}'
+      - name: flag_org_uncertain
+        data_type: integer
+        description: '{{ doc("col__flag_org_uncertain") }}'
+      - name: org_code_split_rule
+        data_type: varchar
+        description: '{{ doc("col__org_code_split_rule") }}'
+      - name: org_name
+        data_type: varchar
+        description: '{{ doc("col__org_name") }}'
+      - name: inserted_date_time
+        data_type: timestamp
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        data_type: varchar
+        description: '{{ doc("col__inserted_by") }}'
