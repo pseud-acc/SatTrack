@@ -106,7 +106,8 @@ Pre-publish checks:
 Settings:
 - **Security**: secret scanning + push protection on (free for public repos); Dependabot alerts on.
 - **Actions → General**: *Allow \<owner\>, and select non-\<owner\>, actions* with the allow-list
-  `actions/checkout@*, actions/setup-python@*, aws-actions/configure-aws-credentials@*`; tick
+  `actions/checkout@*, actions/setup-python@*, aws-actions/configure-aws-credentials@*,
+  actions/upload-pages-artifact@*, actions/deploy-pages@*` (the last two for `docs.yml`); tick
   *Require actions to be pinned to a full-length commit SHA*; *Workflow permissions* = read repository
   contents; untick *Allow GitHub Actions to create and approve pull requests*; *Fork pull request workflows*
   = require approval for all external contributors.

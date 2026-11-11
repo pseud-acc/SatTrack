@@ -89,6 +89,7 @@ jobs:
         # Hash-locked installs only (pip --require-hashes, --only-binary so nothing is built). The locks are
         # compiled for Linux from requirements/*.in. dbt is the same dbt-oss 2.0.8 the laptop runs: its Linux
         # wheel is pinned by URL and SHA-256 in requirements/pipeline.txt (the hash dbt publishes for it).
+        working-directory: pipeline
         run: |
           set -euo pipefail
           python -m venv "$RUNNER_TEMP/venv-pipeline"
@@ -103,7 +104,7 @@ jobs:
           echo "$RUNNER_TEMP/venv-pipeline/bin" >> "$GITHUB_PATH"
 
       - name: dbt deps
-        working-directory: transform
+        working-directory: pipeline/transform
         run: |
           set -euo pipefail
           "$SATTRACK_DBT_BIN" deps >> "$PRIVATE_LOG" 2>&1
@@ -132,6 +133,7 @@ jobs:
           SATTRACK_SPACETRACK_SECRET_ID: ${{ secrets.SATTRACK_SPACETRACK_SECRET_ID }}
           SATTRACK_CREDENTIAL_SOURCE: secretsmanager
           SATTRACK_PUBLIC_LOG: "1"
+        working-directory: pipeline
         run: |
           set -uo pipefail
           code=0

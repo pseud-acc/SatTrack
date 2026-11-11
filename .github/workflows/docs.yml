@@ -21,10 +21,10 @@ on:
     branches:
       - main
     paths:
-      - transform/**
-      - scripts/erd/**
-      - requirements/pipeline.txt
-      - requirements/docs.txt
+      - pipeline/transform/**
+      - pipeline/scripts/erd/**
+      - pipeline/requirements/pipeline.txt
+      - pipeline/requirements/docs.txt
       - .github/workflows/docs.yml
   workflow_dispatch:
 
@@ -63,19 +63,21 @@ jobs:
 
       - name: Install dbt
         # Same hash-locked environment as pipeline.yml (dbt-oss 2.0.8 pinned by URL and SHA-256).
+        working-directory: pipeline
         run: |
           set -euo pipefail
           python -m venv "$RUNNER_TEMP/venv"
           "$RUNNER_TEMP/venv/bin/pip" install --quiet --require-hashes --only-binary :all: -r requirements/pipeline.txt
 
       - name: Install dbterd
+        working-directory: pipeline
         run: |
           set -euo pipefail
           python -m venv "$RUNNER_TEMP/erd_venv"
           "$RUNNER_TEMP/erd_venv/bin/pip" install --quiet --require-hashes --only-binary :all: -r requirements/docs.txt
 
       - name: Generate docs against an empty database
-        working-directory: transform
+        working-directory: pipeline/transform
         env:
           SATTRACK_DB_PATH: ${{ runner.temp }}/empty/sattrack.duckdb
           SATTRACK_OPS_PATH: ${{ runner.temp }}/empty/sattrack_ops.duckdb
@@ -91,6 +93,7 @@ jobs:
 
       - name: Build the entity relationship diagram
         # Node and Chrome are on the ubuntu runner image; mermaid-cli and puppeteer are pinned in build_erd.sh.
+        working-directory: pipeline
         env:
           PY: ${{ runner.temp }}/erd_venv/bin/python
           DBTERD: ${{ runner.temp }}/erd_venv/bin/dbterd

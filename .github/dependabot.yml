@@ -21,7 +21,7 @@ updates:
   # Dependabot leaves the two URL-pinned dbt wheels alone: bump those by hand (new URL + the sha256 from the
   # release's assets.json) together with requirements.txt and the laptop venv.
   - package-ecosystem: pip
-    directory: /requirements
+    directory: /pipeline/requirements
     schedule:
       interval: weekly
       day: monday
