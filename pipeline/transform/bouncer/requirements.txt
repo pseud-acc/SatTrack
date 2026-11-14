@@ -1,0 +1,7 @@
+# dbt-bouncer: project convention checks (bouncer/dbt-bouncer.yml) and their tests (bouncer/tests). Dev/CI only.
+# Venv: virtualenvs/py312/sattrack_bouncer_venv (Python 3.12.3). Pinned 2026-11-08 from what is installed there.
+# Install into its OWN environment: dbt-bouncer pins duckdb<2 (installed: duckdb 1.5.6), the pipeline needs duckdb 2.x.
+# Top-level dependencies only; requirements.lock.txt is the full `pip freeze` of the same venv.
+# The bespoke checks use sqlglot and PyYAML, both installed by dbt-bouncer (sqlglot 30.27.0, PyYAML 6.0.3 in the lock).
+dbt-bouncer==4.5.1
+pytest==9.2.0

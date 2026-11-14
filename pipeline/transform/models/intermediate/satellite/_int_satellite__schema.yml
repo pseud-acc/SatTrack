@@ -1,0 +1,417 @@
+models:
+  - name: int__jsr__satellite_catalogue
+    description: "One row per GCAT object (satcat + satcat100k), vague dates parsed, undocumented codes nulled. Undocumented values become NULL here; raw values stay in staging (decided 2026-10-25)."
+    data_tests:
+      - model_health:
+          name: mh__int__jsr__satellite_catalogue__pk_unique
+          arguments: {check: pk_unique, columns: [jcat]}
+      - model_health:
+          name: mh__int__jsr__satellite_catalogue__pk_not_null
+          arguments: {check: pk_not_null, columns: [jcat]}
+      - model_health:
+          name: mh__int__jsr__satellite_catalogue__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('stg__jsr__satcat')"
+            relationship: gte
+    columns:
+      - name: jcat
+        description: '{{ doc("col__jcat") }}'
+      - name: satcat_ref
+        description: '{{ doc("col__satcat_ref") }}'
+      - name: launch_tag
+        description: '{{ doc("col__launch_tag") }}'
+      - name: cospar_id
+        description: '{{ doc("col__cospar_id") }}'
+      - name: sat_type
+        description: '{{ doc("col__sat_type") }}'
+      - name: sat_type_class
+        description: '{{ doc("col__sat_type_class") }}'
+      - name: gcat_name
+        description: '{{ doc("col__gcat_name") }}'
+      - name: pre_launch_name
+        description: '{{ doc("col__pre_launch_name") }}'
+      - name: gcat_launch_date
+        description: '{{ doc("col__gcat_launch_date") }}'
+      - name: gcat_launch_date_start
+        description: '{{ doc("col__gcat_launch_date_start") }}'
+      - name: gcat_launch_date_end
+        description: '{{ doc("col__gcat_launch_date_end") }}'
+      - name: gcat_launch_date_precision
+        description: '{{ doc("col__gcat_launch_date_precision") }}'
+      - name: parent_ref
+        description: '{{ doc("col__parent_ref") }}'
+      - name: phase_end_date
+        description: '{{ doc("col__phase_end_date") }}'
+      - name: phase_end_date_start
+        description: '{{ doc("col__phase_end_date_start") }}'
+      - name: phase_end_date_end
+        description: '{{ doc("col__phase_end_date_end") }}'
+      - name: phase_end_date_precision
+        description: '{{ doc("col__phase_end_date_precision") }}'
+      - name: phase_status
+        description: '{{ doc("col__phase_status") }}'
+      - name: owner_code
+        description: '{{ doc("col__owner_code") }}'
+      - name: owner_state_code
+        description: '{{ doc("col__owner_state_code") }}'
+      - name: manufacturer_code
+        description: '{{ doc("col__manufacturer_code") }}'
+      - name: bus
+        description: '{{ doc("col__bus") }}'
+      - name: mass_kg
+        description: '{{ doc("col__mass_kg") }}'
+      - name: flag_mass_estimated
+        description: '{{ doc("col__flag_mass_estimated") }}'
+      - name: dry_mass_kg
+        description: '{{ doc("col__dry_mass_kg") }}'
+      - name: length_m
+        description: '{{ doc("col__length_m") }}'
+      - name: diameter_m
+        description: '{{ doc("col__diameter_m") }}'
+      - name: span_m
+        description: '{{ doc("col__span_m") }}'
+      - name: shape
+        description: '{{ doc("col__shape") }}'
+      - name: orbit_type_raw
+        description: '{{ doc("col__orbit_type_raw") }}'
+      - name: orbit_regime
+        description: '{{ doc("col__orbit_regime") }}'
+      - name: orbit_subtype
+        description: '{{ doc("col__orbit_subtype") }}'
+      - name: _source_file
+        description: '{{ doc("col___source_file") }}'
+      - name: _source_updated_at
+        description: '{{ doc("col___source_updated_at") }}'
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'
+  - name: int__jsr__satellite_current
+    description: "One row per GCAT object from the Current Catalog (all object types)."
+    data_tests:
+      - model_health:
+          name: mh__int__jsr__satellite_current__pk_unique
+          arguments: {check: pk_unique, columns: [jcat]}
+      - model_health:
+          name: mh__int__jsr__satellite_current__pk_not_null
+          arguments: {check: pk_not_null, columns: [jcat]}
+      - model_health:
+          name: mh__int__jsr__satellite_current__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('stg__jsr__currentcat')"
+            relationship: equal
+    columns:
+      - name: jcat
+        description: '{{ doc("col__jcat") }}'
+      - name: activity_type
+        description: '{{ doc("col__activity_type") }}'
+      - name: current_status
+        description: '{{ doc("col__current_status") }}'
+      - name: current_owner_code
+        description: '{{ doc("col__current_owner_code") }}'
+      - name: current_owner_state_code
+        description: '{{ doc("col__current_owner_state_code") }}'
+      - name: descent_date
+        description: '{{ doc("col__descent_date") }}'
+      - name: descent_date_start
+        description: '{{ doc("col__descent_date_start") }}'
+      - name: descent_date_end
+        description: '{{ doc("col__descent_date_end") }}'
+      - name: descent_date_precision
+        description: '{{ doc("col__descent_date_precision") }}'
+      - name: flag_gcat_in_orbit
+        description: '{{ doc("col__flag_gcat_in_orbit") }}'
+      - name: _source_updated_at
+        description: '{{ doc("col___source_updated_at") }}'
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'
+  - name: int__jsr__satellite_status
+    description: "One row per GCAT object in the Current Catalog or the payload catalogs: operating / transmitting primitives (D9), current-catalog activity, and the GCAT activity signal used by the status rule (decided 2026-10-25): flag_gcat_active = (TOp = '*' OR currentcat Active = 'A') AND TF <> 'Z' (zombie = Inactive), set for payload rows only. Ownership class and mission category codes get GCAT's rule-derived short labels; unlabelled codes show raw. Rocket stages, components and debris without a payload record take mission_category_list / mission_category_labels / satellite_program / satellite_program_family from the payload their GCAT Parent chain leads to (int__jsr__satellite_parent_payload); mission_details_source says which. The raw mission_category stays the object's own."
+    data_tests:
+      - model_health:
+          name: mh__int__jsr__satellite_status__pk_unique
+          arguments: {check: pk_unique, columns: [jcat]}
+      - model_health:
+          name: mh__int__jsr__satellite_status__pk_not_null
+          arguments: {check: pk_not_null, columns: [jcat]}
+      - model_health:
+          name: mh__int__jsr__satellite_status__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('int__jsr__satellite_current')"
+            relationship: gte
+    columns:
+      - name: jcat
+        description: '{{ doc("col__jcat") }}'
+      - name: flag_has_psatcat_record
+        description: '{{ doc("col__flag_has_psatcat_record") }}'
+      - name: flag_has_currentcat_record
+        description: '{{ doc("col__flag_has_currentcat_record") }}'
+      - name: flag_still_operating
+        description: '{{ doc("col__flag_still_operating") }}'
+      - name: flag_still_transmitting
+        description: '{{ doc("col__flag_still_transmitting") }}'
+      - name: end_operation_date
+        description: '{{ doc("col__end_operation_date") }}'
+      - name: end_operation_date_start
+        description: '{{ doc("col__end_operation_date_start") }}'
+      - name: end_operation_date_end
+        description: '{{ doc("col__end_operation_date_end") }}'
+      - name: end_operation_date_precision
+        description: '{{ doc("col__end_operation_date_precision") }}'
+      - name: end_transmission_date
+        description: '{{ doc("col__end_transmission_date") }}'
+      - name: end_transmission_date_start
+        description: '{{ doc("col__end_transmission_date_start") }}'
+      - name: end_transmission_date_end
+        description: '{{ doc("col__end_transmission_date_end") }}'
+      - name: end_transmission_date_precision
+        description: '{{ doc("col__end_transmission_date_precision") }}'
+      - name: last_active_date
+        description: '{{ doc("col__last_active_date") }}'
+      - name: last_active_date_start
+        description: '{{ doc("col__last_active_date_start") }}'
+      - name: last_active_date_end
+        description: '{{ doc("col__last_active_date_end") }}'
+      - name: last_active_date_precision
+        description: '{{ doc("col__last_active_date_precision") }}'
+      - name: end_of_life_code
+        description: '{{ doc("col__end_of_life_code") }}'
+      - name: maneuverability
+        description: '{{ doc("col__maneuverability") }}'
+      - name: ownership_class
+        description: '{{ doc("col__ownership_class") }}'
+      - name: ownership_class_labels
+        description: '{{ doc("col__ownership_class_labels") }}'
+      - name: mission_category
+        description: '{{ doc("col__mission_category") }}'
+      - name: mission_category_list
+        description: '{{ doc("col__mission_category_list") }}'
+      - name: mission_category_labels
+        description: '{{ doc("col__mission_category_labels") }}'
+      - name: flag_mission_category_uncertain
+        description: '{{ doc("col__flag_mission_category_uncertain") }}'
+      - name: flag_orbit_data_secret
+        description: '{{ doc("col__flag_orbit_data_secret") }}'
+      - name: satellite_program
+        description: '{{ doc("col__satellite_program") }}'
+      - name: satellite_program_family
+        description: '{{ doc("col__satellite_program_family") }}'
+      - name: constellation_plane
+        description: '{{ doc("col__constellation_plane") }}'
+      - name: mission_details_source
+        description: '{{ doc("col__mission_details_source") }}'
+        data_tests:
+          - not_null:
+              name: not_null__int__jsr__satellite_status__mission_details_source
+          - accepted_values:
+              name: accepted_values__int__jsr__satellite_status__mission_details_source
+              arguments:
+                values:
+                  - own
+                  - inherited_parent
+                  - none
+      - name: mission_details_parent_jcat
+        description: '{{ doc("col__mission_details_parent_jcat") }}'
+        data_tests:
+          - relationships:
+              name: fk__int__jsr__satellite_status__mission_details_parent_jcat
+              arguments:
+                to: "ref('int__jsr__satellite_catalogue')"
+                field: jcat
+      - name: activity_type
+        description: '{{ doc("col__activity_type") }}'
+      - name: current_status
+        description: '{{ doc("col__current_status") }}'
+      - name: flag_gcat_in_orbit
+        description: '{{ doc("col__flag_gcat_in_orbit") }}'
+      - name: flag_gcat_descended
+        description: '{{ doc("col__flag_gcat_descended") }}'
+      - name: flag_gcat_active
+        description: '{{ doc("col__flag_gcat_active") }}'
+      - name: operational_status
+        description: '{{ doc("col__operational_status") }}'
+      - name: operational_status_source
+        description: '{{ doc("col__operational_status_source") }}'
+      - name: _source_file
+        description: '{{ doc("col___source_file") }}'
+      - name: _source_updated_at
+        description: '{{ doc("col___source_updated_at") }}'
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'
+  - name: int__jsr__satellite_parent_payload
+    description: "One row per GCAT object (satcat + satcat100k): for rocket stages, components and debris (GCAT Type R / C / D), the first payload reached by following GCAT Parent links (cols.html: the 'parent object' the object is attached to at the start of the phase, an Extended JCAT ID). The walk stops at the first payload, at a parent outside the ingested catalogues, at a repeat (cycle) or after 10 steps. Payloads never inherit."
+    data_tests:
+      - model_health:
+          name: mh__int__jsr__satellite_parent_payload__pk_unique
+          arguments:
+            check: pk_unique
+            columns:
+              - jcat
+      - model_health:
+          name: mh__int__jsr__satellite_parent_payload__pk_not_null
+          arguments:
+            check: pk_not_null
+            columns:
+              - jcat
+      - model_health:
+          name: mh__int__jsr__satellite_parent_payload__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('int__jsr__satellite_catalogue')"
+            relationship: equal
+    columns:
+      - name: jcat
+        description: '{{ doc("col__jcat") }}'
+      - name: sat_type_class
+        description: '{{ doc("col__sat_type_class") }}'
+      - name: parent_ref
+        description: '{{ doc("col__parent_ref") }}'
+      - name: parent_jcat
+        description: '{{ doc("col__parent_jcat") }}'
+      - name: parent_payload_jcat
+        description: '{{ doc("col__parent_payload_jcat") }}'
+        data_tests:
+          - relationships:
+              name: fk__int__jsr__satellite_parent_payload__parent_payload_jcat
+              arguments:
+                to: "ref('int__jsr__satellite_catalogue')"
+                field: jcat
+      - name: parent_payload_depth
+        description: '{{ doc("col__parent_payload_depth") }}'
+      - name: parent_payload_search_outcome
+        description: '{{ doc("col__parent_payload_search_outcome") }}'
+        data_tests:
+          - not_null:
+              name: not_null__int__jsr__satellite_parent_payload__parent_payload_search_outcome
+          - accepted_values:
+              name: accepted_values__int__jsr__satellite_parent_payload__parent_payload_search_outcome
+              arguments:
+                values:
+                  - payload_found
+                  - payload_object
+                  - no_parent_object
+                  - parent_not_in_catalogue
+                  - chain_ends_without_payload
+                  - chain_limit
+                  - type_unclassified
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'
+  - name: int__xsrc__satellite_gcat_matched
+    description: "One row per object in the Space-Track GP feed, linked to its GCAT JCAT with the GCAT catalogue fields the master needs. GCAT: 'Sequence numbers in the S catalog are in one-to-one correspondence with the US SATCAT catalog numbers', so link by 'S' + lpad(NORAD, 5) first, then by a COSPAR ID that identifies one GCAT object (decided 2026-10-25)."
+    data_tests:
+      - model_health:
+          name: mh__int__xsrc__satellite_gcat_matched__pk_unique
+          arguments: {check: pk_unique, columns: [satcat_id]}
+      - model_health:
+          name: mh__int__xsrc__satellite_gcat_matched__pk_not_null
+          arguments: {check: pk_not_null, columns: [satcat_id]}
+      - model_health:
+          name: mh__int__xsrc__satellite_gcat_matched__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('int__spacetrack__satellite_catalogue')"
+            relationship: equal
+    columns:
+      - name: satcat_id
+        description: '{{ doc("col__satcat_id") }}'
+      - name: canonical_satellite_id
+        description: '{{ doc("col__canonical_satellite_id") }}'
+      - name: jcat
+        description: '{{ doc("col__jcat") }}'
+        data_tests:
+          - unique:
+              name: unique__int__xsrc__satellite_gcat_matched__jcat
+          - relationships:
+              name: fk__int__xsrc__satellite_gcat_matched__jcat
+              arguments: {to: "ref('int__jsr__satellite_catalogue')", field: jcat}
+      - name: jcat_link_method
+        description: '{{ doc("col__jcat_link_method") }}'
+      - name: flag_gcat_matched
+        description: '{{ doc("col__flag_gcat_matched") }}'
+      - name: object_name
+        description: '{{ doc("col__object_name") }}'
+      - name: object_id
+        description: '{{ doc("col__object_id") }}'
+      - name: object_type
+        description: '{{ doc("col__object_type__resolved") }}'
+      - name: object_type_source
+        description: '{{ doc("col__object_type_source") }}'
+      - name: spacetrack_object_type
+        description: '{{ doc("col__spacetrack_object_type") }}'
+      - name: sat_type_class
+        description: '{{ doc("col__sat_type_class") }}'
+      - name: flag_in_orbit
+        description: '{{ doc("col__flag_in_orbit") }}'
+      - name: spacetrack_country_code
+        description: '{{ doc("col__spacetrack_country_code") }}'
+      - name: owner_country
+        description: '{{ doc("col__owner_country") }}'
+      - name: owner_country_codes
+        description: '{{ doc("col__owner_country_codes") }}'
+      - name: flag_owner_country_is_org
+        description: '{{ doc("col__flag_owner_country_is_org") }}'
+      - name: owner_country_source
+        description: '{{ doc("col__owner_country_source") }}'
+      - name: launch_date
+        description: '{{ doc("col__launch_date__resolved") }}'
+      - name: launch_date_source
+        description: '{{ doc("col__launch_date_source") }}'
+      - name: launch_year
+        description: '{{ doc("col__launch_year") }}'
+      - name: spacetrack_launch_date
+        description: '{{ doc("col__spacetrack_launch_date") }}'
+      - name: gcat_launch_date
+        description: '{{ doc("col__gcat_launch_date") }}'
+      - name: orbit_class
+        description: '{{ doc("col__orbit_class") }}'
+      - name: orbital_period
+        description: '{{ doc("col__orbital_period") }}'
+      - name: inclination
+        description: '{{ doc("col__inclination") }}'
+      - name: eccentricity
+        description: '{{ doc("col__eccentricity") }}'
+      - name: apoapsis
+        description: '{{ doc("col__apoapsis") }}'
+      - name: periapsis
+        description: '{{ doc("col__periapsis") }}'
+      - name: rcs_size
+        description: '{{ doc("col__rcs_size") }}'
+      - name: epoch
+        description: '{{ doc("col__epoch") }}'
+      - name: tle_age_days
+        description: '{{ doc("col__tle_age_days") }}'
+      - name: tle_line_1
+        description: '{{ doc("col__tle_line_1") }}'
+      - name: tle_line_2
+        description: '{{ doc("col__tle_line_2") }}'
+      - name: positions_as_of
+        description: '{{ doc("col__positions_as_of") }}'
+      - name: owner_state_code
+        description: '{{ doc("col__owner_state_code") }}'
+      - name: owner_code
+        description: '{{ doc("col__owner_code") }}'
+      - name: orbit_regime
+        description: '{{ doc("col__orbit_regime") }}'
+      - name: mass_kg
+        description: '{{ doc("col__mass_kg") }}'
+      - name: flag_mass_estimated
+        description: '{{ doc("col__flag_mass_estimated") }}'
+      - name: dry_mass_kg
+        description: '{{ doc("col__dry_mass_kg") }}'
+      - name: span_m
+        description: '{{ doc("col__span_m") }}'
+      - name: gcat_updated_at
+        description: '{{ doc("col__gcat_updated_at") }}'
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'

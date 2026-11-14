@@ -1,0 +1,142 @@
+models:
+  - name: stg__jsr__satcat
+    description: "GCAT object catalog, renamed and cast (vague dates kept as text)."
+    data_tests:
+      - model_health:
+          name: mh__stg__jsr__satcat__pk_unique
+          arguments: {check: pk_unique, columns: [jcat]}
+      - model_health:
+          name: mh__stg__jsr__satcat__pk_not_null
+          arguments: {check: pk_not_null, columns: [jcat]}
+      - model_health:
+          name: mh__stg__jsr__satcat__row_count_match
+          arguments: {check: row_count_match, compare_to: "source('jsr', 'satcat')", relationship: equal}
+    columns:
+      - name: jcat
+        description: '{{ doc("col__jcat") }}'
+  - name: stg__jsr__satcat100k
+    description: "GCAT satcat100k, same columns as stg__jsr__satcat."
+    data_tests:
+      - model_health:
+          name: mh__stg__jsr__satcat100k__pk_unique
+          arguments: {check: pk_unique, columns: [jcat]}
+      - model_health:
+          name: mh__stg__jsr__satcat100k__pk_not_null
+          arguments: {check: pk_not_null, columns: [jcat]}
+      - model_health:
+          name: mh__stg__jsr__satcat100k__row_count_match
+          arguments: {check: row_count_match, compare_to: "source('jsr', 'satcat100k')", relationship: equal}
+    columns:
+      - name: jcat
+        description: '{{ doc("col__jcat") }}'
+  - name: stg__jsr__psatcat
+    description: "GCAT payload catalog, renamed and cast."
+    data_tests:
+      - model_health:
+          name: mh__stg__jsr__psatcat__pk_unique
+          arguments: {check: pk_unique, columns: [jcat]}
+      - model_health:
+          name: mh__stg__jsr__psatcat__pk_not_null
+          arguments: {check: pk_not_null, columns: [jcat]}
+      - model_health:
+          name: mh__stg__jsr__psatcat__row_count_match
+          arguments: {check: row_count_match, compare_to: "source('jsr', 'psatcat')", relationship: equal}
+    columns:
+      - name: jcat
+        description: '{{ doc("col__jcat") }}'
+  - name: stg__jsr__psatcat100k
+    description: "GCAT psatcat100k, same columns as stg__jsr__psatcat."
+    data_tests:
+      - model_health:
+          name: mh__stg__jsr__psatcat100k__pk_unique
+          arguments: {check: pk_unique, columns: [jcat]}
+      - model_health:
+          name: mh__stg__jsr__psatcat100k__pk_not_null
+          arguments: {check: pk_not_null, columns: [jcat]}
+      - model_health:
+          name: mh__stg__jsr__psatcat100k__row_count_match
+          arguments: {check: row_count_match, compare_to: "source('jsr', 'psatcat100k')", relationship: equal}
+    columns:
+      - name: jcat
+        description: '{{ doc("col__jcat") }}'
+  - name: stg__jsr__currentcat
+    description: "GCAT current catalog, renamed and cast."
+    data_tests:
+      - model_health:
+          name: mh__stg__jsr__currentcat__pk_unique
+          arguments: {check: pk_unique, columns: [jcat]}
+      - model_health:
+          name: mh__stg__jsr__currentcat__pk_not_null
+          arguments: {check: pk_not_null, columns: [jcat]}
+      - model_health:
+          name: mh__stg__jsr__currentcat__row_count_match
+          arguments: {check: row_count_match, compare_to: "source('jsr', 'currentcat')", relationship: equal}
+    columns:
+      - name: jcat
+        description: '{{ doc("col__jcat") }}'
+      - name: activity_type
+        description: '{{ doc("col__activity_type") }}'
+        data_tests:
+          - accepted_values:
+              name: undocumented_values__stg__jsr__currentcat__activity_type
+              arguments: {values: ["A", "C", "D", "P", "R", "Z"]}
+  - name: stg__jsr__launchlog
+    description: "GCAT launchlog, renamed and cast."
+    data_tests:
+      - model_health:
+          name: mh__stg__jsr__launchlog__pk_unique
+          arguments: {check: pk_unique, columns: [jcat]}
+      - model_health:
+          name: mh__stg__jsr__launchlog__pk_not_null
+          arguments: {check: pk_not_null, columns: [jcat]}
+      - model_health:
+          name: mh__stg__jsr__launchlog__row_count_match
+          arguments: {check: row_count_match, compare_to: "source('jsr', 'launchlog')", relationship: equal}
+  - name: stg__jsr__orgs
+    description: "GCAT orgs, renamed and cast."
+    data_tests:
+      - model_health:
+          name: mh__stg__jsr__orgs__pk_unique
+          arguments: {check: pk_unique, columns: [org_code]}
+      - model_health:
+          name: mh__stg__jsr__orgs__pk_not_null
+          arguments: {check: pk_not_null, columns: [org_code]}
+      - model_health:
+          name: mh__stg__jsr__orgs__row_count_match
+          arguments: {check: row_count_match, compare_to: "source('jsr', 'orgs')", relationship: equal}
+  - name: stg__jsr__sites
+    description: "GCAT sites, renamed and cast."
+    data_tests:
+      - model_health:
+          name: mh__stg__jsr__sites__pk_unique
+          arguments: {check: pk_unique, columns: [site_code]}
+      - model_health:
+          name: mh__stg__jsr__sites__pk_not_null
+          arguments: {check: pk_not_null, columns: [site_code]}
+      - model_health:
+          name: mh__stg__jsr__sites__row_count_match
+          arguments: {check: row_count_match, compare_to: "source('jsr', 'sites')", relationship: equal}
+  - name: stg__jsr__lv
+    description: "GCAT lv, renamed and cast."
+    data_tests:
+      - model_health:
+          name: mh__stg__jsr__lv__pk_unique
+          arguments: {check: pk_unique, columns: [launch_vehicle_name, launch_vehicle_variant]}
+      - model_health:
+          name: mh__stg__jsr__lv__pk_not_null
+          arguments: {check: pk_not_null, columns: [launch_vehicle_name]}
+      - model_health:
+          name: mh__stg__jsr__lv__row_count_match
+          arguments: {check: row_count_match, compare_to: "source('jsr', 'lv')", relationship: equal}
+  - name: stg__jsr__gcat_code_labels
+    description: "GCAT code labels, renamed and cast."
+    data_tests:
+      - model_health:
+          name: mh__stg__jsr__gcat_code_labels__pk_unique
+          arguments: {check: pk_unique, columns: [label_domain, gcat_code]}
+      - model_health:
+          name: mh__stg__jsr__gcat_code_labels__pk_not_null
+          arguments: {check: pk_not_null, columns: [label_domain, gcat_code]}
+      - model_health:
+          name: mh__stg__jsr__gcat_code_labels__row_count_match
+          arguments: {check: row_count_match, compare_to: "source('jsr', 'gcat_code_labels')", relationship: equal}

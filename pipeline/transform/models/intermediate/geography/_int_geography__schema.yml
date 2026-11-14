@@ -1,0 +1,171 @@
+models:
+  - name: int__xsrc__geo_owner_country
+    description: "One row per Space-Track country/organisation code (boxscore), resolved deterministically with no alias list (plan section 15.1): each part of the name (split on '/') is matched by exact name key (full key, then reduced key) against the ISO 3166-1 names, then the GeoNames country names, then the ISO 3166-3 former countries; a part that matches none of them exactly gets one near match (reduced key within one edit of exactly one country's key, at least 6 letters); a name that still matches none of them -> title-cased Space-Track name."
+    data_tests:
+      - model_health:
+          name: mh__int__xsrc__geo_owner_country__pk_unique
+          arguments: {check: pk_unique, columns: [country_code]}
+      - model_health:
+          name: mh__int__xsrc__geo_owner_country__pk_not_null
+          arguments: {check: pk_not_null, columns: [country_code]}
+      - model_health:
+          name: mh__int__xsrc__geo_owner_country__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('stg__spacetrack__boxscore')"
+            relationship: equal
+    columns:
+      - name: country_code
+        description: '{{ doc("col__country_code") }}'
+      - name: spacetrack_country_name
+        description: '{{ doc("col__spacetrack_country_name") }}'
+      - name: owner_country
+        description: '{{ doc("col__owner_country") }}'
+      - name: owner_country_codes
+        description: '{{ doc("col__owner_country_codes") }}'
+      - name: flag_owner_country_is_org
+        description: '{{ doc("col__flag_owner_country_is_org") }}'
+      - name: owner_country_method
+        description: '{{ doc("col__owner_country_method") }}'
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'
+  - name: int__xsrc__geo_country_name_keys
+    description: "One row per country-name key, from three name lists tried in order (decided 2026-11-08): the current ISO 3166-1 names (pycountry), the GeoNames country names (geonamescache), and the former ISO 3166-3 countries (pycountry). A key stays only when it identifies exactly one country in its list. Feeds the Space-Track owner country and the GCAT State country."
+    data_tests:
+      - model_health:
+          name: mh__int__xsrc__geo_country_name_keys__pk_unique
+          arguments: {check: pk_unique, columns: [name_key_list, name_key_type, name_key]}
+      - model_health:
+          name: mh__int__xsrc__geo_country_name_keys__pk_not_null
+          arguments: {check: pk_not_null, columns: [name_key_list, name_key_type, name_key]}
+    columns:
+      - name: name_key_list
+        description: '{{ doc("col__name_key_list") }}'
+      - name: name_key_type
+        description: '{{ doc("col__name_key_type") }}'
+      - name: name_key
+        description: '{{ doc("col__name_key") }}'
+      - name: matched_iso_code
+        description: '{{ doc("col__matched_iso_code") }}'
+      - name: matched_country_name
+        description: '{{ doc("col__matched_country_name") }}'
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'
+  - name: int__xsrc__geo_state_country
+    description: "One row per GCAT country-like organisation (CY, IGO, AP) whose English name resolves to a country by the same name match as the Space-Track owner country (int__xsrc__geo_country_name_keys): the English short name first, then the English full name. Used for the owner country of objects whose Space-Track country code is TBD."
+    data_tests:
+      - model_health:
+          name: mh__int__xsrc__geo_state_country__pk_unique
+          arguments: {check: pk_unique, columns: [owner_state_code]}
+      - model_health:
+          name: mh__int__xsrc__geo_state_country__pk_not_null
+          arguments: {check: pk_not_null, columns: [owner_state_code]}
+      - model_health:
+          name: mh__int__xsrc__geo_state_country__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('int__jsr__org_organisations')"
+            relationship: lte   # orgs whose names match no country are dropped
+    columns:
+      - name: owner_state_code
+        description: '{{ doc("col__owner_state_code") }}'
+      - name: owner_country
+        description: '{{ doc("col__owner_country") }}'
+      - name: owner_country_codes
+        description: '{{ doc("col__owner_country_codes") }}'
+      - name: owner_country_method
+        description: '{{ doc("col__owner_country_method") }}'
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'
+  - name: int__pycountry__geo_countries
+    description: "One row per ISO 3166 country, current (3166-1) and historic (3166-3), from the pinned pycountry export."
+    data_tests:
+      - model_health:
+          name: mh__int__pycountry__geo_countries__pk_unique
+          arguments: {check: pk_unique, columns: [country_sk]}
+      - model_health:
+          name: mh__int__pycountry__geo_countries__pk_not_null
+          arguments: {check: pk_not_null, columns: [country_sk]}
+      - model_health:
+          name: mh__int__pycountry__geo_countries__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('stg__pycountry__iso_countries')"
+            relationship: lte   # rows without an alpha-3 code are dropped
+    columns:
+      - name: country_sk
+        description: '{{ doc("col__country_sk") }}'
+      - name: iso_alpha2
+        description: '{{ doc("col__iso_alpha2") }}'
+      - name: iso_alpha3
+        description: '{{ doc("col__iso_alpha3") }}'
+      - name: iso_alpha4
+        description: '{{ doc("col__iso_alpha4") }}'
+      - name: iso_numeric
+        description: '{{ doc("col__iso_numeric") }}'
+      - name: country_display_name
+        description: '{{ doc("col__country_display_name") }}'
+      - name: country_name
+        description: '{{ doc("col__country_name") }}'
+      - name: country_official_name
+        description: '{{ doc("col__country_official_name") }}'
+      - name: flag_historic
+        description: '{{ doc("col__flag_historic") }}'
+      - name: iso_withdrawal_date
+        description: '{{ doc("col__iso_withdrawal_date") }}'
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'
+  - name: int__xsrc__satellite_owner_country_map
+    description: "One row per object per owner country: each code in owner_country_codes of the GP object, in list order, with the dim__country key of the country. Objects whose owner is an organisation or unresolved have no codes and so no rows."
+    data_tests:
+      - model_health:
+          name: mh__int__xsrc__satellite_owner_country_map__pk_unique
+          arguments:
+            check: pk_unique
+            columns:
+              - map_sk
+      - model_health:
+          name: mh__int__xsrc__satellite_owner_country_map__pk_not_null
+          arguments:
+            check: pk_not_null
+            columns:
+              - map_sk
+    columns:
+      - name: map_sk
+        description: '{{ doc("col__map_sk") }}'
+      - name: satcat_id
+        description: '{{ doc("col__satcat_id") }}'
+        data_tests:
+          - relationships:
+              name: fk__int__xsrc__satellite_owner_country_map__satcat_id
+              arguments:
+                to: "ref('int__xsrc__satellite_gcat_matched')"
+                field: satcat_id
+      - name: country_sk
+        description: '{{ doc("col__country_sk") }}'
+        data_tests:
+          - not_null:
+              name: not_null__int__xsrc__satellite_owner_country_map__country_sk
+          - relationships:
+              name: fk__int__xsrc__satellite_owner_country_map__country_sk
+              arguments:
+                to: "ref('int__pycountry__geo_countries')"
+                field: country_sk
+      - name: owner_country_iso_code
+        description: '{{ doc("col__owner_country_iso_code") }}'
+      - name: owner_country_iso_code_order
+        description: '{{ doc("col__owner_country_iso_code_order") }}'
+      - name: owner_country_source
+        description: '{{ doc("col__owner_country_source") }}'
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'

@@ -1,0 +1,18 @@
+# Docs site ERD (.github/workflows/docs.yml): scripts/erd/build_erd.sh reads the dbt manifest with dbterd.
+# Exact pins: `pip freeze` of virtualenvs/py312/sattrack_dbterd_venv (Python 3.12.3), 2026-11-08, without the
+# websocket-client that only the local screenshot script uses. dbt itself comes from requirements.lock.txt.
+# dbterd 1.32.0 needs PyYAML; the dbt 2.0 manifest is made readable for it by scripts/erd/sanitize_manifest.py.
+annotated-types==0.8.0
+artifact-parser==1.0.1
+certifi==2026.10.23
+charset-normalizer==3.5.2
+click==8.5.1
+dbterd==1.32.0
+idna==3.20
+pydantic==2.14.3
+pydantic_core==2.50.4
+PyYAML==6.0.3
+requests==2.34.2
+typing-inspection==0.4.5
+typing_extensions==4.16.0
+urllib3==2.8.0

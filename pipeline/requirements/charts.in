@@ -1,0 +1,10 @@
+# dbt Charts environment for the data summary (scripts/build_data_summary.py) in CI: Linux x86_64, Python 3.12.3.
+# Same pin as ../transform/charts/requirements.txt (0.9.1, not 0.10.0: see that file).
+# Regenerate requirements/charts.txt with:
+#   uv pip compile requirements/charts.in -c transform/charts/requirements.lock.txt --generate-hashes
+#     --python-version 3.12 --python-platform x86_64-manylinux_2_28 -o requirements/charts.txt
+dbt-charts==0.9.1
+# dbt-core-experimental-parser (pulled in by dbt-charts): like dbt-oss, PyPI has only a source package that
+# downloads the platform wheel; the Linux wheel is pinned from the dbt release with the sha256 its
+# assets.json lists (2186d331...d2a1), so pip --require-hashes --only-binary verifies it.
+dbt-core-experimental-parser @ https://github.com/dbt-labs/dbt/releases/download/v2.0.8/dbt_core_experimental_parser-2.0.8-py3-none-manylinux_2_28_x86_64.whl#sha256=2186d331522b2a8a0f09d2f5c81ff5f1a433160ad7cd212906dccc0d4951d2a1

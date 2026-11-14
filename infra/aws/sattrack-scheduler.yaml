@@ -1,0 +1,169 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >-
+  SatTrack scheduler (DRAFT, not applied; region eu-west-1). The ONLY trigger of the daily pipeline: an
+  EventBridge rule calls GitHub's workflow_dispatch API once a day at an off-minute through an API destination,
+  plus CloudWatch alarms that email you through SNS when the dispatch fails or has not succeeded for 26 hours.
+
+# Why a rule + API destination and not EventBridge Scheduler: Scheduler cannot target an API destination.
+# Why not a GitHub cron: GitHub's schedule trigger can be delayed or dropped, and is disabled after 60 days
+# without repository activity in a public repo. workflow_dispatch is not subject to that rule.
+#
+# The GitHub token is NOT a parameter of this template. Create the EventBridge connection by hand in the console
+# (README step 8) so the token is typed once into AWS and stored only in the EventBridge-managed secret.
+
+Parameters:
+  ConnectionArn:
+    Type: String
+    Description: ARN of the EventBridge connection (API key auth, header Authorization = "Bearer <fine-grained token>").
+  GitHubOwner:
+    Type: String
+    Description: GitHub user or organisation that owns the repository.
+  GitHubRepo:
+    Type: String
+    Description: Repository name.
+  WorkflowFile:
+    Type: String
+    Default: pipeline.yml
+  DefaultBranch:
+    Type: String
+    Default: main
+  ScheduleExpression:
+    Type: String
+    # 03:17 UTC: off :00 and :30 (Space-Track asks for off-peak, off-minute use; GP data at most once an hour).
+    Default: cron(17 3 * * ? *)
+  AlarmEmail:
+    Type: String
+    Description: Email that receives the SNS alarm notifications (you must confirm the subscription email).
+    AllowedPattern: "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+
+Resources:
+  DispatchDestination:
+    Type: AWS::Events::ApiDestination
+    Properties:
+      Name: sattrack-github-workflow-dispatch
+      ConnectionArn: !Ref ConnectionArn
+      HttpMethod: POST
+      InvocationEndpoint: !Sub "https://api.github.com/repos/${GitHubOwner}/${GitHubRepo}/actions/workflows/${WorkflowFile}/dispatches"
+      InvocationRateLimitPerSecond: 1
+
+  InvokeDestinationRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: sattrack-eventbridge-dispatch
+      Path: /sattrack/
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: events.amazonaws.com
+            Action: sts:AssumeRole
+            Condition:
+              StringEquals:
+                "aws:SourceAccount": !Ref AWS::AccountId
+      Policies:
+        - PolicyName: invoke-one-api-destination
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - events:InvokeApiDestination
+                Resource: !GetAtt DispatchDestination.Arn
+
+  DailyDispatchRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: sattrack-daily-dispatch
+      Description: The only trigger of the SatTrack pipeline (GitHub workflow_dispatch, once a day).
+      ScheduleExpression: !Ref ScheduleExpression
+      State: ENABLED
+      Targets:
+        - Id: github-workflow-dispatch
+          Arn: !GetAtt DispatchDestination.Arn
+          RoleArn: !GetAtt InvokeDestinationRole.Arn
+          HttpParameters:
+            HeaderParameters:
+              Accept: application/vnd.github+json
+              X-GitHub-Api-Version: "2022-11-28"
+          Input: !Sub |
+            {"ref": "${DefaultBranch}", "inputs": {"trigger": "eventbridge", "force": "false"}}
+          RetryPolicy:
+            MaximumRetryAttempts: 3
+            MaximumEventAgeInSeconds: 3600
+
+  AlarmTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: sattrack-scheduler-alarms
+      # Not encrypted with the AWS-managed SNS key: CloudWatch alarms cannot publish to a topic that uses it.
+      Subscription:
+        - Protocol: email
+          Endpoint: !Ref AlarmEmail
+
+  AlarmTopicPolicy:
+    Type: AWS::SNS::TopicPolicy
+    Properties:
+      Topics:
+        - !Ref AlarmTopic
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: AllowCloudWatchAlarmsFromThisAccount
+            Effect: Allow
+            Principal:
+              Service: cloudwatch.amazonaws.com
+            Action: sns:Publish
+            Resource: !Ref AlarmTopic
+            Condition:
+              StringEquals:
+                "aws:SourceAccount": !Ref AWS::AccountId
+
+  DispatchFailedAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: sattrack-dispatch-failed
+      AlarmDescription: The EventBridge rule could not deliver the GitHub dispatch (expired token, GitHub error). Check the connection token first.
+      Namespace: AWS/Events
+      MetricName: FailedInvocations
+      Dimensions:
+        - Name: RuleName
+          Value: !Ref DailyDispatchRule
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 0
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - !Ref AlarmTopic
+
+  DispatchMissingAlarm:
+    # Dead-man's switch: also fires if the rule was disabled or deleted, or a failure was not counted as FailedInvocations.
+    # Expect one email right after the first deploy, until the first dispatch succeeds.
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: sattrack-no-successful-dispatch-26h
+      AlarmDescription: No successful GitHub dispatch in the last 26 hours.
+      Namespace: AWS/Events
+      MetricName: SuccessfulInvocationAttempts
+      Dimensions:
+        - Name: RuleName
+          Value: !Ref DailyDispatchRule
+      Statistic: Sum
+      Period: 3600
+      EvaluationPeriods: 26
+      DatapointsToAlarm: 26
+      Threshold: 1
+      ComparisonOperator: LessThanThreshold
+      TreatMissingData: breaching
+      AlarmActions:
+        - !Ref AlarmTopic
+
+Outputs:
+  AlarmTopicArn:
+    Description: SNS topic for scheduler alarms. Confirm the subscription email you receive after deploying.
+    Value: !Ref AlarmTopic
+  RuleName:
+    Description: The daily dispatch rule.
+    Value: !Ref DailyDispatchRule

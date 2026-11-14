@@ -1,0 +1,5 @@
+sources:
+  sattrack:
+    type: dbt_profile
+    profile: sattrack
+    target: dev

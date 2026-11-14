@@ -1,0 +1,36 @@
+version: 2
+
+macros:
+  - name: helper__build_country_key_full
+    description: "Exact-match country key (no alias list, plan section 15.1): accents stripped, lower case, letters and single spaces only. Example: 'UNITED KINGDOM' -> 'united kingdom'."
+    arguments:
+      - name: expr
+        type: string
+        description: "SQL expression returning text."
+  - name: helper__build_country_key_reduced
+    description: "Fallback country key: the full key minus filler words (the, of, republic, peoples, people, democratic, federal, state, states, islamic, kingdom, commonwealth). Used only when the full key finds no match, and only when it identifies exactly one ISO country. Example: 'PEOPLES REPUBLIC OF CHINA' -> 'china'."
+    arguments:
+      - name: expr
+        type: string
+        description: "SQL expression returning text."
+  - name: helper__calculate_haversine_km
+    description: "Great-circle distance in km between two latitude/longitude points (haversine formula, mean Earth radius 6371 km)."
+    arguments:
+      - name: lat1
+        type: string
+        description: "Latitude of point 1, in degrees (SQL expression)."
+      - name: lon1
+        type: string
+        description: "Longitude of point 1, in degrees."
+      - name: lat2
+        type: string
+        description: "Latitude of point 2, in degrees."
+      - name: lon2
+        type: string
+        description: "Longitude of point 2, in degrees."
+  - name: helper__title_case_name
+    description: "Title-cases a Space-Track name, including words after '/' and '(' (e.g. '(INTELSAT)' -> '(Intelsat)'). Last-resort display fallback for owner names."
+    arguments:
+      - name: expr
+        type: string
+        description: "SQL expression returning text."

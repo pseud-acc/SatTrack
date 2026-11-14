@@ -1,0 +1,14 @@
+data/*
+transform/target/
+transform/dbt_packages/
+transform/logs/
+.env.sh
+*.duckdb
+*.duckdb.wal
+__pycache__/
+transform/charts/_generated/
+# dbt's per-user anonymous id
+transform/.user.yml
+# local working dirs
+.venv/
+*.log

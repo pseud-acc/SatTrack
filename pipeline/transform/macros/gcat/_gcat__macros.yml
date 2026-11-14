@@ -1,0 +1,69 @@
+version: 2
+
+macros:
+  - name: helper__cast_gcat_value
+    description: "Cleans a GCAT value with helper__clean_gcat_text, then try_casts it, so unparseable values become NULL instead of failing the build."
+    arguments:
+      - name: col
+        type: string
+        description: "Column name (bare names are quoted, so GCAT keyword columns such as Primary and IF work) or a SQL expression."
+      - name: type
+        type: string
+        description: "Target SQL type, e.g. double, integer."
+  - name: helper__clean_gcat_text
+    description: "GCAT text cleaning (decision D1): trims, and treats '' and '-' (GCAT's 'no value') as NULL."
+    arguments:
+      - name: col
+        type: string
+        description: "Column name (bare names are quoted, so GCAT keyword columns such as Primary and IF work) or a SQL expression."
+  - name: helper__normalise_vague_date
+    description: "Normalises a GCAT vague date for pattern matching: trims, collapses whitespace and strips the trailing '?' (uncertain) and 's' (scheduled) flags. GCAT 'Vague Date' format (https://planet4589.org/space/gcat/web/intro/vague.html): year [month|Qn] [day[.dd]] [hh'h' | hhmm[:ss[.sss]]], rightmost fields optional; trailing 's' = scheduled, trailing '?' = uncertain; '*' = current/still active; '?' alone = date entirely unknown."
+    arguments:
+      - name: col
+        type: string
+        description: "Column name (bare names are quoted, so GCAT keyword columns such as Primary and IF work) or a SQL expression."
+  - name: helper__parse_vague_date_base
+    description: "Returns the date of a GCAT vague date as written, as a timestamp, ignoring the '?' and 's' flags (the start of the range the date would imply without a '?'). A century (nC) is its first day (20C = 1901 Jan 1) and a millennium (nM) likewise (3M = 2001 Jan 1). NULL for empty, '*', '?' and unparsed values. GCAT 'Vague Date' format (https://planet4589.org/space/gcat/web/intro/vague.html): year [month|Qn] [day[.dd]] [hh'h' | hhmm[:ss[.sss]]], rightmost fields optional; trailing 's' = scheduled, trailing '?' = uncertain; '*' = current/still active; '?' alone = date entirely unknown."
+    arguments:
+      - name: col
+        type: string
+        description: "Column name (bare names are quoted, so GCAT keyword columns such as Primary and IF work) or a SQL expression."
+  - name: helper__parse_vague_date_columns
+    description: "Renders the four standard columns for a vague date: <name> (the date as written), <name>_start (interval start, less one unit when uncertain), <name>_end (interval end, plus two units when uncertain) and <name>_precision."
+    arguments:
+      - name: col
+        type: string
+        description: "Column name (bare names are quoted, so GCAT keyword columns such as Primary and IF work) or a SQL expression."
+      - name: name
+        type: string
+        description: "Output column name stem, e.g. launch_datetime."
+  - name: helper__parse_vague_date_end
+    description: "Returns the interval end of a GCAT vague date: the date as written + 1 unit of its precision, or + 2 units when uncertain ('?'), so an uncertain range is 3 units wide (GCAT's example table: '2016 Jun?' = 2016 May 1 to 2016 Aug 1). GCAT 'Vague Date' format (https://planet4589.org/space/gcat/web/intro/vague.html): year [month|Qn] [day[.dd]] [hh'h' | hhmm[:ss[.sss]]], rightmost fields optional; trailing 's' = scheduled, trailing '?' = uncertain; '*' = current/still active; '?' alone = date entirely unknown."
+    arguments:
+      - name: col
+        type: string
+        description: "Column name (bare names are quoted, so GCAT keyword columns such as Primary and IF work) or a SQL expression."
+  - name: helper__parse_vague_date_precision
+    description: "Returns the precision of a GCAT vague date: second, minute, hour, centiday, day, month, quarter, year, decade, century or millennium, with a '?' suffix when uncertain; 'current' for '*', 'unknown' for '?', 'unparsed' for anything else. GCAT 'Vague Date' format (https://planet4589.org/space/gcat/web/intro/vague.html): year [month|Qn] [day[.dd]] [hh'h' | hhmm[:ss[.sss]]], rightmost fields optional; trailing 's' = scheduled, trailing '?' = uncertain; '*' = current/still active; '?' alone = date entirely unknown."
+    arguments:
+      - name: col
+        type: string
+        description: "Column name (bare names are quoted, so GCAT keyword columns such as Primary and IF work) or a SQL expression."
+  - name: helper__parse_vague_date_start
+    description: "Returns the interval start of a GCAT vague date as a timestamp: the date as written, less 1 unit of its precision when uncertain ('?'), per GCAT's example table ('2016 Jun?' = 2016 May 1 to 2016 Aug 1). NULL for empty, '*' and '?'. GCAT 'Vague Date' format (https://planet4589.org/space/gcat/web/intro/vague.html): year [month|Qn] [day[.dd]] [hh'h' | hhmm[:ss[.sss]]], rightmost fields optional; trailing 's' = scheduled, trailing '?' = uncertain; '*' = current/still active; '?' alone = date entirely unknown."
+    arguments:
+      - name: col
+        type: string
+        description: "Column name (bare names are quoted, so GCAT keyword columns such as Primary and IF work) or a SQL expression."
+  - name: helper__parse_vague_date_unit
+    description: "Returns one unit of the precision of a GCAT vague date as an interval: the width of the range the date implies without a '?' (1 second, 1 minute, 1 hour, 0.01 day or 0.1 day for a one-digit day fraction, 1 day, 1 month, 3 months, 1 year, 10 years, 100 years, 1000 years). Zero for unparsed values. GCAT 'Vague Date' format (https://planet4589.org/space/gcat/web/intro/vague.html): year [month|Qn] [day[.dd]] [hh'h' | hhmm[:ss[.sss]]], rightmost fields optional; trailing 's' = scheduled, trailing '?' = uncertain; '*' = current/still active; '?' alone = date entirely unknown."
+    arguments:
+      - name: col
+        type: string
+        description: "Column name (bare names are quoted, so GCAT keyword columns such as Primary and IF work) or a SQL expression."
+  - name: helper__quote_column
+    description: "Quotes a bare column name (so SQL keywords such as Primary and IF are safe); passes expressions through unchanged."
+    arguments:
+      - name: col
+        type: string
+        description: "Column name or SQL expression."

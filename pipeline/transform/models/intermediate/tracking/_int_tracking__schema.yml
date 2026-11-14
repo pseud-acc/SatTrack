@@ -1,0 +1,99 @@
+models:
+  - name: int__spacetrack__satellite_catalogue
+    description: "Tracking unit: one row per on-orbit object in the Space-Track GP feed, with the derived orbit class. orbit_class uses the live app's 5-class rule (decided 2026-10-25); GCAT OpOrbit stays a separate detail."
+    data_tests:
+      - model_health:
+          name: mh__int__spacetrack__satellite_catalogue__pk_unique
+          arguments: {check: pk_unique, columns: [satcat_id]}
+      - model_health:
+          name: mh__int__spacetrack__satellite_catalogue__pk_not_null
+          arguments: {check: pk_not_null, columns: [satcat_id]}
+      - model_health:
+          name: mh__int__spacetrack__satellite_catalogue__row_count_match
+          arguments:
+            check: row_count_match
+            compare_to: "ref('stg__spacetrack__gp')"
+            relationship: equal
+    columns:
+      - name: satcat_id
+        description: '{{ doc("col__satcat_id") }}'
+      - name: object_name
+        description: '{{ doc("col__object_name") }}'
+      - name: object_id
+        description: '{{ doc("col__object_id") }}'
+      - name: object_type
+        description: '{{ doc("col__object_type") }}'
+      - name: country_code
+        description: '{{ doc("col__country_code") }}'
+      - name: launch_date
+        description: '{{ doc("col__launch_date") }}'
+      - name: launch_site
+        description: '{{ doc("col__launch_site") }}'
+      - name: epoch
+        description: '{{ doc("col__epoch") }}'
+      - name: mean_motion
+        description: '{{ doc("col__mean_motion") }}'
+      - name: eccentricity
+        description: '{{ doc("col__eccentricity") }}'
+      - name: inclination
+        description: '{{ doc("col__inclination") }}'
+      - name: ra_of_asc_node
+        description: '{{ doc("col__ra_of_asc_node") }}'
+      - name: arg_of_pericenter
+        description: '{{ doc("col__arg_of_pericenter") }}'
+      - name: mean_anomaly
+        description: '{{ doc("col__mean_anomaly") }}'
+      - name: bstar
+        description: '{{ doc("col__bstar") }}'
+      - name: semimajor_axis
+        description: '{{ doc("col__semimajor_axis") }}'
+      - name: orbital_period
+        description: '{{ doc("col__orbital_period") }}'
+      - name: apoapsis
+        description: '{{ doc("col__apoapsis") }}'
+      - name: periapsis
+        description: '{{ doc("col__periapsis") }}'
+      - name: rcs_size
+        description: '{{ doc("col__rcs_size") }}'
+      - name: tle_line_1
+        description: '{{ doc("col__tle_line_1") }}'
+      - name: tle_line_2
+        description: '{{ doc("col__tle_line_2") }}'
+      - name: orbit_class
+        description: '{{ doc("col__orbit_class") }}'
+        data_tests:
+          - accepted_values:
+              name: accepted_values__int__spacetrack__satellite_catalogue__orbit_class
+              arguments: {values: ["LEO", "MEO", "GEO", "GSO", "HEO"]}
+      - name: tle_age_days
+        description: '{{ doc("col__tle_age_days") }}'
+      - name: _loaded_at
+        description: '{{ doc("col___loaded_at") }}'
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'
+
+unit_tests:
+  - name: ut__int__spacetrack__satellite_catalogue__orbit_class
+    description: "Boundaries of the live app's 5-class orbit rule."
+    model: int__spacetrack__satellite_catalogue
+    given:
+      - input: ref('stg__spacetrack__gp')
+        rows:
+          - {satcat_id: 1, orbital_period: 95.0, eccentricity: 0.001, mean_motion: 15.1, inclination: 51.6}
+          - {satcat_id: 2, orbital_period: 120.0, eccentricity: 0.30, mean_motion: 12.0, inclination: 63.4}
+          - {satcat_id: 3, orbital_period: 1436.0, eccentricity: 0.0002, mean_motion: 1.0027, inclination: 0.05}
+          - {satcat_id: 4, orbital_period: 1436.0, eccentricity: 0.0002, mean_motion: 1.0027, inclination: 5.0}
+          - {satcat_id: 5, orbital_period: 718.0, eccentricity: 0.01, mean_motion: 2.0, inclination: 55.0}
+          - {satcat_id: 6, orbital_period: 2000.0, eccentricity: 0.6, mean_motion: 0.72, inclination: 63.4}
+          - {satcat_id: 7, orbital_period: 128.0, eccentricity: 0.001, mean_motion: 11.25, inclination: 98.0}
+    expect:
+      rows:
+        - {satcat_id: 1, orbit_class: LEO}
+        - {satcat_id: 2, orbit_class: HEO}
+        - {satcat_id: 3, orbit_class: GEO}
+        - {satcat_id: 4, orbit_class: GSO}
+        - {satcat_id: 5, orbit_class: MEO}
+        - {satcat_id: 6, orbit_class: HEO}
+        - {satcat_id: 7, orbit_class: MEO}

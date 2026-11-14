@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: stg__geonames__cities
+    description: "GeoNames cities, renamed and cast."
+    data_tests:
+      - model_health:
+          name: mh__stg__geonames__cities__pk_unique
+          arguments: {check: pk_unique, columns: [geonameid]}
+      - model_health:
+          name: mh__stg__geonames__cities__pk_not_null
+          arguments: {check: pk_not_null, columns: [geonameid]}
+      - model_health:
+          name: mh__stg__geonames__cities__row_count_match
+          arguments: {check: row_count_match, compare_to: "source('geonames', 'cities')", relationship: equal}
+  - name: stg__geonames__countries
+    description: "GeoNames countries, renamed and cast."
+    data_tests:
+      - model_health:
+          name: mh__stg__geonames__countries__pk_unique
+          arguments: {check: pk_unique, columns: [iso_alpha2]}
+      - model_health:
+          name: mh__stg__geonames__countries__pk_not_null
+          arguments: {check: pk_not_null, columns: [iso_alpha2]}
+      - model_health:
+          name: mh__stg__geonames__countries__row_count_match
+          arguments: {check: row_count_match, compare_to: "source('geonames', 'countries')", relationship: equal}

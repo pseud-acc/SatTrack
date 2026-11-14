@@ -1,0 +1,8 @@
+# DRAFT. Changes to anything that controls what runs with AWS access need the owner's review.
+# Effective once a branch ruleset on main
+# requires pull requests with code-owner review (see infra/aws/README.md, GitHub settings).
+/.github/                                            @pseud-acc
+/infra/                                              @pseud-acc
+/pipeline/run_pipeline.py                            @pseud-acc
+/pipeline/ingestion/sattrack_ingest/credentials.py   @pseud-acc
+/pipeline/scripts/export_app_csvs.py                 @pseud-acc

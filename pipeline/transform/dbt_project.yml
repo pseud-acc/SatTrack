@@ -1,0 +1,79 @@
+name: sattrack
+version: "0.1.0"
+profile: sattrack
+config-version: 2
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+test-paths: ["tests"]
+analysis-paths: ["analyses"]
+docs-paths: ["docs"]
+clean-targets: ["target", "dbt_packages"]
+
+# Elementary on dbt v2 + DuckDB: our overrides (macros/elementary_duckdb_fusion.sql) win over the package's.
+dispatch:
+  - macro_namespace: elementary
+    search_order: ["sattrack", "elementary"]
+
+vars:
+  min_jsr_match_rate: 0.97
+# Project conventions are checked by dbt-bouncer from the manifest (bouncer/dbt-bouncer.yml), in dev/CI only.
+
+models:
+  sattrack:
+    staging:
+      +materialized: view
+      +schema: staging
+      spacetrack:
+        +tags: ["tracking"]
+      jsr:
+        +tags: ["enrichment"]
+      pycountry:
+        +tags: ["enrichment"]
+      geonames:
+        +tags: ["enrichment"]
+    intermediate:
+      +materialized: table
+      +schema: intermediate
+      # no contracts: intermediate models are internal steps; contracts sit on the public marts (decided 2026-10-25)
+      # tags accumulate down folders, so they are set on leaf folders only (one swap unit per model)
+      tracking:
+        +tags: ["tracking"]
+      satellite:
+        +tags: ["enrichment"]
+      geography:
+        +tags: ["enrichment"]
+      organisation:
+        +tags: ["enrichment"]
+      launch:
+        +tags: ["enrichment"]
+    marts:
+      +materialized: table
+      +contract: {enforced: true}
+      tracking:
+        +schema: marts_tracking
+        +tags: ["tracking"]
+      satellite:
+        +schema: marts
+        +tags: ["enrichment"]
+      geography:
+        +schema: marts
+        +tags: ["enrichment"]
+      organisation:
+        +schema: marts
+        +tags: ["enrichment"]
+      launch:
+        +schema: marts
+        +tags: ["enrichment"]
+  elementary:
+    +database: ops
+    +schema: elementary
+
+data_tests:
+  +store_failures: true
+  +database: ops
+  +schema: test_failures
+  sattrack:
+    +severity: error
+    staging:
+      +severity: warn          # D11: staging warns, intermediate/marts error

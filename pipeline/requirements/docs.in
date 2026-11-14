@@ -1,0 +1,7 @@
+# Docs-site ERD environment (.github/workflows/docs.yml, scripts/erd/): Linux x86_64, Python 3.12.3.
+# Same pins as ../requirements-docs.txt.
+# Regenerate requirements/docs.txt with:
+#   uv pip compile requirements/docs.in -c requirements-docs.txt --generate-hashes
+#     --python-version 3.12 --python-platform x86_64-manylinux_2_28 -o requirements/docs.txt
+dbterd==1.32.0
+PyYAML==6.0.3

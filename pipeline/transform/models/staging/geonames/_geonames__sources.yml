@@ -1,0 +1,22 @@
+version: 2
+
+sources:
+  - name: geonames
+    description: "GeoNames gazetteer data from the pinned geonamescache package (offline copy of GeoNames cities15000 and the GeoNames country list), exported by ingestion."
+    schema: raw_geonames
+    loader: sattrack_ingest
+    config:
+      tags: ["enrichment"]   # selects the source and its schema-drift guards with its swap unit
+      meta:
+        owner: "GeoNames (https://www.geonames.org), via the geonamescache package"
+        origin_type: python_library
+        update_frequency: "Per pinned package release"
+        ingestion_module: sattrack_ingest.extractors.ingest_geonames
+      loaded_at_field: "cast(_loaded_at as timestamp)"
+      freshness:
+        warn_after: {count: 365, period: day}
+    tables:
+      - name: cities
+        description: "GeoNames cities (population >= 15,000). Used only for launch-site physical country."
+      - name: countries
+        description: "GeoNames countries (English names with ISO 3166-1 codes). Second step of the owner-country name match, after the ISO 3166-1 names and before the ISO 3166-3 former countries."

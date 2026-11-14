@@ -1,0 +1,167 @@
+# SatTrack daily pipeline (DRAFT - not yet enabled).
+# Design: agents/hosting/hosting_security_plan.html (decisions of 2026-11-08 applied)
+#
+# Public-repo rules this file follows:
+#   * No pull_request / pull_request_target / workflow_run triggers: code from forks never runs here.
+#   * AWS access only through OIDC into one role whose trust policy pins this repo AND environment
+#     "production"; the environment only accepts the default branch.
+#   * Every action pinned to a full commit SHA (tag in the comment; SHAs checked with git ls-remote
+#     on 2026-11-08). Dependabot proposes updates.
+#   * Pipeline output goes to a private log in S3, never to the public Actions log. No artifacts, no
+#     caches, no `set -x`, no debug logging.
+
+name: sattrack-pipeline
+
+on:
+  # The ONLY trigger is an AWS EventBridge rule (infra/aws/sattrack-scheduler.yaml) that calls the
+  # workflow_dispatch API once a day at 03:17 UTC (off :00/:30; Space-Track GP at most once an hour).
+  # There is deliberately no `schedule:` cron: GitHub disables it after 60 days without repository
+  # activity in a public repo, and workflow_dispatch is not subject to that rule.
+  workflow_dispatch:
+    inputs:
+      trigger:
+        description: Who started this run
+        type: choice
+        default: manual
+        options:
+          - manual
+          - eventbridge
+      force:
+        description: Run even if a successful run committed in the last 12 hours
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  # One run at a time, across EventBridge and manual dispatches. Never cancel a running job:
+  # a cancelled run would leave its build uncommitted (safe) but waste the Space-Track quota.
+  group: sattrack-production
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  pipeline:
+    name: daily pipeline
+    # Forks never run this job (a fork's token could not assume the role anyway).
+    if: github.repository == 'pseud-acc/SatTrack'
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 120
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      SATTRACK_BUCKET: ${{ secrets.SATTRACK_BUCKET }}
+      SATTRACK_TRIGGER: ${{ inputs.trigger }}
+      SATTRACK_FORCE: ${{ inputs.force && 'true' || 'false' }}
+      SATTRACK_GIT_SHA: ${{ github.sha }}
+      SATTRACK_RUNNER: github-actions
+      PYTHONUNBUFFERED: "1"
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0  # v7.1.0
+        with:
+          python-version: "3.12.3"  # the laptop's pipeline venv (virtualenvs/py312/sattrack_dbt_venv)
+
+      # The `production` environment has no required reviewer on purpose (decided 2026-11-08): the run is
+      # unattended, and the environment's "main only" deployment branch rule is the gate.
+      - name: Prepare private working dirs
+        run: |
+          set -euo pipefail
+          echo "SATTRACK_DATA_DIR=$RUNNER_TEMP/sattrack-data" >> "$GITHUB_ENV"
+          echo "PRIVATE_LOG=$RUNNER_TEMP/private/run.log" >> "$GITHUB_ENV"
+          mkdir -p "$RUNNER_TEMP/sattrack-data/warehouse" "$RUNNER_TEMP/private"
+          : > "$RUNNER_TEMP/private/run.log"
+
+      - name: Install pipeline and report environments
+        # Hash-locked installs only (pip --require-hashes, --only-binary so nothing is built). The locks are
+        # compiled for Linux from requirements/*.in. dbt is the same dbt-oss 2.0.8 the laptop runs: its Linux
+        # wheel is pinned by URL and SHA-256 in requirements/pipeline.txt (the hash dbt publishes for it).
+        working-directory: pipeline
+        run: |
+          set -euo pipefail
+          python -m venv "$RUNNER_TEMP/venv-pipeline"
+          "$RUNNER_TEMP/venv-pipeline/bin/pip" install --quiet --require-hashes --only-binary :all: -r requirements/pipeline.txt
+          python -m venv "$RUNNER_TEMP/venv-charts"
+          # titlecase (via dbt-charts) is published only as source: its sdist hash is checked, but pip does not
+          # hash-check the build tools it fetches to build it, so this env is binary-only except titlecase.
+          "$RUNNER_TEMP/venv-charts/bin/pip" install --quiet --require-hashes --only-binary :all: --no-binary titlecase -r requirements/charts.txt
+          "$RUNNER_TEMP/venv-pipeline/bin/dbt" --version | grep -q "2.0.8"
+          echo "SATTRACK_DBT_BIN=$RUNNER_TEMP/venv-pipeline/bin/dbt" >> "$GITHUB_ENV"
+          echo "SATTRACK_REPORTS_PYTHON=$RUNNER_TEMP/venv-charts/bin/python" >> "$GITHUB_ENV"
+          echo "$RUNNER_TEMP/venv-pipeline/bin" >> "$GITHUB_PATH"
+
+      - name: dbt deps
+        working-directory: pipeline/transform
+        run: |
+          set -euo pipefail
+          "$SATTRACK_DBT_BIN" deps >> "$PRIVATE_LOG" 2>&1
+
+      - name: AWS credentials (pull + run, 15 min)
+        uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd  # v6.3.0
+        with:
+          role-to-assume: ${{ secrets.AWS_PIPELINE_ROLE_ARN }}
+          role-session-name: sattrack-run-${{ github.run_id }}
+          role-duration-seconds: 900
+          aws-region: ${{ vars.AWS_REGION }}
+          mask-aws-account-id: true
+
+      - name: Pull last committed state
+        id: gate
+        run: |
+          set -euo pipefail
+          python infra/state/sattrack_state.py pull
+
+      - name: Run pipeline (output to private log only)
+        id: run
+        if: steps.gate.outputs.run == 'true'
+        env:
+          # Credentials come from Secrets Manager inside the process (credentials.py); they are never
+          # in the GitHub environment. SPACETRACK_USER/PASS are deliberately absent.
+          SATTRACK_SPACETRACK_SECRET_ID: ${{ secrets.SATTRACK_SPACETRACK_SECRET_ID }}
+          SATTRACK_CREDENTIAL_SOURCE: secretsmanager
+          SATTRACK_PUBLIC_LOG: "1"
+        working-directory: pipeline
+        run: |
+          set -uo pipefail
+          code=0
+          python run_pipeline.py >> "$PRIVATE_LOG" 2>&1 || code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          echo "pipeline exit code: $code (details are in the private log in S3)"
+
+      # The app CSVs are written by run_pipeline.py itself (step 8, scripts/export_app_csvs.py) into
+      # $SATTRACK_DATA_DIR/app/, which is where `sattrack_state.py push` picks them up; no separate step.
+
+      - name: AWS credentials (push, fresh 15 min)
+        if: always() && steps.gate.outputs.run == 'true'
+        uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd  # v6.3.0
+        with:
+          role-to-assume: ${{ secrets.AWS_PIPELINE_ROLE_ARN }}
+          role-session-name: sattrack-push-${{ github.run_id }}
+          role-duration-seconds: 900
+          aws-region: ${{ vars.AWS_REGION }}
+          mask-aws-account-id: true
+
+      - name: Commit state (promote only a good build)
+        if: always() && steps.gate.outputs.run == 'true'
+        env:
+          PIPELINE_EXIT: ${{ steps.run.outputs.exit_code || '99' }}
+        run: |
+          set -euo pipefail
+          python infra/state/sattrack_state.py push --pipeline-exit "$PIPELINE_EXIT" --log-file "$PRIVATE_LOG"
+
+      - name: Remove local data
+        if: always()
+        run: rm -rf "$RUNNER_TEMP/sattrack-data" "$RUNNER_TEMP/private"

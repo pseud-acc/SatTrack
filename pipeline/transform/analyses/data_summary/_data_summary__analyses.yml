@@ -1,0 +1,61 @@
+# Queries behind the data summary dashboard (transform/charts/data_summary.yml).
+# Each analysis reads only the app mart, fct__satellite_master, so the dashboard shows exactly what the app shows.
+# scripts/build_data_summary.py copies each analysis's SQL into the dashboard's query file, keyed by analysis
+# name, with this description as the query note. Edit the SQL here, never in the generated file.
+version: 2
+
+analyses:
+  - name: ds__overview__kpis
+    description: Headline figures for the app mart (objects, payloads, active objects, GCAT match rate, programmes, data timestamps).
+  - name: ds__overview__source_contributions
+    description: Publisher that supplied each resolved field, from the mart's provenance columns.
+  - name: ds__objects__object_type
+    description: Objects by Space-Track object type.
+  - name: ds__objects__status_by_type
+    description: Active vs inactive objects per object type.
+  - name: ds__objects__rcs_size_by_type
+    description: Radar cross-section size class per object type.
+  - name: ds__objects__mission_category
+    description: The 15 most common GCAT mission categories across payloads, by status.
+  - name: ds__objects__mass_density
+    description: Payload launch mass distribution on a log10 scale, split by reported vs estimated mass.
+  - name: ds__orbits__orbit_class
+    description: Objects per TLE-based orbit class (the app 5-class rule on the Space-Track element set), by object type.
+  - name: ds__orbits__orbit_class_by_status
+    description: Objects per TLE-based orbit class, by status (active vs inactive).
+  - name: ds__orbits__perigee_density
+    description: Perigee altitude density from 100 to 2,000 km in 10 km bins, by object type.
+  - name: ds__orbits__inclination_density
+    description: Inclination density in 2 degree bins, by orbit class.
+  - name: ds__launches__objects_by_year
+    description: Objects in the current catalogue by launch year, by object type.
+  - name: ds__launches__site_map
+    description: Objects per launch site with site coordinates.
+  - name: ds__launches__top_sites
+    description: The 15 launch sites with the most catalogued objects, by object type.
+  - name: ds__launches__launch_vehicle_brand
+    description: The 15 launch vehicle brands with the most catalogued payloads.
+  - name: ds__ownership__owner_country
+    description: The 15 owner countries or organisations with the most objects, by object type.
+  - name: ds__ownership__ownership_class
+    description: Payloads per GCAT ownership class label.
+  - name: ds__ownership__top_operators
+    description: The 15 operators with the most payloads, by status.
+  - name: ds__ownership__top_manufacturers
+    description: The 15 manufacturers with the most payloads.
+  - name: ds__families__kpis
+    description: Figures for the programme families (satellite_program_family), showing how many have at least 50 payloads and how many payloads they hold.
+  - name: ds__families__program_families
+    description: The 15 largest programme families (satellite_program_family, at least 50 payloads), by status. A naming-based grouping of the GCAT Program field; some families are constellations, others long-running series.
+  - name: ds__families__family_by_year
+    description: Payloads by launch year for the 6 largest programme families (satellite_program_family).
+  - name: ds__families__top_programs
+    description: The 20 GCAT programmes (shell level) with the most payloads.
+  - name: ds__quality__fill_rates
+    description: Share of objects with a value in each key app field, by object type.
+  - name: ds__quality__resolution_methods
+    description: How each resolved field was filled, per provenance method.
+  - name: ds__quality__tle_age
+    description: Age of each object's latest element set at load time, in bands, by object type.
+  - name: ds__quality__flags
+    description: Objects carrying each caution flag in the mart.

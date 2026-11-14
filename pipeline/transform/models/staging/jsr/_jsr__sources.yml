@@ -1,0 +1,127 @@
+sources:
+  - name: jsr
+    description: '{{ doc("src__jsr") }}'
+    schema: raw_jsr
+    loader: sattrack_ingest
+    config:
+      tags: ["enrichment"]   # selects the source and its schema-drift guards with its swap unit
+      meta:
+        owner: "Jonathan C. McDowell, GCAT (General Catalog of Artificial Space Objects), planet4589.org"
+        pipeline_owner: "SatTrack maintainer"
+        origin_type: tsv_file
+        base_url: "https://planet4589.org/space/gcat/tsv/"
+        auth: "None (public)"
+        format: tsv
+        update_frequency: "Irregular (days to weeks); data update time published in each file's '# Updated' row"
+        licence_terms: "CC-BY (cite GCAT)"
+        ingestion_module: sattrack_ingest.extractors.ingest_gcat
+        known_quirks:
+          - "'-' means null; values are space-padded"
+          - "Trailing '?' marks uncertainty; '*' in end dates means still active"
+          - "Objects with SATCAT number >= 100,000 are in the separate *100k files"
+          - "Columns have been renamed before (schema_columns tests guard this)"
+      loaded_at_field: "cast(_source_updated_at as timestamp)"
+      freshness:
+        warn_after: {count: 14, period: day}
+    tables:
+      - name: satcat
+        description: '{{ doc("tbl__jsr__satcat") }}'
+        config:
+          meta: {natural_key: JCAT, doc_url: "https://planet4589.org/space/gcat/web/cat/cols.html"}
+        data_tests:
+          - dbt_expectations.expect_table_columns_to_contain_set:
+              name: schema_columns__src__jsr__satcat
+              config: {severity: error}   # schema drift guard: always error (plan section 15.2)
+              arguments:
+                column_list: [JCAT, Satcat, Piece, Type, Name, PLName, LDate, DDate, Owner, State, Manufacturer, Mass, DryMass, Length, Diameter, Span, OpOrbit]
+      - name: satcat100k
+        description: "GCAT satcat100k (Extended): objects with SATCAT number >= 100,000. Same header as satcat."
+        config:
+          meta: {natural_key: JCAT, doc_url: "https://planet4589.org/space/gcat/web/cat/cols.html"}
+        data_tests:
+          - dbt_expectations.expect_table_columns_to_contain_set:
+              name: schema_columns__src__jsr__satcat100k
+              config: {severity: error}   # schema drift guard: always error (plan section 15.2)
+              arguments:
+                column_list: [JCAT, Satcat, Piece, Type, Name, LDate, DDate, Owner, State, Manufacturer, Mass, OpOrbit]
+      - name: psatcat
+        description: '{{ doc("tbl__jsr__psatcat") }}'
+        config:
+          meta: {natural_key: JCAT, doc_url: "https://planet4589.org/space/gcat/web/cat/pcols.html"}
+        data_tests:
+          - dbt_expectations.expect_table_columns_to_contain_set:
+              name: schema_columns__src__jsr__psatcat
+              config: {severity: error}   # schema drift guard: always error (plan section 15.2)
+              arguments:
+                column_list: [JCAT, Piece, TLast, TOp, TDate, TF, Program, Mvr, Class, Category, UNState, UNReg]
+      - name: psatcat100k
+        description: "GCAT psatcat100k: payloads with SATCAT number >= 100,000. Same header as psatcat."
+        config:
+          meta: {natural_key: JCAT, doc_url: "https://planet4589.org/space/gcat/web/cat/pcols.html"}
+        data_tests:
+          - dbt_expectations.expect_table_columns_to_contain_set:
+              name: schema_columns__src__jsr__psatcat100k
+              config: {severity: error}   # schema drift guard: always error (plan section 15.2)
+              arguments:
+                column_list: [JCAT, Piece, TLast, TOp, TDate, TF, Program, Mvr, Class, Category]
+      - name: currentcat
+        description: "GCAT Current Catalog: current status of each object, derived from the main catalogs."
+        config:
+          meta: {natural_key: JCAT, doc_url: "https://planet4589.org/space/gcat/web/cat/curcols.html"}
+        data_tests:
+          - dbt_expectations.expect_table_columns_to_contain_set:
+              name: schema_columns__src__jsr__currentcat
+              config: {severity: error}   # schema drift guard: always error (plan section 15.2)
+              arguments:
+                column_list: [JCAT, Active, Owner, State, ExpandedStatus, DDate]
+      - name: launchlog
+        description: "GCAT Orbital Launch Log: one row per payload, combining the launch lists and the object catalogs."
+        config:
+          meta: {natural_key: "JCAT", doc_url: "https://planet4589.org/space/gcat/web/cat/llog.html"}
+        data_tests:
+          - dbt_expectations.expect_table_columns_to_contain_set:
+              name: schema_columns__src__jsr__launchlog
+              config: {severity: error}   # schema drift guard: always error (plan section 15.2)
+              arguments:
+                column_list: [Launch_Tag, Launch_Date, Piece, Type, JCAT, LV_Type, Flight_ID, Launch_Site, Agency, LVState, Launch_Code]
+      - name: orgs
+        description: "GCAT Organizations database: one row per organisation phase (Org Code)."
+        config:
+          meta: {natural_key: "Code", doc_url: "https://planet4589.org/space/gcat/web/orgs/index.html"}
+        data_tests:
+          - dbt_expectations.expect_table_columns_to_contain_set:
+              name: schema_columns__src__jsr__orgs
+              config: {severity: error}   # schema drift guard: always error (plan section 15.2)
+              arguments:
+                column_list: [Code, UCode, StateCode, Type, Class, ShortName, Name, ShortEName, EName, Parent]
+      - name: sites
+        description: "GCAT Launch Sites database: one row per launch site phase."
+        config:
+          meta: {natural_key: "Site", doc_url: "https://planet4589.org/space/gcat/web/sites/index.html"}
+        data_tests:
+          - dbt_expectations.expect_table_columns_to_contain_set:
+              name: schema_columns__src__jsr__sites
+              config: {severity: error}   # schema drift guard: always error (plan section 15.2)
+              arguments:
+                column_list: [Site, UCode, Type, StateCode, ShortName, Name, Longitude, Latitude, Parent]
+      - name: lv
+        description: "GCAT Launch Vehicle list: unique on LV_Name + LV_Variant."
+        config:
+          meta: {natural_key: "LV_Name + LV_Variant", doc_url: "https://planet4589.org/space/gcat/web/lvs/lv/index.html"}
+        data_tests:
+          - dbt_expectations.expect_table_columns_to_contain_set:
+              name: schema_columns__src__jsr__lv
+              config: {severity: error}   # schema drift guard: always error (plan section 15.2)
+              arguments:
+                column_list: [LV_Name, LV_Family, LV_Manufacturer, LV_Variant, Class, GenericName]
+      - name: gcat_code_labels
+        description: "GCAT code meanings (verbatim) and rule-derived short labels for mission category and ownership class, parsed at ingestion from GCAT's payload catalog documentation."
+        config:
+          meta: {natural_key: [domain, gcat_code], doc_url: "https://planet4589.org/space/gcat/web/cat/pcols.html"}
+          loaded_at_field: "cast(_loaded_at as timestamp)"   # a documentation page has no '# Updated' row
+        data_tests:
+          - dbt_expectations.expect_table_columns_to_contain_set:
+              name: schema_columns__src__jsr__gcat_code_labels
+              config: {severity: error}   # schema drift guard: always error (plan section 15.2)
+              arguments:
+                column_list: [domain, gcat_code, gcat_meaning, short_label]

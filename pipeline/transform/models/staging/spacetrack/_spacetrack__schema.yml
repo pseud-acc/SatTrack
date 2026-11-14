@@ -1,0 +1,38 @@
+models:
+  - name: stg__spacetrack__gp
+    description: '{{ doc("tbl__spacetrack__gp") }}'
+    data_tests:
+      - model_health:
+          name: mh__stg__spacetrack__gp__pk_unique
+          arguments: {check: pk_unique, columns: [satcat_id]}
+      - model_health:
+          name: mh__stg__spacetrack__gp__pk_not_null
+          arguments: {check: pk_not_null, columns: [satcat_id]}
+      - model_health:
+          name: mh__stg__spacetrack__gp__row_count_match
+          arguments: {check: row_count_match, compare_to: "source('spacetrack', 'gp')", relationship: equal}
+    columns:
+      - name: satcat_id
+        description: '{{ doc("col__satcat_id") }}'
+      - name: object_name
+        description: '{{ doc("col__object_name") }}'
+      - name: object_type
+        description: '{{ doc("col__object_type") }}'
+        data_tests:
+          - accepted_values:
+              name: accepted_values__stg__spacetrack__gp__object_type
+              arguments: {values: ["PAYLOAD", "ROCKET BODY", "DEBRIS", "UNKNOWN"]}
+      - name: epoch
+        description: '{{ doc("col__epoch") }}'
+  - name: stg__spacetrack__boxscore
+    description: "Space-Track's own definition of every COUNTRY_CODE value."
+    data_tests:
+      - model_health:
+          name: mh__stg__spacetrack__boxscore__pk_unique
+          arguments: {check: pk_unique, columns: [country_code]}
+      - model_health:
+          name: mh__stg__spacetrack__boxscore__pk_not_null
+          arguments: {check: pk_not_null, columns: [country_code]}
+      - model_health:
+          name: mh__stg__spacetrack__boxscore__row_count_match
+          arguments: {check: row_count_match, compare_to: "source('spacetrack', 'boxscore')", relationship: equal}

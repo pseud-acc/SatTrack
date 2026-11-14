@@ -1,0 +1,49 @@
+sources:
+  - name: spacetrack
+    description: '{{ doc("src__spacetrack") }}'
+    schema: raw_spacetrack
+    loader: sattrack_ingest
+    config:
+      tags: ["tracking"]   # selects the source and its schema-drift guards with its swap unit
+      meta:
+        owner: "US Space Force (18th/19th Space Defense Squadron) via space-track.org"
+        pipeline_owner: "SatTrack maintainer"
+        origin_type: rest_api
+        endpoint: "https://www.space-track.org/basicspacedata/query/class/gp/decay_date/null-val/epoch/%3Enow-10/format/json"
+        auth: "Space-Track account session (SPACETRACK_USER/PASS or AWS Secrets Manager)"
+        format: json
+        update_frequency: "Continuous; pulled at most hourly, off the hour"
+        licence_terms: "Space-Track User Agreement (redistribution restricted)"
+        rate_limits: "GP at most once per hour; boxscore once per day; avoid :00 and :30"
+        ingestion_module: sattrack_ingest.extractors.ingest_spacetrack
+        known_quirks:
+          - "Catalog numbers >= 100,000 use Alpha-5 in TLE lines (A0001 = 100001)"
+          - "Analyst objects (70k-99k, 270k) have little metadata"
+      loaded_at_field: "cast(_loaded_at as timestamp)"
+      freshness:
+        warn_after: {count: 12, period: hour}
+    tables:
+      - name: gp
+        description: '{{ doc("tbl__spacetrack__gp") }}'
+        config:
+          meta: {natural_key: NORAD_CAT_ID}
+        data_tests:
+          - dbt_expectations.expect_table_columns_to_contain_set:
+              name: schema_columns__src__spacetrack__gp
+              config: {severity: error}   # schema drift guard: always error (plan section 15.2)
+              arguments:
+                column_list: [NORAD_CAT_ID, OBJECT_NAME, OBJECT_ID, OBJECT_TYPE, EPOCH, MEAN_MOTION, ECCENTRICITY,
+                              INCLINATION, PERIOD, APOAPSIS, PERIAPSIS, COUNTRY_CODE, LAUNCH_DATE, SITE, TLE_LINE1, TLE_LINE2]
+          - elementary.volume_anomalies:
+              name: anomaly_volume__src__spacetrack__gp
+              config: {severity: warn}
+      - name: boxscore
+        description: "Space-Track boxscore class: accounting of man-made objects grouped by country/organization."
+        config:
+          meta: {natural_key: SPADOC_CD}
+        data_tests:
+          - dbt_expectations.expect_table_columns_to_contain_set:
+              name: schema_columns__src__spacetrack__boxscore
+              config: {severity: error}   # schema drift guard: always error (plan section 15.2)
+              arguments:
+                column_list: [SPADOC_CD, COUNTRY]
