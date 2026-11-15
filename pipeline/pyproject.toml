@@ -1,0 +1,69 @@
+# The SatTrack data pipeline (ingestion/, transform/ dbt project, scripts/, run_pipeline.py). A uv project
+# separate from the app at the repo root: its packages never reach Heroku.
+#
+# Four environments, one lockfile (uv.lock). Each dependency group is one environment and they're declared
+# mutually conflicting, so uv resolves and installs each one on its own:
+#   pipeline  ingestion + dbt build + reports       uv sync --locked --only-group pipeline
+#   charts    data summary dashboard (dbt-charts)   uv sync --locked --only-group charts
+#   docs      docs-site ERD (dbterd)                uv sync --locked --only-group docs
+#   bouncer   dbt-bouncer + the pytest suites       uv sync --locked --only-group bouncer   (needs duckdb<2)
+# CI points each one at its own folder with UV_PROJECT_ENVIRONMENT. Locally, `uv sync` installs `pipeline`.
+#
+# dbt is installed from dbt Labs' GitHub release wheels (not on PyPI): one URL per platform below, with the
+# file hash recorded in uv.lock (check it against the release's SHA256SUMS). To upgrade dbt, change the version in both URLs, then
+# `uv lock`. Dependabot leaves URL sources alone.
+[project]
+name = "sattrack-pipeline"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = []
+
+[dependency-groups]
+pipeline = [
+    "boto3>=1.43.126,<2",
+    "dbt-oss==2.0.8",
+    "duckdb==2.0.0",
+    "geonamescache==3.0.2",
+    "pycountry==24.6.1",
+    "requests==2.34.2",
+]
+charts = [
+    "dbt-charts==0.9.1",
+    "dbt-core-experimental-parser==2.0.8",
+]
+docs = [
+    "dbterd==1.34.0",
+    "pyyaml==6.0.3",
+]
+bouncer = [
+    "dbt-bouncer==4.5.1",
+    "pytest==9.2.0",
+]
+
+[tool.uv]
+# A set of scripts and a dbt project, not a library: install the dependencies only.
+package = false
+default-groups = ["pipeline"]
+# Where the pipeline runs: GitHub's Linux runners and the Windows laptop.
+environments = [
+    "sys_platform == 'linux' and platform_machine == 'x86_64'",
+    "sys_platform == 'win32' and platform_machine == 'AMD64'",
+]
+conflicts = [
+    [
+        { group = "pipeline" },
+        { group = "charts" },
+        { group = "docs" },
+        { group = "bouncer" },
+    ],
+]
+
+[tool.uv.sources]
+dbt-oss = [
+    { url = "https://github.com/dbt-labs/dbt/releases/download/v2.0.8/dbt_oss-2.0.8-cp310-abi3-manylinux_2_28_x86_64.whl", marker = "sys_platform == 'linux'" },
+    { url = "https://github.com/dbt-labs/dbt/releases/download/v2.0.8/dbt_oss-2.0.8-cp310-abi3-win_amd64.whl", marker = "sys_platform == 'win32'" },
+]
+dbt-core-experimental-parser = [
+    { url = "https://github.com/dbt-labs/dbt/releases/download/v2.0.8/dbt_core_experimental_parser-2.0.8-py3-none-manylinux_2_28_x86_64.whl", marker = "sys_platform == 'linux'" },
+    { url = "https://github.com/dbt-labs/dbt/releases/download/v2.0.8/dbt_core_experimental_parser-2.0.8-py3-none-win_amd64.whl", marker = "sys_platform == 'win32'" },
+]

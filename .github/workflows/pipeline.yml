@@ -85,19 +85,26 @@ jobs:
           mkdir -p "$RUNNER_TEMP/sattrack-data/warehouse" "$RUNNER_TEMP/private"
           : > "$RUNNER_TEMP/private/run.log"
 
+      - name: Install uv
+        # Pinned like the other actions; uv itself is pinned too, so the lockfile checks are reproducible.
+        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2  # v10.3.3
+        with:
+          version: "0.13.7"
+          enable-cache: false
+
       - name: Install pipeline and report environments
-        # Hash-locked installs only (pip --require-hashes, --only-binary so nothing is built). The locks are
-        # compiled for Linux from requirements/*.in. dbt is the same dbt-oss 2.0.8 the laptop runs: its Linux
-        # wheel is pinned by URL and SHA-256 in requirements/pipeline.txt (the hash dbt publishes for it).
+        # Hash-locked installs from pipeline/uv.lock (one lockfile, one dependency group per environment).
+        # --locked fails if uv.lock is out of step with pyproject.toml; uv checks every file against its locked
+        # hash; --no-build refuses to build anything from source. dbt is the same dbt-oss 2.0.8 the laptop runs:
+        # dbt Labs' Linux release wheel, whose locked hash matches the SHA256SUMS they publish.
         working-directory: pipeline
         run: |
           set -euo pipefail
-          python -m venv "$RUNNER_TEMP/venv-pipeline"
-          "$RUNNER_TEMP/venv-pipeline/bin/pip" install --quiet --require-hashes --only-binary :all: -r requirements/pipeline.txt
-          python -m venv "$RUNNER_TEMP/venv-charts"
-          # titlecase (via dbt-charts) is published only as source: its sdist hash is checked, but pip does not
-          # hash-check the build tools it fetches to build it, so this env is binary-only except titlecase.
-          "$RUNNER_TEMP/venv-charts/bin/pip" install --quiet --require-hashes --only-binary :all: --no-binary titlecase -r requirements/charts.txt
+          PY="$(command -v python)"
+          UV_PROJECT_ENVIRONMENT="$RUNNER_TEMP/venv-pipeline" uv sync --quiet --locked --no-build --only-group pipeline --python "$PY"
+          # titlecase (via dbt-charts) is published only as source, so this environment may build that one
+          # package: its sdist hash is locked, but the build tools uv fetches to build it are not.
+          UV_PROJECT_ENVIRONMENT="$RUNNER_TEMP/venv-charts" uv sync --quiet --locked --only-group charts --python "$PY"
           "$RUNNER_TEMP/venv-pipeline/bin/dbt" --version | grep -q "2.0.8"
           echo "SATTRACK_DBT_BIN=$RUNNER_TEMP/venv-pipeline/bin/dbt" >> "$GITHUB_ENV"
           echo "SATTRACK_REPORTS_PYTHON=$RUNNER_TEMP/venv-charts/bin/python" >> "$GITHUB_ENV"

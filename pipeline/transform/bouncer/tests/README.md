@@ -12,7 +12,7 @@ resources as the runner does (`DictProxy` nodes, a `CheckContext`) and loads the
 
 ## Run
 
-From `transform/`, with the bouncer venv (it has dbt-bouncer and pytest; see `bouncer/requirements.txt`):
+From `transform/`, with the bouncer environment (dbt-bouncer and pytest: `uv sync --only-group bouncer` in `pipeline/`, group `bouncer` of `pipeline/uv.lock`):
 
 ```
 <bouncer venv>/Scripts/python.exe -m pytest bouncer/tests -q -p no:cacheprovider
