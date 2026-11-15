@@ -46,8 +46,8 @@ MIN_SATELLITE_ROWS = 1000   # the old pipeline's own sanity floor for a catalogu
 # The app's column contract per file: names and order the Dash app reads (SatTrack app/core/state.py and helpers).
 APP_COLUMNS = {
     "satcat_tle.csv": [
-        "SatCatId", "ObjectName", "LaunchYear", "OrbitalPeriod", "LaunchMass", "StatusCode", "Inclination", "Status",
-        "UcsData", "OrbitClassEstimated", "LaunchSiteCountry", "Owner", "UseType", "Purpose", "LaunchVehicleClass",
+        "SatCatId", "ObjectName", "LaunchYear", "OrbitalPeriod", "LaunchMass", "Inclination", "Status",
+        "LaunchSiteCountry", "Owner", "UseType", "Purpose", "LaunchVehicleClass",
         "TLE1", "TLE2", "MeanMotion", "Eccentricity", "OrbitClass",
     ],
     "last_data_update.csv": ["Source", "Last Download", "Last Update"],

@@ -1,6 +1,7 @@
 -- App export: satcat_tle.csv, the satellite file the live SatTrack Dash app loads (repo path dat/clean/satcat_tle.csv,
 -- read with a plain pandas.read_csv, no dtypes or parse_dates).
--- Same 20 columns, order and value formats as the old export (SatTrack src/pipeline/app_data_export/export_app_data.py).
+-- The old export's columns, order and value formats (SatTrack src/pipeline/app_data_export/export_app_data.py), less
+-- StatusCode, UcsData and OrbitClassEstimated: the app never read them and the new pipeline has no source for them.
 -- The app drops every row that has any missing value (DataFrame.dropna after propagation), so no column may be empty:
 -- text gaps are 'Unknown' and number gaps are -1.0, as in the old file.
 -- Scope matches the old app: Earth-orbiting payloads with a TLE and a positive period.
@@ -59,19 +60,8 @@ with cte_fct__satellite_master as (
         , launch_year
         , orbital_period
         , coalesce(mass_kg, -1.0) as launch_mass
-        -- CelesTrak operational status code: no source in the new pipeline; 'UNK' is the old file's own "no code" value
-        , 'UNK' as status_code
         , coalesce(inclination, -1.0) as inclination
         , coalesce(operational_status, 'Inactive') as operational_status
-        -- 1 when UCS data matched in the old pipeline; UCS is not a source of the new pipeline
-        , 0 as ucs_data
-        -- the old CelesTrak-import rule, period only: LEO <= 128 min, MEO < 1400, GSO 1400-1500, HEO above
-        , case
-            when orbital_period <= 128 then 'LEO'
-            when orbital_period < 1400 then 'MEO'
-            when orbital_period <= 1500 then 'GSO'
-            else 'HEO'
-        end as orbit_class_estimated
         , coalesce(site_location_country, 'Unknown') as launch_site_country
         , coalesce(owner_country, 'Unknown') as owner
         -- labels sorted and joined with '/', as the old pipeline standardised UCS Users
@@ -95,11 +85,8 @@ with cte_fct__satellite_master as (
         , cast(launch_year as bigint) as "LaunchYear"
         , cast(orbital_period as double) as "OrbitalPeriod"
         , cast(launch_mass as double) as "LaunchMass"
-        , cast(status_code as varchar) as "StatusCode"
         , cast(inclination as double) as "Inclination"
         , cast(operational_status as varchar) as "Status"
-        , cast(ucs_data as bigint) as "UcsData"
-        , cast(orbit_class_estimated as varchar) as "OrbitClassEstimated"
         , cast(launch_site_country as varchar) as "LaunchSiteCountry"
         , cast(owner as varchar) as "Owner"
         , cast(use_type as varchar) as "UseType"

@@ -7,11 +7,12 @@ version: 2
 analyses:
   - name: app__satcat_tle
     description: >-
-      satcat_tle.csv for the app: one row per Earth-orbiting payload with a TLE, in the old file's 20 columns
-      (SatCatId ... OrbitClass), with 'Unknown' / -1.0 for gaps because the app drops rows with any missing value.
+      satcat_tle.csv for the app: one row per Earth-orbiting payload with a TLE, in the old file's columns
+      (SatCatId ... OrbitClass) less StatusCode, UcsData and OrbitClassEstimated (17 columns), with 'Unknown' / -1.0
+      for gaps because the app drops rows with any missing value.
       Reads only fct__satellite_master.
   - name: app__last_data_update
     description: >-
-      last_data_update.csv for the app: Source, Last Download, Last Update (dd/mm/YYYY, HH:MM:SS). The app shows
-      the Celestrak_TLE row's Last Update, which now carries the Space-Track GP download time. Reads only
+      last_data_update.csv for the app: Source, Last Download, Last Update (dd/mm/YYYY, HH:MM:SS); rows SpaceTrack_GP
+      and GCAT. The app shows the SpaceTrack_GP row's Last Update (the Space-Track GP download time). Reads only
       fct__satellite_master.
