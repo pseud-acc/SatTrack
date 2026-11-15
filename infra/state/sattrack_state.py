@@ -27,7 +27,9 @@ Rules (fail closed, keep last good data):
 
 Commands:
   pull  [--force] [--min-hours H]     download state; writes run=true|false to $GITHUB_OUTPUT
-  push  --pipeline-exit N [--log-file P]
+  push  --pipeline-exit N [--log-file P] [--dry-run]
+        --dry-run: upload the run's private log and report what would be promoted, but write nothing else
+        (no DBs, raw history, manifest, pages or app data): the committed state is left exactly as it was.
   seed                                one-time, run by the admin from the laptop (phase 1 cutover)
 """
 from __future__ import annotations
@@ -243,6 +245,9 @@ def cmd_push(args) -> int:
     promote_live = finished and status in PROMOTABLE_STATUSES and live_db_ok(wh / "sattrack.duckdb")
     log(f"pipeline finished={finished} status={status if finished else 'n/a'} exit={args.pipeline_exit} "
         f"-> promote live={promote_live}")
+    if args.dry_run:
+        log("dry run: log uploaded; no DB, raw history, manifest, page or app data written (state unchanged)")
+        return 0 if finished and args.pipeline_exit == 0 else 1
 
     # Raw history is write-once per run: upload whatever this run landed (also on a held build).
     raw = d / "raw_history"
@@ -314,6 +319,7 @@ def main() -> int:
     ps = sub.add_parser("push")
     ps.add_argument("--pipeline-exit", type=int, required=True)
     ps.add_argument("--log-file")
+    ps.add_argument("--dry-run", action="store_true", default=os.environ.get("SATTRACK_DRY_RUN") == "true")
     sub.add_parser("seed")
     args = p.parse_args()
     return {"pull": cmd_pull, "push": cmd_push, "seed": cmd_seed}[args.cmd](args)
