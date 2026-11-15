@@ -1,22 +1,37 @@
 # SatTrack
 
-**Version:** 2.0.1
+**Version:** 2.1.0
 
 ## Description
 
 This repository contains python scripts to run the SatTrack App - an open-source real-time satellite tracking app - for visualising active and inactive satellites orbiting the Earth. The latest version of the app is hosted at [https://sattrackapp.herokuapp.com/](https://sattrackapp.herokuapp.com/).
 
-The project consists of two parts - (1) data pipeline; (2) interactive app. In the data pipeline, satellite catalogue and TLE data is pulled from CelesTrak, UCS (Union of Concerned Scientists) and space.skyrocket via web scrapers and API calls into a SQLite database. The interactive app is a Dash app (which can be hosted on Heroku) in which satellite TLE data is converted into a real-time satellite position and satellite catalogue data is used to filter 2d and 3d visualisations. The app also allows satellite position data to be exported in tabular form (to a csv).
+The project consists of two parts - (1) a data pipeline; (2) an interactive app. The interactive app is a Dash app (hosted on Heroku) in which satellite TLE data is converted into a real-time satellite position and satellite catalogue data is used to filter 2d and 3d visualisations. The app also allows satellite position data to be exported in tabular form (to a csv).
+
+The data pipeline is being replaced:
+- **Current (legacy, `src/`):** pulls satellite catalogue and TLE data from CelesTrak, UCS (Union of Concerned Scientists) and space.skyrocket via web scrapers and API calls, and publishes the CSVs in `dat/` that the live app reads. It is retired once the new pipeline is live.
+- **New (`pipeline/`):** ingests Space-Track GP orbital data (USSPACECOM via Space-Track.org) and Jonathan McDowell's GCAT catalogue, and models them with dbt on DuckDB. It is designed to run daily on GitHub Actions with its state in a private S3 bucket (`infra/`); the app will read its output from there. Column definitions and lineage: https://pseud-acc.github.io/SatTrack/
 
 ## Pipeline/App Features
 
-- Checks CelesTrak and UCS webpages for most recent update
-- Downloads satellite catalogue and TLE data from CelesTrak website
-- Downloads satellite catalogue data from UCS website
 - 3D visualisation of (current) active/inactive satellite positions
 - 3D visualisation of satellite orbital path
 - 2D real-time satellite tracker (shows latitude, longitude and altitude)
 - Tabular export (to csv) of satellite details and position
+- Filters by owner, launch vehicle, purpose, orbit and launch year
+- New pipeline: unattended daily ingestion from Space-Track and GCAT, dbt models with tests and documented columns, a health report and data summary per run
+
+## Repository Layout
+
+| Path | What |
+|---|---|
+| `app/`, `assets/`, `static/`, `run_app.py`, `Procfile`, `pyproject.toml`, `uv.lock` | The Dash app, deployed to Heroku (uv project) |
+| `pipeline/` | The new data pipeline: `ingestion/`, `transform/` (dbt), `scripts/`, `run_pipeline.py`; its own uv project (`pipeline/pyproject.toml`, `pipeline/uv.lock`) |
+| `infra/` | AWS CloudFormation stacks and the S3 state helper for the scheduled pipeline |
+| `.github/` | Workflows (pipeline run, docs site), Dependabot, CODEOWNERS |
+| `src/`, `dat/`, `run_pipeline.py` (root) | Legacy pipeline and its published CSVs; removed at cutover |
+
+`.slugignore` keeps `pipeline/` and `infra/` out of the Heroku build.
 
 ## Requirements
 
@@ -24,14 +39,15 @@ The project consists of two parts - (1) data pipeline; (2) interactive app. In t
 - Python 3.12 or higher
 
 ### Dependencies
-Key dependencies (see [pyproject.toml](pyproject.toml) for full list):
-- Dash 2.12.1
-- Plotly 5.7.0
-- Dash Bootstrap Components 1.1.0
-- Astropy 5.0.4
-- NumPy 1.22.3
-- Pandas 1.4.2
-- SGP4 2.21
+The app installs only what it imports, plus gunicorn (see [pyproject.toml](pyproject.toml); exact versions in `uv.lock`):
+- Dash 2.18
+- Dash Bootstrap Components 1.7
+- Plotly 5.24
+- NumPy 1.26
+- Pandas 2.3
+- Pillow 10.4
+- SGP4 2.25
+- gunicorn 20.1 (web server on Heroku)
 
 ## Installation
 
@@ -76,17 +92,19 @@ build when it finds more than one package manager file.
 
 ## Run Pipeline
 
-Run the data pipeline to extract, clean and dump satellite catalogue and TLE data:
-
-**Using uv:**
+**New pipeline (`pipeline/`):** a separate uv project with one dependency group per environment
+(`pipeline`, `charts`, `docs`, `bouncer`). In normal operation it runs on GitHub Actions
+(`.github/workflows/pipeline.yml`); for a local run:
 ```bash
-uv run python run_pipeline.py
+cd pipeline
+uv sync                      # the `pipeline` group (dbt, DuckDB, ingestion)
+uv run python run_pipeline.py --help
 ```
+It needs Space-Track credentials and a private data folder outside the repo (`SATTRACK_DATA_DIR`).
 
-**Using pip:**
-```bash
-python run_pipeline.py
-```
+**Legacy pipeline (`src/`, root `run_pipeline.py`):** its packages (beautifulsoup4, nltk, ...) are no
+longer in the app's environment, so run it from an environment that still has them. It is retired at
+cutover.
 
 ## Run App
 
@@ -167,12 +185,13 @@ Before deploying, verify:
 
 See [CHANGELOG.md](CHANGELOG.md) for detailed version history and release notes.
 
-### Current Version: 2.0.1
+### Current Version: 2.1.0
 
-#### Latest Updates (2.0.1)
-- Fixed Heroku deployment issue with Poetry
-- Configured for Python 3.12 compatibility
-- Improved responsive text sizing for mobile devices
+#### Latest Updates (2.1.0)
+- Dependency management moved from Poetry + `requirements.txt` to uv; the app installs only what it uses (Heroku slug 275 MB → 111 MB)
+- The new data pipeline (`pipeline/`) and its AWS infrastructure (`infra/`) now live in this repository
+- Fixed the launch-year filter slider stopping at 2025; it now runs to the current year
+- Column documentation site: https://pseud-acc.github.io/SatTrack/
 
 #### Key Features (2.0.0)
 - Upgraded to Python 3.12
@@ -185,13 +204,10 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed version history and release notes.
 - CSV export functionality
 
 #### Planned Improvements (Future Versions)
+- Switch the app to the new pipeline's data (S3), then retire the legacy pipeline
 - Satellite pass predictor visualisation
 - Satellite pass predictor export
-- Enhanced logging for data pipeline
 - Satellite informational page
-- S3 migration
-- DuckDB migration
-- Airflow automation
 
 ## Versioning
 
