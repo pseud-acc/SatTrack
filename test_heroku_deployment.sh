@@ -9,13 +9,13 @@ echo "========================================="
 echo ""
 
 # 1. Check Python version
-echo "✓ Checking Python version..."
-python --version | grep "3.12" && echo "  Python 3.12 detected!" || { echo "  ERROR: Python 3.12 not found!"; exit 1; }
+echo "✓ Checking the pinned Python version..."
+grep -q "^3.12" .python-version && echo "  .python-version pins Python 3.12!" || { echo "  ERROR: .python-version does not pin 3.12!"; exit 1; }
 echo ""
 
 # 2. Check required files exist
 echo "✓ Checking required files..."
-for file in requirements.txt runtime.txt Procfile; do
+for file in pyproject.toml uv.lock .python-version Procfile; do
     if [ -f "$file" ]; then
         echo "  Found: $file"
     else
@@ -25,27 +25,26 @@ for file in requirements.txt runtime.txt Procfile; do
 done
 echo ""
 
-# 3. Verify requirements.txt is clean (no version markers)
-echo "✓ Checking requirements.txt format..."
-if grep -q " ; python_version" requirements.txt; then
-    echo "  WARNING: Found Python version markers in requirements.txt"
-    echo "  Run: poetry export -f requirements.txt --output requirements_temp.txt --without-hashes --without dev"
-    echo "       python -c \"import re; content = open('requirements_temp.txt').read(); open('requirements.txt', 'w').write(re.sub(r' ;.*', '', content))\""
-    exit 1
-else
-    echo "  requirements.txt is clean!"
-fi
+# 3. Exactly one package manager file at the root (Heroku's buildpack refuses several)
+echo "✓ Checking for conflicting package manager files..."
+for file in requirements.txt poetry.lock Pipfile.lock; do
+    if [ -f "$file" ]; then
+        echo "  ERROR: $file found next to uv.lock; Heroku would stop the build"
+        exit 1
+    fi
+done
+echo "  Only uv.lock found!"
 echo ""
 
-# 4. Test install from requirements.txt
-echo "✓ Testing installation from requirements.txt..."
-echo "  (This may take a few minutes...)"
-pip install -q -r requirements.txt && echo "  All dependencies installed successfully!" || { echo "  ERROR: Failed to install dependencies!"; exit 1; }
+# 4. Lockfile in step with pyproject.toml, then install exactly what Heroku installs
+echo "✓ Checking uv.lock and installing the app dependencies (as Heroku does)..."
+uv lock --check && echo "  uv.lock matches pyproject.toml!" || { echo "  ERROR: run 'uv lock' and commit uv.lock"; exit 1; }
+uv sync --locked --no-default-groups && echo "  All dependencies installed successfully!" || { echo "  ERROR: Failed to install dependencies!"; exit 1; }
 echo ""
 
 # 5. Test gunicorn
 echo "✓ Testing gunicorn..."
-which gunicorn > /dev/null && echo "  gunicorn is installed!" || { echo "  ERROR: gunicorn not found!"; exit 1; }
+uv run --no-sync python -c "import gunicorn" && echo "  gunicorn is installed!" || { echo "  ERROR: gunicorn not found!"; exit 1; }
 echo ""
 
 # 6. Verify Procfile syntax
@@ -55,12 +54,12 @@ echo ""
 
 # 7. Test app import
 echo "✓ Testing app import..."
-python -c "from run_app import server; print('  App imports successfully!')" || { echo "  ERROR: Failed to import app!"; exit 1; }
+uv run --no-sync python -c "from run_app import server; print('  App imports successfully!')" || { echo "  ERROR: Failed to import app!"; exit 1; }
 echo ""
 
 # 8. Optional: Start gunicorn test (timeout after 5s)
 echo "✓ Testing gunicorn startup (5 second test)..."
-timeout 5s gunicorn run_app:server --bind 0.0.0.0:8000 2>/dev/null || true
+timeout 5s uv run --no-sync gunicorn run_app:server --bind 0.0.0.0:8000 2>/dev/null || true
 echo "  Gunicorn startup test completed!"
 echo ""
 

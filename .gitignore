@@ -22,3 +22,5 @@ run_pipeline_script.sh
 # Heroku uses requirements.txt (auto-generated via GitHub Actions)
 # Poetry is for local development only
 poetry.lock
+# uv virtual environment (uv sync)
+.venv/

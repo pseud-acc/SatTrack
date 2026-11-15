@@ -35,95 +35,52 @@ Key dependencies (see [pyproject.toml](pyproject.toml) for full list):
 
 ## Installation
 
-This project uses [Poetry](https://python-poetry.org/) for dependency management.
-
-### Option 1: Using Poetry (Recommended)
-
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd SatTrack
-   ```
-
-2. Install Poetry if you haven't already:
-   ```bash
-   pip install poetry
-   ```
-
-3. Install dependencies using Poetry:
-   ```bash
-   poetry install
-   ```
-   This will create a virtual environment and install all dependencies specified in `pyproject.toml`.
-
-4. Activate the Poetry shell:
-   ```bash
-   poetry shell
-   ```
-
-### Option 2: Using pip (Legacy)
+This project uses [uv](https://docs.astral.sh/uv/) for dependency management. The app (repo root) and the
+data pipeline (`pipeline/`) are separate uv projects, each with its own `pyproject.toml` and `uv.lock`, so the
+Heroku app only ever installs the app's own dependencies.
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/pseud-acc/SatTrack.git
    cd SatTrack
    ```
 
-2. Create and activate a virtual environment with Python 3.12:
+2. Install uv if you haven't already (see https://docs.astral.sh/uv/getting-started/installation/), e.g.:
    ```bash
-   py -3.12 -m venv venv
-   source venv/Scripts/activate  # On Windows Git Bash
-   # or
-   venv\Scripts\activate  # On Windows CMD
+   winget install --id=astral-sh.uv -e   # Windows
    ```
 
-3. Install required packages:
+3. Create the virtual environment (`.venv/`) with the locked app dependencies and the dev tools:
    ```bash
-   pip install -r requirements.txt
-   ``` 
+   uv sync
+   ```
 
 ## Dependency Management
 
-This project uses Poetry for dependency management. The `requirements.txt` file is automatically generated from `pyproject.toml` for Heroku deployment compatibility.
+`pyproject.toml` lists what the app imports, plus gunicorn (the Procfile's web server). `uv.lock` pins
+every package, with hashes. Heroku detects `uv.lock` and installs from it with
+`uv sync --locked --no-default-groups`, i.e. the app dependencies only, never the `dev` group.
 
 ### Updating Dependencies
 
-When you add, update, or remove dependencies in `pyproject.toml`:
-
-#### Option 1: Automatic Sync (Recommended)
-Simply push your changes to GitHub. The GitHub Action workflow will automatically:
-- Install dependencies
-- Update `requirements.txt`
-- Commit the changes to your PR
-
-**No manual action required!**
-
-#### Option 2: Manual Sync (Local Convenience)
-For immediate local verification before pushing:
-
 ```bash
-# Run the sync script
-./sync_dependencies.sh
+uv add <package>            # add an app dependency (updates pyproject.toml and uv.lock)
+uv add --dev <package>      # add a dev-only tool (pytest, black, ...)
+uv remove <package>
+uv lock --upgrade-package <package>   # upgrade one package within its range
 ```
 
-This script will:
-1. Install dependencies with Poetry
-2. Update `requirements.txt`
-3. Show you what changed
-4. Provide next steps
-
-**Manual update (if you prefer one-liners):**
-```bash
-poetry install && poetry export -f requirements.txt --output requirements_temp.txt --without-hashes --without dev && python -c "import re; content = open('requirements_temp.txt').read(); open('requirements.txt', 'w').write(re.sub(r' ;.*', '', content))" && rm requirements_temp.txt
-```
+Commit `pyproject.toml` and `uv.lock` together. `uv lock --check` fails if they're out of step.
+Don't add a `requirements.txt` or `poetry.lock` at the repo root: Heroku's Python buildpack stops the
+build when it finds more than one package manager file.
 
 ## Run Pipeline
 
 Run the data pipeline to extract, clean and dump satellite catalogue and TLE data:
 
-**Using Poetry:**
+**Using uv:**
 ```bash
-poetry run python run_pipeline.py
+uv run python run_pipeline.py
 ```
 
 **Using pip:**
@@ -133,12 +90,12 @@ python run_pipeline.py
 
 ## Run App
 
-**Using Poetry:**
+**Using uv:**
 ```bash
-poetry run python run_app.py
+uv run python run_app.py
 ```
 
-**Using pip:**
+**With the virtual environment activated:**
 ```bash
 python run_app.py
 ```
@@ -189,8 +146,8 @@ heroku open --app sattrack-staging
 If you're on Linux or Mac, you can test with gunicorn directly:
 
 ```bash
-# Install dependencies
-pip install -r requirements.txt
+# Install dependencies (app only, as on Heroku)
+uv sync --locked --no-default-groups
 
 # Test with gunicorn (same as Heroku)
 gunicorn run_app:server
@@ -201,8 +158,8 @@ Visit http://localhost:8000 to verify.
 
 Before deploying, verify:
 - ✅ App runs locally with Python 3.12 (`python --version`)
-- ✅ All dependencies install from `requirements.txt`
-- ✅ `runtime.txt` specifies `python-3.12`
+- ✅ `uv lock --check` passes (`uv.lock` matches `pyproject.toml`)
+- ✅ `.python-version` specifies `3.12`
 - ✅ `Procfile` contains `web: gunicorn run_app:server`
 - ✅ No errors in the app functionality
 
