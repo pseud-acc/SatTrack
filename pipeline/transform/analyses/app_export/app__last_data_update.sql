@@ -1,9 +1,7 @@
--- App export: last_data_update.csv, the data-freshness file the live SatTrack Dash app loads (repo path
--- dat/meta/last_data_update.csv). The app reads only the 'Last Update' of the row whose Source is 'Celestrak_TLE'
--- and shows it in the page header as "Last updated: <value>", so that row keeps its old name.
+-- App export: last_data_update.csv, the data-freshness file the SatTrack Dash app loads. The app reads the
+-- 'Last Update' of the row whose Source is 'SpaceTrack_GP' and shows it in the page header as "Last updated: <value>".
 -- Timestamps use the old file's format, dd/mm/YYYY, HH:MM:SS (UTC here).
---   Celestrak_TLE  compatibility row for the app: when the element sets (now Space-Track GP) were downloaded
---   SpaceTrack_GP  the same time under the publisher's own name
+--   SpaceTrack_GP  when the element sets (Space-Track GP) were downloaded
 --   GCAT           GCAT's own last-updated time for the catalogue; its download time is not kept in the marts
 with cte_fct__satellite_master as (
     select
@@ -20,14 +18,6 @@ with cte_fct__satellite_master as (
 )
 
 , cte_sources as (
-    select
-        'Celestrak_TLE' as source
-        , positions_as_of as last_download
-        , positions_as_of as last_update
-    from cte_as_of
-
-    union all
-
     select
         'SpaceTrack_GP' as source
         , positions_as_of as last_download

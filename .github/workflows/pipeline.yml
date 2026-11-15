@@ -61,7 +61,7 @@ jobs:
       id-token: write
     env:
       AWS_REGION: ${{ vars.AWS_REGION }}
-      SATTRACK_BUCKET: ${{ secrets.SATTRACK_BUCKET }}
+      SATTRACK_S3_BUCKET: ${{ secrets.SATTRACK_S3_BUCKET }}
       SATTRACK_TRIGGER: ${{ inputs.trigger }}
       SATTRACK_FORCE: ${{ inputs.force && 'true' || 'false' }}
       # A dry run still calls Space-Track (it is a full run); only the final commit to S3 is skipped.

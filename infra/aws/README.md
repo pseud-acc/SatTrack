@@ -89,7 +89,7 @@ Space-Track login-backoff counter and the freshness timestamps.
 
 ```bash
 aws sso login --profile admin
-export AWS_PROFILE=admin SATTRACK_BUCKET=<private-bucket-name> SATTRACK_DATA_DIR=<laptop data dir> AWS_REGION=eu-west-1
+export AWS_PROFILE=admin SATTRACK_S3_BUCKET=<private-bucket-name> SATTRACK_DATA_DIR=<laptop data dir> AWS_REGION=eu-west-1
 python infra/state/sattrack_state.py seed     # uses your SSO admin session; refuses if state already exists
 ```
 
@@ -113,7 +113,7 @@ Settings:
   = require approval for all external contributors.
 - **Environments → New `production`**: *Deployment branches and tags* = *Selected branches*, rule `main`.
   **No required reviewer** (the run is unattended; the main-only branch rule is the gate). Environment secrets:
-  `AWS_PIPELINE_ROLE_ARN` (stack output), `SATTRACK_BUCKET`, `SATTRACK_SPACETRACK_SECRET_ID` (secret ARN).
+  `AWS_PIPELINE_ROLE_ARN` (stack output), `SATTRACK_S3_BUCKET`, `SATTRACK_SPACETRACK_SECRET_ID` (secret ARN).
   These are identifiers, not credentials; they are secrets only so they are masked in public logs.
 - **Variables**: repository variable `AWS_REGION` = `eu-west-1`.
 - **Rules → Rulesets** on `main`: block force pushes and deletion; require a pull request with code-owner
@@ -138,11 +138,11 @@ page. The patch is `agents/hosting2/app_s3_read.patch` (not applied). It falls b
 Create the key in the console (IAM → Users → sattrack-app-reader → *Create access key* →
 *Application running outside AWS*), not with the CLI, so it is never echoed into a terminal or shell
 history file, and paste the pair straight into Heroku → app → Settings → *Config Vars*. The equivalent variables
-(set `SATTRACK_S3_BUCKET` last: it is the switch from GitHub URLs to S3):
+(set `SATTRACK_S3_BUCKET` last: it is the switch from GitHub URLs to S3; the same name the pipeline uses):
 
 ```bash
-heroku config:set -a sattrackapp AWS_ACCESS_KEY_ID=<id> AWS_SECRET_ACCESS_KEY=<secret> AWS_DEFAULT_REGION=eu-west-1
-heroku config:set -a sattrackapp SATTRACK_S3_BUCKET=<bucket>       # SATTRACK_S3_PREFIX defaults to app/
+heroku config:set -a sattrackapp AWS_ACCESS_KEY_ID=<id> AWS_SECRET_ACCESS_KEY=<secret> AWS_REGION=eu-west-1
+heroku config:set -a sattrackapp SATTRACK_S3_BUCKET=<bucket>          # the app reads app/current.json
 ```
 Rotate every 90 days: create the second key, update Heroku, confirm the app loads, deactivate then delete the old key.
 
