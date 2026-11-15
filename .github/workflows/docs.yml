@@ -101,7 +101,7 @@ jobs:
           DBTERD: ${{ runner.temp }}/erd_venv/bin/dbterd
         run: |
           set -euo pipefail
-          scripts/erd/build_erd.sh "$RUNNER_TEMP/docs_target" "$RUNNER_TEMP/site"
+          bash scripts/erd/build_erd.sh "$RUNNER_TEMP/docs_target" "$RUNNER_TEMP/site"
           test -s "$RUNNER_TEMP/site/erd/erd_marts.svg"
 
       - name: Upload Pages artifact
