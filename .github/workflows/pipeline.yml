@@ -30,6 +30,10 @@ on:
         description: Run even if a successful run committed in the last 12 hours
         type: boolean
         default: false
+      dry_run:
+        description: "Dry run: pull state and run the pipeline, upload only the private log; commit nothing to S3"
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -60,6 +64,8 @@ jobs:
       SATTRACK_BUCKET: ${{ secrets.SATTRACK_BUCKET }}
       SATTRACK_TRIGGER: ${{ inputs.trigger }}
       SATTRACK_FORCE: ${{ inputs.force && 'true' || 'false' }}
+      # A dry run still calls Space-Track (it is a full run); only the final commit to S3 is skipped.
+      SATTRACK_DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
       SATTRACK_GIT_SHA: ${{ github.sha }}
       SATTRACK_RUNNER: github-actions
       PYTHONUNBUFFERED: "1"
@@ -161,7 +167,7 @@ jobs:
           aws-region: ${{ vars.AWS_REGION }}
           mask-aws-account-id: true
 
-      - name: Commit state (promote only a good build)
+      - name: Commit state (promote only a good build; dry run = upload the log only)
         if: always() && steps.gate.outputs.run == 'true'
         env:
           PIPELINE_EXIT: ${{ steps.run.outputs.exit_code || '99' }}
