@@ -2,6 +2,8 @@
 Advanced filters component (owner, launch vehicle, purpose, launch year).
 """
 
+from datetime import datetime, timezone
+
 from dash import dcc, html
 import dash_bootstrap_components as dbc
 from app.helper.helper__filter_display import format_year_slider_output
@@ -66,9 +68,12 @@ def create_advanced_filters(options):
                 }),
 
                 # Range slider
+                # Fixed bounds, independent of the data: 1958 to the current year (UTC), read each
+                # time the page is built, so the slider reaches this year's launches without a code
+                # change. The starting value still comes from the data ([1958, 2026] on 2026-11-15).
                 dcc.RangeSlider(
                     min=1958,
-                    max=2025,
+                    max=datetime.now(timezone.utc).year,
                     step=1,
                     value=options["launchyear"],
                     marks={},
