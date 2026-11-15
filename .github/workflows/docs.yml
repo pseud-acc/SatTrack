@@ -5,7 +5,7 @@
 #   * `docs generate --output-dir` writes only the files the site loads (index.html, assets/, info_schema/) to the
 #     site dir. The target dir (compiled SQL, manifest, catalog, stored test failures) is never uploaded.
 #   * The entity relationship diagram of the marts is built from that manifest by scripts/erd/build_erd.sh (the
-#     `fk__*` relationships tests; dbterd + PyYAML pinned in requirements-docs.txt) and rendered to SVG by the
+#     `fk__*` relationships tests; dbterd + PyYAML locked in pipeline/uv.lock, group `docs`) and rendered to SVG by the
 #     pinned @mermaid-js/mermaid-cli with the runner's Chrome. It is the only thing copied into the site besides
 #     dbt's own files: erd/erd_marts.svg, .mmd and .dbml, embedded in the overview page (transform/docs/overview.md).
 #   * DO_NOT_TRACK=1 turns off the telemetry flag dbt writes into the generated page.
@@ -23,8 +23,8 @@ on:
     paths:
       - pipeline/transform/**
       - pipeline/scripts/erd/**
-      - pipeline/requirements/pipeline.txt
-      - pipeline/requirements/docs.txt
+      - pipeline/pyproject.toml
+      - pipeline/uv.lock
       - .github/workflows/docs.yml
   workflow_dispatch:
 
@@ -61,20 +61,22 @@ jobs:
         with:
           python-version: "3.12.3"
 
-      - name: Install dbt
-        # Same hash-locked environment as pipeline.yml (dbt-oss 2.0.8 pinned by URL and SHA-256).
-        working-directory: pipeline
-        run: |
-          set -euo pipefail
-          python -m venv "$RUNNER_TEMP/venv"
-          "$RUNNER_TEMP/venv/bin/pip" install --quiet --require-hashes --only-binary :all: -r requirements/pipeline.txt
+      - name: Install uv
+        # Pinned like the other actions; uv itself is pinned too, so the lockfile checks are reproducible.
+        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2  # v10.3.3
+        with:
+          version: "0.13.7"
+          enable-cache: false
 
-      - name: Install dbterd
+      - name: Install dbt and dbterd
+        # Same hash-locked environments as pipeline.yml, from pipeline/uv.lock: the `pipeline` group (dbt) and
+        # the `docs` group (dbterd + PyYAML), each in its own folder. Nothing is built from source.
         working-directory: pipeline
         run: |
           set -euo pipefail
-          python -m venv "$RUNNER_TEMP/erd_venv"
-          "$RUNNER_TEMP/erd_venv/bin/pip" install --quiet --require-hashes --only-binary :all: -r requirements/docs.txt
+          PY="$(command -v python)"
+          UV_PROJECT_ENVIRONMENT="$RUNNER_TEMP/venv" uv sync --quiet --locked --no-build --only-group pipeline --python "$PY"
+          UV_PROJECT_ENVIRONMENT="$RUNNER_TEMP/erd_venv" uv sync --quiet --locked --no-build --only-group docs --python "$PY"
 
       - name: Generate docs against an empty database
         working-directory: pipeline/transform

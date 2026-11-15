@@ -32,11 +32,11 @@ updates:
           - "*"
     labels:
       - dependencies
-  # The CI locks requirements/{pipeline,charts,docs}.txt, compiled with hashes from the .in files beside them.
-  # Dependabot leaves the two URL-pinned dbt wheels alone: bump those by hand (new URL + the sha256 from the
-  # release's assets.json) together with requirements.txt and the laptop venv.
-  - package-ecosystem: pip
-    directory: /pipeline/requirements
+  # The pipeline (pipeline/): pipeline/uv.lock, one dependency group per environment (pipeline, charts, docs,
+  # bouncer). Dependabot leaves the URL-pinned dbt wheels alone: bump those by hand in pipeline/pyproject.toml
+  # (both platform URLs), run `uv lock`, and check the locked hashes against the release's SHA256SUMS.
+  - package-ecosystem: uv
+    directory: /pipeline
     schedule:
       interval: weekly
       day: monday

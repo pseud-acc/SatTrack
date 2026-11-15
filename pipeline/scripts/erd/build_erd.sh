@@ -16,7 +16,7 @@
 #   npx   (default) the pinned @mermaid-js/mermaid-cli with the Chrome on the runner (CI)
 #   edge  scripts/erd/mermaid_to_svg_edge.py, headless Edge on Windows (local, no Node needed)
 #   none  skip the SVG
-# Needs dbterd and PyYAML in the Python environment (requirements-docs.txt).
+# Needs dbterd and PyYAML in the Python environment (pipeline/uv.lock, group `docs`: uv sync --only-group docs).
 set -euo pipefail
 
 TARGET=${1:?usage: build_erd.sh <target_dir> <site_dir>}
