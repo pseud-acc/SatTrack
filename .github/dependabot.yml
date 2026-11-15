@@ -17,6 +17,21 @@ updates:
           - "*"
     labels:
       - dependencies
+  # The app (repo root): uv.lock, which Heroku installs from. One grouped weekly PR; each one must pass the
+  # Heroku build test before merging, like any other change.
+  - package-ecosystem: uv
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    cooldown:
+      default-days: 7
+    groups:
+      app:
+        patterns:
+          - "*"
+    labels:
+      - dependencies
   # The CI locks requirements/{pipeline,charts,docs}.txt, compiled with hashes from the .in files beside them.
   # Dependabot leaves the two URL-pinned dbt wheels alone: bump those by hand (new URL + the sha256 from the
   # release's assets.json) together with requirements.txt and the laptop venv.
