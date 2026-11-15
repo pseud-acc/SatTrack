@@ -393,7 +393,7 @@ Outputs:
     Description: Put in the GitHub environment secret AWS_PIPELINE_ROLE_ARN.
     Value: !GetAtt PipelineRole.Arn
   BucketName:
-    Description: Put in the GitHub environment secret SATTRACK_BUCKET and the Heroku config var of the same name.
+    Description: Put in the GitHub environment secret SATTRACK_S3_BUCKET and the Heroku config var of the same name.
     Value: !Ref DataBucket
   AppReaderUserName:
     Description: Create its access key by hand (README step 7); never in CloudFormation.

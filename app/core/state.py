@@ -51,7 +51,7 @@ def read_app_csvs_from_s3(bucket):
     The pipeline writes app/current.json last; it names the exact object version and SHA-256 of each csv,
     so both files always come from the same run. Error text carries only the exception type, never keys.
 
-    @param bucket: (str) bucket name (SATTRACK_BUCKET, the same variable the pipeline uses)
+    @param bucket: (str) bucket name (SATTRACK_S3_BUCKET, the same variable the pipeline uses)
     @return satcat, metadata: dataframes
     '''
     import boto3
@@ -91,13 +91,13 @@ def import_app_data(satcat_loc, img_loc, metadata_loc, res):
 
     ## Satellite catalogue data - contains TLEs
 
-    # Private S3 bucket when SATTRACK_BUCKET is set, otherwise the raw GitHub urls (satcat_loc, metadata_loc)
-    s3_bucket = os.environ.get("SATTRACK_BUCKET")
+    # Private S3 bucket when SATTRACK_S3_BUCKET is set, otherwise the raw GitHub urls (satcat_loc, metadata_loc)
+    s3_bucket = os.environ.get("SATTRACK_S3_BUCKET")
     if s3_bucket:
         satcat, metadata = read_app_csvs_from_s3(s3_bucket)
         data_source = "s3"        # new pipeline: Space-Track + GCAT
     else:
-        print(" - Data source: GitHub (SATTRACK_BUCKET not set)")
+        print(" - Data source: GitHub (SATTRACK_S3_BUCKET not set)")
         satcat = pd.read_csv(satcat_loc)
         print(f"   - {satcat_loc}: {len(satcat):,} rows")
         metadata = pd.read_csv(metadata_loc)

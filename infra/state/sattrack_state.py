@@ -66,9 +66,9 @@ def s3():
 
 
 def bucket() -> str:
-    name = os.environ.get("SATTRACK_BUCKET")
+    name = os.environ.get("SATTRACK_S3_BUCKET")
     if not name:
-        sys.exit("SATTRACK_BUCKET is not set")
+        sys.exit("SATTRACK_S3_BUCKET is not set")
     return name
 
 
