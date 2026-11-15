@@ -5,7 +5,7 @@
 # reach Heroku.
 [project]
 name = "sattrack"
-version = "2.0.1"
+version = "2.1.0"
 description = "An open-source real-time satellite tracking app for visualising active and inactive satellites orbiting the Earth"
 authors = [{ name = "Francis Nwobu" }]
 readme = "README.md"

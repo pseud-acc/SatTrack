@@ -18,7 +18,9 @@ updates:
     labels:
       - dependencies
   # The app (repo root): uv.lock, which Heroku installs from. One grouped weekly PR; each one must pass the
-  # Heroku build test before merging, like any other change.
+  # Heroku build test before merging, like any other change. Minor and patch updates only: a major version
+  # (e.g. dash 2 -> 4, numpy 1 -> 2) is a planned upgrade with the callback and Heroku build tests, not a
+  # routine weekly merge (PR #22 bumped every app package across majors at once and was closed).
   - package-ecosystem: uv
     directory: /
     schedule:
@@ -26,6 +28,10 @@ updates:
       day: monday
     cooldown:
       default-days: 7
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - version-update:semver-major
     groups:
       app:
         patterns:

@@ -23,13 +23,36 @@ When creating pull requests, use the following prefixes to indicate the type of 
 - Track work in progress here
 
 ### Changed
+
+### Fixed
+
+## [2.1.0] - 2026-11-15
+
+### Added
+- New data pipeline in `pipeline/` (#17): Space-Track GP + GCAT ingestion, dbt models on DuckDB, health report and data summary per run, with its history kept
+- AWS infrastructure in `infra/` (CloudFormation stacks, S3 state helper) and workflows for the scheduled pipeline run and the docs site (#17)
+- Column documentation site on GitHub Pages: https://pseud-acc.github.io/SatTrack/ (#19 fixed its diagram build)
+- `.slugignore`, so `pipeline/` and `infra/` stay out of the Heroku build
+- `main` branch ruleset: no force pushes, no branch deletion
+
+### Changed
+- App dependencies managed with uv instead of Poetry + `requirements.txt` (#20)
+  - Heroku installs from `uv.lock` (`uv sync --locked --no-default-groups`)
+  - Only what the app imports, plus gunicorn: dash, dash-bootstrap-components, numpy, pandas, pillow, plotly, sgp4; versions unchanged
+  - Heroku slug 275 MB → 111 MB
+- Pipeline dependencies managed as a separate uv project, `pipeline/pyproject.toml` + `pipeline/uv.lock`, one group per environment (#21)
+- Dependabot covers both uv projects; app updates are minor/patch only, major upgrades are planned separately
 - Improved responsive text sizing for better mobile experience
   - Home page stats now use Bootstrap responsive font-size utilities (fs-2 on mobile, fs-md-1 on tablets/desktop)
   - 3D plot annotations now use CSS clamp() for fluid typography (8px-12px range)
 - Updated "Launch Tracker" button on home page to link directly to satellite visualization page
 
 ### Fixed
-- Track bug fixes here
+- Launch-year filter slider stopped at 2025 while the data runs to 2026; its maximum is now the current year (#23)
+
+### Removed
+- Packages the app doesn't import: astropy, beautifulsoup4, dash-vtk/vtk, matplotlib, nltk, openpyxl, unidecode, whitenoise, xlrd (23 packages including their dependencies)
+- `requirements.txt`, `sync_dependencies.sh` and the `sync-requirements` workflow (Heroku accepts only one package manager file)
 
 ## [2.0.1] - 2025-12-29
 
