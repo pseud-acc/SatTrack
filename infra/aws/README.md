@@ -133,16 +133,16 @@ verified files, the pipeline step prints only its exit code, push commits the ma
 The app release that reads S3 must be deployed together with the pipeline's `export_app_csvs.py` change
 (drop `StatusCode`/`UcsData`/`OrbitClassEstimated`, rename the freshness row to `SpaceTrack_GP`); see the design
 page. The patch is `agents/hosting2/app_s3_read.patch` (not applied). It falls back to the raw GitHub URLs while
-`SATTRACK_S3_BUCKET` is unset, so deploying it first is safe.
+`SATTRACK_BUCKET` is unset, so deploying it first is safe.
 
 Create the key in the console (IAM → Users → sattrack-app-reader → *Create access key* →
 *Application running outside AWS*), not with the CLI, so it is never echoed into a terminal or shell
 history file, and paste the pair straight into Heroku → app → Settings → *Config Vars*. The equivalent variables
-(set `SATTRACK_S3_BUCKET` last: it is the switch from GitHub URLs to S3):
+(set `SATTRACK_BUCKET` last: it is the switch from GitHub URLs to S3; the same name the pipeline uses):
 
 ```bash
-heroku config:set -a sattrackapp AWS_ACCESS_KEY_ID=<id> AWS_SECRET_ACCESS_KEY=<secret> AWS_DEFAULT_REGION=eu-west-1
-heroku config:set -a sattrackapp SATTRACK_S3_BUCKET=<bucket>       # SATTRACK_S3_PREFIX defaults to app/
+heroku config:set -a sattrackapp AWS_ACCESS_KEY_ID=<id> AWS_SECRET_ACCESS_KEY=<secret> AWS_REGION=eu-west-1
+heroku config:set -a sattrackapp SATTRACK_BUCKET=<bucket>          # the app reads app/current.json
 ```
 Rotate every 90 days: create the second key, update Heroku, confirm the app loads, deactivate then delete the old key.
 

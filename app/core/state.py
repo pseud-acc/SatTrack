@@ -41,21 +41,27 @@ from app.helper.helper__app_data import create_data_filters
 # Global cache for app data (lazy initialization)
 _app_data_cache = None
 
-def read_app_csvs_from_s3(bucket, prefix):
+S3_APP_PREFIX = "app/"   # fixed: the pipeline's state script (infra/state/sattrack_state.py) publishes here
+
+
+def read_app_csvs_from_s3(bucket):
     '''
     Read satellite and metadata csvs from the private S3 bucket (boto3, credentials from the environment:
-    AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_DEFAULT_REGION). The pipeline writes <prefix>current.json last;
-    it names the exact object version and SHA-256 of each csv, so both files always come from the same run.
-    Error text carries only the exception type, never keys.
+    AWS_ACCESS_KEY_ID + AWS_SECRET_ACCESS_KEY, or AWS_PROFILE locally; region AWS_REGION, default eu-west-1).
+    The pipeline writes app/current.json last; it names the exact object version and SHA-256 of each csv,
+    so both files always come from the same run. Error text carries only the exception type, never keys.
 
-    @param bucket: (str) bucket name
-    @param prefix: (str) key prefix of the app data, e.g. "app/"
+    @param bucket: (str) bucket name (SATTRACK_BUCKET, the same variable the pipeline uses)
     @return satcat, metadata: dataframes
     '''
     import boto3
-    client = boto3.client("s3", region_name=os.environ.get("AWS_DEFAULT_REGION", "eu-west-1"))
+    region = os.environ.get("AWS_REGION") or os.environ.get("AWS_DEFAULT_REGION") or "eu-west-1"
+    client = boto3.client("s3", region_name=region)
+    pointer_key = S3_APP_PREFIX + "current.json"
     try:
-        pointer = json.loads(client.get_object(Bucket=bucket, Key=prefix + "current.json")["Body"].read())
+        pointer = json.loads(client.get_object(Bucket=bucket, Key=pointer_key)["Body"].read())
+        print(f" - Data source: s3://{bucket}/{pointer_key} (region {region}), run {pointer.get('run_id')}, "
+              f"published {pointer.get('published_at')}")
         frames = {}
         for name in ("satcat_tle.csv", "last_data_update.csv"):
             entry = pointer["files"][name]
@@ -63,9 +69,10 @@ def read_app_csvs_from_s3(bucket, prefix):
             if hashlib.sha256(body).hexdigest() != entry["sha256"]:
                 raise ValueError("checksum mismatch for " + name)
             frames[name] = pd.read_csv(io.BytesIO(body))
+            print(f"   - s3://{bucket}/{entry['key']} version {entry['version_id']}: {len(body):,} bytes, "
+                  f"{len(frames[name]):,} rows, sha256 ok")
     except Exception as exc:
         raise RuntimeError("Could not read app data from S3 (" + type(exc).__name__ + ")") from None
-    print("App data read from S3, run:", pointer.get("run_id"))
     return frames["satcat_tle.csv"], frames["last_data_update.csv"]
 
 def import_app_data(satcat_loc, img_loc, metadata_loc, res):
@@ -84,17 +91,17 @@ def import_app_data(satcat_loc, img_loc, metadata_loc, res):
 
     ## Satellite catalogue data - contains TLEs
 
-    # Private S3 bucket when SATTRACK_S3_BUCKET is set, otherwise the raw GitHub urls (satcat_loc, metadata_loc)
-    s3_bucket = os.environ.get("SATTRACK_S3_BUCKET")
+    # Private S3 bucket when SATTRACK_BUCKET is set, otherwise the raw GitHub urls (satcat_loc, metadata_loc)
+    s3_bucket = os.environ.get("SATTRACK_BUCKET")
     if s3_bucket:
-        s3_prefix = os.environ.get("SATTRACK_S3_PREFIX", "app/")
-        if not s3_prefix.endswith("/"):
-            s3_prefix += "/"
-        satcat, metadata = read_app_csvs_from_s3(s3_bucket, s3_prefix)
+        satcat, metadata = read_app_csvs_from_s3(s3_bucket)
         data_source = "s3"        # new pipeline: Space-Track + GCAT
     else:
+        print(" - Data source: GitHub (SATTRACK_BUCKET not set)")
         satcat = pd.read_csv(satcat_loc)
+        print(f"   - {satcat_loc}: {len(satcat):,} rows")
         metadata = pd.read_csv(metadata_loc)
+        print(f"   - {metadata_loc}: {len(metadata):,} rows")
         data_source = "github"    # legacy pipeline: CelesTrak + UCS
     print("Satellite catalgoue and TLE data successfully imported!")
 
@@ -129,7 +136,7 @@ def initialise_app_data():
     print(f" - Satellite catalogue size: {df.shape}")
     print(f" - Earth map size (compressed): {img.shape}")
     print(f" - TLE metadata: {tle_metadata}")
-    print(f" - Data source: {data_source}")
+    print(f" - Data source: {data_source} ({'Space-Track + GCAT' if data_source == 's3' else 'CelesTrak + UCS'})")
 
     # Initialise Filters
     options, initial_filter = create_data_filters(df)
