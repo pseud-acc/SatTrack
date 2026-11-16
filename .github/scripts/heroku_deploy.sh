@@ -20,9 +20,21 @@ API=https://api.heroku.com
 SHA="$(git rev-parse HEAD)"
 TMP="${RUNNER_TEMP:-$(mktemp -d)}"
 PAGES=("/" "/_dash-layout" "/_dash-dependencies" "/sat_visualisation")
+# Heroku Platform API call: prints the response body on success. On an HTTP error it prints Heroku's own error
+# id and message (e.g. "403 forbidden: You do not have access to the app") as a job annotation and fails; these
+# never contain the token. The endpoint is named by path only.
 api() {
-  curl -sS --fail-with-body -H "Accept: application/vnd.heroku+json; version=3" \
-    -H "Authorization: Bearer $HEROKU_API_KEY" -H "Content-Type: application/json" "$@"
+  local out code body url="" a
+  for a in "$@"; do case "$a" in https://api.heroku.com/*) url="${a#https://api.heroku.com}";; esac; done
+  out="$(curl -sS -w '\n%{http_code}' -H "Accept: application/vnd.heroku+json; version=3" \
+    -H "Authorization: Bearer $HEROKU_API_KEY" -H "Content-Type: application/json" "$@")" \
+    || { echo "::error::Heroku API ${url:-call}: request failed (network)" >&2; return 1; }
+  code="${out##*$'\n'}"; body="${out%$'\n'*}"
+  if [ "$code" -ge 400 ] 2>/dev/null; then
+    echo "::error::Heroku API ${url:-call} returned $code $(jq -r '"\(.id // "error"): \(.message // "")"' <<<"$body" 2>/dev/null || echo "(no error body)")" >&2
+    return 1
+  fi
+  printf '%s' "$body"
 }
 
 echo "::group::Upload source ($SHA)"
