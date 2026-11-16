@@ -1,0 +1,81 @@
+# After a merge to main: the same checks as on the PR, then a deploy to Heroku when files that reach the
+# app changed. Manual run (Actions -> main -> Run workflow) with force_deploy redeploys the current main.
+#
+# "Reaches the app" = any changed file outside pipeline/, infra/, tests/ (all three in .slugignore),
+# .github/, Markdown files, .gitignore and LICENSE. Pipeline-, CI- or docs-only merges don't restart the dyno.
+
+name: main
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      force_deploy:
+        description: Deploy even if no app files changed
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  # Queue merges in order; never cancel a run that may be deploying.
+  group: main
+  cancel-in-progress: false
+
+jobs:
+  changes:
+    name: app files changed?
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      deploy: ${{ steps.diff.outputs.deploy }}
+    steps:
+      - name: Compare with the previous main
+        id: diff
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+          FORCE: ${{ inputs.force_deploy && 'true' || 'false' }}
+        run: |
+          set -euo pipefail
+          decide() { echo "deploy=$1" >> "$GITHUB_OUTPUT"; echo "deploy=$1 ($2)"; }
+          if [ "$EVENT" = workflow_dispatch ]; then
+            [ "$FORCE" = true ] && decide true "manual force_deploy" || decide false "manual run without force_deploy"
+            exit 0
+          fi
+          if [ -z "$BEFORE" ] || [ "$BEFORE" = 0000000000000000000000000000000000000000 ]; then
+            decide true "no previous commit to compare"; exit 0
+          fi
+          files="$(gh api "repos/$REPO/compare/$BEFORE...$AFTER" --jq '.files[].filename')" \
+            || { decide true "compare failed"; exit 0; }
+          n="$(printf '%s\n' "$files" | grep -c . || true)"
+          [ "$n" -lt 300 ] || { decide true "$n files: over the compare API's 300-file list"; exit 0; }
+          app_files="$(printf '%s\n' "$files" | grep -v -E '^(pipeline|infra|tests|\.github)/|\.md$|^\.gitignore$|^LICENSE$' || true)"
+          if [ -n "$app_files" ]; then
+            echo "app files changed:"; printf '  %s\n' $app_files
+            decide true "$(printf '%s\n' "$app_files" | grep -c .) app files changed"
+          else
+            decide false "$n files changed, none reach the app"
+          fi
+
+  app:
+    name: app
+    uses: ./.github/workflows/app-build.yml
+
+  pipeline:
+    name: pipeline
+    uses: ./.github/workflows/pipeline-checks.yml
+
+  deploy:
+    name: heroku
+    needs: [changes, app, pipeline]
+    if: needs.changes.outputs.deploy == 'true'
+    uses: ./.github/workflows/heroku-deploy.yml

@@ -1,50 +1,22 @@
-# SatTrack PR checks. Required by the `protect-main` ruleset: a PR merges into main only when both jobs pass.
-#
-#   app (Heroku build)  builds the commit with Heroku's own buildpack and images, runs it like an Eco dyno and
-#                       checks it serves (.github/scripts/heroku_build_check.sh). Replaces the manual temp-app test.
-#   pipeline            ingestion + dbt-bouncer unit tests, `dbt parse`, and the dbt-bouncer project rules.
-#                       No data, no warehouse, no network beyond package downloads.
-#
-# Public-repo rules: the `pull_request` trigger only (never pull_request_target), so a fork's PR gets a read-only
-# token and no secrets, and runs only after approval (Settings -> Actions: all external contributors). This
-# workflow uses no secrets and no AWS. Actions pinned to full commit SHAs from the repo allow-list; no
-# artifacts, no caches. The app starts in its default GitHub-data mode (SATTRACK_S3_BUCKET unset).
+# Shared job: the pipeline's tests and dbt checks. Called by pr.yml (required check on PRs) and main.yml.
+# No data, no warehouse, no secrets; network only for package downloads. Same hash-locked installs as
+# pipeline.yml; --locked also fails if a uv.lock is out of step with its pyproject.toml.
 
-name: ci
+name: pipeline checks
 
 on:
-  pull_request:
-  push:
-    branches:
-      - main
+  workflow_call:
 
 permissions:
   contents: read
-
-concurrency:
-  group: ci-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
 
 defaults:
   run:
     shell: bash
 
 jobs:
-  app:
-    name: app (Heroku build)
-    runs-on: ubuntu-24.04
-    timeout-minutes: 25
-    steps:
-      - name: Check out code
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
-        with:
-          persist-credentials: false
-
-      - name: Build like Heroku, run like a dyno, check it serves
-        run: bash .github/scripts/heroku_build_check.sh
-
-  pipeline:
-    name: pipeline (tests + dbt checks)
+  checks:
+    name: tests + dbt checks
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     env:
@@ -69,7 +41,6 @@ jobs:
           enable-cache: false
 
       - name: Install pipeline and bouncer environments
-        # Same hash-locked installs as pipeline.yml; --locked also fails the PR if uv.lock is out of step.
         working-directory: pipeline
         run: |
           set -euo pipefail
