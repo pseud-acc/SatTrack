@@ -108,7 +108,8 @@ Settings:
 - **Security**: secret scanning + push protection on (free for public repos); Dependabot alerts on.
 - **Actions → General**: *Allow \<owner\>, and select non-\<owner\>, actions* with the allow-list
   `actions/checkout@*, actions/setup-python@*, astral-sh/setup-uv@*, aws-actions/configure-aws-credentials@*,
-  actions/upload-pages-artifact@*, actions/deploy-pages@*` (the last two for `docs.yml`); tick
+  actions/upload-pages-artifact@*, actions/upload-artifact@*, actions/deploy-pages@*` (the last three for
+  `docs.yml`; `upload-pages-artifact` calls `upload-artifact` itself, pinned to a SHA); tick
   *Require actions to be pinned to a full-length commit SHA*; *Workflow permissions* = read repository
   contents; untick *Allow GitHub Actions to create and approve pull requests*; *Fork pull request workflows*
   = require approval for all external contributors.
