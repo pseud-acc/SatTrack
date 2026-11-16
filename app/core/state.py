@@ -30,7 +30,7 @@ from PIL import Image
 ## Internal Modules
 sys.path.append("../../")
 # user config
-from app.config.user_setup_app import (satcat_loc, img_loc, metadata_loc)
+from app.config.user_setup_app import img_loc
 # helper scripts
 from app.helper.helper__constants import _resolution_3d_earth_map__c
 from app.helper.helper__plot_display import (create_3d_layout, create_3d_surface, create_3d_figure, 
@@ -75,41 +75,55 @@ def read_app_csvs_from_s3(bucket):
         raise RuntimeError("Could not read app data from S3 (" + type(exc).__name__ + ")") from None
     return frames["satcat_tle.csv"], frames["last_data_update.csv"]
 
-def import_app_data(satcat_loc, img_loc, metadata_loc, res):
+def read_app_csvs_from_dir(data_dir):
+    '''
+    Read satellite and metadata csvs from a local folder holding the pipeline's app files (satcat_tle.csv,
+    last_data_update.csv): a downloaded copy of the bucket's app/ folder for local development, or the
+    small committed sample in tests/app_data/ that CI runs the app with.
+
+    @param data_dir: (str) folder (SATTRACK_APP_DATA_DIR)
+    @return satcat, metadata: dataframes
+    '''
+    print(f" - Data source: local folder {data_dir}")
+    frames = {}
+    for name in ("satcat_tle.csv", "last_data_update.csv"):
+        path = os.path.join(data_dir, name)
+        frames[name] = pd.read_csv(path)
+        print(f"   - {path}: {len(frames[name]):,} rows")
+    return frames["satcat_tle.csv"], frames["last_data_update.csv"]
+
+def import_app_data(img_loc, res):
     '''
     Import satellite data and earth map.
 
-    @param satcat_loc: dynamic location of satellite data
+    Satellite data comes from the pipeline's app files (Space-Track + GCAT): the private S3 bucket when
+    SATTRACK_S3_BUCKET is set (Heroku), otherwise the folder in SATTRACK_APP_DATA_DIR (local runs, CI).
+
     @param img_loc: static location of Earth map
-    @param metadata_loc: dynamic location of TLE metadata
     @param res: integer - Earth map resolution in increments of 2^x for integer x
     @return satcat:  dataframe of satellite data
     @return img_compr:  compressed image array of Earth map
     @return tle_metadata: last update time of the element sets
-    @return data_source: 's3' (new pipeline: Space-Track + GCAT) or 'github' (legacy: CelesTrak + UCS)
+    @return data_source: 's3' or 'local'
     '''
 
     ## Satellite catalogue data - contains TLEs
-
-    # Private S3 bucket when SATTRACK_S3_BUCKET is set, otherwise the raw GitHub urls (satcat_loc, metadata_loc)
     s3_bucket = os.environ.get("SATTRACK_S3_BUCKET")
+    data_dir = os.environ.get("SATTRACK_APP_DATA_DIR")
     if s3_bucket:
         satcat, metadata = read_app_csvs_from_s3(s3_bucket)
-        data_source = "s3"        # new pipeline: Space-Track + GCAT
+        data_source = "s3"
+    elif data_dir:
+        satcat, metadata = read_app_csvs_from_dir(data_dir)
+        data_source = "local"
     else:
-        print(" - Data source: GitHub (SATTRACK_S3_BUCKET not set)")
-        satcat = pd.read_csv(satcat_loc)
-        print(f"   - {satcat_loc}: {len(satcat):,} rows")
-        metadata = pd.read_csv(metadata_loc)
-        print(f"   - {metadata_loc}: {len(metadata):,} rows")
-        data_source = "github"    # legacy pipeline: CelesTrak + UCS
-    print("Satellite catalgoue and TLE data successfully imported!")
+        raise RuntimeError("No app data source: set SATTRACK_S3_BUCKET (the pipeline's S3 bucket) or "
+                           "SATTRACK_APP_DATA_DIR (a folder with satcat_tle.csv and last_data_update.csv, "
+                           "e.g. tests/app_data)")
+    print("Satellite catalogue and TLE data successfully imported!")
 
-    # TLE download metadata: new freshness row name, falling back to the old one
-    tle_rows = metadata[metadata["Source"]=="SpaceTrack_GP"]
-    if tle_rows.empty:
-        tle_rows = metadata[metadata["Source"]=="Celestrak_TLE"]
-    tle_metadata = tle_rows["Last Update"].values[0]
+    # Freshness of the element sets (Space-Track GP download)
+    tle_metadata = metadata.loc[metadata["Source"] == "SpaceTrack_GP", "Last Update"].values[0]
     print("TLE metadata successfully imported!")    
 
     img = np.asarray(Image.open(img_loc))
@@ -130,13 +144,13 @@ def initialise_app_data():
 
     print("Initialising app data...")
     # Import data for visualisations
-    df, img, tle_metadata, data_source = import_app_data(satcat_loc, img_loc, metadata_loc, _resolution_3d_earth_map__c)
+    df, img, tle_metadata, data_source = import_app_data(img_loc, _resolution_3d_earth_map__c)
 
     # Logging - to replace print w/ logging module later
     print(f" - Satellite catalogue size: {df.shape}")
     print(f" - Earth map size (compressed): {img.shape}")
     print(f" - TLE metadata: {tle_metadata}")
-    print(f" - Data source: {data_source} ({'Space-Track + GCAT' if data_source == 's3' else 'CelesTrak + UCS'})")
+    print(f" - Data source: {data_source} (Space-Track + GCAT)")
 
     # Initialise Filters
     options, initial_filter = create_data_filters(df)
@@ -158,7 +172,7 @@ def initialise_app_data():
     app_data['data'] = dict()
     app_data['data']['satcat_df'] = df
     app_data['data']['tle_metadata'] = tle_metadata
-    app_data['data']['data_source'] = data_source  # 's3' (Space-Track + GCAT) or 'github' (CelesTrak + UCS)
+    app_data['data']['data_source'] = data_source  # 's3' or 'local'; both are the pipeline's Space-Track + GCAT files
     app_data['data']['tbl_col_map'] = tbl_column_map
 
     # Visualisation filters

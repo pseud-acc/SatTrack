@@ -8,9 +8,9 @@ This repository contains python scripts to run the SatTrack App - an open-source
 
 The project consists of two parts - (1) a data pipeline; (2) an interactive app. The interactive app is a Dash app (hosted on Heroku) in which satellite TLE data is converted into a real-time satellite position and satellite catalogue data is used to filter 2d and 3d visualisations. The app also allows satellite position data to be exported in tabular form (to a csv).
 
-The data pipeline is being replaced:
-- **Current (legacy, `src/`):** pulls satellite catalogue and TLE data from CelesTrak, UCS (Union of Concerned Scientists) and space.skyrocket via web scrapers and API calls, and publishes the CSVs in `dat/` that the live app reads. It is retired once the new pipeline is live.
-- **New (`pipeline/`):** ingests Space-Track GP orbital data (USSPACECOM via Space-Track.org) and Jonathan McDowell's GCAT catalogue, and models them with dbt on DuckDB. It is designed to run daily on GitHub Actions with its state in a private S3 bucket (`infra/`); the app will read its output from there. Column definitions and lineage: https://pseud-acc.github.io/SatTrack/
+The data pipeline (`pipeline/`) ingests Space-Track GP orbital data (USSPACECOM via Space-Track.org) and Jonathan McDowell's GCAT catalogue, and models them with dbt on DuckDB. It runs daily on GitHub Actions with its state in a private S3 bucket (`infra/`), and publishes the app's CSVs there; the app reads them from S3 when it starts. Column definitions and lineage: https://pseud-acc.github.io/SatTrack/
+
+The earlier pipeline (CelesTrak, UCS and space.skyrocket scrapers in `src/`, CSVs committed to `dat/`) was removed in 2.2.0; it is in the git history up to 2.1.0.
 
 ## Pipeline/App Features
 
@@ -28,10 +28,10 @@ The data pipeline is being replaced:
 | `app/`, `assets/`, `static/`, `run_app.py`, `Procfile`, `pyproject.toml`, `uv.lock` | The Dash app, deployed to Heroku (uv project) |
 | `pipeline/` | The new data pipeline: `ingestion/`, `transform/` (dbt), `scripts/`, `run_pipeline.py`; its own uv project (`pipeline/pyproject.toml`, `pipeline/uv.lock`) |
 | `infra/` | AWS CloudFormation stacks and the S3 state helper for the scheduled pipeline |
-| `.github/` | Workflows (pipeline run, docs site), Dependabot, CODEOWNERS |
-| `src/`, `dat/`, `run_pipeline.py` (root) | Legacy pipeline and its published CSVs; removed at cutover |
+| `.github/` | Workflows (PR checks, pipeline run, docs site), the CI Heroku build check, Dependabot, CODEOWNERS |
+| `tests/app_data/` | A small sample of the pipeline's app CSVs, for running the app without AWS (CI, local) |
 
-`.slugignore` keeps `pipeline/` and `infra/` out of the Heroku build.
+`.slugignore` keeps `pipeline/`, `infra/` and `tests/` out of the Heroku build.
 
 ## Requirements
 
@@ -102,15 +102,19 @@ uv run python run_pipeline.py --help
 ```
 It needs Space-Track credentials and a private data folder outside the repo (`SATTRACK_DATA_DIR`).
 
-**Legacy pipeline (`src/`, root `run_pipeline.py`):** its packages (beautifulsoup4, nltk, ...) are no
-longer in the app's environment, so run it from an environment that still has them. It is retired at
-cutover.
-
 ## Run App
+
+The app reads the pipeline's app CSVs (`satcat_tle.csv`, `last_data_update.csv`) from one of two places,
+and stops with an error if neither is set:
+
+| Variable | Where the data comes from |
+|---|---|
+| `SATTRACK_S3_BUCKET` | The private S3 bucket's `app/` folder (Heroku; locally with an AWS login that can read it, e.g. `AWS_PROFILE`) |
+| `SATTRACK_APP_DATA_DIR` | A local folder with the two CSVs, e.g. the committed sample `tests/app_data` |
 
 **Using uv:**
 ```bash
-uv run python run_app.py
+SATTRACK_APP_DATA_DIR=tests/app_data uv run python run_app.py
 ```
 
 **With the virtual environment activated:**
@@ -122,7 +126,11 @@ The app will be available at http://127.0.0.1:8050/
 
 ## Testing Heroku Deployment
 
-Before deploying to Heroku, test your app locally to ensure it works with the production environment.
+Every pull request runs `pr.yml`, and `main` only accepts PRs whose checks pass; `merge.yml` reruns them after a
+merge and deploys to Heroku when app files changed. The `app / Heroku build` job
+builds the commit with Heroku's own Python buildpack and heroku-24 images, runs it like an Eco dyno (512 MB,
+2 workers) on the `tests/app_data` sample, and checks it serves (`.github/scripts/heroku_build_check.sh`).
+The options below are for trying the app by hand.
 
 ### Local Testing on Windows
 

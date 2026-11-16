@@ -46,7 +46,6 @@ def create_dash_layout(app):
     # Get app data
     app_data = get_app_data()
     tle_metadata = app_data['data']['tle_metadata']
-    data_source = app_data['data'].get('data_source', 'github')
     tbl_col_map = app_data['data']['tbl_col_map']
     fig2d_0 = app_data['viz_2d']['base_figure']
     fig3d_0 = app_data['viz_3d']['base_figure']    
@@ -65,7 +64,7 @@ def create_dash_layout(app):
         dcc.Store(id='camera-memory', data=fig3d_0["layout"]["scene"]["camera"]),
 
         # Header Section - Mobile Optimized
-        create_header(tle_metadata, data_source),
+        create_header(tle_metadata),
 
         # Main Content Area
         dbc.Row([

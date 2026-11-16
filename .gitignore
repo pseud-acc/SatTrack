@@ -4,7 +4,6 @@
 
 # Cached files #
 ################
-src/__pycache__/*
 *.pyc
 
 # Large files #

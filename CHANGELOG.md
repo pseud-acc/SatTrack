@@ -20,9 +20,15 @@ When creating pull requests, use the following prefixes to indicate the type of 
 ## [Unreleased]
 
 ### Added
-- Track work in progress here
+- PR checks (`pr.yml`), required on `main`: a Heroku-identical build and run of the app, and the pipeline's tests and dbt checks
+- Deploy on merge (`merge.yml`): the same checks, then a Heroku Build API deploy and live checks when app files changed
+- `SATTRACK_APP_DATA_DIR`: run the app from a local folder of the pipeline's app CSVs; `tests/app_data` holds a small sample
 
 ### Changed
+- The app reads only the pipeline's Space-Track + GCAT data (S3 or a local folder) and credits only those sources; with no data source set it stops with an error instead of falling back to GitHub
+
+### Removed
+- The legacy pipeline (`src/`, root `run_pipeline.py`) and its CSVs in `dat/` (CelesTrak, UCS, space.skyrocket); the app no longer reads raw GitHub CSVs
 
 ### Fixed
 

@@ -165,9 +165,9 @@ after a lost response) rather than dropping it, and that second run would hit Sp
 ## 9. Retire the laptop as a runner
 
 Delete the Task Scheduler entry; remove `SPACETRACK_USER`/`SPACETRACK_PASS` from the laptop's `.env.sh`
-(the rotated password never lived there). Stop the old laptop job (`run_pipeline.sh`, which commits `dat/*.csv`)
-and, once the app reads S3, delete the old pipeline from the repo in one commit: `src/`, `dat/` and the root
-`run_pipeline.py`. After that the history can be reset (orphan commit, force push to `origin` and `heroku`). Local development uses a downloaded copy of the state and no
+(the rotated password never lived there). Stop the old laptop job (`run_pipeline.sh`, which committed `dat/*.csv`).
+The old pipeline (`src/`, `dat/`, the root `run_pipeline.py`) was deleted from the repo in 2.2.0, once the app read
+S3. After that the history can be reset (orphan commit, force push to `origin` and `heroku`). Local development uses a downloaded copy of the state and no
 Space-Track login.
 
 ## Verification checklist

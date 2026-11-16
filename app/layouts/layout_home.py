@@ -1,7 +1,6 @@
 # layout_home.py
 from dash import html, dcc
 import dash_bootstrap_components as dbc
-from app.core.state import get_app_data
 
 
 def create_dash_layout(app):
@@ -97,7 +96,7 @@ def create_dash_layout(app):
             dbc.Col([
                 html.H2("Data Sources", className="mb-4"),
                 html.P("Powered by accurate, up-to-date information:", className="mb-3"),
-                html.Ul(_data_source_items(get_app_data()['data'].get('data_source', 'github')) + [
+                html.Ul(_data_source_items() + [
                     html.Li("SGP4 propagator for precise calculations"),
                     html.Li("Updated daily for accuracy")
                 ], className="mb-0")
@@ -107,22 +106,14 @@ def create_dash_layout(app):
 
     return layout
 
-def _data_source_items(data_source):
-    """Data-source list for the data actually shown: 's3' = new pipeline, 'github' = legacy pipeline."""
-    if data_source == "s3":
-        return [
-            html.Li(["Orbital data (GP/TLE elements, SATCAT): USSPACECOM via ",
-                     dcc.Link("Space-Track.org", href="https://www.space-track.org/", className="text-info")]),
-            html.Li(["Launch, owner and mission details: ",
-                     dcc.Link("GCAT (J. McDowell)", href="https://planet4589.org/space/gcat/",
-                              className="text-info")]),
-            html.Li("Public TLEs must not be used for conjunction (collision) assessment "
-                    "(Space-Track User Agreement)."),
-        ]
+def _data_source_items():
+    """Data-source list for the data shown (the pipeline's Space-Track + GCAT files)."""
     return [
-        html.Li(["TLE data from ",
-                 dcc.Link("CelesTrak", href="https://celestrak.com/", className="text-info")]),
-        html.Li(["Satellite database from ",
-                 dcc.Link("UCS", href="https://www.ucsusa.org/resources/satellite-database",
+        html.Li(["Orbital data (GP/TLE elements, SATCAT): USSPACECOM via ",
+                 dcc.Link("Space-Track.org", href="https://www.space-track.org/", className="text-info")]),
+        html.Li(["Launch, owner and mission details: ",
+                 dcc.Link("GCAT (J. McDowell)", href="https://planet4589.org/space/gcat/",
                           className="text-info")]),
+        html.Li("Public TLEs must not be used for conjunction (collision) assessment "
+                "(Space-Track User Agreement)."),
     ]
