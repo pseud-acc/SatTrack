@@ -51,13 +51,13 @@ echo "::group::Buildpack $BUILDPACK_TAG"
 git -c advice.detachedHead=false clone --quiet --depth 1 --branch "$BUILDPACK_TAG" "$BUILDPACK_REPO" "$W/buildpack"
 got="$(git -C "$W/buildpack" rev-parse HEAD)"
 [ "$got" = "$BUILDPACK_SHA" ] || { echo "::error::buildpack tag $BUILDPACK_TAG is $got, pinned $BUILDPACK_SHA"; exit 1; }
-latest="$(git ls-remote --tags --refs "$BUILDPACK_REPO" 'v*' | sed 's#.*refs/tags/v##' | sort -n | tail -1)"
+latest="$(git ls-remote --tags --refs "$BUILDPACK_REPO" | sed -n 's#.*\trefs/tags/v\([0-9][0-9]*\)$#\1#p' | sort -n | tail -1)"
 [ "v$latest" = "$BUILDPACK_TAG" ] || echo "::notice::heroku-buildpack-python v$latest is out (pinned $BUILDPACK_TAG): Heroku builds with the latest, so bump the pin"
 echo "::endgroup::"
 
 echo "::group::Build (bin/compile in heroku-24-build)"
 docker run --rm --user "$(id -u):$(id -g)" -e STACK=heroku-24 -e HOME=/tmp \
-  -v "$W/app:/app" -v "$W/cache:/cache" -v "$W/env:/env:ro" -v "$W/buildpack:/buildpack:ro" \
+  -v "$W/app:/app" -v "$W/cache:/cache" -v "$W/env:/env:ro" -v "$W/buildpack:/buildpack" \
   "$BUILD_IMAGE" bash -c '/buildpack/bin/detect /app && /buildpack/bin/compile /app /cache /env' 2>&1 | tee "$W/build.log"
 echo "::endgroup::"
 
