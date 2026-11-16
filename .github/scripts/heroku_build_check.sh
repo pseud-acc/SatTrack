@@ -25,6 +25,9 @@ RUN_IMAGE=heroku/heroku:24@sha256:59837688d73d8f5240b72d5b9a801190674fcaeec83150
 SLUG_LIMIT_MB=500        # Heroku's hard limit on the compressed slug
 PAGES=("/" "/_dash-layout" "/_dash-dependencies" "/sat_visualisation")
 PORT=5000
+# Heroku sets WEB_CONCURRENCY from the dyno memory (vendor/WEB_CONCURRENCY.sh: 512 MB / 256 MB per worker = 2),
+# reading a cgroup v1 file that GitHub runners (cgroup v2) lack; set the value it computes on an Eco dyno.
+WEB_CONCURRENCY=2
 NAME=sattrack-ci-dyno
 
 W="${RUNNER_TEMP:-$(mktemp -d)}/heroku-build"
@@ -77,7 +80,7 @@ CMD="$(sed -n 's/^web:[[:space:]]*//p' "$W/app/Procfile")"
 [ -n "$CMD" ] || { echo "::error::no web process in Procfile"; exit 1; }
 echo "web: $CMD"
 docker run -d --name "$NAME" --memory 512m --memory-swap 512m --user "$(id -u):$(id -g)" \
-  -e PORT="$PORT" -e DYNO=web.1 -e HOME=/app -p "127.0.0.1:$PORT:$PORT" -v "$W/app:/app" -w /app \
+  -e PORT="$PORT" -e DYNO=web.1 -e WEB_CONCURRENCY="$WEB_CONCURRENCY" -e HOME=/app -p "127.0.0.1:$PORT:$PORT" -v "$W/app:/app" -w /app \
   "$RUN_IMAGE" bash -c 'for f in /app/.profile.d/*.sh; do [ -f "$f" ] && . "$f"; done; exec '"$CMD" >/dev/null
 up=0
 for _ in $(seq 1 90); do
@@ -98,7 +101,8 @@ fi
 sleep 3
 docker logs "$NAME" > "$W/run.log" 2>&1 || true
 grep -E "Starting gunicorn|Booting worker|Data source|Satellite catalogue size" "$W/run.log" || true
-grep -q "Satellite catalogue size" "$W/run.log" || fail "app never logged its data load"
+loads=$(grep -c "Satellite catalogue size" "$W/run.log" || true)
+[ "$loads" -ge "$WEB_CONCURRENCY" ] || fail "$loads of $WEB_CONCURRENCY workers logged their data load"
 grep -q "Traceback" "$W/run.log" && { fail "traceback in the app log"; cat "$W/run.log"; }
 [ "$(docker inspect -f '{{.State.OOMKilled}}' "$NAME")" = false ] || fail "killed for exceeding 512 MB"
 echo "::endgroup::"
