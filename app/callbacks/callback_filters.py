@@ -131,29 +131,6 @@ def register(app):
         # Initial state: filters are collapsed, so show down chevron
         return is_open, "fas fa-chevron-down"        
 
-    '''
-    ------------------------
-    Year range display
-    -------------------------
-    Interactive Inputs: Launch year slider
-    Outputs: Year range text display
-    '''
-
-    @app.callback(
-        Output('year-range-display', 'children'),
-        Input('launchyear-filter-slider', 'value')
-    )
-    def update_year_display(year_range):
-        """
-        Display the currently selected year range.
-
-        @param year_range: (list) [min_year, max_year]
-
-        @return: (str) formatted year range text
-        """
-        if year_range:
-            return f"{year_range[0]} - {year_range[1]}"
-        return "All Years"
 
     '''
     ------------------------
@@ -174,6 +151,6 @@ def register(app):
         # define year output
 
 
-        if year_range:
-            return format_year_slider_output('min', year_range[0]), format_year_slider_output('max', year_range[1])
-        return format_year_slider_output('min', options["launchyear"][0]), format_year_slider_output('max', options["launchyear"][-1])
+        if not year_range:
+            raise PreventUpdate   # no slider value: keep the labels as they are
+        return format_year_slider_output('min', year_range[0]), format_year_slider_output('max', year_range[1])

@@ -95,10 +95,19 @@ app.layout = html.Div([
     html.Div(id='page-content')  # Main content area (dynamically updated)
 ])
 
+# Pages are rendered into page-content by the router below, so their components are not in app.layout at start-up.
+# Dash checks every callback against this layout instead: the shell plus every page. Without it the browser logs
+# "ID not found in layout" for each tracker callback on every page load, which hides real wiring errors.
+app.validation_layout = html.Div([
+    app.layout,
+    create_dash_layout_home(app),
+    create_dash_layout_sat_visualisations(app),
+])
+
 ## >>>>>>>> Register Callbacks <<<<<<<<<<<<
 
 # Register all callbacks using the centralized registry
-# This includes: 3D viz, 2D viz, table, filters, navbar, home, and sat_applications
+# This includes: 3D viz, 2D viz, table, filters and navbar
 register_all_callbacks(app)
 
 ## >>>>>>>> Define Page Routing + Layouts <<<<<<<<<<<<

@@ -48,7 +48,7 @@ New data reaches the app only when a worker starts (a deploy, a restart, or the 
 
 | Path | What |
 |---|---|
-| `../run_app.py` | Production entry point: creates the Dash app (`server` for gunicorn), page template with analytics, URL routing, registers callbacks |
+| `../run_app.py` | Production entry point: creates the Dash app (`server` for gunicorn), page template with analytics, URL routing (with a `validation_layout` covering both pages), registers callbacks |
 | `../run_app_dev.py` | Local development server with hot reload |
 | `core/state.py` | Loads the data (S3 or local folder), builds filters and base figures, caches them (`get_app_data`) |
 | `config/user_setup_app.py` | Static paths (Earth map image) |
@@ -137,9 +137,5 @@ stops with an error naming both.
 
 ## Known issues
 
-- `callback_navbar` sets the active state of `nav-learn`, a link that no longer exists, so that callback fails
-  in the browser and the active-page highlight doesn't update.
-- `callbacks/callback_home.py` is not registered (the home button links to the tracker directly); it can go.
-- `app/__version__.py` says 1.0.0; the release version is in `pyproject.toml` (2.1.0).
 - The 3D view sends about 20 MB per 20-second update because every satellite carries its own hover text, and
   responses aren't compressed. A fix (compression, a shared hover template, partial updates) is planned.

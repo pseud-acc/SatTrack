@@ -7,10 +7,10 @@ This module runs the SatTrack App on a local development server with hot reload.
 Uses the modularized callback registry for clean callback management.
 
 Usage:
-    $ python run_app_dev_v2.py
+    $ SATTRACK_APP_DATA_DIR=tests/app_data uv run python run_app_dev.py
 
 Features:
-    - Multi-page navigation (Home, Visualizations, Applications)
+    - Multi-page navigation (Home, Live Tracker)
     - Modular callback registration via callback_registry
     - Hot reload for development
     - Responsive mobile-first design
@@ -19,7 +19,6 @@ Features:
 Pages:
     / (Home) - Landing page with feature overview
     /sat_visualisation - Live 3D/2D satellite tracking
-    /sat_applications - Educational content about satellites
 
 Todo:
     *
@@ -80,10 +79,19 @@ app.layout = html.Div([
     html.Div(id='page-content')  # Main content area (dynamically updated)
 ])
 
+# Pages are rendered into page-content by the router below, so their components are not in app.layout at start-up.
+# Dash checks every callback against this layout instead: the shell plus every page. Without it the browser logs
+# "ID not found in layout" for each tracker callback on every page load, which hides real wiring errors.
+app.validation_layout = html.Div([
+    app.layout,
+    create_dash_layout_home(app),
+    create_dash_layout_sat_visualisations(app),
+])
+
 ## >>>>>>>> Register Callbacks <<<<<<<<<<<<
 
 # Register all callbacks using the centralized registry
-# This includes: 3D viz, 2D viz, table, filters, navbar, home, and sat_applications
+# This includes: 3D viz, 2D viz, table, filters and navbar
 register_all_callbacks(app)
 
 
@@ -106,7 +114,6 @@ def display_page(pathname):
     Routes:
         / - Home page (landing/welcome)
         /sat_visualisation - Live satellite tracking (3D/2D/Table)
-        /sat_applications - Educational content about satellites
     """
     if pathname == '/sat_visualisation':
         return create_dash_layout_sat_visualisations(app)
