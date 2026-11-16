@@ -1,5 +1,5 @@
 # Shared job: build the commit the way Heroku builds sattrackapp, run it like an Eco dyno, check it serves.
-# Called by pr.yml (required check on PRs) and main.yml (gate before a deploy). The logic is in
+# Called by pr.yml (required check on PRs) and merge.yml (gate before a deploy). The logic is in
 # .github/scripts/heroku_build_check.sh. No secrets, no AWS, read-only token.
 
 name: app build check

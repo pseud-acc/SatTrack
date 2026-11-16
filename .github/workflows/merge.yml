@@ -1,10 +1,10 @@
 # After a merge to main: the same checks as on the PR, then a deploy to Heroku when files that reach the
-# app changed. Manual run (Actions -> main -> Run workflow) with force_deploy redeploys the current main.
+# app changed. Manual run (Actions -> merge -> Run workflow) with force_deploy redeploys the current main.
 #
 # "Reaches the app" = any changed file outside pipeline/, infra/, tests/ (all three in .slugignore),
 # .github/, Markdown files, .gitignore and LICENSE. Pipeline-, CI- or docs-only merges don't restart the dyno.
 
-name: main
+name: merge
 
 on:
   push:
@@ -22,7 +22,7 @@ permissions:
 
 concurrency:
   # Queue merges in order; never cancel a run that may be deploying.
-  group: main
+  group: merge
   cancel-in-progress: false
 
 jobs:

@@ -1,4 +1,4 @@
-# Shared job: deploy the commit to Heroku (Build API) and check the live app. Called by main.yml after the
+# Shared job: deploy the commit to Heroku (Build API) and check the live app. Called by merge.yml after the
 # checks pass and only when deploy-relevant files changed. The logic is in .github/scripts/heroku_deploy.sh.
 #
 # Secret: HEROKU_API_KEY in the `heroku` environment (deployment branch rule: main only), the token of a
