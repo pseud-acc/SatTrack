@@ -32,7 +32,7 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://sattrackapp.herokuapp.com/"
+Homepage = "https://www.sattrackapp.com"
 Repository = "https://github.com/pseud-acc/SatTrack"
 
 [dependency-groups]

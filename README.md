@@ -4,7 +4,7 @@
 
 ## Description
 
-This repository contains python scripts to run the SatTrack App - an open-source real-time satellite tracking app - for visualising active and inactive satellites orbiting the Earth. The latest version of the app is hosted at [https://sattrackapp.herokuapp.com/](https://sattrackapp.herokuapp.com/).
+This repository contains python scripts to run the SatTrack App - an open-source real-time satellite tracking app - for visualising active and inactive satellites orbiting the Earth. The live app is at [https://www.sattrackapp.com](https://www.sattrackapp.com).
 
 The project consists of two parts - (1) a data pipeline; (2) an interactive app. The interactive app is a Dash app (hosted on Heroku) in which satellite TLE data is converted into a real-time satellite position and satellite catalogue data is used to filter 2d and 3d visualisations. The app also allows satellite position data to be exported in tabular form (to a csv).
 
@@ -26,9 +26,9 @@ The earlier pipeline (CelesTrak, UCS and space.skyrocket scrapers in `src/`, CSV
 | Path | What |
 |---|---|
 | `app/`, `assets/`, `static/`, `run_app.py`, `Procfile`, `pyproject.toml`, `uv.lock` | The Dash app, deployed to Heroku (uv project) |
-| `pipeline/` | The new data pipeline: `ingestion/`, `transform/` (dbt), `scripts/`, `run_pipeline.py`; its own uv project (`pipeline/pyproject.toml`, `pipeline/uv.lock`) |
-| `infra/` | AWS CloudFormation stacks and the S3 state helper for the scheduled pipeline |
-| `.github/` | Workflows (PR checks, pipeline run, docs site), the CI Heroku build check, Dependabot, CODEOWNERS |
+| `pipeline/` | The data pipeline: `ingestion/`, `transform/` (dbt), `scripts/`, `run_pipeline.py`; its own uv project. See [pipeline/README.md](pipeline/README.md) and [pipeline/transform/README.md](pipeline/transform/README.md) |
+| `infra/` | AWS CloudFormation stacks and the S3 state helper for the scheduled pipeline; setup in [infra/aws/README.md](infra/aws/README.md) |
+| `.github/` | Workflows: `pr.yml` (PR checks), `merge.yml` (checks + Heroku deploy), `pipeline.yml` (daily run), `docs.yml` (docs site), and the shared jobs they call; Dependabot, CODEOWNERS |
 | `tests/app_data/` | A small sample of the pipeline's app CSVs, for running the app without AWS (CI, local) |
 
 `.slugignore` keeps `pipeline/`, `infra/` and `tests/` out of the Heroku build.
@@ -138,34 +138,18 @@ The options below are for trying the app by hand.
 
 #### Option 1: Test with Development Server (Current Method)
 ```bash
-python run_app.py
+SATTRACK_APP_DATA_DIR=tests/app_data uv run python run_app.py
 ```
 Visit http://127.0.0.1:8050/ - If this works, your app should work on Heroku.
 
 #### Option 2: Use Waitress (Windows-Compatible Production Server)
 ```bash
-# Install waitress
-pip install waitress
-
-# Run with waitress (production-quality server that works on Windows)
-waitress-serve --listen=*:8000 run_app:server
+# waitress is not an app dependency; uv adds it for this one command
+SATTRACK_APP_DATA_DIR=tests/app_data uv run --with waitress waitress-serve --listen=*:8000 run_app:server
 ```
 Visit http://localhost:8000 to test.
 
-#### Option 3: Deploy to Heroku Staging App (Most Accurate)
-```bash
-# Create a staging app
-heroku create sattrack-staging
-
-# Deploy your branch
-git push heroku your-branch:main
-
-# Check logs
-heroku logs --tail --app sattrack-staging
-
-# Open the app
-heroku open --app sattrack-staging
-```
+`bash test_heroku_deployment.sh` checks the files Heroku needs, the lockfile and that the app imports.
 
 ### Local Testing on Linux/Mac
 
@@ -176,18 +160,16 @@ If you're on Linux or Mac, you can test with gunicorn directly:
 uv sync --locked --no-default-groups
 
 # Test with gunicorn (same as Heroku)
-gunicorn run_app:server
+SATTRACK_APP_DATA_DIR=tests/app_data uv run gunicorn run_app:server
 ```
 Visit http://localhost:8000 to verify.
 
-### Pre-Deployment Checklist
+### Deploying
 
-Before deploying, verify:
-- ✅ App runs locally with Python 3.12 (`python --version`)
-- ✅ `uv lock --check` passes (`uv.lock` matches `pyproject.toml`)
-- ✅ `.python-version` specifies `3.12`
-- ✅ `Procfile` contains `web: gunicorn run_app:server`
-- ✅ No errors in the app functionality
+Merging a PR into `main` deploys automatically when it changes files that reach the app: `merge.yml` reruns
+the checks, uploads the commit through Heroku's Build API, waits for the release and checks the live site
+(`.github/workflows/heroku-deploy.yml`). Pipeline-, CI- and docs-only merges don't deploy. To redeploy the
+current `main`: Actions → *merge* → *Run workflow* with `force_deploy`.
 
 ## Version History
 
@@ -203,8 +185,7 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed version history and release notes.
 
 #### Key Features (2.0.0)
 - Upgraded to Python 3.12
-- Modern dependency management with Poetry
-- Automated requirements.txt synchronization
+- Poetry dependency management with automated requirements.txt sync (replaced by uv in 2.1.0)
 - Real-time satellite position tracking using TLE data
 - 3D visualisation of active and inactive satellites
 - 2D visualisation of satellite path
@@ -212,7 +193,7 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed version history and release notes.
 - CSV export functionality
 
 #### Planned Improvements (Future Versions)
-- Switch the app to the new pipeline's data (S3), then retire the legacy pipeline
+- See [CHANGELOG.md](CHANGELOG.md) `[Unreleased]` for what is merged but not yet released
 - Satellite pass predictor visualisation
 - Satellite pass predictor export
 - Satellite informational page

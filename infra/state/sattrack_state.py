@@ -1,6 +1,6 @@
-"""SatTrack run state in S3: pull before a run, push (promote) after it.  DRAFT - not yet wired or tested.
+"""SatTrack run state in S3: pull before a run, push (promote) after it. Used by .github/workflows/pipeline.yml.
 
-Design: agents/hosting/hosting_security_plan.html, section "State handling".
+Setup and the bucket's access rules: infra/aws/README.md.
 
 Layout in the private bucket (versioning on):
   state/manifest.json            the commit point; every write is conditional (If-Match / If-None-Match)

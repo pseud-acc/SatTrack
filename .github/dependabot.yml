@@ -1,4 +1,4 @@
-# Dependabot version updates (DRAFT). Keeps the SHA-pinned actions current: Dependabot rewrites the
+# Dependabot version updates. Keeps the SHA-pinned actions current: Dependabot rewrites the
 # SHA and the "# vX.Y.Z" comment together. Note: Dependabot *alerts* do not cover SHA-pinned actions,
 # so these weekly version-update PRs are the mechanism that picks up fixes.
 version: 2

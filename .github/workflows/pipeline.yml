@@ -1,5 +1,5 @@
-# SatTrack daily pipeline (DRAFT - not yet enabled).
-# Design: agents/hosting/hosting_security_plan.html (decisions of 2026-11-08 applied)
+# SatTrack daily pipeline. Runs by workflow_dispatch: manually, and daily from AWS EventBridge once the
+# scheduler stack (infra/aws/sattrack-scheduler.yaml) is deployed. Setup: infra/aws/README.md.
 #
 # Public-repo rules this file follows:
 #   * No pull_request / pull_request_target / workflow_run triggers: code from forks never runs here.
@@ -79,7 +79,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0  # v7.1.0
         with:
-          python-version: "3.12.3"  # the laptop's pipeline venv (virtualenvs/py312/sattrack_dbt_venv)
+          python-version: "3.12.3"  # same patch release as local runs
 
       # The `production` environment has no required reviewer on purpose (decided 2026-11-08): the run is
       # unattended, and the environment's "main only" deployment branch rule is the gate.
@@ -101,7 +101,7 @@ jobs:
       - name: Install pipeline and report environments
         # Hash-locked installs from pipeline/uv.lock (one lockfile, one dependency group per environment).
         # --locked fails if uv.lock is out of step with pyproject.toml; uv checks every file against its locked
-        # hash; --no-build refuses to build anything from source. dbt is the same dbt-oss 2.0.8 the laptop runs:
+        # hash; --no-build refuses to build anything from source. dbt is the same dbt-oss 2.0.8 local runs use:
         # dbt Labs' Linux release wheel, whose locked hash matches the SHA256SUMS they publish.
         working-directory: pipeline
         run: |
