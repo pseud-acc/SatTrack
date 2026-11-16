@@ -1,7 +1,7 @@
--- App export: satcat_tle.csv, the satellite file the live SatTrack Dash app loads (repo path dat/clean/satcat_tle.csv,
--- read with a plain pandas.read_csv, no dtypes or parse_dates).
--- The old export's columns, order and value formats (SatTrack src/pipeline/app_data_export/export_app_data.py), less
--- StatusCode, UcsData and OrbitClassEstimated: the app never read them and the new pipeline has no source for them.
+-- App export: satcat_tle.csv, the satellite file the live SatTrack Dash app loads (S3 app/satcat_tle.csv, read with
+-- a plain pandas.read_csv, no dtypes or parse_dates; app/core/state.py).
+-- Columns, order and value formats follow the legacy pipeline's export (removed in 2.2.0), less StatusCode, UcsData
+-- and OrbitClassEstimated: the app never read them and this pipeline has no source for them.
 -- The app drops every row that has any missing value (DataFrame.dropna after propagation), so no column may be empty:
 -- text gaps are 'Unknown' and number gaps are -1.0, as in the old file.
 -- Scope matches the old app: Earth-orbiting payloads with a TLE and a positive period.

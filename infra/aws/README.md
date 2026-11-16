@@ -1,4 +1,7 @@
-# SatTrack hosting: AWS + GitHub setup (DRAFT, nothing applied yet)
+# SatTrack hosting: AWS + GitHub setup
+
+Status (2026-11-16): core stack, state seed, GitHub settings and the app reader key are applied (steps 0-7);
+the scheduler stack (step 8) is not deployed yet, so runs start by manual dispatch.
 
 The pipeline runs daily in GitHub Actions (public repo) and keeps all data in one private S3 bucket in
 **eu-west-1 (Ireland)**, next to the Heroku EU app. An AWS EventBridge schedule is the **only** trigger: it
@@ -7,7 +10,7 @@ keys exist in GitHub. **One public repo** holds the app, the pipeline and this i
 (the existing Heroku app repo; app at the root, pipeline in `pipeline/`, infra in `infra/`; decided 2026-11-10).
 The `production` environment has **no required reviewer** (decided 2026-11-08): the run is
 unattended and the environment's "main only" deployment branch rule is the gate. Full design, threat model and
-reasoning: `hosting_security_plan.html` (the design page).
+reasoning: the hosting security design page (kept outside the repo).
 
 | File | What it creates |
 |---|---|
@@ -99,14 +102,12 @@ Pre-publish checks:
 - Run a secret scanner over the full history and the working tree of the merged repo (`gitleaks git .`,
   `gitleaks dir .`). The repo root is `Space_Junk/SatTrack/`, so the key files under `SatTrack_dev/` are outside it.
 - `.gitignore` excludes `pipeline/data/*`, `*.duckdb`, `.env.sh`.
-- `.slugignore` keeps `pipeline/`, `infra/` and docs out of the Heroku build.
-- The app's `sync-requirements.yml` must pass the Actions settings below: actions pinned to SHAs, no
-  `ad-m/github-push-action` (plain `git push` instead), `permissions: contents: write`, push to `main` only.
+- `.slugignore` keeps `pipeline/`, `infra/` and `tests/` out of the Heroku build.
 
 Settings:
 - **Security**: secret scanning + push protection on (free for public repos); Dependabot alerts on.
 - **Actions → General**: *Allow \<owner\>, and select non-\<owner\>, actions* with the allow-list
-  `actions/checkout@*, actions/setup-python@*, aws-actions/configure-aws-credentials@*,
+  `actions/checkout@*, actions/setup-python@*, astral-sh/setup-uv@*, aws-actions/configure-aws-credentials@*,
   actions/upload-pages-artifact@*, actions/deploy-pages@*` (the last two for `docs.yml`); tick
   *Require actions to be pinned to a full-length commit SHA*; *Workflow permissions* = read repository
   contents; untick *Allow GitHub Actions to create and approve pull requests*; *Fork pull request workflows*
@@ -116,9 +117,12 @@ Settings:
   `AWS_PIPELINE_ROLE_ARN` (stack output), `SATTRACK_S3_BUCKET`, `SATTRACK_SPACETRACK_SECRET_ID` (secret ARN).
   These are identifiers, not credentials; they are secrets only so they are masked in public logs.
 - **Variables**: repository variable `AWS_REGION` = `eu-west-1`.
-- **Rules → Rulesets** on `main`: block force pushes and deletion; require a pull request with code-owner
-  review once anyone else has write access (as sole maintainer you can add yourself as a bypass actor; the
-  planned history reset needs one force push, so do it as the bypass actor or before enabling the ruleset).
+- **Environments → `heroku`**: *Selected branches*, rule `main`; secret `HEROKU_API_KEY` (a deploy-only Heroku
+  account that is a collaborator on `sattrackapp` alone), used by `heroku-deploy.yml`.
+- **Rules → Rulesets** `protect-main` on `main`: block force pushes and deletion; require a pull request and the
+  status checks `app / Heroku build` and `pipeline / tests + dbt checks` (branch up to date), no bypass actors.
+  Add code-owner review once anyone else has write access. The planned history reset needs one force push:
+  disable the ruleset for it, then re-enable.
 - `.github/CODEOWNERS` and the `if:` guards in both workflows are set to `pseud-acc/SatTrack` with
   `pipeline/` paths.
 
@@ -130,10 +134,8 @@ verified files, the pipeline step prints only its exit code, push commits the ma
 
 ## 7. Heroku app reader key (phase 1)
 
-The app release that reads S3 must be deployed together with the pipeline's `export_app_csvs.py` change
-(drop `StatusCode`/`UcsData`/`OrbitClassEstimated`, rename the freshness row to `SpaceTrack_GP`); see the design
-page. The patch is `agents/hosting2/app_s3_read.patch` (not applied). It falls back to the raw GitHub URLs while
-`SATTRACK_S3_BUCKET` is unset, so deploying it first is safe.
+The app reads S3 when `SATTRACK_S3_BUCKET` is set (`app/core/state.py`, since 2.1.0); without it, it reads
+a local folder named by `SATTRACK_APP_DATA_DIR` (the raw-GitHub fallback was removed in 2.2.0).
 
 Create the key in the console (IAM → Users → sattrack-app-reader → *Create access key* →
 *Application running outside AWS*), not with the CLI, so it is never echoed into a terminal or shell

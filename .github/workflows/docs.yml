@@ -1,4 +1,4 @@
-# SatTrack dbt docs site on GitHub Pages (DRAFT - not yet enabled).
+# SatTrack dbt docs site on GitHub Pages: https://pseud-acc.github.io/SatTrack/
 #
 # The docs describe code only, so this workflow is separate from the data pipeline:
 #   * dbt 2.0 `docs generate` builds against an EMPTY DuckDB file: no AWS access, no secrets, no data.

@@ -3,6 +3,9 @@
 
 set -e  # Exit on error
 
+# The app needs a data source to import: the committed sample unless S3 or another folder is set.
+[ -n "${SATTRACK_S3_BUCKET:-}" ] || export SATTRACK_APP_DATA_DIR="${SATTRACK_APP_DATA_DIR:-tests/app_data}"
+
 echo "========================================="
 echo "Heroku Deployment Readiness Test"
 echo "========================================="

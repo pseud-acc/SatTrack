@@ -1,10 +1,10 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: >-
-  SatTrack core hosting (DRAFT, not applied; region eu-west-1). GitHub OIDC provider, the pipeline role that GitHub
+  SatTrack core hosting (region eu-west-1). GitHub OIDC provider, the pipeline role that GitHub
   Actions assumes, the private data bucket with its policy and lifecycle, the Heroku app reader user,
   and a monthly cost budget. See infra/aws/README.md for the apply steps and the verification checklist.
 
-# Design: hosting_security_plan.html (agents/hosting). Nothing in this template creates access keys;
+# Setup: infra/aws/README.md. Nothing in this template creates access keys;
 # the app reader's key is created by hand (README step 7) so it never appears in stack outputs or events.
 
 Parameters:
