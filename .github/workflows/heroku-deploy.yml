@@ -1,0 +1,47 @@
+# Shared job: deploy the commit to Heroku (Build API) and check the live app. Called by merge.yml after the
+# checks pass and only when deploy-relevant files changed. The logic is in .github/scripts/heroku_deploy.sh.
+#
+# Secret: HEROKU_API_KEY in the `heroku` environment (deployment branch rule: main only), the token of a
+# deploy-only Heroku account that is a collaborator on sattrackapp alone. Environment secrets reach this job
+# because the job itself names the environment; callers pass nothing.
+
+name: heroku deploy
+
+on:
+  workflow_call:
+    inputs:
+      app:
+        type: string
+        default: sattrackapp
+      site_url:
+        type: string
+        default: https://www.sattrackapp.com
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    environment:
+      name: heroku
+      url: ${{ inputs.site_url }}
+    concurrency:
+      # One deploy at a time; never cancel one half-way.
+      group: heroku-deploy
+      cancel-in-progress: false
+    steps:
+      - name: Check out code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Deploy and check the live app
+        shell: bash
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_APP: ${{ inputs.app }}
+          SITE_URL: ${{ inputs.site_url }}
+        run: bash .github/scripts/heroku_deploy.sh

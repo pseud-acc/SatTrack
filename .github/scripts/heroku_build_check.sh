@@ -104,7 +104,8 @@ fi
 sleep 3
 docker logs "$NAME" > "$W/run.log" 2>&1 || true
 grep -E "Starting gunicorn|Booting worker|Data source|Satellite catalogue size" "$W/run.log" || true
-loads=$(grep -c "Satellite catalogue size" "$W/run.log" || true)
+# Count matches, not lines: two workers can print onto the same line.
+loads=$({ grep -o "Satellite catalogue size" "$W/run.log" || true; } | wc -l)
 [ "$loads" -ge "$WEB_CONCURRENCY" ] || fail "$loads of $WEB_CONCURRENCY workers logged their data load"
 grep -q "Traceback" "$W/run.log" && { fail "traceback in the app log"; cat "$W/run.log"; }
 [ "$(docker inspect -f '{{.State.OOMKilled}}' "$NAME")" = false ] || fail "killed for exceeding 512 MB"
