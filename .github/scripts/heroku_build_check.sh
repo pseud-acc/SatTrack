@@ -7,7 +7,8 @@
 #   2. Build = Heroku's classic heroku/python buildpack (the one sattrackapp uses) inside Heroku's own
 #      heroku-24 build image: bin/detect, then bin/compile <build> <cache> <env>.
 #   3. Run = the Procfile `web` command in Heroku's heroku-24 runtime image, with .profile.d sourced and the
-#      Eco dyno's 512 MB memory limit, PORT set like a dyno.
+#      Eco dyno's 512 MB memory limit, PORT set like a dyno. The app reads the committed data sample
+#      tests/app_data (SATTRACK_APP_DATA_DIR) instead of S3: CI has no AWS access.
 #   4. Checks = the pages the manual test checked, no pipeline packages in the slug, slug size under Heroku's
 #      limit, the app's data-load log line, no traceback, not killed for memory.
 #
@@ -29,6 +30,7 @@ PORT=5000
 # reading a cgroup v1 file that GitHub runners (cgroup v2) lack; set the value it computes on an Eco dyno.
 WEB_CONCURRENCY=2
 NAME=sattrack-ci-dyno
+APP_DATA=tests/app_data  # mounted read-only into the dyno; never in the slug (.slugignore drops tests/)
 
 W="${RUNNER_TEMP:-$(mktemp -d)}/heroku-build"
 REPO_ROOT="$(git rev-parse --show-toplevel)"
@@ -81,6 +83,7 @@ CMD="$(sed -n 's/^web:[[:space:]]*//p' "$W/app/Procfile")"
 echo "web: $CMD"
 docker run -d --name "$NAME" --memory 512m --memory-swap 512m --user "$(id -u):$(id -g)" \
   -e PORT="$PORT" -e DYNO=web.1 -e WEB_CONCURRENCY="$WEB_CONCURRENCY" -e HOME=/app -p "127.0.0.1:$PORT:$PORT" -v "$W/app:/app" -w /app \
+  -e SATTRACK_APP_DATA_DIR=/app-data -v "$REPO_ROOT/$APP_DATA:/app-data:ro" \
   "$RUN_IMAGE" bash -c 'for f in /app/.profile.d/*.sh; do [ -f "$f" ] && . "$f"; done; exec '"$CMD" >/dev/null
 up=0
 for _ in $(seq 1 90); do

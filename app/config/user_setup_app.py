@@ -20,7 +20,6 @@ Todo:
 """
     App Data Locations
 """
-#satcat_loc = "./dat/clean/satcat_tle.csv"
-satcat_loc = "https://raw.githubusercontent.com/pseud-acc/SatTrack/refs/heads/main/dat/clean/satcat_tle.csv"
+# Satellite data comes from the pipeline's app files: S3 (SATTRACK_S3_BUCKET) or a local folder
+# (SATTRACK_APP_DATA_DIR); see app/core/state.py.
 img_loc = "./assets/images/gray_scale_earth_2048_1024.jpg"
-metadata_loc = "https://raw.githubusercontent.com/pseud-acc/SatTrack/refs/heads/main/dat/meta/last_data_update.csv"
