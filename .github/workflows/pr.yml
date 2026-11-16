@@ -1,0 +1,28 @@
+# Pull request checks. Both are required by the `protect-main` ruleset ("app / Heroku build" and
+# "pipeline / tests + dbt checks"), so a PR merges only when they pass. The jobs live in their own workflow
+# files and are shared with merge.yml.
+#
+# Public-repo rules: `pull_request` only (never pull_request_target), so a fork's PR gets a read-only token
+# and no secrets, and runs only after approval (Settings -> Actions: all external contributors). No secrets,
+# no AWS, no artifacts or caches; actions pinned to full commit SHAs from the repo allow-list.
+
+name: pr
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  app:
+    name: app
+    uses: ./.github/workflows/app-build.yml
+
+  pipeline:
+    name: pipeline
+    uses: ./.github/workflows/pipeline-checks.yml
