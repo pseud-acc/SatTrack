@@ -25,7 +25,7 @@ The earlier pipeline (CelesTrak, UCS and space.skyrocket scrapers in `src/`, CSV
 
 | Path | What |
 |---|---|
-| `app/`, `assets/`, `static/`, `run_app.py`, `Procfile`, `pyproject.toml`, `uv.lock` | The Dash app, deployed to Heroku (uv project) |
+| `app/`, `assets/`, `static/`, `run_app.py`, `Procfile`, `pyproject.toml`, `uv.lock` | The Dash app, deployed to Heroku (uv project). See [app/README.md](app/README.md) |
 | `pipeline/` | The data pipeline: `ingestion/`, `transform/` (dbt), `scripts/`, `run_pipeline.py`; its own uv project. See [pipeline/README.md](pipeline/README.md) and [pipeline/transform/README.md](pipeline/transform/README.md) |
 | `infra/` | AWS CloudFormation stacks and the S3 state helper for the scheduled pipeline; setup in [infra/aws/README.md](infra/aws/README.md) |
 | `.github/` | Workflows: `pr.yml` (PR checks), `merge.yml` (checks + Heroku deploy), `pipeline.yml` (daily run), `docs.yml` (docs site), and the shared jobs they call; Dependabot, CODEOWNERS |
