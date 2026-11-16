@@ -126,7 +126,8 @@ The app will be available at http://127.0.0.1:8050/
 
 ## Testing Heroku Deployment
 
-Every pull request runs `ci.yml`, and `main` only accepts PRs whose checks pass. Its `app (Heroku build)` job
+Every pull request runs `pr.yml`, and `main` only accepts PRs whose checks pass; `merge.yml` reruns them after a
+merge and deploys to Heroku when app files changed. The `app / Heroku build` job
 builds the commit with Heroku's own Python buildpack and heroku-24 images, runs it like an Eco dyno (512 MB,
 2 workers) on the `tests/app_data` sample, and checks it serves (`.github/scripts/heroku_build_check.sh`).
 The options below are for trying the app by hand.

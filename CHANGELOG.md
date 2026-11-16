@@ -20,7 +20,8 @@ When creating pull requests, use the following prefixes to indicate the type of 
 ## [Unreleased]
 
 ### Added
-- PR checks (`ci.yml`), required on `main`: a Heroku-identical build and run of the app, and the pipeline's tests and dbt checks
+- PR checks (`pr.yml`), required on `main`: a Heroku-identical build and run of the app, and the pipeline's tests and dbt checks
+- Deploy on merge (`merge.yml`): the same checks, then a Heroku Build API deploy and live checks when app files changed
 - `SATTRACK_APP_DATA_DIR`: run the app from a local folder of the pipeline's app CSVs; `tests/app_data` holds a small sample
 
 ### Changed
