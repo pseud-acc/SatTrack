@@ -1,0 +1,110 @@
+# SatTrack PR checks. Required by the `protect-main` ruleset: a PR merges into main only when both jobs pass.
+#
+#   app (Heroku build)  builds the commit with Heroku's own buildpack and images, runs it like an Eco dyno and
+#                       checks it serves (.github/scripts/heroku_build_check.sh). Replaces the manual temp-app test.
+#   pipeline            ingestion + dbt-bouncer unit tests, `dbt parse`, and the dbt-bouncer project rules.
+#                       No data, no warehouse, no network beyond package downloads.
+#
+# Public-repo rules: the `pull_request` trigger only (never pull_request_target), so a fork's PR gets a read-only
+# token and no secrets, and runs only after approval (Settings -> Actions: all external contributors). This
+# workflow uses no secrets and no AWS. Actions pinned to full commit SHAs from the repo allow-list; no
+# artifacts, no caches. The app starts in its default GitHub-data mode (SATTRACK_S3_BUCKET unset).
+
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  app:
+    name: app (Heroku build)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Check out code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Build like Heroku, run like a dyno, check it serves
+        run: bash .github/scripts/heroku_build_check.sh
+
+  pipeline:
+    name: pipeline (tests + dbt checks)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      DO_NOT_TRACK: "1"
+      PYTHONUNBUFFERED: "1"
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - name: Check out code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0  # v7.1.0
+        with:
+          python-version: "3.12.3"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2  # v10.3.3
+        with:
+          version: "0.13.7"
+          enable-cache: false
+
+      - name: Install pipeline and bouncer environments
+        # Same hash-locked installs as pipeline.yml; --locked also fails the PR if uv.lock is out of step.
+        working-directory: pipeline
+        run: |
+          set -euo pipefail
+          PY="$(command -v python)"
+          UV_PROJECT_ENVIRONMENT="$RUNNER_TEMP/venv-pipeline" uv sync --quiet --locked --no-build --only-group pipeline --python "$PY"
+          UV_PROJECT_ENVIRONMENT="$RUNNER_TEMP/venv-bouncer" uv sync --quiet --locked --only-group bouncer --python "$PY"
+
+      - name: App lockfile is in step
+        run: uv lock --check
+
+      - name: Ingestion tests
+        working-directory: pipeline
+        run: |
+          set -euo pipefail
+          "$RUNNER_TEMP/venv-bouncer/bin/python" -m pytest ingestion/tests -q -p no:cacheprovider
+
+      - name: dbt-bouncer check tests
+        working-directory: pipeline/transform
+        run: |
+          set -euo pipefail
+          "$RUNNER_TEMP/venv-bouncer/bin/python" -m pytest bouncer/tests -q -p no:cacheprovider
+
+      - name: dbt parse (empty database)
+        working-directory: pipeline/transform
+        env:
+          SATTRACK_DB_PATH: ${{ runner.temp }}/empty/sattrack.duckdb
+          SATTRACK_OPS_PATH: ${{ runner.temp }}/empty/sattrack_ops.duckdb
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/empty"
+          "$RUNNER_TEMP/venv-pipeline/bin/dbt" deps --profiles-dir .
+          "$RUNNER_TEMP/venv-pipeline/bin/dbt" parse --profiles-dir .
+
+      - name: dbt-bouncer project rules
+        working-directory: pipeline/transform
+        run: |
+          set -euo pipefail
+          "$RUNNER_TEMP/venv-bouncer/bin/dbt-bouncer" --config-file bouncer/dbt-bouncer.yml
