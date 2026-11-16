@@ -28,7 +28,7 @@ dependencies = [
     "pandas>=2.1.0,<3",
     "pillow>=10.0.0,<11",
     "plotly>=5.7.0,<6",
-    "sgp4>=2.21,<3",
+    "sgp4>=2.27,<3",
 ]
 
 [project.urls]
