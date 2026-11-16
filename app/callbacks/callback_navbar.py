@@ -67,7 +67,6 @@ def register(app):
         [
             Output("nav-home", "active"),
             Output("nav-viz", "active"),
-            Output("nav-learn", "active")
         ],
         [Input("url", "pathname")],
     )
@@ -77,12 +76,8 @@ def register(app):
 
         @param pathname: (str) current URL pathname
 
-        @return: (tuple) active state for each nav link (home, viz, learn)
+        @return: (tuple) active state for each nav link (home, viz)
         """
-        if pathname == "/":
-            return True, False, False
-        elif pathname == "/sat_visualisation":
-            return False, True, False
-        elif pathname == "/sat_applications":
-            return False, False, True
-        return False, False, False
+        if pathname == "/sat_visualisation":
+            return False, True
+        return True, False   # every other path shows the home page
