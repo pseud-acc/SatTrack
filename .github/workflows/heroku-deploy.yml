@@ -2,8 +2,8 @@
 # checks pass and only when deploy-relevant files changed. The logic is in .github/scripts/heroku_deploy.sh.
 #
 # Secret: HEROKU_API_KEY in the `heroku` environment (deployment branch rule: main only), the token of a
-# deploy-only Heroku account that is a collaborator on sattrackapp alone. Environment secrets reach this job
-# because the job itself names the environment; callers pass nothing.
+# deploy-only Heroku account that is a collaborator on sattrackapp alone. The job names the environment, and
+# the caller must use `secrets: inherit`: without it the environment's secrets are empty in a called workflow.
 
 name: heroku deploy
 

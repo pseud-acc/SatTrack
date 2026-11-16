@@ -79,3 +79,6 @@ jobs:
     needs: [changes, app, pipeline]
     if: needs.changes.outputs.deploy == 'true'
     uses: ./.github/workflows/heroku-deploy.yml
+    # A called workflow sees its job environment's secrets (`heroku`: HEROKU_API_KEY) only when the caller
+    # passes secrets on. The repo has no repository- or organisation-level secrets, so this adds nothing else.
+    secrets: inherit
