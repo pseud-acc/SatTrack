@@ -37,6 +37,7 @@ Todo:
 
 ## Imports
 # Standard libraries
+import zlib
 import numpy as np
 import plotly.graph_objs as go
 from datetime import datetime
@@ -94,111 +95,111 @@ def create_3d_surface(img):
                       hoverinfo="none")            
     return surf_3d
 
-def create_3d_scatter_hover_label(dff, is_tracked = False):
+# --- 3D hover: one shared template; each point sends only its values (customdata + position text) ---
+
+HOVER_LABEL_3D = dict(
+    namelength=0,
+    font_family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    font_size=12,
+    font_color="white",
+    bgcolor="rgba(13, 15, 18, 0.95)",
+    bordercolor="#0dcaf0",
+    align="left"
+)
+
+# customdata columns, in order, for the hover template
+CUSTOMDATA_3D = ["ObjectName", "SatCatId", "status_colour", "Status", "OrbitClass", "LaunchYear", "Owner"]
+
+_HOVER_HEAD_3D = (
+    '<b style="font-size: 14px; background: linear-gradient(90deg, #00ff88 0%, #0dcaf0 100%); '
+    '-webkit-background-clip: text; -webkit-text-fill-color: transparent; '
+    'background-clip: text; color: #0dcaf0;">%{customdata[0]}</b><br>'
+    '<span style="color: rgba(173, 181, 189, 0.6);">━━━━━━━━━━━━━━━</span><br>'
+    '<b>ID:</b> <span style="color: rgba(255, 255, 255, 0.9);">%{customdata[1]}</span><br>'
+    '<b>Status:</b> <span style="color: %{customdata[2]};">●</span> '
+    '<span style="color: %{customdata[2]};">%{customdata[3]}</span><br>'
+    '<b>Orbit:</b> <span style="color: rgba(255, 255, 255, 0.9);">%{customdata[4]}</span><br>'
+)
+
+# Satellite markers: the full label; the position (changes every tick) comes from `text`
+HOVER_TEMPLATE_3D = (
+    _HOVER_HEAD_3D +
+    '<b>Launch:</b> <span style="color: rgba(255, 255, 255, 0.9);">%{customdata[5]}</span><br>'
+    '<b>Owner:</b> <span style="color: rgba(255, 255, 255, 0.9);">%{customdata[6]}</span><br>'
+    '<span style="color: rgba(173, 181, 189, 0.6);">━━━━━━━━━━━━━━━</span><br>'
+    '<b>Position:</b><br>'
+    '<span style="color: rgba(108, 117, 125, 0.8); font-size: 11px;">  '
+    'Lat: %{text}km</span>'
+    '<extra></extra>'
+)
+
+
+def scatter_3d_customdata(dff):
     """
-    Generate hover configuration for satellite markers.
+    Per-satellite hover values (the columns in CUSTOMDATA_3D), sent once per full redraw.
 
-    @param dff: DataFrame with satellite data
-    @param is_tracked: Boolean indicating if this is a tracked satellite with orbital path
-
-    @return: Dictionary with hoverlabel, hoverinfo, and hovertext keys
+    @param dff: (DataFrame) filtered satellites
+    @return: (list) one list of values per satellite
     """
-    hover_texts = []
+    data = dff[["ObjectName", "SatCatId", "Status", "OrbitClass", "LaunchYear", "Owner"]].copy()
+    data["status_colour"] = np.where(data["Status"] == "Active", colours['markerpath1'], colours['markerpath0'])
+    return data[CUSTOMDATA_3D].values.tolist()
 
-    hover_label = dict(
-        namelength=0,
-        font_family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-        font_size=12,
-        font_color="white",
-        bgcolor="rgba(13, 15, 18, 0.95)",
-        bordercolor="#0dcaf0",
-        align="left"
-    )
 
-    hover_text_template = (
-        '<b style="font-size: 14px; background: linear-gradient(90deg, #00ff88 0%, #0dcaf0 100%); '
-        '-webkit-background-clip: text; -webkit-text-fill-color: transparent; '
-        'background-clip: text; color: #0dcaf0;">{ObjectName}</b><br>'
-        '<span style="color: rgba(173, 181, 189, 0.6);">━━━━━━━━━━━━━━━</span><br>'
-        '<b>ID:</b> <span style="color: rgba(255, 255, 255, 0.9);">{SatCatId}</span><br>'
-        '<b>Status:</b> <span style="color: {status_color};">●</span> '
-        '<span style="color: {status_color};">{Status}</span><br>'
-        '<b>Orbit:</b> <span style="color: rgba(255, 255, 255, 0.9);">{OrbitClass}</span><br>'
-        '<b>Launch:</b> <span style="color: rgba(255, 255, 255, 0.9);">{LaunchYear}</span><br>'
-        '<b>Owner:</b> <span style="color: rgba(255, 255, 255, 0.9);">{Owner}</span><br>'
-        '<span style="color: rgba(173, 181, 189, 0.6);">━━━━━━━━━━━━━━━</span><br>'
-        '<b>Position:</b><br>'
-        '<span style="color: rgba(108, 117, 125, 0.8); font-size: 11px;">  '
-        'Lat: {lat}° | Lon: {lon}° | Alt: {alt}km</span>'
-    )
+def scatter_3d_position_text(dff):
+    """
+    Position part of the hover label, "<lat>° | Lon: <lon>° | Alt: <alt>" (the template adds "Lat: " and "km").
 
-    if is_tracked:
-        for idx, row in dff.iterrows():
+    @param dff: (DataFrame) satellites with lat, lon, alt
+    @return: (list) one string per satellite
+    """
+    return (dff["lat"].round(2).astype(str) + "° | Lon: " + dff["lon"].round(2).astype(str) + "° | Alt: " +
+            dff["alt"].round().astype(int).astype(str)).tolist()
 
-            status_colour = hover_activity_colours(row["Status"])
-            hover_text = hover_text_template.format(
-                            ObjectName=row["ObjectName"],
-                            SatCatId=row["SatCatId"],
-                            status_color=status_colour,
-                            Status=row["Status"],
-                            OrbitClass=row["OrbitClass"],
-                            LaunchYear=row["LaunchYear"],
-                            Owner=row["Owner"],
-                            lat=round(row["lat"], 2),
-                            lon=round(row["lon"], 2),
-                            alt=round(row["alt"])
-                        )
-            hover_texts.append(hover_text)
 
-    else:
-        for idx, row in dff.iterrows():
+def scatter_3d_xyz(dff):
+    """
+    Marker positions in km, rounded to 0.1 km (far below a pixel at any zoom).
 
-            status_colour = hover_activity_colours(row["Status"])
-            hover_text = hover_text_template.format(
-                ObjectName=row["ObjectName"],
-                SatCatId=row["SatCatId"],
-                status_color=status_colour,
-                Status=row["Status"],
-                OrbitClass=row["OrbitClass"],
-                LaunchYear=row["LaunchYear"],
-                Owner=row["Owner"],
-                lat=round(row["lat"], 2),
-                lon=round(row["lon"], 2),
-                alt=round(row["alt"])
-            )
-            hover_texts.append(hover_text)
+    @param dff: (DataFrame) satellites with xp, yp, zp
+    @return: (tuple) x, y, z lists
+    """
+    return tuple(dff[c].astype(np.float64).round(1).tolist() for c in ("xp", "yp", "zp"))
 
-    return {
-        'hoverlabel': hover_label,
-        'hoverinfo': 'text',
-        'hovertext': hover_texts
-    }
+
+def satellite_ids_signature(dff):
+    """
+    Short fingerprint of which satellites are shown, in order. A timer tick may send positions only when it
+    matches the figure already in the browser; otherwise the hover values would no longer line up.
+
+    @param dff: (DataFrame) filtered satellites
+    @return: (str) "<count>:<crc32 of the ids>"
+    """
+    ids = np.ascontiguousarray(dff["SatCatId"].to_numpy(dtype=np.int64))
+    return f"{len(ids)}:{zlib.crc32(ids.tobytes()):08x}"
+
 
 def create_3d_scatter_plot(dff, sat_status_encoded):
     """
-    Create 3D scatter plot of satellites.
+    Create 3D scatter plot of satellites. Trace index 1 in the figure (handle_orbit_click relies on it).
 
-    @param dff: (DataFrame) Filtered satellite dataframe
-    @param sat_status_encoded: (array) Encoded satellite status array
-
-    @return: (Scatter3d) Plotly Scatter3d object with satellite markers
+    @param dff: (DataFrame) Filtered satellite data
+    @param sat_status_encoded: (array) Encoded satellite status
+    @return: (Scatter3d) 3D scatter plot object
     """
-
-    # Generate hover configuration
-    hover_config = create_3d_scatter_hover_label(dff, is_tracked=False)
-
-    # Create 3D scatter plot
-    scatter_3d = go.Scatter3d(x=dff["xp"].astype(np.float32), y=dff["yp"].astype(np.float32),
-                                z=dff["zp"].astype(np.float32),
-                                text=dff["ObjectName"], mode="markers", showlegend=False,
+    x, y, z = scatter_3d_xyz(dff)
+    scatter_3d = go.Scatter3d(x=x, y=y, z=z,
+                                mode="markers", showlegend=False,
                                 marker=dict(color=np.where(dff["Status"] == "Active", 1, 0), cmin=0, cmax=1,
                                             colorscale=colorscale_marker, opacity=0.65, size=2.5,
                                             line=dict(color=sat_status_encoded,
                                                     colorscale=colorscale_marker, width=0.01,
                                                     cmin=0, cmax=1)),
-                                **hover_config
+                                customdata=scatter_3d_customdata(dff),
+                                text=scatter_3d_position_text(dff),
+                                hovertemplate=HOVER_TEMPLATE_3D,
+                                hoverlabel=HOVER_LABEL_3D
                                 )
-
     return scatter_3d
 
 def create_3d_figure(layout_3d, surf_3d, scatter_3d=None):
@@ -219,25 +220,33 @@ def create_3d_figure(layout_3d, surf_3d, scatter_3d=None):
 
     return fig_3d
 
+def annotation_3d_text(dff, time_now):
+    """
+    Text of the 3D figure's annotation: position time and satellite counts.
+
+    @param dff: (DataFrame) Filtered satellite data
+    @param time_now: (datetime) Current time
+    @return: (str) annotation text
+    """
+    return ('<i><span style="font-size: clamp(8px, 2vw, 12px);">Satellite position as at: ' +
+            time_now.strftime("%H:%M:%S, %d/%m/%Y") + '</span></i> <br>' +
+            '<i><span style="font-size: clamp(8px, 2vw, 12px);">Number of active/inactive satellites shown: ' +
+            "/".join([str(sum(dff.Status == "Active")), str(sum(dff.Status == "Inactive"))]) +
+            ' (' + str(dff.shape[0]) + ' in total)' + '</span></i>')
+
+
 def annotate_3d_figure(fig_3d, dff, time_now):
     """
-    Add annotations to 3D figure.
+    Add annotations to 3D figure (layout.annotations[0], which timer ticks update in place).
 
-    @param fig_3d: (Figure) Current 3D figure
-    @param dff: (DataFrame) Filtered satellite dataframe
-    @param time_now: (datetime) Current timestamp
-
+    @param fig_3d: (Figure) 3D figure object
+    @param dff: (DataFrame) Filtered satellite data
+    @param time_now: (datetime) Current time
     @return: (Figure) Updated 3D figure with annotations
     """
     fig_3d.add_annotation(dict(font=dict(color=colours["atext"], size=10),
                                 x=0.005, y=0.99, showarrow=False,
-                                text=
-                                '<i><span style="font-size: clamp(8px, 2vw, 12px);">Satellite position as at: ' +
-                                time_now.strftime("%H:%M:%S, %d/%m/%Y") + '</span></i> <br>' +
-                                '<i><span style="font-size: clamp(8px, 2vw, 12px);">Number of active/inactive satellites shown: ' +
-                                "/".join(
-                                    [str(sum(dff.Status == "Active")), str(sum(dff.Status == "Inactive"))]) +
-                                ' (' + str(dff.shape[0]) + ' in total)' + '</span></i>',
+                                text=annotation_3d_text(dff, time_now),
                                 textangle=0, xanchor='left', align='left',
                                 xref="paper", yref="paper"))
     return fig_3d
@@ -313,96 +322,62 @@ def handle_orbit_click(callback_context, click_data, orbit_list, dff):
 
     return orbit_list_updated
 
-def create_3d_orbit_hover_label(dff):
+def create_orbit_traces(dff, orbit_list, time_now):
     """
-    Generate hover configuration for satellite orbit paths.
+    Orbit path traces for the tracked satellites: for each, the path line and an enlarged marker at the current
+    position. Every point of a path has the same hover label, so the path sends it once as its template.
 
-    @param dff: DataFrame with satellite data
-
-    @return: Dictionary with hoverlabel, hoverinfo, and hovertext keys
+    @param dff: (DataFrame) Filtered satellite data
+    @param orbit_list: (list) Satellite IDs whose orbits are shown
+    @param time_now: (datetime) Current time
+    @return: (list) Scatter3d traces, two per tracked satellite still in dff
     """
-
-    # Define hover label style
-    hover_label = dict(
-        namelength=0,
-        font_family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-        font_size=12,
-        font_color="white",
-        bgcolor="rgba(13, 15, 18, 0.95)",
-        bordercolor="#0dcaf0",
-        align="left"
-    )
-
-    # Define hover text template
-    hover_text_template = (
-        '<b style="font-size: 14px; background: linear-gradient(90deg, #00ff88 0%, #0dcaf0 100%); '
-        '-webkit-background-clip: text; -webkit-text-fill-color: transparent; '
-        'background-clip: text; color: #0dcaf0;">{ObjectName}</b><br>'
-        '<span style="color: rgba(173, 181, 189, 0.6);">━━━━━━━━━━━━━━━</span><br>'
-        '<b>ID:</b> <span style="color: rgba(255, 255, 255, 0.9);">{SatCatId}</span><br>'
-        '<b>Status:</b> <span style="color: {status_color};">●</span> '
-        '<span style="color: {status_color};">{Status}</span><br>'
-        '<b>Orbit:</b> <span style="color: rgba(255, 255, 255, 0.9);">{OrbitClass}</span><br>'
-    )
-
-    # Generate hover texts
-    hover_texts = []
-    for idx, row in dff.iterrows():
-
-        status_colour = hover_activity_colours(row["Status"])
-        hover_text = hover_text_template.format(
-            ObjectName=row["ObjectName"],
-            SatCatId=row["SatCatId"],
-            status_color=status_colour,
-            Status=row["Status"],
-            OrbitClass=row["OrbitClass"],
-            LaunchYear=row["LaunchYear"],
-            Owner=row["Owner"]
-        )
-        hover_texts.append(hover_text)  
-    
-    return {
-        'hoverlabel': hover_label,
-        'hoverinfo': 'text',
-        'hovertext': hover_texts
-    }    
-
-def add_orbit_paths_to_figure(fig_3d, dff, orbit_list, time_now):
-    """
-    Add orbit paths to 3D figure.
-    @param fig_3d: (Figure) Current 3D figure
-    @param dff: (DataFrame) Filtered satellite dataframe
-    @param orbit_list: (list) List of orbit IDs to add paths for
-    @param time_now: (datetime) Current timestamp
-    @return: (Figure) Updated 3D figure with orbit paths
-    """
-
+    traces = []
     for orbit_id in orbit_list:
         if orbit_id in dff["SatCatId"].values:
             d3d = generate_orbital_path(dff[dff["SatCatId"] == orbit_id],
                                 720, time_now, True)
-            # Get hover configuration
-            hover_config = create_3d_scatter_hover_label(d3d.iloc[[0]], is_tracked=True)
-            # Get hover orbit configuration
-            hover_orbit_config = create_3d_orbit_hover_label(d3d)
-
-            sat_path_status_enc = np.where(d3d["Status"] == "Active", 1, 0)[0]
-            # Update 3d plot with satellite orbital path
-            fig_3d.add_scatter3d(x=d3d["xp"], y=d3d["yp"], z=d3d["zp"],
-                                    line=dict(color=np.where(d3d["Status"] == "Active", 1, 0), cmin=0, cmax=1,
+            first = d3d.iloc[[0]]
+            sat = scatter_3d_customdata(first)[0]
+            path_template = _HOVER_HEAD_3D
+            for i in range(5):
+                path_template = path_template.replace("%{customdata[" + str(i) + "]}", str(sat[i]))
+            status_enc = np.where(d3d["Status"] == "Active", 1, 0)
+            # Satellite orbital path
+            traces.append(go.Scatter3d(x=d3d["xp"].round(1), y=d3d["yp"].round(1), z=d3d["zp"].round(1),
+                                    line=dict(color=status_enc, cmin=0, cmax=1,
                                             colorscale=colorscale_markerpath, width=5),
                                     mode="lines", showlegend=False,
-                                    **hover_orbit_config)
-            # Add oversized plot point for current position in orbital path
-            fig_3d.add_scatter3d(x=[d3d["xp"][0]], y=[d3d["yp"][0]], z=[d3d["zp"][0]],
-                                    marker=dict(color=np.where(d3d["Status"] == "Active", 1, 0),
+                                    hovertemplate=path_template + '<extra></extra>',
+                                    hoverlabel=HOVER_LABEL_3D))
+            # Oversized plot point for current position in orbital path
+            traces.append(go.Scatter3d(x=[round(float(d3d["xp"].iloc[0]), 1)],
+                                    y=[round(float(d3d["yp"].iloc[0]), 1)],
+                                    z=[round(float(d3d["zp"].iloc[0]), 1)],
+                                    marker=dict(color=status_enc[:1],
                                                 colorscale=colorscale_markerpath,
                                                 cmin=0, cmax=1, opacity=0.65, size=8),
                                     mode="markers", showlegend=False,
-                                    **hover_config
-                                    )
+                                    customdata=[sat], text=scatter_3d_position_text(first),
+                                    hovertemplate=HOVER_TEMPLATE_3D, hoverlabel=HOVER_LABEL_3D))
+    return traces
 
+
+def add_orbit_paths_to_figure(fig_3d, dff, orbit_list, time_now):
+    """
+    Add orbit paths to 3D figure (traces 2 onwards).
+
+    @param fig_3d: (Figure) 3D figure object
+    @param dff: (DataFrame) Filtered satellite data
+    @param orbit_list: (list) List of satellite IDs to show orbits for
+    @param time_now: (datetime) Current time
+    @return: (Figure) Updated 3D figure with orbit paths
+    """
+    for trace in create_orbit_traces(dff, orbit_list, time_now):
+        fig_3d.add_trace(trace)
     return fig_3d
+
+
 
 def create_2d_layout():
     """
