@@ -40,7 +40,11 @@ flowchart LR
    propagate each element set to the current time with SGP4 (`helper__satellite_position.py`), and return a
    new figure or table rows.
 3. **Live updates:** timers re-run the 3D callback every 20 s and the 2D callback every 3 s, so positions move
-   while the page is open.
+   while the page is open. A 3D timer tick sends only what moved, as a Dash `Patch`: positions, the position part
+   of the hover labels, the timestamp and any tracked orbits (about 0.3 MB compressed for ~16,000 satellites).
+   Hover labels use one shared template plus per-satellite values (`customdata`), and responses are compressed
+   (`Dash(compress=True)`, flask-compress). The `3d-sat-ids` store holds a fingerprint of the satellites drawn, so a
+   tick falls back to a full redraw if the set changed.
 
 New data reaches the app only when a worker starts (a deploy, a restart, or the Eco dyno waking from sleep).
 
@@ -137,5 +141,4 @@ stops with an error naming both.
 
 ## Known issues
 
-- The 3D view sends about 20 MB per 20-second update because every satellite carries its own hover text, and
-  responses aren't compressed. A fix (compression, a shared hover template, partial updates) is planned.
+None open. Report problems as GitHub issues.

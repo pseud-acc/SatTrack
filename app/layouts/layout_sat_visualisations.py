@@ -62,6 +62,7 @@ def create_dash_layout(app):
         # Memory stores
         dcc.Store(id='3d-orbit-memory', data=[]),
         dcc.Store(id='camera-memory', data=fig3d_0["layout"]["scene"]["camera"]),
+        dcc.Store(id='3d-sat-ids', data=None),  # fingerprint of the satellites drawn in 3D (timer ticks patch only when unchanged)
 
         # Header Section - Mobile Optimized
         create_header(tle_metadata),

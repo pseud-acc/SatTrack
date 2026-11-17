@@ -25,6 +25,7 @@ When creating pull requests, use the following prefixes to indicate the type of 
 - `SATTRACK_APP_DATA_DIR`: run the app from a local folder of the pipeline's app CSVs; `tests/app_data` holds a small sample
 
 ### Changed
+- 3D view traffic: responses are compressed, hover labels use one shared template, and the 20-second refresh sends only the moved positions (28.7 MB → 0.31 MB per refresh with ~16,000 satellites); labels and click-to-track unchanged
 - The app reads only the pipeline's Space-Track + GCAT data (S3 or a local folder) and credits only those sources; with no data source set it stops with an error instead of falling back to GitHub
 
 ### Removed

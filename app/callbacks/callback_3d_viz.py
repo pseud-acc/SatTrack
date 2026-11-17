@@ -27,7 +27,7 @@ import numpy as np
 import plotly.graph_objects as go
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
-from dash import Dash, callback_context
+from dash import Dash, Patch, callback_context, no_update
 
 
 ## Internal Modules
@@ -42,7 +42,12 @@ from app.helper.helper__app_data import (filter_satellite_data)
 # app helper functions
 from app.helper.helper__plot_display import (create_3d_scatter_plot, create_3d_figure, 
                                             annotate_3d_figure, update_3d_camera_view,
-                                            add_orbit_paths_to_figure, handle_orbit_click)
+                                            add_orbit_paths_to_figure, handle_orbit_click,
+                                            annotation_3d_text, create_orbit_traces,
+                                            satellite_ids_signature, scatter_3d_position_text,
+                                            scatter_3d_xyz)
+
+TICK = '3d-viz-interval-component.n_intervals'
 
 
 # Callback wrapper function
@@ -77,7 +82,8 @@ def register(app):
         [
             Output('3d-earth-satellite-plot', 'figure'),
             Output('3d-orbit-memory', 'data'),
-            Output('camera-memory', "data")
+            Output('camera-memory', "data"),
+            Output('3d-sat-ids', 'data')
         ],
         [
             Input('status-filter-checkbox', 'value'),
@@ -95,13 +101,14 @@ def register(app):
             Input('3d-viz-interval-component', "n_intervals")
         ],
         State('camera-memory', "data"),
-        State('3d-earth-satellite-plot', 'relayoutData')
+        State('3d-earth-satellite-plot', 'relayoutData'),
+        State('3d-sat-ids', 'data')
     )
     def update_3dviz(status, orbit, satname, satcatid,
                      owner, launchvehicle, purpose, year,
                      clickData, orbit_list, tab,
                      clear_orbits_btn, time_interval, 
-                     cam_mem, cam_scene):
+                     cam_mem, cam_scene, sat_ids_shown):
 
         if tab != "3d-viz":
             raise PreventUpdate
@@ -111,6 +118,29 @@ def register(app):
                                                           status, orbit, satname, 
                                                           satcatid, owner, 
                                                           launchvehicle, purpose, year)
+
+            sat_ids = satellite_ids_signature(dff)
+
+            # Timer tick with the same satellites already drawn: send only what moved (positions, the
+            # position text in the hover labels, the timestamp, orbit paths). The Earth surface, hover
+            # template, per-satellite hover values and camera stay as they are in the browser.
+            triggered = [t["prop_id"] for t in callback_context.triggered]
+            if triggered == [TICK] and sat_ids == sat_ids_shown:
+                patch = Patch()
+                x, y, z = scatter_3d_xyz(dff)
+                patch["data"][1]["x"] = x
+                patch["data"][1]["y"] = y
+                patch["data"][1]["z"] = z
+                patch["data"][1]["text"] = scatter_3d_position_text(dff)
+                patch["layout"]["annotations"][0]["text"] = annotation_3d_text(dff, time_now)
+                # Keep the user's view: the patched figure still holds the camera of the last full draw,
+                # so re-apply the latest rotation/zoom, as update_3d_camera_view does on a full draw.
+                camera = (cam_scene or {}).get("scene.camera") or (cam_mem or {}).get("scene.camera")
+                if camera:
+                    patch["layout"]["scene"]["camera"] = camera
+                for i, trace in enumerate(create_orbit_traces(dff, orbit_list or [], time_now)):
+                    patch["data"][2 + i] = trace.to_plotly_json()
+                return patch, no_update, no_update, no_update
 
             # Update orbit list based on clicks
             orbit_list_updated = handle_orbit_click(callback_context, clickData, orbit_list, dff)                                                          
@@ -130,4 +160,4 @@ def register(app):
             # Add orbit paths to figure
             fig_3d = add_orbit_paths_to_figure(fig_3d, dff, orbit_list_updated, time_now)
             
-            return fig_3d, orbit_list_updated, cam_mem
+            return fig_3d, orbit_list_updated, cam_mem, sat_ids

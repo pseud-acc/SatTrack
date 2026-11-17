@@ -43,7 +43,7 @@ from app.layouts.layout_sat_visualisations import create_dash_layout as create_d
 
 # Instantiate Dash App
 external_stylesheets = [dbc.themes.CYBORG]
-app = Dash(__name__, external_stylesheets=external_stylesheets)
+app = Dash(__name__, external_stylesheets=external_stylesheets, compress=True)  # gzip/brotli (flask-compress)
 
 # Reference the underlying flask app (Used by gunicorn webserver in Heroku production deployment)
 server = app.server

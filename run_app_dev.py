@@ -54,6 +54,7 @@ external_stylesheets = [
 app = Dash(
     __name__,
     external_stylesheets=external_stylesheets,
+    compress=True,  # gzip/brotli (flask-compress)
     meta_tags=[
         {
             "name": "viewport",
