@@ -35,6 +35,7 @@ When creating pull requests, use the following prefixes to indicate the type of 
 
 ### Fixed
 - Satellite positions froze whenever the pipeline held its GCAT enrichment step (as on 17–18 Nov, when GCAT gave two failed-launch Kuiper payloads the same ID): the app export now takes element sets and "Last updated" from the tracking tables, which update every run, and only the descriptive fields from enrichment
+- Longitudes in the hover labels, the list view and its CSV export could show values below −180° (down to −405°); they now stay within ±180°. Positions on the 3D globe and the 2D map were already right
 
 ## [2.1.0] - 2026-11-15
 
