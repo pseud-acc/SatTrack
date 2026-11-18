@@ -132,7 +132,12 @@ stops with an error naming both.
 
 ## Testing and deployment
 
-- **Every PR** runs `app / Heroku build`: the commit is built with Heroku's own buildpack and images, started
+- **Every PR** runs `app tests / unit + integration`: `tests/app`, on the `tests/app_data` sample with the app's
+  clock frozen at the sample's download time. Unit tests call the helpers directly (positions against the sgp4
+  library, sidebar filters against an independent pandas filter); integration tests call the server and each
+  callback over HTTP as the browser does. Every callback must have a test (`test_every_callback_has_a_test`).
+  Run locally: `uv run pytest tests/app -q`.
+- **Every PR** also runs `app / Heroku build`: the commit is built with Heroku's own buildpack and images, started
   like an Eco dyno on the `tests/app_data` sample, and the pages are checked
   ([`.github/scripts/heroku_build_check.sh`](../.github/scripts/heroku_build_check.sh)).
 - **Every merge** that changes app files deploys automatically through `merge.yml`, then checks the live pages
