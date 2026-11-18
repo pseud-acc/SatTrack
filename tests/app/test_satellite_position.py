@@ -77,11 +77,9 @@ def test_latitude_is_geocentric(sample_df, t_ref):
     assert np.all(np.abs(out[:, 3]) <= 90)
 
 
-@pytest.mark.xfail(strict=True, reason="Bug: longitude_trunc wraps once but GMST can be up to 720 deg, so "
-                                       "longitudes reach -405 deg. Fixed in fix/longitude-range; remove this mark "
-                                       "there (strict: the run fails once the fix makes this pass).")
 def test_longitude_within_180_over_a_day(sample_df, t_ref):
-    """Hover labels, the table and its CSV export print this value, so it must be in [-180, 180]."""
+    """Hover labels, the table and its CSV export print this value, so it must be in [-180, 180]. GMST can be up
+    to 720 deg, so a single +/-360 step isn't enough (values reached -405 deg before the fix)."""
     for hour in range(24):
         lon = positions(sample_df, t_ref + timedelta(hours=hour))[:, 4]
         assert np.all((lon >= -180) & (lon <= 180)), f"hour {hour}: min {lon.min():.1f}, max {lon.max():.1f}"
@@ -109,6 +107,17 @@ def test_time_series_equals_sgp4_at_each_time(sample_df, t_ref):
         assert out.shape == (len(times), 6)
         for k, when in enumerate(times):
             np.testing.assert_allclose(out[k, :3], sgp4_teme(row["TLE1"], row["TLE2"], when), atol=1e-6)
+
+
+def test_longitude_wrap_keeps_the_direction():
+    """Wrapping changes the number, never the direction: each wrapped value differs from the input by a whole
+    number of turns."""
+    from app.helper.helper__satellite_position import longitude_trunc
+    raw = np.radians(np.array([-719.9, -405.1, -270.0, -180.0, -1.0, 0.0, 179.9, 180.0, 540.0]))
+    wrapped = longitude_trunc(raw)
+    assert np.all((wrapped >= -np.pi) & (wrapped < np.pi))
+    turns = (raw - wrapped) / (2 * np.pi)
+    np.testing.assert_allclose(turns, np.round(turns), atol=1e-9)
 
 
 def test_lla_to_xyz_preserves_radius_and_direction():
