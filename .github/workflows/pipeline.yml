@@ -8,7 +8,11 @@
 #   * Every action pinned to a full commit SHA (tag in the comment; SHAs checked with git ls-remote
 #     on 2026-11-08). Dependabot proposes updates.
 #   * Pipeline output goes to a private log in S3, never to the public Actions log. No artifacts, no
-#     caches, no `set -x`, no debug logging.
+#     caches, no `set -x`, no debug logging. The one exception is the run report (last step,
+#     .github/scripts/pipeline_report.py): overall result, stage names and statuses, names of dbt checks
+#     that did not pass, and the dates of the data the app serves. No row data, object IDs or secrets.
+#   * Any problem (non-zero exit, a held unit, failed commit, stale positions or details) fails the job in
+#     that last step, after the state is committed, so GitHub emails the owner. Last good data stays live.
 
 name: sattrack-pipeline
 
@@ -168,12 +172,21 @@ jobs:
           mask-aws-account-id: true
 
       - name: Commit state (promote only a good build; dry run = upload the log only)
+        id: push
         if: always() && steps.gate.outputs.run == 'true'
         env:
           PIPELINE_EXIT: ${{ steps.run.outputs.exit_code || '99' }}
         run: |
           set -euo pipefail
           python infra/state/sattrack_state.py push --pipeline-exit "$PIPELINE_EXIT" --log-file "$PRIVATE_LOG"
+
+      - name: Run report (public) and alert on problems
+        if: always()
+        env:
+          GATE: ${{ steps.gate.outputs.run }}
+          PIPELINE_EXIT: ${{ steps.run.outputs.exit_code }}
+          PUSH_OUTCOME: ${{ steps.push.outcome }}
+        run: python .github/scripts/pipeline_report.py
 
       - name: Remove local data
         if: always()
