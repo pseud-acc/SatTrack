@@ -1,20 +1,39 @@
 -- App export: last_data_update.csv, the data-freshness file the SatTrack Dash app loads. The app reads the
 -- 'Last Update' of the row whose Source is 'SpaceTrack_GP' and shows it in the page header as "Last updated: <value>".
 -- Timestamps use the old file's format, dd/mm/YYYY, HH:MM:SS (UTC here).
---   SpaceTrack_GP  when the element sets (Space-Track GP) were downloaded
+--   SpaceTrack_GP  when the element sets (Space-Track GP) were downloaded: from the tracking unit, the same table
+--                  the app's TLE lines come from (app__satcat_tle), so it moves on even when enrichment is held
 --   GCAT           GCAT's own last-updated time for the catalogue; its download time is not kept in the marts
-with cte_fct__satellite_master as (
+with cte_fct__gp_elements as (
     select
-        positions_as_of
-        , gcat_updated_at
+        _loaded_at
+    from {{ ref('fct__gp_elements') }}
+)
+
+, cte_fct__satellite_master as (
+    select
+        gcat_updated_at
     from {{ ref('fct__satellite_master') }}
+)
+
+, cte_positions_as_of as (
+    select
+        max(_loaded_at) as positions_as_of
+    from cte_fct__gp_elements
+)
+
+, cte_gcat_as_of as (
+    select
+        max(gcat_updated_at) as gcat_updated_at
+    from cte_fct__satellite_master
 )
 
 , cte_as_of as (
     select
-        max(positions_as_of) as positions_as_of
-        , max(gcat_updated_at) as gcat_updated_at
-    from cte_fct__satellite_master
+        pos.positions_as_of
+        , gcat.gcat_updated_at
+    from cte_positions_as_of as pos
+    cross join cte_gcat_as_of as gcat
 )
 
 , cte_sources as (

@@ -113,7 +113,9 @@ Everything is written under the data folder (`SATTRACK_DATA_DIR`, default `pipel
 ```
 
 In production the same files are kept in S3 (`warehouse/`, `app/`, `reports/`, `raw_history/`, `logs/`); the
-run log goes to S3 only, never to the public Actions log.
+run log goes to S3 only, never to the public Actions log. The workflow's last step prints a short public run report
+(result, stage statuses, names of checks not passing, data dates) and fails the job on any problem, so GitHub
+emails the owner: see `.github/scripts/pipeline_report.py`.
 
 ## Running it
 

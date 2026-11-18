@@ -186,7 +186,7 @@ Space-Track login.
       `--key warehouse/sattrack.duckdb` → `AccessDenied`; `aws s3 ls s3://<bucket>` → `AccessDenied`.
 - [ ] Dispatch the workflow on a non-`main` branch → the job is refused by the environment's branch rule (it never reaches AWS).
 - [ ] CloudTrail → Event history: `AssumeRoleWithWebIdentity` events show the expected `sub` (stack output `ExpectedOidcSubject`) and no others; `GetSecretValue` only from `sattrack-run-*` sessions.
-- [ ] The public Actions log of a run contains no row counts, object names, error text from the pipeline, or data; only exit codes and `[state]` lines.
+- [ ] The public Actions log of a run contains no object names, error text from the pipeline, or data: only exit codes, `[state]` lines and the run report (overall result, stage names and statuses, names of dbt checks not passing with their failing-row counts, and the dates of the data the app serves).
 - [ ] Repo has no workflow artifacts; Actions caches list is empty.
 - [ ] Budget email received as "subscription confirmed" (if set).
 - [ ] Next day: one run started by the EventBridge dispatch (`trigger = eventbridge` in the manifest's `last_run`).
