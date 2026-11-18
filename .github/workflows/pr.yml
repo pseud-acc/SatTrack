@@ -1,5 +1,5 @@
-# Pull request checks. Both are required by the `protect-main` ruleset ("app / Heroku build" and
-# "pipeline / tests + dbt checks"), so a PR merges only when they pass. The jobs live in their own workflow
+# Pull request checks. The `protect-main` ruleset requires "app / Heroku build" and "pipeline / tests + dbt
+# checks" (and "app tests / unit + integration" once the owner adds it), so a PR merges only when they pass. The jobs live in their own workflow
 # files and are shared with merge.yml.
 #
 # Public-repo rules: `pull_request` only (never pull_request_target), so a fork's PR gets a read-only token
@@ -22,6 +22,10 @@ jobs:
   app:
     name: app
     uses: ./.github/workflows/app-build.yml
+
+  app-tests:
+    name: app tests
+    uses: ./.github/workflows/app-tests.yml
 
   pipeline:
     name: pipeline
