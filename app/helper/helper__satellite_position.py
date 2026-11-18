@@ -65,9 +65,9 @@ def julianDateToGMST2(jd, fr):
 
 
 def longitude_trunc(lon):
-    """ Makes sure the longitude is within -2*pi ... 2*pi range """
-    lon = lon - 2 * pi * np.sign(lon) * (abs(lon) > pi) ** 2
-    return lon
+    """ Wrap a longitude (radians) into [-pi, pi). The GMST subtracted before this can be up to 4*pi, so a single
+    +/-2*pi step was not enough: hover labels and the table showed values down to -405 deg. """
+    return (lon + pi) % (2 * pi) - pi
 
 
 def teme2geodetic_spherical(x, y, z, t, re):
