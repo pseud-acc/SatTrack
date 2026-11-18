@@ -35,6 +35,15 @@ def _open_ops():
     return con
 
 
+def as_of(live) -> dict:
+    """Data dates for the page header: positions from the tracking mart (they move on even when the enrichment unit
+    is held), GCAT details and object counts from the enrichment mart."""
+    return rows(live, "select (select max(_loaded_at) from marts_tracking.fct__gp_elements) as positions_as_of, "
+                      "max(gcat_updated_at) as gcat_updated_at, "
+                      "count(*) as objects, count(*) filter (where operational_status = 'Active') as active "
+                      "from marts.fct__satellite_master")[0]
+
+
 def collect() -> dict:
     with _open_ops() as ops:
         runs = rows(ops, "select * from audit.pipeline_run order by started_at desc limit 14")
@@ -112,9 +121,7 @@ def collect() -> dict:
     if LIVE_DB.exists():
         with connect(LIVE_DB, read_only=True) as live:
             try:
-                data["as_of"] = rows(live, "select max(positions_as_of) as positions_as_of, max(gcat_updated_at) as gcat_updated_at, "
-                                           "count(*) as objects, count(*) filter (where operational_status = 'Active') as active "
-                                           "from marts.fct__satellite_master")[0]
+                data["as_of"] = as_of(live)
             except Exception:  # noqa: BLE001
                 data["as_of"] = {}
     return data

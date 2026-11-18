@@ -55,13 +55,13 @@ jobs:
         working-directory: pipeline
         run: |
           set -euo pipefail
-          "$RUNNER_TEMP/venv-bouncer/bin/python" -m pytest ingestion/tests -q -p no:cacheprovider
+          "$RUNNER_TEMP/venv-bouncer/bin/python" -m pytest ingestion/tests -q -ra -p no:cacheprovider
 
       - name: dbt-bouncer check tests
         working-directory: pipeline/transform
         run: |
           set -euo pipefail
-          "$RUNNER_TEMP/venv-bouncer/bin/python" -m pytest bouncer/tests -q -p no:cacheprovider
+          "$RUNNER_TEMP/venv-bouncer/bin/python" -m pytest bouncer/tests -q -ra -p no:cacheprovider
 
       - name: dbt parse (empty database)
         working-directory: pipeline/transform
