@@ -51,4 +51,4 @@ jobs:
       - name: Browser journeys
         run: |
           set -euo pipefail
-          "$RUNNER_TEMP/venv-e2e/bin/python" -m pytest tests/e2e -q -p no:cacheprovider -W ignore::DeprecationWarning
+          "$RUNNER_TEMP/venv-e2e/bin/python" -m pytest tests/e2e -q -ra -p no:cacheprovider -W ignore::DeprecationWarning
