@@ -152,22 +152,33 @@ def export(out_dir: Path, db: Path) -> Path:
                 rows = check_file(con, tmp, csv_name)
                 files.append({"file": csv_name, "rows": rows, "sha256": sha256(tmp),
                               "analysis": f"transform/analyses/app_export/{PREFIX}{csv_name.removesuffix('.csv')}.sql"})
-            mart = resolve_refs(con, "{{ ref('fct__satellite_master') }}")
-            as_of = con.execute(f"""
+            # Positions come from the tracking mart, details from the enrichment mart (see app__satcat_tle.sql);
+            # each is reported with the run that built it, so a held enrichment unit shows as an older details run.
+            tracking = resolve_refs(con, "{{ ref('fct__gp_elements') }}")
+            details = resolve_refs(con, "{{ ref('fct__satellite_master') }}")
+            pos = con.execute(f"""
                 select
-                    max(positions_as_of) as positions_as_of
-                    , max(gcat_updated_at) as gcat_updated_at
+                    max(_loaded_at) as positions_as_of
                     , max(inserted_by) as run_id
-                    , max(inserted_date_time) as mart_built_at
-                from {mart}
+                    , max(inserted_date_time) as built_at
+                from {tracking}
+            """).fetchone()
+            det = con.execute(f"""
+                select
+                    max(gcat_updated_at) as gcat_updated_at
+                    , max(inserted_by) as run_id
+                    , max(inserted_date_time) as built_at
+                from {details}
             """).fetchone()
         manifest = {
             "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "source_db": db.name,
-            "run_id": as_of[2],
-            "mart_built_at": _iso(as_of[3]),
-            "positions_as_of": _iso(as_of[0]),
-            "gcat_updated_at": _iso(as_of[1]),
+            "run_id": pos[1],
+            "mart_built_at": _iso(pos[2]),
+            "positions_as_of": _iso(pos[0]),
+            "details_run_id": det[1],
+            "details_built_at": _iso(det[2]),
+            "gcat_updated_at": _iso(det[0]),
             "files": files,
         }
         mtmp = out_dir / ".manifest.json.tmp"

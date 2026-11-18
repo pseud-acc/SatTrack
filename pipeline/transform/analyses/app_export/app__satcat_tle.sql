@@ -5,6 +5,10 @@
 -- The app drops every row that has any missing value (DataFrame.dropna after propagation), so no column may be empty:
 -- text gaps are 'Unknown' and number gaps are -1.0, as in the old file.
 -- Scope matches the old app: Earth-orbiting payloads with a TLE and a positive period.
+-- Two sources, so positions never wait for the GCAT details: what each satellite is (name, owner, status, purpose)
+-- comes from fct__satellite_master (enrichment unit), and where it is (TLE lines, period, inclination) from
+-- fct__gp_elements (tracking unit). When enrichment is held, positions still update every run; a satellite new to
+-- the GP feed appears once enrichment next succeeds, and one that left it disappears at once.
 with cte_fct__satellite_master as (
     select
         satcat_id
@@ -19,17 +23,23 @@ with cte_fct__satellite_master as (
         , mission_category_labels
         , launch_vehicle_brand
         , orbit_class
+        , mass_kg
+    from {{ ref('fct__satellite_master') }}
+)
+
+, cte_fct__gp_elements as (
+    select
+        satcat_id
         , orbital_period
         , inclination
-        , mass_kg
         , tle_line_1
         , tle_line_2
-    from {{ ref('fct__satellite_master') }}
+    from {{ ref('fct__gp_elements') }}
 )
 
 , cte_app_scope as (
     select
-        satcat_id
+        sat.satcat_id
         , object_name
         , operational_status
         , launch_year
@@ -39,18 +49,20 @@ with cte_fct__satellite_master as (
         , mission_category_labels
         , launch_vehicle_brand
         , orbit_class
-        , round(orbital_period, 2) as orbital_period
-        , round(inclination, 2) as inclination
+        , round(gp.orbital_period, 2) as orbital_period
+        , round(gp.inclination, 2) as inclination
         , mass_kg
-        , tle_line_1
-        , tle_line_2
-    from cte_fct__satellite_master
-    where object_type = 'PAYLOAD'
-        and flag_in_orbit = 1
-        and tle_line_1 is not null
-        and tle_line_2 is not null
-        and orbital_period > 0
-        and launch_year is not null
+        , gp.tle_line_1
+        , gp.tle_line_2
+    from cte_fct__satellite_master as sat
+    inner join cte_fct__gp_elements as gp
+        on sat.satcat_id = gp.satcat_id
+    where sat.object_type = 'PAYLOAD'
+        and sat.flag_in_orbit = 1
+        and gp.tle_line_1 is not null
+        and gp.tle_line_2 is not null
+        and gp.orbital_period > 0
+        and sat.launch_year is not null
 )
 
 , cte_app_columns as (
