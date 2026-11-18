@@ -32,8 +32,9 @@ def _load(name):
 export_app_csvs = _load("export_app_csvs")
 build_health_page = _load("build_health_page")
 
-# Real Space-Track TLEs (ISS, 25544) at two epochs: the stale one sits in the enrichment mart, the fresh one in
-# tracking. Line 2 of the fresh set gives mean motion 15.50103472 and eccentricity 0.0006703.
+# Hand-edited, ISS-like TLE lines (catalogue 25544) at two epochs: the stale set sits in the enrichment mart, the
+# fresh one in tracking. They are not real element sets (checksums not valid); the export copies them and parses
+# line 2 as text, so only their content matters. Fresh line 2 gives mean motion 15.50103472, eccentricity 0.0006703.
 STALE = ("1 25544U 98067A   26320.50000000  .00016717  00000-0  10270-3 0  9990",
          "2 25544  51.6400 208.9163 0006317  69.9862  25.2906 15.49000000 10001")
 FRESH = ("1 25544U 98067A   26322.13000000  .00016717  00000-0  10270-3 0  9991",
