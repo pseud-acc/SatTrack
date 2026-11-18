@@ -1,6 +1,6 @@
-# SatTrack Roadmap — to a top-tier satellite tracker
+# SatTrack improvement plan
 
-> **For Claude Code.** This is the working roadmap for SatTrack (`pseud-acc/SatTrack`). Work through phases in order unless told otherwise. Each phase is sized for **~5 hours/week** of the owner's time; treat each numbered task as roughly one PR. Read the "Working rules" before starting any task.
+> **For Claude Code.** This is the working improvement plan for SatTrack (`pseud-acc/SatTrack`). Work through phases in order unless told otherwise. Each phase is sized for **~5 hours/week** of the owner's time; treat each numbered task as roughly one PR. Read the "Working rules" before starting any task.
 
 ---
 
@@ -19,62 +19,38 @@
 
 1. Positions from **OMM** fields (6-digit catalogue numbers safe), with **SupGP** preferred where available, refreshed several times a day.
 2. **CesiumJS** globe with smooth, client-side real-time propagation, one viewer for 3D and 2D, and payloads + rocket bodies + debris.
-3. Satellite detail panel at least as deep as KeepTrack/Satcat (bus, shape, dimensions, power, payload, equipment) **plus** what only SatTrack has (multi-org roles, uncertainty, lineage).
+3. A deep satellite detail panel: physical detail (bus, shape, dimensions, power, payload, equipment) alongside SatTrack's multi-org roles, uncertainty and lineage.
 4. **Plain-English query** that compiles to a validated filter spec, shown back as editable filters, with an eval suite in CI.
 
-## Competitive matrix
+## Capability plan
 
-Compared with the main free trackers: N2YO, CelesTrak, KeepTrack and Satcat (Kayhan). Hours are rough owner-time estimates at the current pace.
+Where SatTrack is today in each area, what it should do, and the work to get there. Hours are rough owner-time estimates at the current pace.
 
-| Area | SatTrack today | Best-in-class | Position | Work to match / exceed | Phase | Est. h |
-|---|---|---|---|---|---|---|
-| Multi-org ownership (owners, manufacturers, launch agencies, with roles) | Bridge tables, role + order, split rules | Single owner string (KeepTrack, Satcat) | **Ahead** | Surface all co-owners in the detail panel | 5.2 | incl. |
-| Data quality & lineage | Uncertainty flags, `_source` columns, date precision, link method | Not exposed anywhere | **Ahead** | Show it in the UI (data-quality section, NLQ caveats) | 5.2, 6.3 | incl. |
-| Launch context | Vehicle family/capacity/thrust, site coords, nearest city, org/site dates | Vehicle + pad (KeepTrack), launch stats (Satcat) | **Ahead** | Site map pin, launch section in panel | 5.2 | incl. |
-| Documented, tested data model | dbt docs site, model-health tests, contracts | None public | **Ahead** | Keep it; reuse docs as NLQ context | 6 | — |
-| Core identity & orbit summary | Names, IDs, apogee/perigee, inclination, period, RCS, orbit class | Same fields | **Same** | — | — | — |
-| Mission, purpose, status | GCAT-based, tested status model | GCAT-based | **Same** | Exceed by showing status source + "stopped transmitting vs stopped operating" | 5.2 | incl. |
-| Element source / accuracy | Space-Track GP only | CelesTrak SupGP (~77% of active sats) | **Behind** | Ingest SupGP, precedence rule, show source | 4.2–4.4 | 8 |
-| Data freshness | Daily run | Several runs a day (CelesTrak, Satcat) | **Behind** | Multi-run schedule, GP-only mode, hot reload | 4.1 | 4 |
-| Six-digit catalogue readiness | TLE-line propagation; works today via Alpha-5 TLEs (1,492 GP objects above 99,999 on 16 Nov, all 1,040 such app payloads parse) but Alpha-5 stops at 339,999 and SupGP is OMM-only | OMM-based (CelesTrak) | **Behind (future risk)** | Switch to OMM | 1 | 8 |
-| Object coverage | Payloads only in app (19,721 of 32,672 GP objects on 16 Nov) | Payloads + rocket bodies + debris | **Behind** | Widen export, UI toggles | 2.1, 3.3 | 2 |
-| 3D/2D visualisation | Plotly, server-side propagation every 3–20 s | WebGL/Cesium, smooth client-side (KeepTrack, Satcat) | **Behind** | Cesium viewer + Web Worker propagation | 3 | 30 |
-| Physical spacecraft detail | Mass, dry mass, span | Bus, shape, length, diameter, power, payload, equipment, motor (KeepTrack) | **Behind** | Add remaining GCAT fields | 5.1 | 5 |
-| Rollup views (by bus/owner/constellation) | Filters only | Dedicated pages (KeepTrack) | **Behind** | Rollup views driven by filter spec | 5.3 | 3 |
-| Natural-language query | None | AI Search beta (Satcat) | **Behind → exceed** | Spec-based NLQ with editable interpretation, uncertainty caveats, eval suite | 6 | 20 |
-| Element history / trends | Latest set only | Up to 4 years (Satcat) | **Behind** | Append-only GP snapshots, decay/manoeuvre plots | 7 | 8 |
-| Pass predictions & visibility | None | Visual + radio passes (N2YO), passes (Satcat) | **Behind** | Client-side passes, McCants magnitude | 7 | 10 |
-| Radio frequencies | None | JE9PEL + SatNOGS (Satcat) | **Behind** | SatNOGS DB ingest, panel section | 7 | 4 |
-| Re-entry predictions | Decay filtered out | Decay/TIP (Space-Track, Satcat) | **Behind** | Re-entry layer | 7 | 4 |
-| Conjunctions | None | SOCRATES (CelesTrak), Satcat | **Behind** | Visualise close approaches | 7 | 8 |
-
-**Summary:** SatTrack leads on modelling depth and data trust. It is level on core catalogue facts. It trails on live accuracy, visuals and observer features. Phases 1–6 (~90 h) close every "Behind" except the Phase 7 extras, and turn NLQ into an "Ahead".
-
-## Position against each competitor, phase by phase
-
-**Ahead** = better overall for a public user exploring the catalogue and watching satellites in real time. **Level** = trade-offs roughly cancel out. **Behind** = they're the better product today. Each row includes all earlier phases.
-
-| After… | N2YO | CelesTrak | KeepTrack | Satcat (Kayhan) |
-|---|---|---|---|---|
-| **Today** | Level: richer data; behind on freshness, coverage, passes | Level: far richer metadata; behind on accuracy & freshness | Behind: weaker visuals, less physical detail | Behind: weaker visuals, detail, history, AI search |
-| **+ Phase 1** OMM | Level (risk removed, no visible change) | Level | Behind | Behind |
-| **+ Phase 2** Data contract, debris | Level (coverage matched) | Level | Behind | Behind |
-| **+ Phase 3** Cesium | **Ahead** for exploring/viewing | Level: better UX, still behind on accuracy | Level: visuals matched, detail still behind | Behind: visuals matched, detail/AI/history behind |
-| **+ Phase 4** Freshness, SupGP | **Ahead** | **Ahead** as a tracker (same accuracy, much better UX/metadata) | Level | Behind |
-| **+ Phase 5** Detail enrichment | **Ahead** | **Ahead** | **Ahead**: detail matched + multi-org, lineage, uncertainty | Level |
-| **+ Phase 6** Plain-English query | **Ahead** | **Ahead** | **Ahead** (clear) | **Ahead** for exploration; behind on history, RF, passes |
-| **+ Phase 7** Passes, history, RF | **Ahead** overall, including ground observers | **Ahead** (conjunctions item closes their last UX edge) | **Ahead** | **Ahead** on public features |
-
-### Minimum bundle to overtake each competitor
-
-| Competitor | Their main strengths | Bundle that puts SatTrack ahead | Est. h | ≈ weeks at 5 h | Still theirs afterwards |
+| Area | SatTrack today | Target | Work | Phase | Est. h |
 |---|---|---|---|---|---|
-| **N2YO** | Real-time positions, visual/radio pass predictions | Phases 1–3 (OMM, data contract + debris, Cesium). Add passes (Phase 7, ~10 h) to also win for ground observers | 46 (+10) | 9 (+2) | Nothing significant once passes ship |
-| **CelesTrak** | Authoritative, fresh data; SupGP; OMM; SOCRATES | Phases 1–4 (adds SupGP + multiple runs a day) | 58 | 12 | Being the upstream data source (SatTrack consumes it, so can only match on accuracy); conjunctions unless built in Phase 7 |
-| **KeepTrack** | WebGL globe, all objects, deep physical detail, rollup pages | Phases 1–5 for the lead; Phase 6 makes it clear | 68 (+20) | 14 (+4) | Breadth of niche tools (sensor views, many specialist modes) |
-| **Satcat** | Cesium globe, GCAT detail, magnitude, RF, 4-year history, passes, AI search | Phases 1–6, plus element history, RF frequencies and passes from Phase 7 | ~110 | 22 | Paid operator services (ephemeris sharing, conjunction screening, operator coordination). Not a goal for a hobby app |
+| Multi-org ownership (owners, manufacturers, launch agencies, with roles) | Bridge tables, role + order, split rules | All co-owners and roles visible per satellite | Show them in the detail panel | 5.2 | incl. |
+| Data quality & lineage | Uncertainty flags, `_source` columns, date precision, link method | Visible to users | Data-quality section in the panel; caveats in plain-English answers | 5.2, 6.3 | incl. |
+| Launch context | Vehicle family/capacity/thrust, site coords, nearest city, org/site dates | Visible per satellite | Site map pin, launch section in the panel | 5.2 | incl. |
+| Documented, tested data model | dbt docs site, model-health tests, contracts | Keep | Reuse the docs as context for plain-English query | 6 | — |
+| Core identity & orbit summary | Names, IDs, apogee/perigee, inclination, period, RCS, orbit class | Keep | — | — | — |
+| Mission, purpose, status | GCAT-based, tested status model | Status with its source | Show the status source and "stopped transmitting" vs "stopped operating" | 5.2 | incl. |
+| Element source / accuracy | Space-Track GP only | Most accurate set per object | Ingest SupGP, precedence rule, show the source | 4.2–4.4 | 8 |
+| Data freshness | Daily run | Several runs a day | Multi-run schedule, GP-only mode, hot reload | 4.1 | 4 |
+| Six-digit catalogue readiness | TLE-line propagation; works today via Alpha-5 TLEs (1,492 GP objects above 99,999 on 16 Nov, all 1,040 such app payloads parse) but Alpha-5 stops at 339,999 and SupGP is OMM-only | Propagation from OMM | Switch to OMM | 1 | 8 |
+| Object coverage | Payloads only in the app (19,721 of 32,672 GP objects on 16 Nov) | Payloads, rocket bodies and debris | Widen the export, UI toggles | 2.1, 3.3 | 2 |
+| 3D/2D visualisation | Plotly, server-side propagation every 3–20 s | Smooth WebGL globe, propagated in the browser | Cesium viewer + Web Worker propagation | 3 | 30 |
+| Physical spacecraft detail | Mass, dry mass, span | Bus, shape, length, diameter, power, payload, equipment, motor | Add the remaining GCAT fields | 5.1 | 5 |
+| Rollup views (by bus/owner/constellation) | Filters only | Views per group | Rollup views driven by the filter spec | 5.3 | 3 |
+| Natural-language query | None | Plain-English questions, answered on the globe | Spec-based NLQ with editable interpretation, uncertainty caveats, eval suite | 6 | 20 |
+| Element history / trends | Latest set only | History per object | Append-only GP snapshots, decay/manoeuvre plots | 7 | 8 |
+| Pass predictions & visibility | None | Passes for an observer's location | Client-side passes, McCants magnitude | 7 | 10 |
+| Radio frequencies | None | Frequencies per satellite | SatNOGS DB ingest, panel section | 7 | 4 |
+| Re-entry predictions | Decay filtered out | Objects re-entering soon | Re-entry layer | 7 | 4 |
+| Conjunctions | None | Close approaches | Visualise CelesTrak SOCRATES pairs | 7 | 8 |
 
-**Reading the tables:** Cesium (Phase 3) is the turning point: it makes SatTrack's data visible and overtakes N2YO. SupGP (Phase 4) overtakes CelesTrak as a tracker. Detail enrichment (Phase 5) overtakes KeepTrack. Overtaking Satcat's public product needs everything through Phase 6 plus three Phase 7 items, so treat history, RF and passes as the first Phase 7 picks.
+**Summary:** SatTrack's strengths are modelling depth and data trust. The plan adds live accuracy and freshness (Phases 1, 4), a modern globe (Phase 3), deeper per-object detail (Phase 5) and plain-English query (Phase 6), then observer features from the Phase 7 backlog.
+
+---
 
 ## Timeline at ~5 h/week
 
@@ -201,7 +177,7 @@ Roughly **22 weeks (~108 h, ~5 months)** to the end of Phase 6 with the buffers 
 
 ## Phase 5 — Detail enrichment (~10 h)
 
-**Goal:** match or beat KeepTrack/Satcat per-object detail, using data already ingested from GCAT where possible.
+**Goal:** deep per-object detail, using data already ingested from GCAT where possible.
 
 5.1 `feature/gcat-physical-fields` — (Pipeline-only, no dependency on Cesium: a good task to swap in if Phase 3 stalls.) From GCAT satcat/psatcat: `bus`, `shape`, `length_m`, `diameter_m`, `power`, `payload`, `equipment`, `motor`, design life where available, with precision/uncertainty handling consistent with existing columns. Add to `fct__satellite_master`.
 
@@ -221,7 +197,7 @@ Roughly **22 weeks (~108 h, ~5 months)** to the end of Phase 6 with the buffers 
 
 6.1 `docs/nlq-design` — Design doc: LLM returns a **filter spec** (Phase 2 schema), never raw SQL. Context = field allowlist + descriptions generated from dbt doc blocks + accepted values. Ambiguity policy (e.g. "Chinese satellites": owner vs manufacturer vs launch site — default + show interpretation, or ask). Model choice (small/cheap: a small, fast model such as Claude Haiku is enough for producing specs), daily spending cap, caching, rate limits per session, server-side API key (Heroku config), prompt-injection considerations.
 
-6.2 `test/nlq-eval-set` — Build ~50 question → expected-satcat-ID-set cases (include ambiguous ones and ones only SatTrack can answer: built in one country/operated by another, co-owned, launched outside owner's country, stopped transmitting but in orbit). Scorer reports precision/recall per case. Run in CI with recorded responses; live runs on demand. Labelling is the expensive part: start with 25 cases and grow the set.
+6.2 `test/nlq-eval-set` — Build ~50 question → expected-satcat-ID-set cases (include ambiguous ones and ones that need SatTrack's multi-org and status data: built in one country/operated by another, co-owned, launched outside owner's country, stopped transmitting but in orbit). Scorer reports precision/recall per case. Run in CI with recorded responses; live runs on demand. Labelling is the expensive part: start with 25 cases and grow the set.
 
 6.3 `feature/nlq-backend` — Endpoint: question → LLM → spec → JSON-Schema validation → (retry once with validation errors) → apply spec. Return spec + interpretation text + counts + uncertainty summary (e.g. "4 matches have uncertain ownership").
 
@@ -233,7 +209,7 @@ Roughly **22 weeks (~108 h, ~5 months)** to the end of Phase 6 with the buffers 
 
 ## Phase 7 — Backlog (pick as wanted)
 
-Recommended order: passes first (README planned items; wins N2YO's ground observers), then history and radio, which complete the bundle needed to pass Satcat's public features.
+Recommended order: passes first (README planned items; the main feature for people watching from the ground), then element history and radio.
 
 - **7.1 Passes & visibility**: observer location (browser geolocation, opt-in), client-side pass prediction; add standard magnitude (McCants) for visual passes. (~10 h)
 - **7.2 Pass export**: a pass list as CSV and as calendar events (`.ics`). README planned item. (~2 h)
@@ -250,9 +226,9 @@ Recommended order: passes first (README planned items; wins N2YO's ground observ
 
 - GCAT: CC-BY — cite "data from GCAT (J. McDowell, planet4589.org/space/gcat)" in the app footer/about page.
 - Space-Track and CelesTrak: follow their user agreement / usage policy; attribute in the about page.
-- Do **not** pull data from KeepTrack (CC BY-NC compiled data) — go to original sources.
+- Take data only from its original publishers; never republish another tracker's compiled data.
 - CesiumJS: Apache 2.0. Cesium ion (if used): check free-tier terms.
 - Space-Track fields in public outputs: cite "USSPACECOM via Space-Track.org" and keep the caution that public TLEs must not be used for conjunction assessment.
 - CelesTrak SupGP and SOCRATES: CelesTrak's usage policy.
 - SatNOGS DB (radio, 7.4): CC BY-SA, attribute.
-- Not yet verified: "SupGP covers ~77% of active satellites" and Satcat's AI Search. Check both before quoting them anywhere public.
+- Not yet verified: "SupGP covers ~77% of active satellites". Check it before quoting it anywhere public.

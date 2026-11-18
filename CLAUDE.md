@@ -76,7 +76,7 @@ SATTRACK_DATA_DIR=/path/outside/repo uv run python run_pipeline.py   # a real ru
   `pull_request_target`.
 - Public outputs carrying Space-Track fields cite "USSPACECOM via Space-Track.org" and keep the caution that
   public TLEs must not be used for conjunction assessment. GCAT (J. McDowell, planet4589.org) is CC-BY: cite it.
-  Never take data from KeepTrack (CC BY-NC); go to the original sources.
+  Take data only from its original publishers; never republish another tracker's compiled data.
 
 **Pipeline design**
 - Unattended and deterministic: no hand-maintained lists, manual reviews or rate-limited external lookups.
