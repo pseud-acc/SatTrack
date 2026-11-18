@@ -1,4 +1,4 @@
-# After a merge to main: the same checks as on the PR, then a deploy to Heroku when files that reach the
+# After a merge to main: the same checks as on the PR plus the browser (E2E) tests, then a deploy to Heroku when files that reach the
 # app changed. Manual run (Actions -> merge -> Run workflow) with force_deploy redeploys the current main.
 #
 # "Reaches the app" = any changed file outside pipeline/, infra/, tests/ (all three in .slugignore),
@@ -74,13 +74,17 @@ jobs:
     name: app tests
     uses: ./.github/workflows/app-tests.yml
 
+  app-e2e:
+    name: app e2e
+    uses: ./.github/workflows/app-e2e.yml
+
   pipeline:
     name: pipeline
     uses: ./.github/workflows/pipeline-checks.yml
 
   deploy:
     name: heroku
-    needs: [changes, app, app-tests, pipeline]
+    needs: [changes, app, app-tests, app-e2e, pipeline]
     if: needs.changes.outputs.deploy == 'true'
     uses: ./.github/workflows/heroku-deploy.yml
     # A called workflow sees its job environment's secrets (`heroku`: HEROKU_API_KEY) only when the caller

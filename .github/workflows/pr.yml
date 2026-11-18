@@ -27,6 +27,11 @@ jobs:
     name: app tests
     uses: ./.github/workflows/app-tests.yml
 
+  # Browser tests: run here for an early signal (not a required check); merge.yml runs them again before deploy.
+  app-e2e:
+    name: app e2e
+    uses: ./.github/workflows/app-e2e.yml
+
   pipeline:
     name: pipeline
     uses: ./.github/workflows/pipeline-checks.yml
