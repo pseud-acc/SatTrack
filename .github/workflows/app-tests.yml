@@ -48,4 +48,4 @@ jobs:
       - name: Unit and integration tests
         run: |
           set -euo pipefail
-          "$RUNNER_TEMP/venv-app/bin/python" -m pytest tests/app -q -p no:cacheprovider -W ignore::DeprecationWarning
+          "$RUNNER_TEMP/venv-app/bin/python" -m pytest tests/app -q -ra -p no:cacheprovider -W ignore::DeprecationWarning
