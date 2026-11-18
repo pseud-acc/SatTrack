@@ -23,6 +23,7 @@ When creating pull requests, use the following prefixes to indicate the type of 
 - PR checks (`pr.yml`), required on `main`: a Heroku-identical build and run of the app, and the pipeline's tests and dbt checks
 - Deploy on merge (`merge.yml`): the same checks, then a Heroku Build API deploy and live checks when app files changed
 - App tests (`tests/app`, CI job `app tests / unit + integration` on PRs and before each deploy): 32 unit tests (positions, coordinates, filters, orbit paths, routing) and 31 integration tests (server, wiring, every callback over HTTP), on the sample with a frozen clock. Two known bugs are marked as expected failures until fixed: longitudes outside ±180° in hover labels and the table, and `dropna()` hiding a satellite with any blank field
+- Browser tests (`tests/e2e`, Playwright + headless Chromium, CI job `app e2e / browser journeys` before each deploy): home → tracker, 3D view draws the selected satellites, one satellite's 2D ground track, list view; fail on any JS/console error or failed request to the app. Playwright is a separate `e2e` dependency group, never installed on Heroku
 - `SATTRACK_APP_DATA_DIR`: run the app from a local folder of the pipeline's app CSVs; `tests/app_data` holds a small sample
 
 ### Changed

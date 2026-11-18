@@ -43,6 +43,9 @@ dev = [
     "flake8>=6.1.0,<7",
     "mypy>=1.5.0,<2",
 ]
+e2e = [
+    "playwright>=1.65.2,<2",          # browser tests (tests/e2e); install the browser: playwright install chromium
+]
 
 [tool.uv]
 # An app, not a library: uv installs its dependencies but doesn't build or install the project itself.

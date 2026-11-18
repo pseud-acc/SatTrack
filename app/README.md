@@ -137,6 +137,12 @@ stops with an error naming both.
   library, sidebar filters against an independent pandas filter); integration tests call the server and each
   callback over HTTP as the browser does. Every callback must have a test (`test_every_callback_has_a_test`).
   Run locally: `uv run pytest tests/app -q`.
+- **Every merge** first runs `app e2e / browser journeys`: `tests/e2e`, four user journeys in headless Chromium
+  against the app on the sample (home → tracker; the 3D view draws the selected satellites; one satellite's 2D
+  ground track; the list view), failing on any JS or console error or failed request to the app. Third-party
+  requests are blocked (map tiles get a blank image), so the tests need no internet. Checks are by counts and
+  rows, so they can carry over to the Cesium viewer. Run locally:
+  `uv run --group e2e playwright install chromium` once, then `uv run --group e2e pytest tests/e2e -q`.
 - **Every PR** also runs `app / Heroku build`: the commit is built with Heroku's own buildpack and images, started
   like an Eco dyno on the `tests/app_data` sample, and the pages are checked
   ([`.github/scripts/heroku_build_check.sh`](../.github/scripts/heroku_build_check.sh)).
