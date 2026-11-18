@@ -112,7 +112,9 @@ def collect() -> dict:
     if LIVE_DB.exists():
         with connect(LIVE_DB, read_only=True) as live:
             try:
-                data["as_of"] = rows(live, "select max(positions_as_of) as positions_as_of, max(gcat_updated_at) as gcat_updated_at, "
+                # positions from the tracking mart (moves on even when enrichment is held), details from enrichment
+                data["as_of"] = rows(live, "select (select max(_loaded_at) from marts_tracking.fct__gp_elements) as positions_as_of, "
+                                           "max(gcat_updated_at) as gcat_updated_at, "
                                            "count(*) as objects, count(*) filter (where operational_status = 'Active') as active "
                                            "from marts.fct__satellite_master")[0]
             except Exception:  # noqa: BLE001
