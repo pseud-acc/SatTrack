@@ -30,6 +30,8 @@ The earlier pipeline (CelesTrak, UCS and space.skyrocket scrapers in `src/`, CSV
 | `infra/` | AWS CloudFormation stacks and the S3 state helper for the scheduled pipeline; setup in [infra/aws/README.md](infra/aws/README.md) |
 | `.github/` | Workflows: `pr.yml` (PR checks), `merge.yml` (checks + Heroku deploy), `pipeline.yml` (daily run), `docs.yml` (docs site), and the shared jobs they call; Dependabot, CODEOWNERS |
 | `tests/app_data/` | A small sample of the pipeline's app CSVs, for running the app without AWS (CI, local) |
+| `docs/ROADMAP.md` | The feature roadmap (phases 0–7) |
+| `CLAUDE.md` | Architecture, commands and working rules for Claude Code and other contributors |
 
 `.slugignore` keeps `pipeline/`, `infra/` and `tests/` out of the Heroku build.
 
