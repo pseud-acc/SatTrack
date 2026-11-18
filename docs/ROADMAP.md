@@ -80,7 +80,7 @@ Compared with the main free trackers: N2YO, CelesTrak, KeepTrack and Satcat (Kay
 
 | Phase | Theme | Est. hours | Est. weeks |
 |---|---|---|---|
-| 0 | Housekeeping & guardrails | 4.5 (0.2 done) | 1 |
+| 0 | Housekeeping & guardrails | 7 (0.2 done; incl. 0.5) | 1–2 |
 | 1 | OMM propagation | 8 | 2 |
 | 2 | Client data contract + filter spec | 8 | 2 |
 | 3 | Cesium migration | 30 (+25% buffer → ~37) | 6–8 |
@@ -118,7 +118,9 @@ Roughly **22 weeks (~108 h, ~5 months)** to the end of Phase 6 with the buffers 
 
 0.4 `chore/cleanup` — Open clean-up items: Dependabot alerts (app lockfile), archive the two expected IAM Access Analyzer findings, delete stale branches, laptop clean-up (Task Scheduler entry, `SPACETRACK_*` in the local env file, leftover untracked files).
 
-**Done when:** `CLAUDE.md` exists, legacy code is removed, app tests run in CI, clean-up items closed or listed, CI green.
+0.5 `test/app-e2e` — A small browser (E2E) test set: Playwright + headless Chromium on the sample, four journeys (home → tracker, 3D draws the selected satellites, one satellite's 2D track, list view), failing on any JS/console error. Checks by counts and rows so they carry over to Cesium; Phase 3 extends them. Runs before each deploy.
+
+**Done when:** `CLAUDE.md` exists, legacy code is removed, app unit/integration and E2E tests run in CI, clean-up items closed or listed, CI green.
 
 ---
 

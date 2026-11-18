@@ -28,7 +28,13 @@ App (repo root):
 uv sync                                                        # app + dev tools
 SATTRACK_APP_DATA_DIR=tests/app_data uv run python run_app_dev.py   # local, hot reload, sample data
 uv lock --check                                                # pyproject.toml and uv.lock in step
+uv run pytest tests/app -q                                     # unit + integration (sample data, frozen clock)
+uv run --group e2e playwright install chromium                 # once
+uv run --group e2e pytest tests/e2e -q                         # browser journeys (offline, headless Chromium)
 ```
+
+The repo lives in Dropbox, which locks files while uv rewrites them. Keep virtual environments outside it, e.g.
+`export UV_PROJECT_ENVIRONMENT="$LOCALAPPDATA/sattrack-venvs/app" UV_LINK_MODE=copy`.
 
 Pipeline (`pipeline/`):
 
@@ -92,3 +98,8 @@ SATTRACK_DATA_DIR=/path/outside/repo uv run python run_pipeline.py   # a real ru
 
 **Tests**
 - Add or extend tests with every change. Anything that changes satellite positions needs a parity test.
+- Layers: unit (`tests/app/test_satellite_position.py`, `test_filters.py`: helpers called directly),
+  integration (`tests/app/test_app.py`, `test_callback_*.py`: the server and each callback over HTTP), E2E
+  (`tests/e2e`: browser journeys). Every callback needs a test (`test_every_callback_has_a_test` enforces it).
+- Expected results come from independent code (plain pandas, the sgp4 library), never from the app's helpers.
+- Known bugs are strict `xfail`s naming the fix; remove the mark in the PR that fixes it.
