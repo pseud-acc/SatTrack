@@ -57,6 +57,11 @@ jobs:
           set -euo pipefail
           "$RUNNER_TEMP/venv-bouncer/bin/python" -m pytest ingestion/tests -q -ra -p no:cacheprovider
 
+      - name: State script tests (infra/state/sattrack_state.py, fake S3)
+        run: |
+          set -euo pipefail
+          "$RUNNER_TEMP/venv-bouncer/bin/python" -m pytest infra/state/tests -q -ra -p no:cacheprovider
+
       - name: dbt-bouncer check tests
         working-directory: pipeline/transform
         run: |
