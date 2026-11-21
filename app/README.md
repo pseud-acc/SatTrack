@@ -88,10 +88,10 @@ The app needs two files with these columns (the contract is in the pipeline's `s
 
 | File | Contents |
 |---|---|
-| `satcat_tle.csv` | one row per satellite: `SatCatId`, `ObjectName`, `LaunchYear`, `OrbitalPeriod`, `LaunchMass`, `Inclination`, `Status`, `LaunchSiteCountry`, `Owner`, `UseType`, `Purpose`, `LaunchVehicleClass`, `TLE1`, `TLE2`, `MeanMotion`, `Eccentricity`, `OrbitClass`, then the OMM elements `Epoch` (`%Y-%m-%dT%H:%M:%S.%f`, UTC), `RaOfAscNode`, `ArgOfPericenter`, `MeanAnomaly`, `Bstar`, `MeanMotionDot`, `MeanMotionDdot`, `RevAtEpoch`, `ElementSetNo`, `EphemerisType`, `ClassificationType`, `ObjectId` (with `MeanMotion`, `Eccentricity`, `Inclination`: everything `sgp4.omm.initialize` reads) |
+| `satcat_tle.csv` | one row per satellite: `SatCatId`, `ObjectName`, `LaunchYear`, `OrbitalPeriod`, `LaunchMass`, `Inclination`, `Status`, `LaunchSiteCountry`, `Owner`, `UseType`, `Purpose`, `LaunchVehicleClass`, `TLE1`, `TLE2`, `MeanMotion`, `Eccentricity`, `OrbitClass`, then the OMM elements `Epoch` (`%Y-%m-%dT%H:%M:%S.%f`, UTC), `RaOfAscNode`, `ArgOfPericenter`, `MeanAnomaly`, `Bstar`, `MeanMotionDot`, `MeanMotionDdot`, `RevAtEpoch`, `ElementSetNo`, `EphemerisType`, `ClassificationType`, `ObjectId` (with `MeanMotion`, `Eccentricity`, `Inclination`: everything `sgp4.omm.initialize` reads). Positions come from the OMM columns; `TLE1`/`TLE2` may be empty and are used only for a file without the OMM columns |
 | `last_data_update.csv` | `Source`, `Last Download`, `Last Update`; the `SpaceTrack_GP` row's update time is shown as "Last updated" |
 
-The pipeline fills gaps in the descriptive fields with `Unknown` / `-1` and exports only satellites with a full element set. The app drops only satellites SGP4 cannot place.
+The pipeline fills gaps in the descriptive fields with `Unknown` / `-1` and exports only satellites with a full element set. The app drops only satellites SGP4 cannot place. Each element set's SGP4 propagator is built once (at start-up) and reused by every callback.
 
 From S3 the app reads `app/current.json` first: it names the exact object version and SHA-256 of each CSV from
 one pipeline run, so the two files always match. A checksum mismatch or a read error stops start-up with a

@@ -1,7 +1,8 @@
 """Unit tests: app/helper/helper__satellite_position.py (server-side SGP4 propagation and the conversion to
 latitude/longitude/altitude behind the 2D/3D views, hover labels and table).
 
-Scope: positions equal the sgp4 library's for every sample object (incl. Alpha-5 catalogue numbers); each
+Scope: positions equal the sgp4 library's for every sample object, built from the OMM fields (incl. Alpha-5
+catalogue numbers), and agree with the TLE lines (parity); the TLE fallback for a pre-OMM file; each
 object sits inside its own orbit; the TEME -> geodetic conversion uses the published GMST, returns values in
 range and turns with the Earth. Not in scope: accuracy of SGP4 against reality, or an ellipsoidal Earth (the
 app deliberately uses a spherical one).
@@ -11,25 +12,89 @@ from datetime import timedelta
 import numpy as np
 import pytest
 
-from _support import EARTH_RADIUS_KM, MU_EARTH, sgp4_teme
-from app.helper.helper__satellite_position import compute_satloc, julianDateToGMST2, lla_to_xyz
+from _support import EARTH_RADIUS_KM, MU_EARTH, sgp4_teme, sgp4_teme_omm
+from app.helper.helper__satellite_position import (compute_satloc, julianDateToGMST2, lla_to_xyz, satrec_sources,
+                                                   satrecs_for)
+
+OMM_COLUMNS = ["Epoch", "RaOfAscNode", "ArgOfPericenter", "MeanAnomaly", "Bstar", "MeanMotionDot", "MeanMotionDdot",
+               "RevAtEpoch", "ElementSetNo", "EphemerisType", "ClassificationType", "ObjectId"]
 
 
 def positions(df, when):
-    return compute_satloc(df[["TLE1", "TLE2"]].values, when, EARTH_RADIUS_KM, False)
+    return compute_satloc(satrecs_for(df), when, EARTH_RADIUS_KM, False)
 
 
 def test_positions_equal_sgp4_and_failures_are_nan(sample_df, t_ref):
-    """Every row: same TEME position as sgp4 directly (to 1 mm); a row sgp4 can't propagate is all-NaN,
-    which is what the app's dropna() relies on to hide it."""
+    """Every row: same TEME position as sgp4 built from the row's OMM fields (to 1 mm); a row sgp4 can't
+    propagate is all-NaN, which is what the app's dropna() relies on to hide it."""
     out = positions(sample_df, t_ref)
     assert out.shape == (len(sample_df), 6)
-    for i, (tle1, tle2) in enumerate(sample_df[["TLE1", "TLE2"]].values):
-        ref = sgp4_teme(tle1, tle2, t_ref)
+    for i, row in sample_df.iterrows():
+        ref = sgp4_teme_omm(row, t_ref)
         if ref is None:
             assert np.isnan(out[i]).all(), f"row {i}: sgp4 error but the app returned a position"
         else:
             np.testing.assert_allclose(out[i, :3], ref, atol=1e-6, err_msg=f"row {i}")
+
+
+def test_app_propagates_from_omm(sample_df):
+    assert satrec_sources(sample_df) == {"omm": len(sample_df), "tle": 0, "none": 0}
+
+
+@pytest.mark.parametrize("hours", [-24, 0, 24])
+def test_omm_and_tle_positions_agree(sample_df, t_ref, hours):
+    """Parity (plan 1.3/1.4): the app's OMM positions vs sgp4 from the same rows' TLE lines, for every sample object
+    (incl. Alpha-5) at the reference time and a day either side. The sample's OMM fields carry the TLE's precision,
+    so they agree to centimetres; 10 m allows for that. (On live data, where OMM has one more digit of eccentricity
+    and more of B*, they differed by at most 29 m on 21 Nov 2026.)"""
+    when = t_ref + timedelta(hours=hours)
+    out = positions(sample_df, when)
+    for i, (tle1, tle2) in enumerate(sample_df[["TLE1", "TLE2"]].values):
+        ref = sgp4_teme(tle1, tle2, when)
+        if ref is None:
+            continue
+        assert np.linalg.norm(out[i, :3] - ref) < 0.010, f"row {i}"
+
+
+def test_tle_fallback_for_a_file_without_omm_columns(sample_df, t_ref):
+    """A pre-OMM satcat_tle.csv (17 columns) still works for one release: positions from the TLE lines."""
+    old = sample_df.drop(columns=OMM_COLUMNS)
+    assert satrec_sources(old) == {"omm": 0, "tle": len(old), "none": 0}
+    out = positions(old, t_ref)
+    for i, (tle1, tle2) in enumerate(old[["TLE1", "TLE2"]].values):
+        np.testing.assert_allclose(out[i, :3], sgp4_teme(tle1, tle2, t_ref), atol=1e-6, err_msg=f"row {i}")
+
+
+def test_a_row_without_any_element_set_has_no_position(sample_df, t_ref):
+    df = sample_df.head(3).copy()
+    df.loc[1, ["Epoch", "TLE1", "TLE2"]] = np.nan          # incomplete OMM and no TLE
+    df.loc[2, "Bstar"] = np.nan                              # incomplete OMM -> TLE fallback
+    assert satrec_sources(df) == {"omm": 1, "tle": 1, "none": 1}
+    out = positions(df, t_ref)
+    assert np.isnan(out[1]).all()
+    assert not np.isnan(out[[0, 2]]).any()
+
+
+def test_each_element_set_is_built_once(sample_df):
+    """Callbacks reuse the Satrec built for an element set; a new epoch for the same satellite gets a new one."""
+    first = satrecs_for(sample_df.head(2))
+    again = satrecs_for(sample_df.head(2))
+    assert all(a is b for a, b in zip(first, again))
+    newer = sample_df.head(1).copy()
+    newer.loc[0, "Epoch"] = "2030-01-01T00:00:00.000000"
+    assert satrecs_for(newer)[0] is not first[0]
+
+
+def test_rows_without_elements_do_not_grow_the_cache(sample_df):
+    """A row with no element set is cached under one key, not a new NaN key on every callback."""
+    from app.helper import helper__satellite_position as sp
+    df = sample_df.head(1).copy()
+    df.loc[0, ["Epoch", "TLE1", "TLE2"]] = np.nan
+    satrecs_for(df)
+    size = len(sp._satrec_cache)
+    for _ in range(3):
+        assert satrecs_for(df) == [None]
+    assert len(sp._satrec_cache) == size
 
 
 def test_sample_propagates_at_reference_time(sample_df, t_ref):
@@ -40,7 +105,8 @@ def test_sample_propagates_at_reference_time(sample_df, t_ref):
 
 def test_alpha5_catalogue_numbers_decode(sample_df, t_ref):
     """Objects above 99,999 use Alpha-5 TLE lines (e.g. 'A0551' = 100551). sgp4 must decode each to the
-    catalogue number the pipeline exported, and the app must propagate it."""
+    catalogue number the pipeline exported, and the app must propagate it (from OMM, where the catalogue number
+    is a plain integer)."""
     from sgp4.api import Satrec
     alpha5 = sample_df[sample_df["SatCatId"] > 99_999]
     assert len(alpha5) >= 1, "the sample must keep Alpha-5 objects"
@@ -103,10 +169,10 @@ def test_time_series_equals_sgp4_at_each_time(sample_df, t_ref):
     row = sample_df.iloc[0]
     times = [t_ref + timedelta(minutes=m) for m in range(0, 120, 10)]
     for eci in (True, False):
-        out = compute_satloc(np.array([row["TLE1"], row["TLE2"]]), times, EARTH_RADIUS_KM, eci)
+        out = compute_satloc(satrecs_for(sample_df.iloc[[0]])[0], times, EARTH_RADIUS_KM, eci)
         assert out.shape == (len(times), 6)
         for k, when in enumerate(times):
-            np.testing.assert_allclose(out[k, :3], sgp4_teme(row["TLE1"], row["TLE2"], when), atol=1e-6)
+            np.testing.assert_allclose(out[k, :3], sgp4_teme_omm(row, when), atol=1e-6)
 
 
 def test_longitude_wrap_keeps_the_direction():

@@ -198,6 +198,16 @@ def test_a_satellite_without_a_full_element_set_is_left_out(run_export, field):
     assert [r["SatCatId"] for r in read_csv(files["satcat_tle.csv"])] == ["1"]
 
 
+def test_a_satellite_without_tle_lines_is_still_exported(run_export):
+    """The app propagates from the OMM elements, so a satellite Space-Track gives no TLE lines for (e.g. a catalogue
+    number above 339,999, beyond Alpha-5) is exported with empty TLE cells instead of being dropped."""
+    files = run_export([master_row(1), master_row(2)], [gp_row(1), gp_row(2, tle=(None, None))])
+    rows = {r["SatCatId"]: r for r in read_csv(files["satcat_tle.csv"])}
+    assert set(rows) == {"1", "2"}
+    assert rows["2"]["TLE1"] == "" and rows["2"]["TLE2"] == "" and rows["2"]["Epoch"] != ""
+    assert rows["1"]["TLE1"] == FRESH[0]
+
+
 def test_gaps_filled_so_the_app_keeps_every_row(run_export):
     """The app drops a row with any empty cell, so text gaps are 'Unknown' and number gaps -1.0."""
     files = run_export([master_row(25544, object_name=None, owner_country=None, mass_kg=None, inclination=None,
@@ -206,7 +216,7 @@ def test_gaps_filled_so_the_app_keeps_every_row(run_export):
     (row,) = read_csv(files["satcat_tle.csv"])
     assert row["ObjectName"] == "Unknown" and row["Owner"] == "Unknown"
     assert row["UseType"] == "Unknown" and row["Purpose"] == "Unknown" and float(row["LaunchMass"]) == -1.0
-    assert all(v != "" for v in row.values())
+    assert all(v != "" for k, v in row.items() if k not in ("TLE1", "TLE2"))
 
 
 def test_a_failed_export_keeps_the_last_good_files(run_export, monkeypatch, tmp_path):
