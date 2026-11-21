@@ -225,16 +225,31 @@ def test_pull_without_committed_state_refuses_to_run(env):
     (3, True, True),        # force overrides the gate
 ], ids=["3h", "11.9h", "12.1h", "3h-forced"])
 def test_pull_gate(env, hours_ago, force, runs):
-    manifest = dict(env.manifest, last_ok_at=(NOW - timedelta(hours=hours_ago)).isoformat())
+    manifest = dict(env.manifest, last_promoted_at=(NOW - timedelta(hours=hours_ago)).isoformat())
     env.s3.put_object(Bucket=BUCKET, Key=state.MANIFEST_KEY, Body=json.dumps(manifest).encode())
     assert pull(force=force) == 0
     assert outputs(env) == {"run": "true" if runs else "false"}
     assert (env.data / "warehouse" / "sattrack.duckdb").exists() == runs
 
 
-def test_pull_gate_counts_from_the_last_ok_run_only(env):
-    """last_ok_at moves only on status ok: after 'warn' runs (enrichment held) every run goes ahead."""
-    manifest = dict(env.manifest, last_ok_at=None)
+def test_pull_gate_counts_from_the_last_promoted_run_not_the_last_ok_run(env):
+    """A warn run 3 h ago (enrichment held) blocks the next run, though the last ok run was 27 h ago."""
+    manifest = dict(env.manifest, last_promoted_at=(NOW - timedelta(hours=3)).isoformat())
+    env.s3.put_object(Bucket=BUCKET, Key=state.MANIFEST_KEY, Body=json.dumps(manifest).encode())
+    assert pull() == 0 and outputs(env) == {"run": "false"}
+
+
+@pytest.mark.parametrize("hours_ago, runs", [(3, False), (12.1, True)], ids=["3h", "12.1h"])
+def test_pull_gate_falls_back_to_last_ok_at_for_an_older_manifest(env, hours_ago, runs):
+    """The manifest in S3 today has no last_promoted_at until the first push after this change."""
+    manifest = dict(env.manifest, last_ok_at=(NOW - timedelta(hours=hours_ago)).isoformat())
+    assert "last_promoted_at" not in manifest
+    env.s3.put_object(Bucket=BUCKET, Key=state.MANIFEST_KEY, Body=json.dumps(manifest).encode())
+    assert pull() == 0 and outputs(env) == {"run": "true" if runs else "false"}
+
+
+def test_pull_with_no_gate_time_runs(env):
+    manifest = dict(env.manifest, last_ok_at=None, last_promoted_at=None)
     env.s3.put_object(Bucket=BUCKET, Key=state.MANIFEST_KEY, Body=json.dumps(manifest).encode())
     assert pull() == 0 and outputs(env) == {"run": "true"}
 
@@ -266,20 +281,22 @@ def test_push_ok_run_promotes_everything_and_moves_the_gate(env):
     m = env.s3.json(state.MANIFEST_KEY)
     assert m["live"]["run_id"] == run_id and m["live"]["sha256"] == state.sha256_file(env.data / "warehouse" / "sattrack.duckdb")
     assert m["ops"]["version_id"] == env.s3.versions(state.OPS_KEY)[-1]
-    assert m["last_ok_at"] == NOW.isoformat()
+    assert m["last_ok_at"] == NOW.isoformat() and m["last_promoted_at"] == NOW.isoformat()
     assert m["last_run"] == {"run_id": run_id, "status": "ok", "promoted_live": True, "at": NOW.isoformat(),
                              "github_run_id": None, "git_sha": None, "trigger": None}
     assert env.s3.json(state.APP_POINTER_KEY)["run_id"] == run_id
     assert env.s3.body("reports/health/health.html").decode().endswith(run_id)
 
 
-def test_push_warn_run_is_promoted_but_does_not_move_the_gate(env):
-    """18 Nov: enrichment held -> status warn. The build (fresh tracking) goes live; last_ok_at stays."""
+def test_push_warn_run_is_promoted_and_moves_the_gate(env):
+    """18 Nov: enrichment held -> status warn. The build (fresh tracking) goes live and the gate moves;
+    last_ok_at (the last fully ok run) stays."""
     pull()
     run_id = run_pipeline(env, status="warn")
     assert push() == 0
     m = env.s3.json(state.MANIFEST_KEY)
     assert m["live"]["run_id"] == run_id and m["last_run"]["promoted_live"] is True
+    assert m["last_promoted_at"] == NOW.isoformat()
     assert m["last_ok_at"] == env.manifest["last_ok_at"]
     assert env.s3.json(state.APP_POINTER_KEY)["run_id"] == run_id
 
@@ -293,7 +310,7 @@ def test_push_failed_run_keeps_the_last_good_build(env, status, exit_code):
     assert m["live"] == env.manifest["live"]                       # last good build stays live
     assert m["ops"]["version_id"] == env.s3.versions(state.OPS_KEY)[-1]   # login backoff etc. remembered
     assert m["last_run"]["run_id"] == run_id and m["last_run"]["status"] == status
-    assert m["last_run"]["promoted_live"] is False
+    assert m["last_run"]["promoted_live"] is False and "last_promoted_at" not in m   # gate does not move
     assert state.APP_POINTER_KEY not in env.s3.objects and "reports/health/health.html" not in env.s3.objects
 
 
@@ -316,7 +333,7 @@ def test_push_holds_a_build_that_fails_the_integrity_check(env):
     assert push() == 0
     m = env.s3.json(state.MANIFEST_KEY)
     assert m["live"] == env.manifest["live"] and m["last_run"]["promoted_live"] is False
-    assert m["last_ok_at"] == env.manifest["last_ok_at"]
+    assert m["last_ok_at"] == env.manifest["last_ok_at"] and "last_promoted_at" not in m
     assert state.APP_POINTER_KEY not in env.s3.objects
 
 
@@ -418,7 +435,7 @@ def test_seed_creates_the_first_manifest(env):
     make_ops(wh / "sattrack_ops.duckdb", [("run_laptop", "ok", PRIOR_AT)])
     assert state.cmd_seed(argparse.Namespace()) == 0
     m = env.s3.json(state.MANIFEST_KEY)
-    assert m["live"]["run_id"] == "run_laptop" and m["last_ok_at"] is None
+    assert m["live"]["run_id"] == "run_laptop" and m["last_ok_at"] is None and m["last_promoted_at"] is None
     assert m["last_run"]["trigger"] == "seed-from-laptop"
 
 
