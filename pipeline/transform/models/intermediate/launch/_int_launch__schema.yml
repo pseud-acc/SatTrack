@@ -1,6 +1,6 @@
 models:
   - name: int__jsr__launch_events
-    description: "One row per payload launch (GCAT launch log). Launch_Code is split into the documented category (O, M, T, A, S, D, H, R, X, Y; undocumented letters -> NULL) and the success code."
+    description: "One row per payload launch (GCAT launch log). Launch_Code is split into the documented category (O, M, T, A, S, D, H, R, X, Y; undocumented letters -> NULL) and the success code. A JCAT that GCAT repeats on several rows keeps its first row in the source file; the rest are dropped (reported by mh__stg__jsr__launchlog__pk_unique)."
     data_tests:
       - model_health:
           name: mh__int__jsr__launch_events__pk_unique
@@ -13,7 +13,8 @@ models:
           arguments:
             check: row_count_match
             compare_to: "ref('stg__jsr__launchlog')"
-            relationship: equal
+            relationship: lte          # later rows of a repeated JCAT are dropped
+            min_ratio: 0.999
     columns:
       - name: jcat
         description: '{{ doc("col__jcat") }}'
