@@ -31,7 +31,7 @@ on:
           - manual
           - eventbridge
       force:
-        description: Run even if a successful run committed in the last 12 hours
+        description: Run even if a run's data went live in the last 12 hours
         type: boolean
         default: false
       dry_run:

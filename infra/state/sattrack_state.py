@@ -19,6 +19,9 @@ Rules (fail closed, keep last good data):
   * pull: no manifest -> exit 1 (state must be seeded once with `seed`); a download whose SHA-256 does
     not match the manifest -> exit 1. Nothing then runs, so Space-Track is never called without the
     persisted login-backoff counter.
+  * pull: the 12-hour gate counts from last_promoted_at, the last run whose build went live (ok or warn),
+    so back-to-back manual runs during a stretch of warn runs can't call Space-Track GP again within hours.
+    A manifest written before that key existed falls back to last_ok_at. --force skips the gate.
   * push: the live DB is promoted only when the pipeline finished (a new audit.pipeline_run row),
     its status is ok/warn and the required marts open with rows. The ops DB is promoted whenever it
     opens cleanly, so failed logins are remembered. The manifest is written with If-Match on the ETag
@@ -203,11 +206,11 @@ def cmd_pull(args) -> int:
         log("no committed state (state/manifest.json missing) - seed it once from the laptop; not running")
         github_output(run="false")
         return 1
-    last_ok = manifest.get("last_ok_at")
-    if last_ok and not args.force:
-        age = utcnow() - datetime.fromisoformat(last_ok)
+    gate_from = manifest.get("last_promoted_at") or manifest.get("last_ok_at")   # last_ok_at: older manifests
+    if gate_from and not args.force:
+        age = utcnow() - datetime.fromisoformat(gate_from)
         if age < timedelta(hours=args.min_hours):
-            log(f"last successful run {age.total_seconds() / 3600:.1f} h ago - nothing to do")
+            log(f"last promoted run {age.total_seconds() / 3600:.1f} h ago - nothing to do")
             github_output(run="false")
             return 0
     get_version(client, manifest["live"], wh / "sattrack.duckdb")
@@ -260,6 +263,7 @@ def cmd_push(args) -> int:
     if promote_live:
         new["live"] = put_file(client, LIVE_KEY, wh / "sattrack.duckdb")
         new["live"]["run_id"] = run_id
+        new["last_promoted_at"] = now.isoformat()   # the 12-hour gate counts from here (ok or warn)
         if status == "ok":
             new["last_ok_at"] = now.isoformat()
     new["last_run"] = {"run_id": run_id if finished else None, "status": status if finished else "crashed",
@@ -301,7 +305,7 @@ def cmd_seed(args) -> int:
     live = put_file(client, LIVE_KEY, wh / "sattrack.duckdb")
     live["run_id"] = run_id
     new = {"schema": 1, "live": live, "ops": put_file(client, OPS_KEY, wh / "sattrack_ops.duckdb"),
-           "last_ok_at": None,
+           "last_ok_at": None, "last_promoted_at": None,
            "last_run": {"run_id": run_id, "status": status, "promoted_live": True, "at": utcnow().isoformat(),
                         "trigger": "seed-from-laptop"}}
     client.put_object(Bucket=bucket(), Key=MANIFEST_KEY, Body=json.dumps(new, indent=1).encode(),

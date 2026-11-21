@@ -8,7 +8,7 @@ A problem is any of:
   * the pipeline exited non-zero, or its result is not OK (e.g. a unit held: WARN), or no run summary exists
   * committing the state to S3 failed
   * the published positions are older than MAX_POSITIONS_AGE_H, or the details older than MAX_DETAILS_AGE_D
-A run skipped by the 12-hour gate is not a problem: a successful run committed less than 12 hours ago.
+A run skipped by the 12-hour gate is not a problem: a run's data went live less than 12 hours ago.
 
 Inputs (environment): SATTRACK_DATA_DIR, GATE ('true' if the pipeline ran), PIPELINE_EXIT, PUSH_OUTCOME,
 GITHUB_STEP_SUMMARY (set by Actions).
@@ -44,7 +44,7 @@ def main() -> int:
     lines, problems = [], []
 
     if os.environ.get("GATE") != "true":
-        msg = "Pipeline skipped by the 12-hour gate: a successful run was committed less than 12 hours ago."
+        msg = "Pipeline skipped by the 12-hour gate: a run's data went live less than 12 hours ago."
         print(msg)
         _summary([f"**Skipped.** {msg}"])
         return 0
