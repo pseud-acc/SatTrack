@@ -104,7 +104,7 @@ Everything is written under the data folder (`SATTRACK_DATA_DIR`, default `pipel
 │   └── sattrack_ops.duckdb      permanent: Elementary results + audit.* run history
 ├── raw_history/<schema>/<table>/<run_id>.parquet    raw copies, kept 90 days
 ├── app/
-│   ├── satcat_tle.csv           one row per tracked satellite with its TLE (what the app plots)
+│   ├── satcat_tle.csv           one row per tracked satellite with its element set (OMM + TLE; what the app plots)
 │   ├── last_data_update.csv     freshness rows: SpaceTrack_GP, GCAT
 │   └── manifest.json            rows, SHA-256 and as-of dates of the two CSVs
 ├── health/health.html, health.json      pipeline health page

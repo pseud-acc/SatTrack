@@ -49,6 +49,9 @@ APP_COLUMNS = {
         "SatCatId", "ObjectName", "LaunchYear", "OrbitalPeriod", "LaunchMass", "Inclination", "Status",
         "LaunchSiteCountry", "Owner", "UseType", "Purpose", "LaunchVehicleClass",
         "TLE1", "TLE2", "MeanMotion", "Eccentricity", "OrbitClass",
+        # OMM elements (plan 1.2): with MeanMotion, Eccentricity and Inclination, a full element set
+        "Epoch", "RaOfAscNode", "ArgOfPericenter", "MeanAnomaly", "Bstar", "MeanMotionDot", "MeanMotionDdot",
+        "RevAtEpoch", "ElementSetNo", "EphemerisType", "ClassificationType", "ObjectId",
     ],
     "last_data_update.csv": ["Source", "Last Download", "Last Update"],
 }

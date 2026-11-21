@@ -33,8 +33,9 @@ export_app_csvs = _load("export_app_csvs")
 build_health_page = _load("build_health_page")
 
 # Hand-edited, ISS-like TLE lines (catalogue 25544) at two epochs: the stale set sits in the enrichment mart, the
-# fresh one in tracking. They are not real element sets (checksums not valid); the export copies them and parses
-# line 2 as text, so only their content matters. Fresh line 2 gives mean motion 15.50103472, eccentricity 0.0006703.
+# fresh one in tracking. They are not real element sets (checksums not valid); the export copies them as text.
+# The tracking mart's OMM element columns (gp_row) hold the fresh set's values; the export takes the numbers from
+# those columns, never from the TLE text.
 STALE = ("1 25544U 98067A   26320.50000000  .00016717  00000-0  10270-3 0  9990",
          "2 25544  51.6400 208.9163 0006317  69.9862  25.2906 15.49000000 10001")
 FRESH = ("1 25544U 98067A   26322.13000000  .00016717  00000-0  10270-3 0  9991",
@@ -65,9 +66,21 @@ def master_row(satcat_id, **kw):
     return row
 
 
-def gp_row(satcat_id, tle=FRESH, period=92.88, inclination=51.6416):
-    return dict(satcat_id=satcat_id, orbital_period=period, inclination=inclination, tle_line_1=tle[0],
-                tle_line_2=tle[1], _loaded_at=GP_LOADED, inserted_by=TRACK_RUN, inserted_date_time=TRACK_BUILT)
+GP_COLS = ("satcat_id, object_id, epoch, mean_motion, eccentricity, inclination, ra_of_asc_node, arg_of_pericenter, "
+           "mean_anomaly, bstar, mean_motion_dot, mean_motion_ddot, rev_at_epoch, element_set_no, ephemeris_type, "
+           "classification_type, orbital_period, tle_line_1, tle_line_2, _loaded_at, inserted_by, inserted_date_time")
+
+
+def gp_row(satcat_id, tle=FRESH, period=92.88, **kw):
+    """The fresh ISS-like set as OMM fields (epoch 26322.13000000 = 18 Nov 2026 03:07:12)."""
+    row = dict(satcat_id=satcat_id, object_id="1998-067A", epoch=datetime(2026, 11, 18, 3, 7, 12),
+               mean_motion=15.50103472, eccentricity=0.0006703, inclination=51.6416, ra_of_asc_node=247.4627,
+               arg_of_pericenter=130.536, mean_anomaly=325.0288, bstar=0.0001027, mean_motion_dot=0.00016717,
+               mean_motion_ddot=0.0, rev_at_epoch=1000, element_set_no=999, ephemeris_type=0,
+               classification_type="U", orbital_period=period, tle_line_1=tle[0], tle_line_2=tle[1],
+               _loaded_at=GP_LOADED, inserted_by=TRACK_RUN, inserted_date_time=TRACK_BUILT)
+    row.update(kw)
+    return row
 
 
 def build_db(path: Path, master: list[dict], gp: list[dict]) -> Path:
@@ -79,14 +92,18 @@ def build_db(path: Path, master: list[dict], gp: list[dict]) -> Path:
         launch_vehicle_brand varchar, orbit_class varchar, orbital_period double, inclination double, mass_kg double,
         tle_line_1 varchar, tle_line_2 varchar, positions_as_of timestamp, gcat_updated_at timestamp,
         inserted_by varchar, inserted_date_time timestamp)""")
-    con.execute("""create table marts_tracking.fct__gp_elements (satcat_id integer, orbital_period double,
-        inclination double, tle_line_1 varchar, tle_line_2 varchar, _loaded_at timestamp, inserted_by varchar,
+    con.execute("""create table marts_tracking.fct__gp_elements (satcat_id integer, object_id varchar, epoch timestamp,
+        mean_motion double, eccentricity double, inclination double, ra_of_asc_node double, arg_of_pericenter double,
+        mean_anomaly double, bstar double, mean_motion_dot double, mean_motion_ddot double, rev_at_epoch integer,
+        element_set_no integer, ephemeris_type integer, classification_type varchar, orbital_period double,
+        tle_line_1 varchar, tle_line_2 varchar, _loaded_at timestamp, inserted_by varchar,
         inserted_date_time timestamp)""")
     for r in master:
         con.execute(f"insert into marts.fct__satellite_master ({MASTER_COLS}) values ({', '.join('?' * 21)})",
                     [r[c.strip()] for c in MASTER_COLS.split(",")])
     for r in gp:
-        con.execute("insert into marts_tracking.fct__gp_elements values (?, ?, ?, ?, ?, ?, ?, ?)", list(r.values()))
+        con.execute(f"insert into marts_tracking.fct__gp_elements ({GP_COLS}) values ({', '.join('?' * 22)})",
+                    [r[c.strip()] for c in GP_COLS.split(",")])
     con.close()
     return path
 
@@ -114,7 +131,7 @@ def test_positions_from_tracking_details_from_enrichment(run_export):
     # where it is: the current tracking build
     assert (row["TLE1"], row["TLE2"]) == FRESH
     assert float(row["MeanMotion"]) == 15.50103472 and float(row["Eccentricity"]) == 0.0006703
-    assert float(row["OrbitalPeriod"]) == 92.88 and float(row["Inclination"]) == 51.64
+    assert float(row["OrbitalPeriod"]) == 92.88 and float(row["Inclination"]) == 51.6416   # not rounded
     # what it is: the enrichment build
     assert row["ObjectName"] == "ISS (ZARYA)" and row["Owner"] == "Multinational" and row["Status"] == "Active"
     assert row["Purpose"] == "Space Science/Technology" and row["UseType"] == "Civil/Government"
@@ -149,6 +166,36 @@ def test_scope(run_export):
     # 1 kept; 2 left the GP feed (decayed) -> gone; 3 not a payload; 4 not in orbit; 5 no launch year;
     # 6 non-positive period; 7 new in GP, not yet enriched -> appears after the next good enrichment build
     assert ids == ["1"]
+
+
+def test_omm_elements_exported_unchanged(run_export):
+    """Every field sgp4.omm.initialize reads, copied from the tracking mart: numbers unrounded, the epoch with its
+    microseconds in the format sgp4.omm.initialize parses."""
+    files = run_export([master_row(25544)], [gp_row(25544, epoch=datetime(2026, 11, 19, 17, 18, 6, 560064),
+                                                    mean_motion_ddot=1.2345e-11, bstar=-0.00011606)])
+    (row,) = read_csv(files["satcat_tle.csv"])
+    assert row["Epoch"] == "2026-11-19T17:18:06.560064"
+    assert datetime.strptime(row["Epoch"], "%Y-%m-%dT%H:%M:%S.%f") == datetime(2026, 11, 19, 17, 18, 6, 560064)
+    numbers = ("RaOfAscNode", "ArgOfPericenter", "MeanAnomaly", "Bstar", "MeanMotionDot", "MeanMotionDdot")
+    assert [float(row[k]) for k in numbers] == [247.4627, 130.536, 325.0288, -0.00011606, 0.00016717, 1.2345e-11]
+    assert (row["RevAtEpoch"], row["ElementSetNo"], row["EphemerisType"]) == ("1000", "999", "0")
+    assert row["ClassificationType"] == "U" and row["ObjectId"] == "1998-067A"
+
+
+def test_epoch_without_fraction_keeps_the_microsecond_field(run_export):
+    """A whole-second epoch still carries '.000000': sgp4.omm.initialize's format requires the fraction."""
+    files = run_export([master_row(25544)], [gp_row(25544)])
+    (row,) = read_csv(files["satcat_tle.csv"])
+    assert row["Epoch"] == "2026-11-18T03:07:12.000000"
+
+
+@pytest.mark.parametrize("field", ["object_id", "epoch", "mean_motion", "eccentricity", "inclination",
+                                   "ra_of_asc_node", "arg_of_pericenter", "mean_anomaly", "bstar",
+                                   "mean_motion_dot", "mean_motion_ddot", "rev_at_epoch", "element_set_no",
+                                   "ephemeris_type", "classification_type"])
+def test_a_satellite_without_a_full_element_set_is_left_out(run_export, field):
+    files = run_export([master_row(1), master_row(2)], [gp_row(1), gp_row(2, **{field: None})])
+    assert [r["SatCatId"] for r in read_csv(files["satcat_tle.csv"])] == ["1"]
 
 
 def test_gaps_filled_so_the_app_keeps_every_row(run_export):
