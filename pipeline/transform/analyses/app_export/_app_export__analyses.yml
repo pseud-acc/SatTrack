@@ -7,10 +7,11 @@ version: 2
 analyses:
   - name: app__satcat_tle
     description: >-
-      satcat_tle.csv for the app: one row per Earth-orbiting payload with a TLE, in the old file's columns
-      (SatCatId ... OrbitClass) less StatusCode, UcsData and OrbitClassEstimated (17 columns), with 'Unknown' / -1.0
-      for gaps because the app drops rows with any missing value.
-      Reads only fct__satellite_master.
+      satcat_tle.csv for the app: one row per Earth-orbiting payload with a full element set, in the old file's
+      columns (SatCatId ... OrbitClass) less StatusCode, UcsData and OrbitClassEstimated, then the OMM elements
+      Space-Track publishes (Epoch ... ObjectId; 29 columns), with 'Unknown' / -1.0 for gaps in the descriptive
+      fields because the app drops rows with any missing value. Descriptive fields from fct__satellite_master
+      (enrichment); elements and TLE lines from fct__gp_elements (tracking).
   - name: app__last_data_update
     description: >-
       last_data_update.csv for the app: Source, Last Download, Last Update (dd/mm/YYYY, HH:MM:SS); rows SpaceTrack_GP

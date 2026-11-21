@@ -4,9 +4,13 @@
 -- and OrbitClassEstimated: the app never read them and this pipeline has no source for them.
 -- The app drops every row that has any missing value (DataFrame.dropna after propagation), so no column may be empty:
 -- text gaps are 'Unknown' and number gaps are -1.0, as in the old file.
--- Scope matches the old app: Earth-orbiting payloads with a TLE and a positive period.
+-- Scope matches the old app: Earth-orbiting payloads with a full element set and a positive period.
+-- Elements: the OMM fields Space-Track publishes (CCSDS OMM keywords, after the TLE columns), so the app can build its
+-- propagator from them with sgp4.omm.initialize (plan 1.3). Numbers are copied, not rounded or parsed from TLE text;
+-- Epoch is written as %Y-%m-%dT%H:%M:%S.%f, the format sgp4.omm.initialize reads. TLE1/TLE2 stay until the app
+-- no longer reads them.
 -- Two sources, so positions never wait for the GCAT details: what each satellite is (name, owner, status, purpose)
--- comes from fct__satellite_master (enrichment unit), and where it is (TLE lines, period, inclination) from
+-- comes from fct__satellite_master (enrichment unit), and where it is (element set, TLE lines, period) from
 -- fct__gp_elements (tracking unit). When enrichment is held, positions still update every run; a satellite new to
 -- the GP feed appears once enrichment next succeeds, and one that left it disappears at once.
 with cte_fct__satellite_master as (
@@ -30,8 +34,22 @@ with cte_fct__satellite_master as (
 , cte_fct__gp_elements as (
     select
         satcat_id
-        , orbital_period
+        , object_id
+        , epoch
+        , mean_motion
+        , eccentricity
         , inclination
+        , ra_of_asc_node
+        , arg_of_pericenter
+        , mean_anomaly
+        , bstar
+        , mean_motion_dot
+        , mean_motion_ddot
+        , rev_at_epoch
+        , element_set_no
+        , ephemeris_type
+        , classification_type
+        , orbital_period
         , tle_line_1
         , tle_line_2
     from {{ ref('fct__gp_elements') }}
@@ -50,8 +68,22 @@ with cte_fct__satellite_master as (
         , launch_vehicle_brand
         , orbit_class
         , round(gp.orbital_period, 2) as orbital_period
-        , round(gp.inclination, 2) as inclination
         , mass_kg
+        , gp.object_id
+        , gp.epoch
+        , gp.mean_motion
+        , gp.eccentricity
+        , gp.inclination
+        , gp.ra_of_asc_node
+        , gp.arg_of_pericenter
+        , gp.mean_anomaly
+        , gp.bstar
+        , gp.mean_motion_dot
+        , gp.mean_motion_ddot
+        , gp.rev_at_epoch
+        , gp.element_set_no
+        , gp.ephemeris_type
+        , gp.classification_type
         , gp.tle_line_1
         , gp.tle_line_2
     from cte_fct__satellite_master as sat
@@ -59,6 +91,23 @@ with cte_fct__satellite_master as (
         on sat.satcat_id = gp.satcat_id
     where sat.object_type = 'PAYLOAD'
         and sat.flag_in_orbit = 1
+        -- a full element set: every field sgp4.omm.initialize reads
+        and gp.object_id is not null
+        and gp.epoch is not null
+        and gp.mean_motion is not null
+        and gp.eccentricity is not null
+        and gp.inclination is not null
+        and gp.ra_of_asc_node is not null
+        and gp.arg_of_pericenter is not null
+        and gp.mean_anomaly is not null
+        and gp.bstar is not null
+        and gp.mean_motion_dot is not null
+        and gp.mean_motion_ddot is not null
+        and gp.rev_at_epoch is not null
+        and gp.element_set_no is not null
+        and gp.ephemeris_type is not null
+        and gp.classification_type is not null
+        -- the app propagates from the TLE lines until plan 1.3; drop these two then
         and gp.tle_line_1 is not null
         and gp.tle_line_2 is not null
         and gp.orbital_period > 0
@@ -72,7 +121,7 @@ with cte_fct__satellite_master as (
         , launch_year
         , orbital_period
         , coalesce(mass_kg, -1.0) as launch_mass
-        , coalesce(inclination, -1.0) as inclination
+        , inclination
         , coalesce(operational_status, 'Inactive') as operational_status
         , coalesce(site_location_country, 'Unknown') as launch_site_country
         , coalesce(owner_country, 'Unknown') as owner
@@ -83,10 +132,21 @@ with cte_fct__satellite_master as (
         , coalesce(launch_vehicle_brand, 'Unknown') as launch_vehicle_class
         , tle_line_1
         , tle_line_2
-        -- parsed from TLE line 2 exactly as the old export did: TLE2[52:63] and '0.' + TLE2[26:33]
-        , cast(substr(tle_line_2, 53, 11) as double) as mean_motion
-        , cast('0.' || substr(tle_line_2, 27, 7) as double) as eccentricity
+        , mean_motion
+        , eccentricity
         , orbit_class
+        , strftime(epoch, '%Y-%m-%dT%H:%M:%S.%f') as epoch_text
+        , ra_of_asc_node
+        , arg_of_pericenter
+        , mean_anomaly
+        , bstar
+        , mean_motion_dot
+        , mean_motion_ddot
+        , rev_at_epoch
+        , element_set_no
+        , ephemeris_type
+        , classification_type
+        , object_id
     from cte_app_scope
 )
 
@@ -109,6 +169,18 @@ with cte_fct__satellite_master as (
         , cast(mean_motion as double) as "MeanMotion"
         , cast(eccentricity as double) as "Eccentricity"
         , cast(orbit_class as varchar) as "OrbitClass"
+        , cast(epoch_text as varchar) as "Epoch"
+        , cast(ra_of_asc_node as double) as "RaOfAscNode"
+        , cast(arg_of_pericenter as double) as "ArgOfPericenter"
+        , cast(mean_anomaly as double) as "MeanAnomaly"
+        , cast(bstar as double) as "Bstar"
+        , cast(mean_motion_dot as double) as "MeanMotionDot"
+        , cast(mean_motion_ddot as double) as "MeanMotionDdot"
+        , cast(rev_at_epoch as bigint) as "RevAtEpoch"
+        , cast(element_set_no as bigint) as "ElementSetNo"
+        , cast(ephemeris_type as bigint) as "EphemerisType"
+        , cast(classification_type as varchar) as "ClassificationType"
+        , cast(object_id as varchar) as "ObjectId"
     from cte_app_columns
 )
 

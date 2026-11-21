@@ -3,7 +3,11 @@
 A small fixed sample of the pipeline's app files, used to run the app without AWS access:
 
 - `satcat_tle.csv`: 341 satellites (up to 40 per status and orbit class) from the pipeline run
-  `run_2026-11-15T124939Z`, in the same 17-column shape the pipeline publishes to S3.
+  `run_2026-11-15T124939Z`, in the same 29-column shape the pipeline publishes to S3. That run predates the
+  OMM columns (`Epoch` ... `ObjectId`), so they were added later from each row's own `TLE1`/`TLE2` with
+  `sgp4.exporter.export_omm`, rounded to the TLE's printed precision, and `Inclination` set to the TLE value
+  (the export no longer rounds it). The OMM and TLE fields describe the same element set: positions from
+  either agree to about 1 cm.
 - `last_data_update.csv`: that run's freshness rows.
 
 CI's Heroku build check (`.github/scripts/heroku_build_check.sh`) starts the app with
