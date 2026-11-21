@@ -42,6 +42,17 @@ def wait_for_traces(page, element_id, condition):
            }""", arg=[element_id, condition], timeout=TIMEOUT)
 
 
+def choose_in_dropdown(page, dropdown_id, label):
+    """Pick one option in a dcc.Dropdown (Dash 4): open it, wait for its search box to have focus, search, click the
+    option, and check the dropdown shows it. Typing straight after the click can lose keys on a slow CI runner."""
+    page.locator(f"#{dropdown_id}").click()
+    search = page.locator(".dash-dropdown-content .dash-dropdown-search")
+    expect(search).to_be_focused(timeout=TIMEOUT)
+    search.fill(label)
+    page.locator(".dash-dropdown-content").get_by_role("option", name=label, exact=True).click()
+    expect(page.locator(f"#{dropdown_id}")).to_contain_text(label, timeout=TIMEOUT)
+
+
 def open_tracker(page, base_url):
     page.goto(base_url + "/sat_visualisation", wait_until="domcontentloaded")
     wait_for_traces(page, PLOT_3D, "lengths.length >= 2")
@@ -77,9 +88,7 @@ def test_tracker_draws_the_selected_satellites(page, base_url, sample_df, t_ref)
 def test_one_satellite_shows_its_ground_track(page, base_url, sample_df):
     open_tracker(page, base_url)
     sat = sample_df[sample_df.Status.isin(START_STATUS) & (sample_df.OrbitClass == "LEO")].iloc[0]
-    page.locator("#satcatid-filter-dropdown").click()
-    page.keyboard.type(str(sat.SatCatId))
-    page.keyboard.press("Enter")
+    choose_in_dropdown(page, "satcatid-filter-dropdown", str(sat.SatCatId))
     page.get_by_role("tab", name="2D View").click()
     wait_for_traces(page, PLOT_2D, "lengths.includes(3600)")
     assert sorted(trace_lengths(page, PLOT_2D)) == [1, 3600]   # current position + one period of track
