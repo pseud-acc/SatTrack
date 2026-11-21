@@ -86,12 +86,11 @@ def test_filters_do_not_modify_the_shared_catalogue(sample_df, filters):
     assert df.equals(before)
 
 
-@pytest.mark.xfail(strict=True, reason="Latent: dropna() runs on every column, so a satellite with any blank "
-                                       "field is hidden. No blanks in today's export; Phase 1.2 adds columns "
-                                       "that could be blank. Fix: dropna on the position columns only.")
-def test_blank_non_position_field_does_not_hide_a_satellite(sample_df, filters, t_ref):
+@pytest.mark.parametrize("column", ["LaunchMass", "Bstar", "ObjectId"])
+def test_blank_non_position_field_does_not_hide_a_satellite(sample_df, filters, t_ref, column):
+    """Only a satellite SGP4 cannot place is dropped; a blank descriptive or OMM field does not hide one."""
     df = sample_df.copy()
-    df.loc[0, "LaunchMass"] = np.nan
+    df.loc[0, column] = np.nan
     out, _, _, _ = run(df, filters)
     assert df.loc[0, "SatCatId"] in set(out.SatCatId)
 

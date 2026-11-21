@@ -20,6 +20,7 @@ When creating pull requests, use the following prefixes to indicate the type of 
 ## [Unreleased]
 
 ### Added
+- App data: `satcat_tle.csv` carries each satellite's full OMM element set from Space-Track GP (`Epoch`, `RaOfAscNode`, `ArgOfPericenter`, `MeanAnomaly`, `Bstar`, `MeanMotionDot`, `MeanMotionDdot`, `RevAtEpoch`, `ElementSetNo`, `EphemerisType`, `ClassificationType`, `ObjectId`, after the existing columns), ready for the app to propagate from OMM (plan 1.3). `MeanMotion`, `Eccentricity` and `Inclination` now come from the element columns at full precision (eccentricity to 8 decimals instead of the TLE's 7; inclination no longer rounded to 2). A satellite is exported when its element set is complete; TLE lines are still required until plan 1.3. The CI sample `tests/app_data` has the same 29 columns
 - Pipeline: the tracking table `fct__gp_elements` carries the remaining OMM elements from Space-Track GP (mean motion derivatives, revolution number, element set number, ephemeris type, classification), so the app can propagate from OMM fields instead of TLE lines (plan Phase 1); a warning flags any element set not meant for SGP4
 - PR checks (`pr.yml`), required on `main`: a Heroku-identical build and run of the app, and the pipeline's tests and dbt checks
 - Deploy on merge (`merge.yml`): the same checks, then a Heroku Build API deploy and live checks when app files changed
@@ -32,11 +33,13 @@ When creating pull requests, use the following prefixes to indicate the type of 
 - Security updates for the app (Dependabot): Pillow 10.4 → 13.0, gunicorn 20.1 → 23.0, urllib3 2.8, requests 2.34, certifi, idna and setuptools; dev tools pytest 9 and black 26. Werkzeug and Flask followed with the Dash 4 upgrade
 - 3D view traffic: responses are compressed, hover labels use one shared template, and the 20-second refresh sends only the moved positions (28.7 MB → 0.31 MB per refresh with ~16,000 satellites); labels and click-to-track unchanged
 - The app reads only the pipeline's Space-Track + GCAT data (S3 or a local folder) and credits only those sources; with no data source set it stops with an error instead of falling back to GitHub
+- Scheduled pipeline runs: the run title in the Actions list shows the trigger, e.g. `sattrack-pipeline (eventbridge)` or `sattrack-pipeline (manual) dry run`, since GitHub labels every dispatch "Manually run by" the owner
 
 ### Removed
 - The legacy pipeline (`src/`, root `run_pipeline.py`) and its CSVs in `dat/` (CelesTrak, UCS, space.skyrocket); the app no longer reads raw GitHub CSVs
 
 ### Fixed
+- A satellite with any blank field (for example an unknown launch mass) was hidden from the views: the app now drops only satellites SGP4 cannot place
 - Satellite details stopped updating from 16 Nov because GCAT gave two IDs (F01824, F01834) to two payloads each from the failed Vulcan launch of 15 Nov; the pipeline held back all GCAT details. A repeated ID in GCAT's launch log now keeps its first row in GCAT's file order and is reported as a warning; more than 10 repeated IDs still stop the update
 - Satellite positions froze whenever the pipeline held its GCAT enrichment step (as on 17–18 Nov, when GCAT gave two failed-launch Kuiper payloads the same ID): the app export now takes element sets and "Last updated" from the tracking tables, which update every run, and only the descriptive fields from enrichment
 - Longitudes in the hover labels, the list view and its CSV export could show values below −180° (down to −405°); they now stay within ±180°. Positions on the 3D globe and the 2D map were already right

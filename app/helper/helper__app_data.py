@@ -110,7 +110,8 @@ def filter_satellite_data(df_in, input_filter,
 
     df_in[["x","y","z","lat","lon","alt"]] = compute_satloc(df_in[["TLE1","TLE2"]].values, time_now, _radius_earth__c, False)
     
-    df_in = df_in.dropna()
+    # drop only satellites SGP4 could not place; a blank descriptive field must not hide one
+    df_in = df_in.dropna(subset=["x","y","z","lat","lon","alt"])
     
     df_in["xp"], df_in["yp"], df_in["zp"] = lla_to_xyz(df_in.lat,df_in.lon,df_in.alt,_radius_earth__c)
 
