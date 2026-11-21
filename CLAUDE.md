@@ -43,6 +43,7 @@ uv sync                                                        # `pipeline` grou
 UV_PROJECT_ENVIRONMENT=.venv-bouncer uv sync --only-group bouncer
 .venv-bouncer/Scripts/python -m pytest ingestion/tests -q -p no:cacheprovider     # bin/ on Linux
 cd transform && ../.venv-bouncer/Scripts/python -m pytest bouncer/tests -q -p no:cacheprovider
+.venv-bouncer/Scripts/python -m pytest ../infra/state/tests -q -p no:cacheprovider    # state script (fake S3)
 cd transform && uv run dbt parse --profiles-dir . && ../.venv-bouncer/Scripts/dbt-bouncer --config-file bouncer/dbt-bouncer.yml
 SATTRACK_DATA_DIR=/path/outside/repo uv run python run_pipeline.py   # a real run: calls Space-Track (see quota)
 ```
