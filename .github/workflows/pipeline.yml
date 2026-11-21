@@ -15,6 +15,10 @@
 #     that last step, after the state is committed, so GitHub emails the owner. Last good data stays live.
 
 name: sattrack-pipeline
+# EventBridge dispatches with the owner's token, so GitHub labels every run "Manually run by" (that label
+# can't be changed). The run title shows the real trigger instead, plus "dry run" / "forced" when set,
+# e.g. "sattrack-pipeline (eventbridge)" or "sattrack-pipeline (manual) dry run".
+run-name: "sattrack-pipeline (${{ inputs.trigger || 'manual' }})${{ inputs.dry_run && ' dry run' || '' }}${{ inputs.force && ' forced' || '' }}"
 
 on:
   # The ONLY trigger is an AWS EventBridge rule (infra/aws/sattrack-scheduler.yaml) that calls the
