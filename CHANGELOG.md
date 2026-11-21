@@ -37,6 +37,7 @@ When creating pull requests, use the following prefixes to indicate the type of 
 - The legacy pipeline (`src/`, root `run_pipeline.py`) and its CSVs in `dat/` (CelesTrak, UCS, space.skyrocket); the app no longer reads raw GitHub CSVs
 
 ### Fixed
+- Satellite details stopped updating from 16 Nov because GCAT gave two IDs (F01824, F01834) to two payloads each from the failed Vulcan launch of 15 Nov; the pipeline held back all GCAT details. A repeated ID in GCAT's launch log now keeps its first row in GCAT's file order and is reported as a warning; more than 10 repeated IDs still stop the update
 - Satellite positions froze whenever the pipeline held its GCAT enrichment step (as on 17–18 Nov, when GCAT gave two failed-launch Kuiper payloads the same ID): the app export now takes element sets and "Last updated" from the tracking tables, which update every run, and only the descriptive fields from enrichment
 - Longitudes in the hover labels, the list view and its CSV export could show values below −180° (down to −405°); they now stay within ±180°. Positions on the 3D globe and the 2D map were already right
 
