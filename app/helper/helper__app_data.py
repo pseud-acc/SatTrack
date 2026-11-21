@@ -140,9 +140,11 @@ def generate_orbital_path(df_in, res, time_now, eci):
         time_lapse = np.append(time_lapse,(time_now + timedelta(minutes=dt)).replace(microsecond=0))
     df_path = pd.DataFrame(compute_satloc(satrecs_for(df_in.iloc[[0]])[0], time_lapse, _radius_earth__c, eci), 
                        columns =["x","y","z","lat","lon","alt"])
+    df_path["Datetime"] = time_lapse
+    # a satellite that decays during the period: keep only the points SGP4 could compute (hover labels need numbers)
+    df_path = df_path.dropna(subset=["x","y","z","lat","lon","alt"]).reset_index(drop=True)
     df_path["xp"], df_path["yp"], df_path["zp"] = lla_to_xyz(df_path.lat,df_path.lon,df_path.alt,_radius_earth__c)    
     for col in np.setdiff1d(list(df_in.columns),list(df_path.columns)):
         df_path[col] = df_in[col].values[0]
-    df_path["Datetime"] = time_lapse
 
     return df_path
