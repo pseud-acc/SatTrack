@@ -125,7 +125,7 @@ def display_page(pathname):
 ## >>>>>>>> Run Development Server <<<<<<<<<<<<
 
 if __name__ == "__main__":
-    app.run_server(
+    app.run(
         port=8090,
         dev_tools_ui=True,
         dev_tools_hot_reload=True,

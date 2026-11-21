@@ -27,7 +27,8 @@ When creating pull requests, use the following prefixes to indicate the type of 
 - `SATTRACK_APP_DATA_DIR`: run the app from a local folder of the pipeline's app CSVs; `tests/app_data` holds a small sample
 
 ### Changed
-- Security updates for the app (Dependabot): Pillow 10.4 → 13.0, gunicorn 20.1 → 23.0, urllib3 2.8, requests 2.34, certifi, idna and setuptools; dev tools pytest 9 and black 26. Werkzeug and Flask stay on the versions Dash 2 allows until the planned Dash 4 upgrade
+- Dash 2.18 → 4.5.1 and dash-bootstrap-components 1.7 → 2.0.4, which brings the patched Flask 3.1.3 and Werkzeug 3.1.9 (the last 5 Dependabot alerts). The sidebar keeps its look: Dash 4's redesigned checklists and launch-year slider are styled to the app's theme. The filter dropdowns now open a panel with a search box and Select all / Deselect all
+- Security updates for the app (Dependabot): Pillow 10.4 → 13.0, gunicorn 20.1 → 23.0, urllib3 2.8, requests 2.34, certifi, idna and setuptools; dev tools pytest 9 and black 26. Werkzeug and Flask followed with the Dash 4 upgrade
 - 3D view traffic: responses are compressed, hover labels use one shared template, and the 20-second refresh sends only the moved positions (28.7 MB → 0.31 MB per refresh with ~16,000 satellites); labels and click-to-track unchanged
 - The app reads only the pipeline's Space-Track + GCAT data (S3 or a local folder) and credits only those sources; with no data source set it stops with an error instead of falling back to GitHub
 

@@ -42,7 +42,7 @@ The earlier pipeline (CelesTrak, UCS and space.skyrocket scrapers in `src/`, CSV
 
 ### Dependencies
 The app installs only what it imports, plus gunicorn (see [pyproject.toml](pyproject.toml); exact versions in `uv.lock`):
-- Dash 2.18
+- Dash 4.5
 - Dash Bootstrap Components 1.7
 - Plotly 5.24
 - NumPy 1.26

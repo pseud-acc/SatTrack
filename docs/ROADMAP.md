@@ -58,14 +58,14 @@ Where SatTrack is today in each area, what it should do, and the work to get the
 |---|---|---|---|
 | 0 | Housekeeping & guardrails | 12 (0.2 done; incl. 0.5, 0.6) | 2–3 |
 | 1 | OMM propagation | 8 | 2 |
-| 2 | Client data contract + filter spec | 8 | 2 |
+| 2 | Client data contract + filter spec | 11.5 (incl. 2.4) | 2–3 |
 | 3 | Cesium migration | 30 (+25% buffer → ~37) | 6–8 |
 | 4 | Freshness & SupGP | 12 | 3 |
 | 5 | Detail enrichment | 12 (incl. 5.4) | 2–3 |
 | 6 | Natural-language query | 20 (+25% buffer → 25) | 4–5 |
 | 7 | Backlog (pick as wanted) | — | — |
 
-Roughly **22 weeks (~110 h, ~5 months)** to the end of Phase 6 with the buffers and the tasks added by the review (93 h as originally written). Phases 4 and 5 are independent of 3 and can be swapped in if Cesium work stalls.
+Roughly **22 weeks (~114 h, ~5 months)** to the end of Phase 6 with the buffers and the tasks added by the review (93 h as originally written). Phases 4 and 5 are independent of 3 and can be swapped in if Cesium work stalls.
 
 ---
 
@@ -118,7 +118,7 @@ Roughly **22 weeks (~110 h, ~5 months)** to the end of Phase 6 with the buffers 
 
 ---
 
-## Phase 2 — Client data contract + filter spec (~8 h)
+## Phase 2 — Client data contract + filter spec (~11.5 h)
 
 **Goal:** define what the browser receives and how selections are expressed, so Cesium (Phase 3) and NL query (Phase 6) plug into the same contracts.
 
@@ -127,6 +127,8 @@ Roughly **22 weeks (~110 h, ~5 months)** to the end of Phase 6 with the buffers 
 2.2 `feature/filter-spec` — Define a **filter spec** as a JSON Schema (`app/contracts/filter_spec.schema.json`): a list of `{field, op, value}` clauses with an allowlist of fields and ops, generated from dbt schema YAML + `accepted_values` where possible (script in `pipeline/scripts/`). Write a Python function that applies a spec to the app dataframe and refactor the existing sidebar callbacks to build a spec and call it. Behaviour must be unchanged. This is also the NLQ safety boundary in Phase 6, so keep the allowlist strict.
 
 2.3 `test/filter-spec` — Unit tests: each existing sidebar filter → spec → same result set as before. Runs in CI via 0.3.
+
+2.4 `feature/list-view-ag-grid` — Replace the list view's `dash_table.DataTable` (deprecated in Dash 3.3, to be removed in a future major) with AG Grid (`dash[ag-grid]`): virtual scrolling instead of 20-row pages, column filters, built-in CSV export. Keep the export's columns, order, hidden columns and the ±180° longitudes (#41); restyle for the dark theme; update `callback_table.py`, its integration tests and the E2E list journey (which reads table rows). About 3.5 h; independent of 2.1–2.3.
 
 **Order:** run the Cesium spike (3.1) straight after 2.1; it needs only the JSON export, not the filter spec, so the biggest risk is tested early.
 
