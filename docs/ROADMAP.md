@@ -56,7 +56,7 @@ Where SatTrack is today in each area, what it should do, and the work to get the
 
 | Phase | Theme | Est. hours | Est. weeks |
 |---|---|---|---|
-| 0 | Housekeeping & guardrails | 7 (0.2 done; incl. 0.5) | 1–2 |
+| 0 | Housekeeping & guardrails | 12 (0.2 done; incl. 0.5, 0.6) | 2–3 |
 | 1 | OMM propagation | 8 | 2 |
 | 2 | Client data contract + filter spec | 8 | 2 |
 | 3 | Cesium migration | 30 (+25% buffer → ~37) | 6–8 |
@@ -65,7 +65,7 @@ Where SatTrack is today in each area, what it should do, and the work to get the
 | 6 | Natural-language query | 20 (+25% buffer → 25) | 4–5 |
 | 7 | Backlog (pick as wanted) | — | — |
 
-Roughly **22 weeks (~108 h, ~5 months)** to the end of Phase 6 with the buffers and the tasks added by the review (93 h as originally written). Phases 4 and 5 are independent of 3 and can be swapped in if Cesium work stalls.
+Roughly **22 weeks (~110 h, ~5 months)** to the end of Phase 6 with the buffers and the tasks added by the review (93 h as originally written). Phases 4 and 5 are independent of 3 and can be swapped in if Cesium work stalls.
 
 ---
 
@@ -82,7 +82,7 @@ Roughly **22 weeks (~108 h, ~5 months)** to the end of Phase 6 with the buffers 
 
 ---
 
-## Phase 0 — Housekeeping & guardrails (~4 h)
+## Phase 0 — Housekeeping & guardrails (~12 h)
 
 **Goal:** a clean base for agent-driven work.
 
@@ -96,7 +96,9 @@ Roughly **22 weeks (~108 h, ~5 months)** to the end of Phase 6 with the buffers 
 
 0.5 `test/app-e2e` — A small browser (E2E) test set: Playwright + headless Chromium on the sample, four journeys (home → tracker, 3D draws the selected satellites, one satellite's 2D track, list view), failing on any JS/console error. Checks by counts and rows so they carry over to Cesium; Phase 3 extends them. Runs before each deploy.
 
-**Done when:** `CLAUDE.md` exists, legacy code is removed, app unit/integration and E2E tests run in CI, clean-up items closed or listed, CI green.
+0.6 `major/dash-4` — Planned major upgrade: Dash 2.18 → 4.5 (the current release; Dash 3 is skipped), which allows the patched Flask and Werkzeug and clears the last 5 Dependabot alerts (the other 123 were cleared in #45). Upgrade only; new Dash features are separate tasks. Known changes: `app.run_server` becomes `app.run` (`run_app.py`, `run_app_dev.py`); dash-bootstrap-components 1.x → the 2.x release that supports Dash 4 (confirm first); Dash 4's redesigned core components (Dropdown, RangeSlider, Checklist) change how the sidebar looks, so compare screenshots before and after; `dash_table.DataTable` (list view) is deprecated but still works, so it stays; review deprecated component props. The app unit, integration and browser tests are the safety net; check the 3D payload size again (PR #37). About 4.5 h. Do it before Phase 3, which builds the Cesium viewer into the Dash shell.
+
+**Done when:** `CLAUDE.md` exists, legacy code is removed, app unit/integration and E2E tests run in CI, clean-up items closed or listed, the app is on Dash 4.5 with no open Dependabot alerts, CI green.
 
 ---
 
