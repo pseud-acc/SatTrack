@@ -86,6 +86,8 @@ models:
       - model_health:
           name: mh__stg__jsr__launchlog__pk_unique
           arguments: {check: pk_unique, columns: [jcat]}
+          # GCAT key typos: int__jsr__launch_events keeps the first row; warn, but fail above 10 repeated JCATs
+          config: {severity: error, warn_if: ">0", error_if: ">10"}
       - model_health:
           name: mh__stg__jsr__launchlog__pk_not_null
           arguments: {check: pk_not_null, columns: [jcat]}
