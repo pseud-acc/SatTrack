@@ -11,6 +11,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import plotly
+from sgp4 import omm
 from sgp4.api import Satrec, jday
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -43,16 +44,35 @@ def frozen_datetime(moment):
     return Frozen
 
 
-def sgp4_teme(tle1, tle2, when):
-    """Reference position (TEME, km) from the sgp4 library directly; None if sgp4 reports an error."""
+def _teme(sat, when):
     jd, fr = jday(when.year, when.month, when.day, when.hour, when.minute, when.second)
-    err, r, _ = Satrec.twoline2rv(tle1, tle2).sgp4(jd, fr)
+    err, r, _ = sat.sgp4(jd, fr)
     return None if err != 0 else np.array(r)
 
 
+def sgp4_teme(tle1, tle2, when):
+    """Reference position (TEME, km) from TLE lines, with the sgp4 library directly; None on an sgp4 error."""
+    return _teme(Satrec.twoline2rv(tle1, tle2), when)
+
+
+def sgp4_teme_omm(row, when):
+    """Reference position (TEME, km) from a satcat_tle.csv row's OMM columns, with the sgp4 library directly
+    (sgp4.omm.initialize and the CCSDS OMM keywords); None on an sgp4 error."""
+    sat = Satrec()
+    omm.initialize(sat, {
+        "EPOCH": row["Epoch"], "MEAN_MOTION": row["MeanMotion"], "ECCENTRICITY": row["Eccentricity"],
+        "INCLINATION": row["Inclination"], "RA_OF_ASC_NODE": row["RaOfAscNode"],
+        "ARG_OF_PERICENTER": row["ArgOfPericenter"], "MEAN_ANOMALY": row["MeanAnomaly"], "BSTAR": row["Bstar"],
+        "MEAN_MOTION_DOT": row["MeanMotionDot"], "MEAN_MOTION_DDOT": row["MeanMotionDdot"],
+        "REV_AT_EPOCH": row["RevAtEpoch"], "ELEMENT_SET_NO": row["ElementSetNo"],
+        "EPHEMERIS_TYPE": row["EphemerisType"], "CLASSIFICATION_TYPE": row["ClassificationType"],
+        "OBJECT_ID": row["ObjectId"], "NORAD_CAT_ID": row["SatCatId"]})
+    return _teme(sat, when)
+
+
 def propagates(df, when):
-    """Boolean mask: rows sgp4 can propagate to `when`."""
-    return np.array([sgp4_teme(a, b, when) is not None for a, b in df[["TLE1", "TLE2"]].values])
+    """Boolean mask: rows sgp4 can propagate to `when` from their OMM fields."""
+    return np.array([sgp4_teme_omm(row, when) is not None for _, row in df.iterrows()])
 
 
 def expected_ids(df, when, status=ALL_STATUS, orbit=ALL_ORBITS, satname=None, satcatid=None, owner=(),

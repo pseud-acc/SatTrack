@@ -55,8 +55,9 @@ APP_COLUMNS = {
     ],
     "last_data_update.csv": ["Source", "Last Download", "Last Update"],
 }
-# Columns allowed to hold empty cells (the app never reads them).
-NULLABLE = {"last_data_update.csv": {"Last Download"}}
+# Columns allowed to hold empty cells: the app never reads Last Download, and reads TLE1/TLE2 only as a fallback
+# for a satellite without OMM elements (which the export never writes).
+NULLABLE = {"last_data_update.csv": {"Last Download"}, "satcat_tle.csv": {"TLE1", "TLE2"}}
 
 _REF = re.compile(r"\{\{\s*ref\(\s*'([^']+)'\s*\)\s*\}\}")
 _JINJA = re.compile(r"\{\{|\{%|\{#")

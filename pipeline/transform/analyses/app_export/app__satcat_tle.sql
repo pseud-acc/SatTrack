@@ -2,13 +2,13 @@
 -- a plain pandas.read_csv, no dtypes or parse_dates; app/core/state.py).
 -- Columns, order and value formats follow the legacy pipeline's export (removed in 2.2.0), less StatusCode, UcsData
 -- and OrbitClassEstimated: the app never read them and this pipeline has no source for them.
--- The app drops every row that has any missing value (DataFrame.dropna after propagation), so no column may be empty:
--- text gaps are 'Unknown' and number gaps are -1.0, as in the old file.
+-- Descriptive gaps are filled ('Unknown' for text, -1.0 for numbers, as in the old file) so the file stays complete.
+-- TLE1/TLE2 may be empty: the app propagates from the OMM elements (plan 1.3) and keeps the TLE lines only as a
+-- fallback for a pre-OMM file, so a satellite without TLE lines (e.g. above 339,999, beyond Alpha-5) is still shown.
 -- Scope matches the old app: Earth-orbiting payloads with a full element set and a positive period.
 -- Elements: the OMM fields Space-Track publishes (CCSDS OMM keywords, after the TLE columns), so the app can build its
 -- propagator from them with sgp4.omm.initialize (plan 1.3). Numbers are copied, not rounded or parsed from TLE text;
--- Epoch is written as %Y-%m-%dT%H:%M:%S.%f, the format sgp4.omm.initialize reads. TLE1/TLE2 stay until the app
--- no longer reads them.
+-- Epoch is written as %Y-%m-%dT%H:%M:%S.%f, the format sgp4.omm.initialize reads.
 -- Two sources, so positions never wait for the GCAT details: what each satellite is (name, owner, status, purpose)
 -- comes from fct__satellite_master (enrichment unit), and where it is (element set, TLE lines, period) from
 -- fct__gp_elements (tracking unit). When enrichment is held, positions still update every run; a satellite new to
@@ -107,9 +107,6 @@ with cte_fct__satellite_master as (
         and gp.element_set_no is not null
         and gp.ephemeris_type is not null
         and gp.classification_type is not null
-        -- the app propagates from the TLE lines until plan 1.3; drop these two then
-        and gp.tle_line_1 is not null
-        and gp.tle_line_2 is not null
         and gp.orbital_period > 0
         and sat.launch_year is not null
 )
