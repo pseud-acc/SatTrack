@@ -45,6 +45,18 @@ models:
         description: '{{ doc("col__mean_anomaly") }}'
       - name: bstar
         description: '{{ doc("col__bstar") }}'
+      - name: mean_motion_dot
+        description: '{{ doc("col__mean_motion_dot") }}'
+      - name: mean_motion_ddot
+        description: '{{ doc("col__mean_motion_ddot") }}'
+      - name: rev_at_epoch
+        description: '{{ doc("col__rev_at_epoch") }}'
+      - name: element_set_no
+        description: '{{ doc("col__element_set_no") }}'
+      - name: ephemeris_type
+        description: '{{ doc("col__ephemeris_type") }}'
+      - name: classification_type
+        description: '{{ doc("col__classification_type") }}'
       - name: semimajor_axis
         description: '{{ doc("col__semimajor_axis") }}'
       - name: orbital_period

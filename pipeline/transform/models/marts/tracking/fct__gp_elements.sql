@@ -16,6 +16,12 @@ with cte_int__spacetrack__satellite_catalogue as (
         , arg_of_pericenter
         , mean_anomaly
         , bstar
+        , mean_motion_dot
+        , mean_motion_ddot
+        , rev_at_epoch
+        , element_set_no
+        , ephemeris_type
+        , classification_type
         , semimajor_axis
         , orbital_period
         , apoapsis
@@ -46,6 +52,12 @@ with cte_int__spacetrack__satellite_catalogue as (
         , cast(arg_of_pericenter as double) as arg_of_pericenter
         , cast(mean_anomaly as double) as mean_anomaly
         , cast(bstar as double) as bstar
+        , cast(mean_motion_dot as double) as mean_motion_dot
+        , cast(mean_motion_ddot as double) as mean_motion_ddot
+        , cast(rev_at_epoch as integer) as rev_at_epoch
+        , cast(element_set_no as integer) as element_set_no
+        , cast(ephemeris_type as integer) as ephemeris_type
+        , cast(classification_type as varchar) as classification_type
         , cast(semimajor_axis as double) as semimajor_axis
         , cast(orbital_period as double) as orbital_period
         , cast(apoapsis as double) as apoapsis

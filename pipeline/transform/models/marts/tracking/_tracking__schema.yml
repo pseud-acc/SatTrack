@@ -70,6 +70,29 @@ models:
       - name: bstar
         data_type: double
         description: '{{ doc("col__bstar") }}'
+      - name: mean_motion_dot
+        data_type: double
+        description: '{{ doc("col__mean_motion_dot") }}'
+      - name: mean_motion_ddot
+        data_type: double
+        description: '{{ doc("col__mean_motion_ddot") }}'
+      - name: rev_at_epoch
+        data_type: integer
+        description: '{{ doc("col__rev_at_epoch") }}'
+      - name: element_set_no
+        data_type: integer
+        description: '{{ doc("col__element_set_no") }}'
+      - name: ephemeris_type
+        data_type: integer
+        description: '{{ doc("col__ephemeris_type") }}'
+        data_tests:
+          - accepted_values:
+              name: accepted_values__fct__gp_elements__ephemeris_type
+              arguments: {values: [0]}
+              config: {severity: warn}   # 0 = SGP4; anything else needs a different propagator
+      - name: classification_type
+        data_type: varchar
+        description: '{{ doc("col__classification_type") }}'
       - name: semimajor_axis
         data_type: double
         description: '{{ doc("col__semimajor_axis") }}'
