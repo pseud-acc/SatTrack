@@ -139,7 +139,7 @@ def display_page(pathname):
 ## >>>>>>>> Run App <<<<<<<<<<<<
 
 if __name__ == "__main__": 
-    app.run_server(
+    app.run(
         debug=False, 
         host='0.0.0.0', 
         port=8050)

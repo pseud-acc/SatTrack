@@ -77,6 +77,7 @@ def create_advanced_filters(options):
                     step=1,
                     value=options["launchyear"],
                     marks={},
+                    allow_direct_input=False,   # Dash 4: no number boxes; the min/max bubbles show the range
                     id="launchyear-filter-slider",
                     tooltip={"placement": "top", "always_visible": False},
                     className="custom-range-slider"

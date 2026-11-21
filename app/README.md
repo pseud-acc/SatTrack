@@ -4,7 +4,7 @@ The Dash web app at [www.sattrackapp.com](https://www.sattrackapp.com): live 3D 
 inactive satellites, their orbits, filters, and a table that exports to CSV. It reads the pipeline's satellite
 file once at start-up and computes every position itself with SGP4.
 
-- **Stack:** Dash 2 + Dash Bootstrap Components (CYBORG theme), Plotly 5, pandas, sgp4; served by gunicorn on a
+- **Stack:** Dash 4 + Dash Bootstrap Components 2 (CYBORG theme), Plotly 5, pandas, sgp4; served by gunicorn on a
   Heroku Eco dyno (2 workers, 512 MB).
 - **Data:** the pipeline's `satcat_tle.csv` and `last_data_update.csv` (Space-Track + GCAT), from S3 in
   production. See [pipeline/README.md](../pipeline/README.md) for how they're made.
