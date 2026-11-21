@@ -106,7 +106,7 @@ Roughly **22 weeks (~114 h, ~5 months)** to the end of Phase 6 with the buffers 
 
 **Why first:** a prerequisite, not an emergency. Space-Track already gives objects above 99,999 TLE lines in Alpha-5 format and the app reads them correctly, but Alpha-5 ends at 339,999, SupGP data for new objects is OMM-only (Phase 4), and the browser propagator reads OMM directly (Phase 3).
 
-1.1 `feature/omm-fields-in-marts` — Carry `mean_motion_dot`, `mean_motion_ddot`, `rev_at_epoch`, `element_set_no`, `ephemeris_type`, `classification_type` from `stg__spacetrack__gp` through `int__spacetrack__satellite_catalogue` into `fct__gp_elements` and `fct__satellite_master`. Schema YAML + doc blocks. Keep TLE columns.
+1.1 `feature/omm-fields-in-marts` — Carry `mean_motion_dot`, `mean_motion_ddot`, `rev_at_epoch`, `element_set_no`, `ephemeris_type`, `classification_type` from `stg__spacetrack__gp` through `int__spacetrack__satellite_catalogue` into `fct__gp_elements` (tracking). Not into `fct__satellite_master`: since #42 the app export takes elements from the tracking mart, which updates every run, and only descriptive fields from the master, which is held when GCAT enrichment fails. Schema YAML + doc blocks (reused from staging). Keep TLE columns. A warn-level check flags any `ephemeris_type` other than 0 (SGP4).
 
 1.2 `feature/omm-app-export` — In `app__satcat_tle.sql`: add OMM columns; take `mean_motion`/`eccentricity` from columns instead of `substr(tle_line_2, …)`; replace `tle_line_1/2 is not null` filter with a check on the element columns; format epoch explicitly as `%Y-%m-%dT%H:%M:%S.%f`. Add new columns to `APP_COLUMNS["satcat_tle.csv"]` in `export_app_csvs.py`. Update the CI sample `tests/app_data` to the new columns.
 

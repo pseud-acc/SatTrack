@@ -17,6 +17,12 @@ with cte_stg__spacetrack__gp as (
         , arg_of_pericenter
         , mean_anomaly
         , bstar
+        , mean_motion_dot
+        , mean_motion_ddot
+        , rev_at_epoch
+        , element_set_no
+        , ephemeris_type
+        , classification_type
         , semimajor_axis
         , orbital_period
         , apoapsis
@@ -45,6 +51,12 @@ with cte_stg__spacetrack__gp as (
         , arg_of_pericenter
         , mean_anomaly
         , bstar
+        , mean_motion_dot
+        , mean_motion_ddot
+        , rev_at_epoch
+        , element_set_no
+        , ephemeris_type
+        , classification_type
         , semimajor_axis
         , orbital_period
         , apoapsis
