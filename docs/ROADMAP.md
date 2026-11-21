@@ -171,6 +171,12 @@ Roughly **22 weeks (~114 h, ~5 months)** to the end of Phase 6 with the buffers 
 
 4.2 `feature/supgp-ingest` — Ingest CelesTrak SupGP (OMM JSON) per source group (start with SpaceX, OneWeb, Kuiper, Planet, Iridium, GPS). Respect CelesTrak's usage policy (no more than needed; one fetch per group per run). Design a fetch budget first: CelesTrak enforces download limits on large sets such as Starlink. If a fetch is refused, GP stays the fallback (4.3). Staging model `stg__celestrak__supgp`.
 
+**CelesTrak access risk (Nov 2026).** CelesTrak blocks IP addresses that download more than its usage policy allows; the owner's home IP was blocked after old local scripts (no longer run) fetched too often. Rules for 4.2:
+- **Never fetch locally.** SupGP is downloaded only by the pipeline on GitHub Actions. Development and tests use a saved sample file, not live requests.
+- **One download per group per CelesTrak update.** Skip a group whose data has not changed since the last run (check the update time first), and use the bulk group files, never one request per satellite.
+- **No retries on refusal.** A 403/429 or a tiny/HTML body means "no SupGP this run": record it, keep GP for those objects, don't fail the run.
+- **Shared runner IPs.** GitHub-hosted runners share IP addresses with other users, so a block may not be caused by us. Warn (report, not a failed run) only when SupGP has been refused for 3 days in a row; lifting a lasting block needs an email to CelesTrak, which is acceptable because GP keeps the app working without it.
+
 4.3 `feature/element-source-precedence` — Intermediate model choosing one element set per object: SupGP if newer than GP epoch and within a sanity bound of GP, else GP. Add `element_source` (`spacetrack_gp` / `celestrak_supgp:<source>`) and `element_epoch` to `fct__gp_elements` and the export. Note: SupGP can have multiple rows per object (multiple sources/epochs) — pick deterministically and document the rule.
 
 4.4 `feature/freshness-ui` — Show element age and source in the detail panel; optional legend/colour mode by element age.
