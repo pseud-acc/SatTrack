@@ -103,8 +103,36 @@ def apply(spec: dict, df: pd.DataFrame) -> pd.Series:
     return mask
 
 
+class MissingObjectsDataset(RuntimeError):
+    """The app can't filter without the objects dataset (D-035): start-up fails loudly instead of falling back."""
+
+
+def table_from_records(records: list[dict], key: str = "satcat_id") -> pd.DataFrame:
+    """The filter table: one row per object, with the key and every filterable field."""
+    return pd.DataFrame.from_records(records, columns=list(dict.fromkeys([key, *fields()])))
+
+
+def table_from_dataset(dataset: dict | None) -> pd.DataFrame:
+    """Build the filter table from the objects dataset as the app holds it ({encoding: {"body", "sha256"}}), using
+    the gzip copy. Checks the envelope's name and count. Raises MissingObjectsDataset if it's absent or unusable.
+    Measured on the full 21 Nov export (D-035): 0.86 s, ~81 MB peak, ~15 MB kept per worker."""
+    import gzip
+    if not dataset or "gzip" not in dataset:
+        raise MissingObjectsDataset(
+            "objects dataset missing: the app filters satellites with it (D-035). The pipeline publishes "
+            "objects.json.gz/.br with the CSVs (app/current.json on S3, or the SATTRACK_APP_DATA_DIR folder).")
+    try:
+        doc = json.loads(gzip.decompress(dataset["gzip"]["body"]))
+    except Exception as exc:   # corrupt file: name the type only
+        raise MissingObjectsDataset(f"objects dataset unreadable ({type(exc).__name__})") from None
+    if doc.get("dataset") != "objects" or doc.get("count") != len(doc.get("records") or []):
+        raise MissingObjectsDataset("objects dataset failed its envelope check (dataset name or count)")
+    table = table_from_records(doc["records"])
+    del doc
+    return table
+
+
 def select_ids(spec: dict, records: list[dict], key: str = "satcat_id") -> list:
     """The keys of the records the spec selects, in record order: the shape the conformance cases check."""
-    names = list(fields())
-    df = pd.DataFrame.from_records(records, columns=sorted(set(names) | {key}))
+    df = table_from_records(records, key)
     return df.loc[apply(spec, df), key].tolist()

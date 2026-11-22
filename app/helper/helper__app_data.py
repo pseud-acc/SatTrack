@@ -7,8 +7,9 @@ Example:
         $ python helper__app_data.py
 
 Function:
-    create_data_filters: Initialise filter and table columns
-    filter_satellite_data: Filter dataframe based on user inputs
+    create_data_filters: Sidebar options
+    sidebar_filter_spec: The filter spec for the sidebar's values
+    filter_satellite_data: Filter dataframe based on user inputs, through the filter spec
     generate_orbital_path: Calculate orbital path for satellite
 Todo:
     *
@@ -24,87 +25,92 @@ from datetime import datetime, timedelta
 # Internal modules
 from app.helper.helper__satellite_position import (compute_satloc, lla_to_xyz, satrecs_for)
 from app.helper.helper__constants import _radius_earth__c
+from app.core import filter_spec
 
 def create_data_filters(df):
-    ''' 
-    Initialise filter and table columns.
+    '''
+    Sidebar options, built from the app CSV.
 
-    @param df: (array) satellite catalogue array
-    @return options:  dict of filter options for dropdown and checkbox
-    @return init_filter: dict of initial filter values
-    @return tbl_col_map: dict of column name mapping for table export
-    '''             
-    
+    @param df: (DataFrame) satellite catalogue (the app CSV)
+    @return options: dict of filter options for the dropdowns, checkboxes and the launch-year slider
+    '''
     options = {}
-    
-    # Create dropdown filter options
-    options["orbit"] = ["LEO","MEO","GEO","GSO","HEO"] #np.sort(df.OrbitClass.unique())
-
+    options["orbit"] = ["LEO","MEO","GEO","GSO","HEO"]
     options["owner"] = list(np.sort(df.Owner.unique()))
-
     options["launchvehicle"] = list(np.sort(df.LaunchVehicleClass.unique()))
-
     options["purpose"] = sorted(list(set(sum([a.split("/") for a in df.Purpose.unique()], []))))
-
     options["satname"] = list(np.sort(df.ObjectName.unique()))
-
     options["satcatid"] = list(np.sort(df.SatCatId.unique()).astype(str))
-    
     options["launchyear"] = [df.LaunchYear.min(),df.LaunchYear.max()]
+    return options
 
-    #Input filter dictionary
-    temp_cols = ["SatCatId","ObjectName","LaunchSiteCountry","Owner","UseType","LaunchVehicleClass"] 
 
-    init_filter = dict()
-    for col in temp_cols:
-        init_filter[col] = df[col].unique()
-    init_filter["OrbitClass"] = np.array(["LEO","MEO","GEO","GSO","HEO"])
-    init_filter["LaunchYear"] = np.array(range(df["LaunchYear"].min(),df["LaunchYear"].max()+1))
-    init_filter["Purpose"] = options["purpose"]
-    
-    return options, init_filter
+# The sidebar shows "Unknown" where the objects dataset has no value (D-032): in a spec that is null.
+UNKNOWN = "Unknown"
 
-def filter_satellite_data(df_in, input_filter,
-             status, orbit, satname, satcatid, owner, launchvehicle, purpose, year):
-    ''' 
-    Filter dataframe based on user inputs (pure function).
 
-    @param df_in: (DataFrame) Input satellite catalogue dataframe
-    @param input_filter: (dict) Current filter dictionary
-    @param status: (list) List of status filters
-    @param orbit: (list) List of orbit class filters
-    @param satname: (str) Satellite name filter
-    @param satcatid: (str) Satellite catalog ID filter
-    @param owner: (list) List of owner filters
-    @param launchvehicle: (list) List of launch vehicle class filters
-    @param purpose: (list) List of purpose filters
-    @param year: (list) Year range [min, max]
-    @return: (DataFrame) Filtered dataframe
-    '''     
-    # Create updated filter dictionary
-    input_filter_update = input_filter.copy()
-    input_filter_update["Status"] =  status      
-    input_filter_update["OrbitClass"] = orbit
+def _with_null(values):
+    return [None if v == UNKNOWN else v for v in values]
+
+
+def sidebar_filter_spec(status, orbit, satname, satcatid, owner, launchvehicle, purpose, year):
+    '''
+    The filter spec (D-031) for the sidebar's values, in the objects dataset's field names (D-030).
+
+    Rules, unchanged from before the spec: status and orbit class are "any of" the ticked values; name and
+    catalogue number are exact; owner, launch vehicle and purpose filter only when something is selected, and
+    purpose matches any of an object's labels; launch year is an inclusive range. "Unknown" in a dropdown is a
+    missing value. "Inactive" also covers objects with no status, as the app CSV always has (it fills a missing
+    status with "Inactive").
+
+    @return: (dict) the spec, or None when the values can select nothing (no status or no orbit class ticked)
+    '''
+    if not status or not orbit:
+        return None
+    status_values = list(status) + ([None] if "Inactive" in status else [])
+    clauses = [
+        {"field": "operational_status", "op": "in", "value": status_values},
+        {"field": "orbit_class", "op": "in", "value": list(orbit)},
+        {"field": "launch_year", "op": "between", "value": {"min": int(year[0]), "max": int(year[1])}},
+    ]
     if satname is not None:
-        input_filter_update["ObjectName"] = [satname]
+        clauses.append({"field": "object_name", "op": "is_missing", "value": True} if satname == UNKNOWN
+                       else {"field": "object_name", "op": "eq", "value": satname})
     if satcatid is not None:
-        input_filter_update["SatCatId"] = [int(satcatid)]        
-    if len(owner) != 0:
-        input_filter_update["Owner"] = owner         
-    if len(launchvehicle) != 0: 
-        input_filter_update["LaunchVehicleClass"] = launchvehicle
-    if len(purpose) != 0:    
-        input_filter_update["Purpose"] = purpose
-    input_filter_update["LaunchYear"] = list(range(year[0],year[1]+1))     
+        clauses.append({"field": "satcat_id", "op": "eq", "value": int(satcatid)})
+    if owner:
+        clauses.append({"field": "owner_country", "op": "in", "value": _with_null(owner)})
+    if launchvehicle:
+        clauses.append({"field": "launch_vehicle_brand", "op": "in", "value": _with_null(launchvehicle)})
+    if purpose:
+        clauses.append({"field": "mission_category_labels", "op": "contains_any", "value": _with_null(purpose)})
+    return {"version": 1, "clauses": clauses}
 
-    # If filter has been updated, filter and return new dataframe
-    for col,vals in input_filter_update.items():
-        if col == "Purpose":
-            indx = df_in.Purpose.str.split("/").apply(lambda x: True if len(set(x).intersection(set(vals))) > 0 else False)     
-            if len(indx) > 0: df_in = df_in[indx]
-        else:
-            df_in = df_in[df_in[col].isin(vals)]    
-                
+
+def filter_satellite_data(df_in, filter_table,
+             status, orbit, satname, satcatid, owner, launchvehicle, purpose, year):
+    '''
+    Filter the app CSV with the sidebar's values through the filter spec, then place the satellites now
+    (pure function: neither input is modified).
+
+    The spec runs on the filter table built from the objects dataset (D-035); the CSV rows with the selected
+    satcat_ids are kept, so the views see the same columns as before.
+
+    @param df_in: (DataFrame) the app CSV
+    @param filter_table: (DataFrame) the objects dataset's filterable fields (app.core.filter_spec)
+    @param status, orbit: (list) ticked values
+    @param satname, satcatid: (str or None) one satellite
+    @param owner, launchvehicle, purpose: (list) selected values (empty: no filter)
+    @param year: (list) [min, max], inclusive
+    @return: (DataFrame) filtered rows with positions, time used, status encoded 1 (Active) / 0
+    '''
+    spec = sidebar_filter_spec(status, orbit, satname, satcatid, owner, launchvehicle, purpose, year)
+    if spec is None:
+        ids = []
+    else:
+        ids = filter_table.loc[filter_spec.apply(spec, filter_table), "satcat_id"].to_numpy()
+    df_in = df_in[df_in["SatCatId"].isin(ids)].copy()
+
     # Compute satellite locations at current time
     time_now = datetime.utcnow()
 

@@ -10,23 +10,27 @@ reproduce. Positions themselves are covered in test_satellite_position.py.
 import numpy as np
 import pytest
 
-from _support import ALL_ORBITS, ALL_STATUS, EARTH_RADIUS_KM, expected_ids
-from app.helper.helper__app_data import create_data_filters, filter_satellite_data, generate_orbital_path
+from _support import ALL_ORBITS, ALL_STATUS, APP_DATA_DIR, EARTH_RADIUS_KM, expected_ids, objects_sample_ids
+from app.core import filter_spec
+from app.helper.helper__app_data import (create_data_filters, filter_satellite_data, generate_orbital_path,
+                                        sidebar_filter_spec)
 from app.helper.helper__satellite_position import compute_satloc, satrecs_for
 
 
 @pytest.fixture(scope="module")
 def filters(sample_df):
-    return create_data_filters(sample_df.copy())
+    """(sidebar options, filter table from the sample's objects dataset)"""
+    datasets = {"gzip": {"body": (APP_DATA_DIR / "objects.json.gz").read_bytes()}}
+    return create_data_filters(sample_df.copy()), filter_spec.table_from_dataset(datasets)
 
 
 def run(df, filters, **kw):
     """filter_satellite_data with the sidebar's starting values (everything selected), overridden by kw."""
-    options, init_filter = filters
+    options, table = filters
     args = dict(status=ALL_STATUS, orbit=ALL_ORBITS, satname=None, satcatid=None, owner=[], launchvehicle=[],
                 purpose=[], year=list(options["launchyear"]))
     args.update(kw)
-    out, time_now, encoded = filter_satellite_data(df.copy(), init_filter, **args)
+    out, time_now, encoded = filter_satellite_data(df.copy(), table, **args)
     return out, time_now, encoded, args
 
 

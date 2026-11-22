@@ -29,6 +29,7 @@ Cesium spike (plan 3.1).
 | [D-032](decisions/D-032-filter-spec-missing-values.md) | Missing values in the filter spec are explicit | Accepted | 2026-11-22 |
 | [D-033](decisions/D-033-filter-spec-allowlist-generated-schema.md) | Filterable fields are hand-picked; types, values and labels generated from dbt | Accepted | 2026-11-22 |
 | [D-034](decisions/D-034-filter-spec-shared-conformance-cases.md) | One set of conformance cases for every filter spec implementation | Accepted | 2026-11-22 |
+| [D-035](decisions/D-035-sidebar-filters-the-objects-dataset.md) | The server's sidebar filters the objects dataset; no fallback | Accepted | 2026-11-22 |
 
 ---
 
@@ -295,3 +296,11 @@ schema is stale.
 
 `tests/contracts/filter_spec_cases.json` (records, specs, hand-worked expected ids, invalid specs) is run by pytest
 now and by the browser implementation in Phase 3.
+
+## D-035 The server's sidebar filters the objects dataset; no fallback
+**Status:** Accepted, 2026-11-22 (plan 2.2). **Full analysis:** [decisions/D-035](decisions/D-035-sidebar-filters-the-objects-dataset.md).
+
+At start-up the app builds a filter table from the `objects` dataset and the sidebar selects the CSV's rows by
+`satcat_id`: no name mapping. Measured on the full export: 0.86 s, ~81 MB peak and ~15 MB kept per worker. A missing
+or bad dataset stops start-up with a `FATAL` log line (and fails CI's build check); there is no fallback. Rejected:
+renaming the CSV's columns until 3.6, and falling back to that. Merged only after production published `objects.json`.

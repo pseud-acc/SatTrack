@@ -51,7 +51,7 @@ def register(app):
     # Get app data
     app_data = get_app_data()
     df = app_data['data']['satcat_df']
-    input_filter = app_data['filter']['initial_filter']
+    filter_table = app_data['filter']['table']
     layout_2d = app_data['viz_2d']['layout']
 
 
@@ -90,7 +90,7 @@ def register(app):
         elif tab == "2d-viz":
 
             # Filter data using helper
-            dff, time_now, _ = filter_satellite_data(df, input_filter,
+            dff, time_now, _ = filter_satellite_data(df, filter_table,
                                                           status, orbit, satname, 
                                                           satcatid, owner, 
                                                           launchvehicle, purpose, year)
