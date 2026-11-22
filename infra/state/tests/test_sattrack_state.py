@@ -202,8 +202,12 @@ def run_pipeline(env, status="ok", run_id="run_2026-11-19T031752Z", live_ok=True
         app.mkdir(parents=True, exist_ok=True)
         (app / "satcat_tle.csv").write_text("SatCatId,ObjectName\n25544,ISS (ZARYA)\n", encoding="utf-8")
         (app / "last_data_update.csv").write_text("Source,Last Download,Last Update\n", encoding="utf-8")
+        for name in ("objects.json.br", "objects.json.gz"):
+            (app / name).write_bytes(b"fake " + name.encode() + run_id.encode())
         files = [{"file": n, "rows": r, "sha256": state.sha256_file(app / n)}
                  for n, r in (("satcat_tle.csv", 1), ("last_data_update.csv", 0))]
+        files += [{"file": n, "rows": 1, "sha256": state.sha256_file(app / n), "dataset": "objects", "schema": 1}
+                  for n in ("objects.json.br", "objects.json.gz")]
         (app / "manifest.json").write_text(json.dumps({"run_id": run_id, "generated_at": NOW.isoformat(),
                                                        "files": files}), encoding="utf-8")
     return run_id
@@ -366,8 +370,8 @@ def test_push_order_manifest_then_app_csvs_then_pointer_last(env):
     push()
     w = env.s3.writes
     assert w.index(state.MANIFEST_KEY) < w.index("app/satcat_tle.csv")
-    assert max(w.index("app/satcat_tle.csv"), w.index("app/last_data_update.csv"),
-               w.index("app/manifest.json")) < w.index(state.APP_POINTER_KEY)
+    assert max(w.index("app/satcat_tle.csv"), w.index("app/last_data_update.csv"), w.index("app/objects.json.br"),
+               w.index("app/objects.json.gz"), w.index("app/manifest.json")) < w.index(state.APP_POINTER_KEY)
     assert w[-1] == state.APP_POINTER_KEY
 
 
@@ -382,6 +386,21 @@ def test_app_pointer_names_the_exact_versions_and_checksums(env):
         assert entry["version_id"] == env.s3.versions(f"app/{name}")[-1]
         assert entry["sha256"] == hashlib.sha256(env.s3.body(f"app/{name}")).hexdigest()
     assert p["files"]["satcat_tle.csv"]["rows"] == 1
+    for name in ("objects.json.br", "objects.json.gz"):        # the browser datasets go live with the CSVs
+        entry = p["files"][name]
+        assert entry["version_id"] == env.s3.versions(f"app/{name}")[-1]
+        assert entry["sha256"] == hashlib.sha256(env.s3.body(f"app/{name}")).hexdigest()
+        assert entry["dataset"] == "objects" and entry["schema"] == 1
+    assert "dataset" not in p["files"]["satcat_tle.csv"]
+
+
+def test_a_bad_dataset_file_leaves_the_app_data_unchanged(env):
+    """A dataset file that doesn't match the export's checksum stops the whole app publish, CSVs included."""
+    pull()
+    run_pipeline(env)
+    (env.data / "app" / "objects.json.br").write_bytes(b"truncated")
+    assert push() == 0
+    assert not any(k.startswith("app/") for k in env.s3.objects)
 
 
 def test_a_bad_export_leaves_the_app_data_unchanged(env):

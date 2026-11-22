@@ -7,7 +7,7 @@ Space-Track GP fields; TLE lines only as a fallback for an older file). Latitude
 ellipsoid, as on maps and other trackers.
 
 - **Stack:** Dash 4 + Dash Bootstrap Components 2 (CYBORG theme), Plotly 5, pandas, sgp4; served by gunicorn on a
-  Heroku Eco dyno (2 workers, 512 MB).
+  Heroku Eco dyno (2 workers × 4 threads, 512 MB).
 - **Data:** the pipeline's `satcat_tle.csv` and `last_data_update.csv` (Space-Track + GCAT), from S3 in
   production. See [pipeline/README.md](../pipeline/README.md) for how they're made.
 
@@ -131,7 +131,7 @@ stops with an error naming both.
 | `SATTRACK_APP_DATA_DIR` | Local folder with the two CSVs (local runs, CI) |
 | `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` | Heroku: the read-only `sattrack-app-reader` key (S3 `app/*` only). Locally, `AWS_PROFILE` instead |
 | `AWS_REGION` | Bucket region, default `eu-west-1` |
-| `PORT`, `WEB_CONCURRENCY` | Set by Heroku: gunicorn's port and worker count |
+| `PORT`, `WEB_CONCURRENCY` | Set by Heroku: gunicorn's port and worker count (each worker runs 4 threads: `--threads 4` in the Procfile, so a slow download of a data file holds one thread, not the worker; D-012) |
 
 ## Testing and deployment
 

@@ -9,12 +9,14 @@ enrichment. Expected values are written out here, not computed with the code und
 from __future__ import annotations
 
 import csv
+import gzip
 import importlib.util
 import json
 import sys
 from datetime import datetime
 from pathlib import Path
 
+import brotli
 import duckdb
 import pytest
 
@@ -66,14 +68,16 @@ def master_row(satcat_id, **kw):
     return row
 
 
-GP_COLS = ("satcat_id, object_id, epoch, mean_motion, eccentricity, inclination, ra_of_asc_node, arg_of_pericenter, "
-           "mean_anomaly, bstar, mean_motion_dot, mean_motion_ddot, rev_at_epoch, element_set_no, ephemeris_type, "
-           "classification_type, orbital_period, tle_line_1, tle_line_2, _loaded_at, inserted_by, inserted_date_time")
+GP_COLS = ("satcat_id, object_id, object_name, object_type, epoch, mean_motion, eccentricity, inclination, "
+           "ra_of_asc_node, arg_of_pericenter, mean_anomaly, bstar, mean_motion_dot, mean_motion_ddot, rev_at_epoch, "
+           "element_set_no, ephemeris_type, classification_type, orbital_period, tle_line_1, tle_line_2, _loaded_at, "
+           "inserted_by, inserted_date_time")
 
 
 def gp_row(satcat_id, tle=FRESH, period=92.88, **kw):
     """The fresh ISS-like set as OMM fields (epoch 26322.13000000 = 18 Nov 2026 03:07:12)."""
-    row = dict(satcat_id=satcat_id, object_id="1998-067A", epoch=datetime(2026, 11, 18, 3, 7, 12),
+    row = dict(satcat_id=satcat_id, object_id="1998-067A", object_name=f"GP {satcat_id}", object_type="PAYLOAD",
+               epoch=datetime(2026, 11, 18, 3, 7, 12),
                mean_motion=15.50103472, eccentricity=0.0006703, inclination=51.6416, ra_of_asc_node=247.4627,
                arg_of_pericenter=130.536, mean_anomaly=325.0288, bstar=0.0001027, mean_motion_dot=0.00016717,
                mean_motion_ddot=0.0, rev_at_epoch=1000, element_set_no=999, ephemeris_type=0,
@@ -92,7 +96,8 @@ def build_db(path: Path, master: list[dict], gp: list[dict]) -> Path:
         launch_vehicle_brand varchar, orbit_class varchar, orbital_period double, inclination double, mass_kg double,
         tle_line_1 varchar, tle_line_2 varchar, positions_as_of timestamp, gcat_updated_at timestamp,
         inserted_by varchar, inserted_date_time timestamp)""")
-    con.execute("""create table marts_tracking.fct__gp_elements (satcat_id integer, object_id varchar, epoch timestamp,
+    con.execute("""create table marts_tracking.fct__gp_elements (satcat_id integer, object_id varchar,
+        object_name varchar, object_type varchar, epoch timestamp,
         mean_motion double, eccentricity double, inclination double, ra_of_asc_node double, arg_of_pericenter double,
         mean_anomaly double, bstar double, mean_motion_dot double, mean_motion_ddot double, rev_at_epoch integer,
         element_set_no integer, ephemeris_type integer, classification_type varchar, orbital_period double,
@@ -102,7 +107,7 @@ def build_db(path: Path, master: list[dict], gp: list[dict]) -> Path:
         con.execute(f"insert into marts.fct__satellite_master ({MASTER_COLS}) values ({', '.join('?' * 21)})",
                     [r[c.strip()] for c in MASTER_COLS.split(",")])
     for r in gp:
-        con.execute(f"insert into marts_tracking.fct__gp_elements ({GP_COLS}) values ({', '.join('?' * 22)})",
+        con.execute(f"insert into marts_tracking.fct__gp_elements ({GP_COLS}) values ({', '.join('?' * 24)})",
                     [r[c.strip()] for c in GP_COLS.split(",")])
     con.close()
     return path
@@ -116,6 +121,7 @@ def read_csv(path: Path) -> list[dict]:
 @pytest.fixture
 def run_export(tmp_path, monkeypatch):
     monkeypatch.setattr(export_app_csvs, "MIN_SATELLITE_ROWS", 1)   # the real floor (1,000) is for full catalogues
+    monkeypatch.setitem(export_app_csvs.DATASETS, "objects", {**export_app_csvs.DATASETS["objects"], "min_records": 1})
 
     def go(master, gp, out=None):
         db = build_db(tmp_path / f"wh{len(list(tmp_path.glob('wh*')))}.duckdb", master, gp)
@@ -153,7 +159,8 @@ def test_manifest_reports_tracking_and_details_runs(run_export):
     assert m["positions_as_of"] == GP_LOADED.isoformat()
     assert m["details_run_id"] == ENRICH_RUN and m["details_built_at"] == ENRICH_BUILT.isoformat()
     assert m["gcat_updated_at"] == GCAT_UPDATED.isoformat()
-    assert {f["file"]: f["rows"] for f in m["files"]} == {"last_data_update.csv": 2, "satcat_tle.csv": 1}
+    assert {f["file"]: f["rows"] for f in m["files"]} == {"last_data_update.csv": 2, "satcat_tle.csv": 1,
+                                                          "objects.json.br": 1, "objects.json.gz": 1}
 
 
 def test_scope(run_export):
@@ -231,7 +238,96 @@ def test_a_failed_export_keeps_the_last_good_files(run_export, monkeypatch, tmp_
 
 def test_analyses_follow_the_export_rules():
     """Each analysis is documented, uses only ref() and maps to a file the app reads."""
-    assert set(export_app_csvs.load_analyses()) == {"satcat_tle.csv", "last_data_update.csv"}
+    assert set(export_app_csvs.load_analyses()) == {"satcat_tle.csv", "last_data_update.csv", "objects"}
+
+
+def read_dataset(files, name="objects"):
+    """Both published encodings, decoded; they must hold the same bytes."""
+    br = brotli.decompress(files[f"{name}.json.br"].read_bytes())
+    gz = gzip.decompress(files[f"{name}.json.gz"].read_bytes())
+    assert br == gz
+    return json.loads(br)
+
+
+def test_objects_dataset_envelope(run_export):
+    """The header every dataset carries (D-010): name, schema version, count, run, key, attribution, caution."""
+    files = run_export([master_row(25544)], [gp_row(25544)])
+    data = read_dataset(files)
+    assert {k: data[k] for k in ("dataset", "schema", "count", "run_id", "key")} == {
+        "dataset": "objects", "schema": 1, "count": 1, "run_id": TRACK_RUN, "key": "satcat_id"}
+    assert any("Space-Track" in a for a in data["attribution"]) and any("GCAT" in a for a in data["attribution"])
+    assert "conjunction" in data["caution"]
+    assert datetime.fromisoformat(data["generated_at"]).tzinfo is not None
+    assert len(data["records"]) == data["count"]
+
+
+def test_objects_record_uses_warehouse_names_and_exact_elements(run_export):
+    """One record per object with the marts' column names; elements exactly as in the tracking mart (D-009)."""
+    files = run_export([master_row(25544, object_name="ISS (ZARYA)", ownership_class_labels=["Government", "Civil"])],
+                       [gp_row(25544, epoch=datetime(2026, 11, 19, 17, 18, 6, 560064), bstar=-0.00011606)])
+    (rec,) = read_dataset(files)["records"]
+    assert rec == {
+        "satcat_id": 25544, "object_id": "1998-067A", "object_name": "ISS (ZARYA)", "object_type": "PAYLOAD",
+        "epoch": "2026-11-19T17:18:06.560064", "mean_motion": 15.50103472, "eccentricity": 0.0006703,
+        "inclination": 51.6416, "ra_of_asc_node": 247.4627, "arg_of_pericenter": 130.536, "mean_anomaly": 325.0288,
+        "bstar": -0.00011606, "mean_motion_dot": 0.00016717, "mean_motion_ddot": 0.0, "rev_at_epoch": 1000,
+        "element_set_no": 999, "ephemeris_type": 0, "classification_type": "U", "orbital_period": 92.88,
+        "operational_status": "Active", "orbit_class": "LEO", "owner_country": "United States", "launch_year": 1998,
+        "mission_category_labels": ["Space Science", "Technology"], "ownership_class_labels": ["Government", "Civil"],
+        "launch_vehicle_brand": "Proton", "site_location_country": "Kazakhstan"}
+
+
+def test_objects_cover_every_type_and_unenriched_objects(run_export):
+    """Every object in the GP feed with a full element set (D-011): rocket bodies, debris and UNKNOWN too, unlike the
+    payload-only CSV. An object without an enrichment row keeps Space-Track's name, null details and empty lists."""
+    master = [master_row(1), master_row(2, object_type="ROCKET BODY"), master_row(3, object_type="DEBRIS",
+                                                                                     mission_category_labels=None)]
+    gp = [gp_row(1), gp_row(2, object_type="ROCKET BODY"), gp_row(3, object_type="DEBRIS"),
+          gp_row(270449, object_type="UNKNOWN", object_id="UNKNOWN", object_name="TBA - TO BE ASSIGNED"),
+          gp_row(5, epoch=None)]    # no full element set: left out
+    files = run_export(master, gp)
+    recs = {r["satcat_id"]: r for r in read_dataset(files)["records"]}
+    assert list(recs) == [1, 2, 3, 270449]                       # sorted by key; 5 has no element set
+    assert [recs[i]["object_type"] for i in recs] == ["PAYLOAD", "ROCKET BODY", "DEBRIS", "UNKNOWN"]
+    assert recs[3]["mission_category_labels"] == []               # null list in the mart -> empty list
+    unknown = recs[270449]
+    assert unknown["object_name"] == "TBA - TO BE ASSIGNED"
+    assert unknown["launch_year"] is None and unknown["owner_country"] is None
+    assert unknown["mission_category_labels"] == [] and unknown["ownership_class_labels"] == []
+    assert [r["SatCatId"] for r in read_csv(files["satcat_tle.csv"])] == ["1"]   # the CSV stays payloads only
+
+
+def test_objects_manifest_lists_both_encodings(run_export):
+    files = run_export([master_row(25544)], [gp_row(25544)])
+    manifest = json.loads(files["manifest.json"].read_text(encoding="utf-8"))
+    listed = {f["file"]: f for f in manifest["files"]}
+    for name in ("objects.json.br", "objects.json.gz"):
+        assert listed[name]["dataset"] == "objects" and listed[name]["schema"] == 1 and listed[name]["rows"] == 1
+        assert listed[name]["sha256"] == export_app_csvs.sha256(files[name])
+
+
+def test_a_contract_violation_keeps_the_last_good_files(run_export, tmp_path):
+    """A record that breaks app/contracts/objects.schema.json (here an eccentricity of 1.5) stops the whole export:
+    nothing is replaced, so the app keeps the last good, consistent set of files."""
+    out = tmp_path / "app"
+    first = run_export([master_row(25544)], [gp_row(25544)], out=out)
+    before = {n: p.read_bytes() for n, p in first.items()}
+    with pytest.raises(export_app_csvs.ExportError, match="contract violations"):
+        run_export([master_row(25544)], [gp_row(25544, eccentricity=1.5)], out=out)
+    assert {p.name: p.read_bytes() for p in out.iterdir()} == before
+
+
+def test_dataset_schema_matches_the_analysis_columns():
+    """The contract and the query can't drift: the schema requires exactly the columns the analysis selects, in the
+    same names (the marts' own)."""
+    import re
+    schema = json.loads((export_app_csvs.CONTRACTS_DIR / "objects.schema.json").read_text(encoding="utf-8"))
+    record = schema["$defs"]["record"]
+    sql = (PIPELINE / "transform" / "analyses" / "app_export" / "app__objects.sql").read_text(encoding="utf-8")
+    final = sql[sql.index("cte_final as ("):]
+    selected = re.findall(r"\bas ([a-z_]+)\s*$", final, flags=re.M)
+    assert selected == record["required"]
+    assert set(record["properties"]) == set(record["required"])
 
 
 def test_health_page_dates(tmp_path):

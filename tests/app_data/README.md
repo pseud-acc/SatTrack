@@ -9,6 +9,10 @@ A small fixed sample of the pipeline's app files, used to run the app without AW
   (the export no longer rounds it). The OMM and TLE fields describe the same element set: positions from
   either agree to about 1 cm.
 - `last_data_update.csv`: that run's freshness rows.
+- `objects.json.br`, `objects.json.gz`: the browser's objects dataset (docs/app-data-contract.md), cut from the
+  21 Nov 2026 export (`run_2026-11-21T142334Z`): the CSV sample's satellites still in the GP feed (339) plus the
+  20 lowest-numbered rocket bodies and debris and the 5 lowest-numbered `UNKNOWN` objects, 384 records. Built with
+  the export's own envelope, schema validation and compression. Its element sets are newer than the CSV's.
 
 CI's Heroku build check (`.github/scripts/heroku_build_check.sh`) starts the app with
 `SATTRACK_APP_DATA_DIR` pointing here. For a local run without S3:

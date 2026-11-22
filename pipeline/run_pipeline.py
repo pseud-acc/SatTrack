@@ -289,8 +289,8 @@ def main() -> int:
     elif not args.quiet:
         print("data summary: skipped (SATTRACK_REPORTS_PYTHON not set)")
 
-    # 8. app CSV export for the live Dash app (never fails the run; the script keeps the last good files on error
-    # and prints "app csv: <dir>" or the error)
+    # 8. app export: the Dash app's CSVs and the browser datasets (never fails the run; the script keeps the last
+    # good files on error and prints "app export: <dir>" or the error)
     reports["app_csv"] = run_report([sys.executable, str(ROOT / "scripts" / "export_app_csvs.py")], args.quiet)
     path = write_run_log()
     if args.quiet:

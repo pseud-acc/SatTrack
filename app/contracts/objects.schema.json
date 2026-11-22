@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.sattrackapp.com/contracts/objects.schema.json",
+  "title": "SatTrack objects dataset",
+  "description": "Every tracked object with its OMM element set and the fields the app filters on (docs/app-data-contract.md, decisions D-009 to D-011). Written by pipeline/scripts/export_app_csvs.py, which validates every record against this schema before publishing. Field names are the dbt mart column names; their definitions are in the dbt docs. Additive changes keep schema 1; renaming a field or changing its meaning raises it.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["dataset", "schema", "count", "generated_at", "run_id", "key", "attribution", "caution", "records"],
+  "properties": {
+    "dataset": {"const": "objects"},
+    "schema": {"const": 1},
+    "count": {"type": "integer", "minimum": 0, "description": "Number of records; equals the length of records."},
+    "generated_at": {"type": "string", "format": "date-time", "description": "When the export wrote the file (UTC)."},
+    "run_id": {"type": ["string", "null"], "description": "Pipeline run that built the tracking mart."},
+    "key": {"const": "satcat_id"},
+    "attribution": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "caution": {"type": "string", "minLength": 1},
+    "records": {"type": "array", "items": {"$ref": "#/$defs/record"}}
+  },
+  "$defs": {
+    "nullable_text": {"type": ["string", "null"]},
+    "labels": {"type": "array", "items": {"type": "string"}, "description": "Always a list; empty when there are none."},
+    "angle": {"type": "number", "minimum": 0, "maximum": 360},
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "satcat_id", "object_id", "object_name", "object_type",
+        "epoch", "mean_motion", "eccentricity", "inclination", "ra_of_asc_node", "arg_of_pericenter", "mean_anomaly",
+        "bstar", "mean_motion_dot", "mean_motion_ddot", "rev_at_epoch", "element_set_no", "ephemeris_type",
+        "classification_type", "orbital_period",
+        "operational_status", "orbit_class", "owner_country", "launch_year", "mission_category_labels",
+        "ownership_class_labels", "launch_vehicle_brand", "site_location_country"
+      ],
+      "properties": {
+        "satcat_id": {"type": "integer", "minimum": 1, "description": "Catalogue number (NORAD_CAT_ID); the key."},
+        "object_id": {"$ref": "#/$defs/nullable_text", "description": "International designator (OBJECT_ID), e.g. 1998-067A; 'UNKNOWN' for analyst objects."},
+        "object_name": {"$ref": "#/$defs/nullable_text"},
+        "object_type": {"type": "string", "minLength": 1, "description": "Space-Track OBJECT_TYPE: PAYLOAD, ROCKET BODY, DEBRIS or UNKNOWN today; a new value is allowed."},
+        "epoch": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{6}$", "description": "Element set epoch, UTC, %Y-%m-%dT%H:%M:%S.%f (the format sgp4 / satellite.js read)."},
+        "mean_motion": {"type": "number", "exclusiveMinimum": 0, "description": "Revolutions per day."},
+        "eccentricity": {"type": "number", "minimum": 0, "exclusiveMaximum": 1},
+        "inclination": {"type": "number", "minimum": 0, "maximum": 180, "description": "Degrees."},
+        "ra_of_asc_node": {"$ref": "#/$defs/angle"},
+        "arg_of_pericenter": {"$ref": "#/$defs/angle"},
+        "mean_anomaly": {"$ref": "#/$defs/angle"},
+        "bstar": {"type": "number"},
+        "mean_motion_dot": {"type": "number"},
+        "mean_motion_ddot": {"type": "number"},
+        "rev_at_epoch": {"type": "integer", "minimum": 0},
+        "element_set_no": {"type": "integer", "minimum": 0},
+        "ephemeris_type": {"type": "integer", "minimum": 0},
+        "classification_type": {"type": "string", "minLength": 1, "maxLength": 1},
+        "orbital_period": {"type": "number", "exclusiveMinimum": 0, "description": "Minutes."},
+        "operational_status": {"$ref": "#/$defs/nullable_text"},
+        "orbit_class": {"$ref": "#/$defs/nullable_text"},
+        "owner_country": {"$ref": "#/$defs/nullable_text"},
+        "launch_year": {"type": ["integer", "null"]},
+        "mission_category_labels": {"$ref": "#/$defs/labels"},
+        "ownership_class_labels": {"$ref": "#/$defs/labels"},
+        "launch_vehicle_brand": {"$ref": "#/$defs/nullable_text"},
+        "site_location_country": {"$ref": "#/$defs/nullable_text"}
+      }
+    }
+  }
+}

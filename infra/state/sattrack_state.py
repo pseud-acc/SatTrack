@@ -52,6 +52,8 @@ OPS_KEY = "warehouse/sattrack_ops.duckdb"
 APP_PREFIX = "app/"
 APP_POINTER_KEY = "app/current.json"
 APP_CSVS = ["satcat_tle.csv", "last_data_update.csv"]   # written by scripts/export_app_csvs.py into DATA_DIR/app/
+# Every other file the export's manifest lists (the browser datasets, e.g. objects.json.br / .gz) is published too,
+# under the same pointer, so a run's CSVs and datasets always go live together (decision D-010).
 REQUIRED_MARTS = [("marts", "fct__satellite_master"), ("marts_tracking", "fct__gp_elements")]
 PROMOTABLE_STATUSES = {"ok", "warn"}
 DUCKDB_STORAGE_VERSION = "v1.4.0"   # keep in step with ingestion/sattrack_ingest/config.py
@@ -166,10 +168,11 @@ def live_db_ok(path: Path) -> bool:
 
 
 def publish_app(client, export: Path, run_id: str, now: datetime) -> None:
-    """Publish the export so the app always sees BOTH CSVs from the same run.
+    """Publish the export so the app always sees every file (the CSVs and the browser datasets) from the same run.
 
-    Fixed keys + S3 versioning: each CSV is uploaded (new VersionId), then app/current.json - the pointer - is
-    written last, naming the exact VersionId and SHA-256 of each file. The app reads the pointer first and then
+    Fixed keys + S3 versioning: each file the export's manifest lists is uploaded (new VersionId), then
+    app/current.json - the pointer - is written last, naming the exact VersionId and SHA-256 of each file (and,
+    for a dataset file, its dataset name and schema version). The app reads the pointer first and then
     fetches those exact versions, so it can never pair one run's satellites with another run's freshness row.
     A failed or partial upload leaves the old pointer in place; superseded versions stay readable for the
     rollback window (noncurrent-version lifecycle rule), and the current versions never expire.
@@ -177,17 +180,22 @@ def publish_app(client, export: Path, run_id: str, now: datetime) -> None:
     try:
         export_manifest = json.loads((export / "manifest.json").read_text(encoding="utf-8"))
         listed = {f["file"]: f for f in export_manifest["files"]}
-        for name in APP_CSVS:   # the export's own checksums must match what is on disk
-            if name not in listed or sha256_file(export / name) != listed[name]["sha256"]:
+        if any(name not in listed for name in APP_CSVS):
+            raise KeyError("app csv")
+        for name, entry in listed.items():   # the export's own checksums must match what is on disk
+            if "/" in name or "\\" in name or sha256_file(export / name) != entry["sha256"]:
                 raise ValueError(name)
     except Exception as exc:  # noqa: BLE001 - reported by type only
         log(f"no valid app export ({type(exc).__name__}) - app data left unchanged")
         return
     files = {}
-    for name in APP_CSVS:
+    for name in APP_CSVS + sorted(set(listed) - set(APP_CSVS)):
         entry = put_file(client, APP_PREFIX + name, export / name)
         files[name] = {"key": entry["key"], "version_id": entry["version_id"], "sha256": entry["sha256"],
                        "rows": listed[name]["rows"]}
+        for extra in ("dataset", "schema"):
+            if extra in listed[name]:
+                files[name][extra] = listed[name][extra]
     put_file(client, APP_PREFIX + "manifest.json", export / "manifest.json")
     pointer = {"schema": 1, "run_id": run_id, "export_run_id": export_manifest.get("run_id"),
                "generated_at": export_manifest.get("generated_at"), "published_at": now.isoformat(),
