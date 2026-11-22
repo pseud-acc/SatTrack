@@ -15,6 +15,7 @@ SatTrack (`pseud-acc/SatTrack`, live at https://www.sattrackapp.com) is a free, 
 | `.github/` | PR checks, deploy on merge, scheduled pipeline run, docs site | comments at the top of each workflow |
 | `tests/app_data/` | 341-row sample of the app CSVs, used locally and in CI | `tests/app_data/README.md` |
 | `docs/ROADMAP.md` | The feature roadmap, phases 0–7. Work through it in order unless told otherwise | |
+| `docs/DECISIONS.md` | Architecture decisions and why they were made | |
 
 Data flow: EventBridge (daily) → GitHub Actions `pipeline.yml` (OIDC role, Space-Track login from Secrets Manager)
 → `pipeline/run_pipeline.py` → private S3 bucket (`app/` CSVs, warehouse, manifest, logs) → the app reads `app/`
@@ -62,6 +63,8 @@ SATTRACK_DATA_DIR=/path/outside/repo uv run python run_pipeline.py   # a real ru
 - Add a `CHANGELOG.md` entry under `[Unreleased]` for every user-visible change.
 - Commit only verified work. When an assumption turns out wrong, stop and write up options in the PR rather
   than working around it.
+- Record every architecture decision in `docs/DECISIONS.md` (context, decision, why, rejected options,
+  consequences, evidence) in the PR that makes it. Never rewrite an accepted entry; supersede it with a new one.
 
 **Dependencies**
 - uv only. App: root `pyproject.toml`; pipeline: `pipeline/pyproject.toml`. Commit `uv.lock` with its
