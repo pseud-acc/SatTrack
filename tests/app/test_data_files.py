@@ -52,6 +52,26 @@ def test_etag_revalidation_returns_304(client):
     assert gz.status_code == 200 and gz.headers["ETag"] != etag
 
 
+@pytest.mark.parametrize("validator", ["W/{etag}", "*", '"other", {etag}'])   # {etag} is the quoted header value
+def test_if_none_match_uses_weak_comparison(client, validator):
+    """RFC 9110 13.1.2 (Copilot review on #58): a weak validator for the current ETag, or '*', also gets 304."""
+    etag = client.get(URL, headers={"Accept-Encoding": "br"}).headers["ETag"]
+    r = client.get(URL, headers={"Accept-Encoding": "br", "If-None-Match": validator.format(etag=etag)})
+    assert r.status_code == 304 and r.data == b""
+
+
+def test_a_different_etag_gets_the_file(client):
+    r = client.get(URL, headers={"Accept-Encoding": "br", "If-None-Match": '"not-this-run"'})
+    assert r.status_code == 200 and len(r.data) > 0
+
+
+@pytest.mark.parametrize("header", ["br;q=0, gzip;q=0, identity;q=0", "*;q=0", "gzip;q=0, identity;q=0"])
+def test_406_when_every_representation_is_refused(client, header):
+    """RFC 9110 12.5.3 (Copilot review on #58): refusing br, gzip and identity gets 406, not an uncompressed body."""
+    r = client.get(URL, headers={"Accept-Encoding": header})
+    assert r.status_code == 406 and "Content-Encoding" not in r.headers
+
+
 def test_cache_headers(client):
     r = client.get(URL, headers={"Accept-Encoding": "br"})
     assert r.headers["Cache-Control"] == "no-cache"        # always revalidate, so new data shows after a run
@@ -80,11 +100,17 @@ def test_the_sample_follows_the_contract(sample_objects):
 @pytest.mark.parametrize("header, available, expected", [
     ("gzip, deflate, br", {"br", "gzip"}, "br"),
     ("br;q=0, gzip", {"br", "gzip"}, "gzip"),
-    ("gzip;q=0", {"br", "gzip"}, None),
+    ("gzip;q=1, br;q=0.5", {"br", "gzip"}, "gzip"),           # the client's preference wins
+    ("gzip;q=0", {"br", "gzip"}, "identity"),                 # identity unlisted: acceptable
     ("*", {"br", "gzip"}, "br"),
-    ("br", {"gzip"}, None),
-    ("", {"br", "gzip"}, None),
-    (None, {"br", "gzip"}, None),
+    ("br", {"gzip"}, "identity"),
+    ("", {"br", "gzip"}, "identity"),                         # empty: no coding wanted
+    (None, {"br", "gzip"}, "identity"),                       # no header
+    ("identity", {"br", "gzip"}, "identity"),
+    ("br;q=0, gzip;q=0, identity;q=0", {"br", "gzip"}, None),  # nothing acceptable: 406
+    ("*;q=0", {"br", "gzip"}, None),
+    ("*;q=0, identity", {"br", "gzip"}, "identity"),
+    ("gzip;q=abc", {"br", "gzip"}, "identity"),               # malformed q counts as 0
 ])
 def test_choose_encoding(header, available, expected):
     from app.core.data_files import choose_encoding

@@ -136,17 +136,31 @@ if [ "$up" = 1 ]; then
   code="$(curl -s -o /dev/null -H 'Accept-Encoding: br' -H "If-None-Match: $etag" -w '%{http_code}' "$URL")"
   echo "revalidate: $code"; [ "$code" = 304 ] || fail "If-None-Match did not return 304"
   # Slow clients: 4 downloads at 30 KB/s keep their connections busy far longer than the page checks below.
+  # First prove the test file is really served in full, else "slow" downloads could end at once (a 404) and the
+  # check would pass with idle workers (Copilot review on #58).
+  SLOW_URL="http://127.0.0.1:$PORT/data/slowtest.json"
+  got="$(curl -s -o /dev/null -m 60 -H 'Accept-Encoding: gzip' -w '%{http_code} %{size_download}' "$SLOW_URL" || true)"
+  echo "slow-test file: $got (expect 200 $((SLOW_FILE_MB * 1000000)))"
+  [ "$got" = "200 $((SLOW_FILE_MB * 1000000))" ] || fail "slow-test file not served in full ($got)"
   pids=()
   for _ in 1 2 3 4; do
-    curl -s -o /dev/null -m 150 --limit-rate 30k -H 'Accept-Encoding: gzip' "http://127.0.0.1:$PORT/data/slowtest.json" &
+    curl -s -o /dev/null -m 150 --limit-rate 30k -H 'Accept-Encoding: gzip' "$SLOW_URL" &
     pids+=($!)
   done
   sleep 3
+  still_running() {   # every slow download must still be in progress, or the timings below prove nothing
+    local n=0; for pid in "${pids[@]}"; do kill -0 "$pid" 2>/dev/null && n=$((n + 1)); done
+    echo "slow downloads still running ($1): $n of ${#pids[@]}"
+    [ "$n" = "${#pids[@]}" ] || fail "slow downloads ended early ($1): the check would not load the workers"
+  }
+  still_running "before page checks"
   for p in /_dash-layout /_dash-dependencies; do
     t="$(curl -s -o /dev/null -m 20 -w '%{http_code} %{time_total}' "http://127.0.0.1:$PORT$p" || true)"
     echo "during slow downloads: $p -> $t s"
-    [ "${t%% *}" = 200 ] && awk -v s="${t##* }" 'BEGIN { exit !(s < 5) }'       || fail "$p waited behind slow downloads ($t): workers are blocked"
+    [ "${t%% *}" = 200 ] && awk -v s="${t##* }" 'BEGIN { exit !(s < 5) }' \
+      || fail "$p waited behind slow downloads ($t): workers are blocked"
   done
+  still_running "after page checks"
   kill "${pids[@]}" 2>/dev/null || true; wait 2>/dev/null || true
 fi
 echo "::endgroup::"
