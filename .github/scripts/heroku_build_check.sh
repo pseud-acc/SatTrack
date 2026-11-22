@@ -12,8 +12,10 @@
 #   4. Checks = the pages the manual test checked, no pipeline packages in the slug, slug size under Heroku's
 #      limit, the app's data-load log line, no traceback, not killed for memory.
 #   5. Data files = /data/objects.json served pre-compressed (Brotli or gzip) with an ETag and 304 on revalidation;
-#      and slow clients: 4 rate-limited downloads of a 3 MB file (bigger than Heroku's 1 MB router buffer) run while
-#      pages are requested. With threaded workers (Procfile --threads, decision D-012) the pages still answer.
+#      and slow clients: 4 rate-limited downloads of a 24 MB file run while pages are requested. With threaded
+#      workers (Procfile --threads, decision D-012) the pages still answer. The size matters: a control run with
+#      sync workers (PR #59) showed a 3 MB file is absorbed by socket buffers and blocks nothing, while 24 MB holds
+#      both workers and the page request times out, so this check can fail.
 #
 # Pins: the buildpack tag AND its commit (the clone fails if the tag moves), both images by digest.
 # When Heroku ships a newer buildpack (https://github.com/heroku/heroku-buildpack-python/releases), bump
@@ -34,7 +36,7 @@ PORT=5000
 WEB_CONCURRENCY=2
 NAME=sattrack-ci-dyno
 APP_DATA=tests/app_data  # copied and mounted read-only into the dyno; never in the slug (.slugignore drops tests/)
-SLOW_FILE_MB=3           # the slow-client test's dataset (CI only): larger than Heroku's 1 MB router buffer
+SLOW_FILE_MB=24          # the slow-client test's dataset (CI only): larger than socket buffers can absorb (see 5.)
 
 W="${RUNNER_TEMP:-$(mktemp -d)}/heroku-build"
 REPO_ROOT="$(git rev-parse --show-toplevel)"
@@ -133,7 +135,7 @@ if [ "$up" = 1 ]; then
   echo "records: $count"
   code="$(curl -s -o /dev/null -H 'Accept-Encoding: br' -H "If-None-Match: $etag" -w '%{http_code}' "$URL")"
   echo "revalidate: $code"; [ "$code" = 304 ] || fail "If-None-Match did not return 304"
-  # Slow clients: 4 downloads at 30 KB/s keep their connections busy for ~100 s each.
+  # Slow clients: 4 downloads at 30 KB/s keep their connections busy far longer than the page checks below.
   pids=()
   for _ in 1 2 3 4; do
     curl -s -o /dev/null -m 150 --limit-rate 30k -H 'Accept-Encoding: gzip' "http://127.0.0.1:$PORT/data/slowtest.json" &
@@ -141,7 +143,7 @@ if [ "$up" = 1 ]; then
   done
   sleep 3
   for p in /_dash-layout /_dash-dependencies; do
-    t="$(curl -s -o /dev/null -m 20 -w '%{http_code} %{time_total}' "http://127.0.0.1:$PORT$p")"
+    t="$(curl -s -o /dev/null -m 20 -w '%{http_code} %{time_total}' "http://127.0.0.1:$PORT$p" || true)"
     echo "during slow downloads: $p -> $t s"
     [ "${t%% *}" = 200 ] && awk -v s="${t##* }" 'BEGIN { exit !(s < 5) }'       || fail "$p waited behind slow downloads ($t): workers are blocked"
   done
