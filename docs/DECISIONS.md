@@ -5,7 +5,10 @@ made, the options that were rejected and what follows from it. Add an entry in t
 decision. Don't rewrite an accepted entry: when a decision changes, add a new one that supersedes it and mark the
 old one **Superseded by D-NNN**.
 
-Entries D-001 to D-008 were recorded retrospectively on 22 Nov 2026 from the PRs that made them.
+Entries D-001 to D-008 were recorded retrospectively on 22 Nov 2026 from the PRs that made them. From D-030 on,
+each entry here is short and links to a file in `docs/decisions/` with the full trade-off analysis (context,
+options against future features, evidence, the choice and when to revisit). D-013 to D-029 are reserved for the
+Cesium spike (plan 3.1).
 
 | ID | Decision | Status | Date |
 |---|---|---|---|
@@ -21,6 +24,11 @@ Entries D-001 to D-008 were recorded retrospectively on 22 Nov 2026 from the PRs
 | [D-010](#d-010-data-contracts-two-core-datasets-feature-datasets-one-envelope) | Data contracts: two core datasets, feature datasets, one envelope | Accepted | 2026-11-22 |
 | [D-011](#d-011-objects-file-covers-every-tracked-object-unknown-hidden-by-default) | Objects file covers every tracked object; UNKNOWN hidden by default | Accepted | 2026-11-22 |
 | [D-012](#d-012-the-app-serves-the-data-files-with-threaded-workers-no-extra-cdn-account) | The app serves the data files, with threaded workers; no extra CDN account | Accepted | 2026-11-22 |
+| [D-030](decisions/D-030-filter-spec-field-names-and-labels.md) | Filter spec field names are the objects dataset's; labels come from dbt `meta` | Accepted | 2026-11-22 |
+| [D-031](decisions/D-031-filter-spec-shape-flat-and-list.md) | Filter spec shape: a versioned flat AND list of clauses | Accepted | 2026-11-22 |
+| [D-032](decisions/D-032-filter-spec-missing-values.md) | Missing values in the filter spec are explicit | Accepted | 2026-11-22 |
+| [D-033](decisions/D-033-filter-spec-allowlist-generated-schema.md) | Filterable fields are hand-picked; types, values and labels generated from dbt | Accepted | 2026-11-22 |
+| [D-034](decisions/D-034-filter-spec-shared-conformance-cases.md) | One set of conformance cases for every filter spec implementation | Accepted | 2026-11-22 |
 
 ---
 
@@ -254,3 +262,36 @@ occupies one thread and not the worker.
 
 **Revisit.** If traffic needs a CDN (e.g. the growth plan's launch posts), use AWS CloudFront in the existing account
 through CloudFormation: no new account and no DNS change.
+
+## D-030 Filter spec field names are the objects dataset's; labels come from dbt `meta`
+**Status:** Accepted, 2026-11-22 (plan 2.2). **Full analysis:** [decisions/D-030](decisions/D-030-filter-spec-field-names-and-labels.md).
+
+Spec clauses use the `objects` dataset's field names (D-010). The label people see comes from the mart column's
+`config: meta: label:` in the dbt YAML, written into the schema as the field's `title`; the build fails without one.
+Users never see a snake_case name.
+
+## D-031 Filter spec shape: a versioned flat AND list of clauses
+**Status:** Accepted, 2026-11-22 (plan 2.2). **Full analysis:** [decisions/D-031](decisions/D-031-filter-spec-shape-flat-and-list.md).
+
+`{"version": 1, "clauses": [{"field", "op", "value"}]}`, AND-ed; ops `eq`, `in`, `not_in`, `between`,
+`contains_any`, `is_missing`. A nested tree waits for evidence: the analysis file lists the NL-query and UI
+triggers that would justify a version 2.
+
+## D-032 Missing values in the filter spec are explicit
+**Status:** Accepted, 2026-11-22 (plan 2.2). **Full analysis:** [decisions/D-032](decisions/D-032-filter-spec-missing-values.md).
+
+No clause matches a missing value unless it says so (`null` in an `in` or `contains_any` list, `include_missing` on
+`between`, or `is_missing`); `not_in` is the exact complement of `in`. "Unknown" in the UI is `null` in the spec.
+
+## D-033 Filterable fields are hand-picked; types, values and labels generated from dbt
+**Status:** Accepted, 2026-11-22 (plan 2.2). **Full analysis:** [decisions/D-033](decisions/D-033-filter-spec-allowlist-generated-schema.md).
+
+`app/contracts/filter_fields.yml` lists the nine filterable fields; `pipeline/scripts/build_filter_spec_schema.py`
+generates `app/contracts/filter_spec.schema.json` from it and the mart YAML; a pipeline test fails CI if the committed
+schema is stale.
+
+## D-034 One set of conformance cases for every filter spec implementation
+**Status:** Accepted, 2026-11-22 (plan 2.2). **Full analysis:** [decisions/D-034](decisions/D-034-filter-spec-shared-conformance-cases.md).
+
+`tests/contracts/filter_spec_cases.json` (records, specs, hand-worked expected ids, invalid specs) is run by pytest
+now and by the browser implementation in Phase 3.

@@ -37,6 +37,9 @@ models:
       - name: object_type
         data_type: varchar
         description: '{{ doc("col__object_type") }}'
+        config:
+          meta:
+            label: "Object type"
       - name: country_code
         data_type: varchar
         description: '{{ doc("col__country_code") }}'
