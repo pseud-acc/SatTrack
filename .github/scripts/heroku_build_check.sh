@@ -121,7 +121,7 @@ echo "::endgroup::"
 echo "::group::Data files (/data/objects.json, slow clients)"
 if [ "$up" = 1 ]; then
   URL="http://127.0.0.1:$PORT/data/objects.json"
-  hdr() { grep -i "^$1:" "$2" | head -1 | cut -d' ' -f2- | tr -d ''; }
+  hdr() { grep -i "^$1:" "$2" | head -1 | cut -d' ' -f2- | tr -d '\r'; }
   code="$(curl -s -o "$W/objects.br" -D "$W/h_br" -H 'Accept-Encoding: br' -w '%{http_code}' "$URL")"
   enc="$(hdr Content-Encoding "$W/h_br")"; etag="$(hdr ETag "$W/h_br")"
   echo "br: $code $enc $(wc -c < "$W/objects.br") bytes, ETag $etag"
