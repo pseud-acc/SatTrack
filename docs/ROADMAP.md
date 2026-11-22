@@ -59,13 +59,13 @@ Where SatTrack is today in each area, what it should do, and the work to get the
 | 0 | Housekeeping & guardrails | 12 (0.2 done; incl. 0.5, 0.6) | 2–3 |
 | 1 | OMM propagation | 8 | 2 |
 | 2 | Client data contract + filter spec | 11.5 (incl. 2.4) | 2–3 |
-| 3 | Cesium migration | 30 (+25% buffer → ~37) | 6–8 |
+| 3 | Cesium migration | 31.5 (incl. 3.7; +25% buffer → ~39) | 6–8 |
 | 4 | Freshness & SupGP | 12 | 3 |
 | 5 | Detail enrichment | 12 (incl. 5.4) | 2–3 |
 | 6 | Natural-language query | 20 (+25% buffer → 25) | 4–5 |
 | 7 | Backlog (pick as wanted) | — | — |
 
-Roughly **22 weeks (~114 h, ~5 months)** to the end of Phase 6 with the buffers and the tasks added by the review (93 h as originally written). Phases 4 and 5 are independent of 3 and can be swapped in if Cesium work stalls.
+Roughly **22 weeks (~116 h, ~5 months)** to the end of Phase 6 with the buffers and the tasks added by the review (93 h as originally written). Phases 4 and 5 are independent of 3 and can be swapped in if Cesium work stalls.
 
 ---
 
@@ -136,7 +136,7 @@ Roughly **22 weeks (~114 h, ~5 months)** to the end of Phase 6 with the buffers 
 
 ---
 
-## Phase 3 — Cesium migration (~30 h, plan for ~37 h)
+## Phase 3 — Cesium migration (~31.5 h, plan for ~39 h)
 
 **Goal:** replace Plotly 3D/2D with a CesiumJS viewer, propagating in the browser.
 
@@ -159,7 +159,17 @@ Roughly **22 weeks (~114 h, ~5 months)** to the end of Phase 6 with the buffers 
 
 3.6 `refactor/remove-plotly-viz` — Once at parity, remove Plotly 3D/2D callbacks, `dcc.Interval` position refresh and server-side propagation from the request path (keep `compute_satloc` only if still used, e.g. tests). Flip the feature flag default, then remove it. This retires the 3D payload stopgap (PR #37).
 
-**Done when:** Cesium is the only viewer; filters, selection, orbit paths, 2D/3D all work; smooth on a mid-range laptop with payloads + debris; Heroku slug size not materially increased.
+3.7 `chore/licence-agpl` — Open-source licence and contributor agreement (~1.5 h). Must be merged before Phase 3 is done; it does not depend on the other Phase 3 tasks. The repo has no licence today, so it is legally "all rights reserved".
+- Owner decides first: AGPL-3.0-only or -or-later (recommended: -only); how contributors sign the agreement (recommended: the CLA GitHub Action, with signatures stored on a branch in the repo, no extra account); and the agreement text (recommended: based on the Apache individual contributor agreement plus an explicit relicensing clause, checked by a lawyer before any revenue use).
+- `LICENSE` with the unchanged AGPL-3.0 text; `license` field in `pyproject.toml`; `SPDX-License-Identifier` headers in new files only.
+- AGPL source offer: the About page links to the repo at the deployed commit (Heroku `SOURCE_VERSION`).
+- `THIRD_PARTY_NOTICES.md`, plus the CesiumJS licence and NOTICE files shipped with the self-hosted build in `static/`; keep the satellite.js MIT licence text.
+- `CONTRIBUTING.md` and `docs/legal/CLA.md`; `.github/workflows/cla.yml` (pinned actions), proposed in the PR.
+- README licence section, stating that data licences are separate (GCAT CC-BY, Space-Track citation, CelesTrak credit); CLAUDE.md rule: no outside PR is merged until the CLA check passes.
+- Decision record D-036 in `DECISIONS.md` and `docs/decisions/`.
+- After merge, owner only: make the CLA check a required status check (GitHub settings change).
+
+**Done when:** Cesium is the only viewer; filters, selection, orbit paths, 2D/3D all work; smooth on a mid-range laptop with payloads + debris; Heroku slug size not materially increased; the repo is licensed AGPL-3.0 with a contributor agreement in force (3.7).
 
 ---
 
@@ -237,7 +247,8 @@ Recommended order: passes first (README planned items; the main feature for peop
 - GCAT: CC-BY — cite "data from GCAT (J. McDowell, planet4589.org/space/gcat)" in the app footer/about page.
 - Space-Track and CelesTrak: follow their user agreement / usage policy; attribute in the about page.
 - Take data only from its original publishers; never republish another tracker's compiled data.
-- CesiumJS: Apache 2.0. Cesium ion (if used): check free-tier terms.
+- CesiumJS: Apache 2.0; when self-hosted, ship its licence and NOTICE files (3.7). Cesium ion (if used): check free-tier terms.
+- SatTrack code: AGPL-3.0 with a contributor agreement (3.7). The code licence does not change any data licence above.
 - Space-Track fields in public outputs: cite "USSPACECOM via Space-Track.org" and keep the caution that public TLEs must not be used for conjunction assessment.
 - CelesTrak SupGP and SOCRATES: CelesTrak's usage policy.
 - SatNOGS DB (radio, 7.4): CC BY-SA, attribute.
