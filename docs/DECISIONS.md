@@ -228,8 +228,13 @@ without a launch year and the 515 objects without an owner.
 **Status:** Accepted, 2026-11-22 (plan 2.1). **Component:** delivery of the data files; `Procfile`.
 
 **Context.** The S3 bucket is private and also holds the warehouse, logs and state. Heroku's router buffers only 1 MB
-of each response, and the objects file is 1.70 MB with Brotli. Under gunicorn's default sync workers (2), a slow
-phone download would hold a whole worker for seconds and stall other users' updates.
+of each response; gunicorn's default sync workers (2) handle one request each, so a download the buffers can't
+absorb holds a whole worker until the client has read it.
+
+**Measured** (CI build check, 22 Nov, PR #59 control): with sync workers, four slow downloads of a 3 MB file
+blocked nothing (the socket buffers took it all; pages answered in 1 ms), but a 24 MB file held both workers and a
+page request timed out after 20 s. With `--threads 4`, pages answered in 1 ms during the 24 MB downloads. So at
+today's 1.70 MB the risk is small; it grows with the data files (all `object_detail` records ≈ 8–15 MB).
 
 **Decision.** The pipeline writes the pre-compressed file beside the CSV, listed in `app/current.json`. The app loads
 it at start-up and serves it with an ETag. gunicorn runs threaded workers (`--threads 4`), so a slow download
@@ -238,7 +243,8 @@ occupies one thread and not the worker.
 **Why.**
 - No AWS changes, the bucket stays private, and the file always comes from the same run as the CSV.
 - Local runs and CI use it the same way as the CSV.
-- The threads fix the slow-client problem at no memory cost.
+- The threads remove the slow-client risk before the data files grow, at no memory cost, and CI's build check
+  tests it at a size that does block sync workers.
 
 **Rejected.**
 - Cloudflare in front: one more account and a DNS move to maintain, which the owner rejected for its management overhead.
