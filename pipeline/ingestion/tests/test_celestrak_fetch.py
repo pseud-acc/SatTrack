@@ -97,3 +97,32 @@ def test_pages_mode_stops_on_refusal_and_rejects_odd_paths(tmp_path):
     import pytest
     with pytest.raises(ValueError):
         cf.save_pages(tmp_path, ["../etc"], 0, opener=fake, sleep=lambda s: None)
+
+
+def test_a_redirect_is_a_refusal_not_followed():
+    """The real opener must not follow a 301: CelesTrak's policy says stop on any non-200."""
+    import http.server, threading
+    class H(http.server.BaseHTTPRequestHandler):
+        def do_GET(self):
+            self.send_response(301); self.send_header("Location", "/elsewhere"); self.end_headers()
+        def log_message(self, *a):
+            pass
+    srv = http.server.HTTPServer(("127.0.0.1", 0), H)
+    threading.Thread(target=srv.handle_request, daemon=True).start()
+    import pytest
+    with pytest.raises(cf.Refused, match="HTTP 301"):
+        cf.get(f"http://127.0.0.1:{srv.server_port}/x")
+    srv.server_close()
+
+
+def test_requests_gzip_and_decompresses():
+    import gzip as gz
+    seen = {}
+    class Resp(io.BytesIO):
+        status = 200
+        headers = {"Content-Encoding": "gzip"}
+    def opener(request, timeout):
+        seen["ae"] = request.get_header("Accept-encoding")
+        return Resp(gz.compress(CSV.encode()))
+    assert cf.get("https://celestrak.org/x", opener) == CSV
+    assert seen["ae"] == "gzip"

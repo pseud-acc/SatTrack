@@ -4,14 +4,15 @@
     python pipeline/scripts/celestrak_fetch.py <out dir> --pages usage-policy.php     (pages only, no groups)
 
 Lists the groups linked from CelesTrak's GP index page, then downloads each group once as CSV, in order, with a pause
-between requests. Follows D-008: a 403, a 429, an error status or a body that isn't CSV stops the whole run (no
-retries, no further requests); what was fetched so far is kept. Writes <group>.csv per group and manifest.json
+between requests. Follows D-008 and CelesTrak's usage policy (updated 2026-11-16): any non-200 response, redirects included, or a
+body that isn't CSV stops the whole run (no retries, no further requests); what was fetched so far is kept. Writes <group>.csv per group and manifest.json
 (source URLs, statuses, row counts, times). Standard library only. Never run from a machine whose IP CelesTrak has
 blocked; the workflow runs it on GitHub's runners.
 """
 from __future__ import annotations
 
 import argparse
+import gzip
 import json
 import re
 import sys
@@ -32,11 +33,33 @@ class Refused(Exception):
     """CelesTrak refused or returned something unexpected: stop the run (D-008)."""
 
 
-def get(url: str, opener=urllib.request.urlopen) -> str:
-    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    """CelesTrak's usage policy: stop on any non-200 response, redirects (301) included; never follow them."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
+_OPENER = urllib.request.build_opener(_NoRedirect)
+
+
+def _open(request, timeout):
+    return _OPENER.open(request, timeout=timeout)
+
+
+def get(url: str, opener=_open) -> str:
+    # The usage policy asks for compressed downloads; gzip is in the standard library.
+    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept-Encoding": "gzip"})
     try:
         with opener(request, timeout=60) as response:
-            return response.read().decode("utf-8", errors="replace")
+            status = getattr(response, "status", 200)
+            if status != 200:
+                raise Refused(f"HTTP {status} for {url}")
+            body = response.read()
+            headers = getattr(response, "headers", None)
+            if headers is not None and headers.get("Content-Encoding", "").lower() == "gzip":
+                body = gzip.decompress(body)
+            return body.decode("utf-8", errors="replace")
     except urllib.error.HTTPError as e:
         raise Refused(f"HTTP {e.code} for {url}") from None
 
@@ -53,7 +76,7 @@ def check_csv(body: str, url: str) -> int:
     return max(0, len(body.strip().splitlines()) - 1)
 
 
-def run(out: Path, wanted: list[str] | None, pause: float, opener=urllib.request.urlopen, sleep=time.sleep) -> dict:
+def run(out: Path, wanted: list[str] | None, pause: float, opener=_open, sleep=time.sleep) -> dict:
     out.mkdir(parents=True, exist_ok=True)
     manifest = {"index_url": INDEX_URL, "started_at": datetime.now(timezone.utc).isoformat(), "groups": [],
                 "stopped": None}
@@ -77,7 +100,7 @@ def run(out: Path, wanted: list[str] | None, pause: float, opener=urllib.request
     return manifest
 
 
-def save_pages(out: Path, pages: list[str], pause: float, opener=urllib.request.urlopen, sleep=time.sleep) -> dict:
+def save_pages(out: Path, pages: list[str], pause: float, opener=_open, sleep=time.sleep) -> dict:
     """Archive a few CelesTrak pages (e.g. the usage policy) as HTML, with the same stop-on-refusal rule."""
     out.mkdir(parents=True, exist_ok=True)
     manifest = {"pages": [], "stopped": None, "started_at": datetime.now(timezone.utc).isoformat()}
