@@ -140,9 +140,12 @@ The panel's design (3.4, 5.2) may narrow or extend this list before the file shi
   bucket's `app/` prefix, and lists them in `app/current.json`.
 - **Serving:** the app loads them at start-up (checksums verified) and serves `GET /data/<dataset>.json` exactly as
   compressed:
-  - Brotli if the browser accepts it, else gzip, else decompressed;
+  - the encoding follows the browser's `Accept-Encoding` preferences (RFC 9110 §12.5.3): Brotli or gzip, Brotli
+    on a tie. The response is decompressed when no compressed coding is acceptable or the browser prefers
+    `identity`, and `406 Not Acceptable` when all three are refused;
   - an `ETag` (the SHA-256 of the bytes sent), `Cache-Control: no-cache` and `Vary: Accept-Encoding`;
-  - a repeat visit downloads nothing (304) until a run publishes new data.
+  - a repeat visit downloads nothing (304, weak comparison, `*` accepted) until a run publishes new data. The 304
+    is decided before any decompression.
 - **Workers:** gunicorn runs threaded workers (`--threads 4` in the Procfile). The file is larger than Heroku's 1 MB
   router buffer, so a slow download holds one thread, not a whole worker. CI's Heroku build check tests this with
   slow clients (D-012).
