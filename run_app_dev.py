@@ -95,6 +95,9 @@ app.validation_layout = html.Div([
 # This includes: 3D viz, 2D viz, table, filters and navbar
 register_all_callbacks(app)
 
+# Browser data files (docs/app-data-contract.md): GET /data/<dataset>.json, as in run_app.py
+from app.core.data_files import register_data_routes  # noqa: E402
+register_data_routes(server)
 
 ## >>>>>>>> Define Page Routing <<<<<<<<<<<<
 

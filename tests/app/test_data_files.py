@@ -72,6 +72,35 @@ def test_406_when_every_representation_is_refused(client, header):
     assert r.status_code == 406 and "Content-Encoding" not in r.headers
 
 
+def test_identity_304_does_not_decompress(client, monkeypatch):
+    """Copilot review on #58: revalidating the uncompressed copy must not expand the ~24 MB file just to send 304."""
+    first = client.get(URL, headers={"Accept-Encoding": "identity"})
+    import app.core.data_files as data_files
+    def no_decompress(_):
+        raise AssertionError("decompressed for a 304")
+    monkeypatch.setattr(data_files.gzip, "decompress", no_decompress)
+    again = client.get(URL, headers={"Accept-Encoding": "identity", "If-None-Match": first.headers["ETag"]})
+    assert again.status_code == 304 and again.headers["ETag"] == first.headers["ETag"]
+
+
+def test_dev_server_serves_the_data_routes():
+    """Copilot review on #58: run_app_dev.py (the documented local entry point) registers /data/<name>.json too.
+    Imported in a fresh interpreter, as `python run_app_dev.py` would, so it doesn't share Dash state with run_app.
+    The body is checked, not just the status: Dash answers any unknown path with its page HTML (200, and Brotli via
+    flask-compress), so '200 br' alone would pass without the route."""
+    import os
+    import subprocess
+    import sys
+    code = ("import json, brotli, run_app_dev\n"
+            "r = run_app_dev.server.test_client().get('/data/objects.json', headers={'Accept-Encoding': 'br'})\n"
+            "print(r.status_code, r.headers.get('Content-Encoding'), json.loads(brotli.decompress(r.data))['dataset'])\n")
+    env = {**os.environ, "SATTRACK_APP_DATA_DIR": str(APP_DATA_DIR)}
+    out = subprocess.run([sys.executable, "-c", code], cwd=REPO_ROOT, env=env, capture_output=True, text=True,
+                         timeout=300)
+    assert out.returncode == 0, out.stderr[-2000:]
+    assert out.stdout.strip().splitlines()[-1] == "200 br objects"
+
+
 def test_cache_headers(client):
     r = client.get(URL, headers={"Accept-Encoding": "br"})
     assert r.headers["Cache-Control"] == "no-cache"        # always revalidate, so new data shows after a run
@@ -111,6 +140,9 @@ def test_the_sample_follows_the_contract(sample_objects):
     ("*;q=0", {"br", "gzip"}, None),
     ("*;q=0, identity", {"br", "gzip"}, "identity"),
     ("gzip;q=abc", {"br", "gzip"}, "identity"),               # malformed q counts as 0
+    ("identity;q=1, gzip;q=0.1", {"br", "gzip"}, "identity"),  # listed identity competes on its rating (Copilot)
+    ("identity;q=0.5, gzip", {"br", "gzip"}, "gzip"),
+    ("identity, gzip", {"br", "gzip"}, "gzip"),               # tie: compressed first
 ])
 def test_choose_encoding(header, available, expected):
     from app.core.data_files import choose_encoding

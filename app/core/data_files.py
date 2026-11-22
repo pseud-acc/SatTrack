@@ -39,17 +39,22 @@ def _qualities(accept_encoding):
 
 
 def choose_encoding(accept_encoding, available):
-    """The representation to send: 'br' or 'gzip' (whichever available coding the client rates highest, Brotli on a
-    tie), else 'identity' (uncompressed), else None when the client rules out every option (send 406).
+    """The representation to send: whichever of 'br', 'gzip' and 'identity' (uncompressed) the client rates highest,
+    or None when the client rules out every option (send 406). On a tie: Brotli, then gzip, then identity.
 
     RFC 9110 12.5.3: no header, or an empty one, means identity; a coding not listed takes the '*' rating if there is
-    one; identity is acceptable unless the client says 'identity;q=0', or '*;q=0' without listing identity."""
+    one; identity is acceptable unless the client says 'identity;q=0', or '*;q=0' without listing identity. Identity
+    competes on its rating only when the client lists it (e.g. 'identity;q=1, gzip;q=0.1' gets identity); unlisted, it
+    is the fallback when no compressed coding is acceptable."""
     if accept_encoding is None or not accept_encoding.strip():
         return "identity"
     accepted = _qualities(accept_encoding)
     star = accepted.get("*")
-    rated = [(accepted.get(enc, star if star is not None else 0.0), enc == "br", enc)
+    rank = {"br": 2, "gzip": 1, "identity": 0}
+    rated = [(accepted.get(enc, star if star is not None else 0.0), rank[enc], enc)
              for enc in ("br", "gzip") if enc in available]
+    if "identity" in accepted:
+        rated.append((accepted["identity"], rank["identity"], "identity"))
     rated = [r for r in rated if r[0] > 0]
     if rated:
         return max(rated)[2]
@@ -66,16 +71,15 @@ def dataset_response(name, accept_encoding, if_none_match):
     if enc is None:   # the client refused br, gzip and identity
         return Response("Not Acceptable: this dataset is available as br, gzip or uncompressed\n", status=406,
                         mimetype="text/plain", headers={"Vary": "Accept-Encoding"})
-    if enc == "identity":   # decompress the gzip copy for this request
-        source = dataset.get("gzip")
-        if source is None:
-            return None
-        body, etag = gzip.decompress(source["body"]), source["sha256"] + "-identity"
-    else:
-        body, etag = dataset[enc]["body"], dataset[enc]["sha256"]
+    source = dataset.get("gzip" if enc == "identity" else enc)
+    if source is None:
+        return None
+    etag = source["sha256"] + ("-identity" if enc == "identity" else "")
     headers = {"ETag": f'"{etag}"', "Cache-Control": "no-cache", "Vary": "Accept-Encoding"}
     if if_none_match and parse_etags(if_none_match).contains_weak(etag):
-        return Response(status=304, headers=headers)
+        return Response(status=304, headers=headers)   # before any decompression: a 304 costs nothing
+    # identity: decompress the gzip copy for this request only (rare; browsers accept br or gzip)
+    body = gzip.decompress(source["body"]) if enc == "identity" else source["body"]
     if enc != "identity":
         headers["Content-Encoding"] = enc   # also tells flask-compress to leave the body alone
     return Response(body, status=200, mimetype="application/json", headers=headers)
