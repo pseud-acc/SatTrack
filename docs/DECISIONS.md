@@ -7,20 +7,23 @@ old one **Superseded by D-NNN**.
 
 Entries D-001 to D-008 were recorded retrospectively on 22 Nov 2026 from the PRs that made them.
 
-| ID | Decision | Status | Date |
-|---|---|---|---|
-| [D-001](#d-001-count-the-12-hour-gate-from-the-last-promoted-run) | Count the 12-hour gate from the last promoted run | Accepted | 2026-11-20 |
-| [D-002](#d-002-keep-the-first-row-of-a-repeated-gcat-jcat) | Keep the first row of a repeated GCAT JCAT | Accepted | 2026-11-21 |
-| [D-003](#d-003-carry-omm-elements-in-the-tracking-mart-only) | Carry OMM elements in the tracking mart only | Accepted | 2026-11-21 |
-| [D-004](#d-004-propagate-from-omm-keep-tle-lines-as-a-one-release-fallback) | Propagate from OMM; keep TLE lines as a one-release fallback | Accepted | 2026-11-21 |
-| [D-005](#d-005-build-each-propagator-once-per-element-set) | Build each propagator once per element set | Accepted | 2026-11-21 |
-| [D-006](#d-006-show-wgs-84-geodetic-latitude-and-altitude) | Show WGS 84 geodetic latitude and altitude | Accepted | 2026-11-22 |
-| [D-007](#d-007-stay-on-sgp4-improve-accuracy-through-fresher-elements) | Stay on SGP4; improve accuracy through fresher elements | Accepted | 2026-11-22 |
-| [D-008](#d-008-fetch-celestrak-data-only-from-the-pipeline-never-retry-a-refusal) | Fetch CelesTrak data only from the pipeline; never retry a refusal | Accepted | 2026-11-21 |
-| [D-009](#d-009-browser-data-file-one-record-per-object-with-the-warehouses-field-names) | Browser data file: one record per object, with the warehouse's field names | Accepted | 2026-11-22 |
-| [D-010](#d-010-data-contracts-two-core-datasets-feature-datasets-one-envelope) | Data contracts: two core datasets, feature datasets, one envelope | Accepted | 2026-11-22 |
-| [D-011](#d-011-objects-file-covers-every-tracked-object-unknown-hidden-by-default) | Objects file covers every tracked object; UNKNOWN hidden by default | Accepted | 2026-11-22 |
-| [D-012](#d-012-the-app-serves-the-data-files-with-threaded-workers-no-extra-cdn-account) | The app serves the data files, with threaded workers; no extra CDN account | Accepted | 2026-11-22 |
+Each entry has a record in [`decisions/`](decisions/) with the full trade-off analysis and when to revisit it.
+Read the records a feature touches before scoping it.
+
+| ID | Decision | Status | Date | Record |
+|---|---|---|---|---|
+| [D-001](#d-001-count-the-12-hour-gate-from-the-last-promoted-run) | Count the 12-hour gate from the last promoted run | Accepted | 2026-11-20 | [record](decisions/D-001-gate-from-last-promoted-run.md) |
+| [D-002](#d-002-keep-the-first-row-of-a-repeated-gcat-jcat) | Keep the first row of a repeated GCAT JCAT | Accepted | 2026-11-21 | [record](decisions/D-002-first-row-of-repeated-gcat-jcat.md) |
+| [D-003](#d-003-carry-omm-elements-in-the-tracking-mart-only) | Carry OMM elements in the tracking mart only | Accepted | 2026-11-21 | [record](decisions/D-003-omm-elements-in-tracking-mart.md) |
+| [D-004](#d-004-propagate-from-omm-keep-tle-lines-as-a-one-release-fallback) | Propagate from OMM; keep TLE lines as a one-release fallback | Accepted | 2026-11-21 | [record](decisions/D-004-propagate-from-omm.md) |
+| [D-005](#d-005-build-each-propagator-once-per-element-set) | Build each propagator once per element set | Accepted | 2026-11-21 | [record](decisions/D-005-build-propagators-once.md) |
+| [D-006](#d-006-show-wgs-84-geodetic-latitude-and-altitude) | Show WGS 84 geodetic latitude and altitude | Accepted | 2026-11-22 | [record](decisions/D-006-wgs84-geodetic-latitude-altitude.md) |
+| [D-007](#d-007-stay-on-sgp4-improve-accuracy-through-fresher-elements) | Stay on SGP4; improve accuracy through fresher elements | Accepted | 2026-11-22 | [record](decisions/D-007-stay-on-sgp4.md) |
+| [D-008](#d-008-fetch-celestrak-data-only-from-the-pipeline-never-retry-a-refusal) | Fetch CelesTrak data only from the pipeline; never retry a refusal | Accepted | 2026-11-21 | [record](decisions/D-008-celestrak-only-from-pipeline.md) |
+| [D-009](#d-009-browser-data-file-one-record-per-object-with-the-warehouses-field-names) | Browser data file: one record per object, with the warehouse's field names | Accepted | 2026-11-22 | [record](decisions/D-009-browser-data-file-records.md) |
+| [D-010](#d-010-data-contracts-two-core-datasets-feature-datasets-one-envelope) | Data contracts: two core datasets, feature datasets, one envelope | Accepted | 2026-11-22 | [record](decisions/D-010-data-contracts.md) |
+| [D-011](#d-011-objects-file-covers-every-tracked-object-unknown-hidden-by-default) | Objects file covers every tracked object; UNKNOWN hidden by default | Accepted | 2026-11-22 | [record](decisions/D-011-objects-cover-every-tracked-object.md) |
+| [D-012](#d-012-the-app-serves-the-data-files-with-threaded-workers-no-extra-cdn-account) | The app serves the data files, with threaded workers; no extra CDN account | Accepted | 2026-11-22 | [record](decisions/D-012-app-serves-data-files.md) |
 
 ---
 
