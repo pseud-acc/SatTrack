@@ -106,7 +106,8 @@ Everything is written under the data folder (`SATTRACK_DATA_DIR`, default `pipel
 ├── app/
 │   ├── satcat_tle.csv           one row per tracked satellite with its element set (OMM + TLE; what the app plots)
 │   ├── last_data_update.csv     freshness rows: SpaceTrack_GP, GCAT
-│   └── manifest.json            rows, SHA-256 and as-of dates of the two CSVs
+│   ├── objects.json.br / .gz    the browser's objects dataset, pre-compressed (docs/app-data-contract.md)
+│   └── manifest.json            rows, SHA-256 and as-of dates of every file above
 ├── health/health.html, health.json      pipeline health page
 ├── reports/data_summary.html            data summary dashboard (dbt Charts)
 └── logs/YYYY/MM/DD/<run_id>.log         run summary: command, stage results, mart row changes

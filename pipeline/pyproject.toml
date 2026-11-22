@@ -21,9 +21,11 @@ dependencies = []
 [dependency-groups]
 pipeline = [
     "boto3>=1.43.126,<2",
+    "brotli>=1.1,<2",                     # pre-compressed app data files (scripts/export_app_csvs.py)
     "dbt-oss==2.0.8",
     "duckdb==2.0.0",
     "geonamescache==3.0.2",
+    "jsonschema>=4.23,<5",                # app data files validated against app/contracts/*.schema.json
     "pycountry==24.6.1",
     "requests==2.34.2",
 ]
@@ -36,7 +38,9 @@ docs = [
     "pyyaml==6.0.3",
 ]
 bouncer = [
+    "brotli>=1.1,<2",
     "dbt-bouncer==4.5.1",
+    "jsonschema>=4.23,<5",
     "pytest==9.2.0",
 ]
 
