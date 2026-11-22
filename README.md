@@ -6,7 +6,7 @@
 
 This repository contains python scripts to run the SatTrack App - an open-source real-time satellite tracking app - for visualising active and inactive satellites orbiting the Earth. The live app is at [https://www.sattrackapp.com](https://www.sattrackapp.com).
 
-The project consists of two parts - (1) a data pipeline; (2) an interactive app. The interactive app is a Dash app (hosted on Heroku) in which satellite TLE data is converted into a real-time satellite position and satellite catalogue data is used to filter 2d and 3d visualisations. The app also allows satellite position data to be exported in tabular form (to a csv).
+The project consists of two parts - (1) a data pipeline; (2) an interactive app. The interactive app is a Dash app (hosted on Heroku) in which each satellite's orbital elements (Space-Track OMM data, propagated with SGP4) are converted into a real-time satellite position and satellite catalogue data is used to filter 2d and 3d visualisations. The app also allows satellite position data to be exported in tabular form (to a csv).
 
 The data pipeline (`pipeline/`) ingests Space-Track GP orbital data (USSPACECOM via Space-Track.org) and Jonathan McDowell's GCAT catalogue, and models them with dbt on DuckDB. It runs daily on GitHub Actions with its state in a private S3 bucket (`infra/`), and publishes the app's CSVs there; the app reads them from S3 when it starts. Column definitions and lineage: https://pseud-acc.github.io/SatTrack/
 

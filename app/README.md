@@ -2,7 +2,9 @@
 
 The Dash web app at [www.sattrackapp.com](https://www.sattrackapp.com): live 3D and 2D positions of active and
 inactive satellites, their orbits, filters, and a table that exports to CSV. It reads the pipeline's satellite
-file once at start-up and computes every position itself with SGP4.
+file once at start-up and computes every position itself with SGP4, from each satellite's OMM element set (the
+Space-Track GP fields; TLE lines only as a fallback for an older file). Latitude and altitude are on the WGS 84
+ellipsoid, as on maps and other trackers.
 
 - **Stack:** Dash 4 + Dash Bootstrap Components 2 (CYBORG theme), Plotly 5, pandas, sgp4; served by gunicorn on a
   Heroku Eco dyno (2 workers, 512 MB).
@@ -35,10 +37,11 @@ flowchart LR
 
 1. **Start-up** (`run_app.py`): each gunicorn worker imports the app, which calls `get_app_data()` once. That
    loads the two CSVs, builds the filter options and the static parts of the figures (Earth surface, layouts),
-   and keeps them in memory for the life of the worker.
+   builds one SGP4 propagator (`Satrec`) per satellite from its OMM fields, and keeps them all in memory for the
+   life of the worker.
 2. **Requests:** every interaction is a Dash callback. The 3D, 2D and table callbacks filter the satellites,
-   propagate each element set to the current time with SGP4 (`helper__satellite_position.py`), and return a
-   new figure or table rows.
+   propagate the satellites' prebuilt `Satrec`s to the current time in one vectorised SGP4 call, convert to WGS 84
+   latitude/longitude/altitude (`helper__satellite_position.py`), and return a new figure or table rows.
 3. **Live updates:** timers re-run the 3D callback every 20 s and the 2D callback every 3 s, so positions move
    while the page is open. A 3D timer tick sends only what moved, as a Dash `Patch`: positions, the position part
    of the hover labels, the timestamp and any tracked orbits (about 0.3 MB compressed for ~16,000 satellites).
@@ -59,7 +62,7 @@ New data reaches the app only when a worker starts (a deploy, a restart, or the 
 | `layouts/` | Page layouts: `layout_home.py` (landing page, data sources), `layout_sat_visualisations.py` (tracker), `layout_navbar.py` |
 | `layouts/components/` | Tracker building blocks: `header.py` (title, credits, data age), `filter_sidebar.py` + `filters/`, `visualization_area.py` + `visualizations/` (3D, 2D, table tabs) |
 | `callbacks/` | One module per area (`callback_3d_viz.py`, `callback_2d_viz.py`, `callback_table.py`, `callback_filters.py`, `callback_navbar.py`), registered by `callback_registry.py` |
-| `helper/` | `helper__app_data.py` (filter options, filtering, orbit paths), `helper__satellite_position.py` (SGP4, TEME → lat/lon/alt, xyz), `helper__plot_display.py` (3D/2D figures, hover labels, camera, orbit clicks), `helper__table_display.py`, `helper__filter_display.py`, `helper__constants.py` |
+| `helper/` | `helper__app_data.py` (filter options, filtering, orbit paths), `helper__satellite_position.py` (`Satrec`s from OMM with TLE fallback, cached; SGP4; TEME → WGS 84 lat/lon/alt; xyz), `helper__plot_display.py` (3D/2D figures, hover labels, camera, orbit clicks), `helper__table_display.py`, `helper__filter_display.py`, `helper__constants.py` |
 | `styles/` | Colour palette and component styles |
 | `layouts/Archive/` | Earlier layouts, not used |
 | `../assets/` | CSS (Bootstrap, `custom.css`) and the Earth map image, served by Dash |
