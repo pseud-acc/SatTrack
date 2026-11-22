@@ -18,6 +18,9 @@ Entries D-001 to D-008 were recorded retrospectively on 22 Nov 2026 from the PRs
 | [D-007](#d-007-stay-on-sgp4-improve-accuracy-through-fresher-elements) | Stay on SGP4; improve accuracy through fresher elements | Accepted | 2026-11-22 |
 | [D-008](#d-008-fetch-celestrak-data-only-from-the-pipeline-never-retry-a-refusal) | Fetch CelesTrak data only from the pipeline; never retry a refusal | Accepted | 2026-11-21 |
 | [D-009](#d-009-browser-data-file-one-record-per-object-with-the-warehouses-field-names) | Browser data file: one record per object, with the warehouse's field names | Accepted | 2026-11-22 |
+| [D-010](#d-010-data-contracts-two-core-datasets-feature-datasets-one-envelope) | Data contracts: two core datasets, feature datasets, one envelope | Accepted | 2026-11-22 |
+| [D-011](#d-011-objects-file-covers-every-tracked-object-unknown-hidden-by-default) | Objects file covers every tracked object; UNKNOWN hidden by default | Accepted | 2026-11-22 |
+| [D-012](#d-012-the-app-serves-the-data-files-with-threaded-workers-no-extra-cdn-account) | The app serves the data files, with threaded workers; no extra CDN account | Accepted | 2026-11-22 |
 
 ---
 
@@ -176,3 +179,72 @@ prediction, per-satellite pages, API).
 **Consequences.** The pipeline validates every record against a JSON Schema and checks the count and unique, sorted
 ids. Lists stay JSON arrays (empty, not null, when there are none). Element numbers are never rounded. The format is
 documented in `docs/app-data-contract.md`. Scope and delivery are separate decisions.
+
+## D-010 Data contracts: two core datasets, feature datasets, one envelope
+**Status:** Accepted, 2026-11-22 (plan 2.1). **Component:** every data file the pipeline publishes for the app.
+
+**Context.** The roadmap and growth plan need many datasets over time: the globe, the detail panel, re-entries,
+conjunctions, radio frequencies, element history, the replay and event pages. Defining them one by one risks
+incompatible shapes and files that can drift between runs.
+
+**Decision.**
+- **Core datasets:** `objects` (every tracked object, loaded on every page) and `object_detail` (loaded per satellite
+  on demand). `object_detail`'s shape is documented in 2.1; its file ships with the detail panel (3.4).
+- **Feature datasets** are added with the feature that needs them: `reentries`, `conjunctions`, `transmitters`,
+  `element_history`, `catalogue_history`, `launch_sites`, `organisations`, `events`.
+- **The envelope every dataset shares:**
+  - a header with `dataset`, `schema`, `count`, `generated_at`, `run_id`, `key`, `attribution` and `caution`;
+  - records keyed by `satcat_id`, with the warehouse's field names;
+  - lists as arrays and gaps as `null`;
+  - additive changes only, so a renamed field or a changed meaning raises `schema`;
+  - one JSON Schema per dataset in `app/contracts/`, every record validated before publishing.
+- **One manifest:** `app/current.json` lists every dataset of a run with its path, SHA-256 and schema version, and the
+  app loads all of a run's files or none.
+
+**Why.** Datasets can be added and changed independently without breaking readers. `satcat_id` joins them without
+relying on position. Each file carries its own licence, so SatNOGS's CC BY-SA data never mixes with CC BY or
+Space-Track data. A run is always loaded as a consistent whole.
+
+**Rejected.** One growing file with everything: it would slow the first load and mix licences. Separate ad-hoc formats
+per feature: they drift apart and each needs its own reader.
+
+## D-011 Objects file covers every tracked object; UNKNOWN hidden by default
+**Status:** Accepted, 2026-11-22 (plan 2.1). **Component:** the `objects` dataset.
+
+**Decision.** Include every object in the GP feed (32,652 on 21 Nov: 19,742 payloads, 10,179 debris, 2,219 rocket
+bodies, 512 `UNKNOWN`), each with Space-Track's `object_type`. The 512 `UNKNOWN` objects are Space-Track analyst
+objects named "TBA - TO BE ASSIGNED", with no international designator, GCAT match, launch year or owner. They are
+included, and the UI hides them unless switched on. Display defaults for debris and rocket bodies are set by the
+Cesium spike (3.1).
+
+**Why.** The re-entry layer, conjunctions, statistics, the replay and bright passes all need rocket bodies and
+debris. Including them costs 0.72 MB against payloads only (1.70 against 0.98 MB with Brotli). The `UNKNOWN` rule
+comes straight from the source data, costs 0.03 MB, and keeps real tracked objects available.
+
+**Consequences.** The filter spec (2.2) needs a fixed rule for missing values. It's needed anyway, for the 2 payloads
+without a launch year and the 515 objects without an owner.
+
+## D-012 The app serves the data files, with threaded workers; no extra CDN account
+**Status:** Accepted, 2026-11-22 (plan 2.1). **Component:** delivery of the data files; `Procfile`.
+
+**Context.** The S3 bucket is private and also holds the warehouse, logs and state. Heroku's router buffers only 1 MB
+of each response, and the objects file is 1.70 MB with Brotli. Under gunicorn's default sync workers (2), a slow
+phone download would hold a whole worker for seconds and stall other users' updates.
+
+**Decision.** The pipeline writes the pre-compressed file beside the CSV, listed in `app/current.json`. The app loads
+it at start-up and serves it with an ETag. gunicorn runs threaded workers (`--threads 4`), so a slow download
+occupies one thread and not the worker.
+
+**Why.**
+- No AWS changes, the bucket stays private, and the file always comes from the same run as the CSV.
+- Local runs and CI use it the same way as the CSV.
+- The threads fix the slow-client problem at no memory cost.
+
+**Rejected.**
+- Cloudflare in front: one more account and a DNS move to maintain, which the owner rejected for its management overhead.
+- A public S3 file or CloudFront now: new AWS resources, CORS and cache invalidation, with no need at today's traffic.
+- Short-lived S3 links: CORS on the private bucket, links that break when the key is rotated, and awkward caching.
+- Splitting the file below 1 MB: multi-part loads add failure modes.
+
+**Revisit.** If traffic needs a CDN (e.g. the growth plan's launch posts), use AWS CloudFront in the existing account
+through CloudFormation: no new account and no DNS change.
