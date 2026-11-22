@@ -80,3 +80,20 @@ def test_a_non_csv_body_stops_the_run(tmp_path):
 def test_main_exits_non_zero_when_stopped(tmp_path, monkeypatch):
     monkeypatch.setattr(cf, "run", lambda out, wanted, pause: {"groups": [], "stopped": "HTTP 429"})
     assert cf.main([str(tmp_path)]) == 1
+
+
+def test_pages_mode_archives_pages_only(tmp_path):
+    fake = Fake({cf.SITE + "usage-policy.php": "<html>policy</html>"})
+    m = cf.save_pages(tmp_path, ["usage-policy.php"], 5, opener=fake, sleep=lambda s: None)
+    assert fake.calls == [cf.SITE + "usage-policy.php"]          # no index page, no groups
+    assert (tmp_path / "usage-policy.php").read_text() == "<html>policy</html>"
+    assert m["stopped"] is None
+
+
+def test_pages_mode_stops_on_refusal_and_rejects_odd_paths(tmp_path):
+    fake = Fake({cf.SITE + "a.php": 403, cf.SITE + "b.php": "x"})
+    m = cf.save_pages(tmp_path, ["a.php", "b.php"], 0, opener=fake, sleep=lambda s: None)
+    assert fake.calls == [cf.SITE + "a.php"] and "HTTP 403" in m["stopped"]
+    import pytest
+    with pytest.raises(ValueError):
+        cf.save_pages(tmp_path, ["../etc"], 0, opener=fake, sleep=lambda s: None)

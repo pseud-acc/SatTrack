@@ -1,6 +1,7 @@
 """Download CelesTrak's GP group lists once, for analysis and local testing (run by .github/workflows/celestrak-fetch.yml).
 
     python pipeline/scripts/celestrak_fetch.py <out dir> [--groups a,b,c] [--pause 5]
+    python pipeline/scripts/celestrak_fetch.py <out dir> --pages usage-policy.php     (pages only, no groups)
 
 Lists the groups linked from CelesTrak's GP index page, then downloads each group once as CSV, in order, with a pause
 between requests. Follows D-008: a 403, a 429, an error status or a body that isn't CSV stops the whole run (no
@@ -24,6 +25,7 @@ INDEX_URL = "https://celestrak.org/NORAD/elements/"
 GROUP_URL = "https://celestrak.org/NORAD/elements/gp.php?GROUP={group}&FORMAT=csv"
 USER_AGENT = "SatTrack-analysis/1.0 (+https://github.com/pseud-acc/SatTrack)"
 CSV_HEADER = "OBJECT_NAME,"
+SITE = "https://celestrak.org/"
 
 
 class Refused(Exception):
@@ -75,12 +77,39 @@ def run(out: Path, wanted: list[str] | None, pause: float, opener=urllib.request
     return manifest
 
 
+def save_pages(out: Path, pages: list[str], pause: float, opener=urllib.request.urlopen, sleep=time.sleep) -> dict:
+    """Archive a few CelesTrak pages (e.g. the usage policy) as HTML, with the same stop-on-refusal rule."""
+    out.mkdir(parents=True, exist_ok=True)
+    manifest = {"pages": [], "stopped": None, "started_at": datetime.now(timezone.utc).isoformat()}
+    try:
+        for i, page in enumerate(pages):
+            if not re.fullmatch(r"[A-Za-z0-9_./-]+", page) or ".." in page:
+                raise ValueError(f"bad page path: {page!r}")
+            if i:
+                sleep(pause)
+            url = SITE + page
+            body = get(url, opener)
+            name = page.replace("/", "_")
+            (out / name).write_text(body, encoding="utf-8")
+            manifest["pages"].append({"page": page, "url": url, "bytes": len(body.encode()),
+                                      "fetched_at": datetime.now(timezone.utc).isoformat()})
+    except Refused as e:
+        manifest["stopped"] = str(e)
+    (out / "manifest.json").write_text(json.dumps(manifest, indent=1), encoding="utf-8")
+    return manifest
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("out", type=Path)
     parser.add_argument("--groups", help="comma-separated group names; default: every group on the index page")
     parser.add_argument("--pause", type=float, default=5.0, help="seconds between requests (default 5)")
+    parser.add_argument("--pages", help="comma-separated page paths under celestrak.org to archive instead of groups")
     args = parser.parse_args(argv)
+    if args.pages:
+        m = save_pages(args.out, [p.strip() for p in args.pages.split(",") if p.strip()], args.pause)
+        print(f"{len(m['pages'])} pages; stopped: {m['stopped']}")
+        return 1 if m["stopped"] else 0
     wanted = [g.strip() for g in args.groups.split(",") if g.strip()] if args.groups else None
     m = run(args.out, wanted, args.pause)
     print(f"{len(m['groups'])} groups, {sum(g['rows'] for g in m['groups'])} rows; stopped: {m['stopped']}")

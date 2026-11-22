@@ -1,6 +1,6 @@
 # One-off CelesTrak download for analysis and local testing (D-008, D-026). CelesTrak has blocked the owner's IP, so
-# requests are made from GitHub's runners. Runs only on demand: a manual dispatch, or adding the label
-# `fetch-celestrak` to a pull request. Never on a schedule or on push. One request per group with a pause between;
+# requests are made from GitHub's runners. Runs only on demand: a manual dispatch, or adding a label to a pull
+# request: `fetch-celestrak` (every group) or `fetch-celestrak-policy` (only the usage-policy page, one request). Never on a schedule or on push. One request per group with a pause between;
 # the first refusal stops the run with no retries. Output is a short-lived workflow artifact, never committed:
 #   gh run download <run id> -n celestrak-groups -D <folder outside the repo>
 # No secrets and no AWS.
@@ -12,6 +12,10 @@ on:
     inputs:
       groups:
         description: "Comma-separated CelesTrak group names (empty: every group on the GP index page)"
+        required: false
+        default: ""
+      pages:
+        description: "Comma-separated celestrak.org page paths to archive instead of groups (e.g. usage-policy.php)"
         required: false
         default: ""
   pull_request:
@@ -31,7 +35,9 @@ defaults:
 jobs:
   fetch:
     name: fetch CelesTrak groups
-    if: github.event_name == 'workflow_dispatch' || github.event.label.name == 'fetch-celestrak'
+    if: >-
+      github.event_name == 'workflow_dispatch' || github.event.label.name == 'fetch-celestrak' ||
+      github.event.label.name == 'fetch-celestrak-policy'
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
@@ -48,8 +54,9 @@ jobs:
       - name: Download groups
         env:
           GROUPS: ${{ inputs.groups }}
+          PAGES: ${{ github.event.label.name == 'fetch-celestrak-policy' && 'usage-policy.php' || inputs.pages }}
         run: |
-          python pipeline/scripts/celestrak_fetch.py "$RUNNER_TEMP/celestrak" ${GROUPS:+--groups "$GROUPS"}
+          python pipeline/scripts/celestrak_fetch.py "$RUNNER_TEMP/celestrak" ${PAGES:+--pages "$PAGES"} ${GROUPS:+--groups "$GROUPS"}
 
       - name: Upload
         if: always()
