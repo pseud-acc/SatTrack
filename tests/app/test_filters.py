@@ -60,16 +60,29 @@ def test_uses_the_app_clock(sample_df, filters, t_ref):
     {"purpose": ["Communications"]},
     {"year": [2000, 2010]},
     {"status": ["Active"], "orbit": ["GEO"], "owner": "most_common", "year": [2000, 2026]},
+    # More baseline for the filter spec (2.2/2.3): multi-value selections, a single year, contradictions
+    {"owner": "top_two"},
+    {"launchvehicle": "top_two"},
+    {"purpose": ["Navigation", "Scientific studies"]},
+    {"year": [2015, 2015]},
+    {"satname": "first", "satcatid": "second"},           # name and id of different satellites -> nothing
+    {"satname": "first", "status": "other_status"},       # selected satellite excluded by another filter
+    {"orbit": []},
 ], ids=lambda c: ",".join(c) or "everything")
 def test_filter_returns_exact_set(sample_df, filters, t_ref, case):
-    first = sample_df.iloc[0]
+    first, second = sample_df.iloc[0], sample_df.iloc[1]
+    top = lambda col, n: list(sample_df[col].value_counts().index[:n])  # noqa: E731
     resolve = {
-        "satcatid": lambda v: str(first.SatCatId),
-        "satname": lambda v: first.ObjectName,
-        "owner": lambda v: [sample_df.Owner.value_counts().index[0]],
-        "launchvehicle": lambda v: [sample_df.LaunchVehicleClass.value_counts().index[0]],
+        ("satcatid", "first"): lambda: str(first.SatCatId),
+        ("satcatid", "second"): lambda: str(second.SatCatId),
+        ("satname", "first"): lambda: first.ObjectName,
+        ("owner", "most_common"): lambda: top("Owner", 1),
+        ("owner", "top_two"): lambda: top("Owner", 2),
+        ("launchvehicle", "most_common"): lambda: top("LaunchVehicleClass", 1),
+        ("launchvehicle", "top_two"): lambda: top("LaunchVehicleClass", 2),
+        ("status", "other_status"): lambda: ["Inactive" if first.Status == "Active" else "Active"],
     }
-    kw = {k: resolve[k](v) if v in ("first", "most_common") else v for k, v in case.items()}
+    kw = {k: resolve[(k, v)]() if isinstance(v, str) and (k, v) in resolve else v for k, v in case.items()}
     out, _, encoded, args = run(sample_df, filters, **kw)
     assert set(out.SatCatId) == expected_ids(sample_df, t_ref, **args)
     assert len(out) == out.SatCatId.nunique()
