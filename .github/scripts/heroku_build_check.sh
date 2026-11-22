@@ -84,7 +84,8 @@ echo "::endgroup::"
 echo "::group::Run (Procfile web in heroku-24, 512 MB)"
 # The committed sample plus, for the slow-client check, a CI-only dataset of random bytes served as gzip.
 mkdir -p "$W/app-data" && cp -r "$REPO_ROOT/$APP_DATA/." "$W/app-data/"
-head -c $((SLOW_FILE_MB * 1000000)) /dev/urandom > "$W/app-data/slowtest.json.gz"
+head -c 3000000 /dev/urandom > "$W/app-data/slowtest.json.gz"
+head -c 24000000 /dev/urandom > "$W/app-data/slowbig.json.gz"
 CMD="$(sed -n 's/^web:[[:space:]]*//p' "$W/app/Procfile")"
 [ -n "$CMD" ] || { echo "::error::no web process in Procfile"; exit 1; }
 echo "web: $CMD"
@@ -133,19 +134,21 @@ if [ "$up" = 1 ]; then
   echo "records: $count"
   code="$(curl -s -o /dev/null -H 'Accept-Encoding: br' -H "If-None-Match: $etag" -w '%{http_code}' "$URL")"
   echo "revalidate: $code"; [ "$code" = 304 ] || fail "If-None-Match did not return 304"
-  # Slow clients: 4 downloads at 30 KB/s keep their connections busy for ~100 s each.
-  pids=()
-  for _ in 1 2 3 4; do
-    curl -s -o /dev/null -m 150 --limit-rate 30k -H 'Accept-Encoding: gzip' "http://127.0.0.1:$PORT/data/slowtest.json" &
-    pids+=($!)
+  # CONTROL (do not merge): sync workers, slow clients at two file sizes; report only.
+  for ds in slowtest slowbig; do
+    pids=()
+    for _ in 1 2 3 4; do
+      curl -s -o /dev/null -m 60 --limit-rate 30k -H 'Accept-Encoding: gzip' "http://127.0.0.1:$PORT/data/$ds.json" &
+      pids+=($!)
+    done
+    sleep 3
+    for p in /_dash-layout /_dash-dependencies; do
+      t="$(curl -s -o /dev/null -m 20 -w '%{http_code} %{time_total}' "http://127.0.0.1:$PORT$p")"
+      echo "CONTROL sync workers, 4 slow downloads of $ds: $p -> $t s"
+    done
+    kill "${pids[@]}" 2>/dev/null || true; wait 2>/dev/null || true
+    sleep 2
   done
-  sleep 3
-  for p in /_dash-layout /_dash-dependencies; do
-    t="$(curl -s -o /dev/null -m 20 -w '%{http_code} %{time_total}' "http://127.0.0.1:$PORT$p")"
-    echo "during slow downloads: $p -> $t s"
-    [ "${t%% *}" = 200 ] && awk -v s="${t##* }" 'BEGIN { exit !(s < 5) }'       || fail "$p waited behind slow downloads ($t): workers are blocked"
-  done
-  kill "${pids[@]}" 2>/dev/null || true; wait 2>/dev/null || true
 fi
 echo "::endgroup::"
 
