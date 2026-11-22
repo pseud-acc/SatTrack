@@ -22,7 +22,7 @@ import numpy as np
 from datetime import datetime, timedelta
 
 # Internal modules
-from app.helper.helper__satellite_position import (compute_satloc, lla_to_xyz)
+from app.helper.helper__satellite_position import (compute_satloc, lla_to_xyz, satrecs_for)
 from app.helper.helper__constants import _radius_earth__c
 
 def create_data_filters(df):
@@ -108,7 +108,7 @@ def filter_satellite_data(df_in, input_filter,
     # Compute satellite locations at current time
     time_now = datetime.utcnow()
 
-    df_in[["x","y","z","lat","lon","alt"]] = compute_satloc(df_in[["TLE1","TLE2"]].values, time_now, _radius_earth__c, False)
+    df_in[["x","y","z","lat","lon","alt"]] = compute_satloc(satrecs_for(df_in), time_now, _radius_earth__c, False)
     
     # drop only satellites SGP4 could not place; a blank descriptive field must not hide one
     df_in = df_in.dropna(subset=["x","y","z","lat","lon","alt"])
@@ -138,11 +138,13 @@ def generate_orbital_path(df_in, res, time_now, eci):
     time_lapse=[]
     for dt in orbit_dt:
         time_lapse = np.append(time_lapse,(time_now + timedelta(minutes=dt)).replace(microsecond=0))
-    df_path = pd.DataFrame(compute_satloc(df_in[["TLE1","TLE2"]].astype(str).values[0], time_lapse, _radius_earth__c, eci), 
+    df_path = pd.DataFrame(compute_satloc(satrecs_for(df_in.iloc[[0]])[0], time_lapse, _radius_earth__c, eci), 
                        columns =["x","y","z","lat","lon","alt"])
+    df_path["Datetime"] = time_lapse
+    # a satellite that decays during the period: keep only the points SGP4 could compute (hover labels need numbers)
+    df_path = df_path.dropna(subset=["x","y","z","lat","lon","alt"]).reset_index(drop=True)
     df_path["xp"], df_path["yp"], df_path["zp"] = lla_to_xyz(df_path.lat,df_path.lon,df_path.alt,_radius_earth__c)    
     for col in np.setdiff1d(list(df_in.columns),list(df_path.columns)):
         df_path[col] = df_in[col].values[0]
-    df_path["Datetime"] = time_lapse
 
     return df_path

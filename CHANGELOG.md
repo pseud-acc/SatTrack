@@ -29,6 +29,7 @@ When creating pull requests, use the following prefixes to indicate the type of 
 - `SATTRACK_APP_DATA_DIR`: run the app from a local folder of the pipeline's app CSVs; `tests/app_data` holds a small sample
 
 ### Changed
+- Satellite positions are calculated from each satellite's OMM element set (`sgp4.omm.initialize`) instead of its TLE lines, so satellites Space-Track gives no TLE lines for (catalogue numbers above 339,999) can be shown; the pipeline no longer drops them. A file without the OMM columns still works from its TLE lines for one release. Each element set's propagator is built once and reused, so updating the views is faster (all ~19,700 satellites: 188 → 116 ms per update; a 2D ground track: 71 → 42 ms). Satellites with catalogue numbers above 339,999 propagate too (sgp4 can't label them, so they are built with a placeholder number)
 - Dash 2.18 → 4.5.1 and dash-bootstrap-components 1.7 → 2.0.4, which brings the patched Flask 3.1.3 and Werkzeug 3.1.9 (the last 5 Dependabot alerts). The sidebar keeps its look: Dash 4's redesigned checklists and launch-year slider are styled to the app's theme. The filter dropdowns now open a panel with a search box and Select all / Deselect all
 - Security updates for the app (Dependabot): Pillow 10.4 → 13.0, gunicorn 20.1 → 23.0, urllib3 2.8, requests 2.34, certifi, idna and setuptools; dev tools pytest 9 and black 26. Werkzeug and Flask followed with the Dash 4 upgrade
 - 3D view traffic: responses are compressed, hover labels use one shared template, and the 20-second refresh sends only the moved positions (28.7 MB → 0.31 MB per refresh with ~16,000 satellites); labels and click-to-track unchanged
@@ -39,6 +40,8 @@ When creating pull requests, use the following prefixes to indicate the type of 
 - The legacy pipeline (`src/`, root `run_pipeline.py`) and its CSVs in `dat/` (CelesTrak, UCS, space.skyrocket); the app no longer reads raw GitHub CSVs
 
 ### Fixed
+- Latitude and altitude are now geodetic on the WGS 84 ellipsoid, as on maps and other trackers, instead of on a spherical Earth: the 2D map, hover labels and list view could put a satellite up to ~0.19° (about 20 km) off and show its altitude up to ~21 km low at high latitudes (the ISS read ~400 km instead of ~413 km). Checked against wheretheiss.at with the same TLE (now identical) and NASA's ISS ephemeris (about 1 km, SGP4's own accuracy)
+- A satellite that decays partway through its plotted orbit no longer breaks the 2D view: points SGP4 can't compute are left out of the path
 - A satellite with any blank field (for example an unknown launch mass) was hidden from the views: the app now drops only satellites SGP4 cannot place
 - Satellite details stopped updating from 16 Nov because GCAT gave two IDs (F01824, F01834) to two payloads each from the failed Vulcan launch of 15 Nov; the pipeline held back all GCAT details. A repeated ID in GCAT's launch log now keeps its first row in GCAT's file order and is reported as a warning; more than 10 repeated IDs still stop the update
 - Satellite positions froze whenever the pipeline held its GCAT enrichment step (as on 17–18 Nov, when GCAT gave two failed-launch Kuiper payloads the same ID): the app export now takes element sets and "Last updated" from the tracking tables, which update every run, and only the descriptive fields from enrichment

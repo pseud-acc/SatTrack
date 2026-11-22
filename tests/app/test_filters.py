@@ -12,7 +12,7 @@ import pytest
 
 from _support import ALL_ORBITS, ALL_STATUS, EARTH_RADIUS_KM, expected_ids
 from app.helper.helper__app_data import create_data_filters, filter_satellite_data, generate_orbital_path
-from app.helper.helper__satellite_position import compute_satloc
+from app.helper.helper__satellite_position import compute_satloc, satrecs_for
 
 
 @pytest.fixture(scope="module")
@@ -95,6 +95,20 @@ def test_blank_non_position_field_does_not_hide_a_satellite(sample_df, filters, 
     assert df.loc[0, "SatCatId"] in set(out.SatCatId)
 
 
+def test_orbital_path_skips_points_after_decay(sample_df, filters, t_ref):
+    """Copilot review on #56: a satellite that propagates now but decays within its plotted period keeps its valid
+    points; the failed ones are dropped (with their times) instead of reaching the 2D hover labels as NaN, which
+    raised in .astype(int). Elements: 16.3 rev/day with B* 0.05 decay ~28 min after epoch (sgp4 error 6)."""
+    from app.helper.helper__plot_display import create_2d_scatter_hover_label
+    one = sample_df[(sample_df.OrbitClass == "LEO") & (sample_df.Eccentricity < 0.01)].iloc[[0]].copy()
+    one["MeanMotion"], one["Bstar"], one["Epoch"] = 16.3, 0.05, t_ref.strftime("%Y-%m-%dT%H:%M:%S.%f")
+    path = generate_orbital_path(one, 360, t_ref, False)
+    assert 0 < len(path) < 360
+    assert not path[["lat", "lon", "alt"]].isna().any().any()
+    assert path["Datetime"].iloc[0] == t_ref
+    assert len(create_2d_scatter_hover_label(path)[0]) == len(path)
+
+
 @pytest.mark.parametrize("eci", [True, False], ids=["3d-orbit", "2d-ground-track"])
 def test_orbital_path(sample_df, filters, t_ref, eci):
     """One orbital period, `res` points from now; each point is the satellite's position at its own time
@@ -108,7 +122,7 @@ def test_orbital_path(sample_df, filters, t_ref, eci):
     assert path["Datetime"].iloc[0] == t_ref
     span = (path["Datetime"].iloc[-1] - t_ref).total_seconds()
     assert span == pytest.approx(sat.OrbitalPeriod * 60, abs=1)
-    now = compute_satloc(one[["TLE1", "TLE2"]].values, t_ref, EARTH_RADIUS_KM, False)[0]
+    now = compute_satloc(satrecs_for(one), t_ref, EARTH_RADIUS_KM, False)[0]
     np.testing.assert_allclose(path[["x", "y", "z"]].iloc[0], now[:3], atol=1e-6)
     np.testing.assert_allclose(path[["lat", "alt"]].iloc[0], now[[3, 5]], atol=1e-6)
     # After one period the satellite is back where it started in inertial space (within 1% of the radius)

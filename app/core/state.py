@@ -37,6 +37,7 @@ from app.helper.helper__plot_display import (create_3d_layout, create_3d_surface
                                              create_2d_layout, create_2d_figure)
 from app.helper.helper__table_display import create_table_mapping
 from app.helper.helper__app_data import create_data_filters
+from app.helper.helper__satellite_position import satrec_sources, satrecs_for
 
 # Global cache for app data (lazy initialization)
 _app_data_cache = None
@@ -151,6 +152,10 @@ def initialise_app_data():
     print(f" - Earth map size (compressed): {img.shape}")
     print(f" - TLE metadata: {tle_metadata}")
     print(f" - Data source: {data_source} (Space-Track + GCAT)")
+
+    # Build every satellite's SGP4 propagator now, so the first callback doesn't pay for it
+    satrecs_for(df)
+    print(f" - Propagators: {satrec_sources(df)} (omm: OMM fields, tle: TLE fallback, none: no position)")
 
     # Initialise Filters
     options, initial_filter = create_data_filters(df)
