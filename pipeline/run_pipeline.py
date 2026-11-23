@@ -77,7 +77,8 @@ def dbt_build(unit: str, run_id: str) -> dict:
     for r in (results or {}).get("results", []):
         statuses[r["status"]] = statuses.get(r["status"], 0) + 1
         if r["status"] not in ("success", "pass"):
-            issues.append({"node": r["unique_id"].split(".")[2], "status": r["status"], "failures": r.get("failures")})
+            issues.append({"node": r["unique_id"].split(".")[2], "unique_id": r["unique_id"], "status": r["status"],
+                           "failures": r.get("failures")})
     failed = proc.returncode != 0 or any(s in statuses for s in ("error", "fail", "runtime error"))
     return {"unit": unit, "exit_code": proc.returncode, "duration_s": round(time.time() - t0, 1), "statuses": statuses,
             "issues": issues, "dbt_version": (results or {}).get("metadata", {}).get("dbt_version"),
@@ -205,11 +206,19 @@ def main() -> int:
             ops.execute("insert into audit.source_freshness values (?, ?, ?, ?, ?, ?)",
                         [ctx.run_id, f.get("unique_id", "").replace("source.sattrack.", ""), f.get("max_loaded_at"),
                          f.get("max_loaded_at_time_ago_in_s"), f.get("status"), f"{crit.get('count')} {crit.get('period')}"])
+    stale = [f for f in fresh if str(f.get("status")).lower() != "pass"]
+    try:  # how long each source has been warning; never fails the run
+        with audit.ops() as ops:
+            fresh_streaks = audit.freshness_warning_streaks(
+                ops, [f.get("unique_id", "").replace("source.sattrack.", "") for f in stale])
+    except Exception:  # noqa: BLE001
+        fresh_streaks = {}
     not_pass = [f"{f.get('unique_id', '').replace('source.sattrack.', '')} {str(f.get('status')).lower()}: "
                 f"{(f.get('max_loaded_at_time_ago_in_s') or 0) / 3600:.1f} h old (warn after "
                 f"{((f.get('criteria') or {}).get('warn_after') or {}).get('count')} "
                 f"{((f.get('criteria') or {}).get('warn_after') or {}).get('period')})"
-                for f in fresh if str(f.get("status")).lower() != "pass"]
+                + runlog.since_suffix(fresh_streaks.get(f.get("unique_id", "").replace("source.sattrack.", "")))
+                for f in stale]
     stages.append({"stage": "source_freshness", "status": "warn" if not_pass else "ok",
                    "sources": len(fresh), "not_pass": not_pass})
 
@@ -237,6 +246,13 @@ def main() -> int:
                         "values (?, ?, ?, ?, ?)",
                         [ctx.run_id, unit, res["exit_code"], int(recorded),
                          None if recorded else audit.json_dumps({"results": res["results"], "log_tail": res["log_tail"]})])
+            try:  # how long each warning check has been warning (Elementary's history); never fails the run
+                streaks = audit.check_warning_streaks(ops, [i["unique_id"] for i in res["issues"] if i["status"] == "warn"])
+            except Exception:  # noqa: BLE001
+                streaks = {}
+            for i in res["issues"]:
+                if i["unique_id"] in streaks:
+                    i["warn_since"], i["warn_runs"] = streaks[i["unique_id"]]
 
     # 4. publish: keep the last good version of any unit that didn't pass
     for unit, st in unit_status.items():

@@ -24,6 +24,7 @@ Read the records a feature touches before scoping it.
 | [D-010](#d-010-data-contracts-two-core-datasets-feature-datasets-one-envelope) | Data contracts: two core datasets, feature datasets, one envelope | Accepted | 2026-11-22 | [record](decisions/D-010-data-contracts.md) |
 | [D-011](#d-011-objects-file-covers-every-tracked-object-unknown-hidden-by-default) | Objects file covers every tracked object; UNKNOWN hidden by default | Accepted | 2026-11-22 | [record](decisions/D-011-objects-cover-every-tracked-object.md) |
 | [D-012](#d-012-the-app-serves-the-data-files-with-threaded-workers-no-extra-cdn-account) | The app serves the data files, with threaded workers; no extra CDN account | Accepted | 2026-11-22 | [record](decisions/D-012-app-serves-data-files.md) |
+| [D-037](#d-037-pipeline-warnings-email-a-summary-without-failing-the-run) | Pipeline warnings email a summary without failing the run | Accepted | 2026-11-23 | [record](decisions/D-037-pipeline-warnings-email-without-failing.md) |
 
 ---
 
@@ -257,3 +258,22 @@ occupies one thread and not the worker.
 
 **Revisit.** If traffic needs a CDN (e.g. the growth plan's launch posts), use AWS CloudFront in the existing account
 through CloudFormation: no new account and no DNS change.
+
+## D-037 Pipeline warnings email a summary without failing the run
+**Status:** Accepted, 2026-11-23. **Component:** the run report and the `notify` job in `pipeline.yml`.
+
+**Context.** Any result other than OK failed the job so GitHub would email the owner. On 23 Nov a run published all
+its data but failed on a source-freshness warning: a misleading alert. Warn-severity checks didn't alert at all.
+
+**Decision.** A unit not published, a non-zero exit or stale data is still a problem and fails the job. A warn check
+or a stale source in a run with no problem is a warning: the job passes, and a separate `notify` job (only
+`issues: write`) comments the public summary on the open "Pipeline warnings" issue, or opens it, so GitHub emails the
+owner on every such run. The next run without warnings closes it. Each warning shows how long it has lasted, from
+Elementary's per-run results and `audit.source_freshness`.
+
+**Why.** A red run should mean data didn't go live. The issue needs no new account or AWS change.
+
+**Rejected.** Email through AWS SES (new AWS resources); an annotation only (warnings go unseen); emailing only when
+the warnings change (the owner chose every run).
+
+**Consequences.** A permanent warning emails every run, so it gets fixed or its severity changed by decision (#65).

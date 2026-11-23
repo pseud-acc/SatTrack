@@ -13,6 +13,10 @@
 #     that did not pass, and the dates of the data the app serves. No row data, object IDs or secrets.
 #   * Any problem (non-zero exit, a held unit, failed commit, stale positions or details) fails the job in
 #     that last step, after the state is committed, so GitHub emails the owner. Last good data stays live.
+#   * Warnings (a warn-severity dbt check, a stale source) don't fail the job: the data went live (D-037).
+#     The `notify` job posts the same public summary, with how long each warning has lasted, to the open
+#     "Pipeline warnings" issue (label pipeline-warnings), so GitHub emails the owner on every such run; the
+#     next run without warnings closes it. That job has only `issues: write` and no AWS access.
 
 name: sattrack-pipeline
 # EventBridge dispatches with the owner's token, so GitHub labels every run "Manually run by" (that label
@@ -67,6 +71,9 @@ jobs:
     permissions:
       contents: read
       id-token: write
+    outputs:
+      report_status: ${{ steps.report.outputs.status }}
+      report_body: ${{ steps.report.outputs.body }}
     env:
       AWS_REGION: ${{ vars.AWS_REGION }}
       SATTRACK_S3_BUCKET: ${{ secrets.SATTRACK_S3_BUCKET }}
@@ -185,6 +192,7 @@ jobs:
           python infra/state/sattrack_state.py push --pipeline-exit "$PIPELINE_EXIT" --log-file "$PRIVATE_LOG"
 
       - name: Run report (public) and alert on problems
+        id: report
         if: always()
         env:
           GATE: ${{ steps.gate.outputs.run }}
@@ -195,3 +203,40 @@ jobs:
       - name: Remove local data
         if: always()
         run: rm -rf "$RUNNER_TEMP/sattrack-data" "$RUNNER_TEMP/private"
+
+  notify:
+    name: warnings issue
+    # Emails warnings without failing the run (D-037). Problems already fail the pipeline job, which emails;
+    # a dry run or a gate skip changes nothing. The body is the report's public summary (no row data or IDs).
+    needs: pipeline
+    if: >-
+      always() && github.repository == 'pseud-acc/SatTrack' && !inputs.dry_run &&
+      (needs.pipeline.outputs.report_status == 'warning' || needs.pipeline.outputs.report_status == 'ok')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      issues: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      STATUS: ${{ needs.pipeline.outputs.report_status }}
+      BODY: ${{ needs.pipeline.outputs.report_body }}
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - name: Post warnings to the issue, or close it when they clear
+        run: |
+          set -euo pipefail
+          label=pipeline-warnings
+          open="$(gh issue list --state open --label "$label" --limit 1 --json number --jq '.[0].number // empty' 2>/dev/null || true)"
+          if [ "$STATUS" = warning ]; then
+            { printf '%s\n\n' "$BODY"; printf 'Run: %s\n' "$RUN_URL"; } > "$RUNNER_TEMP/body.md"
+            if [ -n "$open" ]; then
+              gh issue comment "$open" --body-file "$RUNNER_TEMP/body.md"
+            else
+              gh label create "$label" --color FBCA04 --force \
+                --description "Open while pipeline runs report warnings; closed by the next run without any"
+              gh issue create --title "Pipeline warnings" --label "$label" --body-file "$RUNNER_TEMP/body.md"
+            fi
+          elif [ -n "$open" ]; then
+            gh issue close "$open" --comment "No warnings in $RUN_URL. Closing."
+          fi
