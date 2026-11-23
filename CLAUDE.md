@@ -16,6 +16,7 @@ SatTrack (`pseud-acc/SatTrack`, live at https://www.sattrackapp.com) is a free, 
 | `tests/app_data/` | 341-row sample of the app CSVs, used locally and in CI | `tests/app_data/README.md` |
 | `docs/ROADMAP.md` | The feature roadmap, phases 0–7. Work through it in order unless told otherwise | |
 | `docs/DECISIONS.md` | Architecture decisions and why they were made | |
+| `docs/architecture.md` | How the pipeline, AWS, GitHub, Heroku and the data publishers connect (diagram) | |
 
 Data flow: EventBridge (daily) → GitHub Actions `pipeline.yml` (OIDC role, Space-Track login from Secrets Manager)
 → `pipeline/run_pipeline.py` → private S3 bucket (`app/` CSVs, warehouse, manifest, logs) → the app reads `app/`
