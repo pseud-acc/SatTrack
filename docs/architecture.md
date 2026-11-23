@@ -71,7 +71,8 @@ flowchart LR
    DuckDB.
 6. It validates the export (every `objects` record against `app/contracts/objects.schema.json`) and commits to S3
    with a conditional write, on a fresh 15-minute session. A failed build publishes nothing, so the app keeps the
-   last good data, and the job fails, which emails the owner.
+   last good data, and the job fails, which emails the owner. A run that publishes but has warnings passes, and
+   its summary is posted to the "Pipeline warnings" issue, which emails the owner too (D-037).
 7. Each time a dyno starts, the app reads `app/current.json` and the file versions it lists (SHA-256 checked), with
    the read-only app-reader key. New data shows after the dyno next restarts or wakes.
 

@@ -23,6 +23,15 @@ def _duration(seconds: float | None) -> str:
     return f"{seconds // 60}m {seconds % 60:02d}s" if seconds >= 60 else f"{seconds}s"
 
 
+def since_suffix(streak) -> str:
+    """' since 2026-11-21 03:18 UTC (3 runs)' for a (since, runs) warning streak, '' for None.
+    pipeline_report.py reads this exact form."""
+    if not streak:
+        return ""
+    since, runs = streak
+    return f" since {since:%Y-%m-%d %H:%M} UTC ({runs} run{'s' if runs != 1 else ''})"
+
+
 def _detail(stage: dict) -> list[str]:
     """One summary line plus any indented lines for things that did not pass."""
     name, extra = stage["stage"], []
@@ -48,6 +57,7 @@ def _detail(stage: dict) -> list[str]:
         if stage.get("reason"):
             line = stage["reason"]
         extra = [f"  {i['status']}: {i['node']}" + (f" ({i['failures']} rows)" if i.get("failures") else "")
+                 + since_suffix((i["warn_since"], i["warn_runs"]) if i.get("warn_runs") else None)
                  for i in stage.get("issues", [])]
         return [line] + extra
     if name == "orphan_cleanup":

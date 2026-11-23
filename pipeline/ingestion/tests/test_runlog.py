@@ -58,3 +58,30 @@ def test_crash_and_error_are_shown():
 def test_write_creates_folders(tmp_path):
     p = runlog.write(runlog.log_path(tmp_path, "run_x", STARTED), "x\n")
     assert p.read_text(encoding="utf-8") == "x\n"
+
+
+def test_warning_streak_is_shown_in_the_form_the_run_report_reads():
+    """The 'since … (N runs)' suffix is a contract with .github/scripts/pipeline_report.py (D-037)."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "pipeline_report", Path(__file__).resolve().parents[3] / ".github" / "scripts" / "pipeline_report.py")
+    report = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(report)
+    since = datetime(2026, 11, 21, 3, 18, 40)
+    text = _render(stages=[
+        {"stage": "source_freshness", "status": "warn", "sources": 15,
+         "not_pass": ["raw_jsr.orgs warn: 75.3 h old (warn after 48 hour)" + runlog.since_suffix((since, 3))]},
+        {"stage": "dbt:enrichment", "status": "ok", "duration_s": 92.1, "exit_code": 0, "statuses": {"warn": 2},
+         "issues": [{"node": "mh__stg__jsr__launchlog__pk_unique", "status": "warn", "failures": 2,
+                     "warn_since": since, "warn_runs": 3},
+                    {"node": "fk__dim__org__org_parent_code", "status": "warn", "failures": 2,
+                     "warn_since": since, "warn_runs": 1}]},
+    ])
+    lines = text.splitlines()
+    check = next(l for l in lines if "launchlog__pk_unique" in l)
+    assert check.endswith("warn: mh__stg__jsr__launchlog__pk_unique (2 rows) since 2026-11-21 03:18 UTC (3 runs)")
+    assert report.ISSUE.match(check).group(4, 5) == ("2026-11-21 03:18", "3")
+    assert next(l for l in lines if "org_parent_code" in l).endswith("since 2026-11-21 03:18 UTC (1 run)")
+    fresh = next(l for l in lines if "raw_jsr.orgs" in l)
+    assert report.FRESHNESS.match(fresh).group(1, 4, 5) == ("raw_jsr.orgs", "2026-11-21 03:18", "3")
+    assert runlog.since_suffix(None) == ""
