@@ -51,6 +51,35 @@ flowchart LR
 
 New data reaches the app only when a worker starts (a deploy, a restart, or the Eco dyno waking from sleep).
 
+### Cesium globe (beta, behind a flag)
+
+Phase 3 replaces the Plotly views with a CesiumJS globe ([docs/cesium-architecture.md](../docs/cesium-architecture.md),
+decisions D-013 to D-029, D-038, D-039). Until it is complete it is off unless `SATTRACK_CESIUM_VIEWER=1`; with it off,
+nothing below loads and no page changes.
+
+- **Self-hosted packages:** `vendor/cesium.lock` pins CesiumJS and satellite.js with their npm tarball hashes. The
+  Heroku build's `bin/post_compile` hook runs `vendor/fetch.py`, which downloads each tarball from the npm registry,
+  checks its sha512, extracts only the listed files into `static/vendor/<package>-<version>/` with Brotli and gzip
+  copies, and writes `static/vendor/manifest.json`. These files are never committed. At start-up the app checks the
+  manifest against the lock and every file's SHA-256; if anything differs the globe stays off and the log says why.
+  `GET /static/vendor/<path>` serves only manifest files, pre-compressed, cached for a year (the paths are versioned).
+- **Page:** with the flag on, the tracker gets a "Globe (beta)" tab (first, open by default) holding an empty
+  `div#globe` that no callback writes to, and four stores: `viewer-config` (same-origin URLs), `viewer-filters` (the
+  filter spec, from plan 3.3), `viewer-selection` (from plan 3.4) and `viewer-bridge`. A clientside callback (the
+  bridge, `callbacks/callback_viewer.py`) loads `static/viewer/viewer.js` as a module the first time the stores render.
+  Viewer code lives in `static/viewer/`, never `assets/` (which Dash loads on every page).
+- **Viewer:** `static/viewer/worker.js` fetches `/data/objects.json`, builds satellite.js records from the OMM fields
+  and returns Earth-fixed positions on a grid of simulation time (1 s, widened up to 10 s when the worker or the frames
+  are slow); `viewer.js` interpolates between samples each frame and moves one `PointPrimitiveCollection`. Objects that
+  fail SGP4 are NaN and hidden. Payloads show by default; rocket bodies and debris have toggles and "space junk mode";
+  `UNKNOWN` is never shown. The clock is corrected from the server's `Date` header. Every data string is written with
+  `textContent`. `window.sattrackViewer` exposes counts, timings and `snapshot(iso)` for the tests.
+- **Headers (flag on):** `Content-Security-Policy-Report-Only` and `Strict-Transport-Security: max-age=86400`
+  (proposed D-039). Not enforced yet: Cesium 1.147.0 needs `eval` and WebAssembly at load, which needs a decision.
+
+Locally: `python vendor/fetch.py` (add `--out <dir>` and set `SATTRACK_VENDOR_DIR=<dir>` to keep the files out of a
+synced folder), then `SATTRACK_CESIUM_VIEWER=1 SATTRACK_APP_DATA_DIR=tests/app_data uv run python run_app.py`.
+
 ## Directory layout
 
 | Path | What |
@@ -131,6 +160,8 @@ stops with an error naming both.
 | `SATTRACK_APP_DATA_DIR` | Local folder with the two CSVs (local runs, CI) |
 | `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` | Heroku: the read-only `sattrack-app-reader` key (S3 `app/*` only). Locally, `AWS_PROFILE` instead |
 | `AWS_REGION` | Bucket region, default `eu-west-1` |
+| `SATTRACK_CESIUM_VIEWER` | `1` turns on the Cesium globe tab and its security headers (default off) |
+| `SATTRACK_VENDOR_DIR` | Local runs and tests only: where `vendor/fetch.py` put the vendor files (default `static/vendor`) |
 | `PORT`, `WEB_CONCURRENCY` | Set by Heroku: gunicorn's port and worker count (each worker runs 4 threads: `--threads 4` in the Procfile, so a slow download of a data file holds one thread, not the worker; D-012) |
 
 ## Testing and deployment
@@ -146,6 +177,10 @@ stops with an error naming both.
   requests are blocked (map tiles get a blank image), so the tests need no internet. Checks are by counts and
   rows, so they can carry over to the Cesium viewer. Run locally:
   `uv run --group e2e playwright install chromium` once, then `uv run --group e2e pytest tests/e2e -q`.
+  `tests/e2e/test_viewer.py` also starts the app with the Cesium flag on (fetching the vendor files first, into
+  `SATTRACK_VENDOR_DIR` if set): globe journeys, parity of the worker's positions with the Python sgp4 library
+  (50 m, same failures), the D-027 budget checks a GPU-less runner can make (main-thread ms per frame, first
+  positions, heap) on a full-size synthetic catalogue, and no off-site request or unexpected CSP report.
 - **Every PR** also runs `app / Heroku build`: the commit is built with Heroku's own buildpack and images, started
   like an Eco dyno on the `tests/app_data` sample, and the pages are checked
   ([`.github/scripts/heroku_build_check.sh`](../.github/scripts/heroku_build_check.sh)).

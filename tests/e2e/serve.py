@@ -10,7 +10,8 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path[:0] = [str(REPO_ROOT), str(REPO_ROOT / "tests" / "app")]
 os.environ.pop("SATTRACK_S3_BUCKET", None)
-os.environ["SATTRACK_APP_DATA_DIR"] = str(REPO_ROOT / "tests" / "app_data")
+# SATTRACK_E2E_DATA_DIR: a copy of the sample with a bigger objects dataset (the viewer's budget checks)
+os.environ["SATTRACK_APP_DATA_DIR"] = os.environ.get("SATTRACK_E2E_DATA_DIR") or str(REPO_ROOT / "tests" / "app_data")
 os.chdir(REPO_ROOT)
 
 from _support import frozen_datetime, reference_time  # noqa: E402

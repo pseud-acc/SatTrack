@@ -114,6 +114,11 @@ register_all_callbacks(app)
 from app.core.data_files import register_data_routes  # noqa: E402
 register_data_routes(server)
 
+# Cesium viewer (roadmap 3.2): self-hosted vendor files, and with SATTRACK_CESIUM_VIEWER on, the security headers.
+# After every callback is registered: the CSP hashes cover the clientside callbacks' inline scripts.
+from app.core.viewer import register_viewer  # noqa: E402
+register_viewer(app)
+
 ## >>>>>>>> Define Page Routing + Layouts <<<<<<<<<<<<
 
 @app.callback(

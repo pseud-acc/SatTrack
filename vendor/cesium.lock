@@ -1,0 +1,54 @@
+# Self-hosted front-end packages for the Cesium viewer (decision D-014, roadmap 3.2).
+#
+# vendor/fetch.py reads this file at build time (Heroku's bin/post_compile hook, CI's Heroku-identical build and the
+# browser tests): it downloads each npm tarball, checks it against `integrity` (the npm registry's sha512, the same
+# value `npm view <name>@<version> dist.integrity` prints), extracts only the files matched by `files` into
+# static/vendor/<dest>/ and writes static/vendor/manifest.json with each file's SHA-256. A hash mismatch, a pattern
+# that matches nothing or any other error fails the build, so the live release stays. Nothing it writes is committed.
+#
+# Upgrading: change version, tarball and integrity together (from the registry, never from a mirror), run
+# `python vendor/fetch.py`, check the viewer with the browser tests (parity, budget, no off-site requests) and the
+# slug growth in the build check, and keep `dest` versioned so browsers' long-lived caches never serve stale files.
+#
+# `files` are glob patterns on paths inside the tarball's package/ folder: `*` stays within one folder, `**` crosses
+# folders. `strip` is removed from the front of matching paths (so Build/Cesium/Cesium.js lands at <dest>/Cesium.js).
+
+schema = 1
+
+[[package]]
+name = "cesium"
+version = "1.147.0"
+tarball = "https://registry.npmjs.org/cesium/-/cesium-1.147.0.tgz"
+integrity = "sha512-gY5TF0rSyIMtnSIFHUuiHnrCuhdKaHUzLWFcjxytsdheKfKtYYOWicIWMypGjwYfnmJrgPgNF7HNjO9SK/JIkw=="
+licence = "Apache-2.0"
+dest = "cesium-1.147.0"
+strip = "Build/Cesium/"
+files = [
+    "LICENSE.md",                                          # Apache-2.0 text (ships with the files, roadmap 3.7)
+    "ThirdParty.json",                                     # licences of the libraries bundled into index.js
+    "Build/Cesium/index.js",                               # the minified ES module build (smaller than Cesium.js)
+    "Build/Cesium/Workers/*",                              # geometry/terrain workers; the chunk-* files are shared
+    "Build/Cesium/Assets/approximateTerrainHeights.json",  # read by the globe on start-up
+    "Build/Cesium/Assets/Textures/NaturalEarthII/**",      # the Earth imagery, public domain (D-022)
+    "Build/Cesium/Assets/IAU2006_XYS/*",                   # precession-nutation tables for the Earth's rotation;
+                                                           # the scene fetches the one for the current date
+    "Build/Cesium/Assets/Images/ion-credit.png",           # Cesium's default credit logo: loaded by its credit
+                                                           # display, which SatTrack's own credits replace (never shown)
+    "Build/Cesium/Widgets/CesiumWidget/CesiumWidget.css",  # the canvas container's styles (no other widgets used)
+]
+
+[[package]]
+name = "satellite.js"
+version = "7.1.0"
+tarball = "https://registry.npmjs.org/satellite.js/-/satellite.js-7.1.0.tgz"
+integrity = "sha512-U6nRml9Nb7dV9LJPiMNPyna7U7ry+1nXYkOeCEG7K/YbojQQLHHmcjPisp03VNY+HLcbQHqbt7t4t1vQMaKCLQ=="
+licence = "MIT"
+dest = "satellite.js-7.1.0"
+strip = ""
+files = [
+    "LICENSE.md",
+    "dist/*.js",               # ES modules; the worker imports io.js, propagation.js and transforms.js
+    "dist/propagation/*.js",
+    # Not dist/wasm/ or wasm-build/: the JavaScript engine needs no WebAssembly (D-029). The switch to the WASM
+    # BulkPropagator (roadmap 3.11) adds them here with 'wasm-unsafe-eval' in the CSP.
+]

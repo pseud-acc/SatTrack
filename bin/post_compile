@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Heroku build hook (proposed decision D-038). The classic heroku/python buildpack (v362, lib/hooks.sh) runs
+# bin/post_compile from the app root after installing the dependencies with uv, with the app's Python on PATH and
+# CACHE_DIR exported; a non-zero exit fails the build, so the live release stays. CI's Heroku-identical build
+# (.github/scripts/heroku_build_check.sh) runs the same buildpack, so this runs there too.
+#
+# Fetches the self-hosted viewer packages pinned in vendor/cesium.lock from the npm registry, verifies their
+# hashes and extracts the files the viewer uses into static/vendor/ (decision D-014). Tarballs are kept in the build
+# cache, re-verified on every use.
+set -euo pipefail
+python vendor/fetch.py --cache "${CACHE_DIR:-/tmp}/sattrack-vendor"

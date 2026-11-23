@@ -49,6 +49,8 @@ Read the records a feature touches before scoping it.
 | [D-034](#d-034-one-set-of-conformance-cases-for-every-filter-spec-implementation) | One set of conformance cases for every filter spec implementation | Accepted | 2026-11-22 | [record](decisions/D-034-filter-spec-shared-conformance-cases.md) |
 | [D-035](#d-035-the-servers-sidebar-filters-the-objects-dataset-no-fallback) | The server's sidebar filters the objects dataset; no fallback | Accepted | 2026-11-22 | [record](decisions/D-035-sidebar-filters-the-objects-dataset.md) |
 | [D-037](#d-037-pipeline-warnings-email-a-summary-without-failing-the-run) | Pipeline warnings email a summary without failing the run | Accepted | 2026-11-23 | [record](decisions/D-037-pipeline-warnings-email-without-failing.md) |
+| [D-038](#d-038-fetch-the-self-hosted-viewer-files-in-the-buildpacks-binpost_compile-hook) | Fetch the self-hosted viewer files in the buildpack's `bin/post_compile` hook | Proposed | 2026-11-23 | [record](decisions/D-038-vendor-fetch-in-post-compile-hook.md) |
+| [D-039](#d-039-security-headers-ship-with-the-viewer-flag-cesium-needs-a-decision-before-the-csp-is-enforced) | Security headers ship with the viewer flag; Cesium needs a decision before the CSP is enforced | Proposed | 2026-11-23 | [record](decisions/D-039-security-headers-report-only.md) |
 
 ---
 
@@ -573,3 +575,43 @@ Elementary's per-run results and `audit.source_freshness`.
 the warnings change (the owner chose every run).
 
 **Consequences.** A permanent warning emails every run, so it gets fixed or its severity changed by decision (#65).
+
+## D-038 Fetch the self-hosted viewer files in the buildpack's `bin/post_compile` hook
+**Status:** Proposed (owner to confirm), 2026-11-23. **Component:** the Heroku build and CI's Heroku-identical build.
+
+**Context.** D-014 has the builds download, verify and extract Cesium and satellite.js but not how a build runs the
+script. The pinned classic `heroku/python` buildpack (v362) runs an app's `bin/post_compile` after installing the
+dependencies with uv, from the app root, with the app's Python on `PATH` and `CACHE_DIR` set; a non-zero exit fails
+the build.
+
+**Decision.** `bin/post_compile` runs `python vendor/fetch.py --cache "$CACHE_DIR/sattrack-vendor"`: npm registry only,
+sha512 checked against `vendor/cesium.lock`, listed files only, pre-compressed copies, a manifest of SHA-256s. The app
+re-verifies the manifest at start-up and leaves the viewer off if anything differs.
+
+**Why.** Supported by the pinned buildpack with uv; no Heroku config change; CI's build check runs it unchanged.
+
+**Rejected.** A second (Node) buildpack (config change, npm toolchain); fetching at start-up (runtime registry
+dependency); release phase (files don't reach the slug); committing the files (D-014).
+
+**Consequences.** About +6.8 MB of compressed slug (limit 15 MB, enforced by the build check). A registry outage fails
+a build and the live release stays.
+
+## D-039 Security headers ship with the viewer flag; Cesium needs a decision before the CSP is enforced
+**Status:** Proposed (owner to confirm), 2026-11-23. **Component:** response headers (`app/core/viewer.py`).
+
+**Context.** 3.2 asks for a report-only CSP (`'self'`, `worker-src 'self'`, no `'wasm-unsafe-eval'`) and HSTS. The
+page shell already loads Google Analytics, the Bootswatch theme, Font Awesome, Google Fonts and (2D tab) USGS tiles.
+Measured: Cesium 1.147.0 compiles five WebAssembly modules and runs `(0,eval)("this")` as it loads; under an enforced
+policy without `'unsafe-eval'` Cesium doesn't load.
+
+**Decision.** With `SATTRACK_CESIUM_VIEWER` on only: `Content-Security-Policy-Report-Only` (same origin, inline scripts
+by hash, the shell's existing third parties listed) and `Strict-Transport-Security: max-age=86400` (no subdomains, no
+preload). Before enforcing, the owner chooses: patch Cesium's eval to `globalThis` at vendoring and add
+`'wasm-unsafe-eval'` (recommended), or allow `'unsafe-eval'` and `'wasm-unsafe-eval'`.
+
+**Why.** Production unchanged until the flag flips; report-only can't break a page; a one-day HSTS is reversible.
+
+**Rejected.** Headers on every page now (changes production in a flag-off release); enforcing now (Cesium fails).
+
+**Consequences.** Browser tests fail on any CSP violation except Cesium's six known reports and the Plotly map's
+`blob:` workers (removed in 3.6).
