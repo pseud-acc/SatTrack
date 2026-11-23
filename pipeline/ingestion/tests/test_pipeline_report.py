@@ -1,13 +1,15 @@
 """Unit tests: the public run report and alert (.github/scripts/pipeline_report.py), run as pipeline.yml runs it.
 
-Scope: each alert rule (exit code, result not OK, failed S3 commit, no summary, no export, stale positions or
-details); the gate skip and a clean run with a known warning do not alert; and the public output never repeats
-the private summary's row counts, mart table sizes or other data. Summaries are shaped like real run logs.
+Scope: each alert rule (exit code, a unit not published, failed S3 commit, no summary, no export, stale positions
+or details); warnings (a warn check, a stale source) don't fail the job but set status=warning with a summary for
+the issue, each with how long it has been warning (D-037); the gate skip doesn't alert; and the public output never
+repeats the private summary's row counts, mart table sizes or other data. Summaries are shaped like real run logs.
 """
 from __future__ import annotations
 
 import json
 import os
+import re
 import subprocess
 import sys
 from datetime import datetime, timedelta, timezone
@@ -49,6 +51,26 @@ CLEAN = (HELD.replace("result    WARN    tracking=ok  enrichment=held", "result 
          .replace("                                         skipped: mh__fct__satellite_master__pk_unique\n", "")
          .replace("                                         fail: mh__int__jsr__launch_events__pk_unique (2 rows)\n", "")
          .replace("publish:enrichment  held             kept last good build", "publish:enrichment  ok               published this run"))
+# No check or source warning at all.
+SPOTLESS = CLEAN.replace("                                         warn: fk__dim__org__org_parent_code (2 rows)\n", "")
+# The 23 Nov run: every unit published, but a source was stale (result WARN) and two checks warned, one of them
+# for 3 runs in a row.
+STALE_SOURCE = (CLEAN.replace("result    OK    tracking=ok  enrichment=ok", "result    WARN    tracking=ok  enrichment=ok")
+                .replace("  dbt:tracking        ok ",
+                         "  source_freshness    warn             12 sources checked\n"
+                         "                                         not pass: raw_jsr.orgs warn: 75.3 h old (warn after 48 hour)"
+                         " since 2026-11-21 03:18 UTC (3 runs)\n"
+                         "  dbt:tracking        ok ")
+                .replace("warn: fk__dim__org__org_parent_code (2 rows)",
+                         "warn: fk__dim__org__org_parent_code (2 rows) since 2026-11-15 03:17 UTC (1 run)\n"
+                         "                                         warn: mh__stg__jsr__launchlog__pk_unique (2 rows)"
+                         " since 2026-11-21 03:18 UTC (3 runs)"))
+
+
+def outputs(tmp_path):
+    """GITHUB_OUTPUT as {name: value} (the report writes name<<SATTRACK_EOF blocks)."""
+    text = (tmp_path / "github_output.txt").read_text(encoding="utf-8")
+    return {m[0]: m[1] for m in re.findall(r"(\w+)<<SATTRACK_EOF\n(.*?)\nSATTRACK_EOF\n", text, re.S)}
 
 
 def run(tmp_path, summary=CLEAN, positions_age_h=19.0, details_age_d=1.9, manifest=True, **env):
@@ -69,20 +91,47 @@ def run(tmp_path, summary=CLEAN, positions_age_h=19.0, details_age_d=1.9, manife
         }), encoding="utf-8")
     step_summary = tmp_path / "step_summary.md"
     full_env = {**os.environ, "SATTRACK_DATA_DIR": str(data), "GATE": "true", "PIPELINE_EXIT": "0",
-                "PUSH_OUTCOME": "success", "GITHUB_STEP_SUMMARY": str(step_summary), **env}
+                "PUSH_OUTCOME": "success", "GITHUB_STEP_SUMMARY": str(step_summary),
+                "GITHUB_OUTPUT": str(tmp_path / "github_output.txt"), **env}
     p = subprocess.run([sys.executable, str(SCRIPT)], env=full_env, capture_output=True, text=True)
     page = step_summary.read_text(encoding="utf-8") if step_summary.exists() else ""
     return p.returncode, p.stdout, page
 
 
-def test_clean_run_with_a_known_warning_does_not_alert(tmp_path):
-    code, out, page = run(tmp_path)
-    assert code == 0 and "::error" not in out
-    assert "Result: OK tracking=ok enrichment=ok" in out
-    assert "warn: fk__dim__org__org_parent_code (2 rows)" in out     # still reported
+def test_spotless_run_is_ok(tmp_path):
+    code, out, page = run(tmp_path, summary=SPOTLESS)
+    assert code == 0 and "::error" not in out and "::warning" not in out
     assert "Positions (Space-Track GP) as of:" in out and "(19.0 h ago)" in out
     assert "Details (GCAT) built:" in out and "GCAT catalogue updated 2026-11-15" in out
     assert "**OK**" in page
+    assert outputs(tmp_path)["status"] == "ok"
+
+
+def test_warn_check_is_a_warning_not_a_failure(tmp_path):
+    code, out, page = run(tmp_path)
+    assert code == 0 and "::error" not in out
+    assert "Result: OK tracking=ok enrichment=ok" in out
+    assert "warn: fk__dim__org__org_parent_code (2 rows)" in out
+    assert "::warning title=SatTrack pipeline warnings::1 warning(s); data published" in out
+    assert "**Warnings:** 1, data published" in page
+    o = outputs(tmp_path)
+    assert o["status"] == "warning" and "warn: fk__dim__org__org_parent_code (2 rows)" in o["body"]
+
+
+def test_stale_source_with_every_unit_published_is_a_warning_with_how_long(tmp_path):
+    """The 23 Nov run (45091163953): result WARN from source freshness, data published. Not a failure."""
+    code, out, _ = run(tmp_path, summary=STALE_SOURCE)
+    assert code == 0 and "::error" not in out
+    assert "::warning title=SatTrack pipeline warnings::3 warning(s); data published" in out
+    assert re.search(r"freshness warn: raw_jsr\.orgs 75\.3 h old \(warn after 48 hour\), warning for "
+                     r"\d+\.\d days \(3 runs, since 2026-11-21 03:18 UTC\)", out)
+    assert re.search(r"warn: mh__stg__jsr__launchlog__pk_unique \(2 rows\), warning for \d+\.\d days "
+                     r"\(3 runs, since 2026-11-21 03:18 UTC\)", out)
+    assert "(1 run, since 2026-11-15 03:17 UTC)" in out           # singular
+    o = outputs(tmp_path)
+    assert o["status"] == "warning"
+    assert o["body"].startswith("**Warnings:** 3, data published")
+    assert "raw_jsr.orgs" in o["body"] and "Details are in the private log in S3." in o["body"]
 
 
 def test_held_unit_alerts_and_names_the_failing_check(tmp_path):
@@ -94,6 +143,7 @@ def test_held_unit_alerts_and_names_the_failing_check(tmp_path):
     assert "dbt:enrichment=error" in out and "publish:enrichment=held" in out
     assert "(2 downstream models/tests skipped)" in out
     assert "**Problems:** pipeline result WARN" in page
+    assert outputs(tmp_path)["status"] == "problem"
 
 
 @pytest.mark.parametrize("kwargs, problem", [
@@ -114,12 +164,13 @@ def test_each_problem_alerts(tmp_path, kwargs, problem):
 def test_gate_skip_does_not_alert(tmp_path):
     code, out, page = run(tmp_path, summary=None, manifest=False, GATE="false")
     assert code == 0 and "skipped by the 12-hour gate" in out and "**Skipped.**" in page
+    assert outputs(tmp_path)["status"] == "skipped"
 
 
 def test_public_output_holds_no_data(tmp_path):
     """Only result, stage statuses, check names and dates go public; never the summary's counts or tables."""
     code, out, page = run(tmp_path, summary=HELD)
-    for text in (out, page):
+    for text in (out, page, outputs(tmp_path)["body"]):
         for private in ("32,730", "69,999", "boxscore", "launchlog=", "marts_tracking.fct__gp_elements",
                         "32,672", "15fd711e", "renamed build DB", "kept last good build"):
             assert private not in text, private

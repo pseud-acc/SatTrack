@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import re
+from datetime import datetime
 from contextlib import contextmanager
 
 from .config import OPS_DB, connect
@@ -124,6 +125,60 @@ def elementary_recorded(con, invocation_id: str | None) -> bool:
         return False
     return con.execute("select count(*) from elementary.dbt_invocations where invocation_id = ?",
                        [invocation_id]).fetchone()[0] > 0
+
+
+def warning_streak(history) -> tuple[datetime, int] | None:
+    """The unbroken run of warnings at the head of `history`: (first of those runs' times, number of runs).
+
+    `history` is (status, at) pairs for one check, newest first; the newest is this run. None when the newest
+    result isn't a warning. Any other status (pass, fail, error) ends the streak, so a warning that cleared and
+    came back counts from its return."""
+    since, runs = None, 0
+    for status, at in history:
+        if str(status).lower() != "warn":
+            break
+        since, runs = at, runs + 1
+    return (since, runs) if runs else None
+
+
+def _table_exists(con, schema: str, table: str) -> bool:
+    return con.execute("select count(*) from information_schema.tables where table_schema = ? and table_name = ?",
+                       [schema, table]).fetchone()[0] > 0
+
+
+def check_warning_streaks(con, unique_ids) -> dict:
+    """{dbt test unique_id: (since, runs)} for the given tests, from Elementary's result of every run
+    (elementary.elementary_test_results in the ops DB, which the state script carries from run to run)."""
+    ids = sorted(set(unique_ids))
+    if not ids or not _table_exists(con, "elementary", "elementary_test_results"):
+        return {}
+    rows = con.execute("select test_unique_id, status, detected_at from elementary.elementary_test_results "
+                       f"where test_unique_id in ({', '.join('?' for _ in ids)}) "
+                       "order by test_unique_id, detected_at desc", ids).fetchall()
+    out = {}
+    for uid in ids:
+        streak = warning_streak((s, at) for u, s, at in rows if u == uid)
+        if streak:
+            out[uid] = streak
+    return out
+
+
+def freshness_warning_streaks(con, sources) -> dict:
+    """{source table: (since, runs)} from audit.source_freshness, one row per source per run. Run ids are
+    'run_<UTC timestamp>', so they sort by time and give the run's start."""
+    names = sorted(set(sources))
+    if not names:
+        return {}
+    rows = con.execute("select source_table, status, run_id from audit.source_freshness "
+                       f"where source_table in ({', '.join('?' for _ in names)}) "
+                       "order by source_table, run_id desc", names).fetchall()
+    out = {}
+    for name in names:
+        streak = warning_streak((s, datetime.strptime(r, "run_%Y-%m-%dT%H%M%SZ"))
+                                for n, s, r in rows if n == name)
+        if streak:
+            out[name] = streak
+    return out
 
 
 def json_dumps(obj) -> str:

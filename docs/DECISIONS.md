@@ -31,6 +31,7 @@ Read the records a feature touches before scoping it.
 | [D-033](#d-033-filterable-fields-are-hand-picked-types-values-and-labels-generated-from-dbt) | Filterable fields are hand-picked; types, values and labels generated from dbt | Accepted | 2026-11-22 | [record](decisions/D-033-filter-spec-allowlist-generated-schema.md) |
 | [D-034](#d-034-one-set-of-conformance-cases-for-every-filter-spec-implementation) | One set of conformance cases for every filter spec implementation | Accepted | 2026-11-22 | [record](decisions/D-034-filter-spec-shared-conformance-cases.md) |
 | [D-035](#d-035-the-servers-sidebar-filters-the-objects-dataset-no-fallback) | The server's sidebar filters the objects dataset; no fallback | Accepted | 2026-11-22 | [record](decisions/D-035-sidebar-filters-the-objects-dataset.md) |
+| [D-037](#d-037-pipeline-warnings-email-a-summary-without-failing-the-run) | Pipeline warnings email a summary without failing the run | Accepted | 2026-11-23 | [record](decisions/D-037-pipeline-warnings-email-without-failing.md) |
 
 ---
 
@@ -305,3 +306,22 @@ At start-up the app builds a filter table from the `objects` dataset and the sid
 `satcat_id`: no name mapping. Measured on the full export: 0.86 s, ~81 MB peak and ~15 MB kept per worker. A missing
 or bad dataset stops start-up with a `FATAL` log line (and fails CI's build check); there is no fallback. Rejected:
 renaming the CSV's columns until 3.6, and falling back to that. Merged only after production published `objects.json`.
+
+## D-037 Pipeline warnings email a summary without failing the run
+**Status:** Accepted, 2026-11-23. **Component:** the run report and the `notify` job in `pipeline.yml`.
+
+**Context.** Any result other than OK failed the job so GitHub would email the owner. On 23 Nov a run published all
+its data but failed on a source-freshness warning: a misleading alert. Warn-severity checks didn't alert at all.
+
+**Decision.** A unit not published, a non-zero exit or stale data is still a problem and fails the job. A warn check
+or a stale source in a run with no problem is a warning: the job passes, and a separate `notify` job (only
+`issues: write`) comments the public summary on the open "Pipeline warnings" issue, or opens it, so GitHub emails the
+owner on every such run. The next run without warnings closes it. Each warning shows how long it has lasted, from
+Elementary's per-run results and `audit.source_freshness`.
+
+**Why.** A red run should mean data didn't go live. The issue needs no new account or AWS change.
+
+**Rejected.** Email through AWS SES (new AWS resources); an annotation only (warnings go unseen); emailing only when
+the warnings change (the owner chose every run).
+
+**Consequences.** A permanent warning emails every run, so it gets fixed or its severity changed by decision (#65).

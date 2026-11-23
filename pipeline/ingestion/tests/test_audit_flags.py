@@ -46,3 +46,42 @@ def test_elementary_recorded_reads_the_elementary_schema():
     assert audit.elementary_recorded(con, "abc") is True
     assert audit.elementary_recorded(con, "xyz") is False
     assert audit.elementary_recorded(con, None) is False
+
+
+# --- how long a check or source has been warning (D-037) ---------------------------------------------------------
+
+def test_warning_streak_counts_the_unbroken_warnings_up_to_now():
+    from datetime import datetime as dt
+    t = [dt(2026, 11, d, 3, 17) for d in (23, 22, 21, 20, 19)]               # newest first
+    assert audit.warning_streak(zip(["warn", "warn", "warn", "pass", "warn"], t)) == (t[2], 3)
+    assert audit.warning_streak(zip(["WARN"], t)) == (t[0], 1)                 # case-insensitive
+    assert audit.warning_streak(zip(["pass", "warn"], t)) is None             # not warning now
+    assert audit.warning_streak(zip(["warn", "fail", "warn"], t)) == (t[0], 1)  # a failure ends the streak too
+    assert audit.warning_streak([]) is None
+
+
+def test_check_warning_streaks_read_elementary_history():
+    from datetime import datetime as dt
+    con = duckdb.connect()
+    assert audit.check_warning_streaks(con, ["test.sattrack.x"]) == {}         # before Elementary's first run
+    con.execute("create schema elementary")
+    con.execute("create table elementary.elementary_test_results "
+                "(test_unique_id varchar, status varchar, detected_at timestamp)")
+    rows = [("test.sattrack.dup", "warn", dt(2026, 11, d, 3, 18)) for d in (21, 22, 23)]
+    rows += [("test.sattrack.dup", "fail", dt(2026, 11, 18, 3, 17)), ("test.sattrack.fk", "warn", dt(2026, 11, 23, 3, 18)),
+             ("test.sattrack.other", "warn", dt(2026, 11, 23, 3, 18))]
+    con.executemany("insert into elementary.elementary_test_results values (?, ?, ?)", rows)
+    got = audit.check_warning_streaks(con, ["test.sattrack.dup", "test.sattrack.fk", "test.sattrack.gone"])
+    assert got == {"test.sattrack.dup": (dt(2026, 11, 21, 3, 18), 3), "test.sattrack.fk": (dt(2026, 11, 23, 3, 18), 1)}
+    assert audit.check_warning_streaks(con, []) == {}
+
+
+def test_freshness_warning_streaks_use_the_run_ids_time():
+    from datetime import datetime as dt
+    con = duckdb.connect()
+    con.execute(audit.DDL)
+    for run, st in [("run_2026-11-20T031700Z", "pass"), ("run_2026-11-21T031812Z", "warn"),
+                    ("run_2026-11-22T031705Z", "warn"), ("run_2026-11-23T005138Z", "warn")]:
+        con.execute("insert into audit.source_freshness values (?, 'raw_jsr.orgs', null, 0, ?, '48 hour')", [run, st])
+    assert audit.freshness_warning_streaks(con, ["raw_jsr.orgs"]) == {"raw_jsr.orgs": (dt(2026, 11, 21, 3, 18, 12), 3)}
+    assert audit.freshness_warning_streaks(con, ["raw_jsr.sites"]) == {}
