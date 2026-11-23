@@ -20,6 +20,11 @@ function(config, filters) {
         return window.sattrackViewer.mount(config, filters);
     }
     if (!document.getElementById("sattrack-viewer-module")) {
+        // Start fetching and compiling Cesium (the largest file) alongside the viewer module, not after it.
+        var p = document.createElement("link");
+        p.rel = "modulepreload";
+        p.href = config.cesium + "index.js";
+        document.head.appendChild(p);
         var s = document.createElement("script");
         s.type = "module";
         s.id = "sattrack-viewer-module";

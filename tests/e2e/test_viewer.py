@@ -16,6 +16,7 @@ import gzip
 import json
 import math
 import time
+import warnings
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -39,6 +40,15 @@ KNOWN_CSP = {
     ("worker-src", "blob", "/_dash-component-suites/plotly/package_data/plotly.min.js"),
 }
 SHELL_HOSTS = {u.split("://", 1)[1].removeprefix("*.") for urls in SHELL_THIRD_PARTIES.values() for u in urls}
+
+
+class Measurement(UserWarning):
+    """Parity and budget figures, shown in pytest's warnings summary so CI logs carry them on a passing run."""
+
+
+def report(message):
+    print(message)
+    warnings.warn(message.strip(), Measurement, stacklevel=2)
 
 
 def wait_until(page, expression, timeout_s=TIMEOUT_S):
@@ -227,7 +237,7 @@ def test_parity_with_python_sgp4(page, viewer_url, offset_days):
     assert b_failed == py_failed, f"browser-only failures {b_failed - py_failed}, python-only {py_failed - b_failed}"
     assert {999_001, 999_002} <= py_failed
     diffs = sorted((math.dist(browser[sid], q), sid) for sid, q in py.items())
-    print(f"\nparity at {when}: {len(diffs)} objects, max {diffs[-1][0] * 1000:.2f} m (satcat {diffs[-1][1]}), "
+    report(f"\nparity at {when}: {len(diffs)} objects, max {diffs[-1][0] * 1000:.2f} m (satcat {diffs[-1][1]}), "
           f"failed on both sides {len(py_failed)}")
     assert diffs[-1][0] <= PARITY_KM
 
@@ -255,32 +265,46 @@ def heap_mb(page):
     return metrics["JSHeapUsedSize"] / 1e6
 
 
-def test_budget_full_catalogue(page, budget_url):
+def first_positions_cold(browser, url):
+    """Time to first positions (ms) for a first visit: a fresh browser context, so nothing comes from the cache."""
+    context = browser.new_context(viewport={"width": 1366, "height": 900})
+    context.route(lambda u: not u.startswith("http://127.0.0.1"), lambda route: route.abort())
+    try:
+        pg = context.new_page()
+        m = open_viewer(pg, url)
+        marks = pg.evaluate("(() => { const k = window.sattrackViewer.marks; return Object.fromEntries("
+                            "Object.entries(k).map(([n, v]) => [n, Math.round(v - k.start)])); })()")
+        report(f"\nload marks (ms after the viewer started): {marks}")
+        return m["firstPositionsMs"]
+    finally:
+        context.close()
+
+
+def test_budget_full_catalogue(page, browser, budget_url):
     """D-027 budget, the parts CI can check without a GPU, with payloads (the default view) of a full-size catalogue
-    served by the app (Brotli): main thread <= 5 ms a frame, first positions <= 1.5 s, heap <= 80 MB. Then space
-    junk mode (main thread checked, the rest reported)."""
+    served by the app (Brotli): first positions <= 1.5 s (median of 3 first visits, as D-027's release check takes
+    the median of 3 runs), main thread <= 5 ms a frame, heap <= 80 MB. Then space junk mode (main thread checked)."""
+    loads = sorted(first_positions_cold(browser, budget_url) for _ in range(3))
+    report(f"first positions, 3 first visits: {[round(x) for x in loads]} ms")
     m = open_viewer(page, budget_url)
     assert m["count"] == 32_652
-    marks = page.evaluate("(() => { const k = window.sattrackViewer.marks; return Object.fromEntries("
-                          "Object.entries(k).map(([n, v]) => [n, Math.round(v - k.start)])); })()")
-    print(f"\nload marks (ms after the viewer started): {marks}")
     page.evaluate("for (const k of ['frameMs', 'applyMs', 'workerMs']) window.sattrackViewer[k].length = 0")
     page.wait_for_timeout(8000)
     m = page.evaluate("window.sattrackViewer.metrics()")
     heap = heap_mb(page)
-    print(f"\nbudget, payloads ({m['shown']:,} shown): first positions {m['firstPositionsMs']:.0f} ms, main "
+    report(f"\nbudget, payloads ({m['shown']:,} shown): first positions {loads[1]:.0f} ms (median), main "
           f"{m['mainMsPerFrame']:.2f} ms/frame over {m['frames']} frames, worker {m['workerMsPerPass']:.1f} ms/pass, "
           f"step {m['step']} s, heap {heap:.1f} MB, frame {m['frameMs']:.0f} ms (software WebGL)")
     assert m["frames"] >= 10
     assert m["mainMsPerFrame"] <= 5
-    assert m["firstPositionsMs"] <= 1500
+    assert loads[1] <= 1500
     assert heap <= 80
     page.get_by_role("switch", name="Space junk mode").check()
     wait_until(page, "() => window.sattrackViewer.shownCount > 30000")
     page.evaluate("for (const k of ['frameMs', 'applyMs', 'workerMs']) window.sattrackViewer[k].length = 0")
     page.wait_for_timeout(5000)
     m = page.evaluate("window.sattrackViewer.metrics()")
-    print(f"budget, space junk mode ({m['shown']:,} shown): main {m['mainMsPerFrame']:.2f} ms/frame, worker "
+    report(f"budget, space junk mode ({m['shown']:,} shown): main {m['mainMsPerFrame']:.2f} ms/frame, worker "
           f"{m['workerMsPerPass']:.1f} ms/pass, step {m['step']} s, heap {heap_mb(page):.1f} MB")
     assert m["mainMsPerFrame"] <= 5
     assert page.errors == []
