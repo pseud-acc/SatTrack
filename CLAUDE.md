@@ -66,6 +66,9 @@ SATTRACK_DATA_DIR=/path/outside/repo uv run python run_pipeline.py   # a real ru
   than working around it.
 - Record every architecture decision in `docs/DECISIONS.md` (context, decision, why, rejected options,
   consequences, evidence) in the PR that makes it. Never rewrite an accepted entry; supersede it with a new one.
+- Each decision also gets `docs/decisions/D-NNN-<slug>.md` with the full trade-off analysis (options against planned
+  features, evidence, revisit triggers); template in `docs/decisions/README.md`. **Before scoping or building a
+  feature, read the records for the components it touches** and raise any "Revisit when" trigger that fires.
 
 **Dependencies**
 - uv only. App: root `pyproject.toml`; pipeline: `pipeline/pyproject.toml`. Commit `uv.lock` with its
