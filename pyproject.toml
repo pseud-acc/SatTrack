@@ -25,6 +25,7 @@ dependencies = [
     "dash-bootstrap-components>=2.0.4,<3",
     "flask-compress>=1.15,<2",            # Dash(compress=True): gzip/brotli responses
     "gunicorn>=22.0.0,<24",               # 22.0.0+: request-smuggling fixes (Dependabot)
+    "jsonschema>=4.23,<5",                # validates filter specs (app/core/filter_spec.py): the NL-query safety boundary
     "numpy>=1.26.0,<2",
     "pandas>=2.1.0,<3",
     "pillow>=13.0.0,<14",                 # 13.0.0+: security fixes (Dependabot); the app only opens the Earth map

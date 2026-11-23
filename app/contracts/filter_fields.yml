@@ -1,0 +1,31 @@
+# The fields a filter spec may use (D-033). Hand-picked on purpose: adding a field here makes it filterable
+# everywhere the spec is accepted, including by natural-language query (Phase 6). Field names are the `objects`
+# dataset's own (D-010, D-030).
+#
+# Everything else comes from the dbt mart schema YAML of the model named here, by
+# pipeline/scripts/build_filter_spec_schema.py:
+#   - the type, from the column's `data_type`
+#   - allowed values, from an `accepted_values` test, if the column has one
+#   - the label people see, from the column's `config: meta: label:` (required: the build fails without one)
+# After editing this file or a label, regenerate app/contracts/filter_spec.schema.json:
+#   python pipeline/scripts/build_filter_spec_schema.py
+# CI fails if the committed schema differs from a fresh build.
+fields:
+  - name: satcat_id
+    model: fct__satellite_master
+  - name: object_name
+    model: fct__satellite_master
+  - name: object_type
+    model: fct__gp_elements
+  - name: operational_status
+    model: fct__satellite_master
+  - name: orbit_class
+    model: fct__satellite_master
+  - name: owner_country
+    model: fct__satellite_master
+  - name: launch_vehicle_brand
+    model: fct__satellite_master
+  - name: mission_category_labels
+    model: fct__satellite_master
+  - name: launch_year
+    model: fct__satellite_master

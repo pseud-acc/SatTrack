@@ -25,6 +25,9 @@ models:
       - name: satcat_id
         data_type: integer
         description: '{{ doc("col__satcat_id") }}'
+        config:
+          meta:
+            label: "SATCAT number"
       - name: jcat
         data_type: varchar
         description: '{{ doc("col__jcat") }}'
@@ -37,6 +40,9 @@ models:
       - name: object_name
         data_type: varchar
         description: '{{ doc("col__object_name") }}'
+        config:
+          meta:
+            label: "Satellite name"
       - name: object_id
         data_type: varchar
         description: '{{ doc("col__object_id") }}'
@@ -55,6 +61,9 @@ models:
       - name: operational_status
         data_type: varchar
         description: '{{ doc("col__operational_status") }}'
+        config:
+          meta:
+            label: "Status"
         data_tests:
           - accepted_values:
               name: accepted_values__fct__satellite_master__operational_status
@@ -98,9 +107,15 @@ models:
       - name: launch_year
         data_type: bigint
         description: '{{ doc("col__launch_year") }}'
+        config:
+          meta:
+            label: "Launch year"
       - name: owner_country
         data_type: varchar
         description: '{{ doc("col__owner_country") }}'
+        config:
+          meta:
+            label: "Owner"
         data_tests:
           - elementary.column_anomalies:
               name: anomaly_column__fct__satellite_master__owner_country
@@ -171,6 +186,9 @@ models:
       - name: mission_category_labels
         data_type: varchar[]
         description: '{{ doc("col__mission_category_labels") }}'
+        config:
+          meta:
+            label: "Purpose"
       - name: launch_tag
         data_type: varchar
         description: '{{ doc("col__launch_tag") }}'
@@ -216,6 +234,9 @@ models:
       - name: launch_vehicle_brand
         data_type: varchar
         description: '{{ doc("col__launch_vehicle_brand") }}'
+        config:
+          meta:
+            label: "Launch vehicle"
       - name: launch_vehicle_family
         data_type: varchar
         description: '{{ doc("col__launch_vehicle_family") }}'
@@ -275,6 +296,9 @@ models:
       - name: orbit_class
         data_type: varchar
         description: '{{ doc("col__orbit_class") }}'
+        config:
+          meta:
+            label: "Orbit type"
       - name: orbit_regime
         data_type: varchar
         description: '{{ doc("col__orbit_regime") }}'

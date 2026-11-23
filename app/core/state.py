@@ -39,6 +39,7 @@ from app.helper.helper__plot_display import (create_3d_layout, create_3d_surface
 from app.helper.helper__table_display import create_table_mapping
 from app.helper.helper__app_data import create_data_filters
 from app.helper.helper__satellite_position import satrec_sources, satrecs_for
+from app.core import filter_spec
 
 # Global cache for app data (lazy initialization). gunicorn runs threaded workers (Procfile), so the first requests
 # can arrive together: the lock makes sure the data is loaded once per worker.
@@ -199,8 +200,17 @@ def initialise_app_data():
     satrecs_for(df)
     print(f" - Propagators: {satrec_sources(df)} (omm: OMM fields, tle: TLE fallback, none: no position)")
 
-    # Initialise Filters
-    options, initial_filter = create_data_filters(df)
+    # Initialise Filters. The sidebar filters through the filter spec on the objects dataset (D-035): without it
+    # the app must not start, so a missing dataset fails here, loudly, in the start-up log and CI's build check.
+    options = create_data_filters(df)
+    try:
+        filter_table = filter_spec.table_from_dataset(datasets.get("objects"))
+    except filter_spec.MissingObjectsDataset as exc:
+        print(f" - FATAL: {exc}", flush=True)
+        raise
+    missing = int((~df["SatCatId"].isin(filter_table["satcat_id"])).sum())
+    print(f" - Filter table: {len(filter_table):,} objects from the objects dataset; "
+          f"{missing} app CSV satellites not in it (these can't be shown)")
 
     # Initilise Visualisations
     surf_3d = create_3d_surface(img)
@@ -226,7 +236,7 @@ def initialise_app_data():
     # Visualisation filters
     app_data['filter'] = dict()
     app_data['filter']['options'] = options
-    app_data['filter']['initial_filter'] = initial_filter
+    app_data['filter']['table'] = filter_table   # objects dataset's filterable fields (app.core.filter_spec)
     # 3D Visualisation
     app_data['viz_3d'] = dict()
     app_data['viz_3d']['surface'] = surf_3d

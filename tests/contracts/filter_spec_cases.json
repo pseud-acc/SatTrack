@@ -1,0 +1,50 @@
+{
+  "description": "Shared conformance cases for the filter spec (D-034). Every implementation (Python now: app/core/filter_spec.py; the browser in Phase 3) must select exactly `expected` (satcat_ids, in record order) for each valid case and reject each invalid one. Expected values are worked out by hand from the records below, not by running either implementation. Records are invented for the test, shaped like the objects dataset; a missing scalar is null, a missing list is null or []. Two placeholders keep the file short; runners expand them before use: clauses \"REPEAT_<n>\" means n copies of {\"field\": \"orbit_class\", \"op\": \"eq\", \"value\": \"LEO\"}, and a value \"LONG_<n>\" means a string of n letters A.",
+  "records": [
+    {"satcat_id": 1, "object_name": "ALPHA", "object_type": "PAYLOAD", "operational_status": "Active", "orbit_class": "LEO", "owner_country": "United States", "launch_vehicle_brand": "Falcon", "mission_category_labels": ["Communications"], "launch_year": 2020},
+    {"satcat_id": 2, "object_name": "BRAVO", "object_type": "PAYLOAD", "operational_status": "Inactive", "orbit_class": "GEO", "owner_country": "France", "launch_vehicle_brand": "Ariane", "mission_category_labels": ["Communications", "Navigation"], "launch_year": 1999},
+    {"satcat_id": 3, "object_name": "CHARLIE DEB", "object_type": "DEBRIS", "operational_status": null, "orbit_class": "LEO", "owner_country": null, "launch_vehicle_brand": null, "mission_category_labels": [], "launch_year": 2007},
+    {"satcat_id": 4, "object_name": "DELTA R/B", "object_type": "ROCKET BODY", "operational_status": "Inactive", "orbit_class": "MEO", "owner_country": "China", "launch_vehicle_brand": "Chang Zheng", "mission_category_labels": null, "launch_year": null},
+    {"satcat_id": 5, "object_name": "ECHO", "object_type": "PAYLOAD", "operational_status": "Active", "orbit_class": null, "owner_country": "United States", "launch_vehicle_brand": "Falcon", "mission_category_labels": ["Earth observation"], "launch_year": 2020},
+    {"satcat_id": 6, "object_name": null, "object_type": "UNKNOWN", "operational_status": null, "orbit_class": null, "owner_country": null, "launch_vehicle_brand": null, "mission_category_labels": [], "launch_year": null}
+  ],
+  "valid": [
+    {"name": "no clauses selects everything", "spec": {"version": 1, "clauses": []}, "expected": [1, 2, 3, 4, 5, 6]},
+    {"name": "eq", "spec": {"version": 1, "clauses": [{"field": "orbit_class", "op": "eq", "value": "LEO"}]}, "expected": [1, 3]},
+    {"name": "eq on an integer", "spec": {"version": 1, "clauses": [{"field": "satcat_id", "op": "eq", "value": 4}]}, "expected": [4]},
+    {"name": "in", "spec": {"version": 1, "clauses": [{"field": "operational_status", "op": "in", "value": ["Active"]}]}, "expected": [1, 5]},
+    {"name": "in with null keeps missing", "spec": {"version": 1, "clauses": [{"field": "operational_status", "op": "in", "value": ["Inactive", null]}]}, "expected": [2, 3, 4, 6]},
+    {"name": "in only null is the same as is_missing", "spec": {"version": 1, "clauses": [{"field": "owner_country", "op": "in", "value": [null]}]}, "expected": [3, 6]},
+    {"name": "not_in is the complement of in: missing kept", "spec": {"version": 1, "clauses": [{"field": "owner_country", "op": "not_in", "value": ["United States"]}]}, "expected": [2, 3, 4, 6]},
+    {"name": "not_in with null drops missing", "spec": {"version": 1, "clauses": [{"field": "owner_country", "op": "not_in", "value": ["United States", null]}]}, "expected": [2, 4]},
+    {"name": "between is inclusive and drops missing", "spec": {"version": 1, "clauses": [{"field": "launch_year", "op": "between", "value": {"min": 1999, "max": 2007}}]}, "expected": [2, 3]},
+    {"name": "between with include_missing", "spec": {"version": 1, "clauses": [{"field": "launch_year", "op": "between", "value": {"min": 2008, "max": 2030, "include_missing": true}}]}, "expected": [1, 4, 5, 6]},
+    {"name": "between a single year", "spec": {"version": 1, "clauses": [{"field": "launch_year", "op": "between", "value": {"min": 2020, "max": 2020}}]}, "expected": [1, 5]},
+    {"name": "contains_any", "spec": {"version": 1, "clauses": [{"field": "mission_category_labels", "op": "contains_any", "value": ["Navigation", "Earth observation"]}]}, "expected": [2, 5]},
+    {"name": "contains_any with null matches null and empty lists", "spec": {"version": 1, "clauses": [{"field": "mission_category_labels", "op": "contains_any", "value": ["Communications", null]}]}, "expected": [1, 2, 3, 4, 6]},
+    {"name": "is_missing true on a list counts empty as missing", "spec": {"version": 1, "clauses": [{"field": "mission_category_labels", "op": "is_missing", "value": true}]}, "expected": [3, 4, 6]},
+    {"name": "is_missing false", "spec": {"version": 1, "clauses": [{"field": "object_name", "op": "is_missing", "value": false}]}, "expected": [1, 2, 3, 4, 5]},
+    {"name": "clauses are AND-ed", "spec": {"version": 1, "clauses": [{"field": "object_type", "op": "in", "value": ["PAYLOAD"]}, {"field": "owner_country", "op": "eq", "value": "United States"}, {"field": "launch_year", "op": "between", "value": {"min": 2020, "max": 2020}}]}, "expected": [1, 5]},
+    {"name": "contradictory clauses select nothing", "spec": {"version": 1, "clauses": [{"field": "object_name", "op": "eq", "value": "ALPHA"}, {"field": "satcat_id", "op": "eq", "value": 2}]}, "expected": []},
+    {"name": "the same field twice narrows", "spec": {"version": 1, "clauses": [{"field": "orbit_class", "op": "in", "value": ["LEO", "GEO"]}, {"field": "orbit_class", "op": "not_in", "value": ["GEO"]}]}, "expected": [1, 3]}
+  ],
+  "invalid": [
+    {"name": "unknown field", "spec": {"version": 1, "clauses": [{"field": "tle_line_1", "op": "eq", "value": "1"}]}},
+    {"name": "unknown op", "spec": {"version": 1, "clauses": [{"field": "orbit_class", "op": "like", "value": "LE%"}]}},
+    {"name": "op not allowed for the field's type", "spec": {"version": 1, "clauses": [{"field": "owner_country", "op": "between", "value": {"min": "A", "max": "M"}}]}},
+    {"name": "contains_any on a scalar field", "spec": {"version": 1, "clauses": [{"field": "orbit_class", "op": "contains_any", "value": ["LEO"]}]}},
+    {"name": "in on a list field", "spec": {"version": 1, "clauses": [{"field": "mission_category_labels", "op": "in", "value": ["Communications"]}]}},
+    {"name": "value outside the allowed values", "spec": {"version": 1, "clauses": [{"field": "operational_status", "op": "in", "value": ["Retired"]}]}},
+    {"name": "wrong value type", "spec": {"version": 1, "clauses": [{"field": "launch_year", "op": "eq", "value": "2020"}]}},
+    {"name": "eq null (use is_missing)", "spec": {"version": 1, "clauses": [{"field": "owner_country", "op": "eq", "value": null}]}},
+    {"name": "empty in list", "spec": {"version": 1, "clauses": [{"field": "orbit_class", "op": "in", "value": []}]}},
+    {"name": "between without max", "spec": {"version": 1, "clauses": [{"field": "launch_year", "op": "between", "value": {"min": 2000}}]}},
+    {"name": "extra key in a clause", "spec": {"version": 1, "clauses": [{"field": "orbit_class", "op": "eq", "value": "LEO", "or": true}]}},
+    {"name": "extra top-level key", "spec": {"version": 1, "clauses": [], "limit": 10}},
+    {"name": "unknown version", "spec": {"version": 2, "clauses": []}},
+    {"name": "no version", "spec": {"clauses": []}},
+    {"name": "too many clauses", "spec": {"version": 1, "clauses": "REPEAT_33"}},
+    {"name": "string too long", "spec": {"version": 1, "clauses": [{"field": "object_name", "op": "eq", "value": "LONG_201"}]}},
+    {"name": "not an object", "spec": [{"field": "orbit_class", "op": "eq", "value": "LEO"}]}
+  ]
+}

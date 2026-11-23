@@ -27,6 +27,15 @@ def load_sample():
     return pd.read_csv(APP_DATA_DIR / "satcat_tle.csv")
 
 
+def objects_sample_ids():
+    """satcat_ids in the sample's objects dataset, read directly (gzip + json), not through the app. The sidebar
+    filters on that dataset (D-035), so a CSV satellite missing from it is never shown: 2 of the 341, which
+    decayed between the CSV's run and the dataset's."""
+    import gzip
+    doc = json.loads(gzip.decompress((APP_DATA_DIR / "objects.json.gz").read_bytes()))
+    return {r["satcat_id"] for r in doc["records"]}
+
+
 def reference_time():
     """The sample's Space-Track download time (last_data_update.csv). Propagating to a fixed time near the
     element epochs keeps every result independent of the day the tests run and of when the sample was cut."""
@@ -79,7 +88,7 @@ def expected_ids(df, when, status=ALL_STATUS, orbit=ALL_ORBITS, satname=None, sa
                  launchvehicle=(), purpose=(), year=None):
     """SatCatIds the sidebar should show: the documented filter rules applied with pandas, then only the rows
     that propagate. Rules: status and orbit class are 'any of'; name and catalogue id are exact; owner, launch
-    vehicle and purpose filter only when something is selected; purpose matches any part of a '/'-joined value;
+    vehicle and purpose filter only when something is selected; purpose matches any part of a '/'-joined value; only satellites in the objects dataset can be shown;
     launch year is an inclusive range."""
     keep = df["Status"].isin(status) & df["OrbitClass"].isin(orbit)
     if satname is not None:
@@ -94,6 +103,7 @@ def expected_ids(df, when, status=ALL_STATUS, orbit=ALL_ORBITS, satname=None, sa
         keep &= df["Purpose"].str.split("/").apply(lambda parts: bool(set(parts) & set(purpose)))
     if year is not None:
         keep &= df["LaunchYear"].between(year[0], year[1])
+    keep &= df["SatCatId"].isin(objects_sample_ids())   # only objects the filter table knows (D-035)
     keep &= propagates(df, when)
     return set(df.loc[keep, "SatCatId"])
 
