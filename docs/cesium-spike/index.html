@@ -1,0 +1,257 @@
+<!doctype html>
+<!--
+  Cesium spike (roadmap 3.1, docs/cesium-architecture.md). Throwaway measurement page, not part of the app.
+  Loads /data/objects.json (the 2.1 contract), propagates every selected object in the browser with satellite.js
+  (from the OMM fields) and draws them as Cesium points. Results are written to window.spike for measure.py.
+
+  Query options:
+    types=PAYLOAD,ROCKET BODY,DEBRIS,UNKNOWN   object types to show (default: all four)
+    engine=js|wasm                             satellite.js propagate() per object, or its WASM BulkPropagator
+    rate=frame|1s                              propagate every rendered frame, or once a second
+    spin=1|0                                   rotate the camera (a steady rendering load for the FPS count)
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SatTrack Cesium spike</title>
+<script>window.CESIUM_BASE_URL = "https://cdn.jsdelivr.net/npm/cesium@1.147.0/Build/Cesium/";</script>
+<script src="https://cdn.jsdelivr.net/npm/cesium@1.147.0/Build/Cesium/Cesium.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/cesium@1.147.0/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+<script type="importmap">
+{"imports": {"#wasm-single-thread": "https://cdn.jsdelivr.net/npm/satellite.js@7.1.0/wasm-build/base-release/index.js"}}
+</script>
+<style>
+  html, body, #globe { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #000; }
+  #hud { position: absolute; top: 8px; left: 8px; z-index: 10; padding: 6px 8px; font: 12px/1.4 monospace;
+         color: #e8e8e8; background: rgba(0, 0, 0, .65); border-radius: 4px; white-space: pre; }
+</style>
+</head>
+<body>
+<div id="globe"></div>
+<div id="hud">loading…</div>
+<script type="module">
+import * as satellite from "https://cdn.jsdelivr.net/npm/satellite.js@7.1.0/dist/index.js";
+
+const params = new URLSearchParams(location.search);
+const TYPES = new Set((params.get("types") || "PAYLOAD,ROCKET BODY,DEBRIS,UNKNOWN").split(","));
+const ENGINE = params.get("engine") || "js";
+const RATE = params.get("rate") || "frame";
+const SPIN = params.get("spin") !== "0";
+const COLOURS = { "PAYLOAD": "#4fc3f7", "ROCKET BODY": "#ffb74d", "DEBRIS": "#9e9e9e", "UNKNOWN": "#ce93d8" };
+
+const hud = document.getElementById("hud");
+const spike = window.spike = { params: Object.fromEntries(params), engine: ENGINE, rate: RATE, marks: {},
+                               propMs: [], frameMs: [], failed: 0, ready: false, error: null };
+const mark = (name) => { spike.marks[name] = performance.now(); };
+
+// The record's own field names (D-010) are the mart names; satellite.js takes the CCSDS OMM keywords.
+const toOmm = (r) => ({
+  OBJECT_NAME: r.object_name, OBJECT_ID: r.object_id, NORAD_CAT_ID: r.satcat_id, EPOCH: r.epoch,
+  MEAN_MOTION: r.mean_motion, ECCENTRICITY: r.eccentricity, INCLINATION: r.inclination,
+  RA_OF_ASC_NODE: r.ra_of_asc_node, ARG_OF_PERICENTER: r.arg_of_pericenter, MEAN_ANOMALY: r.mean_anomaly,
+  EPHEMERIS_TYPE: r.ephemeris_type, CLASSIFICATION_TYPE: r.classification_type, ELEMENT_SET_NO: r.element_set_no,
+  REV_AT_EPOCH: r.rev_at_epoch, BSTAR: r.bstar, MEAN_MOTION_DOT: r.mean_motion_dot,
+  MEAN_MOTION_DDOT: r.mean_motion_ddot,
+});
+
+async function main() {
+  mark("start");
+  const viewer = new Cesium.Viewer("globe", {
+    // Natural Earth II imagery ships with Cesium: no Cesium ion account or token.
+    baseLayer: Cesium.ImageryLayer.fromProviderAsync(
+      Cesium.TileMapServiceImageryProvider.fromUrl(Cesium.buildModuleUrl("Assets/Textures/NaturalEarthII"))),
+    baseLayerPicker: false, geocoder: false, homeButton: false, sceneModePicker: false, navigationHelpButton: false,
+    animation: false, timeline: false, fullscreenButton: false, infoBox: false, selectionIndicator: false,
+  });
+  viewer.scene.globe.enableLighting = false;
+  viewer.clock.shouldAnimate = true;
+  spike.webgl = (() => {
+    const gl = viewer.scene.context._gl;
+    const ext = gl.getExtension("WEBGL_debug_renderer_info");
+    return ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER);
+  })();
+  mark("viewer");
+  if (ENGINE === "worker") return runWorker(viewer);
+
+  const response = await fetch("/data/objects.json");
+  if (!response.ok) throw new Error(`/data/objects.json: HTTP ${response.status}`);
+  const text = await response.text();
+  mark("fetched");
+  const dataset = JSON.parse(text);
+  mark("parsed");
+  spike.transferBytes = performance.getEntriesByName(response.url)[0]?.encodedBodySize ?? null;
+  spike.jsonBytes = text.length;
+
+  const records = dataset.records.filter((r) => TYPES.has(r.object_type));
+  const satrecs = [], kept = [];
+  for (const r of records) {
+    try {
+      const s = satellite.json2satrec(toOmm(r));
+      if (s.error) { spike.failed++; continue; }
+      satrecs.push(s); kept.push(r);
+    } catch (e) { spike.failed++; }
+  }
+  mark("satrecs");
+  spike.count = satrecs.length;
+
+  const points = viewer.scene.primitives.add(new Cesium.PointPrimitiveCollection());
+  const colours = Object.fromEntries(Object.entries(COLOURS).map(([k, v]) => [k, Cesium.Color.fromCssColorString(v)]));
+  const handles = kept.map((r) => points.add({ position: Cesium.Cartesian3.ZERO, pixelSize: 2,
+                                                color: colours[r.object_type] || Cesium.Color.WHITE }));
+
+  // compute(date): Earth-fixed positions in km for every selected object, [x0, y0, z0, x1, ...]; NaN = failed.
+  const xyz = new Float64Array(3 * satrecs.length);
+  let compute;
+  if (ENGINE === "wasm") {
+    const runtime = await satellite.createSingleThreadRuntime();
+    const bulk = new satellite.BulkPropagator({
+      runtime, satRecsCount: satrecs.length, datesCount: 1,
+      calculators: [new satellite.EciBaseCalculator(), new satellite.GmstCalculator(),
+                    new satellite.EcfPositionCalculator()],
+    });
+    bulk.setSatRecs(satrecs);
+    compute = async (date) => {
+      bulk.setDates([date]);
+      await bulk.run();
+      xyz.set(bulk.getRawOutput().ecfPosition);
+      return xyz;
+    };
+  } else {
+    compute = async (date) => {
+      const gmst = satellite.gstime(date);
+      for (let i = 0; i < satrecs.length; i++) {
+        const pv = satellite.propagate(satrecs[i], date);
+        const p = pv && pv.position ? satellite.eciToEcf(pv.position, gmst) : { x: NaN, y: NaN, z: NaN };
+        xyz[3 * i] = p.x; xyz[3 * i + 1] = p.y; xyz[3 * i + 2] = p.z;
+      }
+      return xyz;
+    };
+  }
+  // Write one set of positions into the points (metres). Returns the number that failed (hidden).
+  const apply = (pos) => {
+    let bad = 0;
+    for (let i = 0; i < handles.length; i++) {
+      const x = pos[3 * i], y = pos[3 * i + 1], z = pos[3 * i + 2];
+      if (!(Number.isFinite(x) && Number.isFinite(y) && Number.isFinite(z))) { handles[i].show = false; bad++; continue; }
+      handles[i].show = true;
+      handles[i].position = new Cesium.Cartesian3(x * 1000, y * 1000, z * 1000);
+    }
+    return bad;
+  };
+  spike.applyMs = [];
+  const propagate = async (date) => {
+    const pos = await compute(date), t1 = performance.now(), bad = apply(pos);
+    spike.applyMs.push(performance.now() - t1);
+    return bad;
+  };
+  // For the parity check in measure.py: positions (km) at a fixed time, keyed by satcat_id.
+  spike.snapshot = async (iso) => {
+    const pos = Array.from(await compute(new Date(iso)));
+    return kept.map((r, i) => [r.satcat_id, pos[3 * i], pos[3 * i + 1], pos[3 * i + 2]]);
+  };
+  mark("engine");
+
+  spike.propagationFailures = await propagate(Cesium.JulianDate.toDate(viewer.clock.currentTime));
+  mark("firstPositions");
+
+  let last = 0, lastFrame = performance.now(), busy = false;
+  viewer.scene.preRender.addEventListener(async (scene, time) => {
+    const now = performance.now();
+    spike.frameMs.push(now - lastFrame);
+    lastFrame = now;
+    if (SPIN) viewer.camera.rotate(Cesium.Cartesian3.UNIT_Z, -0.002);
+    if (busy || (RATE === "1s" && now - last < 1000)) return;
+    busy = true; last = now;
+    const t0 = performance.now();
+    spike.propagationFailures = await propagate(Cesium.JulianDate.toDate(time));
+    spike.propMs.push(performance.now() - t0);
+    busy = false;
+  });
+  viewer.scene.postRender.addEventListener(function first() {
+    mark("firstFrame");
+    viewer.scene.postRender.removeEventListener(first);
+  });
+
+  spike.ready = true;
+  setInterval(() => {
+    const f = spike.frameMs.slice(-60), p = spike.propMs.slice(-30);
+    const avg = (a) => a.length ? a.reduce((s, v) => s + v, 0) / a.length : 0;
+    hud.textContent = `${spike.count.toLocaleString()} objects · ${ENGINE} · ${RATE}\n` +
+      `fps ${(1000 / (avg(f) || 1)).toFixed(0)} · propagate ${avg(p).toFixed(1)} ms\n` +
+      `load ${(spike.marks.firstPositions - spike.marks.start).toFixed(0)} ms · ${spike.webgl}`;
+  }, 500);
+}
+
+// engine=worker: worker.js fetches the data and propagates (wengine=js|wasm) every STEP seconds of simulation time;
+// the main thread only interpolates linearly between the two samples around the current time and moves the points.
+async function runWorker(viewer) {
+  const STEP = 1000 * Number(params.get("step") || 1), WENGINE = params.get("wengine") || "js";
+  spike.engine = `worker-${WENGINE}`; spike.rate = `${STEP / 1000}s+interp`; spike.workerMs = []; spike.applyMs = [];
+  const worker = new Worker("/worker.js", { type: "module" });
+  const call = (msg) => new Promise((resolve, reject) => {
+    const h = ({ data }) => { if (data.error) reject(new Error(data.error));
+      else if (data.ready || data.id === msg.id) { worker.removeEventListener("message", h); resolve(data); } };
+    worker.addEventListener("message", h); worker.postMessage(msg);
+  });
+  mark("fetched"); mark("parsed");
+  const init = await call({ init: { types: [...TYPES], engine: WENGINE } });
+  mark("satrecs");
+  spike.count = init.meta.length; spike.failed = init.failed;
+  const points = viewer.scene.primitives.add(new Cesium.PointPrimitiveCollection());
+  const colours = Object.fromEntries(Object.entries(COLOURS).map(([k, v]) => [k, Cesium.Color.fromCssColorString(v)]));
+  const handles = init.meta.map(([, type]) => points.add({ position: Cesium.Cartesian3.ZERO, pixelSize: 2,
+                                                            color: colours[type] || Cesium.Color.WHITE }));
+  let nextId = 0;
+  const sample = async (t) => { const r = await call({ id: nextId++, t }); spike.workerMs.push(r.ms); return r; };
+  spike.snapshot = async (iso) => { const r = await sample(Date.parse(iso));
+    return init.meta.map(([id], i) => [id, r.pos[3 * i], r.pos[3 * i + 1], r.pos[3 * i + 2]]); };
+  // Samples on a fixed grid of simulation time: a = floor(t), b = a + STEP; one sample ahead is always in flight.
+  const now = Cesium.JulianDate.toDate(viewer.clock.currentTime).getTime();
+  let t0 = Math.floor(now / STEP) * STEP;
+  let a = await sample(t0), b = await sample(t0 + STEP), pending = sample(t0 + 2 * STEP), c = null;
+  pending.then((r) => { c = r; });
+  mark("engine"); mark("firstPositions");
+  const scratch = new Cesium.Cartesian3();
+  let lastFrame = performance.now();
+  spike.propagationFailures = 0;
+  viewer.scene.preRender.addEventListener((scene, time) => {
+    const nowMs = performance.now();
+    spike.frameMs.push(nowMs - lastFrame); lastFrame = nowMs;
+    if (SPIN) viewer.camera.rotate(Cesium.Cartesian3.UNIT_Z, -0.002);
+    const t = Cesium.JulianDate.toDate(time).getTime();
+    while (t >= b.t && c) {   // advance the window and request the next sample
+      a = b; b = c; c = null;
+      const nt = b.t + STEP; pending = sample(nt); pending.then((r) => { c = r; });
+    }
+    const f = Math.min(1, Math.max(0, (t - a.t) / (b.t - a.t)));
+    const t1 = performance.now();
+    let bad = 0;
+    for (let i = 0; i < handles.length; i++) {
+      const j = 3 * i, x = a.pos[j] + (b.pos[j] - a.pos[j]) * f, y = a.pos[j + 1] + (b.pos[j + 1] - a.pos[j + 1]) * f,
+            z = a.pos[j + 2] + (b.pos[j + 2] - a.pos[j + 2]) * f;
+      if (!(Number.isFinite(x) && Number.isFinite(y) && Number.isFinite(z))) { handles[i].show = false; bad++; continue; }
+      scratch.x = x * 1000; scratch.y = y * 1000; scratch.z = z * 1000;
+      handles[i].position = scratch;   // the setter copies
+    }
+    spike.propagationFailures = bad;
+    const dt = performance.now() - t1;
+    spike.applyMs.push(dt); spike.propMs.push(dt);
+  });
+  viewer.scene.postRender.addEventListener(function first() {
+    mark("firstFrame"); viewer.scene.postRender.removeEventListener(first);
+  });
+  spike.ready = true;
+  setInterval(() => {
+    const avg = (x) => x.length ? x.reduce((s, v) => s + v, 0) / x.length : 0;
+    hud.textContent = `${spike.count.toLocaleString()} objects · ${spike.engine} · ${spike.rate}\n` +
+      `fps ${(1000 / (avg(spike.frameMs.slice(-60)) || 1)).toFixed(0)} · main ${avg(spike.applyMs.slice(-60)).toFixed(1)} ms` +
+      ` · worker ${avg(spike.workerMs.slice(-10)).toFixed(1)} ms\n` +
+      `load ${(spike.marks.firstPositions - spike.marks.start).toFixed(0)} ms · ${spike.webgl}`;
+  }, 500);
+}
+
+main().catch((e) => { spike.error = String(e && e.stack || e); hud.textContent = spike.error; });
+</script>
+</body>
+</html>
