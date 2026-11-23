@@ -16,6 +16,7 @@ SatTrack (`pseud-acc/SatTrack`, live at https://www.sattrackapp.com) is a free, 
 | `tests/app_data/` | 341-row sample of the app CSVs, used locally and in CI | `tests/app_data/README.md` |
 | `docs/ROADMAP.md` | The feature roadmap, phases 0–7. Work through it in order unless told otherwise | |
 | `docs/DECISIONS.md` | Architecture decisions and why they were made | |
+| `docs/architecture.md` | How the pipeline, AWS, GitHub, Heroku and the data publishers connect (diagram) | |
 
 Data flow: EventBridge (daily) → GitHub Actions `pipeline.yml` (OIDC role, Space-Track login from Secrets Manager)
 → `pipeline/run_pipeline.py` → private S3 bucket (`app/` CSVs, warehouse, manifest, logs) → the app reads `app/`
@@ -65,6 +66,9 @@ SATTRACK_DATA_DIR=/path/outside/repo uv run python run_pipeline.py   # a real ru
   than working around it.
 - Record every architecture decision in `docs/DECISIONS.md` (context, decision, why, rejected options,
   consequences, evidence) in the PR that makes it. Never rewrite an accepted entry; supersede it with a new one.
+- Each decision also gets `docs/decisions/D-NNN-<slug>.md` with the full trade-off analysis (options against planned
+  features, evidence, revisit triggers); template in `docs/decisions/README.md`. **Before scoping or building a
+  feature, read the records for the components it touches** and raise any "Revisit when" trigger that fires.
 
 **Dependencies**
 - uv only. App: root `pyproject.toml`; pipeline: `pipeline/pyproject.toml`. Commit `uv.lock` with its
