@@ -51,6 +51,7 @@ Read the records a feature touches before scoping it.
 | [D-037](#d-037-pipeline-warnings-email-a-summary-without-failing-the-run) | Pipeline warnings email a summary without failing the run | Accepted | 2026-11-23 | [record](decisions/D-037-pipeline-warnings-email-without-failing.md) |
 | [D-038](#d-038-fetch-the-self-hosted-viewer-files-in-the-buildpacks-binpost_compile-hook) | Fetch the self-hosted viewer files in the buildpack's `bin/post_compile` hook | Proposed | 2026-11-23 | [record](decisions/D-038-vendor-fetch-in-post-compile-hook.md) |
 | [D-039](#d-039-security-headers-ship-with-the-viewer-flag-cesium-needs-a-decision-before-the-csp-is-enforced) | Security headers ship with the viewer flag; Cesium needs a decision before the CSP is enforced | Proposed | 2026-11-23 | [record](decisions/D-039-security-headers-report-only.md) |
+| [D-040](#d-040-ci-checks-first-positions-against-twice-the-laptop-budget) | CI checks first positions against twice the laptop budget | Proposed | 2026-11-23 | [record](decisions/D-040-ci-first-positions-threshold.md) |
 
 ---
 
@@ -615,3 +616,18 @@ preload). Before enforcing, the owner chooses: patch Cesium's eval to `globalThi
 
 **Consequences.** Browser tests fail on any CSP violation except Cesium's six known reports and the Plotly map's
 `blob:` workers (removed in 3.6).
+
+## D-040 CI checks first positions against twice the laptop budget
+**Status:** Proposed (owner to confirm), 2026-11-23. **Component:** `tests/e2e/test_viewer.py`.
+
+**Context.** D-027: first positions ≤ 1.5 s on the reference laptop, checked in CI. GitHub's runners render the globe
+in software on the CPUs the worker needs: CI measured 1.40–1.98 s where the laptop measured 0.84–1.48 s.
+
+**Decision.** CI fails above 3.0 s (median of 3 first visits, full-size catalogue); 1.5 s stays the release check on the
+laptop. Main thread and heap stay at the D-027 budget in CI. Every figure is logged.
+
+**Why.** Catches a real regression without failing on runner speed.
+
+**Rejected.** 1.5 s in CI (failed 2 of 2 runs); deferring rendering to suit the test; two workers (out of scope).
+
+**Consequences.** Between 1.5 and 3 s, only the release check and the logged figure show a regression.
