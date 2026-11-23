@@ -21,7 +21,7 @@ Rules (user, 2026-10-25):
 | `gcat__orgs_sites_lv.md` | 5 | GCAT organisations, launch sites, launch vehicles |
 | `spacetrack__gp.md` | 6, 9b | Space-Track GP (9b: GP values kept beside a resolved value) |
 | `spacetrack__code_tables.md` | 6b | Space-Track boxscore and launch_site classes |
-| `celestrak__groups.md` | 11c | CelesTrak GP groups (D-026; wording still to be sourced) |
+| `celestrak__groups.md` | 11c | CelesTrak GP groups (D-026; GP data formats and Current Data pages, 23 Nov 2026) |
 | `reference__labels_countries_cities.md` | 7 | GCAT code labels, pycountry (ISO 3166), GeoNames |
 | `sattrack__derived.md` | 8, 9a | SatTrack-derived columns (intermediate and marts) |
 | `sattrack__metadata.md` | 8b | Load metadata (ingestion) and audit fields (dbt) |

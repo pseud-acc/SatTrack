@@ -1,6 +1,6 @@
 # D-039 CelesTrak groups: at most once a day, and no request for 20 hours after a refusal
 
-**Status:** Proposed (owner to confirm) · **Date:** 2026-11-23 · **PRs:** #69 (plan 3.8)
+**Status:** Accepted (owner, 2026-11-23) · **Date:** 2026-11-23 · **PRs:** #69 (plan 3.8)
 **Component:** `pipeline/ingestion/sattrack_ingest/celestrak_groups.py`, `config.py` (`CELESTRAK_MIN_HOURS`,
 `CELESTRAK_REFUSAL_COOLDOWN_HOURS`); reused by SupGP (plan 4.2) · **Tier:** light (two constants; easy to change back)
 
@@ -22,7 +22,7 @@ GitHub's runners share IPs with other users.
 | After a refusal, stop until a human resets it (like the Space-Track login backoff) | Most cautious | Breaks "nothing needs a human more often than every 14 days"; runner-IP blocks we didn't cause would stop the feature | – |
 | After a 5xx, retry next run; after 403/404/429/301, stop for 20 h | Closest to the policy's letter | Two rules to explain; the difference is hours | – |
 
-## Decision (proposed)
+## Decision
 - Download only when the landed copy is at least `CELESTRAK_MIN_HOURS` = 20 hours old.
 - A refusal (any non-200 including 301, or a 200 that isn't the expected CSV) stops the download at once, is recorded
   in the ops DB (`audit.source_refusal`), and blocks every CelesTrak request for `CELESTRAK_REFUSAL_COOLDOWN_HOURS` =

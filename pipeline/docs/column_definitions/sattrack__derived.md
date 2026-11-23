@@ -127,7 +127,7 @@ Source: SatTrack-derived. Each row names the model that computes it; the publish
 
 Source: SatTrack-derived. Each row names the model that computes it; the publishers of its inputs are cited in the definition.
 
-The group config is the one list D-026 allows (`sattrack_ingest/config.py`); the display name rule is D-026's. CelesTrak's documentation wording for its groups is still to be added (batch 11c in `celestrak__groups.md`).
+The group config is the one list D-026 allows (`sattrack_ingest/config.py`); the display name rule is D-026's. CelesTrak's own wording for its groups is in batch 11c (`celestrak__groups.md`).
 
 | # | Column | Model / macro | Definition (SatTrack-derived) | Primitives & decision |
 |---|---|---|---|---|

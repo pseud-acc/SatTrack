@@ -64,7 +64,7 @@ CELESTRAK_EXCLUDED_GROUPS = [
     "cosmos-2251-debris", "weather", "resource", "sar", "sarsat", "argos", "geo", "amateur", "satnogs", "x-comm",
     "other-comm", "gnss", "sbas", "science", "geodetic", "engineering", "education", "military", "radar", "cubesat",
 ]
-# Download cadence (proposed D-039): at most once per CELESTRAK_MIN_HOURS (CelesTrak updates GP every 2 hours, so this
+# Download cadence (D-039): at most once per CELESTRAK_MIN_HOURS (CelesTrak updates GP every 2 hours, so this
 # is well inside "once per update"), and no request at all for CELESTRAK_REFUSAL_COOLDOWN_HOURS after any refusal
 # (the policy's 15-minute stop after a 5xx is the minimum; a 403/404/429/301 is not retried the same day either).
 CELESTRAK_MIN_HOURS = 20

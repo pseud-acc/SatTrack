@@ -91,7 +91,7 @@ published). Exit codes: `0` for ok/warn, `1` for error, `3` when a local run is 
 Source limits are built in: a landed copy younger than its limit is reused instead of downloaded again
 (Space-Track GP 55 minutes, boxscore 23 hours, GCAT 6 hours, CelesTrak groups 20 hours).
 
-**CelesTrak constellation groups** (D-026, D-008; proposed D-039, D-040). `sattrack_ingest/celestrak_groups.py`
+**CelesTrak constellation groups** (D-026, D-008, D-039, D-040). `sattrack_ingest/celestrak_groups.py`
 downloads CelesTrak's GP index page and the 20 groups listed in `sattrack_ingest/config.py` (constellations, then
 operators; every other group is excluded), as CSV with gzip, 5 seconds apart, only on GitHub's runners. Any non-200
 response (301 included) or a body that isn't the expected CSV stops the download at once with no retry, is recorded in

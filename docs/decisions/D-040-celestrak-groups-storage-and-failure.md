@@ -1,6 +1,6 @@
 # D-040 CelesTrak groups: raw tables in the warehouse, replaced all or nothing, never holding a unit
 
-**Status:** Proposed (owner to confirm) · **Date:** 2026-11-23 · **PRs:** #69 (plan 3.8)
+**Status:** Accepted (owner, 2026-11-23) · **Date:** 2026-11-23 · **PRs:** #69 (plan 3.8)
 **Component:** `raw_celestrak` schema, `celestrak_groups.py`, the `celestrak` dbt source, `fct__satellite_master`
 · **Tier:** light (contained in the pipeline; no state-script, AWS or workflow change)
 
@@ -21,7 +21,7 @@ nothing to keep behaves, where the group config lives, or which swap unit carrie
 | A dbt seed | dbt-native | Seeds break the layering rules (LIN-05) and the downloader would read dbt files | – |
 | **Enrichment unit; every CelesTrak check at warn severity** | A CelesTrak problem never holds positions or details | A broken rule shows as a warning, not a held unit | – |
 
-## Decision (proposed)
+## Decision
 The options in bold. The group CSVs land unchanged in `raw_celestrak.gp_group_member` with CelesTrak's `GROUP` query
 value as the first column; the index page's groups and titles in `raw_celestrak.gp_group_index`. Display names come
 from the index titles, so a configured group without a parsed title counts as a layout change: nothing is replaced.
@@ -33,8 +33,9 @@ local `dbt build` of the CelesTrak models on the committed sample (all tests pas
 
 ## Consequences
 - Constellation membership is at most a day old in normal running and stays at the last good copy otherwise.
-- The title parser has not been checked against the live index page (the fetch artifact didn't keep it). Until it
-  is, the first production run may keep the tables empty (constellation null) and log "layout changed".
+- The title parser is checked against the live index page as served on 23 Nov 2026 (fetch run 45099334610; a
+  trimmed copy is a test fixture). It found all 47 groups and titles; a first version keyed on table rows missed the
+  28 groups that share a row with another, which the fixture now guards against.
 
 ## Revisit when
 - The index page's layout changes (the stage logs "layout changed" and the 3-day freshness warning fires).

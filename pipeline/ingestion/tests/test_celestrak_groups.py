@@ -1,7 +1,8 @@
 """CelesTrak constellation groups (D-026): download rules, keeping the last copy, and the dbt rules run on the result.
 
-No network: a fake opener answers from the committed sample (tests/fixtures/celestrak/, a few real rows per group
-from fetch run 45061938995) and a synthetic index page. The dbt models are rendered by substituting source(), ref()
+No network: a fake opener answers from the committed sample (tests/fixtures/celestrak/: a few real rows per group
+from fetch run 45061938995, and a trimmed copy of the real GP index page from fetch run 45099334610). Download tests
+that need a smaller index use a page built in the real page's markup. The dbt models are rendered by substituting source(), ref()
 and the audit macro, then run in DuckDB on the landed tables, so the precedence, "Operational" and exclusion rules
 and the new-group warning are tested in CI without a dbt build.
 """
@@ -25,20 +26,22 @@ from sattrack_ingest.config import RunContext  # noqa: E402
 FIXTURES = Path(__file__).resolve().parent / "fixtures" / "celestrak"
 TRANSFORM = Path(__file__).resolve().parents[2] / "transform"
 SAMPLE_GROUPS = ["starlink", "oneweb", "gps-ops", "glo-ops", "intelsat", "ses", "gnss"]
-# Synthetic titles shaped like the index page's; "Operational" on the GNSS groups as CelesTrak titles them.
+REAL_INDEX = FIXTURES / "gp_index_2026-11-23.html"     # trimmed copy of CelesTrak's GP index page, 23 Nov 2026
+# The sample groups' titles as that page shows them.
 TITLES = {"starlink": "Starlink", "oneweb": "OneWeb", "gps-ops": "GPS Operational", "glo-ops": "GLONASS Operational",
-          "intelsat": "Intelsat", "ses": "SES", "gnss": "GNSS Constellations"}
+          "intelsat": "Intelsat", "ses": "SES", "gnss": "GNSS"}
 HOUR = 3600.0
 
 
 def index_html(groups=SAMPLE_GROUPS, titles=TITLES) -> str:
-    """A synthetic GP index page: one table row per group, the title as a link, then format links."""
-    rows = "".join(
-        f'<tr><td><a href="gp.php?GROUP={g}&amp;FORMAT=tle">{titles.get(g, g.title())}</a></td>'
-        f'<td><a href="gp.php?GROUP={g}&amp;FORMAT=json">JSON</a> <a href="gp.php?GROUP={g}&amp;FORMAT=csv">CSV</a></td>'
-        f'<td><a title="Table" href="table.php?GROUP={g}&amp;FORMAT=tle"><img src="t.png"></a></td></tr>'
-        for g in groups)
-    return f'<html><body><table class="striped"><tr><th>Group</th></tr>{rows}</table></body></html>'
+    """A smaller GP index page in the real page's markup: one cell per group (two per row), the title as text,
+    then icon-only links to the CSV and the table."""
+    cells = [f'<td align=center>{titles.get(g, g.title())} <a title="CSV Data" href="gp.php?GROUP={g}&FORMAT=csv">'
+             f'<i class="fal fa-file-alt"></i></a> <a title="Table" href="table.php?GROUP={g}&FORMAT=csv">'
+             f'<i class="fal fa-table"></i></a></td>' for g in groups]
+    rows = "".join(f"<tr>{''.join(cells[i:i + 2])}</tr>" for i in range(0, len(cells), 2))
+    return ('<table class="center outline"><tr><td><table class=striped><thead><tr class=header>'
+            f'<th colspan=2>Communications Satellites</th></tr></thead><tbody>{rows}</tbody></table></td></tr></table>')
 
 
 def sample(group: str) -> str:
@@ -122,15 +125,34 @@ def test_titles_come_from_each_groups_row_not_from_format_links():
     assert celestrak.group_titles(index_html()) == TITLES
 
 
+def test_the_real_index_page_lists_47_groups_all_known_and_titled():
+    """The page as CelesTrak served it on 23 Nov 2026 (fetch run 45099334610): two groups per row in places,
+    group tables nested in a layout table, titles as plain text before icon-only links."""
+    html = REAL_INDEX.read_text(encoding="utf-8")
+    listed = celestrak.groups_on_index(html)
+    titles = celestrak.group_titles(html)
+    assert len(listed) == 47 and set(titles) == set(listed)
+    assert celestrak_groups.not_in_config(listed) == []
+    assert {g: titles[g] for g, _ in celestrak_groups.included_groups()} == {
+        "starlink": "Starlink", "oneweb": "OneWeb", "kuiper": "Kuiper", "qianfan": "Qianfan",
+        "hulianwang": "Hulianwang Digui", "iridium-NEXT": "Iridium NEXT", "globalstar": "Globalstar",
+        "orbcomm": "Orbcomm", "gps-ops": "GPS Operational", "glo-ops": "GLONASS Operational", "galileo": "Galileo",
+        "beidou": "Beidou", "tdrss": "Tracking and Data Relay Satellite System (TDRSS)", "dmc": "Disaster Monitoring",
+        "planet": "Planet", "spire": "Spire", "intelsat": "Intelsat", "ses": "SES", "eutelsat": "Eutelsat",
+        "telesat": "Telesat"}
+    assert titles["active"] == "Active Satellites" and titles["sarsat"] == "Search & Rescue (SARSAT)"
+    assert [r["GROUP"] for r in celestrak_groups.parse_index(html)][:2] == ["last-30-days", "stations"]
+
+
 def test_titles_from_plain_links_outside_a_table():
     html = '<a href="gp.php?GROUP=gps-ops&FORMAT=tle">GPS Operational</a> <a href="gp.php?GROUP=ses&FORMAT=tle">SES</a>'
     assert celestrak.group_titles(html) == {"gps-ops": "GPS Operational", "ses": "SES"}
 
 
-def test_title_in_its_own_cell_beside_format_links():
-    html = ('<table><tr><td>GLONASS Operational</td><td><a href="gp.php?GROUP=glo-ops&FORMAT=tle">TLE</a>'
-            '<a href="gp.php?GROUP=glo-ops&FORMAT=csv">CSV</a></td></tr></table>')
-    assert celestrak.group_titles(html) == {"glo-ops": "GLONASS Operational"}
+def test_two_groups_in_one_row_each_keep_their_own_title():
+    html = ('<table><tr><td>GPS Operational <a href="gp.php?GROUP=gps-ops&FORMAT=csv"><i></i></a></td>'
+            '<td>GLONASS Operational <a href="gp.php?GROUP=glo-ops&FORMAT=csv"><i></i></a></td></tr></table>')
+    assert celestrak.group_titles(html) == {"gps-ops": "GPS Operational", "glo-ops": "GLONASS Operational"}
 
 
 def test_an_index_without_titles_for_configured_groups_is_a_layout_change():
@@ -293,6 +315,25 @@ def test_models_name_each_object_once_by_the_d026_rules(env):
     assert len(got) == 18                      # 3 rows x 6 included groups; gnss (excluded) adds nobody
     assert con.execute("select count(*) from int__celestrak__satellite_constellation "
                        "group by satcat_id having count(*) > 1").fetchall() == []
+
+
+def test_models_on_the_real_index_page(env):
+    """The whole flow on the real page: every included group requested once in config order, display names from
+    CelesTrak's titles. Groups without committed rows answer with the CSV header only."""
+    con, _ = env
+    header = sample("starlink").splitlines()[0] + "\n"
+    answer = {celestrak.INDEX_URL: REAL_INDEX.read_text(encoding="utf-8")}
+    answer.update({celestrak.GROUP_URL.format(group=g): (sample(g) if (FIXTURES / f"{g}.csv").exists() else header)
+                   for g, _ in celestrak_groups.included_groups()})
+    fake = Fake(answer)
+    out, _ = ingest(env, fake)
+    assert out["stage_status"] == "ok" and "groups_not_in_config" not in out
+    assert fake.calls[1:] == [celestrak.GROUP_URL.format(group=g) for g, _ in celestrak_groups.included_groups()]
+    build_models(con)
+    got = constellations(con)
+    assert (got[44714], got[26407], got[32275], got[44057]) == ("Starlink", "GPS", "GLONASS", "OneWeb")
+    test_sql = TRANSFORM / "tests" / "singular" / "assert__stg__celestrak__gp_group_index__groups_in_config.sql"
+    assert con.execute(render(test_sql.read_text(encoding="utf-8"))).fetchall() == []   # config matches the page
 
 
 def test_new_group_check_warns_on_unknown_and_vanished_groups(env):

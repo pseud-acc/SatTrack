@@ -94,64 +94,66 @@ _GROUP_IN_HREF = re.compile(r"GROUP=([A-Za-z0-9_-]+)")
 
 
 class _IndexParser(HTMLParser):
-    """Collects, per table row (or per link outside a row), the groups its links name and its text pieces."""
+    """Collects, per innermost table cell (or per link outside any cell), the groups its links name and its texts.
+
+    On CelesTrak's GP index page (archived 2026-11-23, fetch run 45099334610) each group is one <td>: its title as
+    plain text, then icon-only links to gp.php?GROUP=<group>&FORMAT=csv and table.php?GROUP=<group>. A row can hold
+    two groups (e.g. Starlink and OneWeb), and the group tables sit inside an outer layout table, so cells nest."""
 
     def __init__(self):
         super().__init__(convert_charrefs=True)
-        self.rows: list[dict] = []
-        self._row: dict | None = None
-        self._link_group: str | None = None
-        self._link_text: list[str] = []
+        self.cells: list[dict] = []
+        self._open: list[dict] = []           # open <td>/<th> cells, innermost last
+        self._link: dict | None = None        # a group link outside any cell
 
     def handle_starttag(self, tag, attrs):
-        if tag == "tr":
-            self._row = {"groups": [], "texts": []}
-            self.rows.append(self._row)
+        if tag in ("td", "th"):
+            cell = {"groups": [], "texts": []}
+            self.cells.append(cell)
+            self._open.append(cell)
         elif tag == "a":
             href = dict(attrs).get("href") or ""
             m = _GROUP_IN_HREF.search(href) if ("gp.php" in href or "table.php" in href) else None
-            self._link_group = m.group(1) if m else None
-            self._link_text = []
-            if self._link_group and self._row is None:        # a group link outside any table row
-                self.rows.append({"groups": [], "texts": [], "loose": True})
-            if self._link_group:
-                target = self._row if self._row is not None else self.rows[-1]
-                target["groups"].append(self._link_group)
+            if not m:
+                return
+            if self._open:
+                self._open[-1]["groups"].append(m.group(1))
+            else:                              # a group link outside any table: its own text is the title
+                self._link = {"groups": [m.group(1)], "texts": []}
+                self.cells.append(self._link)
 
     def handle_endtag(self, tag):
-        if tag == "tr":
-            self._row = None
+        if tag in ("td", "th") and self._open:
+            self._open.pop()
         elif tag == "a":
-            if self._link_group and self._row is None and self.rows:
-                self.rows[-1]["texts"].append(" ".join(self._link_text))
-            self._link_group = None
+            self._link = None
 
     def handle_data(self, data):
         text = " ".join(data.split())
         if not text:
             return
-        if self._link_group is not None:
-            self._link_text.append(text)
-        if self._row is not None:
-            self._row["texts"].append(text)
+        if self._open:
+            self._open[-1]["texts"].append(text)
+        elif self._link is not None:
+            self._link["texts"].append(text)
 
 
 def group_titles(html: str) -> dict[str, str]:
-    """{group: title} from the GP index page, e.g. {"gps-ops": "GPS Operational"}.
+    """{group: title} from the GP index page, e.g. {"gps-ops": "GPS Operational", "iridium-NEXT": "Iridium NEXT"}.
 
-    A group's title is the first text of its table row (or of its own link, outside a table) that isn't a format or
-    view label (TLE, JSON, CSV, Table, ...). Rows naming more than one group are skipped. A group without a title is
-    left out, so the caller can tell the page changed layout. UNVERIFIED against the live page on 2026-11-23: the
-    fetch workflow's artifacts held the group CSVs, not the index HTML (see the PR for the check to run).
+    A group's title is the first text of its table cell (or of its own link, outside a table) that isn't a format or
+    view label (TLE, JSON, CSV, Table, ...). Cells naming more than one group are skipped. A group without a title is
+    left out, so the caller can tell the page changed layout. Checked against the live page archived on 2026-11-23
+    (fetch run 45099334610; trimmed copy in ingestion/tests/fixtures/celestrak/).
     """
     parser = _IndexParser()
     parser.feed(html)
     titles: dict[str, str] = {}
-    for row in parser.rows:
-        groups = list(dict.fromkeys(row["groups"]))
+    for cell in parser.cells:
+        groups = list(dict.fromkeys(cell["groups"]))
         if len(groups) != 1 or groups[0] in titles:
             continue
-        for text in row["texts"]:
+        for text in cell["texts"]:
             text = text.strip(" :|-")
             if text and text.lower() not in _FORMAT_WORDS:
                 titles[groups[0]] = text

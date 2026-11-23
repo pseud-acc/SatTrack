@@ -49,8 +49,8 @@ Read the records a feature touches before scoping it.
 | [D-034](#d-034-one-set-of-conformance-cases-for-every-filter-spec-implementation) | One set of conformance cases for every filter spec implementation | Accepted | 2026-11-22 | [record](decisions/D-034-filter-spec-shared-conformance-cases.md) |
 | [D-035](#d-035-the-servers-sidebar-filters-the-objects-dataset-no-fallback) | The server's sidebar filters the objects dataset; no fallback | Accepted | 2026-11-22 | [record](decisions/D-035-sidebar-filters-the-objects-dataset.md) |
 | [D-037](#d-037-pipeline-warnings-email-a-summary-without-failing-the-run) | Pipeline warnings email a summary without failing the run | Accepted | 2026-11-23 | [record](decisions/D-037-pipeline-warnings-email-without-failing.md) |
-| [D-039](#d-039-celestrak-groups-at-most-once-a-day-and-no-request-for-20-hours-after-a-refusal) | CelesTrak groups: at most once a day, and no request for 20 hours after a refusal | Proposed | 2026-11-23 | [record](decisions/D-039-celestrak-group-fetch-cadence.md) |
-| [D-040](#d-040-celestrak-groups-raw-tables-in-the-warehouse-replaced-all-or-nothing-never-holding-a-unit) | CelesTrak groups: raw tables in the warehouse, replaced all or nothing, never holding a unit | Proposed | 2026-11-23 | [record](decisions/D-040-celestrak-groups-storage-and-failure.md) |
+| [D-039](#d-039-celestrak-groups-at-most-once-a-day-and-no-request-for-20-hours-after-a-refusal) | CelesTrak groups: at most once a day, and no request for 20 hours after a refusal | Accepted | 2026-11-23 | [record](decisions/D-039-celestrak-group-fetch-cadence.md) |
+| [D-040](#d-040-celestrak-groups-raw-tables-in-the-warehouse-replaced-all-or-nothing-never-holding-a-unit) | CelesTrak groups: raw tables in the warehouse, replaced all or nothing, never holding a unit | Accepted | 2026-11-23 | [record](decisions/D-040-celestrak-groups-storage-and-failure.md) |
 
 ---
 
@@ -577,7 +577,7 @@ the warnings change (the owner chose every run).
 **Consequences.** A permanent warning emails every run, so it gets fixed or its severity changed by decision (#65).
 
 ## D-039 CelesTrak groups: at most once a day, and no request for 20 hours after a refusal
-**Status:** Proposed (owner to confirm), 2026-11-23. **Component:** `sattrack_ingest/celestrak_groups.py` and
+**Status:** Accepted, 2026-11-23. **Component:** `sattrack_ingest/celestrak_groups.py` and
 `config.py`; reused by SupGP (4.2).
 
 **Context.** D-026 and D-008 say once per update, stop on any non-200, wait 15 minutes after a 5xx, never retry a
@@ -596,7 +596,7 @@ refusal (breaks the 14-day rule).
 **Consequences.** Membership up to a day old; both limits are one-line config changes.
 
 ## D-040 CelesTrak groups: raw tables in the warehouse, replaced all or nothing, never holding a unit
-**Status:** Proposed (owner to confirm), 2026-11-23. **Component:** `raw_celestrak`, the `celestrak` dbt source,
+**Status:** Accepted, 2026-11-23. **Component:** `raw_celestrak`, the `celestrak` dbt source,
 `fct__satellite_master`.
 
 **Context.** D-026 says keep the last good copy; it doesn't say where, what a partial download does, or how a first
@@ -613,4 +613,4 @@ details.
 **Rejected.** Files in S3 (infra change); per-group replacement (mixed snapshots); a dbt seed for the config
 (breaks the layering rules).
 
-**Consequences.** The index title parser is unverified against the live page until the owner archives it (see the PR).
+**Consequences.** The index title parser is tested on a trimmed copy of the live page (23 Nov 2026, run 45099334610).

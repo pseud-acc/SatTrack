@@ -6,7 +6,7 @@ Three tables, all VARCHAR plus the usual load metadata (raw_writer.py):
   * gp_group_member  the CSV of each configured group CelesTrak lists, unchanged, with the group name in front
                      (column GROUP, CelesTrak's own query parameter).
 
-Download rules (D-008, D-026, CelesTrak usage policy of 2026-11-16, proposed D-039):
+Download rules (D-008, D-026, CelesTrak usage policy of 2026-11-16, D-039, D-040):
   * CSV, gzip, one request per group, a pause between requests, the shared client's stop-on-any-non-200
     (celestrak.py); a refusal stops the fetch at once and is never retried in the run;
   * at most once per CELESTRAK_MIN_HOURS (the landed copy's age), and no request at all for

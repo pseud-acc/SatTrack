@@ -14,7 +14,7 @@ sources:
         endpoint: "https://celestrak.org/NORAD/elements/gp.php?GROUP=<group>&FORMAT=csv and the GP index page"
         auth: "none"
         format: csv
-        update_frequency: "CelesTrak updates GP every 2 hours; SatTrack downloads at most once per 20 hours (proposed D-039)"
+        update_frequency: "CelesTrak updates GP every 2 hours; SatTrack downloads at most once per 20 hours (D-039)"
         licence_terms: "CelesTrak usage policy (2026-11-16); credit 'Constellation groups: CelesTrak (Dr T.S. Kelso)' (D-026)"
         rate_limits: "Once per update; stop on any non-200; no retries; no requests for 20 h after a refusal (D-008, D-039)"
         ingestion_module: sattrack_ingest.celestrak_groups.ingest_celestrak_groups
