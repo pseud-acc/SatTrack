@@ -1,6 +1,6 @@
 # D-039 CelesTrak groups: at most once a day, and no request for 20 hours after a refusal
 
-**Status:** Proposed (owner to confirm) · **Date:** 2026-11-23 · **PRs:** `feature/constellation-field` (plan 3.8)
+**Status:** Proposed (owner to confirm) · **Date:** 2026-11-23 · **PRs:** #69 (plan 3.8)
 **Component:** `pipeline/ingestion/sattrack_ingest/celestrak_groups.py`, `config.py` (`CELESTRAK_MIN_HOURS`,
 `CELESTRAK_REFUSAL_COOLDOWN_HOURS`); reused by SupGP (plan 4.2) · **Tier:** light (two constants; easy to change back)
 

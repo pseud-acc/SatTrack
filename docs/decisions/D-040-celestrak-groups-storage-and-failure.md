@@ -1,6 +1,6 @@
 # D-040 CelesTrak groups: raw tables in the warehouse, replaced all or nothing, never holding a unit
 
-**Status:** Proposed (owner to confirm) · **Date:** 2026-11-23 · **PRs:** `feature/constellation-field` (plan 3.8)
+**Status:** Proposed (owner to confirm) · **Date:** 2026-11-23 · **PRs:** #69 (plan 3.8)
 **Component:** `raw_celestrak` schema, `celestrak_groups.py`, the `celestrak` dbt source, `fct__satellite_master`
 · **Tier:** light (contained in the pipeline; no state-script, AWS or workflow change)
 
