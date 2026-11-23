@@ -1,6 +1,6 @@
 # D-026 Constellations from CelesTrak's group lists, credited
 
-**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #SPIKE (decision), #62 (fetch workflow)
+**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #68 (decision), #62 (fetch workflow)
 **Component:** pipeline; the `objects` dataset; the viewer's credits · **Tier:** full
 
 ## Context

@@ -1,6 +1,6 @@
 # D-019 Single selection with per-satellite toggles
 
-**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #SPIKE
+**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #68
 **Component:** the viewer · **Tier:** light
 
 ## Context

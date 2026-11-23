@@ -1,6 +1,6 @@
 # D-021 One viewer for 3D, 2D and Columbus; retire the Plotly 2D tab
 
-**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #SPIKE
+**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #68
 **Component:** the tracker page · **Tier:** light
 
 ## Context

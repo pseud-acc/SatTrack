@@ -1,6 +1,6 @@
 # D-029 JavaScript SGP4 in the worker now; WASM when shadow dimming lands
 
-**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #SPIKE
+**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #68
 **Component:** the viewer's worker · **Tier:** full
 
 ## Context

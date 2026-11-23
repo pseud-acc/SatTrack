@@ -1,6 +1,6 @@
 # D-013 Cesium runs as a JS module inside the Dash page
 
-**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #SPIKE (spike 3.1)
+**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #68 (spike 3.1)
 **Component:** the tracker page (`app/`, `static/viewer/`) · **Tier:** full
 
 ## Context

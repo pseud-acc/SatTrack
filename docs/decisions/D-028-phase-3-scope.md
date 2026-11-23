@@ -1,6 +1,6 @@
 # D-028 Phase 3 scope: the core plus four extensions
 
-**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #SPIKE
+**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #68
 **Component:** the roadmap · **Tier:** light
 
 ## Context

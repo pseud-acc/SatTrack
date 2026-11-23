@@ -1,6 +1,6 @@
 # D-014 Self-host CesiumJS and satellite.js, fetched and hash-checked at build
 
-**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #SPIKE (spike 3.1)
+**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #68 (spike 3.1)
 **Component:** front-end dependencies; the Heroku and CI builds · **Tier:** full
 
 ## Context

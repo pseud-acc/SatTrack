@@ -1,6 +1,6 @@
 # D-023 Label the selected satellite and, close up, the nearest 20
 
-**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #SPIKE
+**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #68
 **Component:** the viewer · **Tier:** light
 
 ## Context

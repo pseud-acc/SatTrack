@@ -1,6 +1,6 @@
 # D-017 Colour by object type, with a "Colour by" menu
 
-**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #SPIKE
+**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #68
 **Component:** the viewer · **Tier:** light
 
 ## Context

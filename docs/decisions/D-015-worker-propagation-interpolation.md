@@ -1,6 +1,6 @@
 # D-015 Propagate in a Web Worker and interpolate on the main thread
 
-**Status:** Accepted · **Date:** 2026-11-22 (provisional), accepted 2026-11-23 after the real-phone run · **PRs:** #SPIKE
+**Status:** Accepted · **Date:** 2026-11-22 (provisional), accepted 2026-11-23 after the real-phone run · **PRs:** #68
 **Component:** the viewer · **Tier:** full
 
 ## Context

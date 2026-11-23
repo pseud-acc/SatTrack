@@ -1,6 +1,6 @@
 # D-018 Three information tiers: hover, click panel, full record
 
-**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #SPIKE
+**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #68
 **Component:** the viewer and the list view · **Tier:** light
 
 ## Context

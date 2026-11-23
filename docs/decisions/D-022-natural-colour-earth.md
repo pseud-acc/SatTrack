@@ -1,6 +1,6 @@
 # D-022 Natural-colour Earth from self-hosted imagery
 
-**Status:** Accepted (provisional) · **Date:** 2026-11-22 · **PRs:** #SPIKE
+**Status:** Accepted (provisional) · **Date:** 2026-11-22 · **PRs:** #68
 **Component:** the viewer · **Tier:** light
 
 ## Context

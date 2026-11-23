@@ -1,6 +1,6 @@
 # D-020 Time scrubber of ±1 day
 
-**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #SPIKE
+**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #68
 **Component:** the viewer · **Tier:** light
 
 ## Context

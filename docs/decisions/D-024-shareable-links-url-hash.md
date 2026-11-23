@@ -1,6 +1,6 @@
 # D-024 Shareable links carry the core view in the URL hash
 
-**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #SPIKE
+**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #68
 **Component:** the viewer · **Tier:** full (links outlive releases)
 
 ## Context

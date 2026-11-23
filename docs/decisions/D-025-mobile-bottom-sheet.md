@@ -1,6 +1,6 @@
 # D-025 Bottom sheet on phones
 
-**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #SPIKE
+**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #68
 **Component:** the tracker page · **Tier:** light
 
 ## Context
