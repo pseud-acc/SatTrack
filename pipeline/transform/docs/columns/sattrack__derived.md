@@ -6,6 +6,24 @@ The master table's key: the object's NORAD catalog number as text, taken by SatT
 Source: SatTrack-derived: see `int__xsrc__satellite_gcat_matched`, `fct__satellite_master`. Inputs: Space-Track https://www.space-track.org/documentation (Batch 8).
 {% enddocs %}
 
+{% docs col__celestrak_group_kind %}
+Whether SatTrack's config includes a CelesTrak group as a `constellation` or an `operator`, or lists it as `excluded`. E.g. `constellation` for `starlink`; `operator` for `intelsat`; `excluded` for `gnss`.
+
+Source: SatTrack-derived: see `stg__celestrak__group_config`. Inputs: CelesTrak https://celestrak.org/NORAD/elements/ (Batch 11).
+{% enddocs %}
+
+{% docs col__celestrak_group_order %}
+An included CelesTrak group's precedence in SatTrack's config, from 1; an object in two groups takes the lower number. NULL for excluded groups. E.g. 1 for `starlink`; 17 for `intelsat`.
+
+Source: SatTrack-derived: see `stg__celestrak__group_config`. Inputs: CelesTrak https://celestrak.org/NORAD/elements/ (Batch 11).
+{% enddocs %}
+
+{% docs col__constellation %}
+The CelesTrak constellation or operator group an object is in, by CelesTrak's group title without "Operational"; NULL when in none. E.g. "Starlink" for STARLINK-1008 (NORAD 44714); "GPS" for GPS BIIR-5 (NORAD 26407).
+
+Source: SatTrack-derived: see `int__celestrak__satellite_constellation`, `fct__satellite_master`. Inputs: CelesTrak https://celestrak.org/NORAD/elements/ (Batch 11).
+{% enddocs %}
+
 {% docs col__country_display_name %}
 The country's display name: pycountry's common name where there is one, else its ISO short name; chosen by SatTrack. E.g. "Bolivia"; "USSR, Union of Soviet Socialist Republics".
 

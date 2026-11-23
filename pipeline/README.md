@@ -1,7 +1,7 @@
 # SatTrack data pipeline
 
 Builds the satellite data behind [SatTrack](https://www.sattrackapp.com): it downloads orbital elements from
-Space-Track and launch/owner details from GCAT, models them with dbt on DuckDB, and publishes the two CSV files
+Space-Track, launch/owner details from GCAT and constellation groups from CelesTrak, models them with dbt on DuckDB, and publishes the two CSV files
 the Dash app reads, plus a health page and a data summary report.
 
 - **Runs:** once a day on GitHub Actions ([`pipeline.yml`](../.github/workflows/pipeline.yml)); state lives in a
@@ -30,6 +30,7 @@ flowchart LR
     ST[Space-Track<br/>GP elements, boxscore]
     GC[GCAT<br/>satcat, launchlog, orgs, sites, lv, ...]
     REF[pycountry, geonames]
+    CT[CelesTrak<br/>constellation groups]
   end
   subgraph run[run_pipeline.py]
     ING[ingestion/<br/>land raw, all VARCHAR]
@@ -41,7 +42,7 @@ flowchart LR
     LIVE[(sattrack.duckdb)]
     OPS[(sattrack_ops.duckdb<br/>Elementary + audit)]
   end
-  ST & GC & REF --> ING --> BUILD
+  ST & GC & REF & CT --> ING --> BUILD
   BUILD --> DBT --> BUILD
   BUILD -- swap on success --> LIVE
   DBT -. results .-> OPS
@@ -60,10 +61,10 @@ versions of a matching pair of CSVs.
 | Path | What |
 |---|---|
 | `run_pipeline.py` | The entry point: runs every stage in order (below) and writes the run log |
-| `ingestion/sattrack_ingest/` | Python package that fetches each source and lands it raw (`extractors.py`, `raw_writer.py`), Space-Track credentials (`credentials.py`), the audit tables (`audit.py`), the run log (`runlog.py`), paths (`config.py`) |
+| `ingestion/sattrack_ingest/` | Python package that fetches each source and lands it raw (`extractors.py`, `celestrak_groups.py`, `raw_writer.py`), the shared CelesTrak HTTP client (`celestrak.py`), Space-Track credentials (`credentials.py`), the audit tables (`audit.py`), the run log (`runlog.py`), paths (`config.py`) |
 | `ingestion/tests/` | pytest suites for credentials, audit flags and the run log |
 | `transform/` | The dbt project: models, tests, macros, analyses, docs. See [transform/README.md](transform/README.md) |
-| `scripts/` | Report builders run after dbt: `build_health_page.py`, `build_data_summary.py`, `export_app_csvs.py`; docs helpers `build_docs_registry.py`, `codegen_contracts.py`, `erd/` (docs-site diagram) |
+| `scripts/` | Report builders run after dbt: `build_health_page.py`, `build_data_summary.py`, `export_app_csvs.py`; `celestrak_fetch.py` (the on-demand analysis download, `.github/workflows/celestrak-fetch.yml`); docs helpers `build_docs_registry.py`, `codegen_contracts.py`, `erd/` (docs-site diagram) |
 | `docs/column_definitions/` | The sourced column definitions (review copy); `scripts/build_docs_registry.py` turns them into the dbt doc blocks in `transform/docs/columns/` |
 | `pyproject.toml`, `uv.lock` | One uv project, four environments (dependency groups), below |
 
@@ -76,7 +77,7 @@ The pipeline is separate from the app: its packages never reach Heroku (`.slugig
 | # | Stage | What happens | On failure |
 |---|---|---|---|
 | 1 | Working copy | Copies `sattrack.duckdb` to `sattrack_build.duckdb` | — |
-| 2 | Ingest | Space-Track (GP + boxscore), GCAT (9 TSV files + code labels), pycountry, geonames are landed unchanged into `raw_*` schemas, each with load metadata; every call is logged to `audit.ingestion_call`. A copy of each raw table goes to `raw_history/` (Parquet, 90 days) | The dbt unit that needs the source is **held** |
+| 2 | Ingest | Space-Track (GP + boxscore), GCAT (9 TSV files + code labels), pycountry, geonames and CelesTrak's constellation groups are landed unchanged into `raw_*` schemas, each with load metadata; every call is logged to `audit.ingestion_call`. A copy of each raw table goes to `raw_history/` (Parquet, 90 days) | The dbt unit that needs the source is **held**; CelesTrak never holds a unit (it keeps its last copy) |
 | 2b | Source freshness | `dbt source freshness`, recorded in `audit.source_freshness` | Warn only |
 | 3 | dbt build | Two **swap units** in order: `tracking` (GP elements → `marts_tracking`), then `enrichment` (GCAT + reference data → `marts`). Each is `dbt build --selector <unit>`, so its models and tests run together | A failing unit is held; enrichment is held whenever tracking fails |
 | 4 | Publish | A held unit's marts are restored from the live file, so it keeps its last good build | — |
@@ -88,7 +89,19 @@ The run's result is `ok` (both units published), `warn` (one unit held, or a sta
 published). Exit codes: `0` for ok/warn, `1` for error, `3` when a local run is refused (see the guard below).
 
 Source limits are built in: a landed copy younger than its limit is reused instead of downloaded again
-(Space-Track GP 55 minutes, boxscore 23 hours, GCAT 6 hours). After 3 consecutive failed Space-Track logins,
+(Space-Track GP 55 minutes, boxscore 23 hours, GCAT 6 hours, CelesTrak groups 20 hours).
+
+**CelesTrak constellation groups** (D-026, D-008; proposed D-039, D-040). `sattrack_ingest/celestrak_groups.py`
+downloads CelesTrak's GP index page and the 20 groups listed in `sattrack_ingest/config.py` (constellations, then
+operators; every other group is excluded), as CSV with gzip, 5 seconds apart, only on GitHub's runners. Any non-200
+response (301 included) or a body that isn't the expected CSV stops the download at once with no retry, is recorded in
+`audit.source_refusal` (ops DB), and blocks every CelesTrak request for 20 hours; the policy's 15-minute pause after a
+5xx is covered. Tables are replaced only when the index and every group arrive and parse, so a refusal or a layout
+change keeps the last good copy; a first run with nothing to keep creates empty tables (`constellation` is then null).
+The stage reports `skipped` with the reason and never fails the run. A refusal that lasts 3 days shows as the
+`celestrak` source's freshness warning (emailed, D-037); a group CelesTrak lists that the config doesn't know is a
+warn-severity dbt check (`assert__stg__celestrak__gp_group_index__groups_in_config`). The shared HTTP rules live in
+`sattrack_ingest/celestrak.py`, for SupGP (plan 4.2) to reuse. After 3 consecutive failed Space-Track logins,
 runs stop trying to log in, so an unattended job can't get the account locked, and keep the last good tracking
 data until the counter in `audit.login_state` (ops database) is reset by hand.
 
@@ -201,3 +214,4 @@ dbt data tests and Elementary checks inside `dbt build`; their results are on th
 | [GCAT](https://planet4589.org/space/gcat/) (J. McDowell) | satellite, launch, organisation, site and launch-vehicle catalogues | Credit GCAT (J. McDowell) |
 | [pycountry](https://pypi.org/project/pycountry/) | ISO 3166 countries | LGPL-2.1 |
 | [GeoNames](https://www.geonames.org/) via geonamescache | cities, countries | CC BY 4.0 |
+| [CelesTrak](https://celestrak.org/) (Dr T.S. Kelso) | constellation and operator group lists (GP groups) | [Usage policy](https://celestrak.org/usage-policy.php); credit "Constellation groups: CelesTrak (Dr T.S. Kelso)" wherever shown (D-026) |

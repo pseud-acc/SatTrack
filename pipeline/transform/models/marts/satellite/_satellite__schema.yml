@@ -277,6 +277,12 @@ models:
       - name: constellation_plane
         data_type: varchar
         description: '{{ doc("col__constellation_plane") }}'
+      - name: constellation
+        data_type: varchar
+        description: '{{ doc("col__constellation") }}'
+        config:
+          meta:
+            label: "Constellation"
       - name: mission_details_source
         data_type: varchar
         description: '{{ doc("col__mission_details_source") }}'

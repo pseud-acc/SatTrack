@@ -49,6 +49,28 @@ GCAT_FILES = [
 ]
 
 
+# CelesTrak constellation and operator groups (D-026). Order is precedence: an object in two groups takes the first
+# (constellations, then operators). Only these groups are downloaded. Every other group on CelesTrak's GP index is
+# excluded; the excluded list holds the groups the index showed on 2026-11-22 (fetch run 45061938995), so a dbt check
+# can warn (never fail) when the index lists a group that is in neither list. Changing either list is a config
+# change in a PR, decided against D-026.
+CELESTRAK_CONSTELLATION_GROUPS = [
+    "starlink", "oneweb", "kuiper", "qianfan", "hulianwang", "iridium-NEXT", "globalstar", "orbcomm", "gps-ops",
+    "glo-ops", "galileo", "beidou", "tdrss", "dmc",
+]
+CELESTRAK_OPERATOR_GROUPS = ["planet", "spire", "intelsat", "ses", "eutelsat", "telesat"]
+CELESTRAK_EXCLUDED_GROUPS = [
+    "last-30-days", "stations", "visual", "active", "analyst", "fengyun-1c-debris", "iridium-33-debris",
+    "cosmos-2251-debris", "weather", "resource", "sar", "sarsat", "argos", "geo", "amateur", "satnogs", "x-comm",
+    "other-comm", "gnss", "sbas", "science", "geodetic", "engineering", "education", "military", "radar", "cubesat",
+]
+# Download cadence (proposed D-039): at most once per CELESTRAK_MIN_HOURS (CelesTrak updates GP every 2 hours, so this
+# is well inside "once per update"), and no request at all for CELESTRAK_REFUSAL_COOLDOWN_HOURS after any refusal
+# (the policy's 15-minute stop after a 5xx is the minimum; a 403/404/429/301 is not retried the same day either).
+CELESTRAK_MIN_HOURS = 20
+CELESTRAK_REFUSAL_COOLDOWN_HOURS = 20
+CELESTRAK_PAUSE_S = 5.0          # between requests, as in the analysis fetch (#62)
+
 
 @dataclass
 class RunContext:

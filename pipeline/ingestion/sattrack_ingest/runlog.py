@@ -47,6 +47,10 @@ def _detail(stage: dict) -> list[str]:
             parts.append("rows " + ", ".join(loaded))
         if fresh:
             parts.append(f"skipped as fresh: {', '.join(fresh)}")
+        if stage.get("reason"):              # e.g. CelesTrak: refused or fetched recently, last copy kept
+            parts.append(stage["reason"])
+        if rows.get("groups_not_in_config"):  # CelesTrak groups in neither config list (D-026)
+            parts.append("groups not in config: " + ", ".join(rows["groups_not_in_config"]))
         return ["; ".join(parts)]
     if name == "source_freshness":
         line = f"{stage.get('sources', 0)} sources checked"

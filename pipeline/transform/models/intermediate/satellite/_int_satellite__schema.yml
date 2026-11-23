@@ -415,3 +415,71 @@ models:
         description: '{{ doc("col__inserted_date_time") }}'
       - name: inserted_by
         description: '{{ doc("col__inserted_by") }}'
+  - name: int__celestrak__satellite_constellation
+    description: "One row per object in a configured CelesTrak constellation or operator group, with the group's display name (D-026). An object in two groups takes the first in config order; excluded groups never count."
+    data_tests:
+      - model_health:
+          name: mh__int__celestrak__satellite_constellation__pk_unique
+          arguments: {check: pk_unique, columns: [satcat_id]}
+      - model_health:
+          name: mh__int__celestrak__satellite_constellation__pk_not_null
+          arguments: {check: pk_not_null, columns: [satcat_id]}
+    columns:
+      - name: satcat_id
+        description: '{{ doc("col__satcat_id") }}'
+      - name: constellation
+        description: '{{ doc("col__constellation") }}'
+        data_tests:
+          - not_null:
+              name: not_null__int__celestrak__satellite_constellation__constellation
+      - name: celestrak_group
+        description: '{{ doc("col__celestrak_group") }}'
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'
+
+unit_tests:
+  - name: ut__int__celestrak__satellite_constellation__group_rules
+    description: >-
+      D-026 rules on rows shaped like CelesTrak's (fetch run 45061938995; the ses memberships of 26407 and 26900 are
+      made up to test precedence): constellations beat operators, earlier operators beat later ones, excluded groups
+      (gnss) never count, a configured group missing from the index gives no name, and "Operational" is removed.
+    model: int__celestrak__satellite_constellation
+    given:
+      - input: ref('stg__celestrak__gp_group_member')
+        rows:
+          - {celestrak_group: starlink, satcat_id: 44714}
+          - {celestrak_group: gps-ops, satcat_id: 26407}
+          - {celestrak_group: gnss, satcat_id: 26407}
+          - {celestrak_group: ses, satcat_id: 26407}
+          - {celestrak_group: gnss, satcat_id: 26605}
+          - {celestrak_group: glo-ops, satcat_id: 32275}
+          - {celestrak_group: intelsat, satcat_id: 26900}
+          - {celestrak_group: ses, satcat_id: 26900}
+          - {celestrak_group: ses, satcat_id: 26554}
+          - {celestrak_group: kuiper, satcat_id: 99999}
+      - input: ref('stg__celestrak__gp_group_index')
+        rows:
+          - {celestrak_group: starlink, celestrak_group_title: "Starlink"}
+          - {celestrak_group: gps-ops, celestrak_group_title: "GPS Operational"}
+          - {celestrak_group: glo-ops, celestrak_group_title: "GLONASS Operational"}
+          - {celestrak_group: gnss, celestrak_group_title: "GNSS"}
+          - {celestrak_group: intelsat, celestrak_group_title: "Intelsat"}
+          - {celestrak_group: ses, celestrak_group_title: "SES"}
+      - input: ref('stg__celestrak__group_config')
+        rows:
+          - {celestrak_group: starlink, celestrak_group_kind: constellation, celestrak_group_order: 1}
+          - {celestrak_group: kuiper, celestrak_group_kind: constellation, celestrak_group_order: 3}
+          - {celestrak_group: gps-ops, celestrak_group_kind: constellation, celestrak_group_order: 9}
+          - {celestrak_group: glo-ops, celestrak_group_kind: constellation, celestrak_group_order: 10}
+          - {celestrak_group: intelsat, celestrak_group_kind: operator, celestrak_group_order: 17}
+          - {celestrak_group: ses, celestrak_group_kind: operator, celestrak_group_order: 18}
+          - {celestrak_group: gnss, celestrak_group_kind: excluded, celestrak_group_order: null}
+    expect:
+      rows:
+        - {satcat_id: 44714, constellation: "Starlink", celestrak_group: starlink}
+        - {satcat_id: 26407, constellation: "GPS", celestrak_group: gps-ops}
+        - {satcat_id: 32275, constellation: "GLONASS", celestrak_group: glo-ops}
+        - {satcat_id: 26900, constellation: "Intelsat", celestrak_group: intelsat}
+        - {satcat_id: 26554, constellation: "SES", celestrak_group: ses}

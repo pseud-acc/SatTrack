@@ -11,6 +11,7 @@ flowchart LR
   subgraph PUB["Data publishers"]
     ST["Space-Track.org<br/>GP (OMM) API · login<br/>at most once an hour"]
     GCAT["GCAT · planet4589.org<br/>TSV catalogues (CC-BY)"]
+    CT["CelesTrak · celestrak.org<br/>constellation groups (CSV)<br/>at most once a day"]
   end
 
   subgraph AWS["AWS · eu-west-1"]
@@ -46,6 +47,7 @@ flowchart LR
   S3 -- "4 pull state" --> PIPE
   ST -- "5 GP elements" --> PIPE
   GCAT -- "5 catalogues" --> PIPE
+  CT -- "5 group lists" --> PIPE
   PIPE -- "6 conditional commit" --> S3
   S3 -- "7 app/* at start-up (read-only key)" --> APP
   APP -- "HTTPS" --> BR
@@ -67,8 +69,8 @@ flowchart LR
    repo's `production` environment, which only `main` can use.
 3. The pipeline reads the Space-Track login from Secrets Manager.
 4. It pulls the last committed state (manifest, warehouse) from S3.
-5. It downloads Space-Track GP elements (at most once an hour) and the GCAT catalogues, then builds with dbt on
-   DuckDB.
+5. It downloads Space-Track GP elements (at most once an hour), the GCAT catalogues and CelesTrak's constellation
+   group lists (at most once a day; a refusal keeps the last copy, D-026, D-039), then builds with dbt on DuckDB.
 6. It validates the export (every `objects` record against `app/contracts/objects.schema.json`) and commits to S3
    with a conditional write, on a fresh 15-minute session. A failed build publishes nothing, so the app keeps the
    last good data, and the job fails, which emails the owner. A run that publishes but has warnings passes, and

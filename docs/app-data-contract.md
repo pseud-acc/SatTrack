@@ -41,7 +41,8 @@ Every dataset is one JSON document:
   "key": "satcat_id",
   "attribution": [
     "Orbital data: USSPACECOM via Space-Track.org",
-    "Launch, owner and mission details: GCAT (J. McDowell, planet4589.org), CC BY 4.0"
+    "Launch, owner and mission details: GCAT (J. McDowell, planet4589.org), CC BY 4.0",
+    "Constellation groups: CelesTrak (Dr T.S. Kelso)"
   ],
   "caution": "Public element sets must not be used for conjunction (collision) assessment.",
   "records": [ { "satcat_id": 5, "...": "..." } ]
@@ -105,6 +106,7 @@ enrichment next succeeds.
 | `ownership_class_labels` | array of strings | no (may be `[]`) | `fct__satellite_master.ownership_class_labels` |
 | `launch_vehicle_brand` | string | yes | `fct__satellite_master.launch_vehicle_brand` |
 | `site_location_country` | string | yes | `fct__satellite_master.site_location_country` |
+| `constellation` | string | yes | `fct__satellite_master.constellation`: CelesTrak's constellation or operator group (D-026), e.g. `Starlink`, `GPS`; null when the object is in none. Added 2026-11-23 (additive, schema 1). Anything that shows it carries the credit "Constellation groups: CelesTrak (Dr T.S. Kelso)" |
 
 **Using it in the browser.** satellite.js's `json2satrec` takes the OMM keywords in capitals. The element fields'
 names are those keywords in lower case, so the browser builds the OMM record by uppercasing them (`mean_motion` →
