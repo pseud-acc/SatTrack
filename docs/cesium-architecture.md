@@ -1,8 +1,8 @@
 # Cesium viewer architecture
 
 Findings of the Cesium spike (roadmap 3.1) and the architecture Phase 3 builds. The decisions behind it were made
-with the owner on 22 Nov 2026 and are recorded as D-013 to D-028 in [DECISIONS.md](DECISIONS.md). The full UX review
-and the decision log are in the review page shared in PR #62.
+with the owner on 22 Nov 2026 and are recorded as D-013 to D-029 in [DECISIONS.md](DECISIONS.md), each with a full
+record in [decisions/](decisions/). The real-phone run on 23 Nov confirmed D-015 and D-027.
 
 ## The spike
 
@@ -88,8 +88,22 @@ What this shows:
   (the worker's own memory isn't included).
 - At run time JS hid 6 objects (the 5 parity failures plus one that failed at that moment); WASM hid 0 because it
   places failures at the Earth's centre.
-- Not measured: a real phone's GPU and thermal throttling. A run on a real phone over the local network
-  (`serve.py --lan`) confirms D-015 before 3.2 ships.
+- Not measured: thermal throttling over minutes of use.
+
+### Real phone
+
+The owner's phone (Qualcomm Adreno 740 GPU, a 2023 flagship chip) over the local network with `serve.py --lan`,
+23 Nov 2026: worker with the JS engine, 1 s samples plus interpolation, no frame cap. Read from the page's on-screen
+numbers in the owner's screenshots.
+
+| Objects | FPS | Main ms/frame | Worker ms/pass | First positions |
+|---|---|---|---|---|
+| Payloads, 19,742 (two runs) | 59 / 60 | 1.6 / 2.1 | 22.4 / 23.2 | 0.90 / 1.20 s |
+| All objects, 32,652 | 60 | 2.8 | 49.6 | 0.89 s |
+
+The phone performs like the unthrottled laptop and is inside every target of the budget (D-027). It is high-end, so
+the throttled laptop runs still stand in for mid-range and low-end phones. The spike page shows Cesium's default
+"Cesium ion" credit logo; no ion token is used, and the viewer replaces the credits with SatTrack's own.
 
 ### Other findings
 
@@ -129,11 +143,13 @@ flowchart LR
 - **Cesium and satellite.js are self-hosted** (D-014): `vendor/cesium.lock` pins versions and the npm tarball
   hashes; a script run by the Heroku and CI builds downloads, verifies and extracts the files used into a versioned
   `static/vendor/` path served with long-lived caching. A hash mismatch fails the build and the live release stays.
-- **Propagation runs in a Web Worker** (D-015, provisional): the worker computes all positions on a fixed grid of
+- **Propagation runs in a Web Worker** (D-015): the worker computes all positions on a fixed grid of
   simulation time; the main thread interpolates linearly between the two samples around the current time. Linear
   interpolation over 1 s is off by ~1 m in low orbit (midpoint error s²/8R), 110 m over 10 s. A small controller
-  widens the step (0.25–10 s of simulation time) when the device is slow or play speed is high. JS or WASM is
-  picked by the parity test; WASM needs the zero-vector guard.
+  widens the step (0.25–10 s of simulation time) when the device is slow or play speed is high.
+- **Engine** (D-029): the worker hides satellite.js behind `compute(dates) → positions`. 3.2 ships the JavaScript
+  `propagate()` (correct NaN on failure, no `'wasm-unsafe-eval'`); the WASM `BulkPropagator` replaces it when
+  day/night shadow dimming is built, adding the zero-vector guard, a parity-test row and the CSP entry.
 - **Rendering**: one `PointPrimitiveCollection` for all objects; one viewer for 3D, 2D and Columbus (D-021).
 
 ## UX decisions (summary)
@@ -150,21 +166,23 @@ flowchart LR
 | D-023 | Labels | Selected satellite, plus the ~20 nearest when zoomed in |
 | D-024 | Shareable links | Core view in the URL hash: satellite, time, mode, colour, type toggles |
 | D-025 | Mobile | Bottom sheet over a full-screen globe |
-| D-026 | Constellations | CelesTrak group lists via the pipeline; a manual workflow for local test data |
-
-Open: the performance budget (D-027) and the Phase 3 scope (D-028) follow this review.
+| D-026 | Constellations | CelesTrak's constellation and operator groups via the pipeline, credited "Constellation groups: CelesTrak (Dr T.S. Kelso)"; GCAT rule as the fallback; a manual workflow (#62) for local test data |
+| D-027 | Performance budget | Laptop 60 fps, main ≤ 5 ms, first positions ≤ 1.5 s, heap ≤ 80 MB; 4× payloads ≥ 24 fps; 6× all ≥ 20 fps; phones capped at 30 fps |
+| D-028 | Phase 3 scope | Core plus search and fly-to, save image (PNG), constellation colouring, day/night with shadow dimming |
+| D-029 | Engine | JS in the worker now; WASM when shadow dimming lands |
 
 ## Before the Cesium viewer is on by default
 
 Blockers: propagation off the main thread on phones (D-015); self-hosting instead of a CDN (D-014); the CI parity
 test, including failures; the Space-Track citation and conjunction caution in the viewer's credits. Must-dos: a
 Content-Security-Policy (report-only first; `worker-src 'self'`, `'wasm-unsafe-eval'` if WASM), HSTS, `textContent`
-for every data string, credits for CesiumJS (Apache-2.0), satellite.js (MIT), Natural Earth (public domain) and
-GCAT (CC-BY), a clock-offset from the server's `Date` header, and element age shown in the panel.
+for every data string, credits for CesiumJS (Apache-2.0), satellite.js (MIT), Natural Earth (public domain),
+GCAT (CC-BY) and the CelesTrak groups (D-026), a clock-offset from the server's `Date` header, and element age shown in the panel.
 
 ## Changes to the roadmap's Phase 3 text
 
 The roadmap's Phase 3 notes predate these decisions. Superseded: viewer JS in `assets/` (now `static/`), CesiumJS
 from a CDN (now self-hosted, ~10 MB on the slug, so the "slug not materially increased" check becomes "within
 15 MB"), an optional ion token (none), colour by orbit class / status (by type, with a menu), and "smooth on a
-mid-range laptop with payloads + debris" (adds a throttled-CPU budget, D-027).
+mid-range laptop with payloads + debris" (now the measured budget, D-027). The roadmap's Phase 3 text is updated
+in the same PR as this document.

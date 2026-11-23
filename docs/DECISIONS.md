@@ -25,6 +25,23 @@ Read the records a feature touches before scoping it.
 | [D-010](#d-010-data-contracts-two-core-datasets-feature-datasets-one-envelope) | Data contracts: two core datasets, feature datasets, one envelope | Accepted | 2026-11-22 | [record](decisions/D-010-data-contracts.md) |
 | [D-011](#d-011-objects-file-covers-every-tracked-object-unknown-hidden-by-default) | Objects file covers every tracked object; UNKNOWN hidden by default | Accepted | 2026-11-22 | [record](decisions/D-011-objects-cover-every-tracked-object.md) |
 | [D-012](#d-012-the-app-serves-the-data-files-with-threaded-workers-no-extra-cdn-account) | The app serves the data files, with threaded workers; no extra CDN account | Accepted | 2026-11-22 | [record](decisions/D-012-app-serves-data-files.md) |
+| [D-013](#d-013-cesium-runs-as-a-js-module-inside-the-dash-page) | Cesium runs as a JS module inside the Dash page | Accepted | 2026-11-22 | [record](decisions/D-013-cesium-js-module-in-dash.md) |
+| [D-014](#d-014-self-host-cesiumjs-and-satellitejs-fetched-and-hash-checked-at-build) | Self-host CesiumJS and satellite.js, fetched and hash-checked at build | Accepted | 2026-11-22 | [record](decisions/D-014-self-host-cesium.md) |
+| [D-015](#d-015-propagate-in-a-web-worker-and-interpolate-on-the-main-thread) | Propagate in a Web Worker and interpolate on the main thread | Accepted | 2026-11-23 | [record](decisions/D-015-worker-propagation-interpolation.md) |
+| [D-016](#d-016-payloads-by-default-rocket-bodies-and-debris-one-switch-away) | Payloads by default; rocket bodies and debris one switch away | Accepted | 2026-11-22 | [record](decisions/D-016-payloads-by-default.md) |
+| [D-017](#d-017-colour-by-object-type-with-a-colour-by-menu) | Colour by object type, with a "Colour by" menu | Accepted | 2026-11-22 | [record](decisions/D-017-colour-by-type.md) |
+| [D-018](#d-018-three-information-tiers-hover-click-panel-full-record) | Three information tiers: hover, click panel, full record | Accepted | 2026-11-22 | [record](decisions/D-018-three-information-tiers.md) |
+| [D-019](#d-019-single-selection-with-per-satellite-toggles) | Single selection with per-satellite toggles | Accepted | 2026-11-22 | [record](decisions/D-019-single-selection-toggles.md) |
+| [D-020](#d-020-time-scrubber-of-1-day) | Time scrubber of ±1 day | Accepted | 2026-11-22 | [record](decisions/D-020-time-scrubber-one-day.md) |
+| [D-021](#d-021-one-viewer-for-3d-2d-and-columbus-retire-the-plotly-2d-tab) | One viewer for 3D, 2D and Columbus; retire the Plotly 2D tab | Accepted | 2026-11-22 | [record](decisions/D-021-one-viewer-retire-plotly-2d.md) |
+| [D-022](#d-022-natural-colour-earth-from-self-hosted-imagery) | Natural-colour Earth from self-hosted imagery | Provisional | 2026-11-22 | [record](decisions/D-022-natural-colour-earth.md) |
+| [D-023](#d-023-label-the-selected-satellite-and-close-up-the-nearest-20) | Label the selected satellite and, close up, the nearest 20 | Accepted | 2026-11-22 | [record](decisions/D-023-labels-selected-and-nearest.md) |
+| [D-024](#d-024-shareable-links-carry-the-core-view-in-the-url-hash) | Shareable links carry the core view in the URL hash | Accepted | 2026-11-22 | [record](decisions/D-024-shareable-links-url-hash.md) |
+| [D-025](#d-025-bottom-sheet-on-phones) | Bottom sheet on phones | Accepted | 2026-11-22 | [record](decisions/D-025-mobile-bottom-sheet.md) |
+| [D-026](#d-026-constellations-from-celestraks-group-lists-credited) | Constellations from CelesTrak's group lists, credited | Accepted | 2026-11-22 | [record](decisions/D-026-constellations-from-celestrak-groups.md) |
+| [D-027](#d-027-a-measured-performance-budget-for-the-viewer) | A measured performance budget for the viewer | Accepted | 2026-11-23 | [record](decisions/D-027-performance-budget.md) |
+| [D-028](#d-028-phase-3-scope-the-core-plus-four-extensions) | Phase 3 scope: the core plus four extensions | Accepted | 2026-11-22 | [record](decisions/D-028-phase-3-scope.md) |
+| [D-029](#d-029-javascript-sgp4-in-the-worker-now-wasm-when-shadow-dimming-lands) | JavaScript SGP4 in the worker now; WASM when shadow dimming lands | Accepted | 2026-11-22 | [record](decisions/D-029-worker-engine-js-then-wasm.md) |
 | [D-030](#d-030-filter-spec-field-names-are-the-objects-datasets-labels-come-from-dbt-meta) | Filter spec field names are the objects dataset's; labels come from dbt `meta` | Accepted | 2026-11-22 | [record](decisions/D-030-filter-spec-field-names-and-labels.md) |
 | [D-031](#d-031-filter-spec-shape-a-versioned-flat-and-list-of-clauses) | Filter spec shape: a versioned flat AND list of clauses | Accepted | 2026-11-22 | [record](decisions/D-031-filter-spec-shape-flat-and-list.md) |
 | [D-032](#d-032-missing-values-in-the-filter-spec-are-explicit) | Missing values in the filter spec are explicit | Accepted | 2026-11-22 | [record](decisions/D-032-filter-spec-missing-values.md) |
@@ -264,6 +281,237 @@ occupies one thread and not the worker.
 
 **Revisit.** If traffic needs a CDN (e.g. the growth plan's launch posts), use AWS CloudFront in the existing account
 through CloudFormation: no new account and no DNS change.
+
+
+## D-013 Cesium runs as a JS module inside the Dash page
+**Status:** Accepted, 2026-11-22 (plan 3.1). **Component:** the tracker page.
+
+**Context.** Phase 3 replaces the Plotly 3D and 2D figures with a CesiumJS globe. The sidebar, list view and routing
+stay in Dash. The viewer needs the filters from Dash and has to report clicks back.
+
+**Decision.** Dash renders an empty `html.Div(id="globe")` that no callback ever writes to. Code in
+`static/viewer/`, loaded only on the tracker page, mounts the Cesium viewer in it. Filters reach the viewer through
+a `dcc.Store` and a clientside callback; a click goes back through `dash_clientside.set_props` on a second store,
+which server callbacks read for the detail panel and list.
+
+**Why.** The module has the whole Cesium API, so hover labels, orbit paths and every planned extension are possible.
+No npm toolchain. Frame rate is the same as with the alternatives because the same Cesium code runs either way.
+
+**Rejected.** A custom Dash component: adds an npm build to the repo, CI and Heroku for no feature the viewer needs.
+A separate page in an iframe: a second document in memory on phones, and selection sync through `postMessage`.
+
+**Consequences.** A test asserts that no callback outputs to the globe div. Viewer logic is tested with Playwright
+against state the viewer exposes. Viewer code never goes in `assets/`, which Dash adds to every page.
+
+## D-014 Self-host CesiumJS and satellite.js, fetched and hash-checked at build
+**Status:** Accepted, 2026-11-22 (plan 3.1). Supersedes the roadmap's "load CesiumJS from a CDN".
+**Component:** front-end dependencies; the Heroku and CI builds.
+
+**Context.** Subresource Integrity covers only the script tag's file. Cesium then loads its workers, assets and
+imagery from its base URL, which SRI doesn't check. The app serves Plotly itself today and has no CSP yet.
+
+**Decision.** `vendor/cesium.lock` pins Cesium and satellite.js versions and their npm tarball hashes. A script run
+by the Heroku build and CI's Heroku-identical build downloads each tarball, verifies the hash, extracts the files
+the viewer uses (about 10.2 MB of Cesium's 22.8 MB build) and writes a manifest of per-file hashes. They're served
+from a versioned `static/vendor/` path with long-lived caching. A hash mismatch fails the build and the live release
+stays. No Cesium ion account or token.
+
+**Why.** No third-party server at runtime; every file is verified, not just Cesium.js; the CSP stays `'self'`
+(plus `worker-src 'self'`, and `'wasm-unsafe-eval'` once WASM is used, D-029); upgrades happen only through a PR.
+
+**Rejected.** jsDelivr with SRI: unverified workers and assets, and a runtime dependency on the CDN. Committing the
+files: about 10 MB of git history per upgrade. An npm bundle: a new toolchain.
+
+**Consequences.** The slug grows by about 10 MB, so Phase 3's "slug not materially increased" check becomes a budget
+(within 15 MB). Dependabot can't see the versions, so a weekly workflow (proposed in its PR) opens an issue for new
+releases. CI fails on any off-site request and on CSP violations.
+
+## D-015 Propagate in a Web Worker and interpolate on the main thread
+**Status:** Accepted, 2026-11-23 (plan 3.1; provisional on 22 Nov until the real-phone run). **Component:** the viewer.
+
+**Context.** Propagating all 32,652 objects takes 19–30 ms on a laptop's main thread; phones are 4–6× slower.
+
+**Decision.** A Web Worker loads the data, builds the satellite.js records and computes positions on a fixed grid of
+simulation time. The main thread interpolates linearly between the two samples around the current time. A small
+controller widens the step (0.25–10 s of simulation time) when worker passes or frames are slow, or play speed is
+high. The engine inside the worker is D-029.
+
+**Why.** Linear interpolation over 1 s is off by about 1 m in low orbit (midpoint error s²/8R; 110 m at 10 s),
+against ~15 km per pixel at a whole-globe view, so the calculation rate can drop freely. One code path degrades
+gracefully on slow devices.
+
+**Rejected.** Main thread every frame: 2–11 fps at 4–6× CPU. Worker at a fixed 1 Hz: fast play speeds and very slow
+devices degrade badly. Two code paths: double testing for no visible gain.
+
+**Evidence.** Laptop at 4–6× CPU: 20–32 fps and first positions in 1–1.7 s with the worker, against 2–11 fps and
+3–12 s without. Real phone (Adreno 740), 23 Nov: 59–60 fps with payloads and with all 32,652 objects, main thread
+1.6–2.8 ms a frame. Detail in `docs/cesium-architecture.md`.
+
+## D-016 Payloads by default; rocket bodies and debris one switch away
+**Status:** Accepted, 2026-11-22 (plan 3.1). Completes D-011's display defaults. **Component:** the viewer.
+
+**Decision.** The globe opens with payloads (19,742). Rocket bodies and debris have their own toggles and a "space
+junk mode" switch turns both on. UNKNOWN stays hidden (D-011).
+
+**Why.** The owner's call: use cases vary, and people should switch space junk on rather than be met with a cluttered
+first view. It also lightens first render on phones.
+
+## D-017 Colour by object type, with a "Colour by" menu
+**Status:** Accepted, 2026-11-22 (plan 3.1). **Component:** the viewer.
+
+**Decision.** Points are coloured by type by default, matching the D-016 toggles. A menu switches to orbit class,
+status, owner or constellation (D-026), with a legend that follows it.
+
+**Rejected.** Type only (loses today's owner and status views); orbit class by default.
+
+## D-018 Three information tiers: hover, click panel, full record
+**Status:** Accepted, 2026-11-22 (plan 3.1). **Component:** the viewer and the list view.
+
+**Decision.** Hover: name, type, orbit, owner. Click: a panel with altitude, speed, period, element age and launch.
+"More" opens the full record in the list view. A tap replaces hover on touch screens. Hover picking is throttled to
+about 20 a second. Every data string is written with `textContent`.
+
+## D-019 Single selection with per-satellite toggles
+**Status:** Accepted, 2026-11-22 (plan 3.1). **Component:** the viewer.
+
+**Decision.** One selected satellite at a time. Its panel has three toggles: orbit path (one period, past faded; 3D),
+follow camera (3D) and ground track (switches the view to 2D).
+
+**Why.** The owner's call: each is the user's choice for the selected satellite, not a fixed behaviour.
+Multi-select is left for later.
+
+## D-020 Time scrubber of ±1 day
+**Status:** Accepted, 2026-11-22 (plan 3.1). **Component:** the viewer.
+
+**Decision.** Our own scrubber covering ±1 day from now, with a Now button, play/pause and speeds 1×–1000×. The panel
+shows element age at the displayed time.
+
+**Why.** SGP4 drifts by roughly 1–3 km a day from the element epoch in low orbit; the owner chose a window tighter than
+the ±3 days proposed. Look-ahead stops at 24 h.
+
+**Rejected.** Now-only controls (no replay); Cesium's timeline widget (dated, poor on phones, unbounded range).
+
+## D-021 One viewer for 3D, 2D and Columbus; retire the Plotly 2D tab
+**Status:** Accepted, 2026-11-22 (plan 3.1). **Component:** the tracker page.
+
+**Decision.** Cesium's scene modes replace both Plotly tabs. Every satellite shows in 2D.
+
+**Why.** One renderer and one position path; D-019's ground-track toggle needs it.
+
+**Consequences.** PNG export is rebuilt from the Cesium canvas (D-028). Ground tracks split at ±180°.
+
+## D-022 Natural-colour Earth from self-hosted imagery
+**Status:** Accepted (provisional), 2026-11-22 (plan 3.1). **Component:** the viewer.
+
+**Decision.** Natural Earth II, which ships with Cesium (public domain). No external tile servers and no Cesium ion.
+
+**Why.** The owner's call, to revisit with point styling. Brightness and saturation are runtime layer settings, so a
+muted look later is a small change or a user toggle.
+
+**Rejected.** NASA GIBS tiles: a runtime third-party dependency, against D-014.
+
+## D-023 Label the selected satellite and, close up, the nearest 20
+**Status:** Accepted, 2026-11-22 (plan 3.1). **Component:** the viewer.
+
+**Decision.** The selected satellite is always labelled. When zoomed in, the ~20 nearest objects are labelled too;
+the worker finds them with each sample. N and the zoom threshold are set within the performance budget (D-027).
+
+## D-024 Shareable links carry the core view in the URL hash
+**Status:** Accepted, 2026-11-22 (plan 3.1). **Component:** the viewer.
+
+**Decision.** The hash carries a format version, satellite, time, 2D/3D mode, colour mode and type toggles. The camera
+follows from the selection. Each field is parsed against an allowlist, the hash is capped in length, nothing from it is
+written as HTML, and the user's location is never included. A time outside the ±1-day window shows "now" with a
+notice.
+
+**Why.** Reproduces what matters with a small format that's easy to validate. The hash never reaches the server.
+
+**Rejected.** Full state with camera (larger format to maintain); short links stored on the server (storage and
+abuse handling).
+
+**Consequences.** Check before release whether Google Analytics records the hash.
+
+## D-025 Bottom sheet on phones
+**Status:** Accepted, 2026-11-22 (plan 3.1). **Component:** the tracker page.
+
+**Decision.** On phones the globe fills the screen and one bottom sheet holds time (peek), filters or the selected
+satellite (half) and details (full). Desktop keeps the sidebar.
+
+**Rejected.** Today's collapsible sidebar (covers the globe); floating buttons with separate overlays.
+
+## D-026 Constellations from CelesTrak's group lists, credited
+**Status:** Accepted, 2026-11-22 (plan 3.1). **Component:** pipeline; the `objects` dataset; the viewer's credits.
+
+**Context.** Colouring by constellation (D-017) needs membership the data doesn't have. GCAT matches CelesTrak for
+the broadband fleets but has no plane labels for Galileo, GLONASS or Globalstar and few for Iridium; CelesTrak's
+groups reflect new launches within hours.
+
+**Decision.** The pipeline downloads CelesTrak's groups under D-008 and CelesTrak's usage policy (CSV, compressed,
+once per update, stop on any non-200, wait 15 minutes after a 5xx) and adds a `constellation` field to each object.
+Groups come from a config list: constellations (starlink, oneweb, kuiper, qianfan, hulianwang, iridium-NEXT,
+globalstar, orbcomm, gps-ops, glo-ops, galileo, beidou, tdrss, dmc), then operators (planet, spire, intelsat, ses,
+eutelsat, telesat); every other group is excluded. An object in two groups takes the first in config order. Display
+names are CelesTrak's group titles without "Operational". A test warns when CelesTrak's index shows a new group. The
+viewer credits "Constellation groups: CelesTrak (Dr T.S. Kelso)". CLAUDE.md records this as the one exception to
+"never republish another tracker's compiled data".
+
+**Why.** Membership comes from the source rather than rules SatTrack writes, and it's current. CelesTrak's usage
+policy (16 Nov 2026) covers download behaviour and is silent on redistribution; the owner treats that silence as
+permission, with credit.
+
+**Rejected.** GCAT families only (gaps above); name-prefix rules (a hand-maintained list); an automatic threshold on
+name prefixes (misgroups COSMOS, OBJECT and USA).
+
+**Consequences.** Risk accepted: the permission rests on an interpretation. If CelesTrak objects, fall back to the
+GCAT rule (a family from the leading letters of psatcat's `Program`, counted when at least 50 active payloads carry
+plane labels). Delivered as a pipeline task parallel to 3.2; a manual workflow (#62) provides the same files for
+local testing, because the owner's IP is blocked by CelesTrak.
+
+## D-027 A measured performance budget for the viewer
+**Status:** Accepted, 2026-11-23 (plan 3.1; provisional on 22 Nov until the real-phone run). **Component:** the viewer;
+its tests.
+
+**Decision.** Laptop (reference: Intel Iris Xe): 60 fps, main thread ≤ 5 ms a frame, first positions ≤ 1.5 s, heap
+≤ 80 MB. At 4× CPU with payloads: ≥ 24 fps and first positions ≤ 2 s. At 6× CPU with all objects: ≥ 20 fps. Phones
+capped at 30 fps. If frames stay below 20 fps for 5 s with space junk mode on, the viewer suggests switching debris
+off; it never switches it off itself.
+
+**Why.** Set from the spike's numbers with a margin, so a regression shows as a failed check rather than an opinion.
+
+**Evidence.** Spike matrix in `docs/cesium-architecture.md`. Real phone (Adreno 740, 23 Nov): 59–60 fps uncapped,
+main thread 1.6–2.8 ms, first positions 0.9–1.2 s, with payloads and with all objects. A high-end phone, so the
+throttled targets still stand in for mid-range and low-end.
+
+**Consequences.** CI has no GPU: main-thread time, load time and heap are CI checks; frame rates are a release step on
+the reference laptop (median of 3 runs, 2 fps tolerance). Each feature PR reports its main-thread cost; raising the
+budget needs a decision entry.
+
+## D-028 Phase 3 scope: the core plus four extensions
+**Status:** Accepted, 2026-11-22 (plan 3.1). **Component:** the roadmap.
+
+**Decision.** Phase 3 is the core (3.2–3.6 and D-013 to D-027) plus search and fly-to, save image (PNG), constellation
+colouring (D-026) and day/night with shadow dimming. Re-estimated at ~55–65 h, split into core and extension tasks in
+the roadmap.
+
+**Why.** The owner's call: each fills a gap the review found (PNG export was the one feature that would be lost) or
+uses data already in hand.
+
+**Consequences.** Constellation colouring waits for the pipeline task that adds the `constellation` field. Shadow
+dimming is the trigger to move the worker to WASM (D-029).
+
+## D-029 JavaScript SGP4 in the worker now; WASM when shadow dimming lands
+**Status:** Accepted, 2026-11-22 (plan 3.1). **Component:** the viewer's worker.
+
+**Decision.** The worker hides the engine behind one interface, `compute(dates) → positions`. 3.2 ships satellite.js's
+JavaScript `propagate()`. Switch to its WASM `BulkPropagator` when day/night shadow dimming is built (D-028), or
+earlier if a real phone shows high-speed play degrading.
+
+**Why.** JavaScript wins on safety and upkeep: failed objects come back as NaN (WASM returns a silent (0, 0, 0)), the
+CSP needs no `'wasm-unsafe-eval'`, and it's easier to debug. WASM wins on bulk work: 2–3× faster (20 against 51 ms a
+pass on the laptop), built-in sun and shadow calculators, less battery. Tally across 24 areas: JS 7, WASM 8, tie 9.
+
+**Consequences.** The switch adds a zero-vector guard, a parity-test row and `'wasm-unsafe-eval'` in the CSP. In a
+worker, import maps don't apply: import the WASM runtime and module by path.
 
 ## D-030 Filter spec field names are the objects dataset's; labels come from dbt `meta`
 **Status:** Accepted, 2026-11-22 (plan 2.2). **Full analysis:** [decisions/D-030](decisions/D-030-filter-spec-field-names-and-labels.md).
