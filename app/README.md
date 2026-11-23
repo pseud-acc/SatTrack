@@ -54,7 +54,7 @@ New data reaches the app only when a worker starts (a deploy, a restart, or the 
 ### Cesium globe (beta, behind a flag)
 
 Phase 3 replaces the Plotly views with a CesiumJS globe ([docs/cesium-architecture.md](../docs/cesium-architecture.md),
-decisions D-013 to D-029, D-038, D-039). Until it is complete it is off unless `SATTRACK_CESIUM_VIEWER=1`; with it off,
+decisions D-013 to D-029, D-038, D-041). Until it is complete it is off unless `SATTRACK_CESIUM_VIEWER=1`; with it off,
 nothing below loads and no page changes.
 
 - **Self-hosted packages:** `vendor/cesium.lock` pins CesiumJS and satellite.js with their npm tarball hashes. The
@@ -75,7 +75,7 @@ nothing below loads and no page changes.
   `UNKNOWN` is never shown. The clock is corrected from the server's `Date` header. Every data string is written with
   `textContent`. `window.sattrackViewer` exposes counts, timings and `snapshot(iso)` for the tests.
 - **Headers (flag on):** `Content-Security-Policy-Report-Only` and `Strict-Transport-Security: max-age=86400`
-  (proposed D-039). Not enforced yet: Cesium 1.147.0 needs `eval` and WebAssembly at load, which needs a decision.
+  (proposed D-041). Not enforced yet: Cesium 1.147.0 needs `eval` and WebAssembly at load, which needs a decision.
 
 Locally: `python vendor/fetch.py` (add `--out <dir>` and set `SATTRACK_VENDOR_DIR=<dir>` to keep the files out of a
 synced folder), then `SATTRACK_CESIUM_VIEWER=1 SATTRACK_APP_DATA_DIR=tests/app_data uv run python run_app.py`.

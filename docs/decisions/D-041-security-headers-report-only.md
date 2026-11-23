@@ -1,4 +1,4 @@
-# D-039 Security headers ship with the viewer flag; Cesium needs a decision before the CSP is enforced
+# D-041 Security headers ship with the viewer flag; Cesium needs a decision before the CSP is enforced
 
 **Status:** Proposed (owner to confirm) · **Date:** 2026-11-23 · **PRs:** roadmap 3.2 (`feature/cesium-viewer`)
 **Component:** every page's response headers (`app/core/viewer.py`) · **Tier:** full (HSTS is hard to undo)

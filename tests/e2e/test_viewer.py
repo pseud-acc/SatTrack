@@ -31,12 +31,12 @@ TIMEOUT_S = 90
 PARITY_KM = 0.050   # 50 m (roadmap 3.2); the spike measured 9.5 m at most
 # D-027's laptop budget for first positions is 1.5 s. GitHub's runners, rendering the globe in software (SwiftShader)
 # on the same 4 CPUs the propagation worker needs, measured 1.40-1.98 s for what this laptop does in 0.84-1.22 s, so
-# CI checks against twice the budget and the 1.5 s stays a release check on the reference laptop (proposed D-040).
+# CI checks against twice the budget and the 1.5 s stays a release check on the reference laptop (proposed D-042).
 FIRST_POSITIONS_CI_MS = 3000
 
 # CSP reports that are known and recorded, by (directive, blocked, path of the reporting script). Anything else fails.
 # - Cesium 1.147.0's own bundle compiles small WebAssembly modules (meshoptimizer) and runs (0,eval)("this")
-#   (bundled Knockout) when it loads: proposed decision D-039 settles these before the policy is enforced.
+#   (bundled Knockout) when it loads: proposed decision D-041 settles these before the policy is enforced.
 # - Plotly's 2D map starts its workers from blob: URLs: goes with the Plotly views in roadmap 3.6.
 KNOWN_CSP = {
     ("script-src", "wasm-eval", "/static/vendor/cesium-1.147.0/index.js"),

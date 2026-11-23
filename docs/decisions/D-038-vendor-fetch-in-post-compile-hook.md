@@ -49,4 +49,4 @@ hash; if anything is missing or different, the viewer stays off (the Plotly view
 - npm registry outages fail builds more than occasionally.
 
 ## Related
-D-014, D-029, D-039; roadmap 3.2, 3.7, 3.11.
+D-014, D-029, D-041; roadmap 3.2, 3.7, 3.11.

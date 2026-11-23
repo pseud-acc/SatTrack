@@ -50,8 +50,8 @@ Read the records a feature touches before scoping it.
 | [D-035](#d-035-the-servers-sidebar-filters-the-objects-dataset-no-fallback) | The server's sidebar filters the objects dataset; no fallback | Accepted | 2026-11-22 | [record](decisions/D-035-sidebar-filters-the-objects-dataset.md) |
 | [D-037](#d-037-pipeline-warnings-email-a-summary-without-failing-the-run) | Pipeline warnings email a summary without failing the run | Accepted | 2026-11-23 | [record](decisions/D-037-pipeline-warnings-email-without-failing.md) |
 | [D-038](#d-038-fetch-the-self-hosted-viewer-files-in-the-buildpacks-binpost_compile-hook) | Fetch the self-hosted viewer files in the buildpack's `bin/post_compile` hook | Proposed | 2026-11-23 | [record](decisions/D-038-vendor-fetch-in-post-compile-hook.md) |
-| [D-039](#d-039-security-headers-ship-with-the-viewer-flag-cesium-needs-a-decision-before-the-csp-is-enforced) | Security headers ship with the viewer flag; Cesium needs a decision before the CSP is enforced | Proposed | 2026-11-23 | [record](decisions/D-039-security-headers-report-only.md) |
-| [D-040](#d-040-ci-checks-first-positions-against-twice-the-laptop-budget) | CI checks first positions against twice the laptop budget | Proposed | 2026-11-23 | [record](decisions/D-040-ci-first-positions-threshold.md) |
+| [D-041](#d-041-security-headers-ship-with-the-viewer-flag-cesium-needs-a-decision-before-the-csp-is-enforced) | Security headers ship with the viewer flag; Cesium needs a decision before the CSP is enforced | Proposed | 2026-11-23 | [record](decisions/D-041-security-headers-report-only.md) |
+| [D-042](#d-042-ci-checks-first-positions-against-twice-the-laptop-budget) | CI checks first positions against twice the laptop budget | Proposed | 2026-11-23 | [record](decisions/D-042-ci-first-positions-threshold.md) |
 
 ---
 
@@ -597,7 +597,7 @@ dependency); release phase (files don't reach the slug); committing the files (D
 **Consequences.** About +6.8 MB of compressed slug (limit 15 MB, enforced by the build check). A registry outage fails
 a build and the live release stays.
 
-## D-039 Security headers ship with the viewer flag; Cesium needs a decision before the CSP is enforced
+## D-041 Security headers ship with the viewer flag; Cesium needs a decision before the CSP is enforced
 **Status:** Proposed (owner to confirm), 2026-11-23. **Component:** response headers (`app/core/viewer.py`).
 
 **Context.** 3.2 asks for a report-only CSP (`'self'`, `worker-src 'self'`, no `'wasm-unsafe-eval'`) and HSTS. The
@@ -617,7 +617,7 @@ preload). Before enforcing, the owner chooses: patch Cesium's eval to `globalThi
 **Consequences.** Browser tests fail on any CSP violation except Cesium's six known reports and the Plotly map's
 `blob:` workers (removed in 3.6).
 
-## D-040 CI checks first positions against twice the laptop budget
+## D-042 CI checks first positions against twice the laptop budget
 **Status:** Proposed (owner to confirm), 2026-11-23. **Component:** `tests/e2e/test_viewer.py`.
 
 **Context.** D-027: first positions ≤ 1.5 s on the reference laptop, checked in CI. GitHub's runners render the globe

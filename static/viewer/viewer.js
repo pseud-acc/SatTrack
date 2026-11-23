@@ -59,7 +59,7 @@ function loadOnce(id, make) {
 
 // Cesium's ES module build (index.js: 4.8 MB against Cesium.js's 6.1 MB, and no global). Note both builds run
 // (0,eval)("this") (bundled Knockout) and compile small WebAssembly modules (meshoptimizer) at load, which the
-// report-only CSP reports; enforcing the CSP needs a decision first (proposed D-039).
+// report-only CSP reports; enforcing the CSP needs a decision first (proposed D-041).
 async function loadCesium(config) {
   window.CESIUM_BASE_URL = config.cesium;   // where Cesium finds its workers and assets
   const [Cesium] = await Promise.all([

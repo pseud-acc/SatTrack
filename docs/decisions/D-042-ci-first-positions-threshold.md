@@ -1,4 +1,4 @@
-# D-040 CI checks first positions against twice the laptop budget
+# D-042 CI checks first positions against twice the laptop budget
 
 **Status:** Proposed (owner to confirm) · **Date:** 2026-11-23 · **PRs:** roadmap 3.2 (`feature/cesium-viewer`)
 **Component:** the viewer's browser tests (`tests/e2e/test_viewer.py`) · **Tier:** light (a test constant)
