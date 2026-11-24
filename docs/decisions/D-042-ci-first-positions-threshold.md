@@ -48,12 +48,14 @@ D-027's 1.5 s stays the release check on the reference laptop, run before each c
 - Laptop, 24 Nov, this branch against itself as the baseline (checks the comparison end to end): every phase within
   -12% to -6%, bytes identical.
 - CI, 24 Nov, PR #76 (docs only, so identical code): the comparison failed twice, the branch +40% on records built
-  and first positions. Per-visit figures (PR #79) showed no steady gap between the apps but single slow visits
-  (+50%) and an unbalanced harness: with 3 visits alternating, the branch went first in 2 of 3 rounds and took the
-  slot right after the budget test's heavy page, in the browser that test had used, while the baseline's first
-  visit was its cold-server one. One slow visit on top moved the branch's median. Fixed in PR #79: a fresh browser,
-  one discarded warm-up visit to each app, then 4 visits each in an ABBA ABBA order and the lower-middle visit
-  compared. Limits unchanged.
+  and first positions. Per-visit figures (PR #79, 3 CI runs) showed no steady gap between the apps and no effect of
+  which app goes first. Instead, single visits on CI fall into a fast or a slow mode about 45% apart (e.g. 1,302 and
+  1,370 ms against 1,928-2,062 ms in one run), on either app. With 3 visits, a median can land in different modes
+  on the two sides, which gives a +40% "regression" on identical code. The harness was also unbalanced (the branch
+  went first in 2 of 3 rounds, took the slot right after the budget test's heavy page in that test's browser, and
+  the baseline's first visit hit a cold server). PR #79 removes the imbalance (a fresh browser, one discarded
+  warm-up visit to each app, 4 visits each in ABBA ABBA order, lower-middle visit compared; limits unchanged) and
+  passed twice on CI (+2%, +3%). The two-mode spread is not removed: the owner decides on a further step.
 
 ## Consequences
 - The e2e job runs ~2 minutes longer on pull requests and downloads the baseline's vendor tarballs (a little more

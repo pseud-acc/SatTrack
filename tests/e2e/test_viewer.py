@@ -45,7 +45,8 @@ REGRESSION_FLOOR_MS = 150                # ... and over 150 ms slower (smaller p
 STARTUP_VISITS = 3                       # first visits for the fixed budgets; the median is checked
 # The comparison (D-042): a discarded warm-up visit to each app, then 4 visits each, balanced for order (each side
 # goes first and second, and follows each side, equally often), so neither side gets the slower slots. 3 visits
-# alternating gave the branch 2 of 3 first slots and the visit right after the budget test (PR #76: +40%, no change).
+# alternating gave the branch 2 of 3 first slots and the visit right after the budget test. CI visits also fall into a
+# fast and a slow mode ~45% apart on either app (PR #79); this doesn't remove that (see D-042's Evidence).
 COMPARISON_WARM_UP = ("baseline", "branch")
 COMPARISON_ORDER = ("branch", "baseline", "baseline", "branch", "branch", "baseline", "baseline", "branch")  # ABBA ABBA
 # Fixed budgets: the same on any machine. Bytes are as sent (Brotli), from the first request to the first positions.
