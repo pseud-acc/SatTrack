@@ -187,6 +187,7 @@ class Viewer {
     const init = await ready;
     if (this.destroyed) return;
     S.engine = `worker-${init.engine}`;
+    S.diag = init.diag;   // DIAG (temporary)
     S.builtBeforeReady = init.built;   // records built before the first positions (D-042)
     S.failed = init.failed;
     push(S.workerMs, init.first.ms / 2);
