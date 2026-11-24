@@ -1,6 +1,6 @@
 # D-045 "Colour by" menu gets its own task straight after 3.3
 
-**Status:** Accepted (owner, 2026-11-24) · **Date:** 2026-11-24 · **PRs:** #NN
+**Status:** Accepted (owner, 2026-11-24) · **Date:** 2026-11-24 · **PRs:** #74
 **Component:** roadmap Phase 3 (the Cesium viewer's legend and "Colour by" menu) · **Tier:** light (contained)
 
 ## Context

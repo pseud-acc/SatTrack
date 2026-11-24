@@ -1,6 +1,6 @@
 # D-044 App design direction: deep navy, left filter panel, own design tokens on plain Bootstrap 5
 
-**Status:** Accepted (owner, 2026-11-24) · **Date:** 2026-11-24 · **PRs:** #NN
+**Status:** Accepted (owner, 2026-11-24) · **Date:** 2026-11-24 · **PRs:** #74
 **Component:** every app page: the Dash shell (`run_app.py`, `run_app_dev.py`, `assets/`, `app/layouts/`), the
 tracker's filter panel and the Cesium viewer's chrome (`static/viewer/`) · **Tier:** full (changes every page)
 
