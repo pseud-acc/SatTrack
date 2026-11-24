@@ -29,6 +29,18 @@ def test_flag_off_by_default(monkeypatch):
         assert viewer_mod.flag_on({"SATTRACK_CESIUM_VIEWER": value}) is True
 
 
+def test_flag_off_never_reads_the_vendor_files(monkeypatch):
+    """Production with the flag off pays nothing at boot: no vendor file is read or hashed."""
+    monkeypatch.delenv("SATTRACK_CESIUM_VIEWER", raising=False)
+    monkeypatch.setattr(viewer_mod, "load_vendor", lambda *a, **k: pytest.fail("vendor files read with the flag off"))
+    viewer_mod.reset_viewer_state()
+    try:
+        state = viewer_mod.viewer_state()
+        assert state["enabled"] is False and state["manifest"] is None
+    finally:
+        viewer_mod.reset_viewer_state()
+
+
 def test_flag_off_tracker_has_no_viewer(app_module, dependencies, client):
     tracker = layout_by_id(app_module.display_page("/sat_visualisation"))
     assert not VIEWER_IDS & set(tracker)

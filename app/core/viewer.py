@@ -104,10 +104,11 @@ _STATE = {"checked": False, "manifest": None, "reason": None}
 
 
 def viewer_state():
-    """{'enabled': bool, 'manifest': ..., 'reason': ...}, worked out once per process and logged."""
+    """{'enabled': bool, 'manifest': ..., 'reason': ...}, worked out once per process and logged. With the flag off
+    the vendor files aren't read or hashed at all, so production pays nothing at boot until the globe is switched on."""
     if not _STATE["checked"]:
         _STATE["checked"] = True
-        manifest, reason = load_vendor()
+        manifest, reason = load_vendor() if flag_on() else (None, "the viewer flag is off")
         _STATE["manifest"], _STATE["reason"] = manifest, reason
         if flag_on():
             if manifest:
