@@ -7,7 +7,7 @@ Source: SatTrack-derived: see `int__xsrc__satellite_gcat_matched`, `fct__satelli
 {% enddocs %}
 
 {% docs col__celestrak_group_kind %}
-Whether SatTrack's config includes a CelesTrak group as a `constellation` or an `operator`, or lists it as `excluded`. E.g. `constellation` for `starlink`; `operator` for `intelsat`; `excluded` for `gnss`.
+Whether SatTrack's config includes a CelesTrak group as a `constellation`, an `operator` or a space `station` group, or lists it as `excluded`. E.g. `constellation` for `starlink`; `operator` for `intelsat`; `station` for `stations`; `excluded` for `gnss`.
 
 Source: SatTrack-derived: see `stg__celestrak__group_config`. Inputs: CelesTrak https://celestrak.org/NORAD/elements/ (Batch 11).
 {% enddocs %}
@@ -196,6 +196,12 @@ Source: SatTrack-derived: see `int__jsr__launch_sites`, `dim__launch_site`. Inpu
 1 when GCAT's launch log site ends in `?`, presumably an uncertain site (GCAT doesn't document it); derived by SatTrack. E.g. 0 for the ISS launch; 1 for one launch.
 
 Source: SatTrack-derived: see `int__jsr__launch_events`, `fct__launch_event`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
+{% enddocs %}
+
+{% docs col__flag_space_station %}
+1 when the object is in CelesTrak's "Space Stations" group, else 0: station modules and the crew and cargo spacecraft listed with them. E.g. 1 for ISS (ZARYA) (NORAD 25544) and CSS (TIANHE) (NORAD 48274); 0 for STARLINK-1008 (NORAD 44714).
+
+Source: SatTrack-derived: see `int__celestrak__space_station`, `fct__satellite_master`. Inputs: CelesTrak https://celestrak.org/NORAD/elements/ (Batch 11).
 {% enddocs %}
 
 {% docs col__gcat_launch_date_end %}

@@ -25,7 +25,8 @@ from datetime import datetime, timezone
 
 from . import audit, celestrak
 from .config import (CELESTRAK_CONSTELLATION_GROUPS, CELESTRAK_EXCLUDED_GROUPS, CELESTRAK_MIN_HOURS,
-                     CELESTRAK_OPERATOR_GROUPS, CELESTRAK_PAUSE_S, CELESTRAK_REFUSAL_COOLDOWN_HOURS, RunContext)
+                     CELESTRAK_OPERATOR_GROUPS, CELESTRAK_PAUSE_S, CELESTRAK_REFUSAL_COOLDOWN_HOURS,
+                     CELESTRAK_STATION_GROUPS, RunContext)
 from .raw_writer import land_records
 
 SCHEMA = "raw_celestrak"
@@ -36,14 +37,16 @@ METADATA = ("_loaded_at", "_run_id", "_source_url", "_source_updated_at", "_sour
 # Columns of the empty tables a first run creates when it has no copy to keep (a real load replaces them).
 EMPTY_TABLES = {
     "gp_group_member": ("GROUP",) + MEMBER_COLUMNS,
-    "gp_group_index": ("GROUP", "GROUP_TITLE", "INDEX_POSITION"),
+    "gp_group_index": ("GROUP", "GROUP_TITLE"),
 }
 
 
 def included_groups() -> list[tuple[str, str]]:
-    """[(group, kind)] in precedence order: constellations first, then operators."""
+    """[(group, kind)] in precedence order: constellations first, then operators (D-026), then the space station
+    group (D-043: a flag, never a constellation)."""
     return ([(g, "constellation") for g in CELESTRAK_CONSTELLATION_GROUPS]
-            + [(g, "operator") for g in CELESTRAK_OPERATOR_GROUPS])
+            + [(g, "operator") for g in CELESTRAK_OPERATOR_GROUPS]
+            + [(g, "station") for g in CELESTRAK_STATION_GROUPS])
 
 
 def config_records() -> list[dict]:
@@ -57,7 +60,7 @@ class LayoutChanged(Exception):
 
 
 def parse_index(html: str) -> list[dict]:
-    """Index records (GROUP, GROUP_TITLE, INDEX_POSITION) for every group the page links, in page order.
+    """Index records (GROUP, GROUP_TITLE) for every group the page links, in page order.
     Raises LayoutChanged when no group is linked or a configured group on the page has no title."""
     listed = celestrak.groups_on_index(html)
     if not listed:
@@ -66,7 +69,7 @@ def parse_index(html: str) -> list[dict]:
     untitled = [g for g, _ in included_groups() if g in listed and not titles.get(g)]
     if untitled:
         raise LayoutChanged(f"no title on the GP index page for {untitled}")
-    return [{"GROUP": g, "GROUP_TITLE": titles.get(g, ""), "INDEX_POSITION": str(i)} for i, g in enumerate(listed, 1)]
+    return [{"GROUP": g, "GROUP_TITLE": titles.get(g, "")} for g in listed]
 
 
 def not_in_config(listed: list[str]) -> list[str]:

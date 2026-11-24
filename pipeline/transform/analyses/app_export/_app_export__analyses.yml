@@ -18,7 +18,8 @@ analyses:
       D-009 to D-011): one record per tracked object with a full element set, of every type (payloads, rocket bodies,
       debris, UNKNOWN), keyed by satcat_id, with the marts' own column names. Elements from fct__gp_elements
       (tracking), descriptive fields from fct__satellite_master (enrichment, left join). Gaps stay null; label lists
-      are always lists. `constellation` is CelesTrak's group name (D-026), credited in the envelope's attribution.
+      are always lists. `constellation` is CelesTrak's group name (D-026) and `flag_space_station` (1/0) its space
+      station group (D-043), both credited in the envelope's attribution.
       scripts/export_app_csvs.py wraps it in the dataset envelope and validates every record against
       app/contracts/objects.schema.json.
   - name: app__last_data_update

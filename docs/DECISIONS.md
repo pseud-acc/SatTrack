@@ -38,7 +38,7 @@ Read the records a feature touches before scoping it.
 | [D-023](#d-023-label-the-selected-satellite-and-close-up-the-nearest-20) | Label the selected satellite and, close up, the nearest 20 | Accepted | 2026-11-22 | [record](decisions/D-023-labels-selected-and-nearest.md) |
 | [D-024](#d-024-shareable-links-carry-the-core-view-in-the-url-hash) | Shareable links carry the core view in the URL hash | Accepted | 2026-11-22 | [record](decisions/D-024-shareable-links-url-hash.md) |
 | [D-025](#d-025-bottom-sheet-on-phones) | Bottom sheet on phones | Accepted | 2026-11-22 | [record](decisions/D-025-mobile-bottom-sheet.md) |
-| [D-026](#d-026-constellations-from-celestraks-group-lists-credited) | Constellations from CelesTrak's group lists, credited | Accepted | 2026-11-22 | [record](decisions/D-026-constellations-from-celestrak-groups.md) |
+| [D-026](#d-026-constellations-from-celestraks-group-lists-credited) | Constellations from CelesTrak's group lists, credited | Accepted; partly superseded by D-043 | 2026-11-22 | [record](decisions/D-026-constellations-from-celestrak-groups.md) |
 | [D-027](#d-027-a-measured-performance-budget-for-the-viewer) | A measured performance budget for the viewer | Accepted | 2026-11-23 | [record](decisions/D-027-performance-budget.md) |
 | [D-028](#d-028-phase-3-scope-the-core-plus-four-extensions) | Phase 3 scope: the core plus four extensions | Accepted | 2026-11-22 | [record](decisions/D-028-phase-3-scope.md) |
 | [D-029](#d-029-javascript-sgp4-in-the-worker-now-wasm-when-shadow-dimming-lands) | JavaScript SGP4 in the worker now; WASM when shadow dimming lands | Accepted | 2026-11-22 | [record](decisions/D-029-worker-engine-js-then-wasm.md) |
@@ -51,6 +51,7 @@ Read the records a feature touches before scoping it.
 | [D-037](#d-037-pipeline-warnings-email-a-summary-without-failing-the-run) | Pipeline warnings email a summary without failing the run | Accepted | 2026-11-23 | [record](decisions/D-037-pipeline-warnings-email-without-failing.md) |
 | [D-039](#d-039-celestrak-groups-at-most-once-a-day-and-no-request-for-20-hours-after-a-refusal) | CelesTrak groups: at most once a day, and no request for 20 hours after a refusal | Accepted | 2026-11-23 | [record](decisions/D-039-celestrak-group-fetch-cadence.md) |
 | [D-040](#d-040-celestrak-groups-raw-tables-in-the-warehouse-replaced-all-or-nothing-never-holding-a-unit) | CelesTrak groups: raw tables in the warehouse, replaced all or nothing, never holding a unit | Accepted | 2026-11-23 | [record](decisions/D-040-celestrak-groups-storage-and-failure.md) |
+| [D-043](#d-043-flag-space-stations-from-celestraks-stations-group) | Flag space stations from CelesTrak's `stations` group | Accepted | 2026-11-24 | [record](decisions/D-043-space-station-flag-from-celestrak.md) |
 
 ---
 
@@ -443,7 +444,7 @@ satellite (half) and details (full). Desktop keeps the sidebar.
 **Rejected.** Today's collapsible sidebar (covers the globe); floating buttons with separate overlays.
 
 ## D-026 Constellations from CelesTrak's group lists, credited
-**Status:** Accepted, 2026-11-22 (plan 3.1). **Component:** pipeline; the `objects` dataset; the viewer's credits.
+**Status:** Accepted, 2026-11-22 (plan 3.1); partly superseded by D-043 (the `stations` group is downloaded as a flag). **Component:** pipeline; the `objects` dataset; the viewer's credits.
 
 **Context.** Colouring by constellation (D-017) needs membership the data doesn't have. GCAT matches CelesTrak for
 the broadband fleets but has no plane labels for Galileo, GLONASS or Globalstar and few for Iridium; CelesTrak's
@@ -614,3 +615,22 @@ details.
 (breaks the layering rules).
 
 **Consequences.** The index title parser is tested on a trimmed copy of the live page (23 Nov 2026, run 45099334610).
+
+## D-043 Flag space stations from CelesTrak's `stations` group
+**Status:** Accepted, 2026-11-24 (owner). Partly supersedes D-026 ("every other group is excluded"). **Component:**
+pipeline (`sattrack_ingest/config.py`, `int__celestrak__space_station`, `fct__satellite_master`); the `objects` dataset.
+
+**Context.** D-026 excludes CelesTrak's "Space Stations" group (`stations`: the ISS and Tiangong modules and the
+spacecraft visiting them, 17 objects on 22 Nov 2026). The owner wants it.
+
+**Decision.** Download `stations` with the other included groups, as its own kind `station`, and add
+`flag_space_station` (integer 1/0, never null) to `fct__satellite_master` and the `objects` dataset. Station groups
+never name a constellation.
+
+**Why.** The constellation field keeps its meaning, and the flag works whatever the colour mode (labels, search, a
+filter later).
+
+**Rejected.** `stations` as a constellation value (mixes the two; a docked Dragon would be a "constellation"); a later
+separate PR (a second contract change).
+
+**Consequences.** One more CelesTrak request per download; a new required field in `objects.schema.json`.

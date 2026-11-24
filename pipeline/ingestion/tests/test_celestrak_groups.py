@@ -108,7 +108,11 @@ def members(con):
 def test_config_lists_d026_groups_in_order_and_covers_the_whole_index():
     assert [g for g, _ in celestrak_groups.included_groups()] == [
         "starlink", "oneweb", "kuiper", "qianfan", "hulianwang", "iridium-NEXT", "globalstar", "orbcomm", "gps-ops",
-        "glo-ops", "galileo", "beidou", "tdrss", "dmc", "planet", "spire", "intelsat", "ses", "eutelsat", "telesat"]
+        "glo-ops", "galileo", "beidou", "tdrss", "dmc", "planet", "spire", "intelsat", "ses", "eutelsat", "telesat",
+        "stations"]
+    # D-043: the space station group comes last and is its own kind, so it never names a constellation
+    assert celestrak_groups.included_groups()[-1] == ("stations", "station")
+    assert {k for _, k in celestrak_groups.included_groups()} == {"constellation", "operator", "station"}
     included = {g for g, _ in celestrak_groups.included_groups()}
     assert not included & set(config.CELESTRAK_EXCLUDED_GROUPS)
     assert len(included) + len(config.CELESTRAK_EXCLUDED_GROUPS) == 47   # the 47 groups the index showed on 22 Nov
@@ -139,7 +143,7 @@ def test_the_real_index_page_lists_47_groups_all_known_and_titled():
         "orbcomm": "Orbcomm", "gps-ops": "GPS Operational", "glo-ops": "GLONASS Operational", "galileo": "Galileo",
         "beidou": "Beidou", "tdrss": "Tracking and Data Relay Satellite System (TDRSS)", "dmc": "Disaster Monitoring",
         "planet": "Planet", "spire": "Spire", "intelsat": "Intelsat", "ses": "SES", "eutelsat": "Eutelsat",
-        "telesat": "Telesat"}
+        "telesat": "Telesat", "stations": "Space Stations"}
     assert titles["active"] == "Active Satellites" and titles["sarsat"] == "Search & Rescue (SARSAT)"
     assert [r["GROUP"] for r in celestrak_groups.parse_index(html)][:2] == ["last-30-days", "stations"]
 

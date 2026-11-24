@@ -15,7 +15,8 @@ A small fixed sample of the pipeline's app files, used to run the app without AW
   the export's own envelope, schema validation and compression. Its element sets are newer than the CSV's.
   On 23 Nov 2026 (plan 3.8) the additive `constellation` field was added to every record as `null` and the
   CelesTrak credit to the attribution: the export predates the field, so the sample carries no constellation
-  values (real exports do).
+  values (real exports do). On 24 Nov 2026 `flag_space_station` (D-043) was added the same way, from the `stations`
+  group of CelesTrak fetch run 45061938995: no sample object is in it, so it is 0 everywhere.
 
 CI's Heroku build check (`.github/scripts/heroku_build_check.sh`) starts the app with
 `SATTRACK_APP_DATA_DIR` pointing here. For a local run without S3:

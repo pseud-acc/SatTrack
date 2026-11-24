@@ -45,7 +45,7 @@ sources:
               name: schema_columns__src__celestrak__gp_group_index
               config: {severity: warn}
               arguments:
-                column_list: [GROUP, GROUP_TITLE, INDEX_POSITION]
+                column_list: [GROUP, GROUP_TITLE]
       - name: group_config
         description: '{{ doc("tbl__celestrak__group_config") }}'
         config:

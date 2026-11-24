@@ -59,8 +59,11 @@ CELESTRAK_CONSTELLATION_GROUPS = [
     "glo-ops", "galileo", "beidou", "tdrss", "dmc",
 ]
 CELESTRAK_OPERATOR_GROUPS = ["planet", "spire", "intelsat", "ses", "eutelsat", "telesat"]
+# The space station group (D-043): downloaded like the groups above, but it sets flag_space_station and never the
+# constellation (the ISS and Tiangong modules plus the spacecraft visiting them are not a constellation).
+CELESTRAK_STATION_GROUPS = ["stations"]
 CELESTRAK_EXCLUDED_GROUPS = [
-    "last-30-days", "stations", "visual", "active", "analyst", "fengyun-1c-debris", "iridium-33-debris",
+    "last-30-days", "visual", "active", "analyst", "fengyun-1c-debris", "iridium-33-debris",
     "cosmos-2251-debris", "weather", "resource", "sar", "sarsat", "argos", "geo", "amateur", "satnogs", "x-comm",
     "other-comm", "gnss", "sbas", "science", "geodetic", "engineering", "education", "military", "radar", "cubesat",
 ]

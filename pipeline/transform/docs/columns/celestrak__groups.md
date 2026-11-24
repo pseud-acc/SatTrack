@@ -7,13 +7,7 @@ Source: https://celestrak.org/NORAD/documentation/gp-data-formats.php; https://c
 {% enddocs %}
 
 {% docs col__celestrak_group_title %}
-Shown, not defined, by CelesTrak (owner to confirm). The name CelesTrak's "NORAD GP Element Sets Current Data" page shows for a group, as written, under a section heading such as "Navigation Satellites". From the Current Data page. E.g. "GPS Operational" for `gps-ops`; "Iridium NEXT" for `iridium-NEXT`.
-
-Source: https://celestrak.org/NORAD/documentation/gp-data-formats.php; https://celestrak.org/NORAD/elements/ (Batch 11c).
-{% enddocs %}
-
-{% docs col__celestrak_index_position %}
-Shown, not defined, by CelesTrak (owner to confirm). The group's position among the groups linked from CelesTrak's "NORAD GP Element Sets Current Data" page, counted by SatTrack from 1 in page order. From the Current Data page. E.g. 1 for `last-30-days` ("Last 30 Days' Launches"); 2 for `stations` ("Space Stations").
+Shown, not defined, by CelesTrak (definition confirmed by the owner, 2026-11-24). The name CelesTrak's "NORAD GP Element Sets Current Data" page shows for a group, as written, under a section heading such as "Navigation Satellites". From the Current Data page. E.g. "GPS Operational" for `gps-ops`; "Iridium NEXT" for `iridium-NEXT`.
 
 Source: https://celestrak.org/NORAD/documentation/gp-data-formats.php; https://celestrak.org/NORAD/elements/ (Batch 11c).
 {% enddocs %}

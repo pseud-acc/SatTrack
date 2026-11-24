@@ -6,9 +6,10 @@ nothing was fetched from a developer machine (D-008).
 
 ## Group CSVs (`<group>.csv`)
 
-The first three rows of seven CelesTrak GP groups, as CelesTrak published them on 22 Nov 2026 (CSV format, unchanged):
-`starlink`, `oneweb`, `gps-ops`, `glo-ops`, `intelsat`, `ses` (included by the group config, D-026) and `gnss`
-(excluded; its rows overlap `gps-ops`).
+The first three rows of eight CelesTrak GP groups, as CelesTrak published them on 22 Nov 2026 (CSV format, unchanged):
+`starlink`, `oneweb`, `gps-ops`, `glo-ops`, `intelsat`, `ses` (included by the group config, D-026), `stations`
+(the space station group, D-043: ISS (ZARYA), POISK, CSS (TIANHE)) and `gnss` (excluded; its rows overlap
+`gps-ops`).
 
 - **URL:** `https://celestrak.org/NORAD/elements/gp.php?GROUP=<group>&FORMAT=csv`.
 - **Fetched by:** run 45061938995 (22 Nov 2026, 47 groups, no refusals), downloaded with
