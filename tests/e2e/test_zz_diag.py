@@ -16,11 +16,11 @@ TICK_MS = 1000 / os.sysconf("SC_CLK_TCK") if hasattr(os, "sysconf") else 10
 NO_THROTTLE = ["--disable-renderer-backgrounding", "--disable-background-timer-throttling",
                "--disable-backgrounding-occluded-windows"]
 CONFIGS = [
-    ("default", CHROMIUM_ARGS, (1366, 900)),
-    ("no-throttle", CHROMIUM_ARGS + NO_THROTTLE, (1366, 900)),
-    ("small-viewport", CHROMIUM_ARGS, (683, 450)),
+    ("default", CHROMIUM_ARGS, (1366, 900), ""),
+    ("no-throttle", CHROMIUM_ARGS + NO_THROTTLE, (1366, 900), ""),
+    ("render-after-ready", CHROMIUM_ARGS, (1366, 900), "window.__diagRenderAfterReady = true;"),
 ]
-VISITS = int(os.environ.get("DIAG_VISITS", "8"))
+VISITS = int(os.environ.get("DIAG_VISITS", "10"))
 
 
 def proc_snapshot():
@@ -73,10 +73,10 @@ def cpu_split():
     return v   # user nice system idle iowait irq softirq steal guest guest_nice
 
 
-def visit(browser, url, viewport):
+def visit(browser, url, viewport, script=""):
     context = browser.new_context(viewport={"width": viewport[0], "height": viewport[1]})
     context.route(lambda u: not u.startswith("http://127.0.0.1"), lambda route: route.abort())
-    context.add_init_script(LONG_TASKS)
+    context.add_init_script(LONG_TASKS + script)
     try:
         pg = context.new_page()
         s0, c0 = proc_snapshot(), cpu_split()
@@ -86,7 +86,11 @@ def visit(browser, url, viewport):
         origin = pg.evaluate("performance.timeOrigin")
         d = pg.evaluate("window.sattrackViewer.diag") or {}
         start = origin + k["start"]
-        tasks = [x for (st, x) in pg.evaluate("window.__longTasks || []") if st < k["firstPositions"]]
+        all_tasks = pg.evaluate("window.__longTasks || []")
+        tasks = [x for (st, x) in all_tasks if st < k["firstPositions"]]
+        lt = " ".join(f"{st - k['start']:.0f}+{x:.0f}" for st, x in all_tasks if st < k["firstPositions"] + 1500)
+        frames = " ".join(f"{f[0] - k['start']:.0f}+{(f[1] - f[0]) if len(f) > 1 else -1:.0f}"
+                          for f in (pg.evaluate("window.sattrackViewer.diagFrames") or [])[:6])
         threads = {f"{a}/{b}": [round(s1[(a, b)][i] - s0.get((a, b), [0, 0, 0])[i]) for i in range(3)]
                    for (a, b) in s1}
         dc = [b - a for a, b in zip(c0, c1)]
@@ -95,6 +99,7 @@ def visit(browser, url, viewport):
             "phases": {n: round(k[n] - k["start"]) for n in ("data", "cesium", "viewer", "ready", "firstPositions")},
             "worker": {n: round(v - start) for n, v in d.items()},
             "long_tasks": [round(x) for x in tasks],
+            "lt": lt, "frames": frames,
             "threads": {n: v for n, v in threads.items() if v[0] >= 20 or v[1] >= 20},
             "cpu": {"user": round(100 * (dc[0] + dc[1]) / tot), "sys": round(100 * dc[2] / tot),
                     "idle": round(100 * dc[3] / tot), "steal": round(100 * dc[7] / tot)},
@@ -107,15 +112,16 @@ def visit(browser, url, viewport):
 def test_diag(browser, budget_url):
     lines = [f"cpus {os.cpu_count()}, affinity {len(os.sched_getaffinity(0)) if hasattr(os, 'sched_getaffinity') else '?'}"]
     table = ["| config | # | data | cesium | viewer | ready | first | w.fetched | w.parsed | w.buildStart | w.built | "
-             "w.computed | long tasks | worker thr cpu/wait | main thr cpu/wait | gpu cpu | V8 bg cpu | user/idle/steal |",
-             "|" + "---|" * 18]
+             "w.computed | long tasks | worker thr cpu/wait | main thr cpu/wait | gpu cpu | pool cpu/wait | "
+             "user/idle/steal | long tasks start+ms | frames start+ms |",
+             "|" + "---|" * 20]
     raw = []
-    for name, args, viewport in CONFIGS:
+    for name, args, viewport, script in CONFIGS:
         b = browser.browser_type.launch(args=args)
         try:
-            visit(b, budget_url, viewport)   # warm-up, discarded
+            visit(b, budget_url, viewport, script)   # warm-up, discarded
             for i in range(VISITS):
-                v = visit(b, budget_url, viewport)
+                v = visit(b, budget_url, viewport, script)
                 raw.append({"config": name, "i": i, **v})
                 th, w, ph = v["threads"], v["worker"], v["phases"]
 
@@ -127,11 +133,11 @@ def test_diag(browser, budget_url):
                     f"{ph['firstPositions']} | {w.get('fetched', '')} | {w.get('parsed', '')} | "
                     f"{w.get('buildStart', '')} | {w.get('built', '')} | {w.get('computed', '')} | "
                     f"{len(v['long_tasks'])} ({sum(v['long_tasks'])}) | "
-                    f"{grp(lambda n: n.startswith('renderer/') and 'Worker' in n and 'Default' not in n)} | "
-                    f"{grp(lambda n: n == 'renderer/CrRendererMain')} | "
+                    f"{grp(lambda n: n == 'renderer/DedicatedWorker')} | "
+                    f"{grp(lambda n: n == 'renderer/chrome-headless')} | "
                     f"{grp(lambda n: n.startswith('gpu-process/'))} | "
-                    f"{grp(lambda n: n.startswith('renderer/') and ('V8' in n or 'Default' in n))} | "
-                    f"{v['cpu']['user']}/{v['cpu']['idle']}/{v['cpu']['steal']} |")
+                    f"{grp(lambda n: n == 'renderer/ThreadPoolForeg')} | "
+                    f"{v['cpu']['user']}/{v['cpu']['idle']}/{v['cpu']['steal']} | {v['lt']} | {v['frames']} |")
         finally:
             b.close()
     job_summary("### DIAG: visit modes (temporary)\n\n" + "\n".join(lines) + "\n\n" + "\n".join(table))
