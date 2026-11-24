@@ -60,10 +60,11 @@ DATASETS = {
     "objects": {"schema": 1, "key": "satcat_id", "min_records": MIN_SATELLITE_ROWS},
 }
 # Carried in every dataset's header (CLAUDE.md: public outputs with Space-Track fields cite the source and keep the
-# caution; GCAT is CC BY).
+# caution; GCAT is CC BY; CelesTrak's group lists are credited wherever shown, D-026).
 ATTRIBUTION = [
     "Orbital data: USSPACECOM via Space-Track.org",
     "Launch, owner and mission details: GCAT (J. McDowell, planet4589.org), CC BY 4.0",
+    "Constellation groups: CelesTrak (Dr T.S. Kelso)",
 ]
 CAUTION = "Public element sets must not be used for conjunction (collision) assessment."
 

@@ -30,6 +30,7 @@ manifest_checks:
       - jsr
       - pycountry
       - geonames
+      - celestrak
 
   - name: check_model_directories
     description: "[NAM-03] Intermediate folders are business domains."
@@ -70,6 +71,11 @@ manifest_checks:
     description: "[NAM-04] Staging models are stg__<source>__<table>."
     include: "^models/staging/geonames/"
     model_name_pattern: "^stg__geonames__[a-z0-9_]+$"
+
+  - name: check_model_names
+    description: "[NAM-04] Staging models are stg__<source>__<table>."
+    include: "^models/staging/celestrak/"
+    model_name_pattern: "^stg__celestrak__[a-z0-9_]+$"
 
   - name: check_model_names
     description: "[NAM-05] Intermediate models are int__<origin>__<topic>_<model>."

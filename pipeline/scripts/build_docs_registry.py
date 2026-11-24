@@ -41,6 +41,7 @@ ORIGINS = [  # read order = precedence for names defined in several origins
     "gcat__orgs_sites_lv",
     "spacetrack__gp",
     "spacetrack__code_tables",
+    "celestrak__groups",
     "reference__labels_countries_cities",
     "sattrack__derived",
     "sattrack__metadata",
@@ -54,6 +55,7 @@ PUBLISHERS = [  # (pattern in a derived definition, citation) for the inputs of 
     (r"\bGP\b|Space-Track", "Space-Track https://www.space-track.org/documentation"),
     (r"pycountry|\bISO\b", "pycountry https://pypi.org/project/pycountry/"),
     (r"GeoNames", "GeoNames https://download.geonames.org/export/dump/readme.txt"),
+    (r"CelesTrak", "CelesTrak https://celestrak.org/NORAD/elements/"),
 ]
 
 

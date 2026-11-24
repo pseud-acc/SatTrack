@@ -85,7 +85,7 @@ SATTRACK_DATA_DIR=/path/outside/repo uv run python run_pipeline.py   # a real ru
 - Public outputs carrying Space-Track fields cite "USSPACECOM via Space-Track.org" and keep the caution that
   public TLEs must not be used for conjunction assessment. GCAT (J. McDowell, planet4589.org) is CC-BY: cite it.
   Take data only from its original publishers; never republish another tracker's compiled data. One recorded
-  exception (D-026): CelesTrak's constellation and operator group lists, fetched only by the pipeline (D-008) and
+  exception (D-026, D-043): CelesTrak's constellation, operator and space station group lists, fetched only by the pipeline (D-008) and
   credited "Constellation groups: CelesTrak (Dr T.S. Kelso)" wherever shown.
 
 **Pipeline design**

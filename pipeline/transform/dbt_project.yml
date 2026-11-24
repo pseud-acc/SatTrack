@@ -32,6 +32,8 @@ models:
         +tags: ["enrichment"]
       geonames:
         +tags: ["enrichment"]
+      celestrak:
+        +tags: ["enrichment"]   # constellation groups (D-026): built and published with the enrichment unit
     intermediate:
       +materialized: table
       +schema: intermediate
