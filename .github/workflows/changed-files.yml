@@ -1,0 +1,66 @@
+# Shared job: which checks a pull request needs, from the files it changes. Called by pr.yml, which passes each
+# output to its check workflow's required `run` input (app-build, app-tests, app-e2e, pipeline-checks). A check
+# told not to run skips its job, and GitHub counts a skipped job as passing for the protect-main required checks.
+#
+# The rules are in .github/scripts/pr_changes.py (tested by pipeline/ingestion/tests/test_pr_changes.py):
+# documentation runs nothing; app files run the app checks; pipeline/ and infra/ run the pipeline checks; test-only
+# changes run their own suite; anything unrecognised, a change to this gate, or a file list that can't be read runs
+# everything. merge.yml doesn't use this: every check runs before a deploy.
+#
+# Read-only: the PR's file list through the API (pull-requests: read), no secrets.
+
+name: changed files
+
+on:
+  workflow_call:
+    outputs:
+      app_build:
+        description: "true when the PR needs the Heroku build check"
+        value: ${{ jobs.decide.outputs.app_build }}
+      app_tests:
+        description: "true when the PR needs the app's unit and integration tests"
+        value: ${{ jobs.decide.outputs.app_tests }}
+      app_e2e:
+        description: "true when the PR needs the browser tests"
+        value: ${{ jobs.decide.outputs.app_e2e }}
+      pipeline:
+        description: "true when the PR needs the pipeline tests and dbt checks"
+        value: ${{ jobs.decide.outputs.pipeline }}
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  decide:
+    name: which checks?
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      app_build: ${{ steps.decide.outputs.app_build }}
+      app_tests: ${{ steps.decide.outputs.app_tests }}
+      app_e2e: ${{ steps.decide.outputs.app_e2e }}
+      pipeline: ${{ steps.decide.outputs.pipeline }}
+    steps:
+      - name: Check out the rules
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+          sparse-checkout: .github/scripts
+
+      - name: List the PR's files and decide
+        id: decide
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          # The pulls/files API lists at most 3,000 files; past that, outside a PR, or on any error: every check.
+          if [ -n "$PR" ] && files="$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[].filename')" \
+             && [ "$(printf '%s\n' "$files" | grep -c .)" -lt 3000 ]; then
+            printf '%s\n' "$files" | python3 .github/scripts/pr_changes.py
+          else
+            python3 .github/scripts/pr_changes.py --all
+          fi
