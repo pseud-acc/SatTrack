@@ -26,7 +26,7 @@ def create_filter_sidebar(options):
             dbc.CardHeader([
                 html.H5("Filters", className="mb-0 d-inline-block"),
                 dbc.Button(
-                    html.I(className="fas fa-chevron-down", id="toggle-icon"),
+                    html.I(className="st-icon st-icon-chevron-down", id="toggle-icon"),
                     id="toggle-filters",
                     color="link",
                     className="float-end d-md-none",

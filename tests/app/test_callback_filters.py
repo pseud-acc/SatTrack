@@ -48,10 +48,10 @@ def test_collapse_button(callbacks):
     def press(n, is_open):
         return callbacks.call("filter-collapse", "toggle-filters.n_clicks",
                               **{"toggle-filters.n_clicks": n, "filter-collapse.is_open": is_open})
-    assert press(1, False) == (200, {"filter-collapse.is_open": True, "toggle-icon.className": "fas fa-chevron-up"})
-    assert press(2, True) == (200, {"filter-collapse.is_open": False, "toggle-icon.className": "fas fa-chevron-down"})
+    assert press(1, False) == (200, {"filter-collapse.is_open": True, "toggle-icon.className": "st-icon st-icon-chevron-up"})
+    assert press(2, True) == (200, {"filter-collapse.is_open": False, "toggle-icon.className": "st-icon st-icon-chevron-down"})
     assert press(None, False) == (200, {"filter-collapse.is_open": False,
-                                        "toggle-icon.className": "fas fa-chevron-down"})
+                                        "toggle-icon.className": "st-icon st-icon-chevron-down"})
 
 
 def test_launch_year_labels(callbacks):

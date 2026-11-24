@@ -19,7 +19,7 @@ def create_orbit_filter(options):
     return html.Div([
         html.Label([
             "Orbit Type ",
-            html.I(className="fas fa-info-circle", id="orbit-info-icon",
+            html.I(className="st-icon st-icon-info", id="orbit-info-icon",
                    style={'fontSize': '0.8rem', 'cursor': 'pointer'})
         ], className="fw-bold small"),
         dbc.Tooltip([

@@ -126,10 +126,10 @@ def register(app):
     def toggle_filters(n, is_open):
         if n:
             new_state = not is_open
-            icon_class = "fas fa-chevron-up" if new_state else "fas fa-chevron-down"
+            icon_class = "st-icon st-icon-chevron-up" if new_state else "st-icon st-icon-chevron-down"
             return new_state, icon_class
         # Initial state: filters are collapsed, so show down chevron
-        return is_open, "fas fa-chevron-down"        
+        return is_open, "st-icon st-icon-chevron-down"        
 
 
     '''

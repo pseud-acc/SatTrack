@@ -46,14 +46,10 @@ from app.layouts.layout_sat_visualisations import create_dash_layout as create_d
 
 ## >>>>>>>> Initialize App <<<<<<<<<<<<
 
-# Instantiate Dash App with Bootstrap theme
-external_stylesheets = [
-    dbc.themes.CYBORG,  # Dark theme for space-themed UI
-    "https://use.fontawesome.com/releases/v5.15.4/css/all.css"  # Icons for filters and UI
-]
+# Instantiate Dash App. No external stylesheets: Bootstrap 5.3.8, the font and the design tokens are committed under
+# assets/ (D-044, roadmap 3.12).
 app = Dash(
     __name__,
-    external_stylesheets=external_stylesheets,
     compress=True,  # gzip/brotli (flask-compress)
     meta_tags=[
         {
@@ -62,6 +58,9 @@ app = Dash(
         }
     ]
 )
+
+# Bootstrap 5's dark mode on the whole page, as in run_app.py (D-044)
+app.index_string = app.index_string.replace("<html>", '<html lang="en" data-bs-theme="dark">', 1)
 
 # Reference underlying Flask server (for production deployment)
 server = app.server

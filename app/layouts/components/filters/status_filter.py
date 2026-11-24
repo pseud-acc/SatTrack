@@ -16,7 +16,7 @@ def create_status_filter():
     return html.Div([
         html.Label([
             "Status ",
-            html.I(className="fas fa-info-circle", id="status-info-icon",
+            html.I(className="st-icon st-icon-info", id="status-info-icon",
                    style={'fontSize': '0.8rem', 'cursor': 'pointer'})
         ], className="fw-bold small"),
         dbc.Tooltip([
