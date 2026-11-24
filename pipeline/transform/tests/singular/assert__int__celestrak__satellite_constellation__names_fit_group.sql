@@ -3,7 +3,8 @@
 -- the name its group's members carry, i.e. CelesTrak may list spacecraft in the group that aren't the constellation
 -- (as tdrss lists the spacecraft that use TDRSS). The expected string is the group's member-name prefix from the
 -- config when it has one (tdrss: "TDRS"), else the most common leading word of the group's member names (e.g.
--- STARLINK, GPS, COSMOS for glo-ops, GSAT for galileo), derived from the data each run, with no list of exceptions.
+-- STARLINK, GPS, COSMOS for glo-ops, GSAT for galileo), derived from the data each run. The exceptions (dmc not
+-- checked; hulianwang also accepts GUOWANG) all live in the macro helper__flag_member_name_fits_group (D-046).
 -- Operator groups (kind operator: planet, ses, ...) list an operator's fleet under its own satellite names, so they
 -- are not checked. A second check warns when a group's prefix matches none of its members (CelesTrak renamed them).
 with cte_int__celestrak__satellite_constellation as (
@@ -79,7 +80,7 @@ with cte_int__celestrak__satellite_constellation as (
         on mem.celestrak_group = con.celestrak_group
         and mem.satcat_id = con.satcat_id
     where exp.expected_name_string is not null
-        and strpos(upper(coalesce(mem.object_name, '')), exp.expected_name_string) = 0
+        and {{ helper__flag_member_name_fits_group('con.celestrak_group', 'mem.object_name', 'exp.expected_name_string') }} = 0
 )
 
 , cte_prefix_matches_none as (

@@ -8,6 +8,7 @@ and the new-group warning are tested in CI without a dbt build.
 """
 from __future__ import annotations
 
+import csv
 import io
 import re
 import sys
@@ -17,6 +18,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import duckdb
+import jinja2
 import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -293,12 +295,19 @@ def test_reports_index_groups_not_in_config(env):
 # ---------------------------------------------------------------- the dbt models on the landed sample
 
 
+CELESTRAK_MACROS = TRANSFORM / "macros" / "celestrak"
+
+
 def render(sql: str) -> str:
+    """source(), ref(), config() and the audit macro by substitution; the CelesTrak helper macros (D-046) by Jinja,
+    from their committed files, so the tests run the same exception logic as dbt."""
     sql = re.sub(r"\{\{\s*config\([^)]*\)\s*\}\}", "", sql)
     sql = re.sub(r"\{\{\s*source\('celestrak',\s*'(\w+)'\)\s*\}\}", r"raw_celestrak.\1", sql)
     sql = re.sub(r"\{\{\s*ref\('(\w+)'\)\s*\}\}", r"\1", sql)
-    return sql.replace("{{ helper__audit_fields() }}",
-                       "cast(current_timestamp as timestamp) as inserted_date_time, 'test' as inserted_by")
+    sql = sql.replace("{{ helper__audit_fields() }}",
+                      "cast(current_timestamp as timestamp) as inserted_date_time, 'test' as inserted_by")
+    macros = "".join(p.read_text(encoding="utf-8") for p in sorted(CELESTRAK_MACROS.glob("helper__*.sql")))
+    return jinja2.Environment().from_string(macros + sql).render()
 
 
 def build_models(con):
@@ -369,6 +378,40 @@ def test_name_check_warns_on_a_member_whose_name_does_not_fit(env):
     assert re.search(r"config\(severity='warn'\)", text)       # warns, never fails the build
     rows = con.execute(render(text)).fetchall()
     assert rows == [("name_lacks_expected_string", "starlink", 20580, "HST", "STARLINK")]
+
+
+def group_csv(rows: list[tuple[str, str, int]]) -> str:
+    """A group CSV in CelesTrak's columns: (OBJECT_NAME, OBJECT_ID, NORAD_CAT_ID) per row, the elements of the
+    starlink sample's first row (only the three identifying columns matter to the models)."""
+    header, first = list(csv.reader(io.StringIO(sample("starlink"))))[:2]
+    out = io.StringIO()
+    w = csv.writer(out, lineterminator="\n")
+    w.writerow(header)
+    for name, object_id, norad in rows:
+        row = dict(zip(header, first), OBJECT_NAME=name, OBJECT_ID=object_id, NORAD_CAT_ID=str(norad))
+        w.writerow([row[c] for c in header])
+    return out.getvalue()
+
+
+def test_name_check_exceptions_live_in_the_macro(env):
+    """D-046 exceptions (owner, 24 Nov 2026), names and NORAD ids from fetch run 45061938995: dmc is not checked;
+    hulianwang accepts GUOWANG. HST in hulianwang is made up: an unrelated name in a checked group still warns."""
+    con, _ = env
+    dmc = group_csv([("BEIJING 1", "2005-043A", 28890), ("HUANJING 1A (HJ-1A)", "2008-041A", 33320),
+                     ("YAOGAN-4", "2008-061A", 33446), ("DEIMOS-1", "2009-041A", 35681),
+                     ("UK-DMC 2", "2009-041C", 35683), ("DMC3-FM1", "2015-032A", 40715)])
+    hulianwang = group_csv([("HULIANWANG DIGUI-01", "2024-240A", 62323), ("HULIANWANG DIGUI-02", "2024-240B", 62324),
+                            ("GUOWANG-30 OBJECT A", "2026-260A", 101416), ("HST", "1990-037B", 20580)])
+    ingest(env, Fake(answers(SAMPLE_GROUPS + ["dmc", "hulianwang"], dmc=dmc, hulianwang=hulianwang)))
+    build_models(con)
+    got = constellations(con)
+    assert got[28890] == got[33446] == "Dmc"                 # dmc keeps CelesTrak's membership (title from the test page)
+    assert got[101416] == "Hulianwang"
+    rows = con.execute(render(NAME_CHECK.read_text(encoding="utf-8"))).fetchall()
+    assert rows == [("name_lacks_expected_string", "hulianwang", 20580, "HST", "HULIANWANG")]
+    macro = (CELESTRAK_MACROS / "helper__flag_member_name_fits_group.sql").read_text(encoding="utf-8")
+    assert "{{ helper__flag_member_name_fits_group(" in NAME_CHECK.read_text(encoding="utf-8")
+    assert "'dmc'" in macro and "'GUOWANG'" in macro
 
 
 def test_name_check_warns_when_a_prefix_matches_no_member(env):

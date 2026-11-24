@@ -1,0 +1,15 @@
+version: 2
+
+macros:
+  - name: helper__flag_member_name_fits_group
+    description: "D-046: 1 when a CelesTrak constellation member's name (CSV OBJECT_NAME) fits its group, else 0, as one case expression holding every exception to the name check (owner, 24 Nov 2026). Exceptions: dmc is not checked (CelesTrak's 'Disaster Monitoring' group lists satellites of several programmes, e.g. BEIJING 1, HUANJING 1A, DEIMOS-1; remove if CelesTrak narrows it); hulianwang also accepts names starting GUOWANG (GUOWANG-30 OBJECT A..J, 22 Nov 2026; remove when Space-Track renames them). Otherwise the name must contain the expected string, case-insensitively. Used by the warning test assert__int__celestrak__satellite_constellation__names_fit_group."
+    arguments:
+      - name: celestrak_group
+        type: string
+        description: "SQL expression with the CelesTrak group name, e.g. con.celestrak_group."
+      - name: object_name
+        type: string
+        description: "SQL expression with the member's CelesTrak OBJECT_NAME, e.g. mem.object_name."
+      - name: expected_name_string
+        type: string
+        description: "SQL expression with the string the name must contain: the group's prefix, else its most common leading word."

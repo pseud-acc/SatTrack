@@ -63,6 +63,14 @@ For the name check:
 | Expected string = the first word of CelesTrak's title | Simple | Would warn on every glo-ops, galileo and dmc member and need a list of exceptions (76 rows today) |
 | Also check operator groups | Complete | ~125 warnings a day on legitimate fleet names (SKYSAT, ASTRA, GALAXY, ...) |
 
+For the exceptions the check needs (owner, 24 Nov 2026):
+
+| Option | For | Against |
+|---|---|---|
+| **One logic macro, `helper__flag_member_name_fits_group`, a `case when` with one branch per exception** | Every exception in one documented place, with its reason and removal trigger; the check reads as the rule | A short hand-kept rule set (two branches today) |
+| Accept the daily warnings | No exceptions to keep | 13 warnings every day on rows the owner has accepted hide new ones |
+| A config list of excepted groups or names | Visible in the warehouse | Another config table for a check-only rule |
+
 ## Decision
 - `CELESTRAK_MEMBER_NAME_PREFIX = {"tdrss": "TDRS"}` in `sattrack_ingest/config.py`, landed every run as
   `raw_celestrak.group_config.GROUP_MEMBER_NAME_PREFIX` → `stg__celestrak__group_config.celestrak_group_member_name_prefix`.
@@ -72,22 +80,33 @@ For the name check:
 - Warning check (D-037: emailed, never fails) `assert__int__celestrak__satellite_constellation__names_fit_group`:
   a constellation-kind membership whose CelesTrak name doesn't contain the group's prefix, else the group's most
   common leading word; and a prefix that matches none of its group's members (CelesTrak renamed them).
-- No other group gets a prefix (the audit shows none mixes in other spacecraft); the dmc and hulianwang rows are
-  questions for the owner, not workarounds.
+- No other group gets a prefix (the audit shows none mixes in other spacecraft).
+- Exceptions to the check (owner, 24 Nov 2026) live only in the macro `helper__flag_member_name_fits_group`
+  (`pipeline/transform/macros/celestrak/`), a `case when` the check calls, each branch with its reason and removal
+  trigger:
+  - **dmc is not checked.** CelesTrak's "Disaster Monitoring" group lists satellites of several programmes (BEIJING 1,
+    HUANJING 1A/1B, YAOGAN-4, DEIMOS-1 beside UK-DMC 2 and DMC3); the owner keeps CelesTrak's membership, so those 5
+    keep the "Disaster Monitoring" constellation.
+  - **hulianwang also accepts names starting GUOWANG** (GUOWANG-30 OBJECT A..J on 22 Nov 2026).
+  - Operator groups stay outside the check (by group kind, not in the macro).
 
 ## Evidence
 - Group CSVs of fetch run 45061938995 (GitHub runner artifact, 22 Nov 2026), all 20 groups; audit above.
 - The first six rows of `tdrss` are the test fixture `pipeline/ingestion/tests/fixtures/celestrak/tdrss.csv`.
 - On those CSVs the models give `tdrss` 8 members (the TDRS satellites); HST, the ISS and NOAA 20 get no
-  constellation. The check warns on 13 rows: 8 GUOWANG-30 objects in hulianwang and 5 dmc members (above).
+  constellation. Without exceptions the check would warn on 13 rows (8 GUOWANG-30 objects in hulianwang, 5 dmc
+  members); with the macro's exceptions it warns on none.
 - Unit test `ut__int__celestrak__satellite_constellation__member_name_prefix`; the station test includes the ISS's
-  tdrss membership; ingestion tests run the models and the check on the fixtures.
+  tdrss membership; ingestion tests run the models and the check (with the macro rendered from its file) on the
+  fixtures, including `test_name_check_exceptions_live_in_the_macro`: GUOWANG and the dmc members raise no warning,
+  an unrelated name (HST) in hulianwang still does.
 
 ## Consequences
 - 17 objects lose "Tracking and Data Relay Satellite System (TDRSS)" in `objects.json` on the next CelesTrak
   download; no contract change (`constellation` was already nullable).
-- The warning email lists the 13 rows above every day until the owner decides on dmc and hulianwang or CelesTrak's
-  names change.
+- The check is quiet on today's data; a warning means a new misfit, not a known one.
+- dmc is never name-checked while its exception stands: a non-disaster satellite CelesTrak added there would not be
+  flagged.
 - If CelesTrak renames the TDRS satellites, the prefix matches nothing, TDRSS disappears from the data and the
   check warns.
 
@@ -95,7 +114,10 @@ For the name check:
 - The name check flags a new group mixing in other spacecraft (it would need its own prefix, decided against this
   record).
 - CelesTrak splits `tdrss` into relay satellites and users, or renames the TDRS satellites.
-- Space-Track renames the GUOWANG objects, or the owner decides on dmc.
+- Space-Track renames the GUOWANG objects (names starting HULIANWANG): remove the GUOWANG branch of the macro.
+- CelesTrak narrows `dmc` to DMC-named satellites, or adds satellites that clearly aren't for disaster monitoring:
+  remove or revisit the dmc branch.
+- Any new exception is a new `when` in the macro, decided against this record.
 
 ## Related
 D-026 (amended), D-037, D-043; #69.

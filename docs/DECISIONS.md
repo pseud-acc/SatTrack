@@ -770,7 +770,11 @@ operator groups found no other group mixing in other spacecraft.
 `tdrss`: `TDRS`), landed in `raw_celestrak.group_config` and staged as `celestrak_group_member_name_prefix`; the
 intermediate model counts a member of such a group only when its CelesTrak `OBJECT_NAME` starts with the prefix. A
 warning check (D-037) flags constellation memberships whose name lacks the group's prefix, else the group's most
-common leading word, and a prefix that matches no member. Operator groups are not name-checked.
+common leading word, and a prefix that matches no member. Operator groups are not name-checked. The check's
+exceptions (owner, 24 Nov 2026) live in one logic macro, `helper__flag_member_name_fits_group`, a `case when` with one
+branch each: dmc is not checked (CelesTrak's "Disaster Monitoring" group spans several programmes; its 5 non-DMC
+members keep the constellation), and hulianwang also accepts names starting GUOWANG. Remove the GUOWANG branch when
+Space-Track renames those objects; revisit dmc if CelesTrak narrows the group.
 
 **Why.** The owner keeps TDRSS but only for the relay satellites; one config entry, visible in the warehouse, is
 deterministic and needs no list of NORAD ids. The data-derived leading word handles COSMOS (GLONASS) and GSAT
@@ -778,7 +782,8 @@ deterministic and needs no list of NORAD ids. The data-derived leading word hand
 
 **Rejected.** Dropping `tdrss` (the owner wants it); a hand list of the 17 NORAD ids (goes stale); the title's first
 word as the check's expected string (76 warnings today and a list of exceptions); checking operator groups (~125
-warnings on legitimate fleet names).
+warnings on legitimate fleet names); accepting 13 known warnings a day (they would hide new ones).
 
-**Consequences.** 17 objects lose the TDRSS name at the next CelesTrak download; no contract change. The check warns
-on 13 rows today (8 GUOWANG-30 objects in hulianwang, 5 dmc members) until the owner decides on them.
+**Consequences.** 17 objects lose the TDRSS name at the next CelesTrak download; no contract change. With the macro's
+exceptions the check is quiet on today's data (it would otherwise warn on 8 GUOWANG-30 objects and 5 dmc members);
+dmc is not name-checked while its exception stands.
