@@ -27,7 +27,7 @@ import numpy as np
 import plotly.graph_objects as go
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
-from dash import Dash, callback_context
+from dash import Dash, callback_context, no_update
 
 
 ## Internal Modules
@@ -39,7 +39,7 @@ sys.path.append("../../")
 from app.core.state import get_app_data
 # app functions
 from app.helper.helper__app_data import (filter_satellite_data)
-from app.helper.helper__filter_display import (sort_filter_dropdown_options, format_year_slider_output)
+from app.helper.helper__filter_display import (search_options, format_year_slider_output)
 
 
 # Callback wrapper function
@@ -60,10 +60,12 @@ def register(app):
 
     '''
     ------------------------
-    Dynamic dropdown 
+    Search dropdowns (server-side search)
     -------------------------
-    Interactive Inputs: Filter dropdowns, Launch year slider
-    Outputs: Satellite name and SATCAT number filter dropdown options
+    Interactive Inputs: the sidebar filters, the two dropdowns' values and what is typed in them (search_value)
+    Outputs: the dropdowns' options (at most 50 matches each, see search_options) and, only when a filter change
+    means the selection no longer matches, the cleared values. Otherwise the values are left alone (no_update), so
+    typing in a search box never redraws the figures.
     '''
 
     @app.callback(
@@ -81,32 +83,34 @@ def register(app):
             Input('owner-filter-multi-dropdown', 'value'),
             Input('launchvehicle-filter-multi-dropdown', 'value'),
             Input('purpose-filter-multi-dropdown', 'value'),
-            Input('launchyear-filter-slider', 'value')
+            Input('launchyear-filter-slider', 'value'),
+            Input('satname-filter-dropdown', 'search_value'),
+            Input('satcatid-filter-dropdown', 'search_value')
         ]
     )
     def update_dropdown(status, orbit, satname, satcatid,
                         owner, launchvehicle,
-                        purpose, year):
+                        purpose, year, name_search, id_search):
 
-        # Filter data using helper
+        # A selection that no longer matches the other filters is cleared
+        clear = False
+        if satname or satcatid:
+            selected, _, _ = filter_satellite_data(df, filter_table,
+                                                status, orbit, satname, satcatid,
+                                                owner, launchvehicle, purpose, year)
+            clear = selected.shape[0] == 0
+        if clear:
+            satname, satcatid = None, None
+
+        # Options: matches for what is typed, among the satellites the other filters allow
         dff, _, _ = filter_satellite_data(df, filter_table,
-                                        status, orbit, satname, satcatid,
+                                        status, orbit, None, None,
                                         owner, launchvehicle, purpose, year)
-        if dff.shape[0] == 0:
-            satname = None
-            satcatid = None
-            dff, _, _ = filter_satellite_data(df, filter_table,
-                                        status, orbit, satname, satcatid,
-                                        owner, launchvehicle, purpose, year)
-        else:
-            dff, _, _ = filter_satellite_data(df, filter_table,
-                                        status, orbit, satname, satcatid,
-                                        owner, launchvehicle, purpose, year)
-        
-        # Format dropdown options
-        satname_options, satcatid_options = sort_filter_dropdown_options(dff)
+        satname_options, satcatid_options = search_options(dff, name_search, id_search, satname, satcatid)
 
-        return satname_options, satcatid_options, satname, satcatid
+        if clear:
+            return satname_options, satcatid_options, None, None
+        return satname_options, satcatid_options, no_update, no_update
 
     '''------------------------
     Mobile responsiveness

@@ -43,11 +43,13 @@ def wait_for_traces(page, element_id, condition):
 
 
 def choose_in_dropdown(page, dropdown_id, label):
-    """Pick one option in a dcc.Dropdown (Dash 4): open it, wait for its search box to have focus, search, click the
-    option, and check the dropdown shows it. Typing straight after the click can lose keys on a slow CI runner."""
+    """Pick one option in a dcc.Dropdown (Dash 4): open it, wait for its search box, search, click the option the
+    server offers for that text (the search dropdowns start empty: server-side search), and check the dropdown shows
+    it. fill() focuses the box itself; an empty dropdown leaves focus on its button, and typing straight after the
+    click can lose keys on a slow CI runner."""
     page.locator(f"#{dropdown_id}").click()
     search = page.locator(".dash-dropdown-content .dash-dropdown-search")
-    expect(search).to_be_focused(timeout=TIMEOUT)
+    expect(search).to_be_visible(timeout=TIMEOUT)
     search.fill(label)
     page.locator(".dash-dropdown-content").get_by_role("option", name=label, exact=True).click()
     expect(page.locator(f"#{dropdown_id}")).to_contain_text(label, timeout=TIMEOUT)
