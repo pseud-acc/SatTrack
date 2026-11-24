@@ -48,6 +48,45 @@ D-027's 1.5 s stays the release check on the reference laptop, run before each c
 - Laptop, 24 Nov, this branch against itself as the baseline (checks the comparison end to end): every phase within
   -12% to -6%, bytes identical.
 
+### First anchor: viewer-baseline-1 (#70 merge, aebef417a386cec032f50f0538718ff2848ac935)
+Annotated tag `viewer-baseline-1` (issue #72, item 3): Cesium 1.147.0 with the D-041 eval patch, satellite.js 7.1.0.
+Measured 24 Nov 2026, 02:08-02:13 UTC, on the reference laptop (D-027: Intel Core i7-1355U, Intel Iris Xe; it also has
+an RTX 3050). `test_budget_full_catalogue` run three separate times at the tag; each run is itself the median of
+3 first visits. The tests' headless Chromium renders in software (SwiftShader), so these are not frame-rate figures.
+
+| Figure (full-size catalogue, payloads shown) | Run 1 | Run 2 | Run 3 | Median | Range |
+|---|---|---|---|---|---|
+| Bytes before first positions | 4.18 MB | 4.07 MB | 4.06 MB | 4.07 MB | 4.06-4.18 MB |
+| Records built before first positions | 19,742 | 19,742 | 19,742 | 19,742 | – |
+| Heap after load | 60.7 MB | 58.3 MB | 68.6 MB | 60.7 MB | 58.3-68.6 MB |
+| Main thread per frame | 6.34 ms | 8.24 ms | 2.67 ms | 6.34 ms | 2.67-8.24 ms |
+| First positions | 2,893 ms | 2,603 ms | 2,914 ms | 2,893 ms | 2,603-2,914 ms |
+| Long main-thread tasks before first positions | 6 | 7 | 7 | 7 | 6-7 |
+| Longest of those tasks | 1,225 ms | 947 ms | 1,181 ms | 1,181 ms | 947-1,225 ms |
+| Phase: data fetched + parsed | 1,530 ms | 712 ms | 2,212 ms | 1,530 ms | 712-2,212 ms |
+| Phase: Cesium loaded | 614 ms | 465 ms | 355 ms | 465 ms | 355-614 ms |
+| Phase: globe created | 673 ms | 525 ms | 514 ms | 525 ms | 514-673 ms |
+| Phase: records built + first samples | 2,885 ms | 2,596 ms | 2,906 ms | 2,885 ms | 2,596-2,906 ms |
+| Worker per pass (payloads) | 694 ms | 480 ms | 272 ms | 480 ms | 272-694 ms |
+| Test result | fail (main thread) | fail (main thread) | pass | | |
+
+Run 3 also reached space junk mode (runs 1 and 2 stopped at the main-thread check): 32,140 shown, main thread
+3.78 ms a frame, heap 55.7 MB.
+
+Machine state before each run (16 GB RAM): free memory 0.35, 1.42 and 1.22 GB; CPU load 43%, 36% and 91%;
+26 Chromium/Chrome and 11 Edge processes open. Other work was running on the laptop at the same time (the main chat's
+local app and Chromium, another agent editing docs).
+
+Comparison on the tag (`SATTRACK_BASELINE_DIR` set to the same checkout, one run, free memory 0.41 GB, CPU 80%):
+the table works end to end and bytes were identical (4.06 MB both sides), but the run failed. Data fetched + parsed
+was 775 ms against 1,598 ms (+106%) with the same code on both sides; the other phases were +3% to +17%. In the same
+run the fixed-budget test put first positions at 3,265 ms, over the 3.0 s ceiling. With identical code, these failures
+come from the load on the laptop, not from the viewer.
+
+**Caveat.** These figures are a first anchor taken on a busy laptop, not D-027's release check. They are slower and
+noisier than the earlier laptop figures (first positions about 2.9 s against 0.84-1.48 s in Context; main thread 2.7-8.2 ms a
+frame against 3.6-3.8 ms). Re-measure on a quiet machine before the flag is turned on in production.
+
 ## Consequences
 - The e2e job runs ~2 minutes longer on pull requests and downloads the baseline's vendor tarballs.
 - #70 itself has no baseline (main has no viewer); its gate is the fixed budgets. Issue #72 tracks the remaining gaps:
