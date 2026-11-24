@@ -91,8 +91,9 @@ if [ -f "$W/app/static/vendor/manifest.json" ]; then
   [ "$vendor_kb" -le $((VENDOR_LIMIT_MB * 1000)) ] || fail "static/vendor adds ${vendor_kb} kB to the slug, over ${VENDOR_LIMIT_MB} MB (D-014)"
   # Every vendored file matches the manifest and the manifest matches the lock (incl. D-041's patch), checked with the
   # slug's own Python: what the app re-checks at start-up when the viewer flag is on.
-  docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp -v "$W/app:/app" -w /app "$RUN_IMAGE" \
-    /app/.heroku/python/bin/python vendor/fetch.py --check --out static/vendor \
+  # (.profile.d sets the slug Python's PATH and library path, as for the web process below.)
+  docker run --rm --user "$(id -u):$(id -g)" -e HOME=/app -v "$W/app:/app" -w /app "$RUN_IMAGE" \
+    bash -c 'for f in /app/.profile.d/*.sh; do [ -f "$f" ] && . "$f"; done; exec python vendor/fetch.py --check --out static/vendor' \
     || fail "static/vendor does not verify against vendor/cesium.lock"
 else
   fail "static/vendor/manifest.json missing: bin/post_compile did not fetch the viewer packages"
