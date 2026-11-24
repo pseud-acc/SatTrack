@@ -5,75 +5,32 @@
 
 Lists the groups linked from CelesTrak's GP index page, then downloads each group once as CSV, in order, with a pause
 between requests. Follows D-008 and CelesTrak's usage policy (updated 2026-11-16): any non-200 response, redirects included, or a
-body that isn't CSV stops the whole run (no retries, no further requests); what was fetched so far is kept. Writes <group>.csv per group and manifest.json
-(source URLs, statuses, row counts, times). Standard library only. Never run from a machine whose IP CelesTrak has
+body that isn't CSV stops the whole run (no retries, no further requests); what was fetched so far is kept. Writes
+index.html (the GP index page), <group>.csv per group and manifest.json
+(source URLs, statuses, row counts, times). Standard library only (HTTP rules in sattrack_ingest/celestrak.py). Never run from a machine whose IP CelesTrak has
 blocked; the workflow runs it on GitHub's runners.
 """
 from __future__ import annotations
 
 import argparse
-import gzip
 import json
 import re
 import sys
 import time
-import urllib.error
-import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
-INDEX_URL = "https://celestrak.org/NORAD/elements/"
-GROUP_URL = "https://celestrak.org/NORAD/elements/gp.php?GROUP={group}&FORMAT=csv"
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "ingestion"))
+# The HTTP rules live in the shared client (also used by the pipeline's constellation groups, D-026).
+from sattrack_ingest.celestrak import (GROUP_URL, INDEX_URL, SITE, Refused, _open, check_csv,  # noqa: E402,F401
+                                       groups_on_index)
+from sattrack_ingest.celestrak import get as _get  # noqa: E402
+
 USER_AGENT = "SatTrack-analysis/1.0 (+https://github.com/pseud-acc/SatTrack)"
-CSV_HEADER = "OBJECT_NAME,"
-SITE = "https://celestrak.org/"
-
-
-class Refused(Exception):
-    """CelesTrak refused or returned something unexpected: stop the run (D-008)."""
-
-
-class _NoRedirect(urllib.request.HTTPRedirectHandler):
-    """CelesTrak's usage policy: stop on any non-200 response, redirects (301) included; never follow them."""
-
-    def redirect_request(self, req, fp, code, msg, headers, newurl):
-        return None
-
-
-_OPENER = urllib.request.build_opener(_NoRedirect)
-
-
-def _open(request, timeout):
-    return _OPENER.open(request, timeout=timeout)
 
 
 def get(url: str, opener=_open) -> str:
-    # The usage policy asks for compressed downloads; gzip is in the standard library.
-    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept-Encoding": "gzip"})
-    try:
-        with opener(request, timeout=60) as response:
-            status = getattr(response, "status", 200)
-            if status != 200:
-                raise Refused(f"HTTP {status} for {url}")
-            body = response.read()
-            headers = getattr(response, "headers", None)
-            if headers is not None and headers.get("Content-Encoding", "").lower() == "gzip":
-                body = gzip.decompress(body)
-            return body.decode("utf-8", errors="replace")
-    except urllib.error.HTTPError as e:
-        raise Refused(f"HTTP {e.code} for {url}") from None
-
-
-def groups_on_index(html: str) -> list[str]:
-    """Group names linked from the GP index page, in page order, without duplicates."""
-    return list(dict.fromkeys(re.findall(r"gp\.php\?GROUP=([A-Za-z0-9_-]+)", html)))
-
-
-def check_csv(body: str, url: str) -> int:
-    """Number of data rows; raise Refused if the body isn't GP CSV (an HTML or plain-text message)."""
-    if not body.startswith(CSV_HEADER):
-        raise Refused(f"not CSV from {url}: {body[:80]!r}")
-    return max(0, len(body.strip().splitlines()) - 1)
+    return _get(url, opener, user_agent=USER_AGENT)
 
 
 def run(out: Path, wanted: list[str] | None, pause: float, opener=_open, sleep=time.sleep) -> dict:
@@ -81,7 +38,9 @@ def run(out: Path, wanted: list[str] | None, pause: float, opener=_open, sleep=t
     manifest = {"index_url": INDEX_URL, "started_at": datetime.now(timezone.utc).isoformat(), "groups": [],
                 "stopped": None}
     try:
-        listed = groups_on_index(get(INDEX_URL, opener))
+        index_html = get(INDEX_URL, opener)
+        (out / "index.html").write_text(index_html, encoding="utf-8")   # kept so the title parser can be checked
+        listed = groups_on_index(index_html)
         manifest["groups_on_index"] = listed
         todo = [g for g in listed if wanted is None or g in wanted]
         manifest["not_on_index"] = sorted(set(wanted or []) - set(listed))

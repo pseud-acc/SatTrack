@@ -1,0 +1,14 @@
+# Column definitions: CelesTrak GP groups
+
+Part of the SatTrack column definitions; see `00_overview.md` for the rules and decisions.
+
+## Batch 11c: CelesTrak GP groups (`raw_celestrak.gp_group_member`, `raw_celestrak.gp_group_index` → `stg__celestrak__*`) *(new source, D-026, 2026-11-23)*
+
+Source: CelesTrak, "A New Way to Obtain GP Data" (GP data formats documentation, Dr T.S. Kelso), https://celestrak.org/NORAD/documentation/gp-data-formats.php ; CelesTrak "NORAD GP Element Sets Current Data" page, https://celestrak.org/NORAD/elements/ (both read 2026-11-23 from fetch run 45099334610).
+
+Both pages were archived by the fetch workflow on GitHub's runners (D-008), never fetched from a developer machine. The GP data formats page defines the `GROUP` query parameter: "Groups of satellites provided on the CelesTrak Current Data page", which "are intended to help users only download the smaller sets of satellites they need (e.g., amateur radio or visible)". The Current Data page lists each group under a section heading (e.g. "Communications Satellites", "Navigation Satellites") with its name and links to its CSV data and table; it **shows** those names and that order but **does not define** them, so rows 2 and 3 are marked for the owner. The member columns `satcat_id`, `object_name` and `object_id` are CelesTrak's CSV `NORAD_CAT_ID`, `OBJECT_NAME` and `OBJECT_ID`, the same OMM keywords as Space-Track GP, so they share the existing blocks.
+
+| # | CelesTrak col | Proposed name | Proposed definition (from source) | SatTrack note |
+|---|---|---|---|---|
+| 1 | GROUP (query parameter) | `celestrak_group` | CelesTrak: one of the "Groups of satellites provided on the CelesTrak Current Data page", named by the `GROUP` value of a GP query (`gp.php?GROUP=<group>&FORMAT=csv`). From CelesTrak GP query `GROUP`. E.g. `starlink` (STARLINK-1008, NORAD 44714); `gps-ops`, CelesTrak's "GPS Ops list" (GPS BIIR-5, NORAD 26407). | **Detail:** Case as CelesTrak writes it on the Current Data page (`iridium-NEXT`). CelesTrak: groups "are intended to help users only download the smaller sets of satellites they need". In `gp_group_member` it is the group the row was downloaded from; one object can be in several groups (NORAD 26407 is in `gps-ops` and `gnss`). |
+| 2 | GROUP_TITLE (Current Data page) | `celestrak_group_title` | **Shown, not defined, by CelesTrak (definition confirmed by the owner, 2026-11-24).** The name CelesTrak's "NORAD GP Element Sets Current Data" page shows for a group, as written, under a section heading such as "Navigation Satellites". From the Current Data page. E.g. "GPS Operational" for `gps-ops`; "Iridium NEXT" for `iridium-NEXT`. | **Detail:** The text of the group's table cell before its CSV and table links, parsed at ingestion (`sattrack_ingest/celestrak.py`; checked against the page of 23 Nov 2026, which titles all 47 groups). A configured group without a title stops the update (the last copy stays). |

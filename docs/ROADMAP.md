@@ -176,7 +176,7 @@ Roughly **27 weeks (~142 h, ~6.5 months)** to the end of Phase 6 with the buffer
 
 **Extensions (~16 h, D-028)**
 
-3.8 `feature/constellation-field` — Pipeline task, parallel to 3.2: download CelesTrak's constellation and operator groups under D-008 and the usage policy (CSV, compressed, once per update, stop on any non-200), keep the last good copy on failure, add a documented `constellation` field to `objects`; a test warns when CelesTrak's index shows a new group (D-026). (~4 h)
+3.8 `feature/constellation-field` — Pipeline task, parallel to 3.2: download CelesTrak's constellation and operator groups under D-008 and the usage policy (CSV, compressed, once per update, stop on any non-200), keep the last good copy on failure, add a documented `constellation` field to `objects`; a test warns when CelesTrak's index shows a new group (D-026). Also CelesTrak's space station group as `flag_space_station` (D-043). (~4 h)
 
 3.9 `feature/cesium-search-image` — Search by name or SATCAT number with fly-to; "Save image" (PNG) from the canvas with the credits drawn in. (~4 h)
 

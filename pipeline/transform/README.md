@@ -26,7 +26,7 @@ flowchart LR
   subgraph raw[raw_* schemas: landed by ingestion, all VARCHAR]
     R1[raw_spacetrack<br/>gp, boxscore]
     R2[raw_jsr<br/>GCAT TSVs + code labels]
-    R3[raw_pycountry, raw_geonames]
+    R3[raw_pycountry, raw_geonames, raw_celestrak]
   end
   subgraph stg[staging: views]
     S[stg__source__table<br/>rename, cast, clean]
@@ -44,7 +44,7 @@ flowchart LR
 
 | Layer | Folder | Materialised as | Schema | Job |
 |---|---|---|---|---|
-| Sources | `models/staging/*/_<source>__sources.yml` | — | `raw_spacetrack`, `raw_jsr`, `raw_pycountry`, `raw_geonames` | Declares the raw tables, their freshness rules and load metadata |
+| Sources | `models/staging/*/_<source>__sources.yml` | — | `raw_spacetrack`, `raw_jsr`, `raw_pycountry`, `raw_geonames`, `raw_celestrak` | Declares the raw tables, their freshness rules and load metadata |
 | Staging | `models/staging/<source>/` | view | `staging` | One model per raw table: rename to snake_case, cast types, clean text, parse GCAT's vague dates. No joins |
 | Intermediate | `models/intermediate/<entity>/` | table | `intermediate` | Business logic: de-duplication, mapping tables, matching GCAT to Space-Track (`int__xsrc__*`) |
 | Marts | `models/marts/<entity>/` | table, **contract enforced** | `marts`, `marts_tracking` | What consumers read: dimensions and facts that only assemble intermediate models |
@@ -69,7 +69,7 @@ never stops satellite positions from updating:
 | Unit | Tag | Builds | Publishes to |
 |---|---|---|---|
 | `tracking` | `tracking` | Space-Track staging, `int__spacetrack__*`, `fct__gp_elements` | `marts_tracking` |
-| `enrichment` | `enrichment` | GCAT, pycountry and geonames models and the satellite, launch, organisation and geography marts | `marts` |
+| `enrichment` | `enrichment` | GCAT, pycountry, geonames and CelesTrak models and the satellite, launch, organisation and geography marts | `marts` |
 
 `run_pipeline.py` runs `dbt build --selector tracking`, then `--selector enrichment` (held if tracking failed),
 with `--indirect-selection buildable` so a test that spans both units runs only with the second. A unit whose
@@ -84,7 +84,7 @@ run with both units.
 | `profiles.yml` | DuckDB connection: `SATTRACK_DB_PATH` (build DB) and `SATTRACK_OPS_PATH` (attached as `ops`) |
 | `selectors.yml` | The `tracking` and `enrichment` units |
 | `packages.yml`, `package-lock.yml` | dbt_utils, dbt_expectations, audit_helper, elementary |
-| `models/staging/` | `spacetrack/`, `jsr/` (GCAT), `pycountry/`, `geonames/`: sources + staging models |
+| `models/staging/` | `spacetrack/`, `jsr/` (GCAT), `pycountry/`, `geonames/`, `celestrak/` (constellation groups, D-026): sources + staging models |
 | `models/intermediate/` | `tracking/`, `satellite/`, `launch/`, `organisation/`, `geography/` |
 | `models/marts/` | the same five areas, one `_<area>__schema.yml` each with contracts and tests |
 | `macros/` | `helper__*` macros by area: GCAT parsing (vague dates, text cleaning, casts), geography keys and distances, launch-vehicle brand, org-code lists, orbit class; `project/` holds `generate_schema_name` and `helper__audit_fields`; `elementary/` holds DuckDB fixes for Elementary |

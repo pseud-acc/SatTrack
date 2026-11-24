@@ -53,7 +53,7 @@ GCAT_UPDATED = datetime(2026, 11, 15, 10, 18, 40)
 MASTER_COLS = ("satcat_id, object_name, object_type, flag_in_orbit, operational_status, launch_year, owner_country, "
                "site_location_country, ownership_class_labels, mission_category_labels, launch_vehicle_brand, "
                "orbit_class, orbital_period, inclination, mass_kg, tle_line_1, tle_line_2, positions_as_of, "
-               "gcat_updated_at, inserted_by, inserted_date_time")
+               "gcat_updated_at, constellation, flag_space_station, inserted_by, inserted_date_time")
 
 
 def master_row(satcat_id, **kw):
@@ -63,7 +63,8 @@ def master_row(satcat_id, **kw):
                mission_category_labels=["Space Science", "Technology"], launch_vehicle_brand="Proton",
                orbit_class="LEO", orbital_period=92.9, inclination=51.64, mass_kg=420000.0,
                tle_line_1=STALE[0], tle_line_2=STALE[1], positions_as_of=datetime(2026, 11, 16, 23, 46, 48),
-               gcat_updated_at=GCAT_UPDATED, inserted_by=ENRICH_RUN, inserted_date_time=ENRICH_BUILT)
+               gcat_updated_at=GCAT_UPDATED, constellation=None, flag_space_station=0, inserted_by=ENRICH_RUN,
+               inserted_date_time=ENRICH_BUILT)
     row.update(kw)
     return row
 
@@ -95,7 +96,7 @@ def build_db(path: Path, master: list[dict], gp: list[dict]) -> Path:
         site_location_country varchar, ownership_class_labels varchar[], mission_category_labels varchar[],
         launch_vehicle_brand varchar, orbit_class varchar, orbital_period double, inclination double, mass_kg double,
         tle_line_1 varchar, tle_line_2 varchar, positions_as_of timestamp, gcat_updated_at timestamp,
-        inserted_by varchar, inserted_date_time timestamp)""")
+        constellation varchar, flag_space_station integer, inserted_by varchar, inserted_date_time timestamp)""")
     con.execute("""create table marts_tracking.fct__gp_elements (satcat_id integer, object_id varchar,
         object_name varchar, object_type varchar, epoch timestamp,
         mean_motion double, eccentricity double, inclination double, ra_of_asc_node double, arg_of_pericenter double,
@@ -104,7 +105,7 @@ def build_db(path: Path, master: list[dict], gp: list[dict]) -> Path:
         tle_line_1 varchar, tle_line_2 varchar, _loaded_at timestamp, inserted_by varchar,
         inserted_date_time timestamp)""")
     for r in master:
-        con.execute(f"insert into marts.fct__satellite_master ({MASTER_COLS}) values ({', '.join('?' * 21)})",
+        con.execute(f"insert into marts.fct__satellite_master ({MASTER_COLS}) values ({', '.join('?' * len(MASTER_COLS.split(',')))})",
                     [r[c.strip()] for c in MASTER_COLS.split(",")])
     for r in gp:
         con.execute(f"insert into marts_tracking.fct__gp_elements ({GP_COLS}) values ({', '.join('?' * 24)})",
@@ -274,7 +275,25 @@ def test_objects_record_uses_warehouse_names_and_exact_elements(run_export):
         "element_set_no": 999, "ephemeris_type": 0, "classification_type": "U", "orbital_period": 92.88,
         "operational_status": "Active", "orbit_class": "LEO", "owner_country": "United States", "launch_year": 1998,
         "mission_category_labels": ["Space Science", "Technology"], "ownership_class_labels": ["Government", "Civil"],
-        "launch_vehicle_brand": "Proton", "site_location_country": "Kazakhstan"}
+        "launch_vehicle_brand": "Proton", "site_location_country": "Kazakhstan", "constellation": None,
+        "flag_space_station": 0}
+
+
+def test_objects_carry_the_constellation_and_credit_celestrak(run_export):
+    """D-026: CelesTrak's group name from the satellite mart (null when none), and the envelope credits CelesTrak."""
+    files = run_export([master_row(44714, constellation="Starlink"), master_row(25544)], [gp_row(44714), gp_row(25544)])
+    data = read_dataset(files)
+    assert {r["satcat_id"]: r["constellation"] for r in data["records"]} == {25544: None, 44714: "Starlink"}
+    assert "Constellation groups: CelesTrak (Dr T.S. Kelso)" in data["attribution"]
+
+
+def test_objects_flag_space_stations(run_export):
+    """D-043: the space station flag from the satellite mart, 1/0, never null; an object without a satellite-mart row
+    is not flagged."""
+    files = run_export([master_row(25544, flag_space_station=1), master_row(44714)],
+                       [gp_row(25544), gp_row(44714), gp_row(99999)])
+    data = read_dataset(files)
+    assert {r["satcat_id"]: r["flag_space_station"] for r in data["records"]} == {25544: 1, 44714: 0, 99999: 0}
 
 
 def test_objects_cover_every_type_and_unenriched_objects(run_export):

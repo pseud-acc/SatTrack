@@ -36,6 +36,9 @@ create table if not exists audit.table_snapshot (
 create table if not exists audit.source_freshness (
     run_id varchar, source_table varchar, max_loaded_at timestamp, age_s double, status varchar, warn_after varchar
 );
+create table if not exists audit.source_refusal (
+    run_id varchar, source varchar, refused_at_epoch_s double, http_status integer, error varchar
+);
 create table if not exists audit.dbt_crash_capture (
     run_id varchar, unit varchar, exit_code integer, flag_elementary_recorded integer, results varchar
 );
