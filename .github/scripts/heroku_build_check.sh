@@ -89,6 +89,11 @@ if [ -f "$W/app/static/vendor/manifest.json" ]; then
   vendor_kb=$(( $(tar -czf - -C "$W/app/static" vendor | wc -c) / 1000 ))
   echo "static/vendor: $(du -sk "$W/app/static/vendor" | cut -f1) kB on disk, ${vendor_kb} kB of the compressed slug (limit $((VENDOR_LIMIT_MB * 1000)) kB)"
   [ "$vendor_kb" -le $((VENDOR_LIMIT_MB * 1000)) ] || fail "static/vendor adds ${vendor_kb} kB to the slug, over ${VENDOR_LIMIT_MB} MB (D-014)"
+  # Every vendored file matches the manifest and the manifest matches the lock (incl. D-041's patch), checked with the
+  # slug's own Python: what the app re-checks at start-up when the viewer flag is on.
+  docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp -v "$W/app:/app" -w /app "$RUN_IMAGE" \
+    /app/.heroku/python/bin/python vendor/fetch.py --check --out static/vendor \
+    || fail "static/vendor does not verify against vendor/cesium.lock"
 else
   fail "static/vendor/manifest.json missing: bin/post_compile did not fetch the viewer packages"
 fi
@@ -120,12 +125,13 @@ if [ "$up" = 1 ]; then
     c="$(curl -s -o /dev/null -m 120 -w '%{http_code}' "http://127.0.0.1:$PORT$p")"
     echo "$c $p"; [ "$c" = 200 ] || fail "$p returned $c"
   done
-  # A vendored Cesium file, served pre-compressed with year-long caching (app/core/viewer.py).
+  # The viewer flag is off in production (owner, 24 Nov 2026: enabled with roadmap 3.3), so the app reads no vendor
+  # file and serves none. Serving with the flag on (pre-compressed, immutable caching) is covered by
+  # tests/app/test_viewer.py and the browser tests.
   VURL="http://127.0.0.1:$PORT/static/vendor/cesium-1.147.0/index.js"
-  c="$(curl -s -o /dev/null -D "$W/h_vendor" -H 'Accept-Encoding: br' -w '%{http_code}' "$VURL")"
-  echo "$c $VURL ($(grep -i '^content-encoding:' "$W/h_vendor" | tr -d '\r'))"
-  [ "$c" = 200 ] && grep -qi '^content-encoding: br' "$W/h_vendor" && grep -qi '^cache-control: .*immutable' "$W/h_vendor" \
-    || fail "vendored Cesium not served pre-compressed with immutable caching"
+  c="$(curl -s -o /dev/null -w '%{http_code}' "$VURL")"
+  echo "$c $VURL (viewer flag off: expect 404)"
+  [ "$c" = 404 ] || fail "with the viewer flag off the app served a vendored file ($c)"
 fi
 sleep 3
 docker logs "$NAME" > "$W/run.log" 2>&1 || true
