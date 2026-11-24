@@ -2,6 +2,12 @@
 # checks" (and "app tests / unit + integration" once the owner adds it), so a PR merges only when they pass. The jobs live in their own workflow
 # files and are shared with merge.yml.
 #
+# Path-aware: changed-files.yml lists the PR's files and .github/scripts/pr_changes.py decides which checks they
+# need (docs-only PRs run none; app, test and pipeline files run their own checks; anything unrecognised, or a
+# change to this gate, runs everything). A check that isn't needed still runs its job's `if`, which skips it, and
+# GitHub counts a skipped job as passing for the required checks, so the ruleset is unchanged. If the file list
+# can't be read, every check runs. merge.yml always runs every check before a deploy.
+#
 # Public-repo rules: `pull_request` only (never pull_request_target), so a fork's PR gets a read-only token
 # and no secrets, and runs only after approval (Settings -> Actions: all external contributors). No secrets,
 # no AWS, no artifacts or caches; actions pinned to full commit SHAs from the repo allow-list.
@@ -19,19 +25,38 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  changes:
+    name: changed files
+    uses: ./.github/workflows/changed-files.yml
+    permissions:
+      contents: read
+      pull-requests: read
+
   app:
     name: app
+    needs: changes
     uses: ./.github/workflows/app-build.yml
+    with:
+      run: ${{ needs.changes.outputs.app_build == 'true' }}
 
   app-tests:
     name: app tests
+    needs: changes
     uses: ./.github/workflows/app-tests.yml
+    with:
+      run: ${{ needs.changes.outputs.app_tests == 'true' }}
 
   # Browser tests: run here for an early signal (not a required check); merge.yml runs them again before deploy.
   app-e2e:
     name: app e2e
+    needs: changes
     uses: ./.github/workflows/app-e2e.yml
+    with:
+      run: ${{ needs.changes.outputs.app_e2e == 'true' }}
 
   pipeline:
     name: pipeline
+    needs: changes
     uses: ./.github/workflows/pipeline-checks.yml
+    with:
+      run: ${{ needs.changes.outputs.pipeline == 'true' }}

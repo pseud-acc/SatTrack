@@ -6,6 +6,12 @@ name: app tests
 
 on:
   workflow_call:
+    inputs:
+      run:
+        description: "Run this check? From changed-files.yml on PRs (false: the PR touches nothing it covers, and the
+          skipped job counts as passing for required checks); merge.yml passes true."
+        type: boolean
+        required: true
 
 permissions:
   contents: read
@@ -17,6 +23,7 @@ defaults:
 jobs:
   tests:
     name: unit + integration
+    if: inputs.run
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     env:
