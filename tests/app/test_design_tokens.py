@@ -80,6 +80,7 @@ NON_TEXT = 3.0   # WCAG 1.4.11, control borders and icons
     ("--st-on-accent", "--st-accent", TEXT),
     ("--st-warn", "--st-panel", TEXT), ("--st-error", "--st-panel", TEXT), ("--st-ok", "--st-panel", TEXT),
     ("--st-payload", "--st-panel", TEXT), ("--st-rocket", "--st-panel", TEXT), ("--st-debris", "--st-panel", TEXT),
+    ("--st-active", "--st-panel", TEXT), ("--st-inactive", "--st-panel", TEXT),
     ("--st-control", "--st-panel", NON_TEXT), ("--st-control", "--st-raised", NON_TEXT),
 ])
 def test_token_contrast(fg, bg, minimum):

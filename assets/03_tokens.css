@@ -40,6 +40,11 @@
   --st-rocket: #E69F00;
   --st-debris: #CC79A7;
 
+  /* Status colouring, the globe's default (owner, 24 Nov 2026; roadmap 3.3): soft red / grey, no teal on the globe,
+     points drawn without a dark outline */
+  --st-active: #f07a6e;      /* 6.6:1 on the panel */
+  --st-inactive: #7d8aa0;    /* 5.1:1 on the panel */
+
   /* Type: Source Sans 3; 15 px in the app, 16 px for reading text (owner, 24 Nov 2026) */
   --st-font: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
   --st-fs-xs: 12px;          /* labels, captions, credits */
