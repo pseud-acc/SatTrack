@@ -399,10 +399,15 @@ def test_startup_against_baseline(browser, budget_url, baseline_url):
                     "(SATTRACK_BASELINE_DIR unset, or the target branch predates roadmap 3.2): fixed budgets only.")
         pytest.skip("no baseline with the viewer")
     runs = {"branch": [], "baseline": []}
+    order = []
     for i in range(STARTUP_VISITS):
         pair = [("branch", budget_url), ("baseline", baseline_url)]
         for who, url in (pair if i % 2 == 0 else pair[::-1]):
             runs[who].append(startup_profile(browser, url))
+            ph = runs[who][-1]["phases"]
+            order.append(f"| {who} | " + " | ".join(f"{ph.get(n, 0):,.0f}" for n, _ in PHASES) + " |")
+    job_summary("DIAG old order\n\n| who | " + " | ".join(n for n, _ in PHASES) + " |\n|---|---|---|---|---|---|\n"
+                + "\n".join(order))
     branch, base = median_profile(runs["branch"]), median_profile(runs["baseline"])
     rows, failed = [], []
     for name, label in PHASES:
