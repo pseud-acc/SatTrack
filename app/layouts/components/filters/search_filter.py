@@ -16,7 +16,7 @@ def create_search_filter(options):
         html.Div: Search filter component
     """
     return html.Div([
-        html.Label("Search Satellite", className="fw-bold small"),
+        html.Label("Search Satellite", className="st-lbl"),
         dcc.Dropdown(
             options=options["satname"],
             placeholder="Type to search...",

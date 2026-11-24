@@ -19,9 +19,8 @@ def create_orbit_filter(options):
     return html.Div([
         html.Label([
             "Orbit Type ",
-            html.I(className="st-icon st-icon-info", id="orbit-info-icon",
-                   style={'fontSize': '0.8rem', 'cursor': 'pointer'})
-        ], className="fw-bold small"),
+            html.I(className="st-icon st-icon-info", id="orbit-info-icon")
+        ], className="st-lbl"),
         dbc.Tooltip([
             html.Div([
                 html.Strong("LEO:"), " Low Earth (160-2000km)", html.Br(),

@@ -95,7 +95,7 @@ synced folder), then `SATTRACK_CESIUM_VIEWER=1 SATTRACK_APP_DATA_DIR=tests/app_d
 | `helper/` | `helper__app_data.py` (filter options, filtering, orbit paths), `helper__satellite_position.py` (`Satrec`s from OMM with TLE fallback, cached; SGP4; TEME → WGS 84 lat/lon/alt; xyz), `helper__plot_display.py` (3D/2D figures, hover labels, camera, orbit clicks), `helper__table_display.py`, `helper__filter_display.py`, `helper__constants.py` |
 | `styles/` | Colour palette and component styles |
 | `layouts/Archive/` | Earlier layouts, not used |
-| `../assets/` | CSS (Bootstrap, `custom.css`) and the Earth map image, served by Dash |
+| `../assets/` | CSS (Bootstrap 5, the font, tokens `03_tokens.css`, shell `04_shell.css`, filter panel `05_panel.css`) and the Earth map image, served by Dash |
 
 ## Pages and callbacks
 

@@ -16,9 +16,8 @@ def create_status_filter():
     return html.Div([
         html.Label([
             "Status ",
-            html.I(className="st-icon st-icon-info", id="status-info-icon",
-                   style={'fontSize': '0.8rem', 'cursor': 'pointer'})
-        ], className="fw-bold small"),
+            html.I(className="st-icon st-icon-info", id="status-info-icon")
+        ], className="st-lbl"),
         dbc.Tooltip([
             html.Div([
                 html.Strong("Active:"), " Currently operational satellites", html.Br(),

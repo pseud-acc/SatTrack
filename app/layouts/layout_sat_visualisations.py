@@ -70,7 +70,7 @@ def create_dash_layout(app):
 
             # Visualization Area
             create_visualization_area(fig3d_0, fig2d_0, tbl_col_map)
-        ], className="g-2 g-md-3 st-tracker-row"),
+        ], id="tracker-row", className="g-2 g-md-3 st-tracker-row"),
 
         # Data credits and the conjunction caution, under the views
         create_credits(),

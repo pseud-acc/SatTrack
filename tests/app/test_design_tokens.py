@@ -49,7 +49,15 @@ def test_no_old_bootstrap_and_no_third_party_styles():
 def test_assets_load_in_order():
     """Dash includes assets/*.css in filename order: Bootstrap, then the font, the tokens, then the component styles."""
     names = sorted(p.name for p in ASSETS.glob("*.css"))
-    assert names[:4] == ["01_bootstrap-5.3.8.min.css", "02_source-sans-3.css", "03_tokens.css", "04_shell.css"]
+    assert names == ["01_bootstrap-5.3.8.min.css", "02_source-sans-3.css", "03_tokens.css", "04_shell.css",
+                     "05_panel.css"]
+
+
+def test_panel_styles_use_only_tokens():
+    """The filter panel's styles take every colour from the tokens (3.12 step 3): no hex or rgb() colour values."""
+    text = re.sub(r"/\*.*?\*/", "", (ASSETS / "05_panel.css").read_text(encoding="utf-8"), flags=re.S)
+    values = re.findall(r":\s*([^;{}]+);", text)   # declaration values only, so #id selectors don't count
+    assert not [v for v in values if re.search(r"#[0-9a-fA-F]{3,8}\b|\brgba?\(", v)], "colour values outside the tokens"
 
 
 # ---- contrast ---------------------------------------------------------------------------------------------------
