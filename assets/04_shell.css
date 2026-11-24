@@ -63,3 +63,20 @@
   .st-nav .nav-link { padding-block: 8px; border-bottom: 0; }
   .st-nav .nav-link.active { color: var(--st-accent-hi); }
 }
+
+/* ---- Tracker layout (app/layouts/layout_sat_visualisations.py) ----------------------------------------------- */
+/* The views (globe, Plotly 3D, list) fill the window under the top bar: the window less the bar, the view tabs and
+   card padding, and the credits footer; never below 420 px. Read by viz_3d.py, viz_table.py and viewer.css. */
+:root { --st-viz-h: max(420px, calc(100dvh - var(--st-bar-h) - 150px)); }
+@media (min-width: 768px) {
+  .st-tracker-row > .st-panel-col { flex: 0 0 300px; max-width: 300px; }      /* the filter panel: fixed width */
+  .st-tracker-row > .st-viz-col { flex: 1 1 0; max-width: none; min-width: 0; }
+}
+.st-credits {
+  padding: var(--st-2) 2px var(--st-3);
+  color: var(--st-muted);
+  font-size: var(--st-fs-xs);
+  line-height: 1.5;
+}
+.st-credits a { color: var(--st-accent-hi); text-decoration: none; }
+.st-credits a:hover { text-decoration: underline; }

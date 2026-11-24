@@ -2,7 +2,7 @@
 #globe {
   position: relative;
   width: 100%;
-  height: calc(70vh - 100px);
+  height: var(--st-viz-h, calc(70vh - 100px));   /* the shell's view height (assets/04_shell.css, D-044) */
   min-height: 400px;
   background: #000;
   overflow: hidden;

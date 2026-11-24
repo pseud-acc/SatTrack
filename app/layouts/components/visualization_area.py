@@ -44,4 +44,4 @@ def create_visualization_area(fig3d_0, fig2d_0, tbl_col_map):
                 ], id="sat-viz-tabs", active_tab="globe" if globe else "3d-viz", className="nav-fill")
             ], className="p-2 p-md-3")
         ], className="shadow-sm")
-    ], xs=12, md=8, lg=9)
+    ], xs=12, md=8, lg=9, className="st-viz-col")

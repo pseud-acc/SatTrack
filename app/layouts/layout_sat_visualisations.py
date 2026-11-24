@@ -25,7 +25,7 @@ sys.path.append("../../")
 from app.core.state import get_app_data
 
 # Layout components
-from app.layouts.components.header import create_header
+from app.layouts.components.header import create_credits
 from app.layouts.components.filter_sidebar import create_filter_sidebar
 from app.layouts.components.visualization_area import create_visualization_area
 
@@ -45,7 +45,6 @@ def create_dash_layout(app):
 
     # Get app data
     app_data = get_app_data()
-    tle_metadata = app_data['data']['tle_metadata']
     tbl_col_map = app_data['data']['tbl_col_map']
     fig2d_0 = app_data['viz_2d']['base_figure']
     fig3d_0 = app_data['viz_3d']['base_figure']    
@@ -64,18 +63,18 @@ def create_dash_layout(app):
         dcc.Store(id='camera-memory', data=fig3d_0["layout"]["scene"]["camera"]),
         dcc.Store(id='3d-sat-ids', data=None),  # fingerprint of the satellites drawn in 3D (timer ticks patch only when unchanged)
 
-        # Header Section - Mobile Optimized
-        create_header(tle_metadata),
-
-        # Main Content Area
+        # Main Content Area: the filter panel and the views fill the window under the top bar (D-044)
         dbc.Row([
             # Filters Sidebar - Collapsible on mobile
             create_filter_sidebar(options),
 
             # Visualization Area
             create_visualization_area(fig3d_0, fig2d_0, tbl_col_map)
-        ]),
+        ], className="g-2 g-md-3 st-tracker-row"),
 
-    ], fluid=True, className="px-2 px-md-3 py-3")
+        # Data credits and the conjunction caution, under the views
+        create_credits(),
+
+    ], fluid=True, className="st-tracker px-2 px-md-3 pt-2 pt-md-3")
 
     return layout

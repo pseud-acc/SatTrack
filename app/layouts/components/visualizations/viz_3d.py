@@ -36,7 +36,7 @@ def create_3d_tab(fig3d_0):
                     'scale': 2
                 }
             },
-            style={'height': 'calc(70vh - 100px)', 'minHeight': '400px'}
+            style={'height': 'var(--st-viz-h)'}   # fills the window under the top bar (assets/04_shell.css)
         ),
         html.Div([
             html.Strong("Tip:"), " Click on satellites to see orbital paths • "

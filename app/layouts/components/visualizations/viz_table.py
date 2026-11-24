@@ -39,7 +39,7 @@ def create_table_tab(tbl_col_map):
             },
             style_table={
                 'overflowX': 'auto',
-                'height': 'calc(70vh - 100px)',
+                'height': 'var(--st-viz-h)',   # fills the window under the top bar (assets/04_shell.css)
                 'minHeight': '400px'
             },
             style_data_conditional=[

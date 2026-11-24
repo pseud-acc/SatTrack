@@ -55,4 +55,4 @@ def create_filter_sidebar(options):
                 ])
             ], id="filter-collapse", is_open=False, className="")
         ], className="mb-3 shadow-sm")
-    ], xs=12, md=4, lg=3)
+    ], xs=12, md=4, lg=3, className="st-panel-col")
