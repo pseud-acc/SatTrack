@@ -23,6 +23,4 @@ def create_globe_tab(config):
         dcc.Store(id="viewer-filters", data=None),
         dcc.Store(id="viewer-selection", data=None),
         dcc.Store(id="viewer-bridge", data=None),
-    ], label="Globe (beta)", tab_id="globe",
-        label_style={"fontSize": "0.875rem", "padding": "0.5rem"},
-        style={'paddingTop': '5px'})
+    ], label="Globe (beta)", tab_id="globe")

@@ -80,3 +80,25 @@
 }
 .st-credits a { color: var(--st-accent-hi); text-decoration: none; }
 .st-credits a:hover { text-decoration: underline; }
+
+/* ---- View tabs (app/layouts/components/visualization_area.py) ------------------------------------------------- */
+/* Underlined text tabs on the panel colour: the selected view in the accent, the others muted (D-044). */
+.st-viz-tabs.nav-tabs {
+  --bs-nav-link-color: var(--st-muted);
+  --bs-nav-link-hover-color: var(--st-fg);
+  --bs-nav-link-padding-x: var(--st-3);
+  --bs-nav-link-padding-y: var(--st-2);
+  --bs-nav-tabs-border-width: 0;
+  --bs-nav-tabs-link-active-bg: transparent;
+  --bs-nav-tabs-link-active-color: var(--st-fg);
+  gap: var(--st-2);
+  border-bottom: 1px solid var(--st-line);
+  margin-bottom: var(--st-2);
+  font-size: var(--st-fs-sm);
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+.st-viz-tabs.nav-tabs .nav-link { border: 0; border-bottom: 2px solid transparent; border-radius: 0; white-space: nowrap; }
+.st-viz-tabs.nav-tabs .nav-link.active { border-bottom-color: var(--st-accent); font-weight: 600; }
+.st-viz-tabs.nav-tabs .nav-link:focus-visible { outline: 0; box-shadow: 0 0 0 3px var(--st-accent-soft); }
+

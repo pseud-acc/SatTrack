@@ -43,6 +43,4 @@ def create_3d_tab(fig3d_0):
                                  "Pinch to zoom on mobile"],
             className="small text-center mt-2"
         )
-    ], label="3D View", tab_id="3d-viz",
-        label_style={"fontSize": "0.875rem", "padding": "0.5rem"},
-        style={'paddingTop': '5px'})
+    ], label="3D View", tab_id="3d-viz")

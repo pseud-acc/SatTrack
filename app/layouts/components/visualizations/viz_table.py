@@ -53,5 +53,4 @@ def create_table_tab(tbl_col_map):
             export_format="csv",
             hidden_columns=['Datetime (UTC)', 'Altitude (km)'] if True else []
         )
-    ], label="List View", tab_id="tbl-viz",
-        label_style={"fontSize": "0.875rem", "padding": "0.5rem"})
+    ], label="List View", tab_id="tbl-viz")
