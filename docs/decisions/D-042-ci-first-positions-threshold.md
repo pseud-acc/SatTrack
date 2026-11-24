@@ -56,6 +56,15 @@ D-027's 1.5 s stays the release check on the reference laptop, run before each c
   the baseline's first visit hit a cold server). PR #79 removes the imbalance (a fresh browser, one discarded
   warm-up visit to each app, 4 visits each in ABBA ABBA order, lower-middle visit compared; limits unchanged) and
   passed twice on CI (+2%, +3%). The two-mode spread is not removed: the owner decides on a further step.
+- CI, 24-25 Nov, why the two modes (PR #79 diagnostics, 3 runs, ~80 visits with worker timestamps, /proc and
+  Chrome traces): not CPU contention or throttling. Steal was 0% and idle ~25% in both modes, and the worker posted
+  its "ready" at the same time (0.6-1.1 s) in fast and slow visits. The slow mode is the main thread handling that
+  message one ~400-700 ms task later. The tasks in the way are Plotly's, on the same page: evaluating
+  plotly.min.js (~400 ms) and the 3D graph's pick-buffer `readPixels` (380-670 ms, a synchronous read that waits
+  for the software GPU, which is busy with the globe). The viewer's own point creation (~450-500 ms) is the third.
+  Whether one of them runs before the message depends on load order, which changes from visit to visit.
+  `--disable-renderer-backgrounding` and its timer flags didn't remove it (1-4 of 10 visits fast in one run, 8 of 8
+  in another).
 
 ## Consequences
 - The e2e job runs ~2 minutes longer on pull requests and downloads the baseline's vendor tarballs (a little more

@@ -56,18 +56,14 @@ function jsEngine(sat, satrecs, typeCodes) {
 }
 
 async function init({ data, satellite, first }) {
-  const D = {}, at = (k) => { D[k] = performance.timeOrigin + performance.now(); };  // DIAG (temporary)
-  at("init");
   // Only the modules the JavaScript engine needs (no WebAssembly, so no 'wasm-unsafe-eval' in the CSP).
   const [io, prop, tf, response] = await Promise.all([
     import(`${satellite}dist/io.js`), import(`${satellite}dist/propagation.js`), import(`${satellite}dist/transforms.js`),
     fetch(data),
   ]);
   const sat = { json2satrec: io.json2satrec, propagate: prop.propagate, gstime: prop.gstime, eciToEcf: tf.eciToEcf };
-  at("fetched");
   if (!response.ok) throw new Error(`${data}: HTTP ${response.status}`);
   const dataset = await response.json();
-  at("parsed");
   const records = Array.isArray(dataset.records) ? dataset.records : [];
   const ids = new Int32Array(records.length), types = new Uint8Array(records.length), satrecs = new Array(records.length);
   records.forEach((r, i) => {
@@ -94,14 +90,11 @@ async function init({ data, satellite, first }) {
   // Records for the shown types first, then the first samples (sent with "ready", saving a round trip), then the
   // other types' records, so hidden debris doesn't delay the first positions. Compute requests wait until done.
   const shown = new Set(first.types);
-  at("buildStart");
   build((t) => shown.has(t));
-  at("built");
   engine = jsEngine(sat, satrecs, types);
   const t0 = performance.now();
   const positions = engine.compute(first.dates, first.types);
-  at("computed");
-  self.postMessage({ type: "ready", engine: engine.name, failed: failed.slice(), built, diag: D,
+  self.postMessage({ type: "ready", engine: engine.name, failed: failed.slice(), built,
                      first: { dates: first.dates, positions, ms: performance.now() - t0 } },
                    positions.map((p) => p.buffer));
   build((t) => !shown.has(t));

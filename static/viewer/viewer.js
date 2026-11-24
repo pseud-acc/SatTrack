@@ -161,10 +161,6 @@ class Viewer {
     S.webgl = (() => { try { const gl = this.widget.scene.context._gl, ext = gl.getExtension("WEBGL_debug_renderer_info");
       return ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER); } catch (e) { return null; } })();
     S.marks.viewer = performance.now();
-    if (window.__diagRenderAfterReady) this.widget.useDefaultRenderLoop = false;   // DIAG (temporary)
-    S.diagFrames = [];   // DIAG (temporary): [start, end] of the first rendered frames
-    this.widget.scene.preRender.addEventListener(() => { if (S.diagFrames.length < 12) S.diagFrames.push([performance.now()]); });
-    this.widget.scene.postRender.addEventListener(() => { const f = S.diagFrames[S.diagFrames.length - 1]; if (f && f.length === 1) f.push(performance.now()); });
 
     const m = await meta;
     S.marks.data = performance.now();
@@ -191,7 +187,6 @@ class Viewer {
     const init = await ready;
     if (this.destroyed) return;
     S.engine = `worker-${init.engine}`;
-    S.diag = init.diag;   // DIAG (temporary)
     S.builtBeforeReady = init.built;   // records built before the first positions (D-042)
     S.failed = init.failed;
     push(S.workerMs, init.first.ms / 2);
@@ -201,7 +196,6 @@ class Viewer {
     this.apply(this.simTime());
     S.marks.firstPositions = performance.now();
     S.firstPositionsMs = S.marks.firstPositions - S.marks.start;
-    if (window.__diagRenderAfterReady) this.widget.useDefaultRenderLoop = true;   // DIAG (temporary)
     this.lastFrame = performance.now();
     this.widget.scene.preRender.addEventListener(() => this.frame());
     this.controller = setInterval(() => this.adapt(), 2000);
