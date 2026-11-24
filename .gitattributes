@@ -1,3 +1,7 @@
 # Pre-compressed data files (tests/app_data/objects.json.br/.gz): never line-ending converted or diffed
 *.br binary
 *.gz binary
+
+# Vendored files pinned by SHA-256 (tests/app/test_design_tokens.py, D-044): byte-for-byte as published, never converted
+assets/01_bootstrap-*.min.css -text
+*.woff2 binary
