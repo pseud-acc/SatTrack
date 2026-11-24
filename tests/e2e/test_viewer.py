@@ -8,8 +8,8 @@ satellite.js (vendor/fetch.py) and the sample objects dataset, in headless Chrom
 - Budget (D-027): main-thread ms per frame, time to first positions and heap, on a full-size synthetic catalogue.
   CI has no GPU, so frame rates are a release check on the reference laptop, not here.
 - Start-up (D-042): fixed budgets that don't depend on the runner's speed (bytes downloaded and records built
-  before the first positions, heap), and, when CI provides a baseline checkout of the target branch, cold visits
-  to both apps interleaved on the same runner, compared phase by phase. Both go to the CI job summary.
+  before the first positions, heap), and, when CI provides a baseline checkout of the target branch, first visits
+  to both apps on the same runner (warmed up, order-balanced), compared phase by phase. Both go to the CI job summary.
 - Security: no off-site request from the viewer and no CSP violation beyond the known, recorded ones.
 
 Waits poll from Python (page.evaluate) rather than page.wait_for_function, which evaluates a string in the page and
@@ -29,6 +29,7 @@ import pytest
 from playwright.sync_api import expect
 
 from app.core.viewer import SHELL_THIRD_PARTIES
+from conftest import CHROMIUM_ARGS
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SAMPLE = REPO_ROOT / "tests" / "app_data" / "objects.json.gz"
@@ -41,7 +42,12 @@ PARITY_KM = 0.050   # 50 m (roadmap 3.2); the spike measured 9.5 m at most
 FIRST_POSITIONS_CEILING_MS = 3000        # backstop, and the only timing limit when there's no baseline
 REGRESSION_LIMIT = 1.20                  # a phase fails if its median is over 20% slower than the baseline's ...
 REGRESSION_FLOOR_MS = 150                # ... and over 150 ms slower (smaller phases are noise on a shared runner)
-STARTUP_VISITS = 3                       # cold visits per app; the median is compared
+STARTUP_VISITS = 3                       # first visits for the fixed budgets; the median is checked
+# The comparison (D-042): a discarded warm-up visit to each app, then 4 visits each, balanced for order (each side
+# goes first and second, and follows each side, equally often), so neither side gets the slower slots. 3 visits
+# alternating gave the branch 2 of 3 first slots and the visit right after the budget test (PR #76: +40%, no change).
+COMPARISON_WARM_UP = ("baseline", "branch")
+COMPARISON_ORDER = ("branch", "baseline", "baseline", "branch", "branch", "baseline", "baseline", "branch")  # ABBA ABBA
 # Fixed budgets: the same on any machine. Bytes are as sent (Brotli), from the first request to the first positions.
 BYTES_BEFORE_FIRST_POSITIONS_MB = 5.0     # measured 3.95-4.03 MB on 24 Nov 2026
 HEAP_MB = 80
@@ -321,10 +327,11 @@ def startup_profile(browser, url):
 
 
 def median_profile(profiles):
-    """The phases of the visit with the median first positions (an odd number of visits), so the phases shown come
-    from one real visit and stay in order, rather than per-phase medians taken from different visits."""
+    """The phases of the visit with the median first positions (the lower middle one for an even number of visits,
+    so one slow outlier can't move it), so the phases shown come from one real visit and stay in order, rather than
+    per-phase medians taken from different visits."""
     ranked = sorted(profiles, key=lambda p: p["phases"]["firstPositions"])
-    return dict(ranked[len(ranked) // 2]["phases"])
+    return dict(ranked[(len(ranked) - 1) // 2]["phases"])
 
 
 def job_summary(markdown):
@@ -391,23 +398,29 @@ def test_budget_full_catalogue(page, browser, budget_url):
 
 
 def test_startup_against_baseline(browser, budget_url, baseline_url):
-    """D-042: cold visits to this branch and the baseline (the target branch, same runner, same data), interleaved
-    and alternating which goes first, compared phase by phase on the medians. A phase fails if it is over 20% and
-    over 150 ms slower than the baseline. Skipped, with a note in the summary, when CI provides no baseline."""
+    """D-042: first visits to this branch and the baseline (the target branch, same runner, same data) in a fresh
+    browser, after one discarded warm-up visit to each, in an order-balanced sequence (ABBA ABBA after warm-ups B A: each side goes
+    first and second equally often and follows each side equally often), compared phase by phase on the medians.
+    A phase fails if it is over 20% and over 150 ms slower than the baseline. Skipped, with a note in the summary,
+    when CI provides no baseline."""
     if baseline_url is None:
         job_summary("### Viewer start-up: against the baseline (D-042)\n\nNo baseline with the viewer "
                     "(SATTRACK_BASELINE_DIR unset, or the target branch predates roadmap 3.2): fixed budgets only.")
         pytest.skip("no baseline with the viewer")
     runs = {"branch": [], "baseline": []}
-    order = []
-    for i in range(STARTUP_VISITS):
-        pair = [("branch", budget_url), ("baseline", baseline_url)]
-        for who, url in (pair if i % 2 == 0 else pair[::-1]):
-            runs[who].append(startup_profile(browser, url))
-            ph = runs[who][-1]["phases"]
-            order.append(f"| {who} | " + " | ".join(f"{ph.get(n, 0):,.0f}" for n, _ in PHASES) + " |")
-    job_summary("DIAG old order\n\n| who | " + " | ".join(n for n, _ in PHASES) + " |\n|---|---|---|---|---|---|\n"
-                + "\n".join(order))
+    visits = []
+    # A browser of its own, so nothing left over from the earlier tests (their pages, the software renderer's
+    # backlog) runs alongside these visits.
+    own = browser.browser_type.launch(args=CHROMIUM_ARGS)
+    try:
+        apps = {"branch": budget_url, "baseline": baseline_url}
+        for who in COMPARISON_WARM_UP:   # discarded: the first visit to each server is slower (cold Python side)
+            startup_profile(own, apps[who])
+        for who in COMPARISON_ORDER:
+            runs[who].append(startup_profile(own, apps[who]))
+            visits.append(f"{who} {runs[who][-1]['phases']['firstPositions']:,.0f}")
+    finally:
+        own.close()
     branch, base = median_profile(runs["branch"]), median_profile(runs["baseline"])
     rows, failed = [], []
     for name, label in PHASES:
@@ -424,8 +437,10 @@ def test_startup_against_baseline(browser, budget_url, baseline_url):
     rows.append(f"| Bytes before first positions | {bb:.2f} MB | {pb:.2f} MB | {(pb - bb) / bb:+.0%} | reported |")
     job_summary(
         f"### Viewer start-up: this branch against the baseline (D-042)\n\n"
-        f"Same runner, same full-size catalogue, {STARTUP_VISITS} cold visits each, interleaved; each side's "
-        f"median visit (by first positions). A phase "
+        f"Same runner, same full-size catalogue, a fresh browser; one discarded warm-up visit to each app, then "
+        f"{len(COMPARISON_ORDER) // 2} first visits each in an order-balanced sequence; each side's median visit "
+        f"(by first positions; the lower middle one). A phase "
         f"fails when over {REGRESSION_LIMIT - 1:.0%} and over {REGRESSION_FLOOR_MS} ms slower.\n\n"
+        f"First positions by visit, in order: {', '.join(visits)} ms.\n\n"
         f"| Phase | Baseline | This branch | Change | |\n|---|---|---|---|---|\n" + "\n".join(rows))
     assert not failed, f"start-up slower than the baseline in: {', '.join(failed)}"

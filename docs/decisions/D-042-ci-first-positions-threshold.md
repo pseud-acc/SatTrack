@@ -47,9 +47,19 @@ D-027's 1.5 s stays the release check on the reference laptop, run before each c
   three apps and Chromium shared the laptop; 3.15 ms alone).
 - Laptop, 24 Nov, this branch against itself as the baseline (checks the comparison end to end): every phase within
   -12% to -6%, bytes identical.
+- CI, 24 Nov, PR #76 (docs only, so identical code): the comparison failed twice, the branch +40% on records built
+  and first positions. Per-visit figures (PR #79) showed no steady gap between the apps but single slow visits
+  (+50%) and an unbalanced harness: with 3 visits alternating, the branch went first in 2 of 3 rounds and took the
+  slot right after the budget test's heavy page, in the browser that test had used, while the baseline's first
+  visit was its cold-server one. One slow visit on top moved the branch's median. Fixed in PR #79: a fresh browser,
+  one discarded warm-up visit to each app, then 4 visits each in an ABBA ABBA order and the lower-middle visit
+  compared. Limits unchanged.
 
 ## Consequences
-- The e2e job runs ~2 minutes longer on pull requests and downloads the baseline's vendor tarballs.
+- The e2e job runs ~2 minutes longer on pull requests and downloads the baseline's vendor tarballs (a little more
+  since PR #79: 10 comparison visits instead of 6).
+- The comparison runs in its own browser with warm-up visits and an order-balanced sequence; changing the visit
+  count or order must keep both sides in the same slots (PR #76's failure came from an unbalanced harness).
 - #70 itself has no baseline (main has no viewer); its gate is the fixed budgets. Issue #72 tracks the remaining gaps:
   gradual drift across many PRs (an anchored baseline), data growth (a pipeline size check and a field-cost limit) and
   #70's laptop figures as the first anchor.
