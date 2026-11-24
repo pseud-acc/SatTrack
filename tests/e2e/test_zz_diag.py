@@ -20,7 +20,7 @@ CONFIGS = [
     ("no-throttle", CHROMIUM_ARGS + NO_THROTTLE, (1366, 900), ""),
     ("render-after-ready", CHROMIUM_ARGS, (1366, 900), "window.__diagRenderAfterReady = true;"),
 ]
-VISITS = int(os.environ.get("DIAG_VISITS", "10"))
+VISITS = int(os.environ.get("DIAG_VISITS", "6"))
 
 
 def proc_snapshot():
@@ -107,6 +107,69 @@ def visit(browser, url, viewport, script=""):
         }
     finally:
         context.close()
+
+
+def _trace_summary(path, start_epoch_ms):
+    """Main-thread tasks over 300 ms in a Chrome trace: start, duration, and their biggest child events."""
+    ev = json.loads(Path(path).read_text())
+    ev = ev["traceEvents"] if isinstance(ev, dict) else ev
+    names = {(e["pid"], e["tid"]): e["args"]["name"] for e in ev if e.get("ph") == "M" and e.get("name") == "thread_name"}
+    main = {k for k, n in names.items() if n == "CrRendererMain"}
+    # trace clock -> page clock: navigationStart-ish anchor via the first 'TracingStartedInBrowser' is unreliable;
+    # report times relative to the first main-thread event instead, plus durations.
+    xs = [e for e in ev if e.get("ph") == "X" and (e["pid"], e["tid"]) in main and "dur" in e]
+    if not xs:
+        return "no main-thread events"
+    nav = [e["ts"] for e in ev if e.get("name") == "navigationStart" and (e["pid"], e["tid"]) in main]
+    t0 = nav[-1] if nav else xs[0]["ts"]
+    tasks = [e for e in xs if e["name"] == "ThreadControllerImpl::RunTask" and e["dur"] > 300_000]
+    skip = {"ThreadControllerImpl::RunTask", "RunTask", "SimpleWatcher::OnHandleReady", "AsyncTask Run", "v8.run",
+            "ScriptRunner::ExecutePendingScript", "PendingScript::ExecuteScriptBlock"}
+    out = []
+    for t in tasks:
+        a, b = t["ts"], t["ts"] + t["dur"]
+        kids = [e for e in xs if a <= e["ts"] < b and e is not t and e["dur"] > 20_000 and e["name"] not in skip]
+        kids.sort(key=lambda e: -e["dur"])
+        desc = []
+        for k in kids[:10]:
+            d = k.get("args", {}).get("data", {}) or {}
+            extra = " ".join(str(x) for x in (d.get("functionName"), (d.get("url") or "")[-45:], d.get("lineNumber"),
+                                              d.get("type")) if x)
+            desc.append(f"{k['name']}{'(' + extra + ')' if extra else ''} {k['dur'] / 1000:.0f}")
+        out.append(f"[at {(a - t0) / 1000 - start_epoch_ms:.0f} ms after viewer start, {t['dur'] / 1000:.0f} ms] "
+                   + "; ".join(desc))
+    return "\n  - ".join([""] + out)
+
+
+def test_trace(browser, budget_url, tmp_path):
+    """Chrome traces of default visits: what the ~650 ms main-thread task is."""
+    b = browser.browser_type.launch(args=CHROMIUM_ARGS)
+    rows = []
+    try:
+        visit(b, budget_url, (1366, 900))
+        for i in range(8):
+            context = b.new_context(viewport={"width": 1366, "height": 900})
+            context.route(lambda u: not u.startswith("http://127.0.0.1"), lambda route: route.abort())
+            try:
+                pg = context.new_page()
+                path = tmp_path / f"trace{i}.json"
+                b.start_tracing(page=pg, path=str(path), categories=[
+                    "devtools.timeline", "v8", "v8.execute", "disabled-by-default-devtools.timeline", "blink",
+                    "toplevel", "disabled-by-default-v8.gc", "gpu", "cc", "scheduler", "blink.user_timing"])
+                open_viewer(pg, budget_url)
+                k = pg.evaluate("window.sattrackViewer.marks")
+                pg.wait_for_timeout(1500)
+                b.stop_tracing()
+                w = pg.evaluate("window.sattrackViewer.diag") or {}
+                origin = pg.evaluate("performance.timeOrigin")
+                rows.append(f"visit {i}: data {k['data'] - k['start']:.0f}, worker computed "
+                            f"{w.get('computed', 0) - origin - k['start']:.0f}, ready {k['ready'] - k['start']:.0f}, "
+                            f"first {k['firstPositions'] - k['start']:.0f} {_trace_summary(path, k['start'])}")
+            finally:
+                context.close()
+    finally:
+        b.close()
+    job_summary("### DIAG trace (temporary)\n\n" + "\n\n".join(rows))
 
 
 def test_diag(browser, budget_url):
