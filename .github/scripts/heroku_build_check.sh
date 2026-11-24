@@ -5,7 +5,8 @@
 #   1. Source = the committed tree only (`git archive HEAD`, what `git push heroku` sends), then .slugignore
 #      applied, as Heroku does before the buildpack runs.
 #   2. Build = Heroku's classic heroku/python buildpack (the one sattrackapp uses) inside Heroku's own
-#      heroku-24 build image: bin/detect, then bin/compile <build> <cache> <env>.
+#      heroku-24 build image: bin/detect, then bin/compile <build> <cache> <env>. bin/compile runs the app's
+#      bin/post_compile hook, which fetches and verifies the self-hosted Cesium files (D-014): checked below.
 #   3. Run = the Procfile `web` command in Heroku's heroku-24 runtime image, with .profile.d sourced and the
 #      Eco dyno's 512 MB memory limit, PORT set like a dyno. The app reads the committed data sample
 #      tests/app_data (SATTRACK_APP_DATA_DIR) instead of S3: CI has no AWS access.
@@ -29,6 +30,7 @@ BUILDPACK_SHA=e5d67bcb895f7a128cd91a3747e31146b5e2bc52
 BUILD_IMAGE=heroku/heroku:24-build@sha256:4944dc047119cfd7056a31a12d23171e2cb9f12147850e212128b6bd9f20517d
 RUN_IMAGE=heroku/heroku:24@sha256:59837688d73d8f5240b72d5b9a801190674fcaeec831501dc709bf7999c7399f
 SLUG_LIMIT_MB=500        # Heroku's hard limit on the compressed slug
+VENDOR_LIMIT_MB=15       # the self-hosted Cesium + satellite.js may add at most this to the slug (D-014)
 PAGES=("/" "/_dash-layout" "/_dash-dependencies" "/sat_visualisation")
 PORT=5000
 # Heroku sets WEB_CONCURRENCY from the dyno memory (vendor/WEB_CONCURRENCY.sh: 512 MB / 256 MB per worker = 2),
@@ -81,6 +83,21 @@ fi
 slug_mb=$(( $(tar -czf - -C "$W/app" . | wc -c) / 1000000 ))
 echo "slug (compressed): ${slug_mb} MB of ${SLUG_LIMIT_MB} MB"
 [ "$slug_mb" -lt "$SLUG_LIMIT_MB" ] || fail "slug ${slug_mb} MB is over Heroku's ${SLUG_LIMIT_MB} MB limit"
+# Self-hosted viewer packages (D-014): bin/post_compile must have fetched and verified them, and they may add at most
+# VENDOR_LIMIT_MB to the compressed slug.
+if [ -f "$W/app/static/vendor/manifest.json" ]; then
+  vendor_kb=$(( $(tar -czf - -C "$W/app/static" vendor | wc -c) / 1000 ))
+  echo "static/vendor: $(du -sk "$W/app/static/vendor" | cut -f1) kB on disk, ${vendor_kb} kB of the compressed slug (limit $((VENDOR_LIMIT_MB * 1000)) kB)"
+  [ "$vendor_kb" -le $((VENDOR_LIMIT_MB * 1000)) ] || fail "static/vendor adds ${vendor_kb} kB to the slug, over ${VENDOR_LIMIT_MB} MB (D-014)"
+  # Every vendored file matches the manifest and the manifest matches the lock (incl. D-041's patch), checked with the
+  # slug's own Python: what the app re-checks at start-up when the viewer flag is on.
+  # (.profile.d sets the slug Python's PATH and library path, as for the web process below.)
+  docker run --rm --user "$(id -u):$(id -g)" -e HOME=/app -v "$W/app:/app" -w /app "$RUN_IMAGE" \
+    bash -c 'for f in /app/.profile.d/*.sh; do [ -f "$f" ] && . "$f"; done; exec python vendor/fetch.py --check --out static/vendor' \
+    || fail "static/vendor does not verify against vendor/cesium.lock"
+else
+  fail "static/vendor/manifest.json missing: bin/post_compile did not fetch the viewer packages"
+fi
 echo "::endgroup::"
 
 echo "::group::Run (Procfile web in heroku-24, 512 MB)"
@@ -109,6 +126,13 @@ if [ "$up" = 1 ]; then
     c="$(curl -s -o /dev/null -m 120 -w '%{http_code}' "http://127.0.0.1:$PORT$p")"
     echo "$c $p"; [ "$c" = 200 ] || fail "$p returned $c"
   done
+  # The viewer flag is off in production (owner, 24 Nov 2026: enabled with roadmap 3.3), so the app reads no vendor
+  # file and serves none. Serving with the flag on (pre-compressed, immutable caching) is covered by
+  # tests/app/test_viewer.py and the browser tests.
+  VURL="http://127.0.0.1:$PORT/static/vendor/cesium-1.147.0/index.js"
+  c="$(curl -s -o /dev/null -w '%{http_code}' "$VURL")"
+  echo "$c $VURL (viewer flag off: expect 404)"
+  [ "$c" = 404 ] || fail "with the viewer flag off the app served a vendored file ($c)"
 fi
 sleep 3
 docker logs "$NAME" > "$W/run.log" 2>&1 || true

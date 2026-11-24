@@ -15,6 +15,8 @@ import pytest
 from _support import APP_DATA_DIR, REPO_ROOT, CallbackCaller, frozen_datetime, load_sample, reference_time
 
 os.environ.pop("SATTRACK_S3_BUCKET", None)
+os.environ.pop("SATTRACK_CESIUM_VIEWER", None)   # this session runs the app as production does: viewer flag off
+os.environ.pop("SATTRACK_VENDOR_DIR", None)
 os.environ["SATTRACK_APP_DATA_DIR"] = str(APP_DATA_DIR)
 os.chdir(REPO_ROOT)
 sys.path.insert(0, str(REPO_ROOT))

@@ -23,3 +23,8 @@ run_pipeline_script.sh
 poetry.lock
 # uv virtual environment (uv sync)
 .venv/
+
+# Self-hosted viewer packages, fetched and verified at build time (vendor/fetch.py, D-014): never committed
+static/vendor/
+static/vendor.tmp/
+static/vendor.old/

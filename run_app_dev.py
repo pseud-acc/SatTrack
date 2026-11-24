@@ -99,6 +99,10 @@ register_all_callbacks(app)
 from app.core.data_files import register_data_routes  # noqa: E402
 register_data_routes(server)
 
+# Cesium viewer (roadmap 3.2), as in run_app.py
+from app.core.viewer import register_viewer  # noqa: E402
+register_viewer(app)
+
 ## >>>>>>>> Define Page Routing <<<<<<<<<<<<
 
 @app.callback(

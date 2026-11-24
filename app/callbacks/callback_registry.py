@@ -16,8 +16,10 @@ from app.callbacks import (
     callback_2d_viz,
     callback_table,
     callback_filters,
-    callback_navbar
+    callback_navbar,
+    callback_viewer,
 )
+from app.core.viewer import viewer_enabled
 
 
 def register_all_callbacks(app):
@@ -33,3 +35,5 @@ def register_all_callbacks(app):
     callback_table.register(app)
     callback_filters.register(app)
     callback_navbar.register(app)
+    if viewer_enabled():   # the Cesium viewer flag (app/core/viewer.py); off by default
+        callback_viewer.register(app)
