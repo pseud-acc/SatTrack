@@ -1,5 +1,6 @@
 -- One row per object in the Space-Track GP feed, combining Space-Track and GCAT primitives under the
--- decided composite rules (field review 2026-10-25). The app's satellite table.
+-- decided composite rules (field review 2026-10-25), plus CelesTrak's constellation group (D-026). The app's
+-- satellite table.
 with cte_int__xsrc__satellite_gcat_matched as (
     select
         satcat_id
@@ -107,6 +108,20 @@ with cte_int__xsrc__satellite_gcat_matched as (
     from {{ ref('int__jsr__satellite_launch_details') }}
 )
 
+, cte_int__celestrak__satellite_constellation as (
+    select
+        satcat_id
+        , constellation
+    from {{ ref('int__celestrak__satellite_constellation') }}
+)
+
+, cte_int__celestrak__space_station as (
+    select
+        satcat_id
+        , flag_space_station
+    from {{ ref('int__celestrak__space_station') }}
+)
+
 , cte_satellite_master as ( -- joins only: unmatched joins get their documented defaults; owner country spans sources
     select
         sat.canonical_satellite_id
@@ -180,6 +195,10 @@ with cte_int__xsrc__satellite_gcat_matched as (
         , st.satellite_program
         , st.satellite_program_family
         , st.constellation_plane
+        -- CelesTrak's constellation or operator group (D-026); null when the object is in none
+        , con.constellation
+        -- In CelesTrak's space station group (D-043): 1/0
+        , coalesce(stn.flag_space_station, 0) as flag_space_station
         , coalesce(st.mission_details_source, 'none') as mission_details_source
         , st.mission_details_parent_jcat
         , sat.orbit_class
@@ -204,6 +223,8 @@ with cte_int__xsrc__satellite_gcat_matched as (
     left join cte_int__jsr__satellite_status as st on st.jcat = sat.jcat
     left join cte_int__jsr__org_satellite_org_lists as orgs on orgs.jcat = sat.jcat
     left join cte_int__jsr__satellite_launch_details as ld on ld.jcat = sat.jcat
+    left join cte_int__celestrak__satellite_constellation as con on con.satcat_id = sat.satcat_id
+    left join cte_int__celestrak__space_station as stn on stn.satcat_id = sat.satcat_id
 )
 
 , cte_final as (
@@ -272,6 +293,8 @@ with cte_int__xsrc__satellite_gcat_matched as (
         , cast(satellite_program as varchar) as satellite_program
         , cast(satellite_program_family as varchar) as satellite_program_family
         , cast(constellation_plane as varchar) as constellation_plane
+        , cast(constellation as varchar) as constellation
+        , cast(flag_space_station as integer) as flag_space_station
         , cast(mission_details_source as varchar) as mission_details_source
         , cast(mission_details_parent_jcat as varchar) as mission_details_parent_jcat
         , cast(orbit_class as varchar) as orbit_class

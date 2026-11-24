@@ -30,7 +30,7 @@ import duckdb
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "ingestion"))
 
-from sattrack_ingest import audit, extractors, runlog  # noqa: E402
+from sattrack_ingest import audit, celestrak_groups, extractors, runlog  # noqa: E402
 from sattrack_ingest.config import BUILD_DB, DATA_DIR, LIVE_DB, OPS_DB, WAREHOUSE_DIR, RunContext, connect  # noqa: E402
 from sattrack_ingest.raw_writer import prune_history  # noqa: E402
 
@@ -180,11 +180,17 @@ def main() -> int:
         for name, fn, units in [("spacetrack", extractors.ingest_spacetrack, ["tracking", "enrichment"]),
                                 ("gcat", extractors.ingest_gcat, ["enrichment"]),
                                 ("pycountry", extractors.ingest_pycountry, ["enrichment"]),
-                                ("geonames", extractors.ingest_geonames, ["enrichment"])]:
+                                ("geonames", extractors.ingest_geonames, ["enrichment"]),
+                                # CelesTrak groups (D-026) hold no unit: a refusal or failure keeps the last copy
+                                ("celestrak", celestrak_groups.ingest_celestrak_groups, [])]:
             t0 = time.time()
             try:
                 rows = fn(con, ops, ctx)
-                stages.append({"stage": f"ingest:{name}", "status": "ok", "duration_s": round(time.time() - t0, 1), "rows": rows})
+                status = rows.pop("stage_status", "ok") if isinstance(rows, dict) else "ok"
+                stage = {"stage": f"ingest:{name}", "status": status, "duration_s": round(time.time() - t0, 1), "rows": rows}
+                if isinstance(rows, dict) and "reason" in rows:
+                    stage["reason"] = rows.pop("reason")
+                stages.append(stage)
             except Exception as exc:  # noqa: BLE001 - recorded, then the dependent unit is held
                 stages.append({"stage": f"ingest:{name}", "status": "error", "duration_s": round(time.time() - t0, 1),
                                "error": audit.scrub(f"{type(exc).__name__}: {exc}")})

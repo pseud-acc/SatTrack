@@ -30,7 +30,8 @@
         "bstar", "mean_motion_dot", "mean_motion_ddot", "rev_at_epoch", "element_set_no", "ephemeris_type",
         "classification_type", "orbital_period",
         "operational_status", "orbit_class", "owner_country", "launch_year", "mission_category_labels",
-        "ownership_class_labels", "launch_vehicle_brand", "site_location_country"
+        "ownership_class_labels", "launch_vehicle_brand", "site_location_country", "constellation",
+        "flag_space_station"
       ],
       "properties": {
         "satcat_id": {"type": "integer", "minimum": 1, "description": "Catalogue number (NORAD_CAT_ID); the key."},
@@ -59,7 +60,9 @@
         "mission_category_labels": {"$ref": "#/$defs/labels"},
         "ownership_class_labels": {"$ref": "#/$defs/labels"},
         "launch_vehicle_brand": {"$ref": "#/$defs/nullable_text"},
-        "site_location_country": {"$ref": "#/$defs/nullable_text"}
+        "site_location_country": {"$ref": "#/$defs/nullable_text"},
+        "constellation": {"$ref": "#/$defs/nullable_text", "description": "CelesTrak constellation or operator group the object belongs to, e.g. Starlink or GPS; null when none (D-026). Credit: Constellation groups: CelesTrak (Dr T.S. Kelso)."},
+        "flag_space_station": {"type": "integer", "enum": [0, 1], "description": "1 when the object is in CelesTrak's Space Stations group (the ISS and Tiangong modules and visiting spacecraft), else 0 (D-043). Credit: Constellation groups: CelesTrak (Dr T.S. Kelso)."}
       }
     }
   }

@@ -277,6 +277,21 @@ models:
       - name: constellation_plane
         data_type: varchar
         description: '{{ doc("col__constellation_plane") }}'
+      - name: constellation
+        data_type: varchar
+        description: '{{ doc("col__constellation") }}'
+        config:
+          meta:
+            label: "Constellation"
+      - name: flag_space_station
+        data_type: integer
+        description: '{{ doc("col__flag_space_station") }}'
+        constraints:
+          - type: not_null
+        data_tests:
+          - accepted_values:
+              name: accepted_values__fct__satellite_master__flag_space_station
+              arguments: {values: [0, 1], quote: false}
       - name: mission_details_source
         data_type: varchar
         description: '{{ doc("col__mission_details_source") }}'

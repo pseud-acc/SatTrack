@@ -43,6 +43,8 @@ with cte_fct__gp_elements as (
         , ownership_class_labels
         , launch_vehicle_brand
         , site_location_country
+        , constellation
+        , flag_space_station
     from {{ ref('fct__satellite_master') }}
 )
 
@@ -76,6 +78,8 @@ with cte_fct__gp_elements as (
         , sat.ownership_class_labels
         , sat.launch_vehicle_brand
         , sat.site_location_country
+        , sat.constellation
+        , coalesce(sat.flag_space_station, 0) as flag_space_station   -- no satellite-mart row: not flagged
     from cte_fct__gp_elements as gp
     left join cte_fct__satellite_master as sat
         on gp.satcat_id = sat.satcat_id
@@ -126,6 +130,8 @@ with cte_fct__gp_elements as (
         , cast(coalesce(ownership_class_labels, []) as varchar[]) as ownership_class_labels
         , cast(launch_vehicle_brand as varchar) as launch_vehicle_brand
         , cast(site_location_country as varchar) as site_location_country
+        , cast(constellation as varchar) as constellation
+        , cast(flag_space_station as integer) as flag_space_station
     from cte_tracked_objects
 )
 
