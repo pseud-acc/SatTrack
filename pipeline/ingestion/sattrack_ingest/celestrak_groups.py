@@ -1,7 +1,8 @@
 """CelesTrak constellation and operator groups (D-026), landed raw into raw_celestrak.
 
 Three tables, all VARCHAR plus the usual load metadata (raw_writer.py):
-  * group_config     the group list from config.py (group, kind, precedence order); landed every run, no request;
+  * group_config     the group list from config.py (group, kind, precedence order, member-name prefix: D-046);
+                     landed every run, no request;
   * gp_group_index   every group CelesTrak's GP index page lists, with its title and position on the page;
   * gp_group_member  the CSV of each configured group CelesTrak lists, unchanged, with the group name in front
                      (column GROUP, CelesTrak's own query parameter).
@@ -24,8 +25,8 @@ import time
 from datetime import datetime, timezone
 
 from . import audit, celestrak
-from .config import (CELESTRAK_CONSTELLATION_GROUPS, CELESTRAK_EXCLUDED_GROUPS, CELESTRAK_MIN_HOURS,
-                     CELESTRAK_OPERATOR_GROUPS, CELESTRAK_PAUSE_S, CELESTRAK_REFUSAL_COOLDOWN_HOURS,
+from .config import (CELESTRAK_CONSTELLATION_GROUPS, CELESTRAK_EXCLUDED_GROUPS, CELESTRAK_MEMBER_NAME_PREFIX,
+                     CELESTRAK_MIN_HOURS, CELESTRAK_OPERATOR_GROUPS, CELESTRAK_PAUSE_S, CELESTRAK_REFUSAL_COOLDOWN_HOURS,
                      CELESTRAK_STATION_GROUPS, RunContext)
 from .raw_writer import land_records
 
@@ -50,8 +51,12 @@ def included_groups() -> list[tuple[str, str]]:
 
 
 def config_records() -> list[dict]:
-    rows = [{"GROUP": g, "GROUP_KIND": kind, "GROUP_ORDER": str(i)} for i, (g, kind) in enumerate(included_groups(), 1)]
-    rows += [{"GROUP": g, "GROUP_KIND": "excluded", "GROUP_ORDER": ""} for g in CELESTRAK_EXCLUDED_GROUPS]
+    """One record per configured group: kind, precedence order and the member-name prefix (D-046; empty for none)."""
+    rows = [{"GROUP": g, "GROUP_KIND": kind, "GROUP_ORDER": str(i),
+             "GROUP_MEMBER_NAME_PREFIX": CELESTRAK_MEMBER_NAME_PREFIX.get(g, "")}
+            for i, (g, kind) in enumerate(included_groups(), 1)]
+    rows += [{"GROUP": g, "GROUP_KIND": "excluded", "GROUP_ORDER": "", "GROUP_MEMBER_NAME_PREFIX": ""}
+             for g in CELESTRAK_EXCLUDED_GROUPS]
     return rows
 
 

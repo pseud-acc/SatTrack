@@ -38,7 +38,7 @@ Read the records a feature touches before scoping it.
 | [D-023](#d-023-label-the-selected-satellite-and-close-up-the-nearest-20) | Label the selected satellite and, close up, the nearest 20 | Accepted | 2026-11-22 | [record](decisions/D-023-labels-selected-and-nearest.md) |
 | [D-024](#d-024-shareable-links-carry-the-core-view-in-the-url-hash) | Shareable links carry the core view in the URL hash | Accepted | 2026-11-22 | [record](decisions/D-024-shareable-links-url-hash.md) |
 | [D-025](#d-025-bottom-sheet-on-phones) | Bottom sheet on phones | Accepted | 2026-11-22 | [record](decisions/D-025-mobile-bottom-sheet.md) |
-| [D-026](#d-026-constellations-from-celestraks-group-lists-credited) | Constellations from CelesTrak's group lists, credited | Accepted; partly superseded by D-043 | 2026-11-22 | [record](decisions/D-026-constellations-from-celestrak-groups.md) |
+| [D-026](#d-026-constellations-from-celestraks-group-lists-credited) | Constellations from CelesTrak's group lists, credited | Accepted; partly superseded by D-043; amended by D-046 | 2026-11-22 | [record](decisions/D-026-constellations-from-celestrak-groups.md) |
 | [D-027](#d-027-a-measured-performance-budget-for-the-viewer) | A measured performance budget for the viewer | Accepted | 2026-11-23 | [record](decisions/D-027-performance-budget.md) |
 | [D-028](#d-028-phase-3-scope-the-core-plus-four-extensions) | Phase 3 scope: the core plus four extensions | Accepted | 2026-11-22 | [record](decisions/D-028-phase-3-scope.md) |
 | [D-029](#d-029-javascript-sgp4-in-the-worker-now-wasm-when-shadow-dimming-lands) | JavaScript SGP4 in the worker now; WASM when shadow dimming lands | Accepted | 2026-11-22 | [record](decisions/D-029-worker-engine-js-then-wasm.md) |
@@ -55,6 +55,7 @@ Read the records a feature touches before scoping it.
 | [D-041](#d-041-security-headers-ship-with-the-viewer-flag-cesium-needs-a-decision-before-the-csp-is-enforced) | Security headers ship with the viewer flag; Cesium needs a decision before the CSP is enforced | Accepted | 2026-11-24 | [record](decisions/D-041-security-headers-report-only.md) |
 | [D-042](#d-042-ci-checks-the-viewers-start-up-with-fixed-budgets-and-a-same-runner-comparison-against-the-target-branch) | CI checks the viewer's start-up with fixed budgets and a same-runner comparison against the target branch | Accepted | 2026-11-24 | [record](decisions/D-042-ci-first-positions-threshold.md) |
 | [D-043](#d-043-flag-space-stations-from-celestraks-stations-group) | Flag space stations from CelesTrak's `stations` group | Accepted | 2026-11-24 | [record](decisions/D-043-space-station-flag-from-celestrak.md) |
+| [D-046](#d-046-tdrss-keeps-only-relay-satellites-constellation-membership-checked-against-names) | TDRSS keeps only relay satellites; constellation membership checked against names | Accepted | 2026-11-24 | [record](decisions/D-046-tdrss-relay-satellites-and-name-check.md) |
 
 ---
 
@@ -446,7 +447,7 @@ satellite (half) and details (full). Desktop keeps the sidebar.
 **Rejected.** Today's collapsible sidebar (covers the globe); floating buttons with separate overlays.
 
 ## D-026 Constellations from CelesTrak's group lists, credited
-**Status:** Accepted, 2026-11-22 (plan 3.1); partly superseded by D-043 (the `stations` group is downloaded as a flag). **Component:** pipeline; the `objects` dataset; the viewer's credits.
+**Status:** Accepted, 2026-11-22 (plan 3.1); partly superseded by D-043 (the `stations` group is downloaded as a flag); amended by D-046 (`tdrss` counts only members named TDRS). **Component:** pipeline; the `objects` dataset; the viewer's credits.
 
 **Context.** Colouring by constellation (D-017) needs membership the data doesn't have. GCAT matches CelesTrak for
 the broadband fleets but has no plane labels for Galileo, GLONASS or Globalstar and few for Iridium; CelesTrak's
@@ -701,3 +702,30 @@ filter later).
 separate PR (a second contract change).
 
 **Consequences.** One more CelesTrak request per download; a new required field in `objects.schema.json`.
+
+## D-046 TDRSS keeps only relay satellites; constellation membership checked against names
+**Status:** Accepted, 2026-11-24 (owner). Amends D-026 (membership is the group's CSV, except for groups with a
+member-name prefix). **Component:** pipeline (`sattrack_ingest/config.py`, `stg__celestrak__group_config`,
+`int__celestrak__satellite_constellation`, a warning check); `constellation` values in the `objects` dataset.
+
+**Context.** CelesTrak's `tdrss` group ("Tracking and Data Relay Satellite System (TDRSS)") lists the 8 TDRS relay
+satellites and 17 spacecraft that use them (HST, ISS (ZARYA), TERRA, AQUA, MMS 1-4, NOAA 20, ...; fetch run
+45061938995), so the first run with #69 gave those 17 the TDRSS constellation. An audit of all 20 constellation and
+operator groups found no other group mixing in other spacecraft.
+
+**Decision.** The config gives a group an optional member-name prefix (`CELESTRAK_MEMBER_NAME_PREFIX`; only
+`tdrss`: `TDRS`), landed in `raw_celestrak.group_config` and staged as `celestrak_group_member_name_prefix`; the
+intermediate model counts a member of such a group only when its CelesTrak `OBJECT_NAME` starts with the prefix. A
+warning check (D-037) flags constellation memberships whose name lacks the group's prefix, else the group's most
+common leading word, and a prefix that matches no member. Operator groups are not name-checked.
+
+**Why.** The owner keeps TDRSS but only for the relay satellites; one config entry, visible in the warehouse, is
+deterministic and needs no list of NORAD ids. The data-derived leading word handles COSMOS (GLONASS) and GSAT
+(Galileo) without exceptions.
+
+**Rejected.** Dropping `tdrss` (the owner wants it); a hand list of the 17 NORAD ids (goes stale); the title's first
+word as the check's expected string (76 warnings today and a list of exceptions); checking operator groups (~125
+warnings on legitimate fleet names).
+
+**Consequences.** 17 objects lose the TDRSS name at the next CelesTrak download; no contract change. The check warns
+on 13 rows today (8 GUOWANG-30 objects in hulianwang, 5 dmc members) until the owner decides on them.

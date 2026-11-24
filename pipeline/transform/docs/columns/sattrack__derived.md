@@ -12,6 +12,12 @@ Whether SatTrack's config includes a CelesTrak group as a `constellation`, an `o
 Source: SatTrack-derived: see `stg__celestrak__group_config`. Inputs: CelesTrak https://celestrak.org/NORAD/elements/ (Batch 11).
 {% enddocs %}
 
+{% docs col__celestrak_group_member_name_prefix %}
+The text a member's CelesTrak name (CSV `OBJECT_NAME`) must start with for a group to name its constellation; NULL when every member counts. E.g. `TDRS` for `tdrss`, keeping TDRS 3 (NORAD 19548), not HST (NORAD 20580).
+
+Source: SatTrack-derived: see `stg__celestrak__group_config`. Inputs: CelesTrak https://celestrak.org/NORAD/elements/ (Batch 11).
+{% enddocs %}
+
 {% docs col__celestrak_group_order %}
 An included CelesTrak group's precedence in SatTrack's config, from 1; an object in two groups takes the lower number. NULL for excluded groups. E.g. 1 for `starlink`; 17 for `intelsat`.
 

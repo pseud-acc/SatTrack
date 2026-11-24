@@ -70,6 +70,8 @@ models:
               arguments: {values: ["constellation", "operator", "station", "excluded"]}
       - name: celestrak_group_order
         description: '{{ doc("col__celestrak_group_order") }}'
+      - name: celestrak_group_member_name_prefix
+        description: '{{ doc("col__celestrak_group_member_name_prefix") }}'
       - name: _loaded_at
         description: '{{ doc("col___loaded_at") }}'
       - name: _run_id

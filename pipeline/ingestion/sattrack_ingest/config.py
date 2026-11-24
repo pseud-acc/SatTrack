@@ -59,6 +59,12 @@ CELESTRAK_CONSTELLATION_GROUPS = [
     "glo-ops", "galileo", "beidou", "tdrss", "dmc",
 ]
 CELESTRAK_OPERATOR_GROUPS = ["planet", "spire", "intelsat", "ses", "eutelsat", "telesat"]
+# Member-name prefix (D-046): a group listed here gives its name only to members whose CelesTrak OBJECT_NAME starts
+# with the prefix (case-insensitive); its other members are treated as not in the group. CelesTrak's tdrss group lists
+# the TDRS relay satellites and spacecraft that use TDRSS (HST, the ISS, TERRA, AQUA, MMS 1-4, ...); only the relay
+# satellites are the constellation. Groups not listed keep every member. Changing this is a config change in a PR,
+# decided against D-046.
+CELESTRAK_MEMBER_NAME_PREFIX = {"tdrss": "TDRS"}
 # The space station group (D-043): downloaded like the groups above, but it sets flag_space_station and never the
 # constellation (the ISS and Tiangong modules plus the spacecraft visiting them are not a constellation).
 CELESTRAK_STATION_GROUPS = ["stations"]

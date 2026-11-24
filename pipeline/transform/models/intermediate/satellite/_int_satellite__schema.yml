@@ -416,7 +416,7 @@ models:
       - name: inserted_by
         description: '{{ doc("col__inserted_by") }}'
   - name: int__celestrak__satellite_constellation
-    description: "One row per object in a configured CelesTrak constellation or operator group, with the group's display name (D-026). An object in two groups takes the first in config order; excluded groups never count."
+    description: "One row per object in a configured CelesTrak constellation or operator group, with the group's display name (D-026). An object in two groups takes the first in config order; excluded groups never count. A group with a member-name prefix in the config (D-046; today tdrss: TDRS) counts only members whose CelesTrak name starts with it."
     data_tests:
       - model_health:
           name: mh__int__celestrak__satellite_constellation__pk_unique
@@ -510,7 +510,7 @@ unit_tests:
     description: >-
       D-043: an object is a station when it is in a group the config marks `station` (rows shaped like CelesTrak's
       `stations` group, fetch run 45061938995: the ISS and Tiangong); constellation, operator and excluded groups never
-      count, and an object listed twice appears once.
+      count, and an object listed twice appears once (the ISS's tdrss membership, D-046, doesn't change its flag).
     model: int__celestrak__space_station
     given:
       - input: ref('stg__celestrak__gp_group_member')
@@ -518,15 +518,54 @@ unit_tests:
           - {celestrak_group: stations, satcat_id: 25544}
           - {celestrak_group: stations, satcat_id: 48274}
           - {celestrak_group: visual, satcat_id: 25544}
+          - {celestrak_group: tdrss, satcat_id: 25544}
           - {celestrak_group: starlink, satcat_id: 44714}
           - {celestrak_group: gnss, satcat_id: 26407}
       - input: ref('stg__celestrak__group_config')
         rows:
           - {celestrak_group: stations, celestrak_group_kind: station}
           - {celestrak_group: starlink, celestrak_group_kind: constellation}
+          - {celestrak_group: tdrss, celestrak_group_kind: constellation, celestrak_group_member_name_prefix: TDRS}
           - {celestrak_group: gnss, celestrak_group_kind: excluded}
           - {celestrak_group: visual, celestrak_group_kind: excluded}
     expect:
       rows:
         - {satcat_id: 25544, flag_space_station: 1}
         - {satcat_id: 48274, flag_space_station: 1}
+
+  - name: ut__int__celestrak__satellite_constellation__member_name_prefix
+    description: >-
+      D-046: a group with a member-name prefix in the config counts only members whose CelesTrak name starts with it
+      (case-insensitive). Rows from CelesTrak's `tdrss` group (fetch run 45061938995): TDRS 3 keeps the TDRSS name;
+      HST, ISS (ZARYA) and NOAA 20 (JPSS-1), which CelesTrak lists as spacecraft using TDRSS, get none from it (the
+      ISS stays a station: ut__int__celestrak__space_station__station_groups_only). The ses membership of HST is made
+      up to show that a member the prefix drops can still take a later group. Groups without a prefix keep every member.
+    model: int__celestrak__satellite_constellation
+    given:
+      - input: ref('stg__celestrak__gp_group_member')
+        rows:
+          - {celestrak_group: tdrss, satcat_id: 19548, object_name: "TDRS 3"}
+          - {celestrak_group: tdrss, satcat_id: 20580, object_name: "HST"}
+          - {celestrak_group: tdrss, satcat_id: 25544, object_name: "ISS (ZARYA)"}
+          - {celestrak_group: tdrss, satcat_id: 43013, object_name: "NOAA 20 (JPSS-1)"}
+          - {celestrak_group: tdrss, satcat_id: 99999, object_name: null}
+          - {celestrak_group: stations, satcat_id: 25544, object_name: "ISS (ZARYA)"}
+          - {celestrak_group: ses, satcat_id: 20580, object_name: "HST"}
+          - {celestrak_group: glo-ops, satcat_id: 32275, object_name: "COSMOS 2433"}
+      - input: ref('stg__celestrak__gp_group_index')
+        rows:
+          - {celestrak_group: tdrss, celestrak_group_title: "Tracking and Data Relay Satellite System (TDRSS)"}
+          - {celestrak_group: glo-ops, celestrak_group_title: "GLONASS Operational"}
+          - {celestrak_group: ses, celestrak_group_title: "SES"}
+          - {celestrak_group: stations, celestrak_group_title: "Space Stations"}
+      - input: ref('stg__celestrak__group_config')
+        rows:
+          - {celestrak_group: glo-ops, celestrak_group_kind: constellation, celestrak_group_order: 10, celestrak_group_member_name_prefix: null}
+          - {celestrak_group: tdrss, celestrak_group_kind: constellation, celestrak_group_order: 13, celestrak_group_member_name_prefix: tdrs}
+          - {celestrak_group: ses, celestrak_group_kind: operator, celestrak_group_order: 18, celestrak_group_member_name_prefix: null}
+          - {celestrak_group: stations, celestrak_group_kind: station, celestrak_group_order: 21, celestrak_group_member_name_prefix: null}
+    expect:
+      rows:
+        - {satcat_id: 19548, constellation: "Tracking and Data Relay Satellite System (TDRSS)", celestrak_group: tdrss}
+        - {satcat_id: 20580, constellation: "SES", celestrak_group: ses}
+        - {satcat_id: 32275, constellation: "GLONASS", celestrak_group: glo-ops}

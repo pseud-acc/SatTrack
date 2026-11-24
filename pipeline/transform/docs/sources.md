@@ -32,5 +32,5 @@ Every group linked from CelesTrak's [GP index page](https://celestrak.org/NORAD/
 {% enddocs %}
 
 {% docs tbl__celestrak__group_config %}
-The pipeline's CelesTrak group list (`sattrack_ingest/config.py`, D-026): included constellation and operator groups in precedence order, and the excluded groups. Landed every run; not downloaded.
+The pipeline's CelesTrak group list (`sattrack_ingest/config.py`, D-026): included constellation and operator groups in precedence order, the space station group (D-043), the member-name prefix of any group that needs one (D-046), and the excluded groups. Landed every run; not downloaded.
 {% enddocs %}

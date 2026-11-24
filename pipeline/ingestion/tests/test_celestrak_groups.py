@@ -118,6 +118,16 @@ def test_config_lists_d026_groups_in_order_and_covers_the_whole_index():
     assert len(included) + len(config.CELESTRAK_EXCLUDED_GROUPS) == 47   # the 47 groups the index showed on 22 Nov
 
 
+def test_member_name_prefixes_are_landed_with_the_config():
+    # D-046: only tdrss has one, and only constellation or operator groups may have one
+    assert config.CELESTRAK_MEMBER_NAME_PREFIX == {"tdrss": "TDRS"}
+    kinds = dict(celestrak_groups.included_groups())
+    assert all(kinds.get(g) in ("constellation", "operator") for g in config.CELESTRAK_MEMBER_NAME_PREFIX)
+    records = celestrak_groups.config_records()
+    assert all("GROUP_MEMBER_NAME_PREFIX" in r for r in records)
+    assert {r["GROUP"]: r["GROUP_MEMBER_NAME_PREFIX"] for r in records if r["GROUP_MEMBER_NAME_PREFIX"]} == {"tdrss": "TDRS"}
+
+
 def test_new_group_on_the_index_is_reported():
     assert celestrak_groups.not_in_config(["starlink", "gnss", "new-mega-constellation"]) == ["new-mega-constellation"]
 
@@ -336,8 +346,39 @@ def test_models_on_the_real_index_page(env):
     build_models(con)
     got = constellations(con)
     assert (got[44714], got[26407], got[32275], got[44057]) == ("Starlink", "GPS", "GLONASS", "OneWeb")
+    # D-046: tdrss names its relay satellites only; HST and the ISS, listed in tdrss.csv too, get no constellation
+    assert got[19548] == "Tracking and Data Relay Satellite System (TDRSS)"     # TDRS 3
+    assert 20580 not in got and 25544 not in got                                # HST, ISS (ZARYA)
     test_sql = TRANSFORM / "tests" / "singular" / "assert__stg__celestrak__gp_group_index__groups_in_config.sql"
     assert con.execute(render(test_sql.read_text(encoding="utf-8"))).fetchall() == []   # config matches the page
+    assert con.execute(render(NAME_CHECK.read_text(encoding="utf-8"))).fetchall() == []  # every name fits its group
+
+
+NAME_CHECK = TRANSFORM / "tests" / "singular" / "assert__int__celestrak__satellite_constellation__names_fit_group.sql"
+
+
+def test_name_check_warns_on_a_member_whose_name_does_not_fit(env):
+    """D-046: a constellation member whose name lacks its group's usual leading word (or the group's prefix) is
+    reported; operator groups are not checked. HST in starlink and TDRS 3 in ses are made up for the test."""
+    con, _ = env
+    hst = sample("tdrss").splitlines()[2] + "\n"                    # HST,1990-037B,...,20580,...
+    ses_odd = sample("ses") + sample("tdrss").splitlines()[1] + "\n"   # TDRS 3 in an operator group: not checked
+    ingest(env, Fake(answers(SAMPLE_GROUPS + ["tdrss"], starlink=sample("starlink") + hst, ses=ses_odd)))
+    build_models(con)
+    text = NAME_CHECK.read_text(encoding="utf-8")
+    assert re.search(r"config\(severity='warn'\)", text)       # warns, never fails the build
+    rows = con.execute(render(text)).fetchall()
+    assert rows == [("name_lacks_expected_string", "starlink", 20580, "HST", "STARLINK")]
+
+
+def test_name_check_warns_when_a_prefix_matches_no_member(env):
+    con, _ = env
+    renamed = sample("tdrss").replace("TDRS ", "RELAY ")         # made up: CelesTrak renames the relay satellites
+    ingest(env, Fake(answers(SAMPLE_GROUPS + ["tdrss"], tdrss=renamed)))
+    build_models(con)
+    rows = con.execute(render(NAME_CHECK.read_text(encoding="utf-8"))).fetchall()
+    assert rows == [("prefix_matches_no_member", "tdrss", None, None, "TDRS")]
+    assert not [g for g in constellations(con).values() if "TDRSS" in g]
 
 
 def test_new_group_check_warns_on_unknown_and_vanished_groups(env):

@@ -55,4 +55,4 @@ sources:
               name: schema_columns__src__celestrak__group_config
               config: {severity: warn}
               arguments:
-                column_list: [GROUP, GROUP_KIND, GROUP_ORDER]
+                column_list: [GROUP, GROUP_KIND, GROUP_ORDER, GROUP_MEMBER_NAME_PREFIX]
