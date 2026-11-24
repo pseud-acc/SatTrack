@@ -59,13 +59,13 @@ Where SatTrack is today in each area, what it should do, and the work to get the
 | 0 | Housekeeping & guardrails | 12 (0.2 done; incl. 0.5, 0.6) | 2–3 |
 | 1 | OMM propagation | 8 | 2 |
 | 2 | Client data contract + filter spec | 11.5 (incl. 2.4) | 2–3 |
-| 3 | Cesium migration | 56.5 (core 40.5 incl. 3.7, extensions 16; +15% buffer → ~65) | 11–13 |
+| 3 | Cesium migration | 70.5 (core 54.5 incl. 3.7, 3.12, 3.13; extensions 16; +15% buffer → ~81) | 14–16 |
 | 4 | Freshness & SupGP | 12 | 3 |
 | 5 | Detail enrichment | 12 (incl. 5.4) | 2–3 |
 | 6 | Natural-language query | 20 (+25% buffer → 25) | 4–5 |
 | 7 | Backlog (pick as wanted) | — | — |
 
-Roughly **27 weeks (~142 h, ~6.5 months)** to the end of Phase 6 with the buffers, the tasks added by the review and the Phase 3 scope set after the Cesium spike (D-028; 93 h as originally written). Phases 4 and 5 are independent of 3 and can be swapped in if Cesium work stalls.
+Roughly **30 weeks (~158 h, ~7 months)** to the end of Phase 6 with the buffers, the tasks added by the review, the Phase 3 scope set after the Cesium spike (D-028; 93 h as originally written) and the design and "Colour by" tasks added on 24 Nov 2026 (3.12, 3.13, 3.3 +2 h: +16 h with the buffer, from ~142 h; D-044, D-045). Phases 4 and 5 are independent of 3 and can be swapped in if Cesium work stalls.
 
 ---
 
@@ -136,7 +136,7 @@ Roughly **27 weeks (~142 h, ~6.5 months)** to the end of Phase 6 with the buffer
 
 ---
 
-## Phase 3 — Cesium migration (~56.5 h: core ~40.5 h + extensions ~16 h; plan for ~65 h)
+## Phase 3 — Cesium migration (~70.5 h: core ~54.5 h + extensions ~16 h; plan for ~81 h)
 
 **Goal:** replace Plotly 3D/2D with a CesiumJS viewer, propagating in the browser.
 
@@ -146,23 +146,30 @@ Roughly **27 weeks (~142 h, ~6.5 months)** to the end of Phase 6 with the buffer
 - **Self-host** CesiumJS and satellite.js: `vendor/cesium.lock` pins versions and npm tarball hashes; the Heroku and CI builds download, verify and extract the files used (~10.2 MB) into a versioned `static/vendor/` path. No CDN at runtime, **no Cesium ion account or token**. CSP `'self'` plus `worker-src 'self'` (D-014).
 - Propagate with **satellite.js** from the OMM fields of `/data/objects.json`, in a **Web Worker** on an adaptive time grid (0.25–10 s of simulation time); the main thread interpolates between samples (D-015). JavaScript engine now, WASM when shadow dimming lands (D-029). Render with one `PointPrimitiveCollection`.
 - One viewer for 3D, 2D and Columbus: it replaces both Plotly tabs (D-021). Natural Earth II imagery, self-hosted (D-022, provisional).
-- **Colour by object type** by default, with a "Colour by" menu (orbit class, status, owner, constellation) and a legend (D-017). Payloads by default; rocket bodies and debris one switch away ("space junk mode") (D-016).
+- **Colour by object type** by default, with a "Colour by" menu (orbit class, status, owner, constellation) and a legend (D-017; the menu is its own task, 3.13, D-045). Payloads by default; rocket bodies and debris one switch away ("space junk mode") (D-016).
 - Performance budget (D-027): laptop 60 fps, main thread ≤ 5 ms a frame, first positions ≤ 1.5 s, heap ≤ 80 MB; at 4× CPU with payloads ≥ 24 fps; at 6× with all objects ≥ 20 fps; phones capped at 30 fps. CI checks main-thread time, load time and heap; frame rates are a release check on the reference laptop.
+- **Design (D-044):** deep navy chrome with one teal accent (`#2bb3a3`) kept clear of the data colours, 6 px corners, hairline borders, no card shadows; plain Bootstrap 5 plus SatTrack's own `tokens.css` (colours, type scale, spacing, radius) shared by the Dash shell and the viewer; filters in a left panel, collapsible to a thin strip (phones keep the bottom sheet, D-025). Any satellite search offers a browsable list as well as typing.
 - Credits in the viewer: USSPACECOM via Space-Track.org with the conjunction caution, GCAT (CC-BY), CelesTrak groups (D-026), CesiumJS, satellite.js, Natural Earth.
 
 3.1 `docs/cesium-spike` — **Done** (22–23 Nov 2026). Spike page and measurements in `docs/cesium-spike/` and `docs/cesium-architecture.md`: parity with Python sgp4 within 9.5 m; the worker gives 20–32 fps at 4–6× CPU against 2–11 fps on the main thread; a real phone ran 59–60 fps with every object. Decisions D-013 to D-029.
 
-**Core (~40.5 h)**
+**Core (~54.5 h, counting 3.12 at 9 h)**
 
-3.2 `feature/cesium-viewer` — Viewer behind a feature flag (env var): vendoring script and lock file with CI checks (hash mismatch, off-site requests, CSP violations), the worker with the adaptive step and `compute(dates)` engine interface, points coloured by type with the legend, type toggles and space junk mode, CSP (report-only first) and HSTS, credits, clock offset from the server's `Date` header. CI parity test against Python sgp4 (50 m tolerance, same failures on both sides). Budget checks in Playwright. (~12 h)
+**Order:** 3.2 → 3.12 → 3.3 → 3.13 → 3.4 → 3.5 → 3.6; 3.7 at any point before Phase 3 is done. 3.12 and 3.13 were added on 24 Nov 2026 (D-044, D-045) and numbered after 3.11 so that existing task references don't change.
 
-3.3 `feature/cesium-filters` — Sidebar filter spec (2.2) → `dcc.Store` → clientside callback that shows/hides points without reloading data; the browser implementation runs the shared conformance cases (`tests/contracts/filter_spec_cases.json`). (~4 h)
+3.2 `feature/cesium-viewer` — **Done** in PR #70 (flag off in production; the globe goes on with 3.3). Viewer behind a feature flag (env var): vendoring script and lock file with CI checks (hash mismatch, off-site requests, CSP violations), the worker with the adaptive step and `compute(dates)` engine interface, points coloured by type with the legend, type toggles and space junk mode, CSP (report-only first) and HSTS, credits, clock offset from the server's `Date` header. CI parity test against Python sgp4 (50 m tolerance, same failures on both sides). Budget checks in Playwright. (~12 h)
+
+3.12 `feature/design-tokens-shell` — The design direction (D-044), before 3.3: remove `assets/bootstrap.css` and `assets/bootstrap.min.css` (an old Bootstrap 4.5 Cyborg build that Dash loads on every page) and `dbc.themes.CYBORG` (Bootstrap 5.3 from the jsDelivr CDN); plain Bootstrap 5 plus `tokens.css` (colours, type scale, spacing, radius) shared by the Dash shell and the viewer; deep navy chrome with the one teal accent `#2bb3a3`; Bootstrap 5.3's CSS and the Source Sans 3 font committed under `assets/`, each pinned by a SHA-256 unit test; inline SVG icons instead of Font Awesome's CDN (shortens the CSP, D-041); 15 px app text, 16 px reading text; no inline font sizes or colours in Python layouts. Also the globe size: a compact top bar, the globe filling the rest of the window (instead of Plotly's `calc(70vh - 100px)`) and a full-screen button. (~8–10 h)
+
+3.3 `feature/cesium-filters` — Sidebar filter spec (2.2) → `dcc.Store` → clientside callback that shows/hides points without reloading data; the browser implementation runs the shared conformance cases (`tests/contracts/filter_spec_cases.json`). Built as the left filter panel in 3.12's look (D-044), collapsible to a thin strip: a live match count ("19,742 of 32,652 objects"); changes apply at once (no Update button); object-type toggles with colour swatches and counts; segmented controls for status and orbit; "More filters" as rows showing their current value; active-filter chips with "Clear all"; no "Clear Orbits" (the orbit path is a selection toggle, D-019). (~6 h)
+
+3.13 `feature/cesium-colour-by` — The "Colour by" menu and legend (D-017), straight after 3.3 (D-045): object type (default), orbit class, status and owner. (~3 h)
 
 3.4 `feature/cesium-selection` — Three tiers (D-018): throttled hover label, click panel (altitude, speed, period, element age at the displayed time, launch; fed by on-demand detail data), "More" → the list view. Single selection with toggles for orbit path (one period, past faded), follow camera and ground track (D-019). Labels on the selection and the ~20 nearest when zoomed in (D-023). Every data string through `textContent`. (~9 h)
 
 3.5 `feature/cesium-modes-time-mobile` — 3D / 2D / Columbus switch with ground tracks split at ±180°; camera presets (Earth, LEO close-up, GEO belt); own time scrubber ±1 day with Now, play/pause and 1×–1000× (D-020); shareable links in the URL hash with allowlist parsing (D-024); the phone bottom sheet (D-025) with Playwright tests at phone sizes. (~11 h)
 
-3.6 `refactor/remove-plotly-viz` — Once at parity, remove Plotly 3D/2D callbacks, `dcc.Interval` position refresh and server-side propagation from the request path (keep `compute_satloc` only if still used, e.g. the list view). Flip the feature flag default, then remove it. This retires the 3D payload stopgap (PR #37). (~3 h)
+3.6 `refactor/remove-plotly-viz` — Once at parity, remove Plotly 3D/2D callbacks, `dcc.Interval` position refresh and server-side propagation from the request path (keep `compute_satloc` only if still used, e.g. the list view). Flip the feature flag default, then remove it. Switch the Content-Security-Policy from report-only to enforced and drop the Plotly `blob:` worker exception and the USGS tile host (D-041). This retires the 3D payload stopgap (PR #37). (~3 h)
 
 3.7 `chore/licence-agpl` — Open-source licence and contributor agreement (~1.5 h). Must be merged before Phase 3 is done; it does not depend on the other Phase 3 tasks. The repo has no licence today, so it is legally "all rights reserved".
 - Owner decides first: AGPL-3.0-only or -or-later (recommended: -only); how contributors sign the agreement (recommended: the CLA GitHub Action, with signatures stored on a branch in the repo, no extra account); and the agreement text (recommended: based on the Apache individual contributor agreement plus an explicit relicensing clause, checked by a lawyer before any revenue use).
@@ -176,15 +183,15 @@ Roughly **27 weeks (~142 h, ~6.5 months)** to the end of Phase 6 with the buffer
 
 **Extensions (~16 h, D-028)**
 
-3.8 `feature/constellation-field` — Pipeline task, parallel to 3.2: download CelesTrak's constellation and operator groups under D-008 and the usage policy (CSV, compressed, once per update, stop on any non-200), keep the last good copy on failure, add a documented `constellation` field to `objects`; a test warns when CelesTrak's index shows a new group (D-026). Also CelesTrak's space station group as `flag_space_station` (D-043). (~4 h)
+3.8 `feature/constellation-field` — **Done** in PR #69 (24 Nov 2026), with the space station flag (D-043) and decisions D-039, D-040. Pipeline task, parallel to 3.2: download CelesTrak's constellation and operator groups under D-008 and the usage policy (CSV, compressed, once per update, stop on any non-200), keep the last good copy on failure, add a documented `constellation` field to `objects`; a test warns when CelesTrak's index shows a new group (D-026). Also CelesTrak's space station group as `flag_space_station` (D-043). (~4 h)
 
-3.9 `feature/cesium-search-image` — Search by name or SATCAT number with fly-to; "Save image" (PNG) from the canvas with the credits drawn in. (~4 h)
+3.9 `feature/cesium-search-image` — Search by name or SATCAT number with fly-to; "Save image" (PNG) from the canvas with the credits drawn in. Search must offer a browsable list (e.g. newest launches, stations first via `flag_space_station`, D-043) as well as type-to-search (D-044): users include children and casual visitors. Dash 4's `dcc.Dropdown` indexes every option in the browser (2.2 s for ~32k options, measured 24 Nov 2026), so the list is built in the worker, not as Dropdown options. (~4 h)
 
-3.10 `feature/cesium-constellations` — "Colour by constellation" in the menu and legend, from 3.8's field, with the CelesTrak credit. (~2 h)
+3.10 `feature/cesium-constellations` — Adds "constellation" to 3.13's "Colour by" menu and legend, from 3.8's field, with the CelesTrak credit. (~2 h)
 
 3.11 `feature/cesium-daylight` — Day/night terminator and satellites dimmed in Earth's shadow; switches the worker to satellite.js's WASM `BulkPropagator` (zero-vector guard, parity-test row, `'wasm-unsafe-eval'` in the CSP) (D-029). (~6 h)
 
-**Done when:** Cesium is the only viewer; filters, selection, orbit paths, 2D/3D, time controls and the phone layout all work; the D-027 budget passes (CI checks plus the release check on the reference laptop); the Heroku slug grows by no more than 15 MB; the four extensions (3.8–3.11) are merged; the repo is licensed AGPL-3.0 with a contributor agreement in force (3.7).
+**Done when:** Cesium is the only viewer, in the 3.12 design; filters (with the live match count), the "Colour by" menu (3.13), selection, orbit paths, 2D/3D, time controls and the phone layout all work; the D-027 budget passes (CI checks plus the release check on the reference laptop); the Heroku slug grows by no more than 15 MB; the four extensions (3.8–3.11) are merged; the repo is licensed AGPL-3.0 with a contributor agreement in force (3.7).
 
 ---
 
