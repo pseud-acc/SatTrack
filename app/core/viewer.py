@@ -173,14 +173,16 @@ def inline_script_hashes(app):
 
 
 def content_security_policy(app):
-    """The report-only policy: same origin for everything the viewer uses ('self', worker-src 'self'; no
-    'wasm-unsafe-eval' while the worker runs the JavaScript engine, D-029), plus the page shell's existing third
-    parties (SHELL_THIRD_PARTIES). Styles allow 'unsafe-inline' because Dash components and Plotly write style
+    """The report-only policy (D-041): same origin for everything the viewer uses ('self', worker-src 'self'), plus
+    'wasm-unsafe-eval' for the small WebAssembly modules Cesium compiles at load (and satellite.js's WASM engine in
+    roadmap 3.11), and no 'unsafe-eval' (vendor/cesium.lock patches Cesium's one eval). Plus the page shell's existing
+    third parties (SHELL_THIRD_PARTIES). Enforced at roadmap 3.6, once Plotly's blob: workers are gone. Styles allow 'unsafe-inline' because Dash components and Plotly write style
     attributes and <style> elements."""
     third = SHELL_THIRD_PARTIES
     directives = {
         "default-src": ["'self'"],
-        "script-src": ["'self'", "'report-sample'"] + inline_script_hashes(app) + third["script-src"],
+        "script-src": ["'self'", "'wasm-unsafe-eval'", "'report-sample'"] + inline_script_hashes(app)
+        + third["script-src"],
         "style-src": ["'self'", "'unsafe-inline'"] + third["style-src"],
         "img-src": ["'self'", "data:", "blob:"] + third["img-src"],
         "font-src": ["'self'", "data:"] + third["font-src"],

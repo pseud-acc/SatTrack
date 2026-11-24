@@ -64,9 +64,10 @@ def viewer_url(tmp_path_factory, vendor_dir):
 
 
 @pytest.fixture(scope="session")
-def budget_url(tmp_path_factory, vendor_dir):
-    """The viewer app serving a full-size synthetic catalogue (tests/e2e/test_viewer.py synthetic_catalogue), for
-    the D-027 budget checks: the sample's files with objects.json.br/.gz replaced, served by the app as usual."""
+def budget_data(tmp_path_factory):
+    """A copy of the sample's files with objects.json.br/.gz replaced by a full-size synthetic catalogue
+    (tests/e2e/test_viewer.py synthetic_catalogue). The same folder serves this branch and the baseline, so the
+    start-up comparison measures the code, not the data."""
     import brotli
     import gzip
     import shutil
@@ -79,19 +80,48 @@ def budget_url(tmp_path_factory, vendor_dir):
     body = synthetic_catalogue()
     (data_dir / "objects.json.br").write_bytes(brotli.compress(body, quality=5))
     (data_dir / "objects.json.gz").write_bytes(gzip.compress(body, 6))
+    return data_dir
+
+
+@pytest.fixture(scope="session")
+def budget_url(tmp_path_factory, vendor_dir, budget_data):
+    """The viewer app serving the full-size catalogue, for the D-027 budget and the D-042 start-up checks."""
     env = dict(os.environ, SATTRACK_CESIUM_VIEWER="1", SATTRACK_VENDOR_DIR=str(vendor_dir),
-               SATTRACK_E2E_DATA_DIR=str(data_dir))
+               SATTRACK_E2E_DATA_DIR=str(budget_data))
     yield from _serve(tmp_path_factory, env)
 
 
-def _serve(tmp_path_factory, env):
-    """The app on a free local port (tests/e2e/serve.py). Its log goes to a file, not a pipe: an unread pipe
-    fills up and blocks the server."""
+@pytest.fixture(scope="session")
+def baseline_url(tmp_path_factory, budget_data):
+    """The baseline for the start-up comparison (D-042): the target branch, checked out by CI into
+    SATTRACK_BASELINE_DIR, serving the same full-size catalogue with its own pinned vendor files. None when the
+    variable isn't set or the baseline has no viewer yet (e.g. main before roadmap 3.2)."""
+    root = os.environ.get("SATTRACK_BASELINE_DIR")
+    if not root:
+        yield None
+        return
+    root = Path(root).resolve()
+    if not ((root / "vendor" / "fetch.py").is_file() and (root / "tests" / "e2e" / "serve.py").is_file()):
+        yield None
+        return
+    out = tmp_path_factory.mktemp("baseline-vendor")
+    cmd = [sys.executable, str(root / "vendor" / "fetch.py"), "--out", str(out)]
+    if os.environ.get("SATTRACK_VENDOR_CACHE"):
+        cmd += ["--cache", os.environ["SATTRACK_VENDOR_CACHE"]]
+    subprocess.run(cmd, check=True, cwd=root, timeout=600)
+    env = dict(os.environ, SATTRACK_CESIUM_VIEWER="1", SATTRACK_VENDOR_DIR=str(out),
+               SATTRACK_E2E_DATA_DIR=str(budget_data))
+    yield from _serve(tmp_path_factory, env, root=root)
+
+
+def _serve(tmp_path_factory, env, root=REPO_ROOT):
+    """The app on a free local port (tests/e2e/serve.py of `root`: this checkout, or the baseline's). Its log goes
+    to a file, not a pipe: an unread pipe fills up and blocks the server."""
     port = _free_port()
     log_path = tmp_path_factory.mktemp("e2e") / "app.log"
     with open(log_path, "w", encoding="utf-8") as log:
-        proc = subprocess.Popen([sys.executable, str(REPO_ROOT / "tests" / "e2e" / "serve.py"), str(port)],
-                                cwd=REPO_ROOT, stdout=log, stderr=subprocess.STDOUT, env=env)
+        proc = subprocess.Popen([sys.executable, str(root / "tests" / "e2e" / "serve.py"), str(port)],
+                                cwd=root, stdout=log, stderr=subprocess.STDOUT, env=env)
         url = f"{LOCAL}:{port}"
         deadline = time.time() + 120
         while True:

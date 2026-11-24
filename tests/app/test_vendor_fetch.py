@@ -37,7 +37,7 @@ FILES = {"LICENSE.md": b"licence " * 100, "Build/Cesium/index.js": b"export cons
          "Build/Cesium/Assets/Textures/NaturalEarthII/0/0/0.jpg": b"\xff\xd8 jpeg"}
 
 
-def write_lock(tmp_path, data, url="https://registry.npmjs.org/cesium/-/cesium-1.0.0.tgz", files=None):
+def write_lock(tmp_path, data, url="https://registry.npmjs.org/cesium/-/cesium-1.0.0.tgz", files=None, patch=""):
     files = files or ['"LICENSE.md"', '"Build/Cesium/index.js"', '"Build/Cesium/Workers/*"',
                       '"Build/Cesium/Assets/Textures/NaturalEarthII/**"']
     lock = tmp_path / "cesium.lock"
@@ -50,8 +50,16 @@ integrity = "{integrity(data)}"
 dest = "cesium-1.0.0"
 strip = "Build/Cesium/"
 files = [{", ".join(files)}]
-''', encoding="utf-8")
+{patch}''', encoding="utf-8")
     return lock
+
+
+PATCH = '''
+[[package.patch]]
+file = "index.js"
+find = '(0,eval)("this")'
+replace = "globalThis"
+'''
 
 
 def test_builds_the_listed_files_with_a_verified_manifest(tmp_path):
@@ -159,3 +167,42 @@ def test_manifest_json_is_sorted_and_stable(tmp_path):
     fetch.build(lock, out, None, fetch=lambda url: data)
     doc = json.loads((out / "manifest.json").read_text())
     assert doc["schema"] == 1 and doc["packages"][0]["integrity"] == integrity(data)
+
+
+# ---- patches (D-041 option B) -------------------------------------------------------------------------------------
+
+def test_a_patch_is_applied_once_and_recorded(tmp_path):
+    files = {**FILES, "Build/Cesium/index.js": b'var g=(0,eval)("this");export const a = 1;\n' * 1}
+    data = tarball(files)
+    lock, out = write_lock(tmp_path, data, patch=PATCH), tmp_path / "out"
+    manifest = fetch.build(lock, out, None, fetch=lambda url: data)
+    body = (out / "cesium-1.0.0" / "index.js").read_bytes()
+    assert body == b"var g=globalThis;export const a = 1;\n"
+    (patch,) = manifest["packages"][0]["patches"]
+    assert patch["file"] == "cesium-1.0.0/index.js" and patch["replace"] == "globalThis"
+    assert patch["sha256_after"] == hashlib.sha256(body).hexdigest() == manifest["files"]["cesium-1.0.0/index.js"]["sha256"]
+    assert patch["sha256_before"] == hashlib.sha256(files["Build/Cesium/index.js"]).hexdigest()
+    assert fetch.verify(out, fetch.read_lock(lock)[1]) is None
+
+
+@pytest.mark.parametrize("index_js", [b"export const a = 1;", b'(0,eval)("this");(0,eval)("this");'])
+def test_a_patch_that_does_not_match_exactly_once_fails_the_build(tmp_path, index_js):
+    data = tarball({**FILES, "Build/Cesium/index.js": index_js})
+    lock, out = write_lock(tmp_path, data, patch=PATCH), tmp_path / "out"
+    with pytest.raises(fetch.VendorError, match="exactly once"):
+        fetch.build(lock, out, None, fetch=lambda url: data)
+    assert not out.exists() and not (tmp_path / "out.tmp").exists()
+
+
+def test_a_patch_needs_file_find_and_replace(tmp_path):
+    data = tarball(FILES)
+    lock = write_lock(tmp_path, data, patch='\n[[package.patch]]\nfile = "index.js"\nfind = "x"\n')
+    with pytest.raises(fetch.VendorError, match="file, find and replace"):
+        fetch.read_lock(lock)
+
+
+def test_committed_lock_patches_cesiums_one_eval():
+    lock, _ = fetch.read_lock()
+    pkgs = {p["name"]: p for p in lock["package"]}
+    assert pkgs["cesium"]["patch"] == [{"file": "index.js", "find": '(0,eval)("this")', "replace": "globalThis"}]
+    assert "patch" not in pkgs["satellite.js"]

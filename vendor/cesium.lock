@@ -12,6 +12,11 @@
 #
 # `files` are glob patterns on paths inside the tarball's package/ folder: `*` stays within one folder, `**` crosses
 # folders. `strip` is removed from the front of matching paths (so Build/Cesium/Cesium.js lands at <dest>/Cesium.js).
+#
+# `[[package.patch]]` (decision D-041, option B): an exact text replacement in one extracted file, applied after the
+# hash check. `find` must occur exactly once or the build fails, so an upgrade that moves or removes the code stops
+# the build instead of shipping an unpatched file. The manifest records each patch and the patched file's hash.
+# Patched files are modifications under the package's licence (Apache-2.0 for Cesium): the notices say so (3.7).
 
 schema = 1
 
@@ -36,6 +41,14 @@ files = [
                                                            # display, which SatTrack's own credits replace (never shown)
     "Build/Cesium/Widgets/CesiumWidget/CesiumWidget.css",  # the canvas container's styles (no other widgets used)
 ]
+
+[[package.patch]]
+# Knockout (bundled in index.js) finds the global object with an indirect eval, which a CSP without 'unsafe-eval'
+# blocks, and Cesium then fails to load. globalThis is the same object in every browser Cesium supports. With this
+# patch the policy needs only 'wasm-unsafe-eval' (for the meshoptimizer modules Cesium compiles at load). D-041.
+file = "index.js"
+find = '(0,eval)("this")'
+replace = "globalThis"
 
 [[package]]
 name = "satellite.js"

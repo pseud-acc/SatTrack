@@ -49,9 +49,9 @@ Read the records a feature touches before scoping it.
 | [D-034](#d-034-one-set-of-conformance-cases-for-every-filter-spec-implementation) | One set of conformance cases for every filter spec implementation | Accepted | 2026-11-22 | [record](decisions/D-034-filter-spec-shared-conformance-cases.md) |
 | [D-035](#d-035-the-servers-sidebar-filters-the-objects-dataset-no-fallback) | The server's sidebar filters the objects dataset; no fallback | Accepted | 2026-11-22 | [record](decisions/D-035-sidebar-filters-the-objects-dataset.md) |
 | [D-037](#d-037-pipeline-warnings-email-a-summary-without-failing-the-run) | Pipeline warnings email a summary without failing the run | Accepted | 2026-11-23 | [record](decisions/D-037-pipeline-warnings-email-without-failing.md) |
-| [D-038](#d-038-fetch-the-self-hosted-viewer-files-in-the-buildpacks-binpost_compile-hook) | Fetch the self-hosted viewer files in the buildpack's `bin/post_compile` hook | Proposed | 2026-11-23 | [record](decisions/D-038-vendor-fetch-in-post-compile-hook.md) |
-| [D-041](#d-041-security-headers-ship-with-the-viewer-flag-cesium-needs-a-decision-before-the-csp-is-enforced) | Security headers ship with the viewer flag; Cesium needs a decision before the CSP is enforced | Proposed | 2026-11-23 | [record](decisions/D-041-security-headers-report-only.md) |
-| [D-042](#d-042-ci-checks-first-positions-against-twice-the-laptop-budget) | CI checks first positions against twice the laptop budget | Proposed | 2026-11-23 | [record](decisions/D-042-ci-first-positions-threshold.md) |
+| [D-038](#d-038-fetch-the-self-hosted-viewer-files-in-the-buildpacks-binpost_compile-hook) | Fetch the self-hosted viewer files in the buildpack's `bin/post_compile` hook | Accepted | 2026-11-24 | [record](decisions/D-038-vendor-fetch-in-post-compile-hook.md) |
+| [D-041](#d-041-security-headers-ship-with-the-viewer-flag-cesium-needs-a-decision-before-the-csp-is-enforced) | Security headers ship with the viewer flag; Cesium needs a decision before the CSP is enforced | Accepted | 2026-11-24 | [record](decisions/D-041-security-headers-report-only.md) |
+| [D-042](#d-042-ci-checks-the-viewers-start-up-with-fixed-budgets-and-a-same-runner-comparison-against-the-target-branch) | CI checks the viewer's start-up with fixed budgets and a same-runner comparison against the target branch | Accepted | 2026-11-24 | [record](decisions/D-042-ci-first-positions-threshold.md) |
 
 ---
 
@@ -578,7 +578,7 @@ the warnings change (the owner chose every run).
 **Consequences.** A permanent warning emails every run, so it gets fixed or its severity changed by decision (#65).
 
 ## D-038 Fetch the self-hosted viewer files in the buildpack's `bin/post_compile` hook
-**Status:** Proposed (owner to confirm), 2026-11-23. **Component:** the Heroku build and CI's Heroku-identical build.
+**Status:** Accepted, 2026-11-24 (owner, after comparing the process flows of each option). **Component:** the Heroku build and CI's Heroku-identical build.
 
 **Context.** D-014 has the builds download, verify and extract Cesium and satellite.js but not how a build runs the
 script. The pinned classic `heroku/python` buildpack (v362) runs an app's `bin/post_compile` after installing the
@@ -598,7 +598,8 @@ dependency); release phase (files don't reach the slug); committing the files (D
 a build and the live release stays.
 
 ## D-041 Security headers ship with the viewer flag; Cesium needs a decision before the CSP is enforced
-**Status:** Proposed (owner to confirm), 2026-11-23. **Component:** response headers (`app/core/viewer.py`).
+**Status:** Accepted, 2026-11-24 (owner; B chosen after a prototype). **Component:** response headers
+(`app/core/viewer.py`) and `vendor/cesium.lock`.
 
 **Context.** 3.2 asks for a report-only CSP (`'self'`, `worker-src 'self'`, no `'wasm-unsafe-eval'`) and HSTS. The
 page shell already loads Google Analytics, the Bootswatch theme, Font Awesome, Google Fonts and (2D tab) USGS tiles.
@@ -606,28 +607,37 @@ Measured: Cesium 1.147.0 compiles five WebAssembly modules and runs `(0,eval)("t
 policy without `'unsafe-eval'` Cesium doesn't load.
 
 **Decision.** With `SATTRACK_CESIUM_VIEWER` on only: `Content-Security-Policy-Report-Only` (same origin, inline scripts
-by hash, the shell's existing third parties listed) and `Strict-Transport-Security: max-age=86400` (no subdomains, no
-preload). Before enforcing, the owner chooses: patch Cesium's eval to `globalThis` at vendoring and add
-`'wasm-unsafe-eval'` (recommended), or allow `'unsafe-eval'` and `'wasm-unsafe-eval'`.
+by hash, the shell's existing third parties listed, `'wasm-unsafe-eval'`, never `'unsafe-eval'`) and
+`Strict-Transport-Security: max-age=86400` (no subdomains, no preload). Cesium's one `(0,eval)("this")` is patched to
+`globalThis` at vendoring (a `[[package.patch]]` in the lock; the build fails unless it matches exactly once). The
+policy is enforced at roadmap 3.6, when Plotly's `blob:` workers go.
 
 **Why.** Production unchanged until the flag flips; report-only can't break a page; a one-day HSTS is reversible.
 
-**Rejected.** Headers on every page now (changes production in a flag-off release); enforcing now (Cesium fails).
+**Rejected.** Headers on every page now (changes production in a flag-off release); allowing `'unsafe-eval'`
+(weaker for every script; the patch works: prototype 24 Nov); enforcing before 3.6 (breaks the Plotly 2D map).
 
-**Consequences.** Browser tests fail on any CSP violation except Cesium's six known reports and the Plotly map's
-`blob:` workers (removed in 3.6).
+**Consequences.** Browser tests fail on any CSP violation except the Plotly map's `blob:` workers (removed in 3.6).
+Each Cesium upgrade re-checks the patch; 3.7 lists the patched file in the notices.
 
-## D-042 CI checks first positions against twice the laptop budget
-**Status:** Proposed (owner to confirm), 2026-11-23. **Component:** `tests/e2e/test_viewer.py`.
+## D-042 CI checks the viewer's start-up with fixed budgets and a same-runner comparison against the target branch
+**Status:** Accepted, 2026-11-24 (owner). **Component:** `tests/e2e/test_viewer.py`, `.github/workflows/app-e2e.yml`.
 
-**Context.** D-027: first positions ≤ 1.5 s on the reference laptop, checked in CI. GitHub's runners render the globe
-in software on the CPUs the worker needs: CI measured 1.40–1.98 s where the laptop measured 0.84–1.48 s.
+**Context.** D-027: first positions <= 1.5 s on the reference laptop, checked in CI. GitHub's runners render the globe in
+software on the CPUs the worker needs (CI 1.40-1.98 s, laptop 0.84-1.48 s), so raw time on a runner is a weak signal;
+a fixed 3.0 s limit would let start-up degrade by up to 50% unseen.
 
-**Decision.** CI fails above 3.0 s (median of 3 first visits, full-size catalogue); 1.5 s stays the release check on the
-laptop. Main thread and heap stay at the D-027 budget in CI. Every figure is logged.
+**Decision.** Fixed budgets that don't depend on runner speed (bytes before first positions <= 5 MB, only the shown
+types' records built first, heap <= 80 MB, main thread <= 5 ms a frame, first positions <= 3.0 s as a backstop), plus,
+on pull requests, three cold visits each to this branch and the target branch (checked out by CI), interleaved on the
+same runner and compared phase by phase: a phase fails when over 20% and over 150 ms slower. Both tables go to the
+job summary. 1.5 s stays the laptop release check.
 
-**Why.** Catches a real regression without failing on runner speed.
+**Why.** Runner speed cancels out in the comparison, the fixed budgets catch extra work and downloads directly, and a
+failure names the phase.
 
-**Rejected.** 1.5 s in CI (failed 2 of 2 runs); deferring rendering to suit the test; two workers (out of scope).
+**Rejected.** 3.0 s alone (drift unseen); 1.5 s in CI (flaky); warn only (ignorable); a calibration benchmark
+(approximate); two workers (optimises for CI).
 
-**Consequences.** Between 1.5 and 3 s, only the release check and the logged figure show a regression.
+**Consequences.** ~2 minutes more CI on pull requests. #70 has no baseline (main has no viewer). Issue #72: anchored
+baseline for gradual drift, data-growth checks, #70's laptop figures as the first anchor.

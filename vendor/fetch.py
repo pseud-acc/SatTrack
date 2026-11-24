@@ -57,6 +57,9 @@ def read_lock(path=LOCK):
                 raise VendorError(f"{path}: package {pkg.get('name')!r} has no {key}")
         if not re.fullmatch(r"[A-Za-z0-9._-]+", pkg["dest"]) or pkg["version"] not in pkg["dest"]:
             raise VendorError(f"{path}: dest {pkg['dest']!r} must be one folder name that includes the version")
+        for patch in pkg.get("patch", []):
+            if set(patch) != {"file", "find", "replace"} or not patch["file"] or not patch["find"]:
+                raise VendorError(f"{path}: package {pkg['name']!r}: a patch needs exactly file, find and replace")
     return lock, sha256(raw)
 
 
@@ -150,6 +153,25 @@ def extract(pkg, data):
     return files
 
 
+def apply_patches(pkg, files):
+    """Apply the lock's patches for this package (D-041) to the extracted {path: bytes}; each `find` must occur
+    exactly once in its file. Returns what the manifest records about them."""
+    applied = []
+    for patch in pkg.get("patch", []):
+        rel = f"{pkg['dest']}/{safe_relative(patch['file'])}"
+        if rel not in files:
+            raise VendorError(f"{pkg['name']}: patch target {patch['file']} is not among the extracted files")
+        body, find = files[rel], patch["find"].encode("utf-8")
+        found = body.count(find)
+        if found != 1:
+            raise VendorError(f"{pkg['name']} {pkg['version']}: patch for {patch['file']} expects {patch['find']!r} "
+                              f"exactly once, found it {found} times: review the patch for this version")
+        files[rel] = body.replace(find, patch["replace"].encode("utf-8"))
+        applied.append({"file": rel, "find": patch["find"], "replace": patch["replace"],
+                        "sha256_before": sha256(body), "sha256_after": sha256(files[rel])})
+    return applied
+
+
 def variants(rel, body):
     """Pre-compressed copies worth keeping: {'br': bytes, 'gzip': bytes} for text files that shrink."""
     if Path(rel).suffix not in COMPRESS:
@@ -209,8 +231,9 @@ def build(lock_path=LOCK, out_dir=OUT, cache_dir=None, fetch=download):
     try:
         for pkg in lock["package"]:
             files = extract(pkg, get_tarball(pkg, cache_dir, fetch))
-            manifest["packages"].append({k: pkg[k] for k in ("name", "version", "integrity", "licence", "dest")
-                                         if k in pkg})
+            patches = apply_patches(pkg, files)
+            manifest["packages"].append({**{k: pkg[k] for k in ("name", "version", "integrity", "licence", "dest")
+                                            if k in pkg}, **({"patches": patches} if patches else {})})
             for rel, body in sorted(files.items()):
                 path = tmp / rel
                 path.parent.mkdir(parents=True, exist_ok=True)
@@ -221,7 +244,8 @@ def build(lock_path=LOCK, out_dir=OUT, cache_dir=None, fetch=download):
                     entry["encodings"][enc] = {"sha256": sha256(comp), "bytes": len(comp)}
                 manifest["files"][rel] = entry
             print(f"  {pkg['name']} {pkg['version']}: {len(files)} files, "
-                  f"{sum(len(b) for b in files.values()) / 1e6:.2f} MB -> {pkg['dest']}/")
+                  f"{sum(len(b) for b in files.values()) / 1e6:.2f} MB -> {pkg['dest']}/"
+                  + (f", {len(patches)} patch(es) applied" if patches else ""))
         manifest["total_bytes"] = sum(e["bytes"] + sum(v["bytes"] for v in e["encodings"].values())
                                       for e in manifest["files"].values())
         (tmp / MANIFEST).write_text(json.dumps(manifest, indent=1, sort_keys=True) + "\n", encoding="utf-8")

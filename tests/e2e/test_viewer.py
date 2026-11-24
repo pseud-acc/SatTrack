@@ -7,6 +7,9 @@ satellite.js (vendor/fetch.py) and the sample objects dataset, in headless Chrom
   both sides failing on the same objects.
 - Budget (D-027): main-thread ms per frame, time to first positions and heap, on a full-size synthetic catalogue.
   CI has no GPU, so frame rates are a release check on the reference laptop, not here.
+- Start-up (D-042): fixed budgets that don't depend on the runner's speed (bytes downloaded and records built
+  before the first positions, heap), and, when CI provides a baseline checkout of the target branch, cold visits
+  to both apps interleaved on the same runner, compared phase by phase. Both go to the CI job summary.
 - Security: no off-site request from the viewer and no CSP violation beyond the known, recorded ones.
 
 Waits poll from Python (page.evaluate) rather than page.wait_for_function, which evaluates a string in the page and
@@ -15,6 +18,8 @@ would itself be reported by the CSP.
 import gzip
 import json
 import math
+import os
+import statistics
 import time
 import warnings
 from pathlib import Path
@@ -29,18 +34,32 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 SAMPLE = REPO_ROOT / "tests" / "app_data" / "objects.json.gz"
 TIMEOUT_S = 90
 PARITY_KM = 0.050   # 50 m (roadmap 3.2); the spike measured 9.5 m at most
-# D-027's laptop budget for first positions is 1.5 s. GitHub's runners, rendering the globe in software (SwiftShader)
-# on the same 4 CPUs the propagation worker needs, measured 1.40-1.98 s for what this laptop does in 0.84-1.22 s, so
-# CI checks against twice the budget and the 1.5 s stays a release check on the reference laptop (proposed D-042).
-FIRST_POSITIONS_CI_MS = 3000
+# Start-up checks (D-042). D-027's 1.5 s for first positions is a laptop budget: GitHub's runners render the globe in
+# software (SwiftShader) on the CPUs the propagation worker needs and measured 1.40-1.98 s where the laptop measured
+# 0.84-1.22 s. So CI's timing check is relative (this branch against the baseline, same runner, interleaved), with
+# an absolute ceiling as a backstop, and the 1.5 s stays the release check on the reference laptop.
+FIRST_POSITIONS_CEILING_MS = 3000        # backstop, and the only timing limit when there's no baseline
+REGRESSION_LIMIT = 1.20                  # a phase fails if its median is over 20% slower than the baseline's ...
+REGRESSION_FLOOR_MS = 150                # ... and over 150 ms slower (smaller phases are noise on a shared runner)
+STARTUP_VISITS = 3                       # cold visits per app; the median is compared
+# Fixed budgets: the same on any machine. Bytes are as sent (Brotli), from the first request to the first positions.
+BYTES_BEFORE_FIRST_POSITIONS_MB = 5.0     # measured 3.95-4.03 MB on 24 Nov 2026
+HEAP_MB = 80
+PHASES = (("data", "Data fetched + parsed"), ("cesium", "Cesium loaded"), ("viewer", "Globe created"),
+          ("ready", "Records built + first samples"), ("firstPositions", "First positions"))
+LONG_TASKS = """
+window.__longTasks = [];
+try {
+  new PerformanceObserver((list) => { for (const e of list.getEntries()) window.__longTasks.push([e.startTime, e.duration]); })
+    .observe({ type: "longtask", buffered: true });
+} catch (e) {}
+"""
 
 # CSP reports that are known and recorded, by (directive, blocked, path of the reporting script). Anything else fails.
-# - Cesium 1.147.0's own bundle compiles small WebAssembly modules (meshoptimizer) and runs (0,eval)("this")
-#   (bundled Knockout) when it loads: proposed decision D-041 settles these before the policy is enforced.
-# - Plotly's 2D map starts its workers from blob: URLs: goes with the Plotly views in roadmap 3.6.
+# Cesium reports nothing: its WebAssembly is allowed ('wasm-unsafe-eval') and its one eval is patched at vendoring
+# (D-041). Left: Plotly's 2D map starts its workers from blob: URLs, which goes with the Plotly views in roadmap 3.6,
+# when the policy is enforced.
 KNOWN_CSP = {
-    ("script-src", "wasm-eval", "/static/vendor/cesium-1.147.0/index.js"),
-    ("script-src", "eval", "/static/vendor/cesium-1.147.0/index.js"),
     ("worker-src", "blob", "/_dash-component-suites/plotly/package_data/plotly.min.js"),
 }
 SHELL_HOSTS = {u.split("://", 1)[1].removeprefix("*.") for urls in SHELL_THIRD_PARTIES.values() for u in urls}
@@ -269,40 +288,97 @@ def heap_mb(page):
     return metrics["JSHeapUsedSize"] / 1e6
 
 
-def first_positions_cold(browser, url):
-    """Time to first positions (ms) for a first visit: a fresh browser context, so nothing comes from the cache."""
+def startup_profile(browser, url):
+    """One first visit (a fresh browser context, nothing cached): each load phase in ms after the viewer started,
+    the bytes received (as sent, compressed) before the first positions, the records the worker built before them,
+    and the main thread's long tasks (> 50 ms) before them."""
     context = browser.new_context(viewport={"width": 1366, "height": 900})
     context.route(lambda u: not u.startswith("http://127.0.0.1"), lambda route: route.abort())
+    context.add_init_script(LONG_TASKS)
+    finished = []
+    context.on("requestfinished", lambda req: finished.append(req))
     try:
         pg = context.new_page()
-        m = open_viewer(pg, url)
-        marks = pg.evaluate("(() => { const k = window.sattrackViewer.marks; return Object.fromEntries("
-                            "Object.entries(k).map(([n, v]) => [n, Math.round(v - k.start)])); })()")
-        report(f"\nload marks (ms after the viewer started): {marks}")
-        return m["firstPositionsMs"]
+        open_viewer(pg, url)
+        k = pg.evaluate("window.sattrackViewer.marks")
+        first_epoch = pg.evaluate("performance.timeOrigin") + k["firstPositions"]
+        received = 0
+        for req in finished:
+            t = req.timing
+            if t["startTime"] + max(t["responseEnd"], 0) <= first_epoch:
+                s = req.sizes()
+                received += s["responseBodySize"] + s["responseHeadersSize"]
+        tasks = [d for (st, d) in pg.evaluate("window.__longTasks || []") if st < k["firstPositions"]]
+        return {
+            "phases": {name: k[name] - k["start"] for name, _ in PHASES if name in k},
+            "bytes": received,
+            "built": pg.evaluate("window.sattrackViewer.builtBeforeReady"),
+            "long_tasks": len(tasks),
+            "longest_task": max(tasks, default=0),
+        }
     finally:
         context.close()
 
 
+def median_profile(profiles):
+    """The phases of the visit with the median first positions (an odd number of visits), so the phases shown come
+    from one real visit and stay in order, rather than per-phase medians taken from different visits."""
+    ranked = sorted(profiles, key=lambda p: p["phases"]["firstPositions"])
+    return dict(ranked[len(ranked) // 2]["phases"])
+
+
+def job_summary(markdown):
+    """The CI job summary (GITHUB_STEP_SUMMARY) when there is one, and the pytest warnings summary always."""
+    path = os.environ.get("GITHUB_STEP_SUMMARY")
+    if path:
+        with open(path, "a", encoding="utf-8") as f:
+            f.write(markdown + "\n\n")
+    report("\n" + markdown)
+
+
 def test_budget_full_catalogue(page, browser, budget_url):
-    """D-027 budget, the parts CI can check without a GPU, with payloads (the default view) of a full-size catalogue
-    served by the app (Brotli): first positions <= 1.5 s (median of 3 first visits, as D-027's release check takes
-    the median of 3 runs), main thread <= 5 ms a frame, heap <= 80 MB. Then space junk mode (main thread checked)."""
-    loads = sorted(first_positions_cold(browser, budget_url) for _ in range(3))
-    report(f"first positions, 3 first visits: {[round(x) for x in loads]} ms")
+    """D-027 budget and D-042's fixed start-up budgets, the parts CI can check without a GPU, with payloads (the
+    default view) of a full-size catalogue served by the app (Brotli): bytes and records before the first positions,
+    first positions under the ceiling (median of 3 first visits), main thread <= 5 ms a frame, heap <= 80 MB. Then
+    space junk mode (main thread checked)."""
+    profiles = [startup_profile(browser, budget_url) for _ in range(STARTUP_VISITS)]
+    med = median_profile(profiles)
     m = open_viewer(page, budget_url)
     assert m["count"] == 32_652
+    payloads = 19_742
     page.evaluate("for (const k of ['frameMs', 'applyMs', 'workerMs']) window.sattrackViewer[k].length = 0")
     page.wait_for_timeout(8000)
     m = page.evaluate("window.sattrackViewer.metrics()")
     heap = heap_mb(page)
-    report(f"\nbudget, payloads ({m['shown']:,} shown): first positions {loads[1]:.0f} ms (median), main "
-          f"{m['mainMsPerFrame']:.2f} ms/frame over {m['frames']} frames, worker {m['workerMsPerPass']:.1f} ms/pass, "
-          f"step {m['step']} s, heap {heap:.1f} MB, frame {m['frameMs']:.0f} ms (software WebGL)")
+    mb = statistics.median(p["bytes"] for p in profiles) / 1e6
+    built = profiles[0]["built"]
+    long_tasks = statistics.median(p["long_tasks"] for p in profiles)
+    longest = statistics.median(p["longest_task"] for p in profiles)
+    rows = "\n".join(f"| {label} | {med[n]:,.0f} ms |" for n, label in PHASES if n in med)
+    ok = lambda good: "ok" if good else "FAIL"  # noqa: E731
+    job_summary(
+        f"### Viewer start-up: fixed budgets (D-042)\n\n"
+        f"Full-size catalogue (32,652 objects, payloads shown), median of {STARTUP_VISITS} first visits.\n\n"
+        f"| Check | Value | Limit | |\n|---|---|---|---|\n"
+        f"| Bytes before first positions | {mb:.2f} MB | {BYTES_BEFORE_FIRST_POSITIONS_MB} MB | "
+        f"{ok(mb <= BYTES_BEFORE_FIRST_POSITIONS_MB)} |\n"
+        f"| Records built before first positions | {built:,} | {payloads:,} (payloads only) | {ok(built == payloads)} |\n"
+        f"| Heap after load | {heap:.1f} MB | {HEAP_MB} MB | {ok(heap <= HEAP_MB)} |\n"
+        f"| Main thread per frame | {m['mainMsPerFrame']:.2f} ms | 5 ms | {ok(m['mainMsPerFrame'] <= 5)} |\n"
+        f"| First positions (ceiling) | {med['firstPositions']:,.0f} ms | {FIRST_POSITIONS_CEILING_MS:,} ms | "
+        f"{ok(med['firstPositions'] <= FIRST_POSITIONS_CEILING_MS)} |\n"
+        f"| Long main-thread tasks before first positions | {long_tasks:.0f} (longest {longest:.0f} ms) | "
+        f"reported only | |\n\n"
+        f"| Phase (ms after the viewer started, the median visit) | |\n|---|---|\n{rows}")
+    report(f"budget, payloads ({m['shown']:,} shown): main {m['mainMsPerFrame']:.2f} ms/frame over {m['frames']} "
+           f"frames, worker {m['workerMsPerPass']:.1f} ms/pass, step {m['step']} s, frame {m['frameMs']:.0f} ms "
+           f"(software WebGL)")
     assert m["frames"] >= 10
     assert m["mainMsPerFrame"] <= 5
-    assert loads[1] <= FIRST_POSITIONS_CI_MS
-    assert heap <= 80
+    assert mb <= BYTES_BEFORE_FIRST_POSITIONS_MB
+    assert built == payloads, "the worker must build only the shown types' records before the first positions"
+    assert med["firstPositions"] <= FIRST_POSITIONS_CEILING_MS
+    assert heap <= HEAP_MB
     page.get_by_role("switch", name="Space junk mode").check()
     wait_until(page, "() => window.sattrackViewer.shownCount > 30000")
     page.evaluate("for (const k of ['frameMs', 'applyMs', 'workerMs']) window.sattrackViewer[k].length = 0")
@@ -312,3 +388,39 @@ def test_budget_full_catalogue(page, browser, budget_url):
           f"{m['workerMsPerPass']:.1f} ms/pass, step {m['step']} s, heap {heap_mb(page):.1f} MB")
     assert m["mainMsPerFrame"] <= 5
     assert page.errors == []
+
+
+def test_startup_against_baseline(browser, budget_url, baseline_url):
+    """D-042: cold visits to this branch and the baseline (the target branch, same runner, same data), interleaved
+    and alternating which goes first, compared phase by phase on the medians. A phase fails if it is over 20% and
+    over 150 ms slower than the baseline. Skipped, with a note in the summary, when CI provides no baseline."""
+    if baseline_url is None:
+        job_summary("### Viewer start-up: against the baseline (D-042)\n\nNo baseline with the viewer "
+                    "(SATTRACK_BASELINE_DIR unset, or the target branch predates roadmap 3.2): fixed budgets only.")
+        pytest.skip("no baseline with the viewer")
+    runs = {"branch": [], "baseline": []}
+    for i in range(STARTUP_VISITS):
+        pair = [("branch", budget_url), ("baseline", baseline_url)]
+        for who, url in (pair if i % 2 == 0 else pair[::-1]):
+            runs[who].append(startup_profile(browser, url))
+    branch, base = median_profile(runs["branch"]), median_profile(runs["baseline"])
+    rows, failed = [], []
+    for name, label in PHASES:
+        if name not in branch or name not in base:
+            continue
+        b, p = base[name], branch[name]
+        change = (p - b) / b if b else 0
+        bad = p > b * REGRESSION_LIMIT and p - b > REGRESSION_FLOOR_MS
+        if bad:
+            failed.append(label)
+        rows.append(f"| {label} | {b:,.0f} ms | {p:,.0f} ms | {change:+.0%} | {'FAIL' if bad else 'ok'} |")
+    bb = statistics.median(r["bytes"] for r in runs["baseline"]) / 1e6
+    pb = statistics.median(r["bytes"] for r in runs["branch"]) / 1e6
+    rows.append(f"| Bytes before first positions | {bb:.2f} MB | {pb:.2f} MB | {(pb - bb) / bb:+.0%} | reported |")
+    job_summary(
+        f"### Viewer start-up: this branch against the baseline (D-042)\n\n"
+        f"Same runner, same full-size catalogue, {STARTUP_VISITS} cold visits each, interleaved; each side's "
+        f"median visit (by first positions). A phase "
+        f"fails when over {REGRESSION_LIMIT - 1:.0%} and over {REGRESSION_FLOOR_MS} ms slower.\n\n"
+        f"| Phase | Baseline | This branch | Change | |\n|---|---|---|---|---|\n" + "\n".join(rows))
+    assert not failed, f"start-up slower than the baseline in: {', '.join(failed)}"

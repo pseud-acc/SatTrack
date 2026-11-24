@@ -87,7 +87,9 @@ def test_flag_on_sends_report_only_csp_and_hsts(flag_on):
     assert policy["default-src"] == "'self'"
     assert policy["worker-src"] == "'self'"
     assert "'self'" in policy["script-src"].split()
-    for banned in ("'unsafe-eval'", "'wasm-unsafe-eval'", "'unsafe-inline'"):
+    # D-041 option B: WebAssembly allowed (Cesium's meshoptimizer now, satellite.js's engine in 3.11), string eval never
+    assert "'wasm-unsafe-eval'" in policy["script-src"].split()
+    for banned in ("'unsafe-eval'", "'unsafe-inline'"):
         assert banned not in policy["script-src"].split()
     assert policy["object-src"] == "'none'"
     assert headers["Strict-Transport-Security"] == viewer_mod.HSTS

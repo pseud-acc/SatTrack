@@ -9,7 +9,8 @@
 //                                                                       origin), the first samples to compute
 //               {type: "compute", id, dates: [ms...], types: [code...]} codes index TYPES; [] or omitted = all
 // Messages out: {type: "meta", count, ids, types, generatedAt}           as soon as the data is parsed
-//               {type: "ready", failed, engine, first: {dates, positions, ms}}  shown types' records built
+//               {type: "ready", failed, engine, built, first: {dates, positions, ms}}  shown types' records built
+//                                                                       (built: how many, for the start-up check, D-042)
 //               {type: "records", failed}                               every record built (all failures)
 //               {type: "positions", id, dates, positions: [Float64Array...], ms}  (buffers transferred)
 //               {type: "error", id, error}
@@ -74,8 +75,10 @@ async function init({ data, satellite, first }) {
   self.postMessage({ type: "meta", count: records.length, ids: ids.slice(), types: types.slice(),
                      generatedAt: typeof dataset.generated_at === "string" ? dataset.generated_at : null });
   const failed = [];
+  let built = 0;
   const build = (keep) => records.forEach((r, i) => {
     if (!keep(types[i])) return;
+    built++;
     let s = null;
     try {
       s = sat.json2satrec(toOmm(r));
@@ -91,7 +94,7 @@ async function init({ data, satellite, first }) {
   engine = jsEngine(sat, satrecs, types);
   const t0 = performance.now();
   const positions = engine.compute(first.dates, first.types);
-  self.postMessage({ type: "ready", engine: engine.name, failed: failed.slice(),
+  self.postMessage({ type: "ready", engine: engine.name, failed: failed.slice(), built,
                      first: { dates: first.dates, positions, ms: performance.now() - t0 } },
                    positions.map((p) => p.buffer));
   build((t) => !shown.has(t));

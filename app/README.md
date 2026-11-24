@@ -74,8 +74,9 @@ nothing below loads and no page changes.
   fail SGP4 are NaN and hidden. Payloads show by default; rocket bodies and debris have toggles and "space junk mode";
   `UNKNOWN` is never shown. The clock is corrected from the server's `Date` header. Every data string is written with
   `textContent`. `window.sattrackViewer` exposes counts, timings and `snapshot(iso)` for the tests.
-- **Headers (flag on):** `Content-Security-Policy-Report-Only` and `Strict-Transport-Security: max-age=86400`
-  (proposed D-041). Not enforced yet: Cesium 1.147.0 needs `eval` and WebAssembly at load, which needs a decision.
+- **Headers (flag on):** `Content-Security-Policy-Report-Only` (with `'wasm-unsafe-eval'`, never `'unsafe-eval'`) and
+  `Strict-Transport-Security: max-age=86400` (D-041). Cesium's one `eval` is patched to `globalThis` at vendoring
+  (`[[package.patch]]` in `vendor/cesium.lock`). The policy is enforced at roadmap 3.6, when Plotly's `blob:` workers go.
 
 Locally: `python vendor/fetch.py` (add `--out <dir>` and set `SATTRACK_VENDOR_DIR=<dir>` to keep the files out of a
 synced folder), then `SATTRACK_CESIUM_VIEWER=1 SATTRACK_APP_DATA_DIR=tests/app_data uv run python run_app.py`.
@@ -180,7 +181,10 @@ stops with an error naming both.
   `tests/e2e/test_viewer.py` also starts the app with the Cesium flag on (fetching the vendor files first, into
   `SATTRACK_VENDOR_DIR` if set): globe journeys, parity of the worker's positions with the Python sgp4 library
   (50 m, same failures), the D-027 budget checks a GPU-less runner can make (main-thread ms per frame, first
-  positions, heap) on a full-size synthetic catalogue, and no off-site request or unexpected CSP report.
+  positions, heap) on a full-size synthetic catalogue, and no off-site request or unexpected CSP report. Start-up
+  (D-042): fixed budgets (bytes and records before the first positions, heap) and, on pull requests, cold visits to
+  this branch and the target branch (checked out into `baseline/`, or set `SATTRACK_BASELINE_DIR` locally)
+  interleaved and compared phase by phase; both tables go to the CI job summary.
 - **Every PR** also runs `app / Heroku build`: the commit is built with Heroku's own buildpack and images, started
   like an Eco dyno on the `tests/app_data` sample, and the pages are checked
   ([`.github/scripts/heroku_build_check.sh`](../.github/scripts/heroku_build_check.sh)).

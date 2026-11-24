@@ -1,6 +1,6 @@
 # D-038 Fetch the self-hosted viewer files in the buildpack's `bin/post_compile` hook
 
-**Status:** Proposed (owner to confirm) · **Date:** 2026-11-23 · **PRs:** roadmap 3.2 (`feature/cesium-viewer`)
+**Status:** Accepted (owner, 2026-11-24, after comparing each option's process flow, complexity and robustness) · **Date:** 2026-11-23 · **PRs:** roadmap 3.2 (`feature/cesium-viewer`)
 **Component:** the Heroku build and CI's Heroku-identical build · **Tier:** full (changes what every build runs)
 
 ## Context
@@ -26,7 +26,7 @@ folder survives between builds.
 | Release phase (`Procfile` `release:`) | Runs once per release | Its files don't reach the slug or the dynos | – |
 | Commit the files | Simplest | ~10 MB of history per upgrade (rejected in D-014) | – |
 
-## Decision (proposed)
+## Decision
 `bin/post_compile` runs `vendor/fetch.py`. The script uses only the standard library plus `brotli` (now a direct
 dependency), contacts only `https://registry.npmjs.org`, verifies each tarball's sha512 against the lock, extracts
 only the listed files into `static/vendor/<package>-<version>/` with pre-compressed Brotli and gzip copies, and writes

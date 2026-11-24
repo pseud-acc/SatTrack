@@ -2,6 +2,9 @@
 # sample with a frozen clock. Called by pr.yml (early signal, not a required check) and merge.yml (the deploy
 # waits for it). Third-party requests from the page (analytics, CDN stylesheets, map tiles) are blocked or
 # stubbed by the tests, so no hits leave the runner.
+# On pull requests the target branch is also checked out (baseline/) so the viewer's start-up check can compare
+# this branch with it on the same runner (D-042); the tests start it from there and write the comparison to the
+# job summary.
 # No secrets, no AWS; network only for package and browser downloads.
 
 name: app e2e
@@ -48,7 +51,17 @@ jobs:
           UV_PROJECT_ENVIRONMENT="$RUNNER_TEMP/venv-e2e" uv sync --quiet --locked --group e2e --python "$(command -v python)"
           "$RUNNER_TEMP/venv-e2e/bin/python" -m playwright install --with-deps chromium
 
+      - name: Check out the target branch as the start-up baseline (D-042)
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          ref: ${{ github.base_ref }}
+          path: baseline
+          persist-credentials: false
+
       - name: Browser journeys
+        env:
+          SATTRACK_BASELINE_DIR: ${{ github.event_name == 'pull_request' && format('{0}/baseline', github.workspace) || '' }}
         run: |
           set -euo pipefail
           "$RUNNER_TEMP/venv-e2e/bin/python" -m pytest tests/e2e -q -ra -p no:cacheprovider -W ignore::DeprecationWarning

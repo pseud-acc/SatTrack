@@ -57,9 +57,9 @@ function loadOnce(id, make) {
   return node._loaded;
 }
 
-// Cesium's ES module build (index.js: 4.8 MB against Cesium.js's 6.1 MB, and no global). Note both builds run
-// (0,eval)("this") (bundled Knockout) and compile small WebAssembly modules (meshoptimizer) at load, which the
-// report-only CSP reports; enforcing the CSP needs a decision first (proposed D-041).
+// Cesium's ES module build (index.js: 4.8 MB against Cesium.js's 6.1 MB, and no global). It compiles small WebAssembly
+// modules (meshoptimizer) at load, which the policy allows ('wasm-unsafe-eval'); its one (0,eval)("this") (bundled
+// Knockout) is patched to globalThis at vendoring, so the policy never needs 'unsafe-eval' (D-041).
 async function loadCesium(config) {
   window.CESIUM_BASE_URL = config.cesium;   // where Cesium finds its workers and assets
   const [Cesium] = await Promise.all([
@@ -113,7 +113,7 @@ class Viewer {
 
   onWorker({ data }) {
     if (data.type === "meta") { this.metaResolve(data); return; }
-    if (data.type === "ready") { this.readyResolve(data); return; }
+    if (data.type === "ready") { S.marks.ready = performance.now(); this.readyResolve(data); return; }
     if (data.type === "records") { S.failed = data.failed; S.recordsBuilt = true; return; }
     if (data.type === "error" && data.id === undefined) {
       const err = new Error(data.error);
@@ -187,6 +187,7 @@ class Viewer {
     const init = await ready;
     if (this.destroyed) return;
     S.engine = `worker-${init.engine}`;
+    S.builtBeforeReady = init.built;   // records built before the first positions (D-042)
     S.failed = init.failed;
     push(S.workerMs, init.first.ms / 2);
     [this.a, this.b] = init.first.dates.map((t, i) => ({ t, pos: init.first.positions[i] }));

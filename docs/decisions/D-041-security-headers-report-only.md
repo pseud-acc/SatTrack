@@ -1,6 +1,6 @@
 # D-041 Security headers ship with the viewer flag; Cesium needs a decision before the CSP is enforced
 
-**Status:** Proposed (owner to confirm) · **Date:** 2026-11-23 · **PRs:** roadmap 3.2 (`feature/cesium-viewer`)
+**Status:** Accepted (owner, 2026-11-24): A now, B for Cesium (after a prototype), enforced at roadmap 3.6 · **Date:** 2026-11-23 · **PRs:** roadmap 3.2 (`feature/cesium-viewer`)
 **Component:** every page's response headers (`app/core/viewer.py`) · **Tier:** full (HSTS is hard to undo)
 
 ## Context
@@ -26,19 +26,37 @@ the browser reports those six calls. D-014 and D-029 assumed only satellite.js's
 | D. Headers on every page now, flag or not | Reports start at once | Changes production in a flag-off release; HSTS commits the domain | – |
 | E. Self-host Bootswatch, Font Awesome and the Roboto font; drop them from the policy | A shorter policy, fewer third parties | Outside 3.2's scope; page-shell change | Could ride with 3.6 |
 
-## Decision (proposed)
-A, now. With `SATTRACK_CESIUM_VIEWER` on, every response carries `Content-Security-Policy-Report-Only` (`default-src
+## Decision
+A and B now; the policy is enforced at roadmap 3.6. With `SATTRACK_CESIUM_VIEWER` on, every response carries `Content-Security-Policy-Report-Only` (`default-src
 'self'`; `script-src 'self' 'report-sample'` plus the hashes of every inline script (Dash's renderer and clientside
 callbacks, the analytics snippet) and Google Tag Manager; `worker-src 'self'`; `object-src 'none'`; `base-uri`,
 `form-action`, `frame-ancestors 'self'`; styles, fonts, images and connections allow the shell's listed third parties
 and `'unsafe-inline'` styles) and `Strict-Transport-Security: max-age=86400` (no `includeSubDomains`, no `preload`).
-No report endpoint yet: violations show in the browser console, and the browser tests fail on any violation other than
-Cesium's six known ones and the Plotly map's `blob:` workers. Enforcement needs the owner to choose B (recommended) or
-C, and to raise HSTS to a year once every host name is confirmed HTTPS-only.
+
+B (owner's choice, 2026-11-24, after the prototype below): `vendor/cesium.lock` carries a `[[package.patch]]` that
+replaces Cesium's single `(0,eval)("this")` with `globalThis` in `index.js`; `vendor/fetch.py` applies it after the
+hash check, fails the build unless the text occurs exactly once, and records the patch with the file's hash before and
+after in the manifest. `script-src` gains `'wasm-unsafe-eval'` and never `'unsafe-eval'`.
+
+Enforcement waits for roadmap 3.6 (owner's choice): an enforced policy breaks the Plotly 2D map, whose workers start
+from `blob:` URLs. 3.6 removes Plotly, drops the tile host and the `blob:` exception, and switches the header to
+`Content-Security-Policy`. No report endpoint yet: violations show in the browser console, and the browser tests fail
+on any violation other than the Plotly map's `blob:` workers. HSTS is raised to a year once every host name is
+confirmed HTTPS-only.
 
 ## Evidence
-`tests/e2e/test_viewer.py` (the `KNOWN_CSP` list) and the enforced-policy run described above. The Plotly views
-report nothing except the 2D map's `blob:` workers.
+- `tests/e2e/test_viewer.py` (the `KNOWN_CSP` list) and the enforced-policy run described above. The Plotly views
+  report nothing except the 2D map's `blob:` workers.
+- Prototype, 24 Nov 2026 (local, headless Chromium, the app's policy rewritten to an enforced
+  `Content-Security-Policy`):
+  - control, Cesium unpatched, `script-src` + `'wasm-unsafe-eval'`: Cesium fails to load (`EvalError`, one `eval`
+    violation in `index.js`);
+  - **B**, patched `index.js`, `script-src` + `'wasm-unsafe-eval'`: the globe loads and runs (339 objects, no Cesium
+    violation); the 3D, 2D and list tabs render;
+  - C, unpatched, `script-src` + `'unsafe-eval' 'wasm-unsafe-eval'`: also works.
+  - In all three, the 2D map raises "Mapbox error" because its `blob:` workers are blocked: hence enforcement at 3.6.
+- With the patch in the lock, the full browser suite passes with no Cesium CSP report; parity with Python sgp4 is
+  unchanged (7.6 m at most).
 
 ## Consequences
 - The header set is decided in one place (`app/core/viewer.py`); `tests/app/test_viewer.py` pins it.
@@ -47,9 +65,10 @@ report nothing except the 2D map's `blob:` workers.
 
 ## Revisit when
 - The viewer flag is turned on in production: confirm HSTS on `www.sattrackapp.com` and the apex, then raise max-age.
-- Before switching to an enforced policy: choose B or C.
-- Roadmap 3.6 removes Plotly: drop the tile host and the `blob:` exception.
-- A Cesium upgrade: re-run the CSP checks; the Knockout eval may go away.
+- Roadmap 3.6 removes Plotly: drop the tile host and the `blob:` exception, and enforce the policy.
+- A Cesium upgrade: the build fails if the patched text moved or went; review the patch, and drop it if upstream no
+  longer uses `eval`.
+- 3.7 (licence): list the patched `index.js` as a modification in the third-party notices (Apache-2.0 section 4).
 
 ## Related
 D-014, D-029, D-038; roadmap 3.2, 3.6, 3.11.
