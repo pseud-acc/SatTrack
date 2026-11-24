@@ -29,3 +29,37 @@
 .st-icon-expand {
   --st-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5'/%3E%3C/svg%3E");
 }
+
+/* ---- Top bar (app/layouts/layout_navbar.py) ------------------------------------------------------------------ */
+.st-topbar {
+  min-height: var(--st-bar-h);
+  padding: 0;
+  background: var(--st-bar) !important;   /* Bootstrap's .navbar background utilities */
+  border-bottom: 1px solid var(--st-line);
+  --bs-navbar-color: var(--st-muted);
+  --bs-navbar-hover-color: var(--st-fg);
+  --bs-navbar-active-color: var(--st-fg);
+  --bs-navbar-brand-color: var(--st-fg);
+  --bs-navbar-brand-hover-color: var(--st-fg);
+  --bs-navbar-toggler-border-color: var(--st-control);
+  --bs-navbar-nav-link-padding-x: 0;
+}
+.st-topbar-inner { min-height: var(--st-bar-h); gap: var(--st-6); padding-left: var(--st-4); padding-right: var(--st-4); flex-wrap: wrap; }
+.st-brand { display: inline-flex; align-items: center; gap: var(--st-2); font-size: var(--st-fs-lg); font-weight: 600;
+  letter-spacing: -0.01em; margin: 0; padding: 0; color: var(--st-fg); text-decoration: none; }
+.st-mark { position: relative; width: 14px; height: 14px; border: 2px solid var(--st-accent); border-radius: 50%; }
+.st-mark::after { content: ""; position: absolute; width: 5px; height: 5px; border-radius: 50%; background: var(--st-accent);
+  top: -4px; right: -4px; }
+.st-nav { gap: var(--st-4); }
+.st-nav .nav-link { font-size: var(--st-fs-md); padding-block: 13px; border-bottom: 2px solid transparent; }
+.st-nav .nav-link.active { border-bottom-color: var(--st-accent); }
+.st-fresh { margin-left: auto; align-items: center; gap: var(--st-2); color: var(--st-muted); font-size: var(--st-fs-xs); }
+.st-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--st-ok); flex: none; }
+.st-toggler { padding: 4px 8px; }
+.st-toggler:focus { box-shadow: 0 0 0 3px var(--st-accent-soft); }
+@media (max-width: 767.98px) {   /* phones: links drop into a menu under the bar */
+  .st-topbar-inner { gap: var(--st-2); }
+  .st-nav { gap: 0; padding-bottom: var(--st-2); }
+  .st-nav .nav-link { padding-block: 8px; border-bottom: 0; }
+  .st-nav .nav-link.active { color: var(--st-accent-hi); }
+}
