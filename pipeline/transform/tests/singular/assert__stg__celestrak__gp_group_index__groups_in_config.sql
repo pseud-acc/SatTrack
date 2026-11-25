@@ -42,7 +42,7 @@ with cte_stg__celestrak__gp_group_index as (
     left join cte_stg__celestrak__gp_group_index as idx
         on idx.celestrak_group = cfg.celestrak_group
     where idx.celestrak_group is null
-        and cfg.celestrak_group_kind in ('constellation', 'operator', 'station')   -- every downloaded kind (D-026, D-043)
+        and cfg.celestrak_group_kind <> 'excluded'   -- every downloaded kind (D-026, D-043, D-047)
 )
 
 select

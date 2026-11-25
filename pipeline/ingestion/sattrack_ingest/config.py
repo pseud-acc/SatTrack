@@ -49,29 +49,42 @@ GCAT_FILES = [
 ]
 
 
-# CelesTrak constellation and operator groups (D-026). Order is precedence: an object in two groups takes the first
-# (constellations, then operators). Only these groups are downloaded. Every other group on CelesTrak's GP index is
-# excluded; the excluded list holds the groups the index showed on 2026-11-22 (fetch run 45061938995), so a dbt check
-# can warn (never fail) when the index lists a group that is in neither list. Changing either list is a config
-# change in a PR, decided against D-026.
+# CelesTrak groups (D-026, D-047). CelesTrak is the golden source for constellations and satellite systems: only the
+# groups listed here are downloaded, and the dbt models name each grouping by CelesTrak's own title. Every other group
+# on CelesTrak's GP index is excluded; the excluded list holds the groups the index showed on 2026-11-22 (fetch run
+# 45061938995), so a dbt check can warn (never fail) when the index lists a group that is in no list. Changing a list
+# is a config change in a PR, decided against D-047. Kinds:
+#   * constellation: near-identical satellites working together (Starlink, OneWeb, ...). Order is precedence: an
+#     object in two groups takes the first.
+#   * system: a satellite system (non-identical satellites working together). Members whose names don't fit the group
+#     are dropped, then GCAT completes the system with every payload of the kept members' programme families.
+#   * system_hosted: satellites carrying a system's payload as a guest (Cospas-Sarsat repeaters). A membership,
+#     never a satellite's primary system, and never completed from GCAT.
+#   * system_hosted_umbrella: a group named after an umbrella term (sbas: "SBAS" covers WAAS, EGNOS, MSAS, GAGAN, ...).
+#     Never a system itself: each member's hosted system is the token CelesTrak writes before "/PRN" in its name.
 CELESTRAK_CONSTELLATION_GROUPS = [
-    "starlink", "oneweb", "kuiper", "qianfan", "hulianwang", "iridium-NEXT", "globalstar", "orbcomm", "gps-ops",
-    "glo-ops", "galileo", "beidou", "tdrss", "dmc",
+    "starlink", "oneweb", "kuiper", "qianfan", "hulianwang", "iridium-NEXT", "globalstar", "orbcomm",
 ]
-CELESTRAK_OPERATOR_GROUPS = ["planet", "spire", "intelsat", "ses", "eutelsat", "telesat"]
+CELESTRAK_SYSTEM_GROUPS = ["gps-ops", "glo-ops", "galileo", "beidou", "tdrss", "dmc"]
+CELESTRAK_SYSTEM_HOSTED_GROUPS = ["sarsat"]
+CELESTRAK_SYSTEM_HOSTED_UMBRELLA_GROUPS = ["sbas"]
 # Member-name prefix (D-046): a group listed here gives its name only to members whose CelesTrak OBJECT_NAME starts
-# with the prefix (case-insensitive); its other members are treated as not in the group. CelesTrak's tdrss group lists
-# the TDRS relay satellites and spacecraft that use TDRSS (HST, the ISS, TERRA, AQUA, MMS 1-4, ...); only the relay
-# satellites are the constellation. Groups not listed keep every member. Changing this is a config change in a PR,
-# decided against D-046.
-CELESTRAK_MEMBER_NAME_PREFIX = {"tdrss": "TDRS"}
+# with the prefix (case-insensitive); its other members are treated as not in the group. Empty since D-047: tdrss, the
+# case it was made for, is a system group now, and system groups keep only members whose names fit the group (their
+# most common leading word, TDRS for tdrss). Changing this is a config change in a PR, decided against D-046.
+CELESTRAK_MEMBER_NAME_PREFIX: dict[str, str] = {}
 # The space station group (D-043): downloaded like the groups above, but it sets flag_space_station and never the
 # constellation (the ISS and Tiangong modules plus the spacecraft visiting them are not a constellation).
 CELESTRAK_STATION_GROUPS = ["stations"]
 CELESTRAK_EXCLUDED_GROUPS = [
     "last-30-days", "visual", "active", "analyst", "fengyun-1c-debris", "iridium-33-debris",
-    "cosmos-2251-debris", "weather", "resource", "sar", "sarsat", "argos", "geo", "amateur", "satnogs", "x-comm",
-    "other-comm", "gnss", "sbas", "science", "geodetic", "engineering", "education", "military", "radar", "cubesat",
+    "cosmos-2251-debris", "weather", "resource", "sar", "argos", "geo", "amateur", "satnogs", "x-comm",
+    "other-comm", "science", "geodetic", "engineering", "education", "military", "radar", "cubesat",
+    # gnss: "GNSS" is the umbrella term for every navigation system, not a system itself (owner, D-047); it also
+    # lists SBAS host satellites. Its systems come from their own groups or the ad-hoc seed (NavIC, QZSS).
+    "gnss",
+    # D-047: operator fleets are neither constellations nor systems (GCAT gives each satellite's operator)
+    "planet", "spire", "intelsat", "ses", "eutelsat", "telesat",
 ]
 # Download cadence (D-039): at most once per CELESTRAK_MIN_HOURS (CelesTrak updates GP every 2 hours, so this
 # is well inside "once per update"), and no request at all for CELESTRAK_REFUSAL_COOLDOWN_HOURS after any refusal

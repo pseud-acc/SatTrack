@@ -1,4 +1,4 @@
-"""CelesTrak constellation and operator groups (D-026), landed raw into raw_celestrak.
+"""CelesTrak constellation, hosted-system and space station groups (D-026, D-043, D-047), landed raw into raw_celestrak.
 
 Three tables, all VARCHAR plus the usual load metadata (raw_writer.py):
   * group_config     the group list from config.py (group, kind, precedence order, member-name prefix: D-046);
@@ -26,8 +26,9 @@ from datetime import datetime, timezone
 
 from . import audit, celestrak
 from .config import (CELESTRAK_CONSTELLATION_GROUPS, CELESTRAK_EXCLUDED_GROUPS, CELESTRAK_MEMBER_NAME_PREFIX,
-                     CELESTRAK_MIN_HOURS, CELESTRAK_OPERATOR_GROUPS, CELESTRAK_PAUSE_S, CELESTRAK_REFUSAL_COOLDOWN_HOURS,
-                     CELESTRAK_STATION_GROUPS, RunContext)
+                     CELESTRAK_MIN_HOURS, CELESTRAK_PAUSE_S, CELESTRAK_REFUSAL_COOLDOWN_HOURS, CELESTRAK_STATION_GROUPS,
+                     CELESTRAK_SYSTEM_GROUPS, CELESTRAK_SYSTEM_HOSTED_GROUPS,
+                     CELESTRAK_SYSTEM_HOSTED_UMBRELLA_GROUPS, RunContext)
 from .raw_writer import land_records
 
 SCHEMA = "raw_celestrak"
@@ -43,10 +44,12 @@ EMPTY_TABLES = {
 
 
 def included_groups() -> list[tuple[str, str]]:
-    """[(group, kind)] in precedence order: constellations first, then operators (D-026), then the space station
-    group (D-043: a flag, never a constellation)."""
+    """[(group, kind)] in config order: constellations (in precedence order), then system and hosted system groups
+    (D-047), then the space station group (D-043: a flag, never a constellation)."""
     return ([(g, "constellation") for g in CELESTRAK_CONSTELLATION_GROUPS]
-            + [(g, "operator") for g in CELESTRAK_OPERATOR_GROUPS]
+            + [(g, "system") for g in CELESTRAK_SYSTEM_GROUPS]
+            + [(g, "system_hosted") for g in CELESTRAK_SYSTEM_HOSTED_GROUPS]
+            + [(g, "system_hosted_umbrella") for g in CELESTRAK_SYSTEM_HOSTED_UMBRELLA_GROUPS]
             + [(g, "station") for g in CELESTRAK_STATION_GROUPS])
 
 

@@ -23,7 +23,7 @@ manifest_checks:
       - marts
 
   - name: check_model_directories
-    description: "[NAM-02] Staging folders are named after the raw schema they read (raw_<x> -> staging/<x>)."
+    description: "[NAM-02] Staging folders are named after the raw schema they read (raw_<x> -> staging/<x>; seeds land in raw_sattrack)."
     include: "^models/staging"
     permitted_sub_directories:
       - spacetrack
@@ -31,6 +31,7 @@ manifest_checks:
       - pycountry
       - geonames
       - celestrak
+      - sattrack
 
   - name: check_model_directories
     description: "[NAM-03] Intermediate folders are business domains."
@@ -76,6 +77,11 @@ manifest_checks:
     description: "[NAM-04] Staging models are stg__<source>__<table>."
     include: "^models/staging/celestrak/"
     model_name_pattern: "^stg__celestrak__[a-z0-9_]+$"
+
+  - name: check_model_names
+    description: "[NAM-04] Staging models are stg__<source>__<table>."
+    include: "^models/staging/sattrack/"
+    model_name_pattern: "^stg__sattrack__[a-z0-9_]+$"
 
   - name: check_model_names
     description: "[NAM-05] Intermediate models are int__<origin>__<topic>_<model>."
@@ -305,7 +311,7 @@ manifest_checks:
     include: "^models/(intermediate|marts)/"
 
   - name: check_bespoke_model_cte_layout
-    description: "[SQL-01] Staging is a single cte_final (or one staging helper macro)."
+    description: "[SQL-01] Staging is a single cte_final (or one staging helper macro); a staging model over a seed (ref) imports it as cte_<seed> first."
     include: "^models/staging/"
 
   - name: check_bespoke_model_leading_commas

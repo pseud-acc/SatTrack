@@ -1,6 +1,6 @@
 # D-046 TDRSS keeps only relay satellites; constellation membership checked against names
 
-**Status:** Accepted (owner, 2026-11-24) · **Date:** 2026-11-24 · **PRs:** this PR (`fix/tdrss-constellation`)
+**Status:** Accepted (owner, 2026-11-24); amended by D-047 · **Date:** 2026-11-24 · **PRs:** this PR (`fix/tdrss-constellation`)
 **Component:** pipeline (`sattrack_ingest/config.py`, `stg__celestrak__group_config`,
 `int__celestrak__satellite_constellation`, a warning check); the `objects` dataset's `constellation` values ·
 **Tier:** full (amends an accepted decision; changes published values)

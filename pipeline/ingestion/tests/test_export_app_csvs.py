@@ -53,7 +53,8 @@ GCAT_UPDATED = datetime(2026, 11, 15, 10, 18, 40)
 MASTER_COLS = ("satcat_id, object_name, object_type, flag_in_orbit, operational_status, launch_year, owner_country, "
                "site_location_country, ownership_class_labels, mission_category_labels, launch_vehicle_brand, "
                "orbit_class, orbital_period, inclination, mass_kg, tle_line_1, tle_line_2, positions_as_of, "
-               "gcat_updated_at, constellation, flag_space_station, inserted_by, inserted_date_time")
+               "gcat_updated_at, satellite_constellation_name, primary_satellite_system_name, satellite_system_names, "
+               "flag_space_station, inserted_by, inserted_date_time")
 
 
 def master_row(satcat_id, **kw):
@@ -63,7 +64,8 @@ def master_row(satcat_id, **kw):
                mission_category_labels=["Space Science", "Technology"], launch_vehicle_brand="Proton",
                orbit_class="LEO", orbital_period=92.9, inclination=51.64, mass_kg=420000.0,
                tle_line_1=STALE[0], tle_line_2=STALE[1], positions_as_of=datetime(2026, 11, 16, 23, 46, 48),
-               gcat_updated_at=GCAT_UPDATED, constellation=None, flag_space_station=0, inserted_by=ENRICH_RUN,
+               gcat_updated_at=GCAT_UPDATED, satellite_constellation_name=None,
+               primary_satellite_system_name=None, satellite_system_names=[], flag_space_station=0, inserted_by=ENRICH_RUN,
                inserted_date_time=ENRICH_BUILT)
     row.update(kw)
     return row
@@ -96,7 +98,8 @@ def build_db(path: Path, master: list[dict], gp: list[dict]) -> Path:
         site_location_country varchar, ownership_class_labels varchar[], mission_category_labels varchar[],
         launch_vehicle_brand varchar, orbit_class varchar, orbital_period double, inclination double, mass_kg double,
         tle_line_1 varchar, tle_line_2 varchar, positions_as_of timestamp, gcat_updated_at timestamp,
-        constellation varchar, flag_space_station integer, inserted_by varchar, inserted_date_time timestamp)""")
+        satellite_constellation_name varchar, primary_satellite_system_name varchar, satellite_system_names varchar[],
+        flag_space_station integer, inserted_by varchar, inserted_date_time timestamp)""")
     con.execute("""create table marts_tracking.fct__gp_elements (satcat_id integer, object_id varchar,
         object_name varchar, object_type varchar, epoch timestamp,
         mean_motion double, eccentricity double, inclination double, ra_of_asc_node double, arg_of_pericenter double,
@@ -255,7 +258,7 @@ def test_objects_dataset_envelope(run_export):
     files = run_export([master_row(25544)], [gp_row(25544)])
     data = read_dataset(files)
     assert {k: data[k] for k in ("dataset", "schema", "count", "run_id", "key")} == {
-        "dataset": "objects", "schema": 1, "count": 1, "run_id": TRACK_RUN, "key": "satcat_id"}
+        "dataset": "objects", "schema": 2, "count": 1, "run_id": TRACK_RUN, "key": "satcat_id"}
     assert any("Space-Track" in a for a in data["attribution"]) and any("GCAT" in a for a in data["attribution"])
     assert "conjunction" in data["caution"]
     assert datetime.fromisoformat(data["generated_at"]).tzinfo is not None
@@ -275,15 +278,25 @@ def test_objects_record_uses_warehouse_names_and_exact_elements(run_export):
         "element_set_no": 999, "ephemeris_type": 0, "classification_type": "U", "orbital_period": 92.88,
         "operational_status": "Active", "orbit_class": "LEO", "owner_country": "United States", "launch_year": 1998,
         "mission_category_labels": ["Space Science", "Technology"], "ownership_class_labels": ["Government", "Civil"],
-        "launch_vehicle_brand": "Proton", "site_location_country": "Kazakhstan", "constellation": None,
+        "launch_vehicle_brand": "Proton", "site_location_country": "Kazakhstan", "satellite_constellation_name": None,
+        "primary_satellite_system_name": None, "satellite_system_names": [],
         "flag_space_station": 0}
 
 
-def test_objects_carry_the_constellation_and_credit_celestrak(run_export):
-    """D-026: CelesTrak's group name from the satellite mart (null when none), and the envelope credits CelesTrak."""
-    files = run_export([master_row(44714, constellation="Starlink"), master_row(25544)], [gp_row(44714), gp_row(25544)])
+def test_objects_carry_constellation_and_systems_and_credit_celestrak(run_export):
+    """D-047 (schema 2): the constellation, primary system and system list from the satellite mart (null / empty
+    when none; a null list becomes []), and the envelope credits CelesTrak."""
+    master = [master_row(44714, satellite_constellation_name="Starlink"),
+              master_row(35491, primary_satellite_system_name="GOES",
+                         satellite_system_names=["GOES", "Search & Rescue (SARSAT)"]),
+              master_row(25544, satellite_system_names=None)]
+    files = run_export(master, [gp_row(44714), gp_row(35491), gp_row(25544)])
     data = read_dataset(files)
-    assert {r["satcat_id"]: r["constellation"] for r in data["records"]} == {25544: None, 44714: "Starlink"}
+    got = {r["satcat_id"]: (r["satellite_constellation_name"], r["primary_satellite_system_name"],
+                            r["satellite_system_names"]) for r in data["records"]}
+    assert got == {25544: (None, None, []), 35491: (None, "GOES", ["GOES", "Search & Rescue (SARSAT)"]),
+                   44714: ("Starlink", None, [])}
+    assert "constellation" not in data["records"][0]                  # schema 1's field is gone
     assert "Constellation groups: CelesTrak (Dr T.S. Kelso)" in data["attribution"]
 
 
@@ -321,7 +334,7 @@ def test_objects_manifest_lists_both_encodings(run_export):
     manifest = json.loads(files["manifest.json"].read_text(encoding="utf-8"))
     listed = {f["file"]: f for f in manifest["files"]}
     for name in ("objects.json.br", "objects.json.gz"):
-        assert listed[name]["dataset"] == "objects" and listed[name]["schema"] == 1 and listed[name]["rows"] == 1
+        assert listed[name]["dataset"] == "objects" and listed[name]["schema"] == 2 and listed[name]["rows"] == 1
         assert listed[name]["sha256"] == export_app_csvs.sha256(files[name])
 
 

@@ -108,7 +108,7 @@ RAW_SCHEMA_PREFIX = "raw_"
 def drop_orphans() -> list[str]:
     """Drop objects of the build DB that nothing in the current project owns:
       * tables/views in dbt-managed schemas that no current model builds;
-      * tables in raw_* schemas that no source declares (retired ingests), then any raw_* schema left empty.
+      * tables in raw_* schemas that no source or seed declares (retired ingests), then any raw_* schema left empty.
     The ops DB and test-failure tables are never touched. Skipped (returns []) if a unit's manifest is
     missing or declares no models or sources, so a missing manifest can never delete anything."""
     owned, declared = set(), set()
@@ -123,6 +123,9 @@ def drop_orphans() -> list[str]:
         for src in manifest.get("sources", {}).values():
             if src.get("package_name") == "sattrack":
                 declared.add((src.get("schema"), src.get("identifier") or src.get("name")))
+        for node in manifest.get("nodes", {}).values():   # seeds land in raw_sattrack (D-047): declared like sources
+            if node.get("resource_type") == "seed" and node.get("package_name") == "sattrack":
+                declared.add((node.get("schema"), node.get("alias") or node.get("name")))
     if not owned or not declared:
         return []
     dropped = []

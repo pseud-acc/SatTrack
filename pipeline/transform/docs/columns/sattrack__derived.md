@@ -7,27 +7,39 @@ Source: SatTrack-derived: see `int__xsrc__satellite_gcat_matched`, `fct__satelli
 {% enddocs %}
 
 {% docs col__celestrak_group_kind %}
-Whether SatTrack's config includes a CelesTrak group as a `constellation`, an `operator` or a space `station` group, or lists it as `excluded`. E.g. `constellation` for `starlink`; `operator` for `intelsat`; `station` for `stations`; `excluded` for `gnss`.
+How SatTrack's config uses a CelesTrak group: `constellation`, `system`, `system_hosted` (guest payloads), a space `station` group, or `excluded`. E.g. `constellation` for `starlink`; `system` for `gps-ops`; `system_hosted` for `sarsat`; `excluded` for `gnss` (the umbrella term for all navigation systems).
 
 Source: SatTrack-derived: see `stg__celestrak__group_config`. Inputs: CelesTrak https://celestrak.org/NORAD/elements/ (Batch 11).
 {% enddocs %}
 
 {% docs col__celestrak_group_member_name_prefix %}
-The text a member's CelesTrak name (CSV `OBJECT_NAME`) must start with for a group to name its constellation; NULL when every member counts. E.g. `TDRS` for `tdrss`, keeping TDRS 3 (NORAD 19548), not HST (NORAD 20580).
+The text a member's CelesTrak name (CSV `OBJECT_NAME`) must start with for the member to count; NULL when every member counts. None is set since D-047.
 
 Source: SatTrack-derived: see `stg__celestrak__group_config`. Inputs: CelesTrak https://celestrak.org/NORAD/elements/ (Batch 11).
 {% enddocs %}
 
 {% docs col__celestrak_group_order %}
-An included CelesTrak group's precedence in SatTrack's config, from 1; an object in two groups takes the lower number. NULL for excluded groups. E.g. 1 for `starlink`; 17 for `intelsat`.
+A downloaded CelesTrak group's position in SatTrack's config, from 1; an object in two constellation groups takes the lower number. NULL for excluded groups. E.g. 1 for `starlink`; 9 for `gps-ops`.
 
 Source: SatTrack-derived: see `stg__celestrak__group_config`. Inputs: CelesTrak https://celestrak.org/NORAD/elements/ (Batch 11).
 {% enddocs %}
 
-{% docs col__constellation %}
-The CelesTrak constellation or operator group an object is in, by CelesTrak's group title without "Operational"; NULL when in none. E.g. "Starlink" for STARLINK-1008 (NORAD 44714); "GPS" for GPS BIIR-5 (NORAD 26407).
+{% docs col__constellation_origin %}
+Where SatTrack's constellation or system comes from: `celestrak` (CelesTrak's groups, completed from GCAT for systems) or `manual` (SatTrack's short list for ones CelesTrak lacks). E.g. `celestrak` for Starlink; `manual` for GOES.
 
-Source: SatTrack-derived: see `int__celestrak__satellite_constellation`, `fct__satellite_master`. Inputs: CelesTrak https://celestrak.org/NORAD/elements/ (Batch 11).
+Source: SatTrack-derived: see `int__xsrc__satellite_constellation_definition`, `int__xsrc__satellite_system_definition`, `dim__satellite_constellation`, `dim__satellite_system`. Inputs: GCAT https://planet4589.org/space/gcat/; CelesTrak https://celestrak.org/NORAD/elements/ (Batch 12).
+{% enddocs %}
+
+{% docs col__constellation_rule_value %}
+The CelesTrak group, GCAT programme family or name pattern that matched the object. E.g. `starlink` for STARLINK-1008 (NORAD 44714); `Flock` for PlanetScope satellites; `^SENTINEL[ -]?2[A-Z]$` for SENTINEL 2A.
+
+Source: SatTrack-derived: see `int__xsrc__satellite_constellation`. Inputs: GCAT https://planet4589.org/space/gcat/; CelesTrak https://celestrak.org/NORAD/elements/ (Batch 12).
+{% enddocs %}
+
+{% docs col__constellation_source %}
+Which rule put the object in its constellation: `celestrak_group`, or a manual row's rule type (`gcat_program_family`, `object_name_regex`). E.g. `celestrak_group` for STARLINK-1008 (NORAD 44714); `object_name_regex` for SENTINEL 2A (NORAD 40697).
+
+Source: SatTrack-derived: see `int__xsrc__satellite_constellation` (Batch 12).
 {% enddocs %}
 
 {% docs col__country_display_name %}
@@ -40,6 +52,54 @@ Source: SatTrack-derived: see `int__pycountry__geo_countries`, `dim__country`. I
 The country table's key, built by SatTrack from the ISO 3166-1 alpha-3 code, with `-H` added for a former country. E.g. `GBR` (United Kingdom), `SUN-H` (USSR).
 
 Source: SatTrack-derived: see `int__pycountry__geo_countries`, `dim__country`. Inputs: pycountry https://pypi.org/project/pycountry/ (Batch 9a).
+{% enddocs %}
+
+{% docs col__definition_description %}
+About 30 plain-English words on a manual constellation or system, written from its publisher's page, with an example satellite. E.g. GOES: "NOAA's Geostationary Operational Environmental Satellites, which NASA builds and launches and NOAA operates...". NULL for CelesTrak ones.
+
+Source: SatTrack-derived: see `manual_satellite_grouping`, `dim__satellite_constellation`, `dim__satellite_system`. Inputs: CelesTrak https://celestrak.org/NORAD/elements/ (Batch 12).
+{% enddocs %}
+
+{% docs col__definition_operator %}
+Who runs a manual constellation or system, as its publisher names it. E.g. "NOAA" for GOES; "Planet Labs" for PlanetScope. NULL for CelesTrak ones (CelesTrak publishes the group title only).
+
+Source: SatTrack-derived: see `manual_satellite_grouping`, `dim__satellite_constellation`, `dim__satellite_system`. Inputs: CelesTrak https://celestrak.org/NORAD/elements/ (Batch 12).
+{% enddocs %}
+
+{% docs col__definition_purpose %}
+What a manual constellation or system is for, in a few words from its publisher. E.g. "Weather" for GOES; "Earth observation (radar)" for Sentinel-1. NULL for CelesTrak ones.
+
+Source: SatTrack-derived: see `manual_satellite_grouping`, `dim__satellite_constellation`, `dim__satellite_system`. Inputs: CelesTrak https://celestrak.org/NORAD/elements/ (Batch 12).
+{% enddocs %}
+
+{% docs col__definition_rule_type %}
+How a manual constellation or system finds its satellites: `gcat_program_family` (GCAT payloads with their own record in a listed programme family) or `object_name_regex` (payload names matching a pattern), or `celestrak_member_prn` (CelesTrak sbas members with one of the listed PRNs). E.g. `gcat_program_family` for GOES. NULL for CelesTrak ones.
+
+Source: SatTrack-derived: see `manual_satellite_grouping`, `dim__satellite_constellation`, `dim__satellite_system`. Inputs: GCAT https://planet4589.org/space/gcat/; CelesTrak https://celestrak.org/NORAD/elements/ (Batch 12).
+{% enddocs %}
+
+{% docs col__definition_rule_values %}
+The value or values a manual rule matches, separated by `
+
+Source: SatTrack-derived: see `manual_satellite_grouping`, `dim__satellite_constellation`, `dim__satellite_system` (Batch 12).
+{% enddocs %}
+
+{% docs col__definition_source_name %}
+The publisher whose page defines a manual constellation or system. E.g. "European Space Agency (ESA)" for Sentinel-2; "NOAA NESDIS; NASA" for GOES. NULL for CelesTrak ones.
+
+Source: SatTrack-derived: see `manual_satellite_grouping`, `dim__satellite_constellation`, `dim__satellite_system`. Inputs: CelesTrak https://celestrak.org/NORAD/elements/ (Batch 12).
+{% enddocs %}
+
+{% docs col__definition_source_quote %}
+The words on the publisher's page that support a manual constellation or system, quoted as written. E.g. Sentinel-1: "The Copernicus Sentinel-1 mission is designed as a two-satellite constellation." NULL for CelesTrak ones.
+
+Source: SatTrack-derived: see `manual_satellite_grouping`, `dim__satellite_constellation`, `dim__satellite_system`. Inputs: CelesTrak https://celestrak.org/NORAD/elements/ (Batch 12).
+{% enddocs %}
+
+{% docs col__definition_source_url %}
+The publisher's page that supports a manual constellation or system (https only). E.g. https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-2/Satellite_constellation for Sentinel-2. NULL for CelesTrak ones.
+
+Source: SatTrack-derived: see `manual_satellite_grouping`, `dim__satellite_constellation`, `dim__satellite_system`. Inputs: CelesTrak https://celestrak.org/NORAD/elements/ (Batch 12).
 {% enddocs %}
 
 {% docs col__descent_date_end %}
@@ -96,6 +156,12 @@ Start, end and precision of the GCAT date range of `end_transmission_date` (GCAT
 Source: SatTrack-derived: see `int__jsr__satellite_status`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
+{% docs col__expected_name_string %}
+The text a CelesTrak group member's name must contain to fit the group: the group's member-name prefix, else the most common leading word of its members' names. E.g. `TDRS` for `tdrss`; `STARLINK` for `starlink`.
+
+Source: SatTrack-derived: see `int__celestrak__satellite_group_membership`. Inputs: CelesTrak https://celestrak.org/NORAD/elements/ (Batch 12).
+{% enddocs %}
+
 {% docs col__flag_country_like %}
 1 when the GCAT organisation is a country or similar (orgs `Type` includes CY, IGO or AP); derived by SatTrack. E.g. 1 for `US`; 0 for SpaceX/Seattle.
 
@@ -138,6 +204,12 @@ Source: SatTrack-derived: see `int__jsr__satellite_status`. Inputs: GCAT https:/
 Source: SatTrack-derived: see `int__jsr__satellite_status`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
+{% docs col__flag_hosted_system %}
+1 when a manual system's satellites only host its payload as a guest, so the membership is never their primary system; else 0. E.g. 1 for MSAS on QZS-3 (NORAD 42917); 0 for GOES.
+
+Source: SatTrack-derived: see `manual_satellite_grouping`, `stg__sattrack__manual_satellite_grouping` (Batch 12).
+{% enddocs %}
+
 {% docs col__flag_in_orbit %}
 1 when the object is in orbit. Always 1 here: SatTrack keeps only objects in Space-Track's current GP feed, which excludes decayed objects. E.g. 1 for the ISS.
 
@@ -160,6 +232,12 @@ Source: SatTrack-derived: see `int__jsr__satellite_status`. Inputs: GCAT https:/
 Details of one organisation in a split GCAT code, derived by SatTrack: its position (`org_code_order`), whether the code had several (`flag_multiple_orgs`), was marked `?` (`flag_org_uncertain`), and how it was split. E.g. 1, 0, 0, `single`.
 
 Source: SatTrack-derived: see `helper__explode_org_codes`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 8).
+{% enddocs %}
+
+{% docs col__flag_name_fits_group %}
+1 when a CelesTrak group member's name contains the group's expected name string, else 0. E.g. 1 for TDRS 3 (NORAD 19548) in `tdrss`; 0 for HST (NORAD 20580), which CelesTrak lists there as a TDRSS user.
+
+Source: SatTrack-derived: see `int__celestrak__satellite_group_membership`. Inputs: CelesTrak https://celestrak.org/NORAD/elements/ (Batch 12).
 {% enddocs %}
 
 {% docs col__flag_orbit_conflict %}
@@ -190,6 +268,12 @@ Source: SatTrack-derived: see `helper__explode_org_codes`. Inputs: GCAT https://
 1 when the owner named by Space-Track is an organisation rather than a country (its name matched no country list); derived by SatTrack. E.g. 1 for ESA; 0 for "United States".
 
 Source: SatTrack-derived: see `int__xsrc__geo_owner_country`, `int__xsrc__satellite_gcat_matched`, `fct__satellite_master`. Inputs: Space-Track https://www.space-track.org/documentation (Batch 9a).
+{% enddocs %}
+
+{% docs col__flag_primary_system %}
+1 when the system is the one the satellite was built for; 0 when the satellite only hosts the system's payload as a guest. E.g. 1 for GPS on NAVSTAR 48 (NORAD 26407); 0 for Search & Rescue (SARSAT) on GOES 14 (NORAD 35491).
+
+Source: SatTrack-derived: see `int__xsrc__satellite_system_membership`, `fct__satellite_system` (Batch 12).
 {% enddocs %}
 
 {% docs col__flag_site_active %}
@@ -232,6 +316,18 @@ Source: SatTrack-derived: see `int__jsr__satellite_catalogue`. Inputs: GCAT http
 GCAT's own update time for the catalog file behind this row (its `# Updated` line); NULL without a GCAT link. Taken by SatTrack. E.g. 2026-11-09 00:53 UTC.
 
 Source: SatTrack-derived: see `int__xsrc__satellite_gcat_matched`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
+{% enddocs %}
+
+{% docs col__grouping_kind %}
+Whether a manual row defines a `constellation` (near-identical satellites working together) or a `system` (non-identical satellites working together). E.g. `constellation` for PlanetScope; `system` for GOES.
+
+Source: SatTrack-derived: see `manual_satellite_grouping`, `stg__sattrack__manual_satellite_grouping` (Batch 12).
+{% enddocs %}
+
+{% docs col__grouping_name %}
+The name SatTrack shows for a constellation or system: CelesTrak's group title without "Operational", or a manual row's name. E.g. "GPS" for CelesTrak's `gps-ops` ("GPS Operational"); "PlanetScope".
+
+Source: SatTrack-derived: see `manual_satellite_grouping`, `int__celestrak__satellite_group_membership`. Inputs: CelesTrak https://celestrak.org/NORAD/elements/ (Batch 12).
 {% enddocs %}
 
 {% docs col__jcat_link_method %}
@@ -376,6 +472,18 @@ Source: SatTrack-derived: see `int__xsrc__geo_country_name_keys`. Inputs: pycoun
 The country a matching key identifies: its ISO 3166-1 alpha-2 code, or the ISO 3166-3 code for a former country. Set by SatTrack. E.g. `FR` for `france`; `CSHH` for `czechoslovakia`.
 
 Source: SatTrack-derived: see `int__xsrc__geo_country_name_keys`. Inputs: pycountry https://pypi.org/project/pycountry/ (Batch 9a).
+{% enddocs %}
+
+{% docs col__member_prn %}
+The PRN number a CelesTrak group member's name gives, as text; NULL when none. E.g. `136` for "SES-5 (EGNOS/PRN 136)" (NORAD 38652); `130` for "BEIDOU-3 G1 (PRN 130)".
+
+Source: SatTrack-derived: see `int__celestrak__satellite_group_membership`. Inputs: CelesTrak https://celestrak.org/NORAD/elements/ (Batch 12).
+{% enddocs %}
+
+{% docs col__member_system_token %}
+The system a CelesTrak group member's name gives before "/PRN", as CelesTrak writes it; NULL when the name has none. E.g. `EGNOS` for "SES-5 (EGNOS/PRN 136)" (NORAD 38652); `WAAS` for "GALAXY 30 (WAAS/PRN 135)".
+
+Source: SatTrack-derived: see `int__celestrak__satellite_group_membership`. Inputs: CelesTrak https://celestrak.org/NORAD/elements/ (Batch 12).
 {% enddocs %}
 
 {% docs col__mission_category_labels %}
@@ -666,6 +774,18 @@ When SatTrack loaded the Space-Track GP data behind this row: how fresh the posi
 Source: SatTrack-derived: see `int__xsrc__satellite_gcat_matched`, `fct__satellite_master`. Inputs: Space-Track https://www.space-track.org/documentation (Batch 9a).
 {% enddocs %}
 
+{% docs col__primary_satellite_count %}
+How many objects in the GP feed have the system as their primary system. E.g. 0 for Search & Rescue (SARSAT), whose members only host its repeaters.
+
+Source: SatTrack-derived: see `int__xsrc__satellite_system_definition`, `dim__satellite_system`. Inputs: Space-Track https://www.space-track.org/documentation (Batch 12).
+{% enddocs %}
+
+{% docs col__primary_satellite_system_name %}
+The satellite system an object was built for, from CelesTrak's system groups completed with GCAT programme families; NULL when it has none (e.g. a weather satellite that only hosts a search-and-rescue repeater). E.g. "GPS" for NAVSTAR 48 (NORAD 26407).
+
+Source: SatTrack-derived: see `int__xsrc__satellite_group_names`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/; CelesTrak https://celestrak.org/NORAD/elements/ (Batch 12).
+{% enddocs %}
+
 {% docs col__resolution_confidence %}
 Retired: no current model produces these columns. They described which step of the former D3 country resolution matched a raw code, and its confidence.
 
@@ -684,10 +804,34 @@ The object's broad type letter, taken by SatTrack from the first letter of GCAT 
 Source: SatTrack-derived: see `int__jsr__satellite_catalogue`, `int__xsrc__satellite_gcat_matched`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}
 
+{% docs col__satellite_constellation_name %}
+The constellation an object belongs to: near-identical satellites working together. Named by CelesTrak's group title, or by SatTrack's manual list for the few CelesTrak lacks; NULL when none. E.g. "Starlink" for STARLINK-1008 (NORAD 44714); "Sentinel-2" for SENTINEL 2A (NORAD 40697).
+
+Source: SatTrack-derived: see `int__xsrc__satellite_constellation`, `fct__satellite_master`, `dim__satellite_constellation`. Inputs: CelesTrak https://celestrak.org/NORAD/elements/ (Batch 12).
+{% enddocs %}
+
+{% docs col__satellite_count %}
+How many objects in the Space-Track GP feed the constellation or system names (for systems, primary and hosted together). E.g. Starlink's 11,000-plus satellites; 1 or more for every listed name.
+
+Source: SatTrack-derived: see `int__xsrc__satellite_constellation_definition`, `int__xsrc__satellite_system_definition`, `dim__satellite_constellation`, `dim__satellite_system`. Inputs: Space-Track https://www.space-track.org/documentation (Batch 12).
+{% enddocs %}
+
 {% docs col__satellite_program_family %}
 A programme family SatTrack derives from the leading letters of GCAT psatcat `Program`; a naming group, not an official constellation. E.g. `Starlink` from "Starlink 2MO S1"; `GPS` from "GPS IIF".
 
 Source: SatTrack-derived: see `int__jsr__satellite_status`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 10).
+{% enddocs %}
+
+{% docs col__satellite_system_name %}
+A satellite system: non-identical satellites working together, which a satellite may share with others. Named by CelesTrak (group title, or the system an SBAS member's name gives) or SatTrack's manual list. E.g. "GPS" for NAVSTAR 48 (NORAD 26407); "EGNOS" hosted on SES-5 (NORAD 38652).
+
+Source: SatTrack-derived: see `int__xsrc__satellite_system_membership`, `fct__satellite_system`, `dim__satellite_system`. Inputs: CelesTrak https://celestrak.org/NORAD/elements/ (Batch 12).
+{% enddocs %}
+
+{% docs col__satellite_system_names %}
+Every satellite system the object belongs to, as a list: its primary system first, then systems it hosts a payload for, by name; empty when none. E.g. ["GOES", "Search & Rescue (SARSAT)"] for EWS-G3 (GOES 14) (NORAD 35491).
+
+Source: SatTrack-derived: see `int__xsrc__satellite_group_names`, `fct__satellite_master` (Batch 12).
 {% enddocs %}
 
 {% docs col__site_display_name %}
@@ -742,6 +886,18 @@ Source: SatTrack-derived: see `int__jsr__launch_sites`, `dim__launch_site`. Inpu
 The launch site's responsible state (`site_state`, from GCAT) and the country it physically lies in (`site_location_country`, from the nearest GeoNames city), with its ISO code; derived by SatTrack. E.g. "USSR"; "At sea".
 
 Source: SatTrack-derived: see `int__jsr__launch_sites`, `dim__launch_site`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/; pycountry https://pypi.org/project/pycountry/; GeoNames https://download.geonames.org/export/dump/readme.txt (Batch 8).
+{% enddocs %}
+
+{% docs col__system_origin %}
+Where SatTrack's constellation or system comes from: `celestrak` (CelesTrak's groups, completed from GCAT for systems) or `manual` (SatTrack's short list for ones CelesTrak lacks). E.g. `celestrak` for Starlink; `manual` for GOES.
+
+Source: SatTrack-derived: see `int__xsrc__satellite_constellation_definition`, `int__xsrc__satellite_system_definition`, `dim__satellite_constellation`, `dim__satellite_system`. Inputs: GCAT https://planet4589.org/space/gcat/; CelesTrak https://celestrak.org/NORAD/elements/ (Batch 12).
+{% enddocs %}
+
+{% docs col__system_source %}
+Which rule put the satellite in the system: `celestrak_system_group`, `manual`, `celestrak_hosted_group` or `celestrak_member_name`. E.g. `celestrak_system_group` for GPS on NAVSTAR 48 (NORAD 26407); `manual` for GOES on GOES 14.
+
+Source: SatTrack-derived: see `int__xsrc__satellite_system_membership`, `fct__satellite_system` (Batch 12).
 {% enddocs %}
 
 {% docs col__tle_age_days %}

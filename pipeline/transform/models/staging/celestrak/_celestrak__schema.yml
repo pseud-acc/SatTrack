@@ -67,7 +67,7 @@ models:
         data_tests:
           - accepted_values:
               name: accepted_values__stg__celestrak__group_config__celestrak_group_kind
-              arguments: {values: ["constellation", "operator", "station", "excluded"]}
+              arguments: {values: ["constellation", "system", "system_hosted", "system_hosted_umbrella", "station", "excluded"]}
       - name: celestrak_group_order
         description: '{{ doc("col__celestrak_group_order") }}'
       - name: celestrak_group_member_name_prefix

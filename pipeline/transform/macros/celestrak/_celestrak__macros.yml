@@ -2,14 +2,14 @@ version: 2
 
 macros:
   - name: helper__flag_member_name_fits_group
-    description: "D-046: 1 when a CelesTrak constellation member's name (CSV OBJECT_NAME) fits its group, else 0, as one case expression holding every exception to the name check (owner, 24 Nov 2026). Exceptions: dmc is not checked (CelesTrak's 'Disaster Monitoring' group lists satellites of several programmes, e.g. BEIJING 1, HUANJING 1A, DEIMOS-1; remove if CelesTrak narrows it); hulianwang also accepts names starting GUOWANG (GUOWANG-30 OBJECT A..J, 22 Nov 2026; remove when Space-Track renames them). Otherwise the name must contain the expected string, case-insensitively. Used by the warning test assert__int__celestrak__satellite_constellation__names_fit_group."
+    description: "D-046, D-047: 1 when a CelesTrak group member's name (CSV OBJECT_NAME) fits its group, else 0, as one case expression holding every exception to the name check. System groups keep only fitting members (D-047 exclusion: drops the spacecraft CelesTrak lists in tdrss as TDRSS users, and HJ-1A/1B and YAOGAN-4 from dmc); a misfit in a constellation group is a warning. Exception: hulianwang also accepts names starting GUOWANG (GUOWANG-30 OBJECT A..J, 22 Nov 2026; remove when Space-Track renames them). D-046's dmc exception was removed by D-047. Otherwise the name must contain the expected string, case-insensitively. Used by int__celestrak__satellite_group_membership."
     arguments:
       - name: celestrak_group
         type: string
-        description: "SQL expression with the CelesTrak group name, e.g. con.celestrak_group."
+        description: "SQL expression with the CelesTrak group name, e.g. celestrak_group."
       - name: object_name
         type: string
-        description: "SQL expression with the member's CelesTrak OBJECT_NAME, e.g. mem.object_name."
+        description: "SQL expression with the member's CelesTrak OBJECT_NAME, e.g. object_name."
       - name: expected_name_string
         type: string
         description: "SQL expression with the string the name must contain: the group's prefix, else its most common leading word."

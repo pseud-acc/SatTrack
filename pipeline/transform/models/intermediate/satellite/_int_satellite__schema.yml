@@ -415,25 +415,212 @@ models:
         description: '{{ doc("col__inserted_date_time") }}'
       - name: inserted_by
         description: '{{ doc("col__inserted_by") }}'
-  - name: int__celestrak__satellite_constellation
-    description: "One row per object in a configured CelesTrak constellation or operator group, with the group's display name (D-026). An object in two groups takes the first in config order; excluded groups never count. A group with a member-name prefix in the config (D-046; today tdrss: TDRS) counts only members whose CelesTrak name starts with it."
+  - name: int__celestrak__satellite_group_membership
+    description: "One row per object and CelesTrak constellation or system group it is listed in (D-026, D-047), with CelesTrak's display name for the group (title without \"Operational\") and whether the object's name fits the group (D-046 name check; system groups keep only fitting members). Groups of kind station or excluded never count; a group with a member-name prefix counts only members whose name starts with it."
     data_tests:
       - model_health:
-          name: mh__int__celestrak__satellite_constellation__pk_unique
+          name: mh__int__celestrak__satellite_group_membership__pk_unique
+          arguments: {check: pk_unique, columns: [satcat_id, celestrak_group]}
+      - model_health:
+          name: mh__int__celestrak__satellite_group_membership__pk_not_null
+          arguments: {check: pk_not_null, columns: [satcat_id, celestrak_group]}
+    columns:
+      - name: satcat_id
+        description: '{{ doc("col__satcat_id") }}'
+      - name: celestrak_group
+        description: '{{ doc("col__celestrak_group") }}'
+      - name: celestrak_group_kind
+        description: '{{ doc("col__celestrak_group_kind") }}'
+      - name: celestrak_group_order
+        description: '{{ doc("col__celestrak_group_order") }}'
+      - name: grouping_name
+        description: '{{ doc("col__grouping_name") }}'
+        data_tests:
+          - not_null:
+              name: not_null__int__celestrak__satellite_group_membership__grouping_name
+      - name: object_name
+        description: '{{ doc("col__object_name") }}'
+      - name: expected_name_string
+        description: '{{ doc("col__expected_name_string") }}'
+      - name: member_system_token
+        description: '{{ doc("col__member_system_token") }}'
+      - name: member_prn
+        description: '{{ doc("col__member_prn") }}'
+      - name: flag_name_fits_group
+        description: '{{ doc("col__flag_name_fits_group") }}'
+        data_tests:
+          - accepted_values:
+              name: accepted_values__int__celestrak__satellite_group_membership__flag_name_fits_group
+              arguments: {values: [0, 1], quote: false}
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'
+
+  - name: int__xsrc__satellite_constellation
+    description: "One row per object in the GP feed that belongs to a constellation (D-047): near-identical satellites working together. CelesTrak's constellation groups (golden source, named by CelesTrak), plus the few CelesTrak has no group for from the ad-hoc seed manual_satellite_grouping (payloads with their own GCAT payload record, by programme family or name). A CelesTrak group beats a manual row."
+    data_tests:
+      - model_health:
+          name: mh__int__xsrc__satellite_constellation__pk_unique
           arguments: {check: pk_unique, columns: [satcat_id]}
       - model_health:
-          name: mh__int__celestrak__satellite_constellation__pk_not_null
+          name: mh__int__xsrc__satellite_constellation__pk_not_null
           arguments: {check: pk_not_null, columns: [satcat_id]}
     columns:
       - name: satcat_id
         description: '{{ doc("col__satcat_id") }}'
-      - name: constellation
-        description: '{{ doc("col__constellation") }}'
+      - name: satellite_constellation_name
+        description: '{{ doc("col__satellite_constellation_name") }}'
         data_tests:
           - not_null:
-              name: not_null__int__celestrak__satellite_constellation__constellation
-      - name: celestrak_group
-        description: '{{ doc("col__celestrak_group") }}'
+              name: not_null__int__xsrc__satellite_constellation__satellite_constellation_name
+      - name: constellation_source
+        description: '{{ doc("col__constellation_source") }}'
+      - name: constellation_rule_value
+        description: '{{ doc("col__constellation_rule_value") }}'
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'
+
+  - name: int__xsrc__satellite_system_membership
+    description: "One row per object in the GP feed and satellite system it belongs to (D-047). CelesTrak says a system exists, GCAT completes it: system groups keep members whose names fit, then add every own payload of the kept members' programme families; the ad-hoc seed adds NavIC, QZSS, JPSS, GOES and Copernicus Sentinels, and the hosted MSAS and BDSBAS; sarsat gives hosted Cospas-Sarsat memberships; sbas (an umbrella term, never a system) gives each member a hosted membership of the SBAS system its CelesTrak name names (EGNOS, WAAS, ...). CelesTrak's gnss group (an umbrella term, not a system) is not used."
+    data_tests:
+      - model_health:
+          name: mh__int__xsrc__satellite_system_membership__pk_unique
+          arguments: {check: pk_unique, columns: [satcat_id, satellite_system_name]}
+      - model_health:
+          name: mh__int__xsrc__satellite_system_membership__pk_not_null
+          arguments: {check: pk_not_null, columns: [satcat_id, satellite_system_name]}
+    columns:
+      - name: satcat_id
+        description: '{{ doc("col__satcat_id") }}'
+      - name: satellite_system_name
+        description: '{{ doc("col__satellite_system_name") }}'
+      - name: flag_primary_system
+        description: '{{ doc("col__flag_primary_system") }}'
+        data_tests:
+          - accepted_values:
+              name: accepted_values__int__xsrc__satellite_system_membership__flag_primary_system
+              arguments: {values: [0, 1], quote: false}
+      - name: system_source
+        description: '{{ doc("col__system_source") }}'
+        data_tests:
+          - accepted_values:
+              name: accepted_values__int__xsrc__satellite_system_membership__system_source
+              arguments: {values: ["celestrak_system_group", "manual", "celestrak_hosted_group", "celestrak_member_name"]}
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'
+
+  - name: int__xsrc__satellite_group_names
+    description: "One row per object in a constellation or a satellite system (D-047): its constellation, its primary system and the list of every system it belongs to (primary first, then by name). Feeds fct__satellite_master."
+    data_tests:
+      - model_health:
+          name: mh__int__xsrc__satellite_group_names__pk_unique
+          arguments: {check: pk_unique, columns: [satcat_id]}
+      - model_health:
+          name: mh__int__xsrc__satellite_group_names__pk_not_null
+          arguments: {check: pk_not_null, columns: [satcat_id]}
+    columns:
+      - name: satcat_id
+        description: '{{ doc("col__satcat_id") }}'
+      - name: satellite_constellation_name
+        description: '{{ doc("col__satellite_constellation_name") }}'
+      - name: primary_satellite_system_name
+        description: '{{ doc("col__primary_satellite_system_name") }}'
+      - name: satellite_system_names
+        description: '{{ doc("col__satellite_system_names") }}'
+        data_tests:
+          - not_null:
+              name: not_null__int__xsrc__satellite_group_names__satellite_system_names
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'
+
+  - name: int__xsrc__satellite_constellation_definition
+    description: "One row per constellation SatTrack shows (D-047): every name in int__xsrc__satellite_constellation plus any manual constellation that matches no object, with its origin (celestrak or manual), the seed's publisher details for manual ones, and the number of objects in the GP feed it names."
+    data_tests:
+      - model_health:
+          name: mh__int__xsrc__satellite_constellation_definition__pk_unique
+          arguments: {check: pk_unique, columns: [satellite_constellation_name]}
+      - model_health:
+          name: mh__int__xsrc__satellite_constellation_definition__pk_not_null
+          arguments: {check: pk_not_null, columns: [satellite_constellation_name]}
+    columns:
+      - name: satellite_constellation_name
+        description: '{{ doc("col__satellite_constellation_name") }}'
+      - name: constellation_origin
+        description: '{{ doc("col__constellation_origin") }}'
+      - name: definition_rule_type
+        description: '{{ doc("col__definition_rule_type") }}'
+      - name: definition_rule_values
+        description: '{{ doc("col__definition_rule_values") }}'
+      - name: definition_operator
+        description: '{{ doc("col__definition_operator") }}'
+      - name: definition_purpose
+        description: '{{ doc("col__definition_purpose") }}'
+      - name: definition_description
+        description: '{{ doc("col__definition_description") }}'
+      - name: definition_source_name
+        description: '{{ doc("col__definition_source_name") }}'
+      - name: definition_source_url
+        description: '{{ doc("col__definition_source_url") }}'
+      - name: definition_source_quote
+        description: '{{ doc("col__definition_source_quote") }}'
+      - name: satellite_count
+        description: '{{ doc("col__satellite_count") }}'
+        data_tests:
+          - dbt_utils.expression_is_true:
+              name: expression_is_true__int__xsrc__satellite_constellation_definition__satellite_count
+              arguments: {expression: "> 0"}
+              config: {severity: warn}
+      - name: inserted_date_time
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        description: '{{ doc("col__inserted_by") }}'
+
+  - name: int__xsrc__satellite_system_definition
+    description: "One row per satellite system SatTrack shows (D-047): every name in int__xsrc__satellite_system_membership plus any manual system that matches no object, with its origin (celestrak or manual), the seed's publisher details for manual ones, and the number of objects in the GP feed that belong to it, as their primary system and in all."
+    data_tests:
+      - model_health:
+          name: mh__int__xsrc__satellite_system_definition__pk_unique
+          arguments: {check: pk_unique, columns: [satellite_system_name]}
+      - model_health:
+          name: mh__int__xsrc__satellite_system_definition__pk_not_null
+          arguments: {check: pk_not_null, columns: [satellite_system_name]}
+    columns:
+      - name: satellite_system_name
+        description: '{{ doc("col__satellite_system_name") }}'
+      - name: system_origin
+        description: '{{ doc("col__system_origin") }}'
+      - name: definition_rule_type
+        description: '{{ doc("col__definition_rule_type") }}'
+      - name: definition_rule_values
+        description: '{{ doc("col__definition_rule_values") }}'
+      - name: definition_operator
+        description: '{{ doc("col__definition_operator") }}'
+      - name: definition_purpose
+        description: '{{ doc("col__definition_purpose") }}'
+      - name: definition_description
+        description: '{{ doc("col__definition_description") }}'
+      - name: definition_source_name
+        description: '{{ doc("col__definition_source_name") }}'
+      - name: definition_source_url
+        description: '{{ doc("col__definition_source_url") }}'
+      - name: definition_source_quote
+        description: '{{ doc("col__definition_source_quote") }}'
+      - name: satellite_count
+        description: '{{ doc("col__satellite_count") }}'
+        data_tests:
+          - dbt_utils.expression_is_true:
+              name: expression_is_true__int__xsrc__satellite_system_definition__satellite_count
+              arguments: {expression: "> 0"}
+              config: {severity: warn}
+      - name: primary_satellite_count
+        description: '{{ doc("col__primary_satellite_count") }}'
       - name: inserted_date_time
         description: '{{ doc("col__inserted_date_time") }}'
       - name: inserted_by
@@ -459,53 +646,6 @@ models:
         description: '{{ doc("col__inserted_by") }}'
 
 unit_tests:
-  - name: ut__int__celestrak__satellite_constellation__group_rules
-    description: >-
-      D-026 rules on rows shaped like CelesTrak's (fetch run 45061938995; the ses memberships of 26407 and 26900 are
-      made up to test precedence): constellations beat operators, earlier operators beat later ones, excluded groups
-      (gnss) never count, a configured group missing from the index gives no name, and "Operational" is removed.
-    model: int__celestrak__satellite_constellation
-    given:
-      - input: ref('stg__celestrak__gp_group_member')
-        rows:
-          - {celestrak_group: starlink, satcat_id: 44714}
-          - {celestrak_group: gps-ops, satcat_id: 26407}
-          - {celestrak_group: gnss, satcat_id: 26407}
-          - {celestrak_group: ses, satcat_id: 26407}
-          - {celestrak_group: gnss, satcat_id: 26605}
-          - {celestrak_group: glo-ops, satcat_id: 32275}
-          - {celestrak_group: intelsat, satcat_id: 26900}
-          - {celestrak_group: ses, satcat_id: 26900}
-          - {celestrak_group: ses, satcat_id: 26554}
-          - {celestrak_group: kuiper, satcat_id: 99999}
-          - {celestrak_group: stations, satcat_id: 25544}
-      - input: ref('stg__celestrak__gp_group_index')
-        rows:
-          - {celestrak_group: starlink, celestrak_group_title: "Starlink"}
-          - {celestrak_group: gps-ops, celestrak_group_title: "GPS Operational"}
-          - {celestrak_group: glo-ops, celestrak_group_title: "GLONASS Operational"}
-          - {celestrak_group: gnss, celestrak_group_title: "GNSS"}
-          - {celestrak_group: intelsat, celestrak_group_title: "Intelsat"}
-          - {celestrak_group: ses, celestrak_group_title: "SES"}
-          - {celestrak_group: stations, celestrak_group_title: "Space Stations"}
-      - input: ref('stg__celestrak__group_config')
-        rows:
-          - {celestrak_group: starlink, celestrak_group_kind: constellation, celestrak_group_order: 1}
-          - {celestrak_group: kuiper, celestrak_group_kind: constellation, celestrak_group_order: 3}
-          - {celestrak_group: gps-ops, celestrak_group_kind: constellation, celestrak_group_order: 9}
-          - {celestrak_group: glo-ops, celestrak_group_kind: constellation, celestrak_group_order: 10}
-          - {celestrak_group: intelsat, celestrak_group_kind: operator, celestrak_group_order: 17}
-          - {celestrak_group: ses, celestrak_group_kind: operator, celestrak_group_order: 18}
-          - {celestrak_group: gnss, celestrak_group_kind: excluded, celestrak_group_order: null}
-          - {celestrak_group: stations, celestrak_group_kind: station, celestrak_group_order: 21}
-    expect:
-      rows:
-        - {satcat_id: 44714, constellation: "Starlink", celestrak_group: starlink}
-        - {satcat_id: 26407, constellation: "GPS", celestrak_group: gps-ops}
-        - {satcat_id: 32275, constellation: "GLONASS", celestrak_group: glo-ops}
-        - {satcat_id: 26900, constellation: "Intelsat", celestrak_group: intelsat}
-        - {satcat_id: 26554, constellation: "SES", celestrak_group: ses}
-
   - name: ut__int__celestrak__space_station__station_groups_only
     description: >-
       D-043: an object is a station when it is in a group the config marks `station` (rows shaped like CelesTrak's
@@ -533,39 +673,185 @@ unit_tests:
         - {satcat_id: 25544, flag_space_station: 1}
         - {satcat_id: 48274, flag_space_station: 1}
 
-  - name: ut__int__celestrak__satellite_constellation__member_name_prefix
+  - name: ut__int__celestrak__satellite_group_membership__names_and_name_fit
     description: >-
-      D-046: a group with a member-name prefix in the config counts only members whose CelesTrak name starts with it
-      (case-insensitive). Rows from CelesTrak's `tdrss` group (fetch run 45061938995): TDRS 3 keeps the TDRSS name;
-      HST, ISS (ZARYA) and NOAA 20 (JPSS-1), which CelesTrak lists as spacecraft using TDRSS, get none from it (the
-      ISS stays a station: ut__int__celestrak__space_station__station_groups_only). The ses membership of HST is made
-      up to show that a member the prefix drops can still take a later group. Groups without a prefix keep every member.
-    model: int__celestrak__satellite_constellation
+      D-026, D-046, D-047 on rows from CelesTrak's tdrss, dmc and gps-ops groups (fetch run 45061938995). Display
+      names drop "Operational"; station and excluded groups never count. Name fit: tdrss's most common leading word is
+      TDRS, so HST doesn't fit; dmc's is DMC (DMC3-FM1..3), so BEIJING 1 and HUANJING 1A (HJ-1A) don't (D-046's dmc
+      exception is gone); a member-name prefix (made up here for gps-ops) drops members that don't start with it.
+    model: int__celestrak__satellite_group_membership
     given:
       - input: ref('stg__celestrak__gp_group_member')
         rows:
           - {celestrak_group: tdrss, satcat_id: 19548, object_name: "TDRS 3"}
+          - {celestrak_group: tdrss, satcat_id: 21639, object_name: "TDRS 5"}
           - {celestrak_group: tdrss, satcat_id: 20580, object_name: "HST"}
-          - {celestrak_group: tdrss, satcat_id: 25544, object_name: "ISS (ZARYA)"}
-          - {celestrak_group: tdrss, satcat_id: 43013, object_name: "NOAA 20 (JPSS-1)"}
-          - {celestrak_group: tdrss, satcat_id: 99999, object_name: null}
+          - {celestrak_group: dmc, satcat_id: 28890, object_name: "BEIJING 1"}
+          - {celestrak_group: dmc, satcat_id: 33320, object_name: "HUANJING 1A (HJ-1A)"}
+          - {celestrak_group: dmc, satcat_id: 40715, object_name: "DMC3-FM1"}
+          - {celestrak_group: dmc, satcat_id: 40716, object_name: "DMC3-FM2"}
+          - {celestrak_group: gps-ops, satcat_id: 26407, object_name: "GPS BIIR-5"}
+          - {celestrak_group: gps-ops, satcat_id: 20580, object_name: "HST"}
           - {celestrak_group: stations, satcat_id: 25544, object_name: "ISS (ZARYA)"}
-          - {celestrak_group: ses, satcat_id: 20580, object_name: "HST"}
-          - {celestrak_group: glo-ops, satcat_id: 32275, object_name: "COSMOS 2433"}
+          - {celestrak_group: visual, satcat_id: 25544, object_name: "ISS (ZARYA)"}
       - input: ref('stg__celestrak__gp_group_index')
         rows:
           - {celestrak_group: tdrss, celestrak_group_title: "Tracking and Data Relay Satellite System (TDRSS)"}
-          - {celestrak_group: glo-ops, celestrak_group_title: "GLONASS Operational"}
-          - {celestrak_group: ses, celestrak_group_title: "SES"}
+          - {celestrak_group: dmc, celestrak_group_title: "Disaster Monitoring"}
+          - {celestrak_group: gps-ops, celestrak_group_title: "GPS Operational"}
           - {celestrak_group: stations, celestrak_group_title: "Space Stations"}
+          - {celestrak_group: visual, celestrak_group_title: "100 (or so) Brightest"}
       - input: ref('stg__celestrak__group_config')
         rows:
-          - {celestrak_group: glo-ops, celestrak_group_kind: constellation, celestrak_group_order: 10, celestrak_group_member_name_prefix: null}
-          - {celestrak_group: tdrss, celestrak_group_kind: constellation, celestrak_group_order: 13, celestrak_group_member_name_prefix: tdrs}
-          - {celestrak_group: ses, celestrak_group_kind: operator, celestrak_group_order: 18, celestrak_group_member_name_prefix: null}
-          - {celestrak_group: stations, celestrak_group_kind: station, celestrak_group_order: 21, celestrak_group_member_name_prefix: null}
+          - {celestrak_group: gps-ops, celestrak_group_kind: system, celestrak_group_order: 9, celestrak_group_member_name_prefix: GPS}
+          - {celestrak_group: tdrss, celestrak_group_kind: system, celestrak_group_order: 13, celestrak_group_member_name_prefix: null}
+          - {celestrak_group: dmc, celestrak_group_kind: system, celestrak_group_order: 14, celestrak_group_member_name_prefix: null}
+          - {celestrak_group: stations, celestrak_group_kind: station, celestrak_group_order: 18, celestrak_group_member_name_prefix: null}
+          - {celestrak_group: visual, celestrak_group_kind: excluded, celestrak_group_order: null, celestrak_group_member_name_prefix: null}
     expect:
       rows:
-        - {satcat_id: 19548, constellation: "Tracking and Data Relay Satellite System (TDRSS)", celestrak_group: tdrss}
-        - {satcat_id: 20580, constellation: "SES", celestrak_group: ses}
-        - {satcat_id: 32275, constellation: "GLONASS", celestrak_group: glo-ops}
+        - {satcat_id: 19548, celestrak_group: tdrss, grouping_name: "Tracking and Data Relay Satellite System (TDRSS)", flag_name_fits_group: 1}
+        - {satcat_id: 21639, celestrak_group: tdrss, grouping_name: "Tracking and Data Relay Satellite System (TDRSS)", flag_name_fits_group: 1}
+        - {satcat_id: 20580, celestrak_group: tdrss, grouping_name: "Tracking and Data Relay Satellite System (TDRSS)", flag_name_fits_group: 0}
+        - {satcat_id: 28890, celestrak_group: dmc, grouping_name: "Disaster Monitoring", flag_name_fits_group: 0}
+        - {satcat_id: 33320, celestrak_group: dmc, grouping_name: "Disaster Monitoring", flag_name_fits_group: 0}
+        - {satcat_id: 40715, celestrak_group: dmc, grouping_name: "Disaster Monitoring", flag_name_fits_group: 1}
+        - {satcat_id: 40716, celestrak_group: dmc, grouping_name: "Disaster Monitoring", flag_name_fits_group: 1}
+        - {satcat_id: 26407, celestrak_group: gps-ops, grouping_name: "GPS", flag_name_fits_group: 1}
+
+  - name: ut__int__xsrc__satellite_system_membership__celestrak_then_gcat
+    description: >-
+      D-047 rules on rows shaped like the 21/22 Nov 2026 data (CelesTrak fetch run 45061938995, GCAT programme
+      families from the warehouse). tdrss: TDRS 3 is kept and brings its family, so TDRS 5 (family TDRS, not in
+      this CelesTrak sample) joins; HST doesn't fit and has no TDRSS.
+      dmc: DMC 3-FM1 fits and brings family DMC, so BEIJING 1 joins through GCAT although its CelesTrak name
+      doesn't fit; HJ-1A (family HJ) doesn't. gps-ops: NAVSTAR 1 (10684, retired, not in CelesTrak) joins GPS.
+      Manual: IRNSS R1A (family IRNSS) is NavIC; LUCH 5A (no rule) has no system. GOES 14
+      (family GOES) is GOES, the GOES 4 AKM rocket body (inherited family) is not. Hosted: METEOSAT 9 and GOES 14 are
+      in sarsat, so Cospas-Sarsat-style hosted rows (flag 0) appear beside GOES 14's primary GOES. sbas (umbrella):
+      SES-5 (EGNOS/PRN 136) is hosted EGNOS, never "SBAS"; BEIDOU-3 G1 (PRN 130, no token) is hosted BDSBAS through
+      the manual PRN row. (The BeiDou GEO's own family is Beidou, but no Beidou system group is in this test.)
+    model: int__xsrc__satellite_system_membership
+    given:
+      - input: ref('int__celestrak__satellite_group_membership')
+        rows:
+          - {satcat_id: 19548, celestrak_group_kind: system, grouping_name: "TDRSS", flag_name_fits_group: 1}
+          - {satcat_id: 20580, celestrak_group_kind: system, grouping_name: "TDRSS", flag_name_fits_group: 0}
+          - {satcat_id: 40715, celestrak_group_kind: system, grouping_name: "Disaster Monitoring", flag_name_fits_group: 1}
+          - {satcat_id: 28890, celestrak_group_kind: system, grouping_name: "Disaster Monitoring", flag_name_fits_group: 0}
+          - {satcat_id: 33320, celestrak_group_kind: system, grouping_name: "Disaster Monitoring", flag_name_fits_group: 0}
+          - {satcat_id: 26407, celestrak_group_kind: system, grouping_name: "GPS", flag_name_fits_group: 1}
+          - {satcat_id: 28912, celestrak_group_kind: system_hosted, grouping_name: "Search & Rescue (SARSAT)", flag_name_fits_group: 0}
+          - {satcat_id: 35491, celestrak_group_kind: system_hosted, grouping_name: "Search & Rescue (SARSAT)", flag_name_fits_group: 0}
+          - {satcat_id: 38652, celestrak_group_kind: system_hosted_umbrella, grouping_name: "Satellite-Based Augmentation System (WAAS/EGNOS/MSAS)", member_system_token: EGNOS, member_prn: "136", flag_name_fits_group: 0}
+          - {satcat_id: 43683, celestrak_group_kind: system_hosted_umbrella, grouping_name: "Satellite-Based Augmentation System (WAAS/EGNOS/MSAS)", member_system_token: null, member_prn: "130", flag_name_fits_group: 0}
+          - {satcat_id: 44714, celestrak_group_kind: constellation, grouping_name: "Starlink", flag_name_fits_group: 1}
+      - input: ref('stg__sattrack__manual_satellite_grouping')
+        rows:
+          - {grouping_kind: system, grouping_name: GOES, definition_rule_type: gcat_program_family, definition_rule_values: GOES, flag_hosted_system: 0}
+          - {grouping_kind: system, grouping_name: NavIC, definition_rule_type: gcat_program_family, definition_rule_values: IRNSS, flag_hosted_system: 0}
+          - {grouping_kind: system, grouping_name: BDSBAS, definition_rule_type: celestrak_member_prn, definition_rule_values: "130|143|144", flag_hosted_system: 1}
+          - {grouping_kind: constellation, grouping_name: PlanetScope, definition_rule_type: gcat_program_family, definition_rule_values: Flock}
+      - input: ref('int__xsrc__satellite_gcat_matched')
+        rows:
+          - {satcat_id: 19548, jcat: S19548, object_name: "TDRS 3", object_type: PAYLOAD}
+          - {satcat_id: 21639, jcat: S21639, object_name: "TDRS 5", object_type: PAYLOAD}
+          - {satcat_id: 20580, jcat: S20580, object_name: "HST", object_type: PAYLOAD}
+          - {satcat_id: 40715, jcat: S40715, object_name: "DMC 3-FM1", object_type: PAYLOAD}
+          - {satcat_id: 28890, jcat: S28890, object_name: "BEIJING 1 (TSINGHUA)", object_type: PAYLOAD}
+          - {satcat_id: 33320, jcat: S33320, object_name: "HJ-1A", object_type: PAYLOAD}
+          - {satcat_id: 26407, jcat: S26407, object_name: "NAVSTAR 48 (USA 151)", object_type: PAYLOAD}
+          - {satcat_id: 10684, jcat: S10684, object_name: "OPS 5111 (NAVSTAR 1)", object_type: PAYLOAD}
+          - {satcat_id: 39199, jcat: S39199, object_name: "IRNSS R1A", object_type: PAYLOAD}
+          - {satcat_id: 37951, jcat: S37951, object_name: "LUCH 5A", object_type: PAYLOAD}
+          - {satcat_id: 28912, jcat: S28912, object_name: "METEOSAT 9 (MSG 2)", object_type: PAYLOAD}
+          - {satcat_id: 35491, jcat: S35491, object_name: "EWS-G3 (GOES 14)", object_type: PAYLOAD}
+          - {satcat_id: 11970, jcat: S11970, object_name: "GOES 4 AKM", object_type: ROCKET BODY}
+          - {satcat_id: 44714, jcat: S44714, object_name: "STARLINK-1008", object_type: PAYLOAD}
+          - {satcat_id: 38652, jcat: S38652, object_name: "SES-5", object_type: PAYLOAD}
+          - {satcat_id: 43683, jcat: S43683, object_name: "BEIDOU DW 41", object_type: PAYLOAD}
+      - input: ref('int__jsr__satellite_status')
+        rows:
+          - {jcat: S19548, satellite_program_family: TDRS, mission_details_source: own}
+          - {jcat: S21639, satellite_program_family: TDRS, mission_details_source: own}
+          - {jcat: S20580, satellite_program_family: Great, mission_details_source: own}
+          - {jcat: S40715, satellite_program_family: DMC, mission_details_source: own}
+          - {jcat: S28890, satellite_program_family: DMC, mission_details_source: own}
+          - {jcat: S33320, satellite_program_family: HJ, mission_details_source: own}
+          - {jcat: S26407, satellite_program_family: GPS, mission_details_source: own}
+          - {jcat: S10684, satellite_program_family: GPS, mission_details_source: own}
+          - {jcat: S39199, satellite_program_family: IRNSS, mission_details_source: own}
+          - {jcat: S37951, satellite_program_family: Luch, mission_details_source: own}
+          - {jcat: S28912, satellite_program_family: Meteosat, mission_details_source: own}
+          - {jcat: S35491, satellite_program_family: GOES, mission_details_source: own}
+          - {jcat: S11970, satellite_program_family: GOES, mission_details_source: inherited_parent}
+          - {jcat: S44714, satellite_program_family: Starlink, mission_details_source: own}
+          - {jcat: S38652, satellite_program_family: Sirius, mission_details_source: own}
+          - {jcat: S43683, satellite_program_family: Beidou, mission_details_source: own}
+    expect:
+      rows:
+        - {satcat_id: 19548, satellite_system_name: "TDRSS", flag_primary_system: 1}
+        - {satcat_id: 21639, satellite_system_name: "TDRSS", flag_primary_system: 1}
+        - {satcat_id: 40715, satellite_system_name: "Disaster Monitoring", flag_primary_system: 1}
+        - {satcat_id: 28890, satellite_system_name: "Disaster Monitoring", flag_primary_system: 1}
+        - {satcat_id: 26407, satellite_system_name: "GPS", flag_primary_system: 1}
+        - {satcat_id: 10684, satellite_system_name: "GPS", flag_primary_system: 1}
+        - {satcat_id: 39199, satellite_system_name: "NavIC", flag_primary_system: 1}
+        - {satcat_id: 35491, satellite_system_name: "GOES", flag_primary_system: 1}
+        - {satcat_id: 28912, satellite_system_name: "Search & Rescue (SARSAT)", flag_primary_system: 0}
+        - {satcat_id: 35491, satellite_system_name: "Search & Rescue (SARSAT)", flag_primary_system: 0}
+        - {satcat_id: 38652, satellite_system_name: "EGNOS", flag_primary_system: 0}
+        - {satcat_id: 43683, satellite_system_name: "BDSBAS", flag_primary_system: 0}
+
+  - name: ut__int__xsrc__satellite_constellation__celestrak_first
+    description: >-
+      D-047: CelesTrak constellation groups name their members (earlier config order wins); manual rows add own
+      payloads by programme family (PlanetScope: Flock) or name (Sentinel-2); a CelesTrak group beats a manual row
+      (FLOCK 4J 17 in starlink is made up to test it); system groups and debris inheriting a family never count
+      (the FLOCK debris row is made up).
+    model: int__xsrc__satellite_constellation
+    given:
+      - input: ref('int__celestrak__satellite_group_membership')
+        rows:
+          - {satcat_id: 44714, celestrak_group: starlink, celestrak_group_kind: constellation, celestrak_group_order: 1, grouping_name: "Starlink"}
+          - {satcat_id: 44057, celestrak_group: oneweb, celestrak_group_kind: constellation, celestrak_group_order: 2, grouping_name: "OneWeb"}
+          - {satcat_id: 44057, celestrak_group: starlink, celestrak_group_kind: constellation, celestrak_group_order: 1, grouping_name: "Starlink"}
+          - {satcat_id: 100938, celestrak_group: starlink, celestrak_group_kind: constellation, celestrak_group_order: 1, grouping_name: "Starlink"}
+          - {satcat_id: 26407, celestrak_group: gps-ops, celestrak_group_kind: system, celestrak_group_order: 9, grouping_name: "GPS"}
+      - input: ref('stg__sattrack__manual_satellite_grouping')
+        rows:
+          - {grouping_kind: constellation, grouping_name: PlanetScope, definition_rule_type: gcat_program_family, definition_rule_values: Flock}
+          - {grouping_kind: constellation, grouping_name: Sentinel-2, definition_rule_type: object_name_regex, definition_rule_values: "^SENTINEL[ -]?2[A-Z]$"}
+          - {grouping_kind: system, grouping_name: GOES, definition_rule_type: gcat_program_family, definition_rule_values: GOES}
+      - input: ref('int__xsrc__satellite_gcat_matched')
+        rows:
+          - {satcat_id: 44714, jcat: S44714, object_name: "STARLINK-1008", object_type: PAYLOAD}
+          - {satcat_id: 44057, jcat: S44057, object_name: "ONEWEB-0012", object_type: PAYLOAD}
+          - {satcat_id: 100938, jcat: S100938, object_name: "FLOCK 4J 17", object_type: PAYLOAD}
+          - {satcat_id: 100937, jcat: S100937, object_name: "FLOCK 4J 16", object_type: PAYLOAD}
+          - {satcat_id: 100999, jcat: S100999, object_name: "FLOCK 4J DEB", object_type: DEBRIS}
+          - {satcat_id: 40697, jcat: S40697, object_name: "SENTINEL 2A", object_type: PAYLOAD}
+          - {satcat_id: 60989, jcat: S60989, object_name: "SENTINEL-2C", object_type: PAYLOAD}
+          - {satcat_id: 42969, jcat: S42969, object_name: "SENTINEL 5P", object_type: PAYLOAD}
+          - {satcat_id: 26407, jcat: S26407, object_name: "NAVSTAR 48 (USA 151)", object_type: PAYLOAD}
+          - {satcat_id: 35491, jcat: S35491, object_name: "EWS-G3 (GOES 14)", object_type: PAYLOAD}
+      - input: ref('int__jsr__satellite_status')
+        rows:
+          - {jcat: S44714, satellite_program_family: Starlink, mission_details_source: own}
+          - {jcat: S44057, satellite_program_family: OneWeb, mission_details_source: own}
+          - {jcat: S100938, satellite_program_family: Flock, mission_details_source: own}
+          - {jcat: S100937, satellite_program_family: Flock, mission_details_source: own}
+          - {jcat: S100999, satellite_program_family: Flock, mission_details_source: inherited_parent}
+          - {jcat: S40697, satellite_program_family: Sentinel, mission_details_source: own}
+          - {jcat: S60989, satellite_program_family: Sentinel, mission_details_source: own}
+          - {jcat: S42969, satellite_program_family: Sentinel, mission_details_source: own}
+          - {jcat: S26407, satellite_program_family: GPS, mission_details_source: own}
+          - {jcat: S35491, satellite_program_family: GOES, mission_details_source: own}
+    expect:
+      rows:
+        - {satcat_id: 44714, satellite_constellation_name: "Starlink", constellation_source: celestrak_group}
+        - {satcat_id: 44057, satellite_constellation_name: "Starlink", constellation_source: celestrak_group}
+        - {satcat_id: 100938, satellite_constellation_name: "Starlink", constellation_source: celestrak_group}
+        - {satcat_id: 100937, satellite_constellation_name: "PlanetScope", constellation_source: gcat_program_family}
+        - {satcat_id: 40697, satellite_constellation_name: "Sentinel-2", constellation_source: object_name_regex}
+        - {satcat_id: 60989, satellite_constellation_name: "Sentinel-2", constellation_source: object_name_regex}

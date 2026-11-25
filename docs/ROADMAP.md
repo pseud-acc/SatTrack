@@ -183,11 +183,13 @@ Each phase's hours are the sum of its task estimates, done tasks included; the p
 
 **Extensions (~16 h, D-028)**
 
-3.8 `feature/constellation-field` — **Done** in PR #69 (24 Nov 2026), with the space station flag (D-043) and decisions D-039, D-040. Pipeline task, parallel to 3.2: download CelesTrak's constellation and operator groups under D-008 and the usage policy (CSV, compressed, once per update, stop on any non-200), keep the last good copy on failure, add a documented `constellation` field to `objects`; a test warns when CelesTrak's index shows a new group (D-026). Also CelesTrak's space station group as `flag_space_station` (D-043). (~4 h)
+3.8 `feature/constellation-field` — **Done** in PR #69 (24 Nov 2026); its `constellation` field was replaced by D-047's constellation and system fields in PR #81 (25 Nov 2026), with the space station flag (D-043) and decisions D-039, D-040. Pipeline task, parallel to 3.2: download CelesTrak's constellation and operator groups under D-008 and the usage policy (CSV, compressed, once per update, stop on any non-200), keep the last good copy on failure, add a documented `constellation` field to `objects`; a test warns when CelesTrak's index shows a new group (D-026). Also CelesTrak's space station group as `flag_space_station` (D-043). (~4 h)
 
 3.9 `feature/cesium-search-image` — Search by name or SATCAT number with fly-to; "Save image" (PNG) from the canvas with the credits drawn in. Search must offer a browsable list (e.g. newest launches, stations first via `flag_space_station`, D-043) as well as type-to-search (D-044): users include children and casual visitors. Dash 4's `dcc.Dropdown` indexes every option in the browser (2.2 s for ~32k options, measured 24 Nov 2026), so the list is built in the worker, not as Dropdown options. (~4 h)
 
-3.10 `feature/cesium-constellations` — Adds "constellation" to 3.13's "Colour by" menu and legend, from 3.8's field, with the CelesTrak credit. (~2 h)
+3.10 `feature/cesium-constellations` — Adds "constellation" and "satellite system" to 3.13's "Colour by" menu and legend, from the D-047 fields (`satellite_constellation_name`, `primary_satellite_system_name`), with the CelesTrak credit. (~2 h)
+
+3.3b `feature/cesium-group-filters` — Constellation and satellite system filters (D-047): multi-selects on `satellite_constellation_name` and `satellite_system_names`, a "primary system only" switch, and info popovers showing each grouping's definition and source link (`dim__satellite_constellation`, `dim__satellite_system`). Follows 3.3. (~3 h, estimate)
 
 3.11 `feature/cesium-daylight` — Day/night terminator and satellites dimmed in Earth's shadow; switches the worker to satellite.js's WASM `BulkPropagator` (zero-vector guard, parity-test row, `'wasm-unsafe-eval'` in the CSP) (D-029). (~6 h)
 

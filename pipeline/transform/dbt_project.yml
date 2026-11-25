@@ -7,6 +7,7 @@ model-paths: ["models"]
 macro-paths: ["macros"]
 test-paths: ["tests"]
 analysis-paths: ["analyses"]
+seed-paths: ["seeds"]
 docs-paths: ["docs"]
 clean-targets: ["target", "dbt_packages"]
 
@@ -34,6 +35,8 @@ models:
         +tags: ["enrichment"]
       celestrak:
         +tags: ["enrichment"]   # constellation groups (D-026): built and published with the enrichment unit
+      sattrack:
+        +tags: ["enrichment"]   # constellation and system definitions (D-047), read from the seeds below
     intermediate:
       +materialized: table
       +schema: intermediate
@@ -70,6 +73,14 @@ models:
   elementary:
     +database: ops
     +schema: elementary
+
+# SatTrack's own reference tables (D-047): the constellation and system definitions, each with its publisher's quote
+# and URL. They land in raw_sattrack like any raw source (staging/sattrack reads them) and are built with the
+# enrichment unit (run_pipeline.py builds by selector, so the tag is needed).
+seeds:
+  sattrack:
+    +schema: raw_sattrack
+    +tags: ["enrichment"]
 
 data_tests:
   +store_failures: true

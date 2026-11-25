@@ -115,7 +115,7 @@ def test_the_sample_follows_the_contract(sample_objects):
     """The committed sample has the envelope and keeps every object type (D-011). The pipeline validates the full
     JSON Schema; here the parts the app relies on are checked without the pipeline's validator."""
     d = sample_objects
-    assert d["dataset"] == "objects" and d["schema"] == 1 and d["key"] == "satcat_id"
+    assert d["dataset"] == "objects" and d["schema"] == 2 and d["key"] == "satcat_id"   # 2: D-047
     assert d["count"] == len(d["records"])
     ids = [r["satcat_id"] for r in d["records"]]
     assert ids == sorted(set(ids))
@@ -124,6 +124,7 @@ def test_the_sample_follows_the_contract(sample_objects):
     required = schema["$defs"]["record"]["required"]
     assert all(list(r) == required for r in d["records"])                      # same fields, same order
     assert all(isinstance(r["mission_category_labels"], list) for r in d["records"])
+    assert all(isinstance(r["satellite_system_names"], list) for r in d["records"])
 
 
 @pytest.mark.parametrize("header, available, expected", [
