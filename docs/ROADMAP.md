@@ -56,16 +56,16 @@ Where SatTrack is today in each area, what it should do, and the work to get the
 
 | Phase | Theme | Est. hours | Est. weeks |
 |---|---|---|---|
-| 0 | Housekeeping & guardrails | 12 (0.2 done; incl. 0.5, 0.6) | 2–3 |
-| 1 | OMM propagation | 8 | 2 |
-| 2 | Client data contract + filter spec | 11.5 (incl. 2.4) | 2–3 |
-| 3 | Cesium migration | 70.5 (core 54.5 incl. 3.7, 3.12, 3.13; extensions 16; +15% buffer → ~81) | 14–16 |
+| 0 | Housekeeping & guardrails | 12 (done) | 2–3 |
+| 1 | OMM propagation | 8 (done) | 2 |
+| 2 | Client data contract + filter spec | 11.5 (incl. 2.4, the one task left) | 2–3 |
+| 3 | Cesium migration | 73.5 (spike 3.1: 3, done; core 54.5 incl. 3.7, 3.12, 3.13; extensions 16; +15% buffer → ~84.5) | 15–17 |
 | 4 | Freshness & SupGP | 12 | 3 |
-| 5 | Detail enrichment | 12 (incl. 5.4) | 2–3 |
+| 5 | Detail enrichment | 12 (incl. 5.4 and the optional 5.3) | 2–3 |
 | 6 | Natural-language query | 20 (+25% buffer → 25) | 4–5 |
 | 7 | Backlog (pick as wanted) | — | — |
 
-Roughly **30 weeks (~158 h, ~7 months)** to the end of Phase 6 with the buffers, the tasks added by the review, the Phase 3 scope set after the Cesium spike (D-028; 93 h as originally written) and the design and "Colour by" tasks added on 24 Nov 2026 (3.12, 3.13, 3.3 +2 h: +16 h with the buffer, from ~142 h; D-044, D-045). Phases 4 and 5 are independent of 3 and can be swapped in if Cesium work stalls.
+Each phase's hours are the sum of its task estimates, done tasks included; the plan adds the stated buffers (Phase 3 +15%, Phase 6 +25%). To the end of Phase 6 that is **149 h of estimates, ~165 h with the buffers: roughly 33 weeks (~7.5 months) at 5 h a week**, of which 47 h is done (Phases 0 and 1, 2.1 to 2.3, 3.1, 3.2 and 3.8), leaving ~115 h with the buffers (~23 weeks). It includes the tasks added by the review, the Phase 3 scope set after the Cesium spike (D-028; 93 h as originally written) and the design and "Colour by" tasks added on 24 Nov 2026 (3.12, 3.13; D-044, D-045). Phases 4 and 5 are independent of 3 and can be swapped in if Cesium work stalls.
 
 ---
 
@@ -86,15 +86,15 @@ Roughly **30 weeks (~158 h, ~7 months)** to the end of Phase 6 with the buffers,
 
 **Goal:** a clean base for agent-driven work.
 
-0.1 `chore/claude-md` — Add `CLAUDE.md` at repo root summarising architecture, commands (`uv sync`, `dbt build`, run app locally, run pipeline locally with a dev profile), and the Working rules above. Commit this roadmap as `docs/ROADMAP.md`.
+0.1 `chore/claude-md` — Add `CLAUDE.md` at repo root summarising architecture, commands (`uv sync`, `dbt build`, run app locally, run pipeline locally with a dev profile), and the Working rules above. Commit this roadmap as `docs/ROADMAP.md`. (~2 h)
 
-0.2 `chore/retire-legacy-pipeline` — **Done** in PR #30 (16 Nov 2026): `src/`, `dat/` and root `run_pipeline.py` deleted; the app reads S3 or a local folder (`SATTRACK_APP_DATA_DIR`); CI uses `tests/app_data`.
+0.2 `chore/retire-legacy-pipeline` — **Done** in PR #30 (16 Nov 2026): `src/`, `dat/` and root `run_pipeline.py` deleted; the app reads S3 or a local folder (`SATTRACK_APP_DATA_DIR`); CI uses `tests/app_data`. (~2 h)
 
-0.3 `test/app-ci` — Add an app pytest job to the PR and merge checks, running app tests against `tests/app_data`. Without it, 1.4 (parity) and 2.3 (filter spec) would never run in CI.
+0.3 `test/app-ci` — Add an app pytest job to the PR and merge checks, running app tests against `tests/app_data`. Without it, 1.4 (parity) and 2.3 (filter spec) would never run in CI. (~1.5 h)
 
-0.4 `chore/cleanup` — Open clean-up items: Dependabot alerts (app lockfile), archive the two expected IAM Access Analyzer findings, delete stale branches, laptop clean-up (Task Scheduler entry, `SPACETRACK_*` in the local env file, leftover untracked files).
+0.4 `chore/cleanup` — Open clean-up items: Dependabot alerts (app lockfile), archive the two expected IAM Access Analyzer findings, delete stale branches, laptop clean-up (Task Scheduler entry, `SPACETRACK_*` in the local env file, leftover untracked files). (~1 h)
 
-0.5 `test/app-e2e` — A small browser (E2E) test set: Playwright + headless Chromium on the sample, four journeys (home → tracker, 3D draws the selected satellites, one satellite's 2D track, list view), failing on any JS/console error. Checks by counts and rows so they carry over to Cesium; Phase 3 extends them. Runs before each deploy.
+0.5 `test/app-e2e` — A small browser (E2E) test set: Playwright + headless Chromium on the sample, four journeys (home → tracker, 3D draws the selected satellites, one satellite's 2D track, list view), failing on any JS/console error. Checks by counts and rows so they carry over to Cesium; Phase 3 extends them. Runs before each deploy. (~1 h)
 
 0.6 `major/dash-4` — Planned major upgrade: Dash 2.18 → 4.5 (the current release; Dash 3 is skipped), which allows the patched Flask and Werkzeug and clears the last 5 Dependabot alerts (the other 123 were cleared in #45). Upgrade only; new Dash features are separate tasks. Known changes: `app.run_server` becomes `app.run` (`run_app.py`, `run_app_dev.py`); dash-bootstrap-components 1.x → the 2.x release that supports Dash 4 (confirm first); Dash 4's redesigned core components (Dropdown, RangeSlider, Checklist) change how the sidebar looks, so compare screenshots before and after; `dash_table.DataTable` (list view) is deprecated but still works, so it stays; review deprecated component props. The app unit, integration and browser tests are the safety net; check the 3D payload size again (PR #37). About 4.5 h. Do it before Phase 3, which builds the Cesium viewer into the Dash shell.
 
@@ -106,13 +106,13 @@ Roughly **30 weeks (~158 h, ~7 months)** to the end of Phase 6 with the buffers,
 
 **Why first:** a prerequisite, not an emergency. Space-Track already gives objects above 99,999 TLE lines in Alpha-5 format and the app reads them correctly, but Alpha-5 ends at 339,999, SupGP data for new objects is OMM-only (Phase 4), and the browser propagator reads OMM directly (Phase 3).
 
-1.1 `feature/omm-fields-in-marts` — **Done** in PR #50 (21 Nov 2026). Carry `mean_motion_dot`, `mean_motion_ddot`, `rev_at_epoch`, `element_set_no`, `ephemeris_type`, `classification_type` from `stg__spacetrack__gp` through `int__spacetrack__satellite_catalogue` into `fct__gp_elements` (tracking). Not into `fct__satellite_master`: since #42 the app export takes elements from the tracking mart, which updates every run, and only descriptive fields from the master, which is held when GCAT enrichment fails. Schema YAML + doc blocks (reused from staging). Keep TLE columns. A warn-level check flags any `ephemeris_type` other than 0 (SGP4).
+1.1 `feature/omm-fields-in-marts` — **Done** in PR #50 (21 Nov 2026). Carry `mean_motion_dot`, `mean_motion_ddot`, `rev_at_epoch`, `element_set_no`, `ephemeris_type`, `classification_type` from `stg__spacetrack__gp` through `int__spacetrack__satellite_catalogue` into `fct__gp_elements` (tracking). Not into `fct__satellite_master`: since #42 the app export takes elements from the tracking mart, which updates every run, and only descriptive fields from the master, which is held when GCAT enrichment fails. Schema YAML + doc blocks (reused from staging). Keep TLE columns. A warn-level check flags any `ephemeris_type` other than 0 (SGP4). (~2 h)
 
-1.2 `feature/omm-app-export` — **Done** in PR #54 (21 Nov 2026). In `app__satcat_tle.sql`: add OMM columns; take `mean_motion`/`eccentricity` from columns instead of `substr(tle_line_2, …)`; replace `tle_line_1/2 is not null` filter with a check on the element columns; format epoch explicitly as `%Y-%m-%dT%H:%M:%S.%f`. Add new columns to `APP_COLUMNS["satcat_tle.csv"]` in `export_app_csvs.py`. Update the CI sample `tests/app_data` to the new columns.
+1.2 `feature/omm-app-export` — **Done** in PR #54 (21 Nov 2026). In `app__satcat_tle.sql`: add OMM columns; take `mean_motion`/`eccentricity` from columns instead of `substr(tle_line_2, …)`; replace `tle_line_1/2 is not null` filter with a check on the element columns; format epoch explicitly as `%Y-%m-%dT%H:%M:%S.%f`. Add new columns to `APP_COLUMNS["satcat_tle.csv"]` in `export_app_csvs.py`. Update the CI sample `tests/app_data` to the new columns. (~2 h)
 
-1.3 `refactor/omm-propagation` — **Done** in PR #56 (22 Nov 2026), with WGS 84 geodetic latitude/altitude and a per-element-set propagator cache (D-004 to D-006). In `compute_satloc`, build `Satrec` via `sgp4.omm.initialize(Satrec(), fields)` (available in pinned `sgp4>=2.21`). Update callers in `helper__app_data.py` (lines ~111, ~140). Also build the `Satrec` once outside the time loop in the orbit-path branch. Keep a TLE fallback for one release. Building `Satrec` once per satellite also speeds up the 2D/3D callbacks until Cesium replaces them.
+1.3 `refactor/omm-propagation` — **Done** in PR #56 (22 Nov 2026), with WGS 84 geodetic latitude/altitude and a per-element-set propagator cache (D-004 to D-006). In `compute_satloc`, build `Satrec` via `sgp4.omm.initialize(Satrec(), fields)` (available in pinned `sgp4>=2.21`). Update callers in `helper__app_data.py` (lines ~111, ~140). Also build the `Satrec` once outside the time loop in the orbit-path branch. Keep a TLE fallback for one release. Building `Satrec` once per satellite also speeds up the 2D/3D callbacks until Cesium replaces them. (~2.5 h)
 
-1.4 `test/omm-parity` — **Done** in PR #56 (22 Nov 2026): its OMM-vs-TLE parity test covers every sample object incl. Alpha-5 at −24 h, 0 and +24 h; checked against NASA's ISS ephemeris and wheretheiss.at. Test propagating a sample of objects via TLE and via OMM over ±24 h; assert position difference under a small tolerance (expect metres, OMM carries more precision). Include objects above 99,999 (Alpha-5) in the sample. Runs in CI via 0.3.
+1.4 `test/omm-parity` — **Done** in PR #56 (22 Nov 2026): its OMM-vs-TLE parity test covers every sample object incl. Alpha-5 at −24 h, 0 and +24 h; checked against NASA's ISS ephemeris and wheretheiss.at. Test propagating a sample of objects via TLE and via OMM over ±24 h; assert position difference under a small tolerance (expect metres, OMM carries more precision). Include objects above 99,999 (Alpha-5) in the sample. Runs in CI via 0.3. (~1.5 h)
 
 **Done when:** app runs entirely off OMM fields, parity test passes, no object is dropped for lacking TLE lines.
 
@@ -122,11 +122,11 @@ Roughly **30 weeks (~158 h, ~7 months)** to the end of Phase 6 with the buffers,
 
 **Goal:** define what the browser receives and how selections are expressed, so Cesium (Phase 3) and NL query (Phase 6) plug into the same contracts.
 
-2.1 `feature/app-data-json` — The `objects` dataset for the browser, built to the data contracts decided on 22 Nov 2026 (`docs/DECISIONS.md` D-009 to D-012, `docs/app-data-contract.md`): one record per tracked object with the warehouse's field names, the full OMM element set and the filter fields; every object type (payloads, rocket bodies, debris, and `UNKNOWN` hidden by default in the UI); a shared envelope (dataset, schema version, count, run, attribution, caution); every record validated against `app/contracts/objects.schema.json` before publishing; pre-compressed (Brotli and gzip) and listed in `app/current.json` with the CSVs. The app serves it at `/data/objects.json` with an ETag, on threaded gunicorn workers so slow downloads can't block callbacks. The shape of the second core dataset, `object_detail`, is documented now; its file ships with the detail panel (3.4).
+2.1 `feature/app-data-json` — The `objects` dataset for the browser, built to the data contracts decided on 22 Nov 2026 (`docs/DECISIONS.md` D-009 to D-012, `docs/app-data-contract.md`): one record per tracked object with the warehouse's field names, the full OMM element set and the filter fields; every object type (payloads, rocket bodies, debris, and `UNKNOWN` hidden by default in the UI); a shared envelope (dataset, schema version, count, run, attribution, caution); every record validated against `app/contracts/objects.schema.json` before publishing; pre-compressed (Brotli and gzip) and listed in `app/current.json` with the CSVs. The app serves it at `/data/objects.json` with an ETag, on threaded gunicorn workers so slow downloads can't block callbacks. The shape of the second core dataset, `object_detail`, is documented now; its file ships with the detail panel (3.4). (~3.5 h)
 
-2.2 `feature/filter-spec` — Define a **filter spec** as a JSON Schema (`app/contracts/filter_spec.schema.json`): a list of `{field, op, value}` clauses with an allowlist of fields and ops, generated from dbt schema YAML + `accepted_values` where possible (script in `pipeline/scripts/`). Write a Python function that applies a spec to the app dataframe and refactor the existing sidebar callbacks to build a spec and call it. Behaviour must be unchanged. This is also the NLQ safety boundary in Phase 6, so keep the allowlist strict.
+2.2 `feature/filter-spec` — Define a **filter spec** as a JSON Schema (`app/contracts/filter_spec.schema.json`): a list of `{field, op, value}` clauses with an allowlist of fields and ops, generated from dbt schema YAML + `accepted_values` where possible (script in `pipeline/scripts/`). Write a Python function that applies a spec to the app dataframe and refactor the existing sidebar callbacks to build a spec and call it. Behaviour must be unchanged. This is also the NLQ safety boundary in Phase 6, so keep the allowlist strict. (~3 h)
 
-2.3 `test/filter-spec` — Unit tests: each existing sidebar filter → spec → same result set as before. Runs in CI via 0.3.
+2.3 `test/filter-spec` — Unit tests: each existing sidebar filter → spec → same result set as before. Runs in CI via 0.3. (~1.5 h)
 
 2.4 `feature/list-view-ag-grid` — Replace the list view's `dash_table.DataTable` (deprecated in Dash 3.3, to be removed in a future major) with AG Grid (`dash[ag-grid]`): virtual scrolling instead of 20-row pages, column filters, built-in CSV export. Keep the export's columns, order, hidden columns and the ±180° longitudes (#41); restyle for the dark theme; update `callback_table.py`, its integration tests and the E2E list journey (which reads table rows). About 3.5 h; independent of 2.1–2.3.
 
@@ -136,7 +136,7 @@ Roughly **30 weeks (~158 h, ~7 months)** to the end of Phase 6 with the buffers,
 
 ---
 
-## Phase 3 — Cesium migration (~70.5 h: core ~54.5 h + extensions ~16 h; plan for ~81 h)
+## Phase 3 — Cesium migration (~73.5 h: spike ~3 h (done), core ~54.5 h, extensions ~16 h; plan for ~84.5 h)
 
 **Goal:** replace Plotly 3D/2D with a CesiumJS viewer, propagating in the browser.
 
@@ -151,7 +151,7 @@ Roughly **30 weeks (~158 h, ~7 months)** to the end of Phase 6 with the buffers,
 - **Design (D-044):** deep navy chrome with one teal accent (`#2bb3a3`) kept clear of the data colours, 6 px corners, hairline borders, no card shadows; plain Bootstrap 5 plus SatTrack's own `tokens.css` (colours, type scale, spacing, radius) shared by the Dash shell and the viewer; filters in a left panel, collapsible to a thin strip (phones keep the bottom sheet, D-025). Any satellite search offers a browsable list as well as typing.
 - Credits in the viewer: USSPACECOM via Space-Track.org with the conjunction caution, GCAT (CC-BY), CelesTrak groups (D-026), CesiumJS, satellite.js, Natural Earth.
 
-3.1 `docs/cesium-spike` — **Done** (22–23 Nov 2026). Spike page and measurements in `docs/cesium-spike/` and `docs/cesium-architecture.md`: parity with Python sgp4 within 9.5 m; the worker gives 20–32 fps at 4–6× CPU against 2–11 fps on the main thread; a real phone ran 59–60 fps with every object. Decisions D-013 to D-029.
+3.1 `docs/cesium-spike` — **Done** (22–23 Nov 2026). Spike page and measurements in `docs/cesium-spike/` and `docs/cesium-architecture.md`: parity with Python sgp4 within 9.5 m; the worker gives 20–32 fps at 4–6× CPU against 2–11 fps on the main thread; a real phone ran 59–60 fps with every object. Decisions D-013 to D-029. (~3 h)
 
 **Core (~54.5 h, counting 3.12 at 9 h)**
 
@@ -199,9 +199,9 @@ Roughly **30 weeks (~158 h, ~7 months)** to the end of Phase 6 with the buffers,
 
 **Goal:** positions as fresh and accurate as the best free trackers.
 
-4.1 `feature/pipeline-cadence` — Propose (do not apply) a schedule change to several runs per day within Space-Track limits, and a lighter "GP-only" run mode that skips GCAT (GCAT updates ~monthly). Make the app pick up new data **without redeploying** (e.g. app reads the export from S3/HTTPS with cache invalidation keyed on `last_data_update`). Infra changes need owner sign-off. Three changes: the pipeline's 12-hour gate (`--min-hours` in `infra/state/sattrack_state.py`), the EventBridge schedule (`sattrack-scheduler` stack update), and the app reloading `app/current.json` while it runs. GP stays at most once an hour; lower the gate deliberately.
+4.1 `feature/pipeline-cadence` — Propose (do not apply) a schedule change to several runs per day within Space-Track limits, and a lighter "GP-only" run mode that skips GCAT (GCAT updates ~monthly). Make the app pick up new data **without redeploying** (e.g. app reads the export from S3/HTTPS with cache invalidation keyed on `last_data_update`). Infra changes need owner sign-off. Three changes: the pipeline's 12-hour gate (`--min-hours` in `infra/state/sattrack_state.py`), the EventBridge schedule (`sattrack-scheduler` stack update), and the app reloading `app/current.json` while it runs. GP stays at most once an hour; lower the gate deliberately. (~4 h)
 
-4.2 `feature/supgp-ingest` — Ingest CelesTrak SupGP (OMM JSON) per source group (start with SpaceX, OneWeb, Kuiper, Planet, Iridium, GPS). Respect CelesTrak's usage policy (no more than needed; one fetch per group per run). Design a fetch budget first: CelesTrak enforces download limits on large sets such as Starlink. If a fetch is refused, GP stays the fallback (4.3). Staging model `stg__celestrak__supgp`.
+4.2 `feature/supgp-ingest` — Ingest CelesTrak SupGP (OMM JSON) per source group (start with SpaceX, OneWeb, Kuiper, Planet, Iridium, GPS). Respect CelesTrak's usage policy (no more than needed; one fetch per group per run). Design a fetch budget first: CelesTrak enforces download limits on large sets such as Starlink. If a fetch is refused, GP stays the fallback (4.3). Staging model `stg__celestrak__supgp`. (~3.5 h)
 
 **CelesTrak access risk (Nov 2026).** CelesTrak blocks IP addresses that download more than its usage policy allows; the owner's home IP was blocked after old local scripts (no longer run) fetched too often. Rules for 4.2:
 - **Never fetch locally.** SupGP is downloaded only by the pipeline on GitHub Actions. Development and tests use a saved sample file, not live requests.
@@ -209,25 +209,25 @@ Roughly **30 weeks (~158 h, ~7 months)** to the end of Phase 6 with the buffers,
 - **No retries on refusal.** A 403/429 or a tiny/HTML body means "no SupGP this run": record it, keep GP for those objects, don't fail the run.
 - **Shared runner IPs.** GitHub-hosted runners share IP addresses with other users, so a block may not be caused by us. Warn (report, not a failed run) only when SupGP has been refused for 3 days in a row; lifting a lasting block needs an email to CelesTrak, which is acceptable because GP keeps the app working without it.
 
-4.3 `feature/element-source-precedence` — Intermediate model choosing one element set per object: SupGP if newer than GP epoch and within a sanity bound of GP, else GP. Add `element_source` (`spacetrack_gp` / `celestrak_supgp:<source>`) and `element_epoch` to `fct__gp_elements` and the export. Note: SupGP can have multiple rows per object (multiple sources/epochs) — pick deterministically and document the rule.
+4.3 `feature/element-source-precedence` — Intermediate model choosing one element set per object: SupGP if newer than GP epoch and within a sanity bound of GP, else GP. Add `element_source` (`spacetrack_gp` / `celestrak_supgp:<source>`) and `element_epoch` to `fct__gp_elements` and the export. Note: SupGP can have multiple rows per object (multiple sources/epochs) — pick deterministically and document the rule. (~3 h)
 
-4.4 `feature/freshness-ui` — Show element age and source in the detail panel; optional legend/colour mode by element age.
+4.4 `feature/freshness-ui` — Show element age and source in the detail panel; optional legend/colour mode by element age. (~1.5 h)
 
 **Done when:** most active payloads propagate from SupGP; data refreshes several times a day; UI shows age/source.
 
 ---
 
-## Phase 5 — Detail enrichment (~10 h)
+## Phase 5 — Detail enrichment (~12 h)
 
 **Goal:** deep per-object detail, using data already ingested from GCAT where possible.
 
-5.1 `feature/gcat-physical-fields` — (Pipeline-only, no dependency on Cesium: a good task to swap in if Phase 3 stalls.) From GCAT satcat/psatcat: `bus`, `shape`, `length_m`, `diameter_m`, `power`, `payload`, `equipment`, `motor`, design life where available, with precision/uncertainty handling consistent with existing columns. Add to `fct__satellite_master`.
+5.1 `feature/gcat-physical-fields` — (Pipeline-only, no dependency on Cesium: a good task to swap in if Phase 3 stalls.) From GCAT satcat/psatcat: `bus`, `shape`, `length_m`, `diameter_m`, `power`, `payload`, `equipment`, `motor`, design life where available, with precision/uncertainty handling consistent with existing columns. Add to `fct__satellite_master`. (~3 h)
 
-5.2 `feature/detail-panel` — Detail panel sections: identity, mission, ownership (all co-owners with roles), manufacture, launch (vehicle, site with map pin), physical, orbit, data quality (uncertainty flags, sources, element age). Surface uncertainty visibly — this is a differentiator.
+5.2 `feature/detail-panel` — Detail panel sections: identity, mission, ownership (all co-owners with roles), manufacture, launch (vehicle, site with map pin), physical, orbit, data quality (uncertainty flags, sources, element age). Surface uncertainty visibly — this is a differentiator. (~5 h)
 
-5.3 `feature/rollup-views` (optional) — Simple views by owner, manufacturer, bus, constellation that set the filter spec and fly the camera to the selection.
+5.3 `feature/rollup-views` (optional) — Simple views by owner, manufacturer, bus, constellation that set the filter spec and fly the camera to the selection. (~2 h)
 
-5.4 `feature/satellite-page` — A shareable page per satellite (`/satellite/<id>`) built from the detail panel, linkable from search results and the globe, and indexable by search engines (README planned item "Satellite informational page"). Do it before 5.3.
+5.4 `feature/satellite-page` — A shareable page per satellite (`/satellite/<id>`) built from the detail panel, linkable from search results and the globe, and indexable by search engines (README planned item "Satellite informational page"). Do it before 5.3. (~2 h)
 
 **Done when:** detail panel covers the fields above with sources/uncertainty shown; each satellite has its own page.
 
@@ -237,13 +237,13 @@ Roughly **30 weeks (~158 h, ~7 months)** to the end of Phase 6 with the buffers,
 
 **Goal:** "Ask in plain English → see it on the globe", reliable and safe for a public app. The owner has built a self-serve analytics tool before — ask for their learnings at the start of 6.1 and fold them into the design.
 
-6.1 `docs/nlq-design` — Design doc: LLM returns a **filter spec** (Phase 2 schema), never raw SQL. Context = field allowlist + descriptions generated from dbt doc blocks + accepted values. Ambiguity policy (e.g. "Chinese satellites": owner vs manufacturer vs launch site — default + show interpretation, or ask). Model choice (small/cheap: a small, fast model such as Claude Haiku is enough for producing specs), daily spending cap, caching, rate limits per session, server-side API key (Heroku config), prompt-injection considerations.
+6.1 `docs/nlq-design` — Design doc: LLM returns a **filter spec** (Phase 2 schema), never raw SQL. Context = field allowlist + descriptions generated from dbt doc blocks + accepted values. Ambiguity policy (e.g. "Chinese satellites": owner vs manufacturer vs launch site — default + show interpretation, or ask). Model choice (small/cheap: a small, fast model such as Claude Haiku is enough for producing specs), daily spending cap, caching, rate limits per session, server-side API key (Heroku config), prompt-injection considerations. (~3 h)
 
-6.2 `test/nlq-eval-set` — Build ~50 question → expected-satcat-ID-set cases (include ambiguous ones and ones that need SatTrack's multi-org and status data: built in one country/operated by another, co-owned, launched outside owner's country, stopped transmitting but in orbit). Scorer reports precision/recall per case. Run in CI with recorded responses; live runs on demand. Labelling is the expensive part: start with 25 cases and grow the set.
+6.2 `test/nlq-eval-set` — Build ~50 question → expected-satcat-ID-set cases (include ambiguous ones and ones that need SatTrack's multi-org and status data: built in one country/operated by another, co-owned, launched outside owner's country, stopped transmitting but in orbit). Scorer reports precision/recall per case. Run in CI with recorded responses; live runs on demand. Labelling is the expensive part: start with 25 cases and grow the set. (~5 h)
 
-6.3 `feature/nlq-backend` — Endpoint: question → LLM → spec → JSON-Schema validation → (retry once with validation errors) → apply spec. Return spec + interpretation text + counts + uncertainty summary (e.g. "4 matches have uncertain ownership").
+6.3 `feature/nlq-backend` — Endpoint: question → LLM → spec → JSON-Schema validation → (retry once with validation errors) → apply spec. Return spec + interpretation text + counts + uncertainty summary (e.g. "4 matches have uncertain ownership"). (~7 h)
 
-6.4 `feature/nlq-ui` — Query box above the sidebar; resulting spec rendered as editable filter chips in the existing sidebar; globe updates via the same store as Phase 3; example prompts.
+6.4 `feature/nlq-ui` — Query box above the sidebar; resulting spec rendered as editable filter chips in the existing sidebar; globe updates via the same store as Phase 3; example prompts. (~5 h)
 
 **Done when:** eval suite ≥ agreed threshold (set in 6.1), costs capped, interpretation always shown and editable.
 
