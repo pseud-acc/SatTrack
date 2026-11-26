@@ -16,14 +16,13 @@ def create_status_filter():
     return html.Div([
         html.Label([
             "Status ",
-            html.I(className="fas fa-info-circle", id="status-info-icon",
-                   style={'fontSize': '0.8rem', 'cursor': 'pointer'})
-        ], className="fw-bold small"),
+            html.I(className="st-icon st-icon-info", id="status-info-icon")
+        ], className="st-lbl"),
         dbc.Tooltip([
             html.Div([
                 html.Strong("Active:"), " Currently operational satellites", html.Br(),
                 html.Strong("Inactive:"), " Defunct or decommissioned satellites"
-            ], style={'textAlign': 'left'})
+            ], className="st-tip-body")
         ], target="status-info-icon", placement="right"),
         dcc.Checklist(
             options=[
@@ -32,9 +31,8 @@ def create_status_filter():
             ],
             value=["Active"],
             id="status-filter-checkbox",
-            className="mb-3",
+            className="mb-3 st-status-list",
             inline=True,
-            inputStyle={"marginRight": "5px"},
             labelStyle={"marginRight": "15px"}
         )
     ])

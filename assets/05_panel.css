@@ -1,0 +1,154 @@
+/* SatTrack filter panel (D-044, roadmap 3.12 step 3): the panel's look and its fold to a strip on desktop. Built on
+   assets/03_tokens.css: no colour values here, only tokens (tests/app/test_design_tokens.py checks). What the panel
+   does (live count, chips, segmented controls, type toggles) is roadmap 3.3's.
+   Replaces custom.css (Bootstrap 4 era, cyan accents). */
+
+/* ---- The card ----------------------------------------------------------------------------------------------- */
+.st-panel { border-radius: var(--st-r); }
+.st-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--st-2);
+  padding: var(--st-2) var(--st-2) var(--st-2) var(--st-4);
+  border-bottom: 1px solid var(--st-line);
+}
+.st-panel-title { margin: 0; font-size: var(--st-fs-lg); font-weight: 600; }
+.st-panel-btn {
+  --bs-btn-padding-x: 6px;
+  --bs-btn-padding-y: 4px;
+  color: var(--st-muted);
+  font-size: 18px;
+  line-height: 1;
+  align-items: center;
+}
+.st-panel-btn:hover, .st-panel-btn:focus-visible { color: var(--st-fg); }
+.st-panel .card-body { padding: var(--st-4); display: grid; gap: var(--st-4); }
+.st-panel .card-body > div > .mb-3, .st-panel .card-body > div > .mb-2:last-child { margin-bottom: 0 !important; }
+
+/* Section labels: small uppercase, muted; the (i) icon opens the tooltip */
+.st-lbl {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  font-size: var(--st-fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--st-muted);
+}
+.st-lbl .st-icon { font-size: 13px; cursor: pointer; }
+.st-lbl .st-icon:hover { color: var(--st-fg); }
+
+/* Update / Clear Orbits: one row, equal widths (3.3b removes Update) */
+.st-panel-actions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--st-2); }
+
+/* Filters always shown on desktop; shown or hidden by the chevron on phones */
+@media (min-width: 768px) {
+  #filter-collapse { display: block !important; height: auto !important; }
+}
+@media (max-width: 767.98px) {
+  #filter-collapse:not(.show) { display: none; }
+}
+
+/* ---- Folded to a strip (desktop; tracker-row gets st-panel-folded from callback_filters.toggle_panel_strip) --- */
+@media (min-width: 768px) {
+  .st-tracker-row > .st-panel-col { transition: flex-basis 120ms ease, max-width 120ms ease; }
+  .st-tracker-row.st-panel-folded > .st-panel-col { flex: 0 0 52px; max-width: 52px; }
+  .st-panel-folded .st-panel { height: 100%; margin-bottom: 0 !important; }   /* as tall as the views' card */
+  .st-panel-folded #filter-collapse { display: none !important; }
+  .st-panel-folded .st-panel-head { flex-direction: column; justify-content: flex-start; gap: var(--st-3);
+    padding: var(--st-2) 0; border-bottom: 0; }
+  .st-panel-folded .st-panel-title { order: 2; writing-mode: vertical-rl; transform: rotate(180deg);
+    font-size: var(--st-fs-sm); color: var(--st-muted); }
+}
+
+/* ---- Dash 4 controls inside the panel ------------------------------------------------------------------------ */
+.dash-checklist { --Dash-Fill-Primary-Hover: transparent; --Dash-Fill-Primary-Active: transparent; }
+.dash-checklist .dash-options-list-option-text { color: var(--st-fg) !important; font-weight: 400 !important; }
+.dash-checklist .dash-options-list-option { margin-bottom: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; }
+
+/* Advanced filters accordion: flat, on the panel */
+.st-panel .accordion {
+  --bs-accordion-bg: transparent;
+  --bs-accordion-border-color: var(--st-line);
+  --bs-accordion-btn-padding-x: 0;
+  --bs-accordion-btn-padding-y: var(--st-2);
+  --bs-accordion-body-padding-x: 0;
+  --bs-accordion-body-padding-y: var(--st-3);
+  --bs-accordion-active-bg: transparent;
+  --bs-accordion-active-color: var(--st-fg);
+  --bs-accordion-btn-focus-box-shadow: 0 0 0 3px var(--st-accent-soft);
+  margin-bottom: 0 !important;
+}
+.st-panel .accordion-item { border-left: 0; border-right: 0; border-radius: 0 !important; }
+.st-panel .accordion-button { font-size: var(--st-fs-sm); font-weight: 600; color: var(--st-fg); box-shadow: none; }
+/* Bootstrap's chevron is a fixed-colour image; use the shell's chevron icon (04_shell.css), which follows the text */
+.st-panel .accordion-button::after {
+  background: currentColor;
+  -webkit-mask: var(--st-icon) center / contain no-repeat;
+  mask: var(--st-icon) center / contain no-repeat;
+  color: var(--st-muted);
+}
+.st-panel .accordion-button::after, .st-panel .accordion-button:not(.collapsed)::after {
+  --st-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+}
+
+/* ---- Launch year range slider -------------------------------------------------------------------------------- */
+.custom-range-slider { margin: var(--st-3) 0 !important; }
+.custom-range-slider .dash-slider-mark, .custom-range-slider .dash-slider-dot { display: none !important; }
+.custom-range-slider .dash-slider-root.has-marks { padding: 6px 0 !important; }   /* hidden marks still reserve 28 px */
+#launchyear-filter-slider { padding: 10px 0 !important; }
+.custom-range-slider .dash-slider-track { background-color: var(--st-line) !important; height: 4px !important; }
+.custom-range-slider .dash-slider-range { background-color: var(--st-accent) !important; }
+.custom-range-slider .dash-slider-thumb {
+  border: 2px solid var(--st-accent) !important;
+  background-color: var(--st-fg) !important;
+  width: 20px !important;
+  height: 20px !important;
+  box-shadow: none !important;
+}
+.custom-range-slider .dash-slider-thumb:focus, .custom-range-slider .dash-slider-thumb:active {
+  box-shadow: 0 0 0 5px var(--st-accent-soft) !important;
+  outline: none !important;
+}
+.custom-range-slider .dash-slider-tooltip {
+  background-color: var(--st-raised) !important;
+  color: var(--st-fg) !important;
+  font-weight: 600 !important;
+  font-size: var(--st-fs-xs) !important;
+  padding: 4px 10px !important;
+  border-radius: var(--st-r) !important;
+  border: 1px solid var(--st-control) !important;
+  box-shadow: none !important;
+}
+#launch-year-min-display:hover, #launch-year-max-display:hover { border-color: var(--st-accent) !important; }
+@media (max-width: 767.98px) {
+  .custom-range-slider .dash-slider-thumb { width: 24px !important; height: 24px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .st-tracker-row > .st-panel-col { transition: none; }
+}
+
+/* ---- Advanced filters (3.12 step 4: replaces the component's inline styles) --------------------------------- */
+.st-adv-dropdown { font-size: var(--st-fs-sm); margin-bottom: var(--st-3); }
+.st-adv-years { padding-top: var(--st-3); margin-top: var(--st-1); border-top: 1px solid var(--st-line); }
+.st-year-bubbles { display: flex; justify-content: space-between; gap: var(--st-4); }
+.st-year-bubble {
+  flex: 0 1 140px;
+  padding: 6px var(--st-3);
+  border: 1px solid var(--st-control);
+  border-radius: var(--st-r);
+  background: var(--st-raised);
+  color: var(--st-fg);
+  font-size: var(--st-fs-xs);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.st-year-bubble strong { color: var(--st-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* Tooltips next to the section labels, and the orbit checklist's grid */
+.st-tip-body { text-align: left; }
+.st-orbit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); }
+.st-orbit-grid input, .st-status-list input { margin-right: 5px; }

@@ -16,19 +16,17 @@ def create_search_filter(options):
         html.Div: Search filter component
     """
     return html.Div([
-        html.Label("Search Satellite", className="fw-bold small"),
+        html.Label("Search Satellite", className="st-lbl"),
         dcc.Dropdown(
             options=options["satname"],
             placeholder="Type to search...",
             id="satname-filter-dropdown",
-            className="mb-2",
-            style={'fontSize': '0.875rem'}
+            className="mb-2 st-adv-dropdown"
         ),
         dcc.Dropdown(
             options=options["satcatid"],
             placeholder="SATCAT Number",
             id="satcatid-filter-dropdown",
-            className="mb-3",
-            style={'fontSize': '0.875rem'}
+            className="mb-3 st-adv-dropdown"
         )
     ])

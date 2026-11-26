@@ -1,39 +1,32 @@
 """
-Header component for satellite visualization page.
+The tracker's credits line (D-044, roadmap 3.12). The big "Live Tracker" heading is gone: the page name is in the top
+bar, and the data's update time moved there too (app/layouts/layout_navbar.py). The credits stay on the page, in a
+slim footer under the views, with Space-Track's conjunction caution (CLAUDE.md: public outputs carrying Space-Track
+fields cite USSPACECOM and keep the caution).
 """
 
-from dash import dcc, html
-import dash_bootstrap_components as dbc
-from app.styles.styles_sat_visualisations import colours
+from dash import html
 
 
-def create_header(tle_update):
+def create_credits():
     """
-    Create the header section with title and data source information.
-
-    Args:
-        tle_update (str): Last update timestamp of the element sets
+    The tracker footer: data credits and the conjunction caution.
 
     Returns:
-        dbc.Row: Header component
+        html.Footer: credits component
     """
-    return dbc.Row([
-        dbc.Col([
-            html.H1("Live Tracker",
-                    className="text-center text-md-start mb-2",
-                    style={'color': colours["ttext"], 'fontSize': 'clamp(1.5rem, 5vw, 2.5rem)'}),
-            html.Div(_source_credit() + [
-                html.Span(" • Last updated: " + tle_update, className="d-block d-md-inline text-muted")
-            ], className="text-center text-md-start small")
-        ])
-    ], className="mb-3")
+    return html.Footer(_source_credit(), className="st-credits", id="tracker-credits")
 
 
 def _source_credit():
-    """Credit line for the data shown (Space-Track's terms require the USSPACECOM citation)."""
+    """Credit line for the data shown (Space-Track's terms require the USSPACECOM citation and the caution)."""
     return [
-        html.Span("Real-time satellite tracking • Data: ", className="d-block d-md-inline"),
-        dcc.Link('USSPACECOM via Space-Track.org', href='https://www.space-track.org/', className="text-info"),
-        html.Span(" & "),
-        dcc.Link('GCAT (J. McDowell)', href='https://planet4589.org/space/gcat/', className="text-info"),
+        html.Span("Orbital data: "),
+        html.A("USSPACECOM via Space-Track.org", href="https://www.space-track.org/", target="_blank",
+               rel="noopener noreferrer"),
+        html.Span(". Public element sets must not be used for conjunction (collision) assessment. "),
+        html.Span("Launch, owner and mission details: "),
+        html.A("GCAT (J. McDowell, planet4589.org)", href="https://planet4589.org/space/gcat/", target="_blank",
+               rel="noopener noreferrer"),
+        html.Span(", CC-BY."),
     ]

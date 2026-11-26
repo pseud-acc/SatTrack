@@ -27,20 +27,13 @@ def create_2d_tab(fig2d_0):
                     'scrollZoom': True,
                     'doubleClick': 'reset'
                 },
-                style={
-                    'height': '50vh',
-                    'minHeight': '280px',
-                    'maxHeight': '480px',
-                    'width': '100%'
-                }
+                style={'height': '50vh', 'minHeight': '280px', 'maxHeight': '480px', 'width': '100%'}
             ),
-        ], style={'maxWidth': '500px', 'margin': '0 auto'}),
+        ], style={'maxWidth': '500px', 'margin': '0 auto'}),   # one world copy at mapbox zoom 0; 3.6 retires this view
         dbc.Alert(
             "Select a single satellite to see its ground track",
             color="info",
             className="mt-2 mb-0 text-center small"
         )
     ],
-        label="2D View", tab_id="2d-viz",
-        label_style={"fontSize": "0.875rem", "padding": "0.5rem"},
-        style={'paddingTop': '5px'})
+        label="2D View", tab_id="2d-viz")

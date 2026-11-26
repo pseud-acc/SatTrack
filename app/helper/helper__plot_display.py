@@ -49,6 +49,7 @@ from app.helper.helper__constants import (_radius_earth__c, _len_3d_viz_axis__c)
 from app.helper.helper__satellite_position import (compute_satloc, lla_to_xyz, sphere)
 from app.helper.helper__app_data import generate_orbital_path
 from app.styles.styles_sat_visualisations import (colorscale, colours, colorscale_marker, colorscale_markerpath)
+from app.styles.tokens import TOKENS
 
 # Generic functions
 def hover_activity_colours(status):
@@ -99,36 +100,37 @@ def create_3d_surface(img):
 
 HOVER_LABEL_3D = dict(
     namelength=0,
-    font_family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    font_family=TOKENS["st-font"],
     font_size=12,
-    font_color="white",
-    bgcolor="rgba(13, 15, 18, 0.95)",
-    bordercolor="#0dcaf0",
+    font_color=TOKENS["st-fg"],
+    bgcolor=TOKENS["st-raised"],
+    bordercolor=TOKENS["st-control"],
     align="left"
 )
 
 # customdata columns, in order, for the hover template
 CUSTOMDATA_3D = ["ObjectName", "SatCatId", "status_colour", "Status", "OrbitClass", "LaunchYear", "Owner"]
 
+# Colours from the design tokens (3.12 step 4): the name in the foreground colour, labels muted, values plain
+_MUTED = TOKENS["st-muted"]
+_RULE = TOKENS["st-line"]
 _HOVER_HEAD_3D = (
-    '<b style="font-size: 14px; background: linear-gradient(90deg, #00ff88 0%, #0dcaf0 100%); '
-    '-webkit-background-clip: text; -webkit-text-fill-color: transparent; '
-    'background-clip: text; color: #0dcaf0;">%{customdata[0]}</b><br>'
-    '<span style="color: rgba(173, 181, 189, 0.6);">━━━━━━━━━━━━━━━</span><br>'
-    '<b>ID:</b> <span style="color: rgba(255, 255, 255, 0.9);">%{customdata[1]}</span><br>'
-    '<b>Status:</b> <span style="color: %{customdata[2]};">●</span> '
+    '<b style="font-size: 14px;">%{customdata[0]}</b><br>'
+    f'<span style="color: {_RULE};">━━━━━━━━━━━━━━━</span><br>'
+    f'<span style="color: {_MUTED};">ID:</span> %{{customdata[1]}}<br>'
+    f'<span style="color: {_MUTED};">Status:</span> <span style="color: %{{customdata[2]}};">●</span> '
     '<span style="color: %{customdata[2]};">%{customdata[3]}</span><br>'
-    '<b>Orbit:</b> <span style="color: rgba(255, 255, 255, 0.9);">%{customdata[4]}</span><br>'
+    f'<span style="color: {_MUTED};">Orbit:</span> %{{customdata[4]}}<br>'
 )
 
 # Satellite markers: the full label; the position (changes every tick) comes from `text`
 HOVER_TEMPLATE_3D = (
     _HOVER_HEAD_3D +
-    '<b>Launch:</b> <span style="color: rgba(255, 255, 255, 0.9);">%{customdata[5]}</span><br>'
-    '<b>Owner:</b> <span style="color: rgba(255, 255, 255, 0.9);">%{customdata[6]}</span><br>'
-    '<span style="color: rgba(173, 181, 189, 0.6);">━━━━━━━━━━━━━━━</span><br>'
-    '<b>Position:</b><br>'
-    '<span style="color: rgba(108, 117, 125, 0.8); font-size: 11px;">  '
+    f'<span style="color: {_MUTED};">Launch:</span> %{{customdata[5]}}<br>'
+    f'<span style="color: {_MUTED};">Owner:</span> %{{customdata[6]}}<br>'
+    f'<span style="color: {_RULE};">━━━━━━━━━━━━━━━</span><br>'
+    f'<span style="color: {_MUTED};">Position:</span><br>'
+    f'<span style="color: {_MUTED}; font-size: 11px;">  '
     'Lat: %{text}km</span>'
     '<extra></extra>'
 )

@@ -25,27 +25,30 @@ def create_table_tab(tbl_col_map):
             ],
             style_cell={
                 'textAlign': 'center',
-                'backgroundColor': '#1a1d21',
-                'color': '#f8f9fa',
-                'fontSize': '0.75rem',
+                'backgroundColor': 'var(--st-panel)',    # design tokens (assets/03_tokens.css)
+                'color': 'var(--st-fg)',
+                'borderColor': 'var(--st-line)',
+                'fontFamily': 'var(--st-font)',
+                'fontSize': 'var(--st-fs-xs)',
                 'padding': '8px',
                 'whiteSpace': 'normal',
                 'height': 'auto',
             },
             style_header={
-                'backgroundColor': '#0d0f12',
-                'fontWeight': 'bold',
-                'fontSize': '0.8rem'
+                'backgroundColor': 'var(--st-bar)',
+                'color': 'var(--st-muted)',
+                'fontWeight': '600',
+                'fontSize': 'var(--st-fs-xs)'
             },
             style_table={
                 'overflowX': 'auto',
-                'height': 'calc(70vh - 100px)',
+                'height': 'var(--st-viz-h)',   # fills the window under the top bar (assets/04_shell.css)
                 'minHeight': '400px'
             },
             style_data_conditional=[
                 {
                     'if': {'row_index': 'odd'},
-                    'backgroundColor': '#212529'
+                    'backgroundColor': 'var(--st-raised)'
                 }
             ],
             page_size=20,
@@ -53,5 +56,4 @@ def create_table_tab(tbl_col_map):
             export_format="csv",
             hidden_columns=['Datetime (UTC)', 'Altitude (km)'] if True else []
         )
-    ], label="List View", tab_id="tbl-viz",
-        label_style={"fontSize": "0.875rem", "padding": "0.5rem"})
+    ], label="List View", tab_id="tbl-viz")

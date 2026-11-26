@@ -1,0 +1,110 @@
+/* SatTrack page shell (D-044, roadmap 3.12): icons, top bar, panel shell and page layout, built on assets/03_tokens.css.
+
+   Icons: inline SVG masks instead of the Font Awesome CDN (owner, 24 Nov 2026). Each icon takes the text colour of its
+   element (background-color: currentColor), so it follows the tokens. Usage: <i class="st-icon st-icon-info"></i>.
+   The SVGs are drawn here (24 px grid, 2 px strokes), not copied from an icon set. */
+
+.st-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+  background-color: currentColor;
+  -webkit-mask: var(--st-icon) center / contain no-repeat;
+  mask: var(--st-icon) center / contain no-repeat;
+  flex: none;
+}
+.st-icon-chevron-down {
+  --st-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+}
+.st-icon-chevron-up {
+  --st-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 15l6-6 6 6'/%3E%3C/svg%3E");
+}
+.st-icon-info {
+  --st-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9.5'/%3E%3Cpath d='M12 11v5.5'/%3E%3Ccircle cx='12' cy='7.75' r='0.6' fill='black'/%3E%3C/svg%3E");
+}
+.st-icon-chevron-left {
+  --st-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 6l-6 6 6 6'/%3E%3C/svg%3E");
+}
+.st-icon-chevron-right {
+  --st-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E");
+}
+.st-icon-menu {
+  --st-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M4 7h16M4 12h16M4 17h16'/%3E%3C/svg%3E");
+}
+.st-icon-expand {
+  --st-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5'/%3E%3C/svg%3E");
+}
+
+/* ---- Top bar (app/layouts/layout_navbar.py) ------------------------------------------------------------------ */
+.st-topbar {
+  min-height: var(--st-bar-h);
+  padding: 0;
+  background: var(--st-bar) !important;   /* Bootstrap's .navbar background utilities */
+  border-bottom: 1px solid var(--st-line);
+  --bs-navbar-color: var(--st-muted);
+  --bs-navbar-hover-color: var(--st-fg);
+  --bs-navbar-active-color: var(--st-fg);
+  --bs-navbar-brand-color: var(--st-fg);
+  --bs-navbar-brand-hover-color: var(--st-fg);
+  --bs-navbar-toggler-border-color: var(--st-control);
+  --bs-navbar-nav-link-padding-x: 0;
+}
+.st-topbar-inner { min-height: var(--st-bar-h); gap: var(--st-6); padding-left: var(--st-4); padding-right: var(--st-4); flex-wrap: wrap; }
+.st-brand { display: inline-flex; align-items: center; gap: var(--st-2); font-size: var(--st-fs-lg); font-weight: 600;
+  letter-spacing: -0.01em; margin: 0; padding: 0; color: var(--st-fg); text-decoration: none; }
+.st-mark { position: relative; width: 14px; height: 14px; border: 2px solid var(--st-accent); border-radius: 50%; }
+.st-mark::after { content: ""; position: absolute; width: 5px; height: 5px; border-radius: 50%; background: var(--st-accent);
+  top: -4px; right: -4px; }
+.st-nav { gap: var(--st-4); }
+.st-nav .nav-link { font-size: var(--st-fs-md); padding-block: 13px; border-bottom: 2px solid transparent; }
+.st-nav .nav-link.active { border-bottom-color: var(--st-accent); }
+.st-fresh { margin-left: auto; align-items: center; gap: var(--st-2); color: var(--st-muted); font-size: var(--st-fs-xs); }
+.st-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--st-ok); flex: none; }
+.st-toggler { padding: 4px 8px; }
+.st-toggler:focus { box-shadow: 0 0 0 3px var(--st-accent-soft); }
+@media (max-width: 767.98px) {   /* phones: links drop into a menu under the bar */
+  .st-topbar-inner { gap: var(--st-2); }
+  .st-nav { gap: 0; padding-bottom: var(--st-2); }
+  .st-nav .nav-link { padding-block: 8px; border-bottom: 0; }
+  .st-nav .nav-link.active { color: var(--st-accent-hi); }
+}
+
+/* ---- Tracker layout (app/layouts/layout_sat_visualisations.py) ----------------------------------------------- */
+/* The views (globe, Plotly 3D, list) fill the window under the top bar: the window less the bar, the view tabs and
+   card padding, and the credits footer; never below 420 px. Read by viz_3d.py, viz_table.py and viewer.css. */
+:root { --st-viz-h: max(420px, calc(100dvh - var(--st-bar-h) - 150px)); }
+@media (min-width: 768px) {
+  .st-tracker-row > .st-panel-col { flex: 0 0 300px; max-width: 300px; }      /* the filter panel: fixed width */
+  .st-tracker-row > .st-viz-col { flex: 1 1 0; max-width: none; min-width: 0; }
+}
+.st-credits {
+  padding: var(--st-2) 2px var(--st-3);
+  color: var(--st-muted);
+  font-size: var(--st-fs-xs);
+  line-height: 1.5;
+}
+.st-credits a { color: var(--st-accent-hi); text-decoration: none; }
+.st-credits a:hover { text-decoration: underline; }
+
+/* ---- View tabs (app/layouts/components/visualization_area.py) ------------------------------------------------- */
+/* Underlined text tabs on the panel colour: the selected view in the accent, the others muted (D-044). */
+.st-viz-tabs.nav-tabs {
+  --bs-nav-link-color: var(--st-muted);
+  --bs-nav-link-hover-color: var(--st-fg);
+  --bs-nav-link-padding-x: var(--st-3);
+  --bs-nav-link-padding-y: var(--st-2);
+  --bs-nav-tabs-border-width: 0;
+  --bs-nav-tabs-link-active-bg: transparent;
+  --bs-nav-tabs-link-active-color: var(--st-fg);
+  gap: var(--st-2);
+  border-bottom: 1px solid var(--st-line);
+  margin-bottom: var(--st-2);
+  font-size: var(--st-fs-sm);
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+.st-viz-tabs.nav-tabs .nav-link { border: 0; border-bottom: 2px solid transparent; border-radius: 0; white-space: nowrap; }
+.st-viz-tabs.nav-tabs .nav-link.active { border-bottom-color: var(--st-accent); font-weight: 600; }
+.st-viz-tabs.nav-tabs .nav-link:focus-visible { outline: 0; box-shadow: 0 0 0 3px var(--st-accent-soft); }
+

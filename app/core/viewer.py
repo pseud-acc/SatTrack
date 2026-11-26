@@ -36,13 +36,14 @@ IMMUTABLE = "public, max-age=31536000, immutable"
 # includeSubDomains or preload, which are hard to undo.
 HSTS = "max-age=86400"
 
-# Third parties the existing page shell loads (run_app.py index_string, dbc.themes.CYBORG, the Plotly 2D map tiles).
-# Listed so the report-only policy reports only new problems; removing them is proposed in D-038, and the Plotly
-# entries go with the Plotly views in roadmap 3.6. The viewer itself needs none of them.
+# Third parties the page shell still loads: Google Analytics (run_app.py index_string) and the Plotly 2D map's tiles.
+# Listed so the report-only policy reports only new problems; the Plotly entries go with the Plotly views in roadmap
+# 3.6. Styles, fonts and icons are all served by the app since roadmap 3.12 (D-044): no CSS or font host is allowed.
+# The viewer itself needs none of them.
 SHELL_THIRD_PARTIES = {
     "script-src": ["https://www.googletagmanager.com"],
-    "style-src": ["https://cdn.jsdelivr.net", "https://cdnjs.cloudflare.com", "https://fonts.googleapis.com"],
-    "font-src": ["https://cdnjs.cloudflare.com", "https://fonts.gstatic.com"],
+    "style-src": [],
+    "font-src": [],
     "img-src": ["https://www.googletagmanager.com", "https://*.google-analytics.com", "https://basemap.nationalmap.gov"],
     "connect-src": ["https://www.googletagmanager.com", "https://*.google-analytics.com",
                     "https://*.analytics.google.com", "https://basemap.nationalmap.gov"],

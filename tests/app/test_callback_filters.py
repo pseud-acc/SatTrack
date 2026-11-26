@@ -44,14 +44,27 @@ def test_selection_cleared_when_it_no_longer_matches(callbacks, sample_df, t_ref
     assert out[ID_OPTS] == ids_as_options(expected_ids(sample_df, t_ref, **callbacks.filter_args(values)))
 
 
+def test_panel_strip_button(callbacks):
+    """Desktop: the fold button adds st-panel-folded to the tracker row and takes it off again, keeping the
+    row's other classes; the chevron points the way the panel will move."""
+    def press(row_class):
+        return callbacks.call("tracker-row", "panel-strip-toggle.n_clicks",
+                              **{"panel-strip-toggle.n_clicks": 1, "tracker-row.className": row_class})
+    base = "g-2 g-md-3 st-tracker-row"
+    assert press(base) == (200, {"tracker-row.className": base + " st-panel-folded",
+                                 "panel-strip-icon.className": "st-icon st-icon-chevron-right"})
+    assert press(base + " st-panel-folded") == (200, {"tracker-row.className": base,
+                                                      "panel-strip-icon.className": "st-icon st-icon-chevron-left"})
+
+
 def test_collapse_button(callbacks):
     def press(n, is_open):
         return callbacks.call("filter-collapse", "toggle-filters.n_clicks",
                               **{"toggle-filters.n_clicks": n, "filter-collapse.is_open": is_open})
-    assert press(1, False) == (200, {"filter-collapse.is_open": True, "toggle-icon.className": "fas fa-chevron-up"})
-    assert press(2, True) == (200, {"filter-collapse.is_open": False, "toggle-icon.className": "fas fa-chevron-down"})
+    assert press(1, False) == (200, {"filter-collapse.is_open": True, "toggle-icon.className": "st-icon st-icon-chevron-up"})
+    assert press(2, True) == (200, {"filter-collapse.is_open": False, "toggle-icon.className": "st-icon st-icon-chevron-down"})
     assert press(None, False) == (200, {"filter-collapse.is_open": False,
-                                        "toggle-icon.className": "fas fa-chevron-down"})
+                                        "toggle-icon.className": "st-icon st-icon-chevron-down"})
 
 
 def test_launch_year_labels(callbacks):

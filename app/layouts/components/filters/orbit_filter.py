@@ -19,9 +19,8 @@ def create_orbit_filter(options):
     return html.Div([
         html.Label([
             "Orbit Type ",
-            html.I(className="fas fa-info-circle", id="orbit-info-icon",
-                   style={'fontSize': '0.8rem', 'cursor': 'pointer'})
-        ], className="fw-bold small"),
+            html.I(className="st-icon st-icon-info", id="orbit-info-icon")
+        ], className="st-lbl"),
         dbc.Tooltip([
             html.Div([
                 html.Strong("LEO:"), " Low Earth (160-2000km)", html.Br(),
@@ -29,15 +28,12 @@ def create_orbit_filter(options):
                 html.Strong("GEO:"), " Geostationary (35786km)", html.Br(),
                 html.Strong("GSO:"), " Geosynchronous", html.Br(),
                 html.Strong("HEO:"), " Highly Elliptical"
-            ], style={'textAlign': 'left'})
+            ], className="st-tip-body")
         ], target="orbit-info-icon", placement="right"),
         dcc.Checklist(
             options=[{"label": " " + orbit, "value": orbit} for orbit in options["orbit"]],
             value=["LEO", "GEO"],
             id="orbit-filter-checkbox",
-            className="mb-3",
-            style={"display": "grid",
-                   "gridTemplateColumns": "repeat(auto-fit, minmax(60px, 1fr))"},
-            inputStyle={"marginRight": "5px"}
+            className="mb-3 st-orbit-grid"
         )
     ])

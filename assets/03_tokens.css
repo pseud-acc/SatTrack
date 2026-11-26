@@ -1,0 +1,153 @@
+/* SatTrack design tokens (D-044, roadmap 3.12). The single source of the app's colours, type, spacing and corners:
+   the Dash pages (through Bootstrap 5's --bs-* and Dash 4's --Dash-* variables, mapped below) and the Cesium viewer
+   (static/viewer/viewer.css) read these. Signed off by the owner on 24 Nov 2026 from the token sheet
+   (https://claude.ai/artifact/WKZxuixmxgz1tHjWRe2S6D). tests/app/test_design_tokens.py checks the contrast pairs.
+
+   Loaded by Dash from assets/ in filename order: 01_bootstrap (Bootstrap 5.3.8), 02_source-sans-3 (the font),
+   03_tokens (this file), then the component styles. The page sets <html data-bs-theme="dark"> (run_app.py). */
+
+:root {
+  /* Surfaces, darkest to lightest */
+  --st-bg: #0a1220;          /* page */
+  --st-bar: #0c1526;         /* top bar, footer */
+  --st-panel: #0d1729;       /* filter panel, cards */
+  --st-raised: #111d33;      /* inputs, menus */
+  --st-hover: #16243f;       /* hovered row or option */
+  --st-globe: #050a14;       /* behind the globe */
+
+  /* Lines */
+  --st-line: #1d2a40;        /* hairlines between surfaces (decorative, 1.2:1) */
+  --st-control: #55688c;     /* input and control borders (3.2:1 on the panel: WCAG 1.4.11) */
+
+  /* Text (contrast on --st-panel) */
+  --st-fg: #dfe7f2;          /* 14.4:1 */
+  --st-muted: #8b9ab3;       /* 6.3:1: secondary text, labels */
+  --st-faint: #5f6f8a;       /* 3.5:1: disabled only, never body text */
+
+  /* Accent: teal, kept clear of the data colours */
+  --st-accent: #2bb3a3;      /* selected states, primary buttons (6.9:1) */
+  --st-accent-hi: #3cc9b8;   /* links, focus ring (8.7:1) */
+  --st-on-accent: #04201c;   /* text on teal (6.6:1; white would be 2.6:1) */
+  --st-accent-soft: rgba(43, 179, 163, 0.16);
+
+  /* Overlays on the globe (the viewer's panel and credits): the panel and bar colours, translucent */
+  --st-overlay: rgba(13, 23, 41, 0.88);      /* --st-panel at 88 % */
+  --st-overlay-bar: rgba(12, 21, 38, 0.8);   /* --st-bar at 80 % */
+
+  /* States */
+  --st-ok: #4cc38a;
+  --st-warn: #f2c46b;
+  --st-error: #ff7a7a;
+
+  /* Data colours (D-017, Okabe-Ito): the same in every theme */
+  --st-payload: #56B4E9;
+  --st-rocket: #E69F00;
+  --st-debris: #CC79A7;
+
+  /* Status colouring, the globe's default (owner, 24 Nov 2026; roadmap 3.3): soft red / grey, no teal on the globe,
+     points drawn without a dark outline */
+  --st-active: #f07a6e;      /* 6.6:1 on the panel */
+  --st-inactive: #7d8aa0;    /* 5.1:1 on the panel */
+
+  /* Type: Source Sans 3; 15 px in the app, 16 px for reading text (owner, 24 Nov 2026) */
+  --st-font: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --st-fs-xs: 12px;          /* labels, captions, credits */
+  --st-fs-sm: 14px;          /* secondary text, dense tables */
+  --st-fs-md: 15px;          /* the app's base */
+  --st-fs-lg: 16px;          /* reading text, home page */
+  --st-fs-xl: 20px;          /* section headings */
+  --st-fs-2xl: 28px;         /* page headings, the match count */
+  --st-lh: 1.45;
+
+  /* Space: 4 px steps */
+  --st-1: 4px; --st-2: 8px; --st-3: 12px; --st-4: 16px; --st-6: 24px; --st-8: 32px;
+
+  /* Shape: 6 px corners, pills for chips, hairlines instead of shadows */
+  --st-r: 6px;
+  --st-r-pill: 999px;
+  --st-bar-h: 48px;
+}
+
+/* ---- Bootstrap 5.3 (dark) onto the tokens ---------------------------------------------------------------------- */
+:root, [data-bs-theme="dark"] {
+  color-scheme: dark;
+  --bs-body-font-family: var(--st-font);
+  --bs-body-font-size: var(--st-fs-md);
+  --bs-body-line-height: var(--st-lh);
+  --bs-body-bg: var(--st-bg);
+  --bs-body-bg-rgb: 10, 18, 32;
+  --bs-body-color: var(--st-fg);
+  --bs-body-color-rgb: 223, 231, 242;
+  --bs-emphasis-color: #ffffff;
+  --bs-secondary-color: var(--st-muted);
+  --bs-secondary-bg: var(--st-raised);
+  --bs-tertiary-bg: var(--st-panel);
+  --bs-tertiary-color: var(--st-muted);
+  --bs-heading-color: var(--st-fg);
+  --bs-border-color: var(--st-line);
+  --bs-border-color-translucent: var(--st-line);
+  --bs-border-radius: var(--st-r);
+  --bs-border-radius-sm: var(--st-r);
+  --bs-border-radius-lg: var(--st-r);
+  --bs-box-shadow: none;
+  --bs-box-shadow-sm: none;
+  --bs-link-color: var(--st-accent-hi);
+  --bs-link-color-rgb: 60, 201, 184;
+  --bs-link-hover-color: #6fdccf;
+  --bs-link-hover-color-rgb: 111, 220, 207;
+  --bs-primary: var(--st-accent);
+  --bs-primary-rgb: 43, 179, 163;
+  --bs-secondary: var(--st-control);
+  --bs-secondary-rgb: 85, 104, 140;
+  --bs-success: var(--st-ok);
+  --bs-warning: var(--st-warn);
+  --bs-danger: var(--st-error);
+  --bs-info: var(--st-accent-hi);
+  --bs-focus-ring-color: rgba(60, 201, 184, 0.45);
+  --bs-form-valid-color: var(--st-ok);
+  --bs-form-invalid-color: var(--st-error);
+}
+
+/* ---- Dash 4 core components (Dropdown, Checklist, RangeSlider, Tabs) onto the tokens -------------------------- */
+:root {
+  --Dash-Fill-Interactive-Strong: var(--st-accent);     /* checkboxes, selected options, slider range */
+  --Dash-Fill-Interactive-Weak: var(--st-accent-soft);
+  --Dash-Fill-Inverse-Strong: var(--st-raised);         /* dropdown and input backgrounds */
+  --Dash-Fill-Primary-Hover: var(--st-hover);
+  --Dash-Fill-Primary-Active: var(--st-hover);
+  --Dash-Fill-Disabled: var(--st-panel);
+  --Dash-Text-Primary: var(--st-fg);
+  --Dash-Text-Strong: var(--st-fg);
+  --Dash-Text-Weak: var(--st-muted);
+  --Dash-Text-Disabled: var(--st-faint);
+  --Dash-Stroke-Strong: var(--st-control);
+  --Dash-Stroke-Weak: var(--st-line);
+  --Dash-Shading-Weak: transparent;
+  --Dash-Shading-Strong: transparent;
+  --Dash-Tooltip-Background-Color: var(--st-raised);
+  --Dash-Tooltip-Border-Color: var(--st-control);
+}
+
+/* ---- Base ------------------------------------------------------------------------------------------------------ */
+html, body { background: var(--st-bg); }
+body {
+  font-family: var(--st-font);
+  font-size: var(--st-fs-md);
+  line-height: var(--st-lh);
+  color: var(--st-fg);
+  font-variant-numeric: tabular-nums;     /* counts and times don't jump as digits change */
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, h5, h6 { font-family: var(--st-font); font-weight: 600; letter-spacing: -0.01em; color: var(--st-fg); text-wrap: balance; }
+:focus-visible { outline: 2px solid var(--st-accent-hi); outline-offset: 2px; }
+.text-muted, .text-secondary { color: var(--st-muted) !important; }   /* Bootstrap's own rule uses !important */
+.card { --bs-card-bg: var(--st-panel); --bs-card-border-color: var(--st-line); --bs-card-cap-bg: var(--st-panel); box-shadow: none; }
+.shadow-sm, .shadow { box-shadow: none !important; }                   /* hairlines, not shadows (D-044) */
+.btn { font-weight: 600; }
+.btn-primary { --bs-btn-color: var(--st-on-accent); --bs-btn-bg: var(--st-accent); --bs-btn-border-color: var(--st-accent);
+  --bs-btn-hover-color: var(--st-on-accent); --bs-btn-hover-bg: var(--st-accent-hi); --bs-btn-hover-border-color: var(--st-accent-hi);
+  --bs-btn-active-color: var(--st-on-accent); --bs-btn-active-bg: var(--st-accent-hi); --bs-btn-active-border-color: var(--st-accent-hi); }
+.btn-secondary, .btn-outline-secondary { --bs-btn-color: var(--st-fg); --bs-btn-bg: transparent; --bs-btn-border-color: var(--st-control);
+  --bs-btn-hover-color: var(--st-fg); --bs-btn-hover-bg: var(--st-hover); --bs-btn-hover-border-color: var(--st-control);
+  --bs-btn-active-color: var(--st-fg); --bs-btn-active-bg: var(--st-hover); --bs-btn-active-border-color: var(--st-control); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }

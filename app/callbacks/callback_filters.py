@@ -126,10 +126,33 @@ def register(app):
     def toggle_filters(n, is_open):
         if n:
             new_state = not is_open
-            icon_class = "fas fa-chevron-up" if new_state else "fas fa-chevron-down"
+            icon_class = "st-icon st-icon-chevron-up" if new_state else "st-icon st-icon-chevron-down"
             return new_state, icon_class
         # Initial state: filters are collapsed, so show down chevron
-        return is_open, "fas fa-chevron-down"        
+        return is_open, "st-icon st-icon-chevron-down"        
+
+    '''------------------------
+    Desktop panel strip (3.12 step 3)
+    -------------------------
+    Interactive Inputs: the panel's fold button
+    Outputs: the tracker row's class (st-panel-folded narrows the panel to a strip; assets/04_shell.css) and the icon
+    '''
+
+    @app.callback(
+        [
+            Output("tracker-row", "className"),
+            Output("panel-strip-icon", "className")
+        ],
+        [Input("panel-strip-toggle", "n_clicks")],
+        [State("tracker-row", "className")],
+        prevent_initial_call=True
+    )
+    def toggle_panel_strip(n, row_class):
+        classes = (row_class or "").split()
+        folded = "st-panel-folded" not in classes
+        classes = [c for c in classes if c != "st-panel-folded"] + (["st-panel-folded"] if folded else [])
+        icon = "st-icon st-icon-chevron-right" if folded else "st-icon st-icon-chevron-left"
+        return " ".join(classes), icon
 
 
     '''

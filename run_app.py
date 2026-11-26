@@ -42,15 +42,16 @@ from app.layouts.layout_sat_visualisations import create_dash_layout as create_d
 ## >>>>>>>> Initialize App <<<<<<<<<<<<
 
 # Instantiate Dash App
-external_stylesheets = [dbc.themes.CYBORG]
-app = Dash(__name__, external_stylesheets=external_stylesheets, compress=True)  # gzip/brotli (flask-compress)
+# No external stylesheets: Bootstrap 5.3.8, the Source Sans 3 font and SatTrack's design tokens are committed under
+# assets/ and served by the app (D-044, roadmap 3.12); Dash loads them in filename order on every page.
+app = Dash(__name__, compress=True)  # gzip/brotli (flask-compress)
 
 # Reference the underlying flask app (Used by gunicorn webserver in Heroku production deployment)
 server = app.server
 
 # Google Analytics
 app.index_string = """<!DOCTYPE html>
-<html>
+<html lang="en" data-bs-theme="dark">
     <head>
         <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-LF4EP2J2F8"></script>
@@ -61,8 +62,6 @@ app.index_string = """<!DOCTYPE html>
 
           gtag('config', 'G-LF4EP2J2F8');
         </script>
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         {%metas%}
         <title>{%title%}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

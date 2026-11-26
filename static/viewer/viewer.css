@@ -1,31 +1,33 @@
-/* SatTrack Cesium viewer (static/viewer/viewer.js). Loaded with the viewer, only on the tracker page. */
+/* SatTrack Cesium viewer (static/viewer/viewer.js). Loaded with the viewer, only on the tracker page. Colours, type
+   and corners come from the design tokens (assets/03_tokens.css, 3.12 step 4); no colour values here. */
 #globe {
   position: relative;
   width: 100%;
-  height: calc(70vh - 100px);
+  height: var(--st-viz-h, calc(70vh - 100px));   /* the shell's view height (assets/04_shell.css, D-044) */
   min-height: 400px;
-  background: #000;
+  background: var(--st-globe);
   overflow: hidden;
 }
 #globe .cesium-widget, #globe .cesium-widget canvas { width: 100%; height: 100%; }
 .sattrack-viewer-panel {
   position: absolute; top: 8px; left: 8px; z-index: 2; max-width: 60%;
-  padding: 6px 10px; border-radius: 4px; background: rgba(0, 0, 0, 0.7); color: #e8e8e8; font-size: 0.8rem;
+  padding: 6px 10px; border-radius: var(--st-r);
+  background: var(--st-overlay); color: var(--st-fg); font-size: var(--st-fs-sm);
 }
 .sattrack-viewer-legend { list-style: none; margin: 0 0 4px; padding: 0; }
 .sattrack-viewer-legend label, .sattrack-viewer-junk { display: flex; align-items: center; gap: 6px; margin: 0; cursor: pointer; }
-.sattrack-viewer-swatch { display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid #101010; }
+.sattrack-viewer-swatch { display: inline-block; width: 10px; height: 10px; border-radius: 50%; }   /* no outline (owner, 24 Nov 2026) */
 .sattrack-viewer-junk { margin-top: 2px; font-weight: 600; }
-.sattrack-viewer-status { margin-top: 4px; color: #adb5bd; }
+.sattrack-viewer-status { margin-top: 4px; color: var(--st-muted); }
 .sattrack-viewer-hint:empty { display: none; }
-.sattrack-viewer-hint { margin-top: 4px; color: #ffc107; }
+.sattrack-viewer-hint { margin-top: 4px; color: var(--st-warn); }
 .sattrack-viewer-credits {
   position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 3px 8px;
-  background: rgba(0, 0, 0, 0.6); color: #adb5bd; font-size: 0.68rem; line-height: 1.3;
+  background: var(--st-overlay-bar); color: var(--st-muted); font-size: 11px; line-height: 1.3;
 }
 .sattrack-viewer-credits div { display: inline; margin-right: 0.6em; }
-.sattrack-viewer-credits a { color: #6edff6; }
+.sattrack-viewer-credits a { color: var(--st-accent-hi); }
 @media (max-width: 576px) {
-  .sattrack-viewer-panel { max-width: 75%; font-size: 0.72rem; }
+  .sattrack-viewer-panel { max-width: 75%; font-size: var(--st-fs-xs); }
   .sattrack-viewer-credits { font-size: 0.6rem; }
 }

@@ -24,15 +24,24 @@ def create_filter_sidebar(options):
     return dbc.Col([
         dbc.Card([
             dbc.CardHeader([
-                html.H5("Filters", className="mb-0 d-inline-block"),
+                html.H2("Filters", className="st-panel-title"),
+                # Phones: show or hide the filters under the bar
                 dbc.Button(
-                    html.I(className="fas fa-chevron-down", id="toggle-icon"),
+                    html.I(className="st-icon st-icon-chevron-down", id="toggle-icon"),
                     id="toggle-filters",
                     color="link",
-                    className="float-end d-md-none",
-                    style={"fontSize": "1.2rem", "color": "#00d4ff"}
-                )
-            ]),
+                    className="st-panel-btn d-md-none",
+                    title="Show or hide the filters"
+                ),
+                # Desktop: fold the panel to a thin strip so the views get the width (3.12 step 3)
+                dbc.Button(
+                    html.I(className="st-icon st-icon-chevron-left", id="panel-strip-icon"),
+                    id="panel-strip-toggle",
+                    color="link",
+                    className="st-panel-btn d-none d-md-inline-flex",
+                    title="Fold the filter panel"
+                ),
+            ], className="st-panel-head"),
             dbc.Collapse([
                 dbc.CardBody([
                     # Status Filter
@@ -48,11 +57,11 @@ def create_filter_sidebar(options):
                     create_advanced_filters(options),
 
                     # Action Buttons
-                    dbc.ButtonGroup([
+                    html.Div([
                         dbc.Button("Update", id="time-update-btn", color="primary", size="sm"),
-                        dbc.Button("Clear Orbits", id="clear-orbits-btn", color="secondary", size="sm")
-                    ], className="w-100")
+                        dbc.Button("Clear Orbits", id="clear-orbits-btn", color="secondary", outline=True, size="sm")
+                    ], className="st-panel-actions")
                 ])
             ], id="filter-collapse", is_open=False, className="")
-        ], className="mb-3 shadow-sm")
-    ], xs=12, md=4, lg=3)
+        ], className="st-panel mb-3")
+    ], xs=12, md=4, lg=3, className="st-panel-col")
