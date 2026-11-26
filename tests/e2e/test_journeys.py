@@ -19,7 +19,7 @@ from playwright.sync_api import expect
 
 from _support import expected_ids
 
-START_STATUS, START_ORBITS = ["Active"], ["LEO", "GEO"]   # the tracker's sidebar as it opens
+START_STATUS, START_ORBITS = ["Active"], ["LEO", "MEO", "GEO", "GSO", "HEO"]   # as it opens (3.3a: every orbit)
 TIMEOUT = 60_000  # ms: figures render in software WebGL on CI runners
 PLOT_3D, PLOT_2D = "3d-earth-satellite-plot", "2d-earth-satellite-plot"
 

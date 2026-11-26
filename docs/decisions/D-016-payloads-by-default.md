@@ -1,6 +1,6 @@
 # D-016 Payloads by default; rocket bodies and debris one switch away
 
-**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #68
+**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #68 · **Amended by D-049** (opens with the active payloads)
 **Component:** the viewer · **Tier:** light
 
 ## Context

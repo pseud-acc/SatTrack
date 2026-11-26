@@ -5,6 +5,8 @@ Status filter component (Active/Inactive satellites).
 from dash import dcc, html
 import dash_bootstrap_components as dbc
 
+from app.helper.helper__app_data import DEFAULT_STATUS
+
 
 def create_status_filter():
     """
@@ -29,7 +31,7 @@ def create_status_filter():
                 {"label": " Active", "value": "Active"},
                 {"label": " Inactive", "value": "Inactive"}
             ],
-            value=["Active"],
+            value=list(DEFAULT_STATUS),   # owner, 26 Nov 2026 (roadmap 3.3a)
             id="status-filter-checkbox",
             className="mb-3 st-status-list",
             inline=True,

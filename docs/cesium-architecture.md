@@ -122,7 +122,7 @@ the throttled laptop runs still stand in for mid-range and low-end phones. The s
 ```mermaid
 flowchart LR
   subgraph Server["Dash app (Heroku)"]
-    L[Layout: header, sidebar, list] --- S1[(dcc.Store viewer-filters)]
+    L[Layout: header, sidebar, list] --- S1[(dcc.Store filter-spec: D-048)]
     S2[(dcc.Store viewer-selection)] --> CB[Detail and list callbacks]
     D["/data/objects.json (2.1)"]
     V["static/vendor/cesium-x.y.z (fetched at build, hash-checked)"]

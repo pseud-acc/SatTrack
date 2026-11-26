@@ -28,13 +28,13 @@ Read the records a feature touches before scoping it.
 | [D-013](#d-013-cesium-runs-as-a-js-module-inside-the-dash-page) | Cesium runs as a JS module inside the Dash page | Accepted | 2026-11-22 | [record](decisions/D-013-cesium-js-module-in-dash.md) |
 | [D-014](#d-014-self-host-cesiumjs-and-satellitejs-fetched-and-hash-checked-at-build) | Self-host CesiumJS and satellite.js, fetched and hash-checked at build | Accepted | 2026-11-22 | [record](decisions/D-014-self-host-cesium.md) |
 | [D-015](#d-015-propagate-in-a-web-worker-and-interpolate-on-the-main-thread) | Propagate in a Web Worker and interpolate on the main thread | Accepted | 2026-11-23 | [record](decisions/D-015-worker-propagation-interpolation.md) |
-| [D-016](#d-016-payloads-by-default-rocket-bodies-and-debris-one-switch-away) | Payloads by default; rocket bodies and debris one switch away | Accepted | 2026-11-22 | [record](decisions/D-016-payloads-by-default.md) |
-| [D-017](#d-017-colour-by-object-type-with-a-colour-by-menu) | Colour by object type, with a "Colour by" menu | Accepted | 2026-11-22 | [record](decisions/D-017-colour-by-type.md) |
+| [D-016](#d-016-payloads-by-default-rocket-bodies-and-debris-one-switch-away) | Payloads by default; rocket bodies and debris one switch away | Accepted; amended by D-049 | 2026-11-22 | [record](decisions/D-016-payloads-by-default.md) |
+| [D-017](#d-017-colour-by-object-type-with-a-colour-by-menu) | Colour by object type, with a "Colour by" menu | Accepted; default superseded by D-050 | 2026-11-22 | [record](decisions/D-017-colour-by-type.md) |
 | [D-018](#d-018-three-information-tiers-hover-click-panel-full-record) | Three information tiers: hover, click panel, full record | Accepted | 2026-11-22 | [record](decisions/D-018-three-information-tiers.md) |
 | [D-019](#d-019-single-selection-with-per-satellite-toggles) | Single selection with per-satellite toggles | Accepted | 2026-11-22 | [record](decisions/D-019-single-selection-toggles.md) |
 | [D-020](#d-020-time-scrubber-of-1-day) | Time scrubber of ±1 day | Accepted | 2026-11-22 | [record](decisions/D-020-time-scrubber-one-day.md) |
 | [D-021](#d-021-one-viewer-for-3d-2d-and-columbus-retire-the-plotly-2d-tab) | One viewer for 3D, 2D and Columbus; retire the Plotly 2D tab | Accepted | 2026-11-22 | [record](decisions/D-021-one-viewer-retire-plotly-2d.md) |
-| [D-022](#d-022-natural-colour-earth-from-self-hosted-imagery) | Natural-colour Earth from self-hosted imagery | Provisional | 2026-11-22 | [record](decisions/D-022-natural-colour-earth.md) |
+| [D-022](#d-022-natural-colour-earth-from-self-hosted-imagery) | Natural-colour Earth from self-hosted imagery | Provisional; point outline updated by D-050 | 2026-11-22 | [record](decisions/D-022-natural-colour-earth.md) |
 | [D-023](#d-023-label-the-selected-satellite-and-close-up-the-nearest-20) | Label the selected satellite and, close up, the nearest 20 | Accepted | 2026-11-22 | [record](decisions/D-023-labels-selected-and-nearest.md) |
 | [D-024](#d-024-shareable-links-carry-the-core-view-in-the-url-hash) | Shareable links carry the core view in the URL hash | Accepted | 2026-11-22 | [record](decisions/D-024-shareable-links-url-hash.md) |
 | [D-025](#d-025-bottom-sheet-on-phones) | Bottom sheet on phones | Accepted | 2026-11-22 | [record](decisions/D-025-mobile-bottom-sheet.md) |
@@ -59,6 +59,9 @@ Read the records a feature touches before scoping it.
 | [D-045](#d-045-colour-by-menu-gets-its-own-task-straight-after-33) | "Colour by" menu gets its own task straight after 3.3 | Accepted | 2026-11-24 | [record](decisions/D-045-colour-by-menu-own-task.md) |
 | [D-046](#d-046-tdrss-keeps-only-relay-satellites-constellation-membership-checked-against-names) | TDRSS keeps only relay satellites; constellation membership checked against names | Accepted; amended by D-047 | 2026-11-24 | [record](decisions/D-046-tdrss-relay-satellites-and-name-check.md) |
 | [D-047](#d-047-constellations-and-satellite-systems-celestrak-first-completed-from-gcat) | Constellations and satellite systems: CelesTrak first, completed from GCAT | Accepted | 2026-11-25 | [record](decisions/D-047-constellations-and-satellite-systems.md) |
+| [D-048](#d-048-one-filter-spec-store-drives-every-view-the-browser-filters-in-the-worker) | One filter-spec store drives every view; the browser filters in the worker | Accepted | 2026-11-26 | [record](decisions/D-048-one-filter-spec-store-drives-every-view.md) |
+| [D-049](#d-049-the-tracker-opens-on-every-active-satellite-space-junk-mode-adds-inactive) | The tracker opens on every active satellite; Space junk mode adds Inactive | Accepted | 2026-11-26 | [record](decisions/D-049-tracker-defaults-active-satellites-junk-mode-adds-inactive.md) |
+| [D-050](#d-050-the-globe-is-coloured-by-status-by-default-with-no-point-outline) | The globe is coloured by status by default, with no point outline | Accepted | 2026-11-26 | [record](decisions/D-050-globe-coloured-by-status-no-outline.md) |
 
 ---
 
@@ -818,3 +821,38 @@ split from CelesTrak's `gnss` (it lists SBAS hosts; GNSS is an umbrella term); o
 **Consequences.** `objects` schema 1 → 2. 17 CelesTrak groups downloaded instead of 21. System names are CelesTrak's
 titles. Dev build on 21 Nov data: GPS 80 (37 active), GLONASS 142, Galileo 33, BeiDou 63, TDRSS 12, DMC 12, Starlink
 11,203, PlanetScope 120.
+
+## D-048 One filter-spec store drives every view; the browser filters in the worker
+**Status:** Accepted, 2026-11-26 (owner's 3.3 answers of 24 Nov 2026; built in 3.3a). **Component:** the filter panel,
+the Cesium viewer and worker, the Plotly 3D/2D and list callbacks. Record:
+[D-048](decisions/D-048-one-filter-spec-store-drives-every-view.md).
+
+**Decision.** A page-level `filter-spec` store, built and validated in Python from the panel's controls and rendered
+with the starting spec, is the one input of the globe (through the clientside bridge), Plotly 3D, 2D and the list.
+Object types are panel switches and an `object_type` clause; the globe's overlay toggles go. The browser's
+`static/viewer/filter_spec.js` (no imports, no eval; rules generated from the schema) runs in the worker, which masks
+its records without reloading; it passes the shared conformance cases in Chromium. Q8 (search S2), Q4 (server count),
+Q9 (flag via config var at the end of 3.3b), Q10 (Clear Orbits into Plotly 3D) are for 3.3b.
+
+**Why.** One spec builder; every view agrees; filtering off the main thread; no data reload; D-042 unchanged.
+
+**Rejected.** A JavaScript spec builder (no conformance cases); eight inputs per Plotly callback; main-thread
+filtering; Ajv (needs `new Function`, blocked by D-041's policy).
+
+## D-049 The tracker opens on every active satellite; Space junk mode adds Inactive
+**Status:** Accepted, 2026-11-26 (owner). Amends D-016; replaces the 24 Nov 3.3 answer Q1. Record:
+[D-049](decisions/D-049-tracker-defaults-active-satellites-junk-mode-adds-inactive.md).
+
+**Decision.** Opens on status Active, every orbit class, payloads, the whole launch-year range (16,576 objects on the
+21 Nov data). Space junk mode on also ticks Inactive and off restores the status, because almost all rocket bodies
+and debris are Inactive (all but 6 of 12,398); a note under the type switches says so.
+
+**Rejected.** Active + LEO + GEO (hides the MEO navigation systems); all payloads in any status (24 Nov Q1);
+status for payloads only (OR across fields, D-031's version-2 trigger).
+
+## D-050 The globe is coloured by status by default, with no point outline
+**Status:** Accepted, 2026-11-26 (owner's choice of 24 Nov 2026; built in 3.3a). Supersedes D-017's default; updates
+D-022's provisional outline. Record: [D-050](decisions/D-050-globe-coloured-by-status-no-outline.md).
+
+**Decision.** Points take `--st-active` (soft red) and `--st-inactive` (grey) from the design tokens, with no
+outline. Colour by type becomes an option of 3.13's "Colour by" menu.

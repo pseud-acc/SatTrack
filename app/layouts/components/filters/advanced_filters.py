@@ -2,11 +2,10 @@
 Advanced filters component (owner, launch vehicle, purpose, launch year).
 """
 
-from datetime import datetime, timezone
-
 from dash import dcc, html
 import dash_bootstrap_components as dbc
 from app.helper.helper__filter_display import format_year_slider_output
+from app.helper.helper__app_data import LAUNCH_YEAR_MIN, launch_year_bounds
 
 
 def create_advanced_filters(options):
@@ -53,12 +52,13 @@ def create_advanced_filters(options):
 
                 # Fixed bounds, independent of the data: 1958 to the current year (UTC), read each
                 # time the page is built, so the slider reaches this year's launches without a code
-                # change. The starting value still comes from the data ([1958, 2026] on 2026-11-15).
+                # change. It starts on the whole range (roadmap 3.3a), not the app CSV's, so no rocket body or
+                # debris older than the CSV's payloads is hidden by default.
                 dcc.RangeSlider(
-                    min=1958,
-                    max=datetime.now(timezone.utc).year,
+                    min=LAUNCH_YEAR_MIN,
+                    max=launch_year_bounds()[1],
                     step=1,
-                    value=options["launchyear"],
+                    value=launch_year_bounds(),
                     marks={},
                     allow_direct_input=False,   # Dash 4: no number boxes; the min/max bubbles show the range
                     id="launchyear-filter-slider",
@@ -69,10 +69,10 @@ def create_advanced_filters(options):
                 # Min/max bubbles (callback_filters updates them as the slider moves)
                 html.Div([
                     html.Div(id='launch-year-min-display',
-                             children=format_year_slider_output('min', options['launchyear'][0]),
+                             children=format_year_slider_output('min', launch_year_bounds()[0]),
                              className="st-year-bubble"),
                     html.Div(id='launch-year-max-display',
-                             children=format_year_slider_output('max', options['launchyear'][1]),
+                             children=format_year_slider_output('max', launch_year_bounds()[1]),
                              className="st-year-bubble"),
                 ], className="st-year-bubbles")
             ], className="st-adv-years")

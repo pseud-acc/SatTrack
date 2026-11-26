@@ -28,6 +28,9 @@ from app.core.state import get_app_data
 from app.layouts.components.header import create_credits
 from app.layouts.components.filter_sidebar import create_filter_sidebar
 from app.layouts.components.visualization_area import create_visualization_area
+from app.helper.helper__app_data import (sidebar_filter_spec, DEFAULT_STATUS, DEFAULT_ORBITS, DEFAULT_TYPES,
+                                         OBJECT_TYPES, launch_year_bounds)
+from app.core import filter_spec
 
 
 ## --- Define Dash layout ----
@@ -49,6 +52,12 @@ def create_dash_layout(app):
     fig2d_0 = app_data['viz_2d']['base_figure']
     fig3d_0 = app_data['viz_3d']['base_figure']    
     options = app_data['filter']['options']
+    filter_table = app_data['filter']['table']
+    type_totals = filter_table["object_type"].value_counts().reindex(OBJECT_TYPES, fill_value=0).to_dict()
+    # The spec the page opens with (roadmap 3.3a): rendered into the store, so the globe masks before its first
+    # positions with no round trip (D-042) and every view starts from the same spec.
+    start_spec = filter_spec.validate(sidebar_filter_spec(
+        DEFAULT_STATUS, DEFAULT_ORBITS, None, None, [], [], [], launch_year_bounds(), DEFAULT_TYPES))
 
     layout = dbc.Container([
         # Hidden store for viewport tracking
@@ -63,10 +72,13 @@ def create_dash_layout(app):
         dcc.Store(id='camera-memory', data=fig3d_0["layout"]["scene"]["camera"]),
         dcc.Store(id='3d-sat-ids', data=None),  # fingerprint of the satellites drawn in 3D (timer ticks patch only when unchanged)
 
+        # The filter spec (D-031) every view reads: the globe, Plotly 3D and 2D and the list (roadmap 3.3a, Q7)
+        dcc.Store(id='filter-spec', data=start_spec),
+
         # Main Content Area: the filter panel and the views fill the window under the top bar (D-044)
         dbc.Row([
             # Filters Sidebar - Collapsible on mobile
-            create_filter_sidebar(options),
+            create_filter_sidebar(options, type_totals),
 
             # Visualization Area
             create_visualization_area(fig3d_0, fig2d_0, tbl_col_map)

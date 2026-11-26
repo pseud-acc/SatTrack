@@ -74,7 +74,7 @@ def register(app):
     ------------------------
     3d visualisation 
     -------------------------
-    Interactive Inputs: Filter dropdowns, Launch year slider, plot clicks, update time button, interval-timer
+    Interactive Inputs: the filter-spec store (roadmap 3.3a), plot clicks, update time button, interval-timer
     Outputs: 3d Satellite scatter plot, 3d orbit line plot, camera view
     '''
 
@@ -86,14 +86,7 @@ def register(app):
             Output('3d-sat-ids', 'data')
         ],
         [
-            Input('status-filter-checkbox', 'value'),
-            Input('orbit-filter-checkbox', 'value'),
-            Input('satname-filter-dropdown', 'value'),
-            Input('satcatid-filter-dropdown', 'value'),
-            Input('owner-filter-multi-dropdown', 'value'),
-            Input('launchvehicle-filter-multi-dropdown', 'value'),
-            Input('purpose-filter-multi-dropdown', 'value'),
-            Input('launchyear-filter-slider', 'value'),
+            Input('filter-spec', 'data'),   # the panel's filter spec (roadmap 3.3a, Q7)
             Input("3d-earth-satellite-plot", "clickData"),
             Input('3d-orbit-memory', 'data'),
             Input("sat-viz-tabs", "active_tab"),
@@ -104,8 +97,7 @@ def register(app):
         State('3d-earth-satellite-plot', 'relayoutData'),
         State('3d-sat-ids', 'data')
     )
-    def update_3dviz(status, orbit, satname, satcatid,
-                     owner, launchvehicle, purpose, year,
+    def update_3dviz(spec,
                      clickData, orbit_list, tab,
                      clear_orbits_btn, time_interval, 
                      cam_mem, cam_scene, sat_ids_shown):
@@ -114,10 +106,7 @@ def register(app):
             raise PreventUpdate
         elif tab == "3d-viz":
             # Filter data using helper
-            dff, time_now, sat_status_enc = filter_satellite_data(df, filter_table,
-                                                          status, orbit, satname, 
-                                                          satcatid, owner, 
-                                                          launchvehicle, purpose, year)
+            dff, time_now, sat_status_enc = filter_satellite_data(df, filter_table, spec)
 
             sat_ids = satellite_ids_signature(dff)
 

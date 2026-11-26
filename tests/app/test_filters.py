@@ -30,7 +30,7 @@ def run(df, filters, **kw):
     args = dict(status=ALL_STATUS, orbit=ALL_ORBITS, satname=None, satcatid=None, owner=[], launchvehicle=[],
                 purpose=[], year=list(options["launchyear"]))
     args.update(kw)
-    out, time_now, encoded = filter_satellite_data(df.copy(), table, **args)
+    out, time_now, encoded = filter_satellite_data(df.copy(), table, sidebar_filter_spec(**args))
     return out, time_now, encoded, args
 
 
@@ -98,8 +98,8 @@ def test_filters_do_not_modify_the_shared_catalogue(sample_df, filters):
     """Callbacks pass the app's one in-memory catalogue; filtering must not change it."""
     df = sample_df.copy()
     before = df.copy()
-    filter_satellite_data(df, filters[1], ALL_STATUS, ALL_ORBITS, None, None, [], [], [],
-                          list(filters[0]["launchyear"]))
+    filter_satellite_data(df, filters[1], sidebar_filter_spec(ALL_STATUS, ALL_ORBITS, None, None, [], [], [],
+                                                              list(filters[0]["launchyear"])))
     assert df.equals(before)
 
 

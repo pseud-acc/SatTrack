@@ -61,39 +61,27 @@ def register(app):
     ------------------------
     2d visualisation 
     -------------------------
-    Interactive Inputs: Filter dropdowns, Launch year slider, update time button, interval-timer
+    Interactive Inputs: the filter-spec store (roadmap 3.3a), update time button, interval-timer
     Outputs: 2d orbit path scatter plot
     '''
 
     @app.callback(
         Output('2d-earth-satellite-plot', 'figure'),
         [
-            Input('status-filter-checkbox', 'value'),
-            Input('orbit-filter-checkbox', 'value'),
-            Input('satname-filter-dropdown', 'value'),
-            Input('satcatid-filter-dropdown', 'value'),
-            Input('owner-filter-multi-dropdown', 'value'),
-            Input('launchvehicle-filter-multi-dropdown', 'value'),
-            Input('purpose-filter-multi-dropdown', 'value'),
-            Input('launchyear-filter-slider', 'value'),
+            Input('filter-spec', 'data'),   # the panel's filter spec (roadmap 3.3a, Q7)
             Input("sat-viz-tabs", "active_tab"),
             Input("time-update-btn", "n_clicks"),
             Input('2d-viz-interval-component', "n_intervals")
         ]
     )
-    def update_2dviz(status, orbit, satname, satcatid,
-                     owner, launchvehicle,
-                     purpose, year, tab, update_time_btn, time_intverval):
+    def update_2dviz(spec, tab, update_time_btn, time_intverval):
 
         if tab != "2d-viz":
             raise PreventUpdate
         elif tab == "2d-viz":
 
             # Filter data using helper
-            dff, time_now, _ = filter_satellite_data(df, filter_table,
-                                                          status, orbit, satname, 
-                                                          satcatid, owner, 
-                                                          launchvehicle, purpose, year)
+            dff, time_now, _ = filter_satellite_data(df, filter_table, spec)
 
             ## 2D Visualisation
             # Create 2D orbit path scatter plot

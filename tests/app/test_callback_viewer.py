@@ -16,7 +16,7 @@ def test_bridge_is_the_only_new_callback_and_is_clientside(deps):
     assert len(bridge) == 1
     d = bridge[0]
     assert d["clientside_function"] is not None   # runs in the browser, no server round trip
-    assert [(x["id"], x["property"]) for x in d["inputs"]] == [("viewer-config", "data"), ("viewer-filters", "data")]
+    assert [(x["id"], x["property"]) for x in d["inputs"]] == [("viewer-config", "data"), ("filter-spec", "data")]   # the page's spec (3.3a)
     assert not [x for x in d["inputs"] + d["state"] if x["id"] == "globe"]
 
 

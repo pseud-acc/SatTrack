@@ -1,6 +1,6 @@
 # D-047 Constellations and satellite systems: CelesTrak first, completed from GCAT
 
-**Status:** Accepted (owner, 2026-11-25) · **Date:** 2026-11-25 · **PRs:** #81 (`fix/tdrss-constellation`)
+**Status:** Accepted (owner, 2026-11-25) · **Date:** 2026-11-25 · **PRs:** #81 (`fix/tdrss-constellation`) · roadmap 3.3b renumbered 3.14 on 26 Nov 2026 (3.3b is the filter panel, D-048)
 **Component:** pipeline (`sattrack_ingest/config.py`, the ad-hoc seed `manual_satellite_grouping`,
 `int__celestrak__satellite_group_membership`, `int__xsrc__satellite_constellation`,
 `int__xsrc__satellite_system_membership`, `int__xsrc__satellite_group_names`, `dim__satellite_constellation`,
@@ -29,7 +29,7 @@ membership). "GNSS" and "SBAS" are umbrella terms, never systems.
 |---|---|---|---|
 | Keep one `constellation` field (D-026) | No contract change | Mixes three kinds of group; a satellite gets one | Colour by "constellation" would mix GPS with SES |
 | Seed every constellation and system with its rule and publisher text (the plan approved earlier on 25 Nov) | Rich details for each | A hand-maintained list that drifts; owner rejected it mid-build | Popovers get text for every row |
-| **CelesTrak groups, completed from GCAT, plus a small ad-hoc seed (chosen)** | Golden source; retired members kept through GCAT; deterministic; new names flagged by a test | Names are CelesTrak's titles ("Tracking and Data Relay Satellite System (TDRSS)", "Beidou"); only seed rows carry descriptions | 3.3b filters and 3.10 colouring read the three fields; popovers show seed details where present |
+| **CelesTrak groups, completed from GCAT, plus a small ad-hoc seed (chosen)** | Golden source; retired members kept through GCAT; deterministic; new names flagged by a test | Names are CelesTrak's titles ("Tracking and Data Relay Satellite System (TDRSS)", "Beidou"); only seed rows carry descriptions | 3.14 filters and 3.10 colouring read the three fields; popovers show seed details where present |
 | Systems from GCAT alone | No second source | GCAT has no system field: `Program` "identifies groups of related satellites", mixing systems, constellations and series; any rule needs an invented threshold | — |
 | Systems from CelesTrak's `gnss` group split by GCAT family | No manual NavIC/QZSS | `gnss` also lists SBAS host satellites (SES-5, GALAXY 30, ...): 8 comms families became "systems"; GNSS is an umbrella term (owner) | — |
 
@@ -100,7 +100,7 @@ psatcat field names a hosted payload). Share of each `gnss` family's active payl
 83–100 %, SBAS hosts 6–17 % (measured, then the umbrella rule was dropped).
 
 ## Consequences
-- `objects` schema 2: `constellation` is gone; the viewer and app read none of the three fields yet (3.3b, 3.10).
+- `objects` schema 2: `constellation` is gone; the viewer and app read none of the three fields yet (3.14, 3.10).
 - System names are CelesTrak's titles, some long ("Tracking and Data Relay Satellite System (TDRSS)") or in its case
   ("Beidou", "SOUTHPAN"). Owner, 26 Nov 2026: keep CelesTrak's names as they are, in the data and the UI.
 - SBAS systems whose satellites CelesTrak doesn't list (KASS, ANGA, UK SBAS, Pak-SBAS, A-SBAS) are left out until it
@@ -117,8 +117,8 @@ psatcat field names a hosted payload). Share of each `gnss` family's active payl
 - CelesTrak adds a group for a seed row (PlanetScope, Sentinels, NavIC, QZSS, JPSS, GOES, Copernicus, MSAS, BDSBAS):
   drop the row and use the group.
 - GPS.gov republishes the PRN assignments with different MSAS or BDSBAS satellites.
-- 3.3b builds the filters and info popovers.
+- 3.14 builds the filters and info popovers.
 
 ## Related
 D-026 (superseded field), D-043 (space station flag, unchanged), D-046 (amended), D-008 and D-039/D-040 (CelesTrak
-download rules, unchanged), roadmap 3.3b and 3.10.
+download rules, unchanged), roadmap 3.14 and 3.10.

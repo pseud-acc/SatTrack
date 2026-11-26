@@ -46,6 +46,21 @@ def fields() -> dict[str, dict]:
             for name, d in schema()["$defs"].items()}
 
 
+@lru_cache(maxsize=1)
+def browser_rules() -> dict:
+    """What the browser's implementation (static/viewer/filter_spec.js) validates against, taken from the generated
+    schema so nothing is copied by hand: the version, the clause limit and, per field, its kind and the JSON Schema of
+    each operator's value. Sent in the viewer config (roadmap 3.3a)."""
+    s = schema()
+    return {
+        "version": s["properties"]["version"]["const"],
+        "maxClauses": s["properties"]["clauses"]["maxItems"],
+        "fields": {name: {"kind": d["x-kind"],
+                          "ops": {b["properties"]["op"]["const"]: b["properties"]["value"] for b in d["oneOf"]}}
+                   for name, d in s["$defs"].items()},
+    }
+
+
 def label(field: str) -> str:
     """The label people see for a field (from its dbt `meta.label`)."""
     return fields()[field]["label"]

@@ -5,6 +5,8 @@ Orbit type filter component (LEO, MEO, GEO, etc.).
 from dash import dcc, html
 import dash_bootstrap_components as dbc
 
+from app.helper.helper__app_data import DEFAULT_ORBITS
+
 
 def create_orbit_filter(options):
     """
@@ -32,7 +34,7 @@ def create_orbit_filter(options):
         ], target="orbit-info-icon", placement="right"),
         dcc.Checklist(
             options=[{"label": " " + orbit, "value": orbit} for orbit in options["orbit"]],
-            value=["LEO", "GEO"],
+            value=list(DEFAULT_ORBITS),   # every orbit class (owner, 26 Nov 2026; roadmap 3.3a)
             id="orbit-filter-checkbox",
             className="mb-3 st-orbit-grid"
         )
