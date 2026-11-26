@@ -24,13 +24,13 @@ from test_journeys import PLOT_3D, choose_in_dropdown, open_tracker, trace_lengt
 CHANGE_TIMEOUT = 20_000   # ms for the view to change after a control is used
 
 # The visible controls: each element a visitor can operate (input, button, slider) mapped to its nearest Dash
-# component id. The panel's own disclosure buttons (collapse, "Advanced Filters") open sections and filter nothing.
+# component id. The panel's own disclosures (collapse, "More filters" rows) open sections and filter nothing.
 VISIBLE_CONTROLS = """() => {
   const ids = new Set();
   for (const e of document.querySelectorAll('#filter-collapse input, #filter-collapse button, #filter-collapse [role=slider]')) {
     if (e.classList.contains('accordion-button')) continue;
     const c = e.closest('[id]');
-    if (!c || c.id === 'filter-collapse') continue;
+    if (!c || c.id === 'filter-collapse' || c.tagName === 'DETAILS') continue;   // a section, not a control
     const r = c.getBoundingClientRect();
     if (r.width > 0 && r.height > 0 && !c.closest('[hidden]')) ids.add(c.id);
   }
@@ -85,11 +85,9 @@ def most_common(column, df):
     return df[column].value_counts().index[0]
 
 
-def _tick(box, label, on=True):
-    def act(page):
-        cb = page.locator(f"#{box}").get_by_label(label, exact=True)
-        cb.check() if on else cb.uncheck()
-    return act
+def _segment(box, label):
+    """Click one segment of a segmented control (roadmap 3.3b), as a visitor does: its input is visually hidden."""
+    return lambda page: page.locator(f"#{box}").get_by_text(label, exact=True).click()
 
 
 def _pick(dropdown, label):
@@ -119,9 +117,9 @@ def effects():
     owner = most_common("owner_country", active_payloads)
     vehicle = most_common("launch_vehicle_brand", active_payloads)
     return {
-        "status-filter-checkbox": (_tick("status-filter-checkbox", "Inactive"),
+        "status-filter-checkbox": (_segment("status-filter-checkbox", "All"),
                                    lambda s: {**s, "status": ["Active", "Inactive"]}),
-        "orbit-filter-checkbox": (_tick("orbit-filter-checkbox", "LEO", on=False),
+        "orbit-filter-checkbox": (_segment("orbit-filter-checkbox", "LEO"),
                                   lambda s: {**s, "orbit": [o for o in s["orbit"] if o != "LEO"]}),
         "satname-filter-dropdown": (_pick("satname-filter-dropdown", sat.ObjectName),
                                     lambda s: {**s, "name": sat.ObjectName}),
@@ -139,7 +137,7 @@ def effects():
         # Inactive in the sample, so the check starts from status Active + Inactive.
         "type-filter-checkbox": (lambda page: page.locator("#type-filter-checkbox").get_by_text("Debris", exact=True).click(),
                                  lambda s: {**s, "types": s["types"] + ["DEBRIS"]},
-                                 _tick("status-filter-checkbox", "Inactive"),
+                                 _segment("status-filter-checkbox", "All"),
                                  lambda s: {**s, "status": ["Active", "Inactive"]}),
         "junk-mode-switch": (lambda page: page.get_by_label("Space junk mode").check(),
                              lambda s: {**s, "types": ["PAYLOAD", "ROCKET BODY", "DEBRIS"],
@@ -147,8 +145,34 @@ def effects():
     }
 
 
+# Roadmap 3.3b: each chip's remove button undoes its control, and Clear all undoes everything. Their checks are built
+# from the control's own: use the control (so the chip shows), then remove it; the request goes back to the start.
+CHIP_CONTROLS = {"status": "status-filter-checkbox", "orbit": "orbit-filter-checkbox",
+                 "satname": "satname-filter-dropdown", "satcatid": "satcatid-filter-dropdown",
+                 "owner": "owner-filter-multi-dropdown", "launchvehicle": "launchvehicle-filter-multi-dropdown",
+                 "purpose": "purpose-filter-multi-dropdown", "year": "launchyear-filter-slider"}
+
+
+def all_effects():
+    base = effects()
+    out = dict(base)
+    # The status chip shows from the start ("Active"): removing it widens status to All.
+    out["chip-x-status"] = (lambda page: page.locator("#chip-x-status").click(),
+                            lambda s: {**s, "status": ["Active", "Inactive"]})
+    for chip, control in CHIP_CONTROLS.items():
+        if chip == "status":
+            continue
+        act, change = base[control][:2]
+        out[f"chip-x-{chip}"] = (lambda page, c=chip: page.locator(f"#chip-x-{c}").click(),
+                                 lambda s, page=None: start_state(), act, change)
+    act, change = base["orbit-filter-checkbox"][:2]
+    out["filter-clear-all"] = (lambda page: page.locator("#filter-clear-all").click(),
+                               lambda s, page=None: start_state(), act, change)
+    return out
+
+
 # Buttons whose effect isn't a different set of objects: checked on their own below.
-OWN_CHECKS = {"time-update-btn", "clear-orbits-btn"}
+OWN_CHECKS = {"clear-orbits-btn"}
 
 
 def test_every_visible_control_has_an_effect_check(page, base_url):
@@ -156,7 +180,7 @@ def test_every_visible_control_has_an_effect_check(page, base_url):
     open_sections(page)
     visible = set(page.evaluate(VISIBLE_CONTROLS))
     assert visible, "found no controls: the selector is out of date"
-    unchecked = visible - set(effects()) - OWN_CHECKS
+    unchecked = visible - set(all_effects()) - OWN_CHECKS
     assert not unchecked, f"controls offered in production with no effect check: {sorted(unchecked)}"
 
 
@@ -170,22 +194,22 @@ def wait_for_redraw(page, drawn):
     return trace_lengths(page, PLOT_3D)[1]
 
 
-@pytest.mark.parametrize("control", list(effects()))
+@pytest.mark.parametrize("control", list(all_effects()))
 def test_each_visible_control_changes_the_view_as_asked(page, base_url, t_ref, control):
     """The view's change must match the request's, within the few sample objects SGP4 can't place: a control whose
     request the view can only partly draw (e.g. junk mode adding Inactive payloads but no debris) fails too."""
     open_tracker(page, base_url)
     open_sections(page)
-    if control not in page.evaluate(VISIBLE_CONTROLS):
-        return   # not offered in production: nothing to check (the coverage test above covers the reverse)
-    act, change, *prep = effects()[control]
+    act, change, *prep = all_effects()[control]
     df = objects()
     before_state = start_state()
     if prep:
         drawn = trace_lengths(page, PLOT_3D)[1]
         prep[0](page)
         wait_for_redraw(page, drawn)
-        before_state = prep[1](before_state)
+        before_state = (prep[1](before_state, page) if prep[1].__code__.co_argcount == 2 else prep[1](before_state))
+    if control not in page.evaluate(VISIBLE_CONTROLS):
+        return   # not offered in production: nothing to check (the coverage test above covers the reverse)
     unplaceable = int((~propagates(load_sample(), t_ref)).sum())
     drawn = trace_lengths(page, PLOT_3D)[1]
     act(page)
@@ -199,19 +223,14 @@ def test_each_visible_control_changes_the_view_as_asked(page, base_url, t_ref, c
     assert page.errors == []
 
 
-def test_update_button_redraws_the_views(page, base_url):
-    """Update re-runs the views at the current time: clicking it makes the list callback answer with rows."""
+def test_no_update_button(page, base_url):
+    """Roadmap 3.3b: filters apply at once, so there's no Update button to press (or to do nothing)."""
     open_tracker(page, base_url)
-    page.get_by_role("tab", name="List View").click()
-    expect(page.locator("#satellite-list tbody tr:has(td)").first).to_be_visible()
-    with page.expect_response(lambda r: "_dash-update-component" in r.url and r.status == 200) as resp:
-        page.locator("#time-update-btn").click()
-    assert "satellite-list" in resp.value.text()
-    assert page.errors == []
+    assert page.locator("#time-update-btn").count() == 0
 
 
 def test_clear_orbits_removes_drawn_orbits(page, base_url):
-    """A satellite clicked in the 3D view gets its orbit drawn; Clear Orbits removes it."""
+    """A satellite clicked in the 3D view gets its orbit drawn; Clear orbits (in the 3D tab since 3.3b) removes it."""
     open_tracker(page, base_url)
     page.evaluate("""id => {
         const gd = document.getElementById(id).querySelector('.js-plotly-plot');

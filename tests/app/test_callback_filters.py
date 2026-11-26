@@ -165,9 +165,11 @@ def shown_chips(out):
 
 
 def test_page_opens_with_the_count_of_active_payloads(callbacks, objects):
-    """Rendered into the page (no callback at load): N of every object in the dataset, UNKNOWN included."""
+    """Rendered into the page (no callback at load). These tests run the app as production does (globe off), where the
+    total is the payloads; with the globe on it is every object (tests/e2e/test_viewer.py)."""
     n = expected_object_count(objects)
-    assert text(callbacks.initial(SUMMARY, "children")) == f"{n:,}of {len(objects):,} objects"
+    payloads = int((objects["object_type"] == "PAYLOAD").sum())   # production: the globe is off, so payloads (#83)
+    assert text(callbacks.initial(SUMMARY, "children")) == f"{n:,}of {payloads:,} payloads"
     assert n > 0
 
 
@@ -183,7 +185,8 @@ def test_page_opens_with_the_count_of_active_payloads(callbacks, objects):
 def test_count_and_type_counts_follow_the_controls(callbacks, objects, values, expect):
     out = summary(callbacks, **values)
     n = expected_object_count(objects, **expect)
-    assert text(out[f"{SUMMARY}.children"]) == f"{n:,}of {len(objects):,} objects"
+    payloads = int((objects["object_type"] == "PAYLOAD").sum())
+    assert text(out[f"{SUMMARY}.children"]) == f"{n:,}of {payloads:,} payloads"
     others = {k: v for k, v in expect.items() if k != "types"}
     for t, (m, total) in type_cells(out).items():
         assert m == expected_object_count(objects, **{**others, "types": [t]}), t   # matching the other filters

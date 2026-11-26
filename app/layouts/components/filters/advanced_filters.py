@@ -43,15 +43,20 @@ def create_advanced_filters(options, summary):
              _dropdown(options["purpose"], "Select purposes...", "purpose-filter-multi-dropdown")),
         # Fixed bounds, independent of the data: 1958 to the current year (UTC), read each time the page is built,
         # so the slider reaches this year's launches without a code change. It starts on the whole range (3.3a).
-        _row("year", rows["year"], dcc.RangeSlider(
-            min=LAUNCH_YEAR_MIN,
-            max=launch_year_bounds()[1],
-            step=1,
-            value=launch_year_bounds(),
-            marks={LAUNCH_YEAR_MIN: str(LAUNCH_YEAR_MIN), launch_year_bounds()[1]: str(launch_year_bounds()[1])},
-            allow_direct_input=False,   # Dash 4: no number boxes; the row shows the range
-            id="launchyear-filter-slider",
-            tooltip={"placement": "top", "always_visible": False},
-            className="custom-range-slider"
-        )),
+        _row("year", rows["year"], html.Div([
+            dcc.RangeSlider(
+                min=LAUNCH_YEAR_MIN,
+                max=launch_year_bounds()[1],
+                step=1,
+                value=launch_year_bounds(),
+                marks={},
+                allow_direct_input=False,   # Dash 4: no number boxes; the row shows the range
+                id="launchyear-filter-slider",
+                tooltip={"placement": "top", "always_visible": False},
+                className="custom-range-slider"
+            ),
+            # The slider's ends, under the track (the dragged value shows in the bubble and the row's summary)
+            html.Div([html.Span(str(LAUNCH_YEAR_MIN)), html.Span(str(launch_year_bounds()[1]))],
+                     className="st-year-ends"),
+        ], className="st-year-track")),
     ], className="st-more mb-3")

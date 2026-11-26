@@ -46,6 +46,7 @@ from app.helper.helper__filter_display import (CONTROLS, CHIPS, REMOVABLE_CHIPS,
                                                widened_controls, panel_summary)
 from app.layouts.components.filters.type_filter import type_options, type_hints
 from app.layouts.components.filters.match_count import count_children
+from app.core.viewer import viewer_state
 
 
 # Callback wrapper function
@@ -60,6 +61,7 @@ def register(app):
     # Get app data
     app_data = get_app_data()
     filter_table = app_data['filter']['table']
+    globe = viewer_state()["enabled"]   # without the globe the count is of payloads (#83)
 
     # >>> Define Callbacks <<<
 
@@ -107,7 +109,7 @@ def register(app):
     def update_panel_summary(*values):
         summary = panel_summary(filter_table, dict(zip(CONTROLS, values)))
         chips = summary["chips"]
-        return ([count_children(summary), type_options(summary), type_hints(summary), not summary["changed"]]
+        return ([count_children(summary, globe), type_options(summary), type_hints(summary), not summary["changed"]]
                 + [chips[name] is None for name in CHIPS]
                 + [chips[name] or "" for name in CHIPS]
                 + [summary["rows"][name] for name in ROWS])

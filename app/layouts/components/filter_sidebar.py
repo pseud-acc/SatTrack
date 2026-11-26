@@ -51,7 +51,7 @@ def create_filter_sidebar(options, summary, controls):
             dbc.Collapse([
                 dbc.CardBody([
                     # Live match count (roadmap 3.3b)
-                    create_match_count(summary),
+                    create_match_count(summary, globe=viewer_state()["enabled"]),
 
                     # Object types (roadmap 3.3a; matching / total and hints 3.3b): only with the globe on, the one
                     # view that draws rocket bodies and debris (the Plotly views draw the app CSV's payloads only; #83)

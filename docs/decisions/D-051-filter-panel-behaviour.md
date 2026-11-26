@@ -25,9 +25,17 @@ This record holds the details 3.3b had to choose while building it.
 | Launch-year bubbles | Removed: the row shows the range | Kept beside the row summary |
 
 ## Decision
-As chosen above. Also: the type switches are the checklist's checkboxes drawn as switches on the right (still real
+As chosen above. Also: with the globe off (production until it is switched on), the type section is hidden (#83)
+and the count reads "N of M payloads", since the Plotly views can draw payloads only; the type switches are the checklist's checkboxes drawn as switches on the right (still real
 checkboxes); the panel note now reads "…only with status Inactive or All" since status is no longer checkboxes; the
 2D map and list no longer have an Update button: they refresh on a filter or tab change (2D also on its timer).
+
+Orbit buttons each have a hover card (owner, 26 Nov 2026): the class name, an indicative height and how SatTrack
+decides the class. The heights are for a circular orbit at each period limit (Kepler's third law: 128 min ~2,000 km;
+0.97 / 1 / 1.03 sidereal day ~34,900 / 35,800 / 36,600 km), because the pipeline classifies by period, eccentricity
+and inclination (`helper__classify_orbit_class`), not by altitude; the old (i) card's altitude bands did not match it.
+The launch-year row shows its end years under an inset track. Long values (owner names) are cut with an ellipsis
+rather than widening the panel.
 
 ## Evidence
 3.3b on the sample: app tests (count, type counts and hints against plain pandas over the objects dataset; chip

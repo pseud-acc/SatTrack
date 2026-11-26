@@ -212,3 +212,19 @@
 .st-type-list input[type="checkbox"]:focus-visible { outline: 2px solid var(--st-accent-hi); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { .st-type-list input[type="checkbox"] { transition: none; } }
 .st-seg .dash-options-list-option.selected + .dash-options-list-option.selected { border-left-color: var(--st-panel); }
+
+/* Long values (an owner like "Arab Satellite Communications Organization") never widen the panel: grid items may
+   shrink, and chip and row text is cut with an ellipsis (the full text is in the control itself). */
+.st-panel .card-body > * { min-width: 0; }
+.st-row-head, .st-row-body, .st-chips, .st-more { min-width: 0; }
+.st-chip { max-width: 100%; }
+.st-chip > span:first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.st-row-body .dash-dropdown { max-width: 100%; }
+
+/* Launch year row (3.3b): the track is inset so the round thumbs stay inside the row, with the end years (1958 and
+   this year) under it; the dragged value shows in the bubble and the row's summary. */
+.st-year-track { padding: 0 11px; }
+.st-year-track .custom-range-slider { margin: var(--st-1) 0 0 !important; }
+.st-year-track #launchyear-filter-slider { padding: 10px 0 2px !important; }
+.st-year-ends { display: flex; justify-content: space-between; margin: 0 -11px; color: var(--st-muted);
+  font-size: var(--st-fs-xs); font-variant-numeric: tabular-nums; }

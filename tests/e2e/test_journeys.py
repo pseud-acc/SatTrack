@@ -139,3 +139,16 @@ def test_pages_use_only_the_self_hosted_design(page, base_url, path, ready):
     assert probe["bg"] == "rgb(10, 18, 32)"
     assert not [u for u in page.offsite if "fonts.g" in u or "cdnjs" in u or "jsdelivr" in u or "bootstrapcdn" in u]
     assert page.errors == []
+
+
+@pytest.mark.parametrize("orbit, name", [("LEO", "Low Earth orbit"), ("GEO", "Geostationary orbit"),
+                                         ("HEO", "Highly elliptical orbit")])
+def test_each_orbit_button_has_an_info_card_on_hover(page, base_url, orbit, name):
+    """Owner, 26 Nov 2026: hovering an orbit button shows what that orbit class means."""
+    open_tracker(page, base_url)
+    page.locator("#orbit-filter-checkbox").get_by_text(orbit, exact=True).hover()
+    card = page.get_by_role("tooltip")
+    expect(card).to_be_visible(timeout=TIMEOUT)
+    expect(card).to_contain_text(f"{orbit}: {name}")
+    expect(card).to_contain_text("Height: ")                    # indicative height (owner, 26 Nov 2026)
+    assert page.errors == []
