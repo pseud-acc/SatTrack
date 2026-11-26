@@ -152,3 +152,25 @@ def test_each_orbit_button_has_an_info_card_on_hover(page, base_url, orbit, name
     expect(card).to_contain_text(f"{orbit}: {name}")
     expect(card).to_contain_text("Height: ")                    # indicative height (owner, 26 Nov 2026)
     assert page.errors == []
+
+
+def test_open_owner_list_stays_inside_the_panel(page, base_url, sample_df):
+    """Owner, 26 Nov 2026: the open owner list sized itself to the longest name and hung past the filter panel. It is
+    now as wide as its dropdown and long names wrap, so even the longest owner in the data fits."""
+    longest = max(sample_df.Owner.dropna().unique(), key=len)
+    open_tracker(page, base_url)
+    page.locator("#more-owner summary").click()
+    page.locator("#owner-filter-multi-dropdown").click()
+    search = page.locator(".dash-dropdown-content .dash-dropdown-search")
+    expect(search).to_be_focused(timeout=TIMEOUT)
+    search.fill(longest)
+    option = page.locator(".dash-dropdown-content").get_by_role("option", name=longest, exact=True)
+    expect(option).to_be_visible(timeout=TIMEOUT)
+    panel = page.locator(".st-panel").bounding_box()
+    trigger = page.locator("#owner-filter-multi-dropdown").bounding_box()
+    listbox = page.locator(".dash-dropdown-content").bounding_box()
+    text = option.locator(".dash-options-list-option-text").bounding_box()
+    assert listbox["x"] + listbox["width"] <= panel["x"] + panel["width"]
+    assert abs(listbox["width"] - trigger["width"]) <= 1
+    assert text["x"] + text["width"] <= listbox["x"] + listbox["width"]      # wrapped, not cut off or spilling
+    assert page.errors == []

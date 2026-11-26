@@ -220,6 +220,14 @@
 .st-chip { max-width: 100%; }
 .st-chip > span:first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .st-row-body .dash-dropdown { max-width: 100%; }
+/* The open list is as wide as its dropdown, not the longest option (Dash 4 defaults to fit-content), so it never
+   hangs past the panel; long names wrap onto more lines, the tick box staying on the first. Every dcc.Dropdown in the
+   app is in this panel, and the list is portalled to <body>, so the rule is global. */
+.dash-dropdown-content { width: var(--radix-popover-trigger-width) !important; max-width: var(--radix-popover-trigger-width) !important; }
+.dash-dropdown-content .dash-options-list-option { align-items: flex-start; }
+.dash-dropdown-content .dash-options-list-option-text { white-space: normal !important; overflow-wrap: anywhere; min-width: 0; }
+/* Dash sticks the search box 8px below the list's top, so scrolled options showed through that strip: fill it. */
+.dash-dropdown-content .dash-dropdown-search-container { box-shadow: 0 -8px 0 8px var(--Dash-Fill-Inverse-Strong); z-index: 1; }
 
 /* Launch year row (3.3b): the track is inset so the round thumbs stay inside the row, with the end years (1958 and
    this year) under it; the dragged value shows in the bubble and the row's summary. */
