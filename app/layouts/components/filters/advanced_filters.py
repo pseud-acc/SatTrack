@@ -21,53 +21,36 @@ def create_advanced_filters(options):
     """
     return dbc.Accordion([
         dbc.AccordionItem([
-            # Owner dropdown
+            # Owner, launch vehicle and purpose dropdowns (styled by assets/05_panel.css: .st-adv-dropdown)
             dcc.Dropdown(
                 options=options["owner"],
                 multi=True,
                 value=[],
                 placeholder="Select owners...",
                 id="owner-filter-multi-dropdown",
-                className="mb-3",
-                style={'fontSize': '0.875rem'}
+                className="st-adv-dropdown"
             ),
-            # Launch Vehicle dropdown
             dcc.Dropdown(
                 options=options["launchvehicle"],
                 multi=True,
                 value=[],
                 placeholder="Select launch vehicles...",
                 id="launchvehicle-filter-multi-dropdown",
-                className="mb-3",
-                style={'fontSize': '0.875rem'}
+                className="st-adv-dropdown"
             ),
-            # Purpose dropdown
             dcc.Dropdown(
                 options=options["purpose"],
                 multi=True,
                 value=[],
                 placeholder="Select purposes...",
                 id="purpose-filter-multi-dropdown",
-                className="mb-4",
-                style={'fontSize': '0.875rem'}
+                className="st-adv-dropdown"
             ),
 
-            # Divider for visual separation
-            html.Hr(style={'margin': '20px 0', 'borderColor': 'rgba(108, 117, 125, 0.3)'}),
-
-            # Launch Year Range section
+            # Launch year range
             html.Div([
-                html.Label("Launch Year", style={
-                    'fontSize': '0.9rem',
-                    'fontWeight': '600',
-                    'color': '#6c757d',
-                    'marginTop': '-10px',
-                    'marginBottom': '-10px',
-                    'display': 'block',
-                    'textAlign': 'center'
-                }),
+                html.Label("Launch Year", className="st-lbl"),
 
-                # Range slider
                 # Fixed bounds, independent of the data: 1958 to the current year (UTC), read each
                 # time the page is built, so the slider reaches this year's launches without a code
                 # change. The starting value still comes from the data ([1958, 2026] on 2026-11-15).
@@ -83,63 +66,16 @@ def create_advanced_filters(options):
                     className="custom-range-slider"
                 ),
 
-                # Min/Max value bubbles
+                # Min/max bubbles (callback_filters updates them as the slider moves)
                 html.Div([
-                    # Minimum bubble
-                    html.Div([
-                        html.Div(id='launch-year-min-display',
-                                 children=format_year_slider_output(
-                                     'min', options['launchyear'][0]
-                                 ),
-                                 style={
-                                     'border': '1px solid #495057',
-                                     'borderRadius': '10px',
-                                     'padding': '8px 16px',
-                                     'fontSize': '0.8rem',
-                                     'fontWeight': '500',
-                                     'textAlign': 'center',
-                                     'backgroundColor': 'rgba(255, 255, 255, 0.05)',
-                                     'color': '#c5c7c7',
-                                     'maxWidth': '200px',
-                                     'width': '100%'
-                                 })
-                    ], style={
-                        'flex': '1',
-                        'display': 'flex',
-                        'justifyContent': 'flex-start'
-                    }),
-
-                    # Maximum bubble
-                    html.Div([
-                        html.Div([
-                            html.Div(id='launch-year-max-display',
-                                     children=format_year_slider_output(
-                                         'min', options['launchyear'][0]
-                                     ),
-                                     style={
-                                         'border': '1px solid #495057',
-                                         'borderRadius': '10px',
-                                         'padding': '8px 16px',
-                                         'fontSize': '0.8rem',
-                                         'fontWeight': '500',
-                                         'textAlign': 'center',
-                                         'backgroundColor': 'rgba(255, 255, 255, 0.05)',
-                                         'color': '#c5c7c7',
-                                         'maxWidth': '200px',
-                                         'width': '100%'
-                                     })
-                        ], style={
-                            'flex': '1',
-                            'display': 'flex',
-                            'justifyContent': 'flex-end'
-                        }),
-                    ], style={'flex': '1', 'textAlign': 'right'})
-                ], style={
-                    'display': 'flex',
-                    'justifyContent': 'space-between',
-                    'gap': '20px'
-                })
-            ], style={'paddingTop': '5px'})
+                    html.Div(id='launch-year-min-display',
+                             children=format_year_slider_output('min', options['launchyear'][0]),
+                             className="st-year-bubble"),
+                    html.Div(id='launch-year-max-display',
+                             children=format_year_slider_output('max', options['launchyear'][1]),
+                             className="st-year-bubble"),
+                ], className="st-year-bubbles")
+            ], className="st-adv-years")
 
         ], title="Advanced Filters", className="border-0")
     ], start_collapsed=True, className="mb-3")

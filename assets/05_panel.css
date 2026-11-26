@@ -130,3 +130,25 @@
 @media (prefers-reduced-motion: reduce) {
   .st-tracker-row > .st-panel-col { transition: none; }
 }
+
+/* ---- Advanced filters (3.12 step 4: replaces the component's inline styles) --------------------------------- */
+.st-adv-dropdown { font-size: var(--st-fs-sm); margin-bottom: var(--st-3); }
+.st-adv-years { padding-top: var(--st-3); margin-top: var(--st-1); border-top: 1px solid var(--st-line); }
+.st-year-bubbles { display: flex; justify-content: space-between; gap: var(--st-4); }
+.st-year-bubble {
+  flex: 0 1 140px;
+  padding: 6px var(--st-3);
+  border: 1px solid var(--st-control);
+  border-radius: var(--st-r);
+  background: var(--st-raised);
+  color: var(--st-fg);
+  font-size: var(--st-fs-xs);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.st-year-bubble strong { color: var(--st-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* Tooltips next to the section labels, and the orbit checklist's grid */
+.st-tip-body { text-align: left; }
+.st-orbit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); }
+.st-orbit-grid input, .st-status-list input { margin-right: 5px; }

@@ -28,15 +28,12 @@ def create_orbit_filter(options):
                 html.Strong("GEO:"), " Geostationary (35786km)", html.Br(),
                 html.Strong("GSO:"), " Geosynchronous", html.Br(),
                 html.Strong("HEO:"), " Highly Elliptical"
-            ], style={'textAlign': 'left'})
+            ], className="st-tip-body")
         ], target="orbit-info-icon", placement="right"),
         dcc.Checklist(
             options=[{"label": " " + orbit, "value": orbit} for orbit in options["orbit"]],
             value=["LEO", "GEO"],
             id="orbit-filter-checkbox",
-            className="mb-3",
-            style={"display": "grid",
-                   "gridTemplateColumns": "repeat(auto-fit, minmax(60px, 1fr))"},
-            inputStyle={"marginRight": "5px"}
+            className="mb-3 st-orbit-grid"
         )
     ])

@@ -22,7 +22,7 @@ def create_status_filter():
             html.Div([
                 html.Strong("Active:"), " Currently operational satellites", html.Br(),
                 html.Strong("Inactive:"), " Defunct or decommissioned satellites"
-            ], style={'textAlign': 'left'})
+            ], className="st-tip-body")
         ], target="status-info-icon", placement="right"),
         dcc.Checklist(
             options=[
@@ -31,9 +31,8 @@ def create_status_filter():
             ],
             value=["Active"],
             id="status-filter-checkbox",
-            className="mb-3",
+            className="mb-3 st-status-list",
             inline=True,
-            inputStyle={"marginRight": "5px"},
             labelStyle={"marginRight": "15px"}
         )
     ])

@@ -30,6 +30,10 @@
   --st-on-accent: #04201c;   /* text on teal (6.6:1; white would be 2.6:1) */
   --st-accent-soft: rgba(43, 179, 163, 0.16);
 
+  /* Overlays on the globe (the viewer's panel and credits): the panel and bar colours, translucent */
+  --st-overlay: rgba(13, 23, 41, 0.88);      /* --st-panel at 88 % */
+  --st-overlay-bar: rgba(12, 21, 38, 0.8);   /* --st-bar at 80 % */
+
   /* States */
   --st-ok: #4cc38a;
   --st-warn: #f2c46b;

@@ -53,9 +53,11 @@ def test_assets_load_in_order():
                      "05_panel.css"]
 
 
-def test_panel_styles_use_only_tokens():
-    """The filter panel's styles take every colour from the tokens (3.12 step 3): no hex or rgb() colour values."""
-    text = re.sub(r"/\*.*?\*/", "", (ASSETS / "05_panel.css").read_text(encoding="utf-8"), flags=re.S)
+@pytest.mark.parametrize("rel", ["assets/05_panel.css", "static/viewer/viewer.css"])
+def test_component_styles_use_only_tokens(rel):
+    """The filter panel's (3.12 step 3) and the Cesium viewer's (step 4) styles take every colour from the tokens:
+    no hex or rgb() colour values."""
+    text = re.sub(r"/\*.*?\*/", "", (REPO_ROOT / rel).read_text(encoding="utf-8"), flags=re.S)
     values = re.findall(r":\s*([^;{}]+);", text)   # declaration values only, so #id selectors don't count
     assert not [v for v in values if re.search(r"#[0-9a-fA-F]{3,8}\b|\brgba?\(", v)], "colour values outside the tokens"
 
@@ -99,3 +101,41 @@ def test_token_contrast(fg, bg, minimum):
 def test_data_colours_are_d017s():
     t = tokens()
     assert (t["--st-payload"], t["--st-rocket"], t["--st-debris"]) == ("#56B4E9", "#E69F00", "#CC79A7")
+
+
+# ---- step 4: the app's own code takes colours from the tokens ----------------------------------------------------
+
+COLOUR_LITERAL = re.compile(r"#[0-9a-fA-F]{6}|#[0-9a-fA-F]{3}|rgba?\(")
+
+
+@pytest.mark.parametrize("rel", sorted(
+    str(p.relative_to(REPO_ROOT)).replace("\\", "/")
+    for p in [*(REPO_ROOT / "app" / "layouts").rglob("*.py"), REPO_ROOT / "app" / "helper" / "helper__plot_display.py"]
+    if "Archive" not in p.parts))
+def test_app_code_has_no_colour_literals(rel):
+    """Layouts and the Plotly figure helper name no colours of their own (3.12 step 4): CSS classes, var(--st-*) or
+    app/styles/tokens.py instead. The Earth's texture scale (styles_sat_visualisations.colorscale) is geography and
+    lives outside these files."""
+    text = (REPO_ROOT / rel).read_text(encoding="utf-8")
+    assert not COLOUR_LITERAL.findall(text), f"{rel} has colour literals"
+
+
+def test_layouts_have_no_inline_styles_but_the_view_heights():
+    """Inline style= blocks moved to classes (3.12 step 4). What remains sets the views' heights from the shell's
+    token (--st-viz-h) and the 2D map's one-world width cap; the home page is step 5's."""
+    allowed = {"viz_2d.py", "viz_3d.py", "layout_home.py"}
+    offenders = [p.name for p in (REPO_ROOT / "app" / "layouts").rglob("*.py")
+                 if "Archive" not in p.parts and p.name not in allowed
+                 and re.search(r"(style|inputStyle)\s*=\s*\{", p.read_text(encoding="utf-8"))]
+    assert offenders == []
+
+
+def test_python_tokens_are_read_from_the_css():
+    """app/styles/tokens.py reads the same values the CSS defines, and the Plotly status colours are the globe's
+    (owner, 24 Nov 2026)."""
+    from app.styles.tokens import TOKENS as PY
+    from app.styles.styles_sat_visualisations import colours
+    css = tokens()
+    assert all(PY[k[2:]] == v for k, v in css.items())
+    assert (colours["marker1"], colours["marker0"]) == (css["--st-active"], css["--st-inactive"])
+    assert (colours["markerpath1"], colours["markerpath0"]) == (css["--st-active"], css["--st-inactive"])

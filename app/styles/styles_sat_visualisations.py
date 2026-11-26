@@ -3,28 +3,22 @@ Script containing styles and colours for python dash and plotly objects
 in satellite visualisation tabs
 """
 
+from app.styles.tokens import TOKENS
+
 # Colours
 
-## Colours - text, tabs, plots
+## Plotly figure colours, from the design tokens (assets/03_tokens.css via app/styles/tokens.py; 3.12 step 4).
+## Status follows the globe's default colouring (owner, 24 Nov 2026): soft red active, grey inactive.
 colours = {
-    "btext": "#f8f9fa",  # Lighter text for better contrast
-    "ttext": "#00d4ff",  # Brighter blue for headers
-    "atext": "#ffffff",
-    "marker0": "#6c757d",  # Better contrast inactive marker
-    "marker1": "#ff4444",  # Brighter active marker
-    "marker2": "#00ff88",  # Better visibility current position
-    "markeredge" : "#bab6b7", #greyish-red - marker edge for Satellites
-    "markerpath" : "#59ff00", #bright green - path for satellite in 3d
-    "markerpath0" : "#b5bdbf", #light grey - path for inactive satellite in 3d
-    "markerpath1" : "#e00000", #bright red - path for active satellite in 3d
-    "dropdownbox": "#2b3035",  # Darker dropdown background
-    "tab": "#1a1d21",
-    "hboxbg0": "#495057",
-    "hboxbg1": "#dc3545",
-    "hboxtx0": "#ffffff",
-    "hboxtx1": "#ffffff"
+    "atext": TOKENS["st-fg"],              # 3D annotation text
+    "marker0": TOKENS["st-inactive"],      # inactive satellite
+    "marker1": TOKENS["st-active"],        # active satellite
+    "marker2": TOKENS["st-accent-hi"],     # selected satellite's current position (2D)
+    "markerpath0": TOKENS["st-inactive"],  # orbit path, inactive satellite (3D)
+    "markerpath1": TOKENS["st-active"],    # orbit path, active satellite (3D)
 }
 
+# The Earth's surface texture below is geography, not interface colour, so it keeps its own scale.
 ## Colour scale to convert 2d greyscale of Earth surface to coloured texture
 colorscale =[[0.0, 'rgb(30, 59, 117)'],
 
@@ -47,36 +41,3 @@ colorscale_marker =[[0.0, colours["marker0"]],
 ## Colour scale for 3d path
 colorscale_markerpath =[[0.0, colours["markerpath0"]],
                     [1.0, colours["markerpath1"]]]
-
-
-# Styles
-
-## Fontsize
-fontsize = {
-    "heading": "clamp(1.5rem, 5vw, 2.5rem)",  # Responsive heading
-    "sub-heading": "clamp(1rem, 3vw, 1.25rem)",
-    "sub-sub-heading": "clamp(0.75rem, 2vw, 0.875rem)",
-    "checkbox": "1rem",
-    "dropdown": "0.875rem",
-    "slider": "0.875rem"
-}
-
-## Tab Styles
-_tabs__style = {
-    'height': '44px'
-}
-
-_tab__style = {
-    'borderBottom': '2px solid ' + colours["ttext"],
-    'padding': '6px',
-    'fontWeight': 'bold'
-}
-
-_tab_selected__style = {
-    'borderTop': '1px solid ' + colours["ttext"],
-    'borderBottom': '1px solid ' + colours["ttext"],
-    'backgroundColor': colours["tab"],
-    'color': colours["ttext"],
-    'padding': '6px'
-}
-
