@@ -50,10 +50,10 @@ def test_assets_load_in_order():
     """Dash includes assets/*.css in filename order: Bootstrap, then the font, the tokens, then the component styles."""
     names = sorted(p.name for p in ASSETS.glob("*.css"))
     assert names == ["01_bootstrap-5.3.8.min.css", "02_source-sans-3.css", "03_tokens.css", "04_shell.css",
-                     "05_panel.css"]
+                     "05_panel.css", "06_home.css"]
 
 
-@pytest.mark.parametrize("rel", ["assets/05_panel.css", "static/viewer/viewer.css"])
+@pytest.mark.parametrize("rel", ["assets/05_panel.css", "assets/06_home.css", "static/viewer/viewer.css"])
 def test_component_styles_use_only_tokens(rel):
     """The filter panel's (3.12 step 3) and the Cesium viewer's (step 4) styles take every colour from the tokens:
     no hex or rgb() colour values."""
@@ -122,8 +122,8 @@ def test_app_code_has_no_colour_literals(rel):
 
 def test_layouts_have_no_inline_styles_but_the_view_heights():
     """Inline style= blocks moved to classes (3.12 step 4). What remains sets the views' heights from the shell's
-    token (--st-viz-h) and the 2D map's one-world width cap; the home page is step 5's."""
-    allowed = {"viz_2d.py", "viz_3d.py", "layout_home.py"}
+    token (--st-viz-h) and the 2D map's one-world width cap."""
+    allowed = {"viz_2d.py", "viz_3d.py"}
     offenders = [p.name for p in (REPO_ROOT / "app" / "layouts").rglob("*.py")
                  if "Archive" not in p.parts and p.name not in allowed
                  and re.search(r"(style|inputStyle)\s*=\s*\{", p.read_text(encoding="utf-8"))]

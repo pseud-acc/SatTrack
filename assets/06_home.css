@@ -1,0 +1,52 @@
+/* SatTrack home page (D-044, roadmap 3.12 step 5). Tokens only (assets/03_tokens.css); no colour values here
+   (tests/app/test_design_tokens.py checks). Reading text at 16 px (owner, 24 Nov 2026). */
+
+.st-home {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-block: var(--st-8);
+  padding-left: max(var(--st-4), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--st-4), env(safe-area-inset-right, 0px));
+  font-size: var(--st-fs-lg);
+  display: grid;
+  gap: var(--st-8);
+}
+
+/* Hero: left-aligned, one teal action */
+.st-home-hero { display: grid; justify-items: start; gap: var(--st-4); padding-block: var(--st-6); }
+.st-home-title { margin: 0; font-size: clamp(30px, 5vw, 44px); font-weight: 700; line-height: 1.1; text-wrap: balance; }
+.st-home-lede { margin: 0; max-width: 60ch; color: var(--st-muted); font-size: var(--st-fs-xl); line-height: 1.4; }
+.st-home-cta { margin-top: var(--st-2); }
+
+.st-home-stats { display: flex; flex-wrap: wrap; gap: var(--st-8); margin-top: var(--st-4); }
+.st-home-stat-value { font-size: var(--st-fs-2xl); font-weight: 700; color: var(--st-fg); font-variant-numeric: tabular-nums; }
+.st-home-stat-label {
+  font-size: var(--st-fs-xs); font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--st-muted);
+}
+
+/* Sections */
+.st-home-section { display: grid; gap: var(--st-4); border-top: 1px solid var(--st-line); padding-top: var(--st-6); }
+.st-home-h2 { margin: 0; font-size: var(--st-fs-xl); font-weight: 600; }
+.st-home-section p { margin: 0; }
+
+/* Feature cards: panel surface, hairline, no shadow */
+.st-home-card {
+  height: 100%;
+  padding: var(--st-4);
+  background: var(--st-panel);
+  border: 1px solid var(--st-line);
+  border-radius: var(--st-r);
+}
+.st-home-card-title { margin: 0 0 var(--st-2); font-size: var(--st-fs-lg); font-weight: 600; }
+.st-home-card-text { margin: 0; color: var(--st-muted); font-size: var(--st-fs-sm); line-height: var(--st-lh); }
+
+.st-home-sources { margin: 0; padding-left: 1.2em; display: grid; gap: var(--st-1); color: var(--st-fg); }
+.st-home-link { color: var(--st-accent-hi); }
+.st-home-link:hover { color: var(--st-fg); }
+
+/* Phones: the three stats stay on one row */
+@media (max-width: 480px) {
+  .st-home-stats { gap: var(--st-4); flex-wrap: nowrap; }
+  .st-home-stat-value { font-size: var(--st-fs-xl); }
+  .st-home-stat-label { letter-spacing: 0.04em; }
+}
