@@ -39,8 +39,9 @@ def create_3d_tab(fig3d_0):
             style={'height': 'var(--st-viz-h)'}   # fills the window under the top bar (assets/04_shell.css)
         ),
         html.Div([
-            html.Strong("Tip:"), " Click on satellites to see orbital paths • "
-                                 "Pinch to zoom on mobile"],
-            className="small text-center mt-2"
-        )
+            html.Span([html.Strong("Tip:"), " Click on satellites to see orbital paths • Pinch to zoom on mobile"]),
+            # Moved here from the filter panel (roadmap 3.3b, Q10) until 3.6 retires this tab
+            dbc.Button("Clear orbits", id="clear-orbits-btn", color="secondary", outline=True, size="sm",
+                       className="st-clear-orbits"),
+        ], className="small st-3d-foot mt-2")
     ], label="3D View", tab_id="3d-viz")

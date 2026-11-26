@@ -53,8 +53,11 @@ UNKNOWN = "Unknown"
 OBJECT_TYPES = ["PAYLOAD", "ROCKET BODY", "DEBRIS"]
 JUNK_TYPES = ["ROCKET BODY", "DEBRIS"]
 
+# The status control's choices (roadmap 3.3b: Active / Inactive / All, one at a time) and the statuses each one keeps.
+STATUS_CHOICES = {"Active": ["Active"], "Inactive": ["Inactive"], "All": ["Active", "Inactive"]}
+
 # What the tracker opens with (owner, 26 Nov 2026; roadmap 3.3a): every active payload in any orbit class.
-DEFAULT_STATUS = ["Active"]
+DEFAULT_STATUS = "Active"
 DEFAULT_ORBITS = ["LEO", "MEO", "GEO", "GSO", "HEO"]
 DEFAULT_TYPES = ["PAYLOAD"]
 
@@ -76,7 +79,8 @@ def sidebar_filter_spec(status, orbit, satname, satcatid, owner, launchvehicle, 
     '''
     The filter spec (D-031) for the sidebar's values, in the objects dataset's field names (D-030).
 
-    Rules, unchanged from before the spec: status and orbit class are "any of" the ticked values; name and
+    Rules, unchanged from before the spec: status is one of STATUS_CHOICES ("All" keeps both); orbit class is "any of"
+    the ticked values; name and
     catalogue number are exact; owner, launch vehicle and purpose filter only when something is selected, and
     purpose matches any of an object's labels; launch year is an inclusive range. "Unknown" in a dropdown is a
     missing value. "Inactive" also covers objects with no status, as the app CSV always has (it fills a missing
@@ -87,9 +91,10 @@ def sidebar_filter_spec(status, orbit, satname, satcatid, owner, launchvehicle, 
 
     @return: (dict) the spec, or None when the values can select nothing (no status, orbit class or type ticked)
     '''
-    if not status or not orbit or (types is not None and not types):
+    statuses = STATUS_CHOICES.get(status)
+    if not statuses or not orbit or (types is not None and not types):
         return None
-    status_values = list(status) + ([None] if "Inactive" in status else [])
+    status_values = list(statuses) + ([None] if "Inactive" in statuses else [])
     clauses = [
         {"field": "operational_status", "op": "in", "value": status_values},
         {"field": "orbit_class", "op": "in", "value": list(orbit)},
@@ -109,6 +114,21 @@ def sidebar_filter_spec(status, orbit, satname, satcatid, owner, launchvehicle, 
     if purpose:
         clauses.append({"field": "mission_category_labels", "op": "contains_any", "value": _with_null(purpose)})
     return {"version": 1, "clauses": clauses}
+
+
+def type_matches(filter_table, base_spec):
+    '''
+    How many objects of each offered type match every other filter (roadmap 3.3b, Q6): the panel shows these as
+    "matching / total" next to the type switches, so they answer "what will I get if I switch this on".
+
+    @param filter_table: (DataFrame) the objects dataset's filterable fields
+    @param base_spec: (dict or None) the panel's spec without its type clause (sidebar_filter_spec with types=None)
+    @return: (dict) object type -> count, for OBJECT_TYPES
+    '''
+    if base_spec is None:
+        return {t: 0 for t in OBJECT_TYPES}
+    hit = filter_table.loc[filter_spec.apply(base_spec, filter_table), "object_type"]
+    return {t: int(n) for t, n in hit.value_counts().reindex(OBJECT_TYPES, fill_value=0).items()}
 
 
 def filter_satellite_data(df_in, filter_table, spec):

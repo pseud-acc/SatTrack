@@ -1,6 +1,6 @@
 /* SatTrack filter panel (D-044, roadmap 3.12 step 3): the panel's look and its fold to a strip on desktop. Built on
-   assets/03_tokens.css: no colour values here, only tokens (tests/app/test_design_tokens.py checks). What the panel
-   does (live count, chips, segmented controls, type toggles) is roadmap 3.3's.
+   assets/03_tokens.css: no colour values here, only tokens (tests/app/test_design_tokens.py checks). The live count,
+   segmented controls, type switches, "More filters" rows and chips are roadmap 3.3a/3.3b's.
    Replaces custom.css (Bootstrap 4 era, cyan accents). */
 
 /* ---- The card ----------------------------------------------------------------------------------------------- */
@@ -41,9 +41,6 @@
 .st-lbl .st-icon { font-size: 13px; cursor: pointer; }
 .st-lbl .st-icon:hover { color: var(--st-fg); }
 
-/* Update / Clear Orbits: one row, equal widths (3.3b removes Update) */
-.st-panel-actions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--st-2); }
-
 /* Filters always shown on desktop; shown or hidden by the chevron on phones */
 @media (min-width: 768px) {
   #filter-collapse { display: block !important; height: auto !important; }
@@ -68,32 +65,6 @@
 .dash-checklist { --Dash-Fill-Primary-Hover: transparent; --Dash-Fill-Primary-Active: transparent; }
 .dash-checklist .dash-options-list-option-text { color: var(--st-fg) !important; font-weight: 400 !important; }
 .dash-checklist .dash-options-list-option { margin-bottom: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; }
-
-/* Advanced filters accordion: flat, on the panel */
-.st-panel .accordion {
-  --bs-accordion-bg: transparent;
-  --bs-accordion-border-color: var(--st-line);
-  --bs-accordion-btn-padding-x: 0;
-  --bs-accordion-btn-padding-y: var(--st-2);
-  --bs-accordion-body-padding-x: 0;
-  --bs-accordion-body-padding-y: var(--st-3);
-  --bs-accordion-active-bg: transparent;
-  --bs-accordion-active-color: var(--st-fg);
-  --bs-accordion-btn-focus-box-shadow: 0 0 0 3px var(--st-accent-soft);
-  margin-bottom: 0 !important;
-}
-.st-panel .accordion-item { border-left: 0; border-right: 0; border-radius: 0 !important; }
-.st-panel .accordion-button { font-size: var(--st-fs-sm); font-weight: 600; color: var(--st-fg); box-shadow: none; }
-/* Bootstrap's chevron is a fixed-colour image; use the shell's chevron icon (04_shell.css), which follows the text */
-.st-panel .accordion-button::after {
-  background: currentColor;
-  -webkit-mask: var(--st-icon) center / contain no-repeat;
-  mask: var(--st-icon) center / contain no-repeat;
-  color: var(--st-muted);
-}
-.st-panel .accordion-button::after, .st-panel .accordion-button:not(.collapsed)::after {
-  --st-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-}
 
 /* ---- Launch year range slider -------------------------------------------------------------------------------- */
 .custom-range-slider { margin: var(--st-3) 0 !important; }
@@ -123,7 +94,6 @@
   border: 1px solid var(--st-control) !important;
   box-shadow: none !important;
 }
-#launch-year-min-display:hover, #launch-year-max-display:hover { border-color: var(--st-accent) !important; }
 @media (max-width: 767.98px) {
   .custom-range-slider .dash-slider-thumb { width: 24px !important; height: 24px !important; }
 }
@@ -131,27 +101,9 @@
   .st-tracker-row > .st-panel-col { transition: none; }
 }
 
-/* ---- Advanced filters (3.12 step 4: replaces the component's inline styles) --------------------------------- */
+/* Search and "More filters" dropdowns */
 .st-adv-dropdown { font-size: var(--st-fs-sm); margin-bottom: var(--st-3); }
-.st-adv-years { padding-top: var(--st-3); margin-top: var(--st-1); border-top: 1px solid var(--st-line); }
-.st-year-bubbles { display: flex; justify-content: space-between; gap: var(--st-4); }
-.st-year-bubble {
-  flex: 0 1 140px;
-  padding: 6px var(--st-3);
-  border: 1px solid var(--st-control);
-  border-radius: var(--st-r);
-  background: var(--st-raised);
-  color: var(--st-fg);
-  font-size: var(--st-fs-xs);
-  text-align: center;
-  font-variant-numeric: tabular-nums;
-}
-.st-year-bubble strong { color: var(--st-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
-
-/* Tooltips next to the section labels, and the orbit checklist's grid */
 .st-tip-body { text-align: left; }
-.st-orbit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); }
-.st-orbit-grid input, .st-status-list input { margin-right: 5px; }
 
 /* ---- Object types (roadmap 3.3a): switches with the data colour, the total, the junk switch and the note ---------- */
 .st-type-list .dash-options-list-option-text { width: 100%; }
@@ -165,3 +117,98 @@
 .st-junk-switch { margin: var(--st-2) 0 var(--st-1); font-weight: 600; }
 .st-junk-switch .form-check-input:checked { background-color: var(--st-accent); border-color: var(--st-accent); }
 .st-type-note { margin: 0; color: var(--st-muted); font-size: var(--st-fs-xs); line-height: 1.4; }
+.st-type-match { color: var(--st-fg); font-weight: 600; }
+.st-type-hint { margin: var(--st-1) 0 0; color: var(--st-warn); font-size: var(--st-fs-xs); line-height: 1.4; }
+
+/* ---- Live match count (roadmap 3.3b) ---------------------------------------------------------------------------- */
+.st-count { display: flex; align-items: baseline; justify-content: space-between; gap: var(--st-2); }
+.st-count-n { font-size: var(--st-fs-2xl); font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.st-count-of { color: var(--st-muted); font-size: var(--st-fs-sm); font-variant-numeric: tabular-nums; }
+
+/* ---- Segmented controls (roadmap 3.3b): status picks one, orbit any combination. Dash 4 renders a label per option
+   with the class "selected" when on; the input stays in the label (keyboard and screen readers) but is hidden. ---- */
+.st-seg { display: flex; border: 1px solid var(--st-control); border-radius: var(--st-r); overflow: hidden; }
+.st-seg .dash-options-list-option {
+  flex: 1 1 0;
+  justify-content: center;
+  margin: 0 !important;
+  padding: 6px var(--st-1) !important;
+  border-left: 1px solid var(--st-control);
+  background: transparent;
+  cursor: pointer;
+  text-align: center;
+}
+.st-seg .dash-options-list-option:first-child { border-left: 0; }
+.st-seg .dash-options-list-option-wrapper {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+.st-seg .dash-options-list-option-text { color: var(--st-muted) !important; font-size: var(--st-fs-sm); }
+.st-seg .dash-options-list-option:hover { background: var(--st-hover); }
+.st-seg .dash-options-list-option.selected { background: var(--st-accent); }
+.st-seg .dash-options-list-option.selected .dash-options-list-option-text { color: var(--st-on-accent) !important; font-weight: 600 !important; }
+.st-seg .dash-options-list-option:has(input:focus-visible) { outline: 2px solid var(--st-accent-hi); outline-offset: -2px; }
+
+/* ---- "More filters" rows (roadmap 3.3b): native <details>; the row shows its value ------------------------------- */
+.st-more .st-row { border-top: 1px solid var(--st-line); }
+.st-more .st-row:last-child { border-bottom: 1px solid var(--st-line); }
+.st-row-head {
+  display: flex; align-items: center; gap: var(--st-2);
+  padding: var(--st-2) 0; cursor: pointer; list-style: none; font-size: var(--st-fs-sm);
+}
+.st-row-head::-webkit-details-marker { display: none; }
+.st-row-head:focus-visible { outline: 2px solid var(--st-accent-hi); outline-offset: 2px; border-radius: var(--st-r); }
+.st-row-name { flex: 1 1 auto; color: var(--st-fg); }
+.st-row-value { color: var(--st-muted); max-width: 60%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.st-row-chevron { color: var(--st-muted); transition: transform 120ms ease; }
+.st-row[open] .st-row-chevron { transform: rotate(180deg); }
+.st-row-body { padding: 0 0 var(--st-3); }
+.st-row-body .st-adv-dropdown { margin-bottom: 0; }
+
+/* ---- Active-filter chips and Clear all (roadmap 3.3b) ------------------------------------------------------------ */
+.st-chips-head { display: flex; align-items: center; justify-content: space-between; }
+.st-chips-head .st-lbl { margin-bottom: 6px; }
+.st-clear-all {
+  border: 0; background: none; padding: 0 0 6px; color: var(--st-accent-hi); font-size: var(--st-fs-xs); cursor: pointer;
+}
+.st-clear-all:hover { text-decoration: underline; }
+.st-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.st-chip {
+  display: inline-flex; align-items: center; gap: var(--st-1);
+  padding: 2px 10px; border: 1px solid var(--st-control); border-radius: var(--st-r-pill);
+  color: var(--st-fg); font-size: var(--st-fs-xs); line-height: 1.6;
+}
+.st-chip[hidden] { display: none; }
+.st-chip-x {
+  border: 0; background: none; padding: 0 0 0 2px; margin-right: -4px;
+  color: var(--st-muted); font-size: var(--st-fs-sm); line-height: 1; cursor: pointer;
+}
+.st-chip-x:hover, .st-chip-x:focus-visible { color: var(--st-fg); }
+.st-clear-all:focus-visible, .st-chip-x:focus-visible { outline: 2px solid var(--st-accent-hi); outline-offset: 2px; }
+
+/* Plotly 3D tab: the tip and the Clear orbits button (moved from the panel in 3.3b) */
+.st-3d-foot { display: flex; align-items: center; justify-content: center; gap: var(--st-3); flex-wrap: wrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .st-row-chevron { transition: none; }
+}
+
+/* Type switches (roadmap 3.3b, the D-044 mock-up): the checklist's checkboxes drawn as switches on the right of each
+   row. Still real checkboxes, so the keyboard, screen readers and the tests see the same control. */
+.st-type-list .dash-options-list-option { display: flex !important; align-items: center; gap: var(--st-2); width: 100%;
+  padding: 3px 0 !important; }
+.st-type-list .dash-options-list-option-wrapper { order: 2; display: flex; }
+.st-type-list .dash-options-list-option-text { flex: 1 1 auto; }
+.st-type-list input[type="checkbox"] {
+  appearance: none; -webkit-appearance: none; margin: 0;
+  width: 34px; height: 20px; border-radius: var(--st-r-pill); cursor: pointer;
+  border: 1px solid var(--st-control);
+  background: var(--st-raised) radial-gradient(circle, var(--st-muted) 0 6px, transparent 6.5px) no-repeat left 1px center / 18px 18px;
+  transition: background-position 120ms ease;
+}
+.st-type-list input[type="checkbox"]:checked {
+  border-color: var(--st-accent);
+  background: var(--st-accent) radial-gradient(circle, var(--st-on-accent) 0 6px, transparent 6.5px) no-repeat right 1px center / 18px 18px;
+}
+.st-type-list input[type="checkbox"]:focus-visible { outline: 2px solid var(--st-accent-hi); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .st-type-list input[type="checkbox"] { transition: none; } }
+.st-seg .dash-options-list-option.selected + .dash-options-list-option.selected { border-left-color: var(--st-panel); }

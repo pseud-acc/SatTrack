@@ -1,5 +1,6 @@
 """
-Orbit type filter component (LEO, MEO, GEO, etc.).
+Orbit type filter (LEO, MEO, GEO, GSO, HEO): a segmented control where any combination can be on (roadmap 3.3b,
+Q3).
 """
 
 from dash import dcc, html
@@ -33,9 +34,10 @@ def create_orbit_filter(options):
             ], className="st-tip-body")
         ], target="orbit-info-icon", placement="right"),
         dcc.Checklist(
-            options=[{"label": " " + orbit, "value": orbit} for orbit in options["orbit"]],
+            options=[{"label": orbit, "value": orbit} for orbit in options["orbit"]],
             value=list(DEFAULT_ORBITS),   # every orbit class (owner, 26 Nov 2026; roadmap 3.3a)
             id="orbit-filter-checkbox",
-            className="mb-3 st-orbit-grid"
+            className="st-seg st-seg-multi mb-3",
+            inline=True
         )
     ])

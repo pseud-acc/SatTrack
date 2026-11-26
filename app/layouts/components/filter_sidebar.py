@@ -10,16 +10,19 @@ from app.layouts.components.filters.status_filter import create_status_filter
 from app.layouts.components.filters.orbit_filter import create_orbit_filter
 from app.layouts.components.filters.search_filter import create_search_filter
 from app.layouts.components.filters.advanced_filters import create_advanced_filters
+from app.layouts.components.filters.active_filters import create_active_filters
+from app.layouts.components.filters.match_count import create_match_count
 from app.core.viewer import viewer_state
 
 
-def create_filter_sidebar(options, type_totals=None):
+def create_filter_sidebar(options, summary, controls):
     """
     Create the complete filter sidebar with all filter components.
 
     Args:
         options (dict): Dictionary containing all filter options
-        type_totals (dict): object type -> count in the objects dataset (the type switches show it)
+        summary (dict): helper__filter_display.panel_summary() for the starting values (count, type counts, chips, rows)
+        controls (dict): the starting control values (helper__filter_display.default_controls())
 
     Returns:
         dbc.Col: Filter sidebar column component
@@ -47,9 +50,12 @@ def create_filter_sidebar(options, type_totals=None):
             ], className="st-panel-head"),
             dbc.Collapse([
                 dbc.CardBody([
-                    # Object types (roadmap 3.3a): only with the globe on, the one view that draws rocket bodies and
-                    # debris (the Plotly views draw the app CSV's payloads only)
-                    create_type_filter(type_totals or {}, shown=viewer_state()["enabled"]),
+                    # Live match count (roadmap 3.3b)
+                    create_match_count(summary),
+
+                    # Object types (roadmap 3.3a; matching / total and hints 3.3b): only with the globe on, the one
+                    # view that draws rocket bodies and debris (the Plotly views draw the app CSV's payloads only; #83)
+                    create_type_filter(summary, controls["types"], shown=viewer_state()["enabled"]),
 
                     # Status Filter
                     create_status_filter(),
@@ -60,14 +66,11 @@ def create_filter_sidebar(options, type_totals=None):
                     # Satellite Search
                     create_search_filter(options),
 
-                    # Advanced Filters (collapsible)
-                    create_advanced_filters(options),
+                    # More filters: rows showing their values (roadmap 3.3b)
+                    create_advanced_filters(options, summary),
 
-                    # Action Buttons
-                    html.Div([
-                        dbc.Button("Update", id="time-update-btn", color="primary", size="sm"),
-                        dbc.Button("Clear Orbits", id="clear-orbits-btn", color="secondary", outline=True, size="sm")
-                    ], className="st-panel-actions")
+                    # Active-filter chips and Clear all (roadmap 3.3b). Changes apply at once: no Update button.
+                    create_active_filters(summary),
                 ])
             ], id="filter-collapse", is_open=False, className="")
         ], className="st-panel mb-3")

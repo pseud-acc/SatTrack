@@ -17,7 +17,10 @@ from sgp4.api import Satrec, jday
 REPO_ROOT = Path(__file__).resolve().parents[2]
 APP_DATA_DIR = REPO_ROOT / "tests" / "app_data"
 
-ALL_STATUS = ["Active", "Inactive"]
+# The status control picks one of Active / Inactive / All (roadmap 3.3b); the CSV statuses each keeps, written out
+# here rather than taken from the app.
+STATUS_KEEPS = {"Active": ["Active"], "Inactive": ["Inactive"], "All": ["Active", "Inactive"]}
+ALL_STATUS = "All"
 ALL_ORBITS = ["LEO", "MEO", "GEO", "GSO", "HEO"]
 EARTH_RADIUS_KM = 6378.137  # WGS 84 equatorial radius, the value the app uses
 MU_EARTH = 398600.4418      # km^3/s^2 (WGS 84)
@@ -34,6 +37,26 @@ def objects_sample_ids():
     import gzip
     doc = json.loads(gzip.decompress((APP_DATA_DIR / "objects.json.gz").read_bytes()))
     return {r["satcat_id"] for r in doc["records"]}
+
+
+def objects_sample():
+    """The sample's objects dataset (every type) as a DataFrame, read directly (gzip + json), not through the app."""
+    import gzip
+    doc = json.loads(gzip.decompress((APP_DATA_DIR / "objects.json.gz").read_bytes()))
+    return pd.DataFrame.from_records(doc["records"])
+
+
+def expected_object_count(objects, status="Active", orbit=ALL_ORBITS, types=("PAYLOAD",), year=None):
+    """Objects the panel should count (roadmap 3.3b), with plain pandas over the objects dataset: the type is one of
+    `types`; status is the control's choice, where Inactive also covers a missing status; orbit class any of; launch
+    year inclusive (a missing year is outside any range)."""
+    st = objects["operational_status"]
+    keeps = STATUS_KEEPS.get(status, [])
+    keep = st.isin(keeps) | (st.isna() & ("Inactive" in keeps))
+    keep &= objects["object_type"].isin(list(types)) & objects["orbit_class"].isin(orbit)
+    if year is not None:
+        keep &= objects["launch_year"].between(year[0], year[1])
+    return int(keep.sum())
 
 
 def reference_time():
@@ -87,10 +110,10 @@ def propagates(df, when):
 def expected_ids(df, when, status=ALL_STATUS, orbit=ALL_ORBITS, satname=None, satcatid=None, owner=(),
                  launchvehicle=(), purpose=(), year=None):
     """SatCatIds the sidebar should show: the documented filter rules applied with pandas, then only the rows
-    that propagate. Rules: status and orbit class are 'any of'; name and catalogue id are exact; owner, launch
+    that propagate. Rules: status is the control's choice (All keeps both); orbit class is 'any of'; name and catalogue id are exact; owner, launch
     vehicle and purpose filter only when something is selected; purpose matches any part of a '/'-joined value; only satellites in the objects dataset can be shown;
     launch year is an inclusive range."""
-    keep = df["Status"].isin(status) & df["OrbitClass"].isin(orbit)
+    keep = df["Status"].isin(STATUS_KEEPS.get(status, [])) & df["OrbitClass"].isin(orbit)
     if satname is not None:
         keep &= df["ObjectName"] == satname
     if satcatid is not None:

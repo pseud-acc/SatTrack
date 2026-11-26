@@ -1,19 +1,16 @@
 """
-Status filter component (Active/Inactive satellites).
+Status filter (roadmap 3.3b, D-044): Active / Inactive / All as one segmented control, one choice at a time.
 """
 
 from dash import dcc, html
 import dash_bootstrap_components as dbc
 
-from app.helper.helper__app_data import DEFAULT_STATUS
+from app.helper.helper__app_data import DEFAULT_STATUS, STATUS_CHOICES
 
 
 def create_status_filter():
     """
-    Create the status filter component (Active/Inactive).
-
-    Returns:
-        html.Div: Status filter component
+    @return: html.Div with the segmented status control (id status-filter-checkbox, value one of STATUS_CHOICES)
     """
     return html.Div([
         html.Label([
@@ -23,18 +20,14 @@ def create_status_filter():
         dbc.Tooltip([
             html.Div([
                 html.Strong("Active:"), " Currently operational satellites", html.Br(),
-                html.Strong("Inactive:"), " Defunct or decommissioned satellites"
+                html.Strong("Inactive:"), " Defunct or decommissioned satellites, rocket bodies and debris"
             ], className="st-tip-body")
         ], target="status-info-icon", placement="right"),
-        dcc.Checklist(
-            options=[
-                {"label": " Active", "value": "Active"},
-                {"label": " Inactive", "value": "Inactive"}
-            ],
-            value=list(DEFAULT_STATUS),   # owner, 26 Nov 2026 (roadmap 3.3a)
-            id="status-filter-checkbox",
-            className="mb-3 st-status-list",
+        dcc.RadioItems(
+            options=[{"label": s, "value": s} for s in STATUS_CHOICES],
+            value=DEFAULT_STATUS,   # owner, 26 Nov 2026 (D-049)
+            id="status-filter-checkbox",   # id kept from the checklist it replaces (tests and journeys use it)
+            className="st-seg mb-3",
             inline=True,
-            labelStyle={"marginRight": "15px"}
         )
     ])

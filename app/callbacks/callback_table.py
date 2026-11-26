@@ -61,7 +61,7 @@ def register(app):
     ------------------------
     Table visualisation 
     -------------------------
-    Interactive Inputs: the filter-spec store (roadmap 3.3a), update time button
+    Interactive Inputs: the filter-spec store (roadmap 3.3a); the Update button went in 3.3b (filters apply at once)
     Outputs: Table of satellites
     '''
 
@@ -69,11 +69,10 @@ def register(app):
         Output('satellite-list', 'data'),
         [
             Input('filter-spec', 'data'),   # the panel's filter spec (roadmap 3.3a, Q7)
-            Input("sat-viz-tabs", "active_tab"),
-            Input("time-update-btn", "n_clicks")
+            Input("sat-viz-tabs", "active_tab")
         ]
     )
-    def update_tbl(spec, tab, update_time_btn):
+    def update_tbl(spec, tab):
 
         if tab != "tbl-viz":
             raise PreventUpdate
