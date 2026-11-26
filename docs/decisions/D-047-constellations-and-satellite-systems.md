@@ -102,7 +102,9 @@ psatcat field names a hosted payload). Share of each `gnss` family's active payl
 ## Consequences
 - `objects` schema 2: `constellation` is gone; the viewer and app read none of the three fields yet (3.3b, 3.10).
 - System names are CelesTrak's titles, some long ("Tracking and Data Relay Satellite System (TDRSS)") or in its case
-  ("Beidou", "SOUTHPAN"); the UI may shorten them for display.
+  ("Beidou", "SOUTHPAN"). Owner, 26 Nov 2026: keep CelesTrak's names as they are, in the data and the UI.
+- SBAS systems whose satellites CelesTrak doesn't list (KASS, ANGA, UK SBAS, Pak-SBAS, A-SBAS) are left out until it
+  does (owner, 26 Nov 2026), although GPS.gov's register names their satellites.
 - Only manual rows carry operator, purpose and description; CelesTrak rows carry the title only.
 - A new CelesTrak title or SBAS token warns (accepted values) until someone adds it to the expected list.
 - The first seed in the project: `raw_sattrack`, built with the enrichment unit; `run_pipeline.drop_orphans` treats
