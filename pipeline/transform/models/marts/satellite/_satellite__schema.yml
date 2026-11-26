@@ -1,6 +1,6 @@
 models:
   - name: fct__satellite_master
-    description: "One row per object in the Space-Track GP feed, combining Space-Track and GCAT primitives under the decided composite rules (field review 2026-10-25). The app's satellite table."
+    description: "One row per object in the Space-Track GP feed, combining Space-Track and GCAT primitives under the decided composite rules (field review 2026-10-25), plus its constellation and satellite systems (D-047). The app's satellite table."
     config:
       access: public
     data_tests:
@@ -277,12 +277,38 @@ models:
       - name: constellation_plane
         data_type: varchar
         description: '{{ doc("col__constellation_plane") }}'
-      - name: constellation
+      - name: satellite_constellation_name
         data_type: varchar
-        description: '{{ doc("col__constellation") }}'
+        description: '{{ doc("col__satellite_constellation_name") }}'
         config:
           meta:
             label: "Constellation"
+        data_tests:
+          - relationships:
+              name: fk__fct__satellite_master__satellite_constellation_name
+              arguments:
+                to: "ref('dim__satellite_constellation')"
+                field: satellite_constellation_name
+      - name: primary_satellite_system_name
+        data_type: varchar
+        description: '{{ doc("col__primary_satellite_system_name") }}'
+        config:
+          meta:
+            label: "Primary satellite system"
+        data_tests:
+          - relationships:
+              name: fk__fct__satellite_master__primary_satellite_system_name
+              arguments:
+                to: "ref('dim__satellite_system')"
+                field: satellite_system_name
+      - name: satellite_system_names
+        data_type: varchar[]
+        description: '{{ doc("col__satellite_system_names") }}'
+        constraints:
+          - type: not_null
+        config:
+          meta:
+            label: "Satellite systems"
       - name: flag_space_station
         data_type: integer
         description: '{{ doc("col__flag_space_station") }}'
@@ -365,6 +391,235 @@ models:
       - name: gcat_updated_at
         data_type: timestamp
         description: '{{ doc("col__gcat_updated_at") }}'
+      - name: inserted_date_time
+        data_type: timestamp
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        data_type: varchar
+        description: '{{ doc("col__inserted_by") }}'
+
+  - name: dim__satellite_constellation
+    description: "One row per satellite constellation SatTrack shows (D-047): from CelesTrak (golden source, named by CelesTrak) or from the ad-hoc seed of manual ones with their publisher's details, with how many objects in the GP feed it names."
+    config:
+      access: public
+    data_tests:
+      - model_health:
+          name: mh__dim__satellite_constellation__pk_unique
+          arguments: {check: pk_unique, columns: [satellite_constellation_name]}
+      - model_health:
+          name: mh__dim__satellite_constellation__pk_not_null
+          arguments: {check: pk_not_null, columns: [satellite_constellation_name]}
+    columns:
+      - name: satellite_constellation_name
+        data_type: varchar
+        description: '{{ doc("col__satellite_constellation_name") }}'
+        constraints:
+          - type: not_null
+        data_tests:
+          - accepted_values:
+              name: accepted_values__dim__satellite_constellation__satellite_constellation_name
+              arguments:
+                values:
+                  - "Starlink"
+                  - "OneWeb"
+                  - "Kuiper"
+                  - "Qianfan"
+                  - "Hulianwang Digui"
+                  - "Iridium NEXT"
+                  - "Globalstar"
+                  - "Orbcomm"
+                  - "PlanetScope"
+                  - "Sentinel-1"
+                  - "Sentinel-2"
+                  - "Sentinel-3"
+              config:
+                severity: warn   # a new name from CelesTrak (or GCAT): decide whether it belongs (D-047)
+      - name: constellation_origin
+        data_type: varchar
+        description: '{{ doc("col__constellation_origin") }}'
+        constraints:
+          - type: not_null
+        data_tests:
+          - accepted_values:
+              name: accepted_values__dim__satellite_constellation__constellation_origin
+              arguments: {values: ["celestrak", "manual"]}
+      - name: definition_rule_type
+        data_type: varchar
+        description: '{{ doc("col__definition_rule_type") }}'
+      - name: definition_rule_values
+        data_type: varchar
+        description: '{{ doc("col__definition_rule_values") }}'
+      - name: definition_operator
+        data_type: varchar
+        description: '{{ doc("col__definition_operator") }}'
+      - name: definition_purpose
+        data_type: varchar
+        description: '{{ doc("col__definition_purpose") }}'
+      - name: definition_description
+        data_type: varchar
+        description: '{{ doc("col__definition_description") }}'
+      - name: definition_source_name
+        data_type: varchar
+        description: '{{ doc("col__definition_source_name") }}'
+      - name: definition_source_url
+        data_type: varchar
+        description: '{{ doc("col__definition_source_url") }}'
+      - name: definition_source_quote
+        data_type: varchar
+        description: '{{ doc("col__definition_source_quote") }}'
+      - name: satellite_count
+        data_type: integer
+        description: '{{ doc("col__satellite_count") }}'
+        constraints:
+          - type: not_null
+      - name: inserted_date_time
+        data_type: timestamp
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        data_type: varchar
+        description: '{{ doc("col__inserted_by") }}'
+
+  - name: dim__satellite_system
+    description: "One row per satellite system SatTrack shows (D-047): from CelesTrak (golden source, named by CelesTrak) or from the ad-hoc seed of manual ones with their publisher's details, with how many objects in the GP feed it names."
+    config:
+      access: public
+    data_tests:
+      - model_health:
+          name: mh__dim__satellite_system__pk_unique
+          arguments: {check: pk_unique, columns: [satellite_system_name]}
+      - model_health:
+          name: mh__dim__satellite_system__pk_not_null
+          arguments: {check: pk_not_null, columns: [satellite_system_name]}
+    columns:
+      - name: satellite_system_name
+        data_type: varchar
+        description: '{{ doc("col__satellite_system_name") }}'
+        constraints:
+          - type: not_null
+        data_tests:
+          - accepted_values:
+              name: accepted_values__dim__satellite_system__satellite_system_name
+              arguments:
+                values:
+                  - "GPS"
+                  - "GLONASS"
+                  - "Galileo"
+                  - "Beidou"
+                  - "Tracking and Data Relay Satellite System (TDRSS)"
+                  - "Disaster Monitoring"
+                  - "NavIC"
+                  - "QZSS"
+                  - "Search & Rescue (SARSAT)"
+                  - "EGNOS"
+                  - "WAAS"
+                  - "GAGAN"
+                  - "SDCM"
+                  - "SOUTHPAN"
+                  - "BDSBAS"
+                  - "MSAS"
+                  - "JPSS"
+                  - "GOES"
+                  - "Copernicus Sentinels"
+              config:
+                severity: warn   # a new name from CelesTrak (or GCAT): decide whether it belongs (D-047)
+      - name: system_origin
+        data_type: varchar
+        description: '{{ doc("col__system_origin") }}'
+        constraints:
+          - type: not_null
+        data_tests:
+          - accepted_values:
+              name: accepted_values__dim__satellite_system__system_origin
+              arguments: {values: ["celestrak", "manual"]}
+      - name: definition_rule_type
+        data_type: varchar
+        description: '{{ doc("col__definition_rule_type") }}'
+      - name: definition_rule_values
+        data_type: varchar
+        description: '{{ doc("col__definition_rule_values") }}'
+      - name: definition_operator
+        data_type: varchar
+        description: '{{ doc("col__definition_operator") }}'
+      - name: definition_purpose
+        data_type: varchar
+        description: '{{ doc("col__definition_purpose") }}'
+      - name: definition_description
+        data_type: varchar
+        description: '{{ doc("col__definition_description") }}'
+      - name: definition_source_name
+        data_type: varchar
+        description: '{{ doc("col__definition_source_name") }}'
+      - name: definition_source_url
+        data_type: varchar
+        description: '{{ doc("col__definition_source_url") }}'
+      - name: definition_source_quote
+        data_type: varchar
+        description: '{{ doc("col__definition_source_quote") }}'
+      - name: satellite_count
+        data_type: integer
+        description: '{{ doc("col__satellite_count") }}'
+        constraints:
+          - type: not_null
+      - name: primary_satellite_count
+        data_type: integer
+        description: '{{ doc("col__primary_satellite_count") }}'
+        constraints:
+          - type: not_null
+      - name: inserted_date_time
+        data_type: timestamp
+        description: '{{ doc("col__inserted_date_time") }}'
+      - name: inserted_by
+        data_type: varchar
+        description: '{{ doc("col__inserted_by") }}'
+
+  - name: fct__satellite_system
+    description: "One row per satellite per satellite system it belongs to (D-047): its primary system (flag_primary_system 1, at most one per satellite) and any system it hosts a payload for (0), e.g. a Galileo satellite carrying a Cospas-Sarsat repeater."
+    config:
+      access: public
+    data_tests:
+      - model_health:
+          name: mh__fct__satellite_system__pk_unique
+          arguments: {check: pk_unique, columns: [satcat_id, satellite_system_name]}
+      - model_health:
+          name: mh__fct__satellite_system__pk_not_null
+          arguments: {check: pk_not_null, columns: [satcat_id, satellite_system_name]}
+    columns:
+      - name: satcat_id
+        data_type: integer
+        description: '{{ doc("col__satcat_id") }}'
+        constraints:
+          - type: not_null
+        data_tests:
+          - relationships:
+              name: fk__fct__satellite_system__satcat_id
+              arguments:
+                to: "ref('fct__satellite_master')"
+                field: satcat_id
+      - name: satellite_system_name
+        data_type: varchar
+        description: '{{ doc("col__satellite_system_name") }}'
+        constraints:
+          - type: not_null
+        data_tests:
+          - relationships:
+              name: fk__fct__satellite_system__satellite_system_name
+              arguments:
+                to: "ref('dim__satellite_system')"
+                field: satellite_system_name
+      - name: flag_primary_system
+        data_type: integer
+        description: '{{ doc("col__flag_primary_system") }}'
+        constraints:
+          - type: not_null
+        data_tests:
+          - accepted_values:
+              name: accepted_values__fct__satellite_system__flag_primary_system
+              arguments: {values: [0, 1], quote: false}
+      - name: system_source
+        data_type: varchar
+        description: '{{ doc("col__system_source") }}'
+        constraints:
+          - type: not_null
       - name: inserted_date_time
         data_type: timestamp
         description: '{{ doc("col__inserted_date_time") }}'

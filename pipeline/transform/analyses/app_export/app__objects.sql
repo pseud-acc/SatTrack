@@ -43,7 +43,9 @@ with cte_fct__gp_elements as (
         , ownership_class_labels
         , launch_vehicle_brand
         , site_location_country
-        , constellation
+        , satellite_constellation_name
+        , primary_satellite_system_name
+        , satellite_system_names
         , flag_space_station
     from {{ ref('fct__satellite_master') }}
 )
@@ -78,7 +80,9 @@ with cte_fct__gp_elements as (
         , sat.ownership_class_labels
         , sat.launch_vehicle_brand
         , sat.site_location_country
-        , sat.constellation
+        , sat.satellite_constellation_name
+        , sat.primary_satellite_system_name
+        , sat.satellite_system_names
         , coalesce(sat.flag_space_station, 0) as flag_space_station   -- no satellite-mart row: not flagged
     from cte_fct__gp_elements as gp
     left join cte_fct__satellite_master as sat
@@ -130,7 +134,9 @@ with cte_fct__gp_elements as (
         , cast(coalesce(ownership_class_labels, []) as varchar[]) as ownership_class_labels
         , cast(launch_vehicle_brand as varchar) as launch_vehicle_brand
         , cast(site_location_country as varchar) as site_location_country
-        , cast(constellation as varchar) as constellation
+        , cast(satellite_constellation_name as varchar) as satellite_constellation_name
+        , cast(primary_satellite_system_name as varchar) as primary_satellite_system_name
+        , cast(coalesce(satellite_system_names, []) as varchar[]) as satellite_system_names
         , cast(flag_space_station as integer) as flag_space_station
     from cte_tracked_objects
 )

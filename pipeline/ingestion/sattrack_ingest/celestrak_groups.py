@@ -1,7 +1,8 @@
-"""CelesTrak constellation and operator groups (D-026), landed raw into raw_celestrak.
+"""CelesTrak constellation, hosted-system and space station groups (D-026, D-043, D-047), landed raw into raw_celestrak.
 
 Three tables, all VARCHAR plus the usual load metadata (raw_writer.py):
-  * group_config     the group list from config.py (group, kind, precedence order); landed every run, no request;
+  * group_config     the group list from config.py (group, kind, precedence order, member-name prefix: D-046);
+                     landed every run, no request;
   * gp_group_index   every group CelesTrak's GP index page lists, with its title and position on the page;
   * gp_group_member  the CSV of each configured group CelesTrak lists, unchanged, with the group name in front
                      (column GROUP, CelesTrak's own query parameter).
@@ -24,9 +25,10 @@ import time
 from datetime import datetime, timezone
 
 from . import audit, celestrak
-from .config import (CELESTRAK_CONSTELLATION_GROUPS, CELESTRAK_EXCLUDED_GROUPS, CELESTRAK_MIN_HOURS,
-                     CELESTRAK_OPERATOR_GROUPS, CELESTRAK_PAUSE_S, CELESTRAK_REFUSAL_COOLDOWN_HOURS,
-                     CELESTRAK_STATION_GROUPS, RunContext)
+from .config import (CELESTRAK_CONSTELLATION_GROUPS, CELESTRAK_EXCLUDED_GROUPS, CELESTRAK_MEMBER_NAME_PREFIX,
+                     CELESTRAK_MIN_HOURS, CELESTRAK_PAUSE_S, CELESTRAK_REFUSAL_COOLDOWN_HOURS, CELESTRAK_STATION_GROUPS,
+                     CELESTRAK_SYSTEM_GROUPS, CELESTRAK_SYSTEM_HOSTED_GROUPS,
+                     CELESTRAK_SYSTEM_HOSTED_UMBRELLA_GROUPS, RunContext)
 from .raw_writer import land_records
 
 SCHEMA = "raw_celestrak"
@@ -42,16 +44,22 @@ EMPTY_TABLES = {
 
 
 def included_groups() -> list[tuple[str, str]]:
-    """[(group, kind)] in precedence order: constellations first, then operators (D-026), then the space station
-    group (D-043: a flag, never a constellation)."""
+    """[(group, kind)] in config order: constellations (in precedence order), then system and hosted system groups
+    (D-047), then the space station group (D-043: a flag, never a constellation)."""
     return ([(g, "constellation") for g in CELESTRAK_CONSTELLATION_GROUPS]
-            + [(g, "operator") for g in CELESTRAK_OPERATOR_GROUPS]
+            + [(g, "system") for g in CELESTRAK_SYSTEM_GROUPS]
+            + [(g, "system_hosted") for g in CELESTRAK_SYSTEM_HOSTED_GROUPS]
+            + [(g, "system_hosted_umbrella") for g in CELESTRAK_SYSTEM_HOSTED_UMBRELLA_GROUPS]
             + [(g, "station") for g in CELESTRAK_STATION_GROUPS])
 
 
 def config_records() -> list[dict]:
-    rows = [{"GROUP": g, "GROUP_KIND": kind, "GROUP_ORDER": str(i)} for i, (g, kind) in enumerate(included_groups(), 1)]
-    rows += [{"GROUP": g, "GROUP_KIND": "excluded", "GROUP_ORDER": ""} for g in CELESTRAK_EXCLUDED_GROUPS]
+    """One record per configured group: kind, precedence order and the member-name prefix (D-046; empty for none)."""
+    rows = [{"GROUP": g, "GROUP_KIND": kind, "GROUP_ORDER": str(i),
+             "GROUP_MEMBER_NAME_PREFIX": CELESTRAK_MEMBER_NAME_PREFIX.get(g, "")}
+            for i, (g, kind) in enumerate(included_groups(), 1)]
+    rows += [{"GROUP": g, "GROUP_KIND": "excluded", "GROUP_ORDER": "", "GROUP_MEMBER_NAME_PREFIX": ""}
+             for g in CELESTRAK_EXCLUDED_GROUPS]
     return rows
 
 

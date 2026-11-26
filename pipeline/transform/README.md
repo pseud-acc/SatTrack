@@ -84,7 +84,7 @@ run with both units.
 | `profiles.yml` | DuckDB connection: `SATTRACK_DB_PATH` (build DB) and `SATTRACK_OPS_PATH` (attached as `ops`) |
 | `selectors.yml` | The `tracking` and `enrichment` units |
 | `packages.yml`, `package-lock.yml` | dbt_utils, dbt_expectations, audit_helper, elementary |
-| `models/staging/` | `spacetrack/`, `jsr/` (GCAT), `pycountry/`, `geonames/`, `celestrak/` (constellation groups, D-026): sources + staging models |
+| `models/staging/` | `spacetrack/`, `jsr/` (GCAT), `pycountry/`, `geonames/`, `celestrak/` (constellation and system groups, D-026, D-047), `sattrack/` (the ad-hoc seed `seeds/manual_satellite_grouping.csv`, D-047): sources + staging models |
 | `models/intermediate/` | `tracking/`, `satellite/`, `launch/`, `organisation/`, `geography/` |
 | `models/marts/` | the same five areas, one `_<area>__schema.yml` each with contracts and tests |
 | `macros/` | `helper__*` macros by area: GCAT parsing (vague dates, text cleaning, casts), geography keys and distances, launch-vehicle brand, org-code lists, orbit class; `project/` holds `generate_schema_name` and `helper__audit_fields`; `elementary/` holds DuckDB fixes for Elementary |

@@ -1,0 +1,96 @@
+version: 2
+
+# SatTrack's ad-hoc seed (D-047). CelesTrak is the golden source for constellations and satellite systems; this file
+# holds only the handful that CelesTrak has no group for, each with a clear, unambiguous reference from its publisher
+# (`definition_source_url` and the words on it, `definition_source_quote`). The models combine these rows with the
+# CelesTrak groups. Rule types:
+#   * gcat_program_family: GCAT payloads with their own payload record whose programme family is one of the values;
+#   * object_name_regex: GCAT payloads with their own payload record whose name matches the regular expression;
+#   * celestrak_member_prn: members of CelesTrak's sbas group whose name gives one of the PRNs (BDSBAS).
+# flag_hosted_system: 1 when the row's satellites only host the system's payload (BDSBAS, MSAS), else 0.
+# `definition_rule_values` holds one value, or several separated by `|`.
+
+seeds:
+  - name: manual_satellite_grouping
+    description: '{{ doc("tbl__sattrack__manual_satellite_grouping") }}'
+    config:
+      column_types:
+        grouping_kind: varchar
+        grouping_name: varchar
+        definition_rule_type: varchar
+        definition_rule_values: varchar
+        definition_operator: varchar
+        definition_purpose: varchar
+        definition_description: varchar
+        definition_source_name: varchar
+        definition_source_url: varchar
+        definition_source_quote: varchar
+        flag_hosted_system: integer
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          name: unique_combination_of_columns__manual_satellite_grouping
+          arguments: {combination_of_columns: [grouping_kind, grouping_name]}
+    columns:
+      - name: grouping_kind
+        description: '{{ doc("col__grouping_kind") }}'
+        data_tests:
+          - accepted_values:
+              name: accepted_values__manual_satellite_grouping__grouping_kind
+              arguments: {values: ["constellation", "system"]}
+      - name: grouping_name
+        description: '{{ doc("col__grouping_name") }}'
+        data_tests:
+          - not_null:
+              name: not_null__manual_satellite_grouping__grouping_name
+      - name: definition_rule_type
+        description: '{{ doc("col__definition_rule_type") }}'
+        data_tests:
+          - accepted_values:
+              name: accepted_values__manual_satellite_grouping__definition_rule_type
+              arguments: {values: ["gcat_program_family", "object_name_regex", "celestrak_member_prn"]}
+      - name: definition_rule_values
+        description: '{{ doc("col__definition_rule_values") }}'
+        data_tests:
+          - unique:
+              name: unique__manual_satellite_grouping__definition_rule_values
+          - not_null:
+              name: not_null__manual_satellite_grouping__definition_rule_values
+      - name: definition_operator
+        description: '{{ doc("col__definition_operator") }}'
+        data_tests:
+          - not_null:
+              name: not_null__manual_satellite_grouping__definition_operator
+      - name: definition_purpose
+        description: '{{ doc("col__definition_purpose") }}'
+        data_tests:
+          - not_null:
+              name: not_null__manual_satellite_grouping__definition_purpose
+      - name: definition_description
+        description: '{{ doc("col__definition_description") }}'
+        data_tests:
+          - not_null:
+              name: not_null__manual_satellite_grouping__definition_description
+      - name: definition_source_name
+        description: '{{ doc("col__definition_source_name") }}'
+        data_tests:
+          - not_null:
+              name: not_null__manual_satellite_grouping__definition_source_name
+      - name: definition_source_url
+        description: '{{ doc("col__definition_source_url") }}'
+        data_tests:
+          - not_null:
+              name: not_null__manual_satellite_grouping__definition_source_url
+          - dbt_utils.expression_is_true:
+              name: expression_is_true__manual_satellite_grouping__definition_source_url
+              arguments: {expression: "like 'https://%'"}
+      - name: definition_source_quote
+        description: '{{ doc("col__definition_source_quote") }}'
+        data_tests:
+          - not_null:
+              name: not_null__manual_satellite_grouping__definition_source_quote
+      - name: flag_hosted_system
+        description: '{{ doc("col__flag_hosted_system") }}'
+        data_tests:
+          - accepted_values:
+              name: accepted_values__manual_satellite_grouping__flag_hosted_system
+              arguments: {values: [0, 1], quote: false}

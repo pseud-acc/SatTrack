@@ -17,6 +17,9 @@ A small fixed sample of the pipeline's app files, used to run the app without AW
   CelesTrak credit to the attribution: the export predates the field, so the sample carries no constellation
   values (real exports do). On 24 Nov 2026 `flag_space_station` (D-043) was added the same way, from the `stations`
   group of CelesTrak fetch run 45061938995: no sample object is in it, so it is 0 everywhere.
+  On 25 Nov 2026 (D-047) the file moved to schema 2: `constellation` was replaced by `satellite_constellation_name`,
+  `primary_satellite_system_name` and `satellite_system_names`, filled from a dev build of the 21 Nov warehouse with
+  CelesTrak fetch run 45061938995 (32 records with a constellation, 56 with a system); nothing else changed.
 
 CI's Heroku build check (`.github/scripts/heroku_build_check.sh`) starts the app with
 `SATTRACK_APP_DATA_DIR` pointing here. For a local run without S3:
