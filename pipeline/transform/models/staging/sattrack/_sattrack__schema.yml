@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: stg__sattrack__manual_satellite_grouping
+    description: '{{ doc("tbl__sattrack__manual_satellite_grouping") }}'
+    data_tests:
+      - model_health:
+          name: mh__stg__sattrack__manual_satellite_grouping__pk_unique
+          arguments: {check: pk_unique, columns: [grouping_kind, grouping_name]}
+      - model_health:
+          name: mh__stg__sattrack__manual_satellite_grouping__pk_not_null
+          arguments: {check: pk_not_null, columns: [grouping_kind, grouping_name]}
+    columns:
+      - name: grouping_kind
+        description: '{{ doc("col__grouping_kind") }}'
+      - name: grouping_name
+        description: '{{ doc("col__grouping_name") }}'
+      - name: definition_rule_type
+        description: '{{ doc("col__definition_rule_type") }}'
+      - name: definition_rule_values
+        description: '{{ doc("col__definition_rule_values") }}'
+      - name: definition_operator
+        description: '{{ doc("col__definition_operator") }}'
+      - name: definition_purpose
+        description: '{{ doc("col__definition_purpose") }}'
+      - name: definition_description
+        description: '{{ doc("col__definition_description") }}'
+      - name: definition_source_name
+        description: '{{ doc("col__definition_source_name") }}'
+      - name: definition_source_url
+        description: '{{ doc("col__definition_source_url") }}'
+      - name: definition_source_quote
+        description: '{{ doc("col__definition_source_quote") }}'
+      - name: flag_hosted_system
+        description: '{{ doc("col__flag_hosted_system") }}'

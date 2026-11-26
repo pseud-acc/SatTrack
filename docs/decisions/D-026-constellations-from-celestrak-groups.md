@@ -1,6 +1,6 @@
 # D-026 Constellations from CelesTrak's group lists, credited
 
-**Status:** Accepted; partly superseded by D-043 (2026-11-24: the `stations` group is downloaded as `flag_space_station`) · **Date:** 2026-11-22 · **PRs:** #68 (decision), #62 (fetch workflow)
+**Status:** Accepted; partly superseded by D-043 (2026-11-24: the `stations` group is downloaded as `flag_space_station`); amended by D-046 (2026-11-24: `tdrss` counts only members whose name starts with TDRS; a warning check compares member names with their group) · **Date:** 2026-11-22 · **PRs:** #68 (decision), #62 (fetch workflow) · **`constellation` field and operator groups superseded by D-047**
 **Component:** pipeline; the `objects` dataset; the viewer's credits · **Tier:** full
 
 ## Context

@@ -6,10 +6,14 @@ nothing was fetched from a developer machine (D-008).
 
 ## Group CSVs (`<group>.csv`)
 
-The first three rows of eight CelesTrak GP groups, as CelesTrak published them on 22 Nov 2026 (CSV format, unchanged):
+The first three rows of eight CelesTrak GP groups (and six of a ninth, `tdrss`, below), as CelesTrak published them on 22 Nov 2026 (CSV format, unchanged):
 `starlink`, `oneweb`, `gps-ops`, `glo-ops`, `intelsat`, `ses` (included by the group config, D-026), `stations`
 (the space station group, D-043: ISS (ZARYA), POISK, CSS (TIANHE)) and `gnss` (excluded; its rows overlap
 `gps-ops`).
+
+`tdrss.csv` holds the first six rows of CelesTrak's `tdrss` group from the same run, unchanged: TDRS 3, HST, TDRS 5,
+TDRS 6, TDRS 7 and ISS (ZARYA). CelesTrak lists the TDRS relay satellites and the spacecraft that use them in this
+group (25 rows, 8 of them TDRS); the mix is what D-046's member-name prefix is tested on.
 
 - **URL:** `https://celestrak.org/NORAD/elements/gp.php?GROUP=<group>&FORMAT=csv`.
 - **Fetched by:** run 45061938995 (22 Nov 2026, 47 groups, no refusals), downloaded with

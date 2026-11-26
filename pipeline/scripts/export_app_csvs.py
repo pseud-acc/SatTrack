@@ -57,7 +57,7 @@ CONTRACTS_DIR = ROOT.parent / "app" / "contracts"   # JSON Schemas of the datase
 # app/contracts/<name>.schema.json. schema: the envelope's version (raise it when a field is renamed or changes
 # meaning); min_records: a sanity floor like MIN_SATELLITE_ROWS.
 DATASETS = {
-    "objects": {"schema": 1, "key": "satcat_id", "min_records": MIN_SATELLITE_ROWS},
+    "objects": {"schema": 2, "key": "satcat_id", "min_records": MIN_SATELLITE_ROWS},   # 2: D-047
 }
 # Carried in every dataset's header (CLAUDE.md: public outputs with Space-Track fields cite the source and keep the
 # caution; GCAT is CC BY; CelesTrak's group lists are credited wherever shown, D-026).

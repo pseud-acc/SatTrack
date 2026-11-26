@@ -32,5 +32,9 @@ Every group linked from CelesTrak's [GP index page](https://celestrak.org/NORAD/
 {% enddocs %}
 
 {% docs tbl__celestrak__group_config %}
-The pipeline's CelesTrak group list (`sattrack_ingest/config.py`, D-026): included constellation and operator groups in precedence order, and the excluded groups. Landed every run; not downloaded.
+The pipeline's CelesTrak group list (`sattrack_ingest/config.py`, D-026, D-047): downloaded constellation, system, umbrella system and hosted system groups in config order, the space station group (D-043), the member-name prefix of any group that needs one (D-046), and the excluded groups. Landed every run; not downloaded.
+{% enddocs %}
+
+{% docs tbl__sattrack__manual_satellite_grouping %}
+SatTrack's ad-hoc seed (`pipeline/transform/seeds/manual_satellite_grouping.csv`, D-047): the few constellations and satellite systems CelesTrak has no group for (PlanetScope, Sentinel-1/2/3, NavIC, QZSS, JPSS, GOES, Copernicus Sentinels, and the hosted MSAS and BDSBAS), each with its rule and a clear quote from its publisher's page. CelesTrak stays the golden source for every other grouping.
 {% enddocs %}

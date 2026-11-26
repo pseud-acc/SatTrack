@@ -34,7 +34,7 @@ Every dataset is one JSON document:
 ```json
 {
   "dataset": "objects",
-  "schema": 1,
+  "schema": 2,
   "count": 32652,
   "generated_at": "2026-11-21T14:24:40+00:00",
   "run_id": "run_2026-11-21T142334Z",
@@ -69,7 +69,7 @@ Every dataset is one JSON document:
   stay live.
 - All of a run's files (CSVs and datasets) are listed with their SHA-256 in `app/current.json` and go live together.
 
-## `objects` (schema 1)
+## `objects` (schema 2)
 
 Written by `pipeline/transform/analyses/app_export/app__objects.sql` through `scripts/export_app_csvs.py`.
 One record per object in the Space-Track GP feed with a full element set, of every type (D-011). Elements come
@@ -106,7 +106,12 @@ enrichment next succeeds.
 | `ownership_class_labels` | array of strings | no (may be `[]`) | `fct__satellite_master.ownership_class_labels` |
 | `launch_vehicle_brand` | string | yes | `fct__satellite_master.launch_vehicle_brand` |
 | `site_location_country` | string | yes | `fct__satellite_master.site_location_country` |
-| `constellation` | string | yes | `fct__satellite_master.constellation`: CelesTrak's constellation or operator group (D-026), e.g. `Starlink`, `GPS`; null when the object is in none. Added 2026-11-23 (additive, schema 1). Anything that shows it carries the credit "Constellation groups: CelesTrak (Dr T.S. Kelso)" |
+| `satellite_constellation_name` | string | yes | `fct__satellite_master.satellite_constellation_name`: the constellation (near-identical satellites working together), from CelesTrak's groups or the ad-hoc seed (D-047), e.g. `Starlink`, `Sentinel-2`; null when none. Anything that shows it carries the credit "Constellation groups: CelesTrak (Dr T.S. Kelso)" |
+| `primary_satellite_system_name` | string | yes | `fct__satellite_master.primary_satellite_system_name`: the satellite system the object was built for (D-047), e.g. `GPS`; null when none |
+| `satellite_system_names` | array of strings | no (may be `[]`) | `fct__satellite_master.satellite_system_names`: every system, primary first, then hosted ones (e.g. `Search & Rescue (SARSAT)`, `EGNOS`) |
+
+Schema 2 (D-047, 25 Nov 2026) replaced schema 1's `constellation` (CelesTrak's constellation or operator group, D-026)
+with the three fields above; a reader that knows only schema 1 rejects the file, as the contract requires.
 
 **Using it in the browser.** satellite.js's `json2satrec` takes the OMM keywords in capitals. The element fields'
 names are those keywords in lower case, so the browser builds the OMM record by uppercasing them (`mean_motion` →

@@ -91,13 +91,15 @@ published). Exit codes: `0` for ok/warn, `1` for error, `3` when a local run is 
 Source limits are built in: a landed copy younger than its limit is reused instead of downloaded again
 (Space-Track GP 55 minutes, boxscore 23 hours, GCAT 6 hours, CelesTrak groups 20 hours).
 
-**CelesTrak constellation groups** (D-026, D-008, D-039, D-040). `sattrack_ingest/celestrak_groups.py`
-downloads CelesTrak's GP index page and the 20 groups listed in `sattrack_ingest/config.py` (constellations, then
-operators; every other group is excluded), as CSV with gzip, 5 seconds apart, only on GitHub's runners. Any non-200
+**CelesTrak constellation and system groups** (D-026, D-047, D-008, D-039, D-040). `sattrack_ingest/celestrak_groups.py`
+downloads CelesTrak's GP index page and the 17 groups listed in `sattrack_ingest/config.py` (constellations, satellite
+systems, the hosted `sarsat` and `sbas` groups, and `stations`; every other group is excluded), as CSV with gzip, 5 seconds apart, only on GitHub's runners. Any non-200
 response (301 included) or a body that isn't the expected CSV stops the download at once with no retry, is recorded in
 `audit.source_refusal` (ops DB), and blocks every CelesTrak request for 20 hours; the policy's 15-minute pause after a
 5xx is covered. Tables are replaced only when the index and every group arrive and parse, so a refusal or a layout
-change keeps the last good copy; a first run with nothing to keep creates empty tables (`constellation` is then null).
+change keeps the last good copy; a first run with nothing to keep creates empty tables (the constellation and CelesTrak system fields are then empty).
+Constellations and satellite systems combine these groups with GCAT's programme family and a small ad-hoc seed of
+sourced definitions CelesTrak lacks (`transform/seeds/manual_satellite_grouping.csv`, D-047).
 The stage reports `skipped` with the reason and never fails the run. A refusal that lasts 3 days shows as the
 `celestrak` source's freshness warning (emailed, D-037); a group CelesTrak lists that the config doesn't know is a
 warn-severity dbt check (`assert__stg__celestrak__gp_group_index__groups_in_config`). The shared HTTP rules live in
@@ -214,4 +216,4 @@ dbt data tests and Elementary checks inside `dbt build`; their results are on th
 | [GCAT](https://planet4589.org/space/gcat/) (J. McDowell) | satellite, launch, organisation, site and launch-vehicle catalogues | Credit GCAT (J. McDowell) |
 | [pycountry](https://pypi.org/project/pycountry/) | ISO 3166 countries | LGPL-2.1 |
 | [GeoNames](https://www.geonames.org/) via geonamescache | cities, countries | CC BY 4.0 |
-| [CelesTrak](https://celestrak.org/) (Dr T.S. Kelso) | constellation and operator group lists (GP groups) | [Usage policy](https://celestrak.org/usage-policy.php); credit "Constellation groups: CelesTrak (Dr T.S. Kelso)" wherever shown (D-026) |
+| [CelesTrak](https://celestrak.org/) (Dr T.S. Kelso) | constellation, satellite system and space station group lists (GP groups) | [Usage policy](https://celestrak.org/usage-policy.php); credit "Constellation groups: CelesTrak (Dr T.S. Kelso)" wherever shown (D-026) |

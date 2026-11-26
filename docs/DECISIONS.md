@@ -38,7 +38,7 @@ Read the records a feature touches before scoping it.
 | [D-023](#d-023-label-the-selected-satellite-and-close-up-the-nearest-20) | Label the selected satellite and, close up, the nearest 20 | Accepted | 2026-11-22 | [record](decisions/D-023-labels-selected-and-nearest.md) |
 | [D-024](#d-024-shareable-links-carry-the-core-view-in-the-url-hash) | Shareable links carry the core view in the URL hash | Accepted | 2026-11-22 | [record](decisions/D-024-shareable-links-url-hash.md) |
 | [D-025](#d-025-bottom-sheet-on-phones) | Bottom sheet on phones | Accepted | 2026-11-22 | [record](decisions/D-025-mobile-bottom-sheet.md) |
-| [D-026](#d-026-constellations-from-celestraks-group-lists-credited) | Constellations from CelesTrak's group lists, credited | Accepted; partly superseded by D-043 | 2026-11-22 | [record](decisions/D-026-constellations-from-celestrak-groups.md) |
+| [D-026](#d-026-constellations-from-celestraks-group-lists-credited) | Constellations from CelesTrak's group lists, credited | Accepted; partly superseded by D-043; amended by D-046; `constellation` field and operator groups superseded by D-047 | 2026-11-22 | [record](decisions/D-026-constellations-from-celestrak-groups.md) |
 | [D-027](#d-027-a-measured-performance-budget-for-the-viewer) | A measured performance budget for the viewer | Accepted | 2026-11-23 | [record](decisions/D-027-performance-budget.md) |
 | [D-028](#d-028-phase-3-scope-the-core-plus-four-extensions) | Phase 3 scope: the core plus four extensions | Accepted | 2026-11-22 | [record](decisions/D-028-phase-3-scope.md) |
 | [D-029](#d-029-javascript-sgp4-in-the-worker-now-wasm-when-shadow-dimming-lands) | JavaScript SGP4 in the worker now; WASM when shadow dimming lands | Accepted | 2026-11-22 | [record](decisions/D-029-worker-engine-js-then-wasm.md) |
@@ -55,6 +55,10 @@ Read the records a feature touches before scoping it.
 | [D-041](#d-041-security-headers-ship-with-the-viewer-flag-cesium-needs-a-decision-before-the-csp-is-enforced) | Security headers ship with the viewer flag; Cesium needs a decision before the CSP is enforced | Accepted | 2026-11-24 | [record](decisions/D-041-security-headers-report-only.md) |
 | [D-042](#d-042-ci-checks-the-viewers-start-up-with-fixed-budgets-and-a-same-runner-comparison-against-the-target-branch) | CI checks the viewer's start-up with fixed budgets and a same-runner comparison against the target branch | Accepted | 2026-11-24 | [record](decisions/D-042-ci-first-positions-threshold.md) |
 | [D-043](#d-043-flag-space-stations-from-celestraks-stations-group) | Flag space stations from CelesTrak's `stations` group | Accepted | 2026-11-24 | [record](decisions/D-043-space-station-flag-from-celestrak.md) |
+| [D-044](#d-044-app-design-direction-deep-navy-left-filter-panel-own-design-tokens-on-plain-bootstrap-5) | App design direction: deep navy, left filter panel, own design tokens on plain Bootstrap 5 | Accepted | 2026-11-24 | [record](decisions/D-044-app-design-direction.md) |
+| [D-045](#d-045-colour-by-menu-gets-its-own-task-straight-after-33) | "Colour by" menu gets its own task straight after 3.3 | Accepted | 2026-11-24 | [record](decisions/D-045-colour-by-menu-own-task.md) |
+| [D-046](#d-046-tdrss-keeps-only-relay-satellites-constellation-membership-checked-against-names) | TDRSS keeps only relay satellites; constellation membership checked against names | Accepted; amended by D-047 | 2026-11-24 | [record](decisions/D-046-tdrss-relay-satellites-and-name-check.md) |
+| [D-047](#d-047-constellations-and-satellite-systems-celestrak-first-completed-from-gcat) | Constellations and satellite systems: CelesTrak first, completed from GCAT | Accepted | 2026-11-25 | [record](decisions/D-047-constellations-and-satellite-systems.md) |
 
 ---
 
@@ -446,7 +450,7 @@ satellite (half) and details (full). Desktop keeps the sidebar.
 **Rejected.** Today's collapsible sidebar (covers the globe); floating buttons with separate overlays.
 
 ## D-026 Constellations from CelesTrak's group lists, credited
-**Status:** Accepted, 2026-11-22 (plan 3.1); partly superseded by D-043 (the `stations` group is downloaded as a flag). **Component:** pipeline; the `objects` dataset; the viewer's credits.
+**Status:** Accepted, 2026-11-22 (plan 3.1); partly superseded by D-043 (the `stations` group is downloaded as a flag); amended by D-046 (`tdrss` counts only members named TDRS); the `constellation` field and the operator groups superseded by D-047. **Component:** pipeline; the `objects` dataset; the viewer's credits.
 
 **Context.** Colouring by constellation (D-017) needs membership the data doesn't have. GCAT matches CelesTrak for
 the broadband fleets but has no plane labels for Galileo, GLONASS or Globalstar and few for Iridium; CelesTrak's
@@ -701,3 +705,116 @@ filter later).
 separate PR (a second contract change).
 
 **Consequences.** One more CelesTrak request per download; a new required field in `objects.schema.json`.
+
+## D-044 App design direction: deep navy, left filter panel, own design tokens on plain Bootstrap 5
+**Status:** Accepted, 2026-11-24 (owner, from mock-ups of three looks, three filter layouts and three build
+approaches). **Component:** every app page: the Dash shell, the tracker's filter panel and the viewer's chrome.
+
+**Context.** The viewer (3.2) and its filters (3.3) are about to go into the Dash shell. An audit of the live site on
+24 Nov found two Bootstrap versions on every page (Dash auto-loads `assets/bootstrap.css` and `bootstrap.min.css`, an
+old Bootstrap 4.5 Cyborg build, beside `dbc.themes.CYBORG`, Bootstrap 5.3 from the jsDelivr CDN), five accent colours,
+white inputs on black, inline font sizes in Python, a header pushing the viewer down ~240 px (globe 958 × 530 px in a
+1366 × 900 window, from Plotly's `calc(70vh - 100px)`), and filters with no match count.
+
+**Decision.** Look B "Deep navy": blue-black chrome, one teal accent `#2bb3a3` kept clear of the data colours (payloads
+`#56B4E9`, rocket bodies `#E69F00`, debris `#CC79A7`, D-017), 6 px corners, hairline borders, no card shadows. Filters
+F1: a left panel, collapsible to a thin strip, with a live match count, changes applied at once, type toggles with
+swatches and counts, segmented status and orbit controls, "More filters" rows showing their value, active-filter chips
+with "Clear all", and no "Clear Orbits" (D-019); phones keep the bottom sheet (D-025). Any satellite search offers a
+browsable list as well as typing (users include children and casual visitors; PR #73 closed). Build: plain Bootstrap 5
+plus SatTrack's own `tokens.css` (colours, type scale, spacing, radius) shared by the shell and the viewer; remove the
+two `assets/` Bootstrap files and `dbc.themes.CYBORG`; commit Bootstrap 5.3's CSS and the font under `assets/`, each
+pinned by a SHA-256 unit test; inline SVGs replace Font Awesome. Tokens (`--st-*`, full table in the record): Source Sans
+3, 15 px app base and 16 px reading text, type sizes 12–28 px, 4 px spacing steps, text and accent at least 6.3:1 on the
+panel, `#04201c` text on teal. A new task 3.12 before 3.3 (~8–10 h), which also makes the globe fill the window below a
+compact top bar, with a full-screen button.
+
+**Why.** One accent can't be mistaken for data; a left panel has room for the filters phases 4–6 add without covering
+the globe; one Bootstrap and one tokens file end the conflicts and give the viewer the same colours as the shell.
+
+**Rejected.** Look A neutral graphite and C light shell (two themes to maintain); filters F2 floating on the globe
+(covers it) and F3 top bar (crowds as filters grow); keeping Cyborg and overriding it (keeps the conflict and
+`!important` chains); another component library such as Mantine (rewrites every layout); an empty type-to-search box;
+fonts Inter and IBM Plex Sans; a 14 px app base; fetching the CSS and font through `vendor/cesium.lock` (with the
+viewer flag off the app reads no vendor files); self-hosting Font Awesome or keeping its CDN.
+
+**Consequences.** Phase 3 grows by ~10–12 h (3.12, and 3.3 from ~4 h to ~6 h). Every page changes look in one release.
+The CSP drops the theme, font and icon hosts (D-041 option E). ~330 KB of committed CSS and font, upgraded by hand.
+
+## D-045 "Colour by" menu gets its own task straight after 3.3
+**Status:** Accepted, 2026-11-24 (owner). **Component:** roadmap Phase 3 (the viewer's "Colour by" menu and legend).
+
+**Context.** D-017 asks for a "Colour by" menu (orbit class, status, owner, constellation), but only the constellation
+option was scheduled (3.10).
+
+**Decision.** A new task, 3.13 `feature/cesium-colour-by` (~3 h), straight after 3.3: the menu and legend with object
+type (default), orbit class, status and owner. 3.10 then adds constellation to it.
+
+**Why.** The core ships the menu D-017 asks for, in the 3.3 panel's look, as a PR small enough for one week.
+
+**Rejected.** Folding it into 3.10 (an extension; ties the menu to CelesTrak work); folding it into 3.3 (too big for
+one week).
+
+**Consequences.** Phase 3 core grows by ~3 h; 3.10 depends on 3.13.
+
+## D-046 TDRSS keeps only relay satellites; constellation membership checked against names
+**Status:** Accepted, 2026-11-24 (owner); amended by D-047 (no prefix is needed any more, the dmc exception is gone, and the name check
+excludes members of system groups). Amends D-026 (membership is the group's CSV, except for groups with a
+member-name prefix). **Component:** pipeline (`sattrack_ingest/config.py`, `stg__celestrak__group_config`,
+`int__celestrak__satellite_constellation`, a warning check); `constellation` values in the `objects` dataset.
+
+**Context.** CelesTrak's `tdrss` group ("Tracking and Data Relay Satellite System (TDRSS)") lists the 8 TDRS relay
+satellites and 17 spacecraft that use them (HST, ISS (ZARYA), TERRA, AQUA, MMS 1-4, NOAA 20, ...; fetch run
+45061938995), so the first run with #69 gave those 17 the TDRSS constellation. An audit of all 20 constellation and
+operator groups found no other group mixing in other spacecraft.
+
+**Decision.** The config gives a group an optional member-name prefix (`CELESTRAK_MEMBER_NAME_PREFIX`; only
+`tdrss`: `TDRS`), landed in `raw_celestrak.group_config` and staged as `celestrak_group_member_name_prefix`; the
+intermediate model counts a member of such a group only when its CelesTrak `OBJECT_NAME` starts with the prefix. A
+warning check (D-037) flags constellation memberships whose name lacks the group's prefix, else the group's most
+common leading word, and a prefix that matches no member. Operator groups are not name-checked. The check's
+exceptions (owner, 24 Nov 2026) live in one logic macro, `helper__flag_member_name_fits_group`, a `case when` with one
+branch each: dmc is not checked (CelesTrak's "Disaster Monitoring" group spans several programmes; its 5 non-DMC
+members keep the constellation), and hulianwang also accepts names starting GUOWANG. Remove the GUOWANG branch when
+Space-Track renames those objects; revisit dmc if CelesTrak narrows the group.
+
+**Why.** The owner keeps TDRSS but only for the relay satellites; one config entry, visible in the warehouse, is
+deterministic and needs no list of NORAD ids. The data-derived leading word handles COSMOS (GLONASS) and GSAT
+(Galileo) without exceptions.
+
+**Rejected.** Dropping `tdrss` (the owner wants it); a hand list of the 17 NORAD ids (goes stale); the title's first
+word as the check's expected string (76 warnings today and a list of exceptions); checking operator groups (~125
+warnings on legitimate fleet names); accepting 13 known warnings a day (they would hide new ones).
+
+**Consequences.** 17 objects lose the TDRSS name at the next CelesTrak download; no contract change. With the macro's
+exceptions the check is quiet on today's data (it would otherwise warn on 8 GUOWANG-30 objects and 5 dmc members);
+dmc is not name-checked while its exception stands.
+
+## D-047 Constellations and satellite systems: CelesTrak first, completed from GCAT
+**Status:** Accepted, 2026-11-25 (owner). Supersedes D-026's `constellation` field and its operator groups; amends
+D-046. **Component:** pipeline (config, the ad-hoc seed `manual_satellite_grouping`, the constellation and system
+models, `dim__satellite_constellation`, `dim__satellite_system`, `fct__satellite_system`, `fct__satellite_master`); the
+`objects` dataset (schema 2). Record: [D-047](decisions/D-047-constellations-and-satellite-systems.md).
+
+**Context.** `constellation` mixed constellations (Starlink), systems (GPS, TDRSS) and operator fleets (SES). The
+owner's definitions: a constellation is near-identical satellites working together; a system is non-identical
+satellites working together, and a satellite can belong to several.
+
+**Decision.** Three fields replace `constellation`: `satellite_constellation_name`, `primary_satellite_system_name`,
+`satellite_system_names` (primary first). CelesTrak is the golden source: constellations are its constellation groups;
+systems are its system groups, keeping members whose names fit the group (exclusion) and completed with every own GCAT
+payload sharing a kept member's programme family; `sarsat` gives hosted Cospas-Sarsat memberships; `sbas` is an
+umbrella term whose members name their system before "/PRN" (EGNOS, WAAS, GAGAN, SDCM, SOUTHPAN). An ad-hoc seed holds
+the few CelesTrak lacks, each with its publisher's quote: PlanetScope, Sentinel-1/2/3; NavIC, QZSS, JPSS, GOES,
+Copernicus Sentinels; hosted MSAS and BDSBAS (GPS.gov PRN register). `gnss` and the operator groups are not downloaded.
+Accepted-values warnings flag new names.
+
+**Why.** The owner's rule (25 Nov 2026): the publisher's grouping first, no hand-maintained list beyond a handful of
+sourced rows, deterministic SQL, new values flagged by tests. GCAT keeps retired members a CelesTrak list drops.
+
+**Rejected.** A seed of every grouping (drifts; owner rejected it); systems from GCAT alone (no system field); systems
+split from CelesTrak's `gnss` (it lists SBAS hosts; GNSS is an umbrella term); one "SBAS" system (also an umbrella term).
+
+**Consequences.** `objects` schema 1 → 2. 17 CelesTrak groups downloaded instead of 21. System names are CelesTrak's
+titles. Dev build on 21 Nov data: GPS 80 (37 active), GLONASS 142, Galileo 33, BeiDou 63, TDRSS 12, DMC 12, Starlink
+11,203, PlanetScope 120.

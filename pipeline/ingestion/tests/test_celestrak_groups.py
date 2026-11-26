@@ -1,13 +1,14 @@
-"""CelesTrak constellation groups (D-026): download rules, keeping the last copy, and the dbt rules run on the result.
+"""CelesTrak groups (D-026, D-047): download rules, keeping the last copy, and the dbt rules run on the result.
 
 No network: a fake opener answers from the committed sample (tests/fixtures/celestrak/: a few real rows per group
 from fetch run 45061938995, and a trimmed copy of the real GP index page from fetch run 45099334610). Download tests
 that need a smaller index use a page built in the real page's markup. The dbt models are rendered by substituting source(), ref()
-and the audit macro, then run in DuckDB on the landed tables, so the precedence, "Operational" and exclusion rules
-and the new-group warning are tested in CI without a dbt build.
+and the audit macro, then run in DuckDB on the landed tables, so the display names, the name-fit flag (D-046, D-047),
+the kinds and the new-group warning are tested in CI without a dbt build.
 """
 from __future__ import annotations
 
+import csv
 import io
 import re
 import sys
@@ -17,6 +18,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import duckdb
+import jinja2
 import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -105,17 +107,29 @@ def members(con):
 # ---------------------------------------------------------------- the group config
 
 
-def test_config_lists_d026_groups_in_order_and_covers_the_whole_index():
-    assert [g for g, _ in celestrak_groups.included_groups()] == [
-        "starlink", "oneweb", "kuiper", "qianfan", "hulianwang", "iridium-NEXT", "globalstar", "orbcomm", "gps-ops",
-        "glo-ops", "galileo", "beidou", "tdrss", "dmc", "planet", "spire", "intelsat", "ses", "eutelsat", "telesat",
-        "stations"]
-    # D-043: the space station group comes last and is its own kind, so it never names a constellation
-    assert celestrak_groups.included_groups()[-1] == ("stations", "station")
-    assert {k for _, k in celestrak_groups.included_groups()} == {"constellation", "operator", "station"}
+def test_config_lists_d047_groups_in_order_and_covers_the_whole_index():
+    assert celestrak_groups.included_groups() == (
+        [(g, "constellation") for g in ("starlink", "oneweb", "kuiper", "qianfan", "hulianwang", "iridium-NEXT",
+                                         "globalstar", "orbcomm")]
+        + [(g, "system") for g in ("gps-ops", "glo-ops", "galileo", "beidou", "tdrss", "dmc")]
+        + [("sarsat", "system_hosted"), ("sbas", "system_hosted_umbrella"), ("stations", "station")])
+    # D-047: gnss is the umbrella term for all navigation systems, not a system; it isn't downloaded
+    assert "gnss" in config.CELESTRAK_EXCLUDED_GROUPS
+    # D-047: operator fleets are neither constellations nor systems, so they are no longer downloaded
+    assert {"planet", "spire", "intelsat", "ses", "eutelsat", "telesat"} <= set(config.CELESTRAK_EXCLUDED_GROUPS)
     included = {g for g, _ in celestrak_groups.included_groups()}
     assert not included & set(config.CELESTRAK_EXCLUDED_GROUPS)
     assert len(included) + len(config.CELESTRAK_EXCLUDED_GROUPS) == 47   # the 47 groups the index showed on 22 Nov
+
+
+def test_member_name_prefixes_are_landed_with_the_config(monkeypatch):
+    # D-046 mechanism kept; no group needs a prefix since D-047 (tdrss's members must fit its most common word, TDRS)
+    assert config.CELESTRAK_MEMBER_NAME_PREFIX == {}
+    records = celestrak_groups.config_records()
+    assert all(r["GROUP_MEMBER_NAME_PREFIX"] == "" for r in records)
+    monkeypatch.setattr(celestrak_groups, "CELESTRAK_MEMBER_NAME_PREFIX", {"tdrss": "TDRS"})
+    records = celestrak_groups.config_records()
+    assert {r["GROUP"]: r["GROUP_MEMBER_NAME_PREFIX"] for r in records if r["GROUP_MEMBER_NAME_PREFIX"]} == {"tdrss": "TDRS"}
 
 
 def test_new_group_on_the_index_is_reported():
@@ -142,8 +156,8 @@ def test_the_real_index_page_lists_47_groups_all_known_and_titled():
         "hulianwang": "Hulianwang Digui", "iridium-NEXT": "Iridium NEXT", "globalstar": "Globalstar",
         "orbcomm": "Orbcomm", "gps-ops": "GPS Operational", "glo-ops": "GLONASS Operational", "galileo": "Galileo",
         "beidou": "Beidou", "tdrss": "Tracking and Data Relay Satellite System (TDRSS)", "dmc": "Disaster Monitoring",
-        "planet": "Planet", "spire": "Spire", "intelsat": "Intelsat", "ses": "SES", "eutelsat": "Eutelsat",
-        "telesat": "Telesat", "stations": "Space Stations"}
+        "sarsat": "Search & Rescue (SARSAT)",
+        "sbas": "Satellite-Based Augmentation System (WAAS/EGNOS/MSAS)", "stations": "Space Stations"}
     assert titles["active"] == "Active Satellites" and titles["sarsat"] == "Search & Rescue (SARSAT)"
     assert [r["GROUP"] for r in celestrak_groups.parse_index(html)][:2] == ["last-30-days", "stations"]
 
@@ -174,14 +188,15 @@ def test_downloads_only_included_groups_in_order_with_a_pause(env):
     fake = Fake(answers())
     out, pauses = ingest(env, fake)
     assert out["stage_status"] == "ok"
-    # gnss is excluded: never requested; included groups not on this index (kuiper, ...) are never requested either
+    # gnss, intelsat and ses are excluded (D-047): never requested; included groups not on this index (kuiper, ...)
+    # are never requested either
     assert fake.calls == [celestrak.INDEX_URL] + [celestrak.GROUP_URL.format(group=g) for g in
-                                                   ["starlink", "oneweb", "gps-ops", "glo-ops", "intelsat", "ses"]]
+                                                   ["starlink", "oneweb", "gps-ops", "glo-ops"]]
     assert all(u.endswith("&FORMAT=csv") for u in fake.calls[1:])
-    assert pauses == [config.CELESTRAK_PAUSE_S] * 6
+    assert pauses == [config.CELESTRAK_PAUSE_S] * 4
     con, ops = env
-    assert out["gp_group_member"] == 18 and len(members(con)) == 18
-    assert ("starlink", "44714") in members(con) and not [m for m in members(con) if m[0] == "gnss"]
+    assert out["gp_group_member"] == 12 and len(members(con)) == 12
+    assert ("starlink", "44714") in members(con) and not [m for m in members(con) if m[0] in ("gnss", "intelsat", "ses")]
     assert out["gp_group_index"] == 7
 
 
@@ -283,42 +298,59 @@ def test_reports_index_groups_not_in_config(env):
 # ---------------------------------------------------------------- the dbt models on the landed sample
 
 
+CELESTRAK_MACROS = TRANSFORM / "macros" / "celestrak"
+
+
 def render(sql: str) -> str:
+    """source(), ref(), config() and the audit macro by substitution; the CelesTrak helper macros (D-046) by Jinja,
+    from their committed files, so the tests run the same exception logic as dbt."""
     sql = re.sub(r"\{\{\s*config\([^)]*\)\s*\}\}", "", sql)
     sql = re.sub(r"\{\{\s*source\('celestrak',\s*'(\w+)'\)\s*\}\}", r"raw_celestrak.\1", sql)
     sql = re.sub(r"\{\{\s*ref\('(\w+)'\)\s*\}\}", r"\1", sql)
-    return sql.replace("{{ helper__audit_fields() }}",
-                       "cast(current_timestamp as timestamp) as inserted_date_time, 'test' as inserted_by")
+    sql = sql.replace("{{ helper__audit_fields() }}",
+                      "cast(current_timestamp as timestamp) as inserted_date_time, 'test' as inserted_by")
+    macros = "".join(p.read_text(encoding="utf-8") for p in sorted(CELESTRAK_MACROS.glob("helper__*.sql")))
+    return jinja2.Environment().from_string(macros + sql).render()
+
+
+GROUP_MEMBERSHIP = TRANSFORM / "models" / "intermediate" / "satellite" / "int__celestrak__satellite_group_membership.sql"
 
 
 def build_models(con):
     for name in ("stg__celestrak__gp_group_member", "stg__celestrak__gp_group_index", "stg__celestrak__group_config"):
         con.execute(f"create or replace view {name} as "
                     + render((TRANSFORM / "models" / "staging" / "celestrak" / f"{name}.sql").read_text(encoding="utf-8")))
-    sql = (TRANSFORM / "models" / "intermediate" / "satellite" / "int__celestrak__satellite_constellation.sql")
-    con.execute("create or replace view int__celestrak__satellite_constellation as "
-                + render(sql.read_text(encoding="utf-8")))
+    con.execute("create or replace view int__celestrak__satellite_group_membership as "
+                + render(GROUP_MEMBERSHIP.read_text(encoding="utf-8")))
 
 
-def constellations(con):
-    return dict(con.execute("select satcat_id, constellation from int__celestrak__satellite_constellation").fetchall())
+def memberships(con) -> dict:
+    """{(satcat_id, group): (kind, display name, flag_name_fits_group)}"""
+    rows = con.execute("select satcat_id, celestrak_group, celestrak_group_kind, grouping_name, flag_name_fits_group "
+                       "from int__celestrak__satellite_group_membership").fetchall()
+    return {(r[0], r[1]): r[2:] for r in rows}
 
 
-def test_models_name_each_object_once_by_the_d026_rules(env):
+def constellations(con) -> dict:
+    """{satcat_id: name} of constellation group memberships (first in config order), as int__xsrc__ takes them."""
+    rows = con.execute("select satcat_id, arg_min(grouping_name, celestrak_group_order) "
+                       "from int__celestrak__satellite_group_membership where celestrak_group_kind = 'constellation' "
+                       "group by satcat_id").fetchall()
+    return dict(rows)
+
+
+def test_group_membership_names_kinds_and_exclusions(env):
     con, _ = env
-    # made-up overlaps to exercise precedence: a GPS satellite also in ses, an Intelsat satellite also in ses
-    ses = sample("ses") + sample("gps-ops").splitlines()[1] + "\n" + sample("intelsat").splitlines()[1] + "\n"
-    ingest(env, Fake(answers(ses=ses)))
+    ingest(env, Fake(answers()))
     build_models(con)
-    got = constellations(con)
-    assert got[44714] == "Starlink"            # STARLINK-1008
-    assert got[26407] == "GPS"                 # GPS BIIR-5: gps-ops beats ses (constellations first); "Operational" gone
-    assert got[32275] == "GLONASS"             # COSMOS 2433
-    assert got[26900] == "Intelsat"            # INTELSAT 902: intelsat beats ses (earlier operator)
-    assert got[26554] == "SES"                 # NSS-11
-    assert len(got) == 18                      # 3 rows x 6 included groups; gnss (excluded) adds nobody
-    assert con.execute("select count(*) from int__celestrak__satellite_constellation "
-                       "group by satcat_id having count(*) > 1").fetchall() == []
+    got = memberships(con)
+    assert got[(44714, "starlink")] == ("constellation", "Starlink", 1)     # STARLINK-1008
+    assert got[(26407, "gps-ops")] == ("system", "GPS", 1)                  # GPS BIIR-5: "Operational" gone
+    assert got[(32275, "glo-ops")] == ("system", "GLONASS", 1)              # COSMOS 2433
+    # D-047: intelsat and ses are operator fleets and gnss an umbrella term: excluded, never downloaded or counted
+    assert not [k for k in got if k[1] in ("intelsat", "ses", "gnss")]
+    assert len(got) == 12                      # 3 rows x 4 downloaded groups of the sample (starlink, oneweb, gps-ops,
+    #                                            glo-ops)
 
 
 def test_models_on_the_real_index_page(env):
@@ -334,10 +366,81 @@ def test_models_on_the_real_index_page(env):
     assert out["stage_status"] == "ok" and "groups_not_in_config" not in out
     assert fake.calls[1:] == [celestrak.GROUP_URL.format(group=g) for g, _ in celestrak_groups.included_groups()]
     build_models(con)
-    got = constellations(con)
-    assert (got[44714], got[26407], got[32275], got[44057]) == ("Starlink", "GPS", "GLONASS", "OneWeb")
+    got = memberships(con)
+    assert (got[(44714, "starlink")][1], got[(26407, "gps-ops")][1], got[(32275, "glo-ops")][1],
+            got[(44057, "oneweb")][1]) == ("Starlink", "GPS", "GLONASS", "OneWeb")
+    # D-047: tdrss is a system group; its relay satellites fit (most common leading word TDRS), the spacecraft
+    # CelesTrak lists there as TDRSS users don't, so the system model drops them
+    assert got[(19548, "tdrss")] == ("system", "Tracking and Data Relay Satellite System (TDRSS)", 1)   # TDRS 3
+    assert got[(20580, "tdrss")][2] == 0 and got[(25544, "tdrss")][2] == 0                              # HST, ISS
     test_sql = TRANSFORM / "tests" / "singular" / "assert__stg__celestrak__gp_group_index__groups_in_config.sql"
     assert con.execute(render(test_sql.read_text(encoding="utf-8"))).fetchall() == []   # config matches the page
+    assert con.execute(render(NAME_CHECK.read_text(encoding="utf-8"))).fetchall() == []  # every name fits its group
+
+
+NAME_CHECK = TRANSFORM / "tests" / "singular" / "assert__int__celestrak__satellite_group_membership__names_fit_group.sql"
+
+
+def test_name_check_warns_on_a_member_whose_name_does_not_fit(env):
+    """D-046: a constellation member whose name lacks its group's usual leading word (or the group's prefix) is
+    reported; system groups drop such members by rule (D-047) and aren't reported. HST in starlink is made up for the
+    test; HST in tdrss is real (a TDRSS user)."""
+    con, _ = env
+    hst = sample("tdrss").splitlines()[2] + "\n"                    # HST,1990-037B,...,20580,...
+    ingest(env, Fake(answers(SAMPLE_GROUPS + ["tdrss"], starlink=sample("starlink") + hst)))
+    build_models(con)
+    text = NAME_CHECK.read_text(encoding="utf-8")
+    assert re.search(r"config\(severity='warn'\)", text)       # warns, never fails the build
+    rows = con.execute(render(text)).fetchall()
+    assert rows == [("name_lacks_expected_string", "starlink", 20580, "HST", "STARLINK")]
+
+
+def group_csv(rows: list[tuple[str, str, int]]) -> str:
+    """A group CSV in CelesTrak's columns: (OBJECT_NAME, OBJECT_ID, NORAD_CAT_ID) per row, the elements of the
+    starlink sample's first row (only the three identifying columns matter to the models)."""
+    header, first = list(csv.reader(io.StringIO(sample("starlink"))))[:2]
+    out = io.StringIO()
+    w = csv.writer(out, lineterminator="\n")
+    w.writerow(header)
+    for name, object_id, norad in rows:
+        row = dict(zip(header, first), OBJECT_NAME=name, OBJECT_ID=object_id, NORAD_CAT_ID=str(norad))
+        w.writerow([row[c] for c in header])
+    return out.getvalue()
+
+
+def test_name_check_exceptions_live_in_the_macro(env):
+    """Names and NORAD ids from fetch run 45061938995. D-047 removed D-046's dmc exception: dmc's most common leading
+    word is DMC (DMC3-FM1..3), so BEIJING 1, HJ-1A and YAOGAN-4 don't fit (UK-DMC 2 does); GCAT adds BEIJING 1 and
+    DEIMOS-1 back through the DMC programme in the system model. hulianwang still accepts GUOWANG. HST in hulianwang
+    is made up: an unrelated name in a constellation group still warns."""
+    con, _ = env
+    dmc = group_csv([("BEIJING 1", "2005-043A", 28890), ("HUANJING 1A (HJ-1A)", "2008-041A", 33320),
+                     ("YAOGAN-4", "2008-061A", 33446), ("DEIMOS-1", "2009-041A", 35681),
+                     ("UK-DMC 2", "2009-041C", 35683), ("DMC3-FM1", "2015-032A", 40715),
+                     ("DMC3-FM2", "2015-032B", 40716), ("DMC3-FM3", "2015-032C", 40717)])
+    hulianwang = group_csv([("HULIANWANG DIGUI-01", "2024-240A", 62323), ("HULIANWANG DIGUI-02", "2024-240B", 62324),
+                            ("GUOWANG-30 OBJECT A", "2026-260A", 101416), ("HST", "1990-037B", 20580)])
+    ingest(env, Fake(answers(SAMPLE_GROUPS + ["dmc", "hulianwang"], dmc=dmc, hulianwang=hulianwang)))
+    build_models(con)
+    got = memberships(con)
+    assert [got[(n, "dmc")][2] for n in (28890, 33320, 33446, 35681, 35683, 40715)] == [0, 0, 0, 0, 1, 1]
+    assert got[(101416, "hulianwang")][1:] == ("Hulianwang", 1)
+    rows = con.execute(render(NAME_CHECK.read_text(encoding="utf-8"))).fetchall()
+    assert rows == [("name_lacks_expected_string", "hulianwang", 20580, "HST", "HULIANWANG")]
+    macro = (CELESTRAK_MACROS / "helper__flag_member_name_fits_group.sql").read_text(encoding="utf-8")
+    assert "{{ helper__flag_member_name_fits_group(" in GROUP_MEMBERSHIP.read_text(encoding="utf-8")
+    assert "= 'dmc'" not in macro and "'GUOWANG'" in macro
+
+
+def test_name_check_warns_when_a_prefix_matches_no_member(env, monkeypatch):
+    con, _ = env
+    monkeypatch.setattr(celestrak_groups, "CELESTRAK_MEMBER_NAME_PREFIX", {"tdrss": "TDRS"})   # none set since D-047
+    renamed = sample("tdrss").replace("TDRS ", "RELAY ")         # made up: CelesTrak renames the relay satellites
+    ingest(env, Fake(answers(SAMPLE_GROUPS + ["tdrss"], tdrss=renamed)))
+    build_models(con)
+    rows = con.execute(render(NAME_CHECK.read_text(encoding="utf-8"))).fetchall()
+    assert rows == [("prefix_matches_no_member", "tdrss", None, None, "TDRS")]
+    assert not [k for k in memberships(con) if k[1] == "tdrss"]       # no member meets the prefix
 
 
 def test_new_group_check_warns_on_unknown_and_vanished_groups(env):

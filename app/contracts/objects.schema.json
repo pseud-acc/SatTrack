@@ -2,13 +2,13 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://www.sattrackapp.com/contracts/objects.schema.json",
   "title": "SatTrack objects dataset",
-  "description": "Every tracked object with its OMM element set and the fields the app filters on (docs/app-data-contract.md, decisions D-009 to D-011). Written by pipeline/scripts/export_app_csvs.py, which validates every record against this schema before publishing. Field names are the dbt mart column names; their definitions are in the dbt docs. Additive changes keep schema 1; renaming a field or changing its meaning raises it.",
+  "description": "Every tracked object with its OMM element set and the fields the app filters on (docs/app-data-contract.md, decisions D-009 to D-011). Written by pipeline/scripts/export_app_csvs.py, which validates every record against this schema before publishing. Field names are the dbt mart column names; their definitions are in the dbt docs. Additive changes keep the schema number; renaming a field or changing its meaning raises it. Schema 2 (D-047): constellation replaced by satellite_constellation_name, primary_satellite_system_name and satellite_system_names.",
   "type": "object",
   "additionalProperties": false,
   "required": ["dataset", "schema", "count", "generated_at", "run_id", "key", "attribution", "caution", "records"],
   "properties": {
     "dataset": {"const": "objects"},
-    "schema": {"const": 1},
+    "schema": {"const": 2},
     "count": {"type": "integer", "minimum": 0, "description": "Number of records; equals the length of records."},
     "generated_at": {"type": "string", "format": "date-time", "description": "When the export wrote the file (UTC)."},
     "run_id": {"type": ["string", "null"], "description": "Pipeline run that built the tracking mart."},
@@ -30,8 +30,8 @@
         "bstar", "mean_motion_dot", "mean_motion_ddot", "rev_at_epoch", "element_set_no", "ephemeris_type",
         "classification_type", "orbital_period",
         "operational_status", "orbit_class", "owner_country", "launch_year", "mission_category_labels",
-        "ownership_class_labels", "launch_vehicle_brand", "site_location_country", "constellation",
-        "flag_space_station"
+        "ownership_class_labels", "launch_vehicle_brand", "site_location_country", "satellite_constellation_name",
+        "primary_satellite_system_name", "satellite_system_names", "flag_space_station"
       ],
       "properties": {
         "satcat_id": {"type": "integer", "minimum": 1, "description": "Catalogue number (NORAD_CAT_ID); the key."},
@@ -61,7 +61,9 @@
         "ownership_class_labels": {"$ref": "#/$defs/labels"},
         "launch_vehicle_brand": {"$ref": "#/$defs/nullable_text"},
         "site_location_country": {"$ref": "#/$defs/nullable_text"},
-        "constellation": {"$ref": "#/$defs/nullable_text", "description": "CelesTrak constellation or operator group the object belongs to, e.g. Starlink or GPS; null when none (D-026). Credit: Constellation groups: CelesTrak (Dr T.S. Kelso)."},
+        "satellite_constellation_name": {"$ref": "#/$defs/nullable_text", "description": "The constellation the object belongs to (near-identical satellites working together), e.g. Starlink or Sentinel-2; null when none (D-047). Credit: Constellation groups: CelesTrak (Dr T.S. Kelso)."},
+        "primary_satellite_system_name": {"$ref": "#/$defs/nullable_text", "description": "The satellite system the object was built for, e.g. GPS; null when none (D-047)."},
+        "satellite_system_names": {"$ref": "#/$defs/labels", "description": "Every satellite system the object belongs to, primary first, then systems it hosts a payload for (e.g. Search & Rescue (SARSAT), EGNOS); empty when none (D-047)."},
         "flag_space_station": {"type": "integer", "enum": [0, 1], "description": "1 when the object is in CelesTrak's Space Stations group (the ISS and Tiangong modules and visiting spacecraft), else 0 (D-043). Credit: Constellation groups: CelesTrak (Dr T.S. Kelso)."}
       }
     }
