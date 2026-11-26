@@ -27,6 +27,7 @@ print(json.dumps({
     "globe_children": None if globe is None else json.loads(json.dumps(getattr(globe, "children", None),
                                                                           cls=plotly.utils.PlotlyJSONEncoder)),
     "active_tab": getattr(components.get("sat-viz-tabs"), "active_tab", None),
+    "type_filter_hidden": getattr(components.get("type-filter"), "hidden", None),
     "viewer_config": getattr(components.get("viewer-config"), "data", None),
     "pages": pages,
     "vendor": {"status": vendor.status_code, "headers": dict(vendor.headers)},
