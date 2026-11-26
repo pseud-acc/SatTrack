@@ -96,10 +96,10 @@ def test_app_start_up_fails_loudly_without_the_objects_dataset(tmp_path, monkeyp
 
 def test_csv_satellites_missing_from_the_dataset_are_never_shown(sample_df):
     """The 2 sample CSV satellites that aren't in the sample's objects dataset can't be selected, even by number."""
-    from app.helper.helper__app_data import filter_satellite_data
+    from app.helper.helper__app_data import filter_satellite_data, sidebar_filter_spec
     table = filter_spec.table_from_dataset({"gzip": {"body": (APP_DATA_DIR / "objects.json.gz").read_bytes()}})
     absent = sorted(set(sample_df.SatCatId) - objects_sample_ids())
     assert len(absent) == 2
-    out, _, _ = filter_satellite_data(sample_df.copy(), table, **{**START, "satcatid": str(absent[0]),
-                                                                  "year": [1900, 2100]})
+    out, _, _ = filter_satellite_data(sample_df.copy(), table,
+                                      sidebar_filter_spec(**{**START, "satcatid": str(absent[0]), "year": [1900, 2100]}))
     assert out.empty

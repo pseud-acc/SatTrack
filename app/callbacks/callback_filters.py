@@ -27,7 +27,7 @@ import numpy as np
 import plotly.graph_objects as go
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
-from dash import Dash, callback_context
+from dash import Dash, callback_context, ctx, no_update
 
 
 ## Internal Modules
@@ -38,7 +38,8 @@ sys.path.append("../../")
 # app data
 from app.core.state import get_app_data
 # app functions
-from app.helper.helper__app_data import (filter_satellite_data)
+from app.helper.helper__app_data import (filter_satellite_data, sidebar_filter_spec, OBJECT_TYPES, JUNK_TYPES)
+from app.core import filter_spec as spec_rules
 from app.helper.helper__filter_display import (sort_filter_dropdown_options, format_year_slider_output)
 
 
@@ -88,25 +89,91 @@ def register(app):
                         owner, launchvehicle,
                         purpose, year):
 
-        # Filter data using helper
-        dff, _, _ = filter_satellite_data(df, filter_table,
-                                        status, orbit, satname, satcatid,
-                                        owner, launchvehicle, purpose, year)
+        # The search lists follow the other filters (not the type switches: the app CSV holds payloads only).
+        # Unchanged in 3.3a: 3.3b sets the lists once at load (Q8). It keeps its own inputs because it also writes the
+        # name and SATCAT values, which feed the filter-spec store (reading the store here would make a cycle).
+        def rows(name, catid):
+            spec = sidebar_filter_spec(status, orbit, name, catid, owner, launchvehicle, purpose, year)
+            return filter_satellite_data(df, filter_table, spec)[0]
+        dff = rows(satname, satcatid)
         if dff.shape[0] == 0:
             satname = None
             satcatid = None
-            dff, _, _ = filter_satellite_data(df, filter_table,
-                                        status, orbit, satname, satcatid,
-                                        owner, launchvehicle, purpose, year)
-        else:
-            dff, _, _ = filter_satellite_data(df, filter_table,
-                                        status, orbit, satname, satcatid,
-                                        owner, launchvehicle, purpose, year)
+            dff = rows(satname, satcatid)
         
         # Format dropdown options
         satname_options, satcatid_options = sort_filter_dropdown_options(dff)
 
         return satname_options, satcatid_options, satname, satcatid
+
+    '''------------------------
+    The filter spec (roadmap 3.3a)
+    -------------------------
+    Interactive Inputs: every panel control
+    Outputs: the page's filter-spec store, which the globe, Plotly 3D and 2D and the list read (Q7). The page renders
+    the starting spec into the store, so nothing runs at load.
+    '''
+
+    @app.callback(
+        Output('filter-spec', 'data'),
+        [
+            Input('status-filter-checkbox', 'value'),
+            Input('orbit-filter-checkbox', 'value'),
+            Input('satname-filter-dropdown', 'value'),
+            Input('satcatid-filter-dropdown', 'value'),
+            Input('owner-filter-multi-dropdown', 'value'),
+            Input('launchvehicle-filter-multi-dropdown', 'value'),
+            Input('purpose-filter-multi-dropdown', 'value'),
+            Input('launchyear-filter-slider', 'value'),
+            Input('type-filter-checkbox', 'value'),
+        ],
+        prevent_initial_call=True
+    )
+    def update_filter_spec(status, orbit, satname, satcatid, owner, launchvehicle, purpose, year, types):
+        spec = sidebar_filter_spec(status, orbit, satname, satcatid, owner or [], launchvehicle or [], purpose or [],
+                                   year, types or [])
+        return None if spec is None else spec_rules.validate(spec)
+
+    '''------------------------
+    Space junk mode (roadmap 3.3a; owner, 26 Nov 2026)
+    -------------------------
+    Interactive Inputs: the junk switch, the type switches
+    Outputs: the switch, the types, the status and the status to restore
+    Almost all rocket bodies and debris are Inactive, so junk mode on also ticks Inactive (remembering the status before);
+    off restores it. Ticking both junk types by hand turns the switch on, unticking either turns it off; neither
+    touches the status.
+    '''
+
+    @app.callback(
+        [
+            Output('junk-mode-switch', 'value'),
+            Output('type-filter-checkbox', 'value'),
+            Output('status-filter-checkbox', 'value'),
+            Output('status-before-junk', 'data'),
+        ],
+        [
+            Input('junk-mode-switch', 'value'),
+            Input('type-filter-checkbox', 'value'),
+        ],
+        [
+            State('status-filter-checkbox', 'value'),
+            State('status-before-junk', 'data'),
+        ],
+        prevent_initial_call=True
+    )
+    def junk_mode(junk, types, status, status_before):
+        types, status = list(types or []), list(status or [])
+        if ctx.triggered_id == 'junk-mode-switch':
+            if junk:
+                types = [t for t in OBJECT_TYPES if t in types or t in JUNK_TYPES]
+                new_status = [s for s in ("Active", "Inactive") if s in status or s == "Inactive"]
+                return no_update, types, new_status, status
+            types = [t for t in types if t not in JUNK_TYPES]
+            return no_update, types, (status_before if status_before is not None else status), None
+        both = all(t in types for t in JUNK_TYPES)
+        if bool(junk) == both:
+            raise PreventUpdate
+        return both, no_update, no_update, (no_update if both else None)
 
     '''------------------------
     Mobile responsiveness

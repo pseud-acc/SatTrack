@@ -122,6 +122,10 @@ SIDEBAR = {  # expected_ids() argument -> sidebar component id (its `value` prop
 }
 
 
+# Every panel control that feeds the filter-spec store (roadmap 3.3a)
+PANEL_CONTROLS = set(SIDEBAR.values()) | {"type-filter-checkbox"}
+
+
 def split_outputs(output):
     """'..a.x...b.y..' or 'a.x' -> [('a', 'x'), ('b', 'y')]; drops an allow_duplicate '@hash' suffix."""
     pairs = [p.rsplit(".", 1) for p in output.strip(".").split("...") if p]
@@ -174,11 +178,26 @@ class CallbackCaller:
             return values[key] if key in values else self.initial(cid, "value")
         return {name: v(cid) for name, cid in SIDEBAR.items()}
 
+    def spec_for(self, values):
+        """The filter spec the page's filter-spec callback makes from `values` (control 'id.value' overrides on the
+        starting state), run through /_dash-update-component like any callback (roadmap 3.3a)."""
+        changed = next((k for k in values if k.split(".")[0] in PANEL_CONTROLS), None)
+        if changed is None:
+            return self.initial("filter-spec", "data")
+        status, out = self.call("filter-spec", changed, **values)
+        assert status == 200, status
+        return out["filter-spec.data"]
+
     def call(self, output_id, changed, **values):
         """Run the callback that sets `output_id`. `changed` is the 'id.prop' that triggered it; `values`
         overrides inputs/state by 'id.prop' (pass as a dict via **{...}). Returns (status, outputs) where
-        outputs maps 'id.prop' to the returned value; status 204 means PreventUpdate."""
+        outputs maps 'id.prop' to the returned value; status 204 means PreventUpdate.
+        A callback that reads the filter-spec store (roadmap 3.3a) gets the spec the real filter-spec callback makes
+        from any panel values given, unless the test sets 'filter-spec.data' itself."""
         dep = self.find(output_id)
+        if (output_id != "filter-spec" and "filter-spec.data" not in values
+                and any(f"{x['id']}.{x['property']}" == "filter-spec.data" for x in dep["inputs"])):
+            values = {**values, "filter-spec.data": self.spec_for(values)}
 
         def item(x):
             key = f"{x['id']}.{x['property']}"

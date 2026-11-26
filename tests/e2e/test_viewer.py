@@ -114,46 +114,88 @@ def check_security(page):
 
 # ---- journeys ---------------------------------------------------------------------------------------------------
 
-def test_globe_opens_with_payloads_coloured_by_type(page, viewer_url):
+ALL_ORBITS = {"LEO", "MEO", "GEO", "GSO", "HEO"}
+
+
+def expected_shown(records, page, types, statuses):
+    """satcat_ids the page's filters should show, worked out here in plain Python over the sample (not with the app's
+    filter code): the given types and statuses, any orbit class, a launch year inside the slider's range (objects with
+    no year are outside it), never UNKNOWN; minus the objects satellite.js can't place."""
+    year = page.evaluate("window.sattrackViewerBridge.filters.clauses.find(c => c.field === 'launch_year').value")
+    lo, hi = year["min"], year["max"]
+    shown = {r["satcat_id"] for r in records
+             if r["object_type"] in types and r["object_type"] != "UNKNOWN"
+             and (r["operational_status"] if r["operational_status"] is not None else "Inactive") in statuses
+             and r["orbit_class"] in ALL_ORBITS
+             and r["launch_year"] is not None and lo <= r["launch_year"] <= hi}
+    return shown - set(page.evaluate("window.sattrackViewer.failed"))
+
+
+def shown_ids(page):
+    return set(page.evaluate("window.sattrackViewer.shownIds()"))
+
+
+def objects_requests(page):
+    return page.evaluate("performance.getEntriesByType('resource').filter(e => e.name.includes('/data/objects.json'))"
+                         ".length")
+
+
+def test_globe_opens_with_active_payloads_coloured_by_status(page, viewer_url):
+    """The page's starting spec (every active payload, any orbit; owner 26 Nov 2026) masks the globe before its first
+    positions; points take the status tokens and have no outline (owner, 24 Nov 2026)."""
     m = open_viewer(page, viewer_url)
-    doc = sample_records()
-    types = [r["object_type"] for r in doc["records"]]
-    assert m["engine"] == "worker-js" and m["count"] == len(types)
+    records = sample_records()["records"]
+    assert m["engine"] == "worker-js" and m["count"] == len(records)
     expect(page.locator("#sat-viz-tabs .nav-link.active")).to_have_text("Globe (beta)")
     wait_until(page, "() => window.sattrackViewer.shownCount > 0")
-    s = page.evaluate("({shown: window.sattrackViewer.shownCount, failed: window.sattrackViewer.hiddenFailed,"
-                      " types: window.sattrackViewer.types})")
-    assert s["types"]["PAYLOAD"] and not s["types"]["ROCKET BODY"] and not s["types"]["DEBRIS"]
-    assert not s["types"].get("UNKNOWN")
-    assert s["shown"] + s["failed"] == types.count("PAYLOAD")
-    legend = page.locator(".sattrack-viewer-legend")
-    for label, n in (("Payloads", types.count("PAYLOAD")), ("Rocket bodies", types.count("ROCKET BODY")),
-                     ("Debris", types.count("DEBRIS"))):
-        expect(legend).to_contain_text(f"{label} ({n})")
-    expect(legend).not_to_contain_text("Unknown")
+    want = expected_shown(records, page, {"PAYLOAD"}, {"Active"})
+    assert len(want) > 0 and shown_ids(page) == want
+    assert page.evaluate("window.sattrackViewer.colours") == {"active": "#f07a6e", "inactive": "#7d8aa0"}
+    assert page.locator(".sattrack-viewer-legend, .sattrack-viewer-panel input").count() == 0   # toggles: panel
     expect(page.locator("#globe canvas").first).to_be_visible()
     assert page.errors == []
     check_security(page)
 
 
-def test_toggles_and_space_junk_mode(page, viewer_url):
+def test_panel_type_switches_and_space_junk_mode_filter_the_globe_without_reloading(page, viewer_url):
+    """Roadmap 3.3a: the panel's controls drive the globe through the filter spec. Debris on its own shows nothing
+    while status is Active (the sample's debris are all Inactive; the note says almost all are); junk mode adds rocket bodies, debris and
+    Inactive; off restores. The data is fetched once and the canvas and worker survive every change."""
     open_viewer(page, viewer_url)
-    types = [r["object_type"] for r in sample_records()["records"]]
-    n = {t: types.count(t) for t in set(types)}
-    shown = "() => window.sattrackViewer.shownCount + window.sattrackViewer.hiddenFailed"
-    debris = page.locator('.sattrack-viewer-legend input[data-type="DEBRIS"]')
-    debris.check()
-    wait_until(page, f"() => ({shown})() === {n['PAYLOAD'] + n['DEBRIS']}")
-    junk = page.get_by_role("switch", name="Space junk mode")
-    expect(junk).not_to_be_checked()   # only one of the two is on
+    records = sample_records()["records"]
+    page.evaluate("window.__canvas = document.querySelector('#globe canvas')")
+    types = page.locator("#type-filter-checkbox")
+    expect(page.locator(".st-type-note")).to_contain_text("Almost all rocket bodies and debris are inactive")
+    changes = page.evaluate("window.sattrackViewer.filterChanges")
+
+    types.get_by_text("Debris", exact=True).click()
+    wait_until(page, f"() => window.sattrackViewer.filterChanges > {changes}")
+    assert page.evaluate("window.sattrackViewer.matchCounts.DEBRIS") == 0
+    assert shown_ids(page) == expected_shown(records, page, {"PAYLOAD"}, {"Active"})
+
+    junk = page.get_by_label("Space junk mode")
     junk.check()
-    expect(page.locator('.sattrack-viewer-legend input[data-type="ROCKET BODY"]')).to_be_checked()
-    wait_until(page, f"() => ({shown})() === {n['PAYLOAD'] + n['DEBRIS'] + n['ROCKET BODY']}")
+    expect(page.locator("#status-filter-checkbox").get_by_label("Inactive", exact=True)).to_be_checked()
+    want = expected_shown(records, page, {"PAYLOAD", "ROCKET BODY", "DEBRIS"}, {"Active", "Inactive"})
+    wait_until(page, f"() => window.sattrackViewer.shownIds().length === {len(want)}")
+    assert shown_ids(page) == want
+    assert page.evaluate("window.sattrackViewer.matchCounts.DEBRIS") > 0
+
     junk.uncheck()
-    expect(debris).not_to_be_checked()
-    wait_until(page, f"() => ({shown})() === {n['PAYLOAD']}")
-    # UNKNOWN never shows, whatever the toggles (D-011, D-016)
-    assert not page.evaluate("window.sattrackViewer.types.UNKNOWN")
+    expect(page.locator("#status-filter-checkbox").get_by_label("Inactive", exact=True)).not_to_be_checked()
+    want = expected_shown(records, page, {"PAYLOAD"}, {"Active"})
+    wait_until(page, f"() => window.sattrackViewer.shownIds().length === {len(want)}")
+    assert shown_ids(page) == want
+
+    page.locator("#orbit-filter-checkbox").get_by_label("LEO", exact=True).uncheck()
+    no_leo = {r["satcat_id"] for r in records if r["orbit_class"] == "LEO"}
+    want = expected_shown(records, page, {"PAYLOAD"}, {"Active"}) - no_leo
+    wait_until(page, f"() => window.sattrackViewer.shownIds().length === {len(want)}")
+    assert shown_ids(page) == want
+
+    assert objects_requests(page) == 1                                     # no data reload
+    assert page.evaluate("document.querySelector('#globe canvas') === window.__canvas")
+    assert not page.evaluate("window.sattrackViewer.error")
     assert page.errors == []
     check_security(page)
 
@@ -379,7 +421,7 @@ def test_budget_full_catalogue(page, browser, budget_url):
     assert built == payloads, "the worker must build only the shown types' records before the first positions"
     assert med["firstPositions"] <= FIRST_POSITIONS_CEILING_MS
     assert heap <= HEAP_MB
-    page.get_by_role("switch", name="Space junk mode").check()
+    page.get_by_label("Space junk mode").check()   # the panel's switch (3.3a): all types, Active + Inactive
     wait_until(page, "() => window.sattrackViewer.shownCount > 30000")
     page.evaluate("for (const k of ['frameMs', 'applyMs', 'workerMs']) window.sattrackViewer[k].length = 0")
     page.wait_for_timeout(5000)

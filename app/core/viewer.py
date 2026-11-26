@@ -19,6 +19,7 @@ from pathlib import Path
 from flask import Response, abort, request, send_file
 from werkzeug.http import parse_etags
 
+from app.core import filter_spec
 from app.core.data_files import choose_encoding
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -97,8 +98,11 @@ def viewer_config(manifest):
         return f"/static/viewer/{name}?v={_sha256(VIEWER_DIR / name)[:12]}"
 
     return {"module": own("viewer.js"), "worker": own("worker.js"), "css": own("viewer.css"),
+            "filterSpec": own("filter_spec.js"),
             "cesium": f"{VENDOR_URL}{dest['cesium']}/", "satellite": f"{VENDOR_URL}{dest['satellite.js']}/",
-            "data": "/data/objects.json"}
+            "data": "/data/objects.json",
+            # the filter spec's rules for the browser's implementation (static/viewer/filter_spec.js; roadmap 3.3a)
+            "specRules": filter_spec.browser_rules()}
 
 
 _STATE = {"checked": False, "manifest": None, "reason": None}

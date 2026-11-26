@@ -1,6 +1,6 @@
 # D-017 Colour by object type, with a "Colour by" menu
 
-**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #68
+**Status:** Accepted · **Date:** 2026-11-22 · **PRs:** #68 · **Default superseded by D-050** (colour by status)
 **Component:** the viewer · **Tier:** light
 
 ## Context

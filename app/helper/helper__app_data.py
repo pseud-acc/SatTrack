@@ -20,7 +20,7 @@ Todo:
 # Standard libraries
 import pandas as pd
 import numpy as np
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 # Internal modules
 from app.helper.helper__satellite_position import (compute_satloc, lla_to_xyz, satrecs_for)
@@ -48,12 +48,31 @@ def create_data_filters(df):
 # The sidebar shows "Unknown" where the objects dataset has no value (D-032): in a spec that is null.
 UNKNOWN = "Unknown"
 
+# Object types the panel offers, in display order. UNKNOWN is never offered and never put in a spec, so it stays
+# hidden (D-011, D-016).
+OBJECT_TYPES = ["PAYLOAD", "ROCKET BODY", "DEBRIS"]
+JUNK_TYPES = ["ROCKET BODY", "DEBRIS"]
+
+# What the tracker opens with (owner, 26 Nov 2026; roadmap 3.3a): every active payload in any orbit class.
+DEFAULT_STATUS = ["Active"]
+DEFAULT_ORBITS = ["LEO", "MEO", "GEO", "GSO", "HEO"]
+DEFAULT_TYPES = ["PAYLOAD"]
+
+# The launch-year slider's fixed bounds: 1958 (the first launches still catalogued) to the current year (UTC). The
+# tracker opens on the whole range (roadmap 3.3a), so no object is hidden by the year until someone moves the slider;
+# before, the range started at the app CSV's earliest payload, which could hide older rocket bodies and debris.
+LAUNCH_YEAR_MIN = 1958
+
+
+def launch_year_bounds():
+    return [LAUNCH_YEAR_MIN, datetime.now(timezone.utc).year]
+
 
 def _with_null(values):
     return [None if v == UNKNOWN else v for v in values]
 
 
-def sidebar_filter_spec(status, orbit, satname, satcatid, owner, launchvehicle, purpose, year):
+def sidebar_filter_spec(status, orbit, satname, satcatid, owner, launchvehicle, purpose, year, types=None):
     '''
     The filter spec (D-031) for the sidebar's values, in the objects dataset's field names (D-030).
 
@@ -63,9 +82,12 @@ def sidebar_filter_spec(status, orbit, satname, satcatid, owner, launchvehicle, 
     missing value. "Inactive" also covers objects with no status, as the app CSV always has (it fills a missing
     status with "Inactive").
 
-    @return: (dict) the spec, or None when the values can select nothing (no status or no orbit class ticked)
+    Object types (roadmap 3.3a): `types` is the panel's type switches, as an `object_type in [...]` clause in display
+    order; None leaves type out (the search dropdowns, which list the app CSV's payloads only).
+
+    @return: (dict) the spec, or None when the values can select nothing (no status, orbit class or type ticked)
     '''
-    if not status or not orbit:
+    if not status or not orbit or (types is not None and not types):
         return None
     status_values = list(status) + ([None] if "Inactive" in status else [])
     clauses = [
@@ -73,6 +95,8 @@ def sidebar_filter_spec(status, orbit, satname, satcatid, owner, launchvehicle, 
         {"field": "orbit_class", "op": "in", "value": list(orbit)},
         {"field": "launch_year", "op": "between", "value": {"min": int(year[0]), "max": int(year[1])}},
     ]
+    if types is not None:
+        clauses.insert(0, {"field": "object_type", "op": "in", "value": [t for t in OBJECT_TYPES if t in types]})
     if satname is not None:
         clauses.append({"field": "object_name", "op": "is_missing", "value": True} if satname == UNKNOWN
                        else {"field": "object_name", "op": "eq", "value": satname})
@@ -87,24 +111,20 @@ def sidebar_filter_spec(status, orbit, satname, satcatid, owner, launchvehicle, 
     return {"version": 1, "clauses": clauses}
 
 
-def filter_satellite_data(df_in, filter_table,
-             status, orbit, satname, satcatid, owner, launchvehicle, purpose, year):
+def filter_satellite_data(df_in, filter_table, spec):
     '''
     Filter the app CSV with the sidebar's values through the filter spec, then place the satellites now
     (pure function: neither input is modified).
 
     The spec runs on the filter table built from the objects dataset (D-035); the CSV rows with the selected
-    satcat_ids are kept, so the views see the same columns as before.
+    satcat_ids are kept, so the views see the same columns as before. The app CSV holds payloads only, so with
+    payloads switched off these views are empty until 3.6 retires them.
 
     @param df_in: (DataFrame) the app CSV
     @param filter_table: (DataFrame) the objects dataset's filterable fields (app.core.filter_spec)
-    @param status, orbit: (list) ticked values
-    @param satname, satcatid: (str or None) one satellite
-    @param owner, launchvehicle, purpose: (list) selected values (empty: no filter)
-    @param year: (list) [min, max], inclusive
+    @param spec: (dict or None) the filter spec (the page's filter-spec store, roadmap 3.3a); None selects nothing
     @return: (DataFrame) filtered rows with positions, time used, status encoded 1 (Active) / 0
     '''
-    spec = sidebar_filter_spec(status, orbit, satname, satcatid, owner, launchvehicle, purpose, year)
     if spec is None:
         ids = []
     else:

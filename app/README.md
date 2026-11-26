@@ -64,9 +64,11 @@ nothing below loads and no page changes.
   manifest against the lock and every file's SHA-256; if anything differs the globe stays off and the log says why.
   `GET /static/vendor/<path>` serves only manifest files, pre-compressed, cached for a year (the paths are versioned).
 - **Page:** with the flag on, the tracker gets a "Globe (beta)" tab (first, open by default) holding an empty
-  `div#globe` that no callback writes to, and four stores: `viewer-config` (same-origin URLs), `viewer-filters` (the
-  filter spec, from plan 3.3), `viewer-selection` (from plan 3.4) and `viewer-bridge`. A clientside callback (the
-  bridge, `callbacks/callback_viewer.py`) loads `static/viewer/viewer.js` as a module the first time the stores render.
+  `div#globe` that no callback writes to, and three stores: `viewer-config` (same-origin URLs and the filter spec's
+  rules), `viewer-selection` (from plan 3.4) and `viewer-bridge`. A clientside callback (the bridge,
+  `callbacks/callback_viewer.py`) loads `static/viewer/viewer.js` as a module the first time the stores render, and
+  hands it the page's `filter-spec` store, which the panel's controls write (plan 3.3a, D-048); the worker masks its
+  records with `static/viewer/filter_spec.js`, so a filter change never reloads the data.
   Viewer code lives in `static/viewer/`, never `assets/` (which Dash loads on every page).
 - **Viewer:** `static/viewer/worker.js` fetches `/data/objects.json`, builds satellite.js records from the OMM fields
   and returns Earth-fixed positions on a grid of simulation time (1 s, widened up to 10 s when the worker or the frames

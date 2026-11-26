@@ -5,18 +5,20 @@ Combines all filter components into a cohesive sidebar.
 
 from dash import html
 import dash_bootstrap_components as dbc
+from app.layouts.components.filters.type_filter import create_type_filter
 from app.layouts.components.filters.status_filter import create_status_filter
 from app.layouts.components.filters.orbit_filter import create_orbit_filter
 from app.layouts.components.filters.search_filter import create_search_filter
 from app.layouts.components.filters.advanced_filters import create_advanced_filters
 
 
-def create_filter_sidebar(options):
+def create_filter_sidebar(options, type_totals=None):
     """
     Create the complete filter sidebar with all filter components.
 
     Args:
         options (dict): Dictionary containing all filter options
+        type_totals (dict): object type -> count in the objects dataset (the type switches show it)
 
     Returns:
         dbc.Col: Filter sidebar column component
@@ -44,6 +46,9 @@ def create_filter_sidebar(options):
             ], className="st-panel-head"),
             dbc.Collapse([
                 dbc.CardBody([
+                    # Object types (roadmap 3.3a)
+                    create_type_filter(type_totals or {}),
+
                     # Status Filter
                     create_status_filter(),
 

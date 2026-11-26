@@ -59,13 +59,13 @@ Where SatTrack is today in each area, what it should do, and the work to get the
 | 0 | Housekeeping & guardrails | 12 (done) | 2–3 |
 | 1 | OMM propagation | 8 (done) | 2 |
 | 2 | Client data contract + filter spec | 11.5 (incl. 2.4, the one task left) | 2–3 |
-| 3 | Cesium migration | 73.5 (spike 3.1: 3, done; core 54.5 incl. 3.7, 3.12, 3.13; extensions 16; +15% buffer → ~84.5) | 15–17 |
+| 3 | Cesium migration | 81.5 (spike 3.1: 3, done; core 59.5 incl. 3.3a/3.3b, 3.7, 3.12, 3.13; extensions 19 incl. 3.14; +15% buffer → ~93.5) | 17–19 |
 | 4 | Freshness & SupGP | 12 | 3 |
 | 5 | Detail enrichment | 12 (incl. 5.4 and the optional 5.3) | 2–3 |
 | 6 | Natural-language query | 20 (+25% buffer → 25) | 4–5 |
 | 7 | Backlog (pick as wanted) | — | — |
 
-Each phase's hours are the sum of its task estimates, done tasks included; the plan adds the stated buffers (Phase 3 +15%, Phase 6 +25%). To the end of Phase 6 that is **149 h of estimates, ~165 h with the buffers: roughly 33 weeks (~7.5 months) at 5 h a week**, of which 47 h is done (Phases 0 and 1, 2.1 to 2.3, 3.1, 3.2 and 3.8), leaving ~115 h with the buffers (~23 weeks). It includes the tasks added by the review, the Phase 3 scope set after the Cesium spike (D-028; 93 h as originally written) and the design and "Colour by" tasks added on 24 Nov 2026 (3.12, 3.13; D-044, D-045). Phases 4 and 5 are independent of 3 and can be swapped in if Cesium work stalls.
+Each phase's hours are the sum of its task estimates, done tasks included; the plan adds the stated buffers (Phase 3 +15%, Phase 6 +25%). To the end of Phase 6 that is **157 h of estimates, ~174 h with the buffers: roughly 35 weeks (~8 months) at 5 h a week**, of which ~56 h is done (Phases 0 and 1, 2.1 to 2.3, 3.1, 3.2, 3.8 and 3.12), leaving ~114 h with the buffers (~23 weeks). On 26 Nov 2026 3.3 was split into 3.3a and 3.3b (~11 h against ~6 h, D-048) and the constellation and system filters were added as 3.14 (~3 h, D-047). It includes the tasks added by the review, the Phase 3 scope set after the Cesium spike (D-028; 93 h as originally written) and the design and "Colour by" tasks added on 24 Nov 2026 (3.12, 3.13; D-044, D-045). Phases 4 and 5 are independent of 3 and can be swapped in if Cesium work stalls.
 
 ---
 
@@ -136,7 +136,7 @@ Each phase's hours are the sum of its task estimates, done tasks included; the p
 
 ---
 
-## Phase 3 — Cesium migration (~73.5 h: spike ~3 h (done), core ~54.5 h, extensions ~16 h; plan for ~84.5 h)
+## Phase 3 — Cesium migration (~81.5 h: spike ~3 h (done), core ~59.5 h, extensions ~19 h; plan for ~93.5 h)
 
 **Goal:** replace Plotly 3D/2D with a CesiumJS viewer, propagating in the browser.
 
@@ -161,7 +161,9 @@ Each phase's hours are the sum of its task estimates, done tasks included; the p
 
 3.12 `feature/design-tokens-shell` — The design direction (D-044), before 3.3: remove `assets/bootstrap.css` and `assets/bootstrap.min.css` (an old Bootstrap 4.5 Cyborg build that Dash loads on every page) and `dbc.themes.CYBORG` (Bootstrap 5.3 from the jsDelivr CDN); plain Bootstrap 5 plus `tokens.css` (colours, type scale, spacing, radius) shared by the Dash shell and the viewer; deep navy chrome with the one teal accent `#2bb3a3`; Bootstrap 5.3's CSS and the Source Sans 3 font committed under `assets/`, each pinned by a SHA-256 unit test; inline SVG icons instead of Font Awesome's CDN (shortens the CSP, D-041); 15 px app text, 16 px reading text; no inline font sizes or colours in Python layouts. Also the globe size: a compact top bar, the globe filling the rest of the window (instead of Plotly's `calc(70vh - 100px)`) and a full-screen button. (~8–10 h)
 
-3.3 `feature/cesium-filters` — Sidebar filter spec (2.2) → `dcc.Store` → clientside callback that shows/hides points without reloading data; the browser implementation runs the shared conformance cases (`tests/contracts/filter_spec_cases.json`). Built as the left filter panel in 3.12's look (D-044), collapsible to a thin strip: a live match count ("19,742 of 32,652 objects"); changes apply at once (no Update button); object-type toggles with colour swatches and counts; segmented controls for status and orbit; "More filters" as rows showing their current value; active-filter chips with "Clear all"; no "Clear Orbits" (the orbit path is a selection toggle, D-019). (~6 h)
+3.3a `feature/cesium-filters` — The panel drives the globe (D-048 to D-050): one page-level filter-spec store read by the globe, Plotly 3D/2D and the list; object-type switches and Space junk mode in the panel (junk mode also ticks Inactive), with a note that almost all junk is inactive; the browser's filter spec (`static/viewer/filter_spec.js`) runs the shared conformance cases and masks in the worker with no data reload; opens on every active satellite in any orbit; points coloured by status with no outline. Flag stays off. (~5.5 h)
+
+3.3b `feature/filter-panel` — The rest of the panel (D-044, D-048): live match count ("16,576 of 32,652 objects", computed on the server), type counts "matching / total", segmented status and orbit controls, "More filters" rows showing their values, active-filter chips with "Clear all", no Update button, Clear Orbits into the Plotly 3D tab, search lists set once at load (Q8 S2), a hint when a shown type matches 0, a filter-change budget test, the D-027 release check, then the globe switched on with the Heroku config var (owner's go-ahead). (~5.5 h)
 
 3.13 `feature/cesium-colour-by` — The "Colour by" menu and legend (D-017), straight after 3.3 (D-045): object type (default), orbit class, status and owner. (~3 h)
 
@@ -189,7 +191,7 @@ Each phase's hours are the sum of its task estimates, done tasks included; the p
 
 3.10 `feature/cesium-constellations` — Adds "constellation" and "satellite system" to 3.13's "Colour by" menu and legend, from the D-047 fields (`satellite_constellation_name`, `primary_satellite_system_name`), with the CelesTrak credit. (~2 h)
 
-3.3b `feature/cesium-group-filters` — Constellation and satellite system filters (D-047): multi-selects on `satellite_constellation_name` and `satellite_system_names`, a "primary system only" switch, and info popovers showing each grouping's definition and source link (`dim__satellite_constellation`, `dim__satellite_system`). Follows 3.3. (~3 h, estimate)
+3.14 `feature/cesium-group-filters` — Constellation and satellite system filters (D-047): multi-selects on `satellite_constellation_name` and `satellite_system_names`, a "primary system only" switch, and info popovers showing each grouping's definition and source link (`dim__satellite_constellation`, `dim__satellite_system`). Follows 3.3b. (~3 h, estimate)
 
 3.11 `feature/cesium-daylight` — Day/night terminator and satellites dimmed in Earth's shadow; switches the worker to satellite.js's WASM `BulkPropagator` (zero-vector guard, parity-test row, `'wasm-unsafe-eval'` in the CSP) (D-029). (~6 h)
 

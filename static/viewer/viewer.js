@@ -7,19 +7,21 @@
 // - Positions come from static/viewer/worker.js, which propagates every shown object on a grid of simulation time;
 //   this thread only interpolates linearly between the two samples around the current time (D-015). The grid step
 //   adapts between 0.25 and 10 s of simulation time to the worker's speed, the frame rate and the play speed.
-// - One PointPrimitiveCollection for every object, coloured by type with a legend; payloads by default, toggles for
-//   rocket bodies and debris and a "space junk mode" switch for both; UNKNOWN never shown (D-016, D-017).
+// - One PointPrimitiveCollection for every object, coloured by status (Active soft red, Inactive grey, from the design
+//   tokens; no outline: owner, 24 Nov 2026). What is shown follows the page's filter spec (roadmap 3.3a): the panel's
+//   controls, type switches included, write it to the filter-spec store, the Dash bridge hands it to mount(), and the
+//   worker re-masks its records. Nothing is reloaded. UNKNOWN is never shown (D-011, D-016).
 // - Natural Earth II from the self-hosted Cesium, no Cesium ion (D-014, D-022). SatTrack's credits replace
 //   Cesium's credit display. Every data string is written with textContent.
 // - The clock is corrected by the offset between this device and the server's Date header.
 // - window.sattrackViewer exposes state and timings for the browser tests (parity and the D-027 budget).
 
 const TYPES = ["PAYLOAD", "ROCKET BODY", "DEBRIS", "UNKNOWN"];
-const STYLE = {   // Okabe-Ito colours (colour-blind safe), with a dark outline so points read on natural colour (D-022)
-  "PAYLOAD": { label: "Payloads", colour: "#56B4E9" },
-  "ROCKET BODY": { label: "Rocket bodies", colour: "#E69F00" },
-  "DEBRIS": { label: "Debris", colour: "#CC79A7" },
-};
+// Status colours come from the design tokens (assets/03_tokens.css), read when the points are made; the fallbacks are
+// the same values, for a page without the app's stylesheet. "Colour by" (roadmap 3.13) adds the other palettes.
+const STATUS_TOKENS = { active: ["--st-active", "#f07a6e"], inactive: ["--st-inactive", "#7d8aa0"] };
+const token = ([name, fallback]) =>
+  (getComputedStyle(document.documentElement).getPropertyValue(name) || "").trim() || fallback;
 const STEPS = [0.25, 0.5, 1, 2, 5, 10];     // seconds of simulation time between worker samples (D-015)
 const KEEP = 600;                            // timings kept per series
 const CREDITS = [
@@ -34,7 +36,7 @@ const CREDITS = [
 const S = window.sattrackViewer = window.sattrackViewer || {};
 Object.assign(S, {
   version: 1, ready: false, error: null, engine: null, step: 1, clockOffsetMs: 0, count: 0, failed: [],
-  shownCount: 0, hiddenFailed: 0, typeCounts: {}, types: { "PAYLOAD": true, "ROCKET BODY": false, "DEBRIS": false },
+  shownCount: 0, hiddenFailed: 0, typeCounts: {}, matchCounts: {}, filters: null, filterChanges: 0,
   marks: {}, frameMs: [], applyMs: [], workerMs: [], hint: null,
 });
 const push = (arr, v) => { arr.push(v); if (arr.length > KEEP) arr.shift(); };
@@ -142,8 +144,10 @@ class Viewer {
     // with the worker's "ready", so the first positions need no extra round trip.
     this.step = S.step = 1;
     const t0 = Math.floor(Date.now() / 1000) * 1000;
+    this.spec = S.filters;   // the page's starting spec, rendered into the store: masked before the first samples
     this.worker.postMessage({ type: "init", data: this.config.data, satellite: this.config.satellite,
-                              first: { dates: [t0, t0 + 1000], types: this.activeCodes() } });
+                              filterSpec: this.config.filterSpec, rules: this.config.specRules, spec: this.spec,
+                              first: { dates: [t0, t0 + 1000] } });
     const clock = serverClock(this.config.data);
 
     const Cesium = await loadCesium(this.config);
@@ -175,12 +179,12 @@ class Viewer {
     this.widget.clock.currentTime = Cesium.JulianDate.fromDate(new Date(Date.now() + S.clockOffsetMs));
 
     this.points = this.widget.scene.primitives.add(new Cesium.PointPrimitiveCollection());
-    const colours = TYPES.map((t) => Cesium.Color.fromCssColorString(STYLE[t] ? STYLE[t].colour : "#ffffff"));
-    const outline = Cesium.Color.fromCssColorString("#101010");
-    this.handles = Array.from(this.typeCodes, (code) => this.points.add({
-      position: Cesium.Cartesian3.ZERO, show: false, pixelSize: 4, color: colours[code],
-      outlineColor: outline, outlineWidth: 1,
+    const colours = [token(STATUS_TOKENS.inactive), token(STATUS_TOKENS.active)].map((c) => Cesium.Color.fromCssColorString(c));
+    S.colours = { active: token(STATUS_TOKENS.active), inactive: token(STATUS_TOKENS.inactive) };
+    this.handles = Array.from(m.active, (a) => this.points.add({
+      position: Cesium.Cartesian3.ZERO, show: false, pixelSize: 4, color: colours[a], outlineWidth: 0,
     }));
+    this.mask = new Uint8Array(this.typeCodes.length);
     this.buildPanel();
 
     // First positions: the two samples computed with "ready", then one sample ahead always in flight.
@@ -189,6 +193,12 @@ class Viewer {
     S.engine = `worker-${init.engine}`;
     S.builtBeforeReady = init.built;   // records built before the first positions (D-042)
     S.failed = init.failed;
+    this.mask = init.mask;
+    S.matchCounts = init.counts;
+    if (init.specError) console.warn("SatTrack viewer: filter spec rejected:", init.specError);
+    this.workerReady = true;
+    // A spec that changed while the worker was starting (the page's filters moved during load)
+    if (JSON.stringify(S.filters) !== JSON.stringify(this.spec)) this.setFilters(S.filters);
     push(S.workerMs, init.first.ms / 2);
     [this.a, this.b] = init.first.dates.map((t, i) => ({ t, pos: init.first.positions[i] }));
     this.c = null;
@@ -206,12 +216,10 @@ class Viewer {
 
   simTime() { return this.Cesium.JulianDate.toDate(this.widget.clock.currentTime).getTime(); }
 
-  activeCodes() { return TYPES.map((t, i) => (S.types[t] ? i : -1)).filter((i) => i >= 0); }
-
   async sample(ms) {
-    const r = await this.call({ type: "compute", dates: [ms], types: this.activeCodes() });
+    const r = await this.call({ type: "compute", dates: [ms] });
     push(S.workerMs, r.ms);
-    return { t: ms, pos: r.positions[0], types: this.activeCodes().join() };
+    return { t: ms, pos: r.positions[0] };
   }
 
   requestNext() {
@@ -243,17 +251,16 @@ class Viewer {
     } catch (e) { this.fail(e); } finally { this.resyncing = false; }
   }
 
-  // Interpolate between samples a and b and move the points (metres). Objects of hidden types, and failed objects
-  // (NaN in either sample), are hidden.
+  // Interpolate between samples a and b and move the points (metres). Objects outside the filter mask, and failed
+  // objects (NaN in either sample), are hidden.
   apply(t) {
-    const { a, b, handles, typeCodes } = this;
+    const { a, b, handles, mask } = this;
     const f = b.t > a.t ? Math.min(1, Math.max(0, (t - a.t) / (b.t - a.t))) : 0;
     const scratch = this.scratch || (this.scratch = new this.Cesium.Cartesian3());
-    const shownTypes = TYPES.map((name) => !!S.types[name]);
     let shown = 0, bad = 0;
     for (let i = 0; i < handles.length; i++) {
       const h = handles[i];
-      if (!shownTypes[typeCodes[i]]) { if (h.show) h.show = false; continue; }
+      if (!mask[i]) { if (h.show) h.show = false; continue; }
       const j = 3 * i;
       const x = a.pos[j] + (b.pos[j] - a.pos[j]) * f, y = a.pos[j + 1] + (b.pos[j + 1] - a.pos[j + 1]) * f,
             z = a.pos[j + 2] + (b.pos[j + 2] - a.pos[j + 2]) * f;
@@ -278,41 +285,34 @@ class Viewer {
     const step = STEPS.find((s) => s >= want) || STEPS[STEPS.length - 1];
     if (step !== this.step) { this.step = S.step = step; }
     // D-027: suggest switching debris off when junk mode runs below 20 fps for 5 s; never do it automatically.
-    const slow = S.types.DEBRIS && S.frameMs.length > 60 && avg(S.frameMs.slice(-150)) > 50;
+    const slow = (S.matchCounts.DEBRIS || 0) > 0 && S.frameMs.length > 60 && avg(S.frameMs.slice(-150)) > 50;
     S.hint = slow ? "Running slowly: switching debris off makes the globe smoother." : null;
     if (this.hintEl) this.hintEl.textContent = S.hint || "";
   }
 
-  setTypes(types) {
-    Object.assign(S.types, types);
-    S.types.UNKNOWN = false;   // never shown (D-011, D-016)
-    this.syncPanel();
-    // Newly shown types have no positions in the current samples: resample now rather than wait a step.
-    if (this.a) this.resync(this.simTime());
+  // A new filter spec from the page (roadmap 3.3a): the worker re-masks its records (no reload, same worker), then
+  // the points are resampled at once so newly shown objects don't wait a step.
+  async setFilters(spec) {
+    S.filters = spec;
+    if (!this.workerReady) return;   // the spec is picked up when the worker is ready
+    const gen = this.filterGen = (this.filterGen || 0) + 1;
+    try {
+      const r = await this.call({ type: "filter", spec });
+      if (gen !== this.filterGen || this.destroyed) return;   // a newer spec is on its way
+      this.spec = spec;
+      this.mask = r.mask;
+      S.matchCounts = r.counts;
+      S.filterChanges++;
+      this.apply(this.simTime());
+      if (this.a) this.resync(this.simTime());
+    } catch (e) { console.warn("SatTrack viewer: filter not applied:", String(e)); }
   }
 
+  // The overlay keeps the status line, the slow-device hint and the credits; the type switches are in the page's
+  // filter panel since roadmap 3.3a.
   buildPanel() {
     const panel = el("div", "sattrack-viewer-panel");
-    panel.setAttribute("aria-label", "Globe legend and object types");
-    const legend = el("ul", "sattrack-viewer-legend");
-    this.boxes = {};
-    for (const [type, style] of Object.entries(STYLE)) {
-      const li = el("li"), label = el("label"), box = el("input"), swatch = el("span", "sattrack-viewer-swatch");
-      box.type = "checkbox";
-      box.dataset.type = type;
-      box.addEventListener("change", () => this.setTypes({ [type]: box.checked }));
-      swatch.style.backgroundColor = style.colour;
-      label.append(box, swatch, el("span", null, `${style.label} (${(S.typeCounts[type] || 0).toLocaleString()})`));
-      li.append(label);
-      legend.append(li);
-      this.boxes[type] = box;
-    }
-    const junkLabel = el("label", "sattrack-viewer-junk"), junk = el("input");
-    junk.type = "checkbox";
-    junk.setAttribute("role", "switch");
-    junk.addEventListener("change", () => this.setTypes({ "ROCKET BODY": junk.checked, "DEBRIS": junk.checked }));
-    junkLabel.append(junk, el("span", null, "Space junk mode"));
-    this.junk = junk;
+    panel.setAttribute("aria-label", "Globe status");
     this.statusEl = el("div", "sattrack-viewer-status", "Loading…");
     this.hintEl = el("div", "sattrack-viewer-hint");
     const credits = el("div", "sattrack-viewer-credits");
@@ -322,15 +322,8 @@ class Viewer {
       line.append(document.createTextNode(before), link, document.createTextNode(after));
       credits.append(line);
     }
-    panel.append(legend, junkLabel, this.statusEl, this.hintEl);
+    panel.append(this.statusEl, this.hintEl);
     this.container.append(panel, credits);
-    this.syncPanel();
-  }
-
-  syncPanel() {
-    if (!this.boxes) return;
-    for (const [type, box] of Object.entries(this.boxes)) box.checked = !!S.types[type];
-    this.junk.checked = !!(S.types["ROCKET BODY"] && S.types.DEBRIS);
   }
 
   updateStatus() {
@@ -358,11 +351,15 @@ class Viewer {
 // parity test: [[satcat_id, x, y, z], ...]; NaN (null in JSON) for objects that fail.
 S.snapshot = async (iso) => {
   if (!current || !current.ids) throw new Error("viewer not ready");
-  const r = await current.call({ type: "compute", dates: [Date.parse(iso)], types: [] });
+  const r = await current.call({ type: "compute", dates: [Date.parse(iso)], all: true });
   const p = r.positions[0];
   return Array.from(current.ids, (id, i) => [id, p[3 * i], p[3 * i + 1], p[3 * i + 2]]);
 };
-S.setTypes = (types) => current && current.setTypes(types);
+// The satcat_ids shown now (in the mask and placed), for the browser tests' exact-id checks.
+S.shownIds = () => {
+  if (!current || !current.handles) return [];
+  return Array.from(current.ids).filter((id, i) => current.mask[i] && current.handles[i].show);
+};
 S.metrics = () => ({
   ready: S.ready, engine: S.engine, step: S.step, count: S.count, shown: S.shownCount, hiddenFailed: S.hiddenFailed,
   firstPositionsMs: S.firstPositionsMs, mainMsPerFrame: avg(S.applyMs), frameMs: avg(S.frameMs),
@@ -372,10 +369,13 @@ S.metrics = () => ({
 // Called by the Dash bridge whenever the tracker page (re)renders its stores. A page re-render replaces div#globe,
 // so a viewer whose container has left the document is destroyed and a new one mounted.
 S.mount = (config, filters) => {
-  S.filters = filters;   // the sidebar filter spec arrives here in roadmap 3.3
   const container = document.getElementById("globe");
-  if (!container || !config) return "no-container";
-  if (current && current.container === container) return "mounted";
+  if (!container || !config) { S.filters = filters; return "no-container"; }
+  if (current && current.container === container) {
+    if (JSON.stringify(filters) !== JSON.stringify(S.filters)) current.setFilters(filters);
+    return "mounted";
+  }
+  S.filters = filters;
   if (current) current.destroy();
   current = new Viewer(container, config);
   current.start().catch((e) => current && current.fail(e));

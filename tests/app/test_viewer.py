@@ -15,7 +15,7 @@ from _viewer_support import flag_on_app, make_fake_vendor
 
 from app.core import viewer as viewer_mod
 
-VIEWER_IDS = {"globe", "viewer-config", "viewer-filters", "viewer-selection", "viewer-bridge"}
+VIEWER_IDS = {"globe", "viewer-config", "viewer-selection", "viewer-bridge"}   # filter-spec is page-level (3.3a)
 
 
 # ---- flag off: production unchanged -----------------------------------------------------------------------------
@@ -63,16 +63,20 @@ def flag_on(tmp_path_factory):
 
 def test_flag_on_tracker_mounts_the_globe_tab(flag_on):
     assert VIEWER_IDS <= set(flag_on["tracker_ids"])
+    assert "filter-spec" in flag_on["tracker_ids"]   # the spec the bridge hands the viewer
     assert flag_on["active_tab"] == "globe"
     assert flag_on["globe_children"] is None   # the empty div Cesium mounts into (D-013)
     config = flag_on["viewer_config"]
     assert config["cesium"] == "/static/vendor/cesium-1.147.0/"
     assert config["satellite"] == "/static/vendor/satellite.js-7.1.0/"
     assert config["data"] == "/data/objects.json"
-    for key in ("module", "worker", "css"):
+    for key in ("module", "worker", "css", "filterSpec"):
         assert config[key].startswith("/static/viewer/") and "?v=" in config[key]
     # every URL the viewer is given is same-origin (D-014: no third party at runtime)
-    assert all(v.startswith("/") and not v.startswith("//") for v in config.values())
+    assert all(v.startswith("/") and not v.startswith("//") for v in config.values() if isinstance(v, str))
+    # the browser's filter rules are the schema's (roadmap 3.3a; tests/e2e/test_filter_spec_browser.py checks them)
+    from app.core.filter_spec import browser_rules
+    assert config["specRules"] == browser_rules()
 
 
 def test_no_callback_ever_outputs_to_the_globe(flag_on):

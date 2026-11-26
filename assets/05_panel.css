@@ -152,3 +152,16 @@
 .st-tip-body { text-align: left; }
 .st-orbit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); }
 .st-orbit-grid input, .st-status-list input { margin-right: 5px; }
+
+/* ---- Object types (roadmap 3.3a): switches with the data colour, the total, the junk switch and the note ---------- */
+.st-type-list .dash-options-list-option-text { width: 100%; }
+.st-type-option { display: flex; align-items: center; gap: var(--st-2); width: 100%; }
+.st-type-name { flex: 1 1 auto; }
+.st-type-total { color: var(--st-muted); font-size: var(--st-fs-sm); font-variant-numeric: tabular-nums; }
+.st-swatch { display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex: 0 0 auto; }
+.st-swatch-payload { background: var(--st-payload); }
+.st-swatch-rocket { background: var(--st-rocket); }
+.st-swatch-debris { background: var(--st-debris); }
+.st-junk-switch { margin: var(--st-2) 0 var(--st-1); font-weight: 600; }
+.st-junk-switch .form-check-input:checked { background-color: var(--st-accent); border-color: var(--st-accent); }
+.st-type-note { margin: 0; color: var(--st-muted); font-size: var(--st-fs-xs); line-height: 1.4; }
