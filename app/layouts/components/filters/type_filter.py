@@ -27,9 +27,12 @@ def _option(object_type, total):
     }
 
 
-def create_type_filter(type_totals):
+def create_type_filter(type_totals, shown=True):
     """
     @param type_totals: (dict) object type -> number of objects of that type in the objects dataset
+    @param shown: (bool) False hides the section (still in the page, so its callbacks keep working). Only the globe can
+                  draw rocket bodies and debris: the Plotly views draw the app CSV, which holds payloads only, so with
+                  the globe off the switches would do nothing (fix, 26 Nov 2026)
     @return: html.Div with the type checklist (id type-filter-checkbox), the junk switch (junk-mode-switch), the note,
              and the store that remembers the status from before junk mode (status-before-junk)
     """
@@ -45,4 +48,4 @@ def create_type_filter(type_totals):
         html.P("Almost all rocket bodies and debris are inactive, so most show only with Inactive ticked. "
                "Space junk mode does this for you.", className="st-type-note"),
         dcc.Store(id="status-before-junk", data=None),
-    ], className="st-type-filter")
+    ], id="type-filter", className="st-type-filter", hidden=not shown)

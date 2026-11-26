@@ -45,6 +45,8 @@ def test_flag_off_tracker_has_no_viewer(app_module, dependencies, client):
     tracker = layout_by_id(app_module.display_page("/sat_visualisation"))
     assert not VIEWER_IDS & set(tracker)
     assert tracker["sat-viz-tabs"].active_tab == "3d-viz"
+    # Only the globe draws rocket bodies and debris, so the type switches and junk mode are hidden without it
+    assert tracker["type-filter"].hidden is True
     assert not [d for d in dependencies if d.get("clientside_function") or "viewer" in d["output"]]
     for path in ("/", "/sat_visualisation"):
         resp = client.get(path)
@@ -65,6 +67,7 @@ def test_flag_on_tracker_mounts_the_globe_tab(flag_on):
     assert VIEWER_IDS <= set(flag_on["tracker_ids"])
     assert "filter-spec" in flag_on["tracker_ids"]   # the spec the bridge hands the viewer
     assert flag_on["active_tab"] == "globe"
+    assert flag_on["type_filter_hidden"] is False   # the type switches and junk mode, which the globe can draw
     assert flag_on["globe_children"] is None   # the empty div Cesium mounts into (D-013)
     config = flag_on["viewer_config"]
     assert config["cesium"] == "/static/vendor/cesium-1.147.0/"

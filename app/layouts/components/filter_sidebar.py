@@ -10,6 +10,7 @@ from app.layouts.components.filters.status_filter import create_status_filter
 from app.layouts.components.filters.orbit_filter import create_orbit_filter
 from app.layouts.components.filters.search_filter import create_search_filter
 from app.layouts.components.filters.advanced_filters import create_advanced_filters
+from app.core.viewer import viewer_state
 
 
 def create_filter_sidebar(options, type_totals=None):
@@ -46,8 +47,9 @@ def create_filter_sidebar(options, type_totals=None):
             ], className="st-panel-head"),
             dbc.Collapse([
                 dbc.CardBody([
-                    # Object types (roadmap 3.3a)
-                    create_type_filter(type_totals or {}),
+                    # Object types (roadmap 3.3a): only with the globe on, the one view that draws rocket bodies and
+                    # debris (the Plotly views draw the app CSV's payloads only)
+                    create_type_filter(type_totals or {}, shown=viewer_state()["enabled"]),
 
                     # Status Filter
                     create_status_filter(),
