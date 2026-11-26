@@ -226,10 +226,12 @@
 .dash-dropdown-content { width: var(--radix-popover-trigger-width) !important; max-width: var(--radix-popover-trigger-width) !important; }
 .dash-dropdown-content .dash-options-list-option { align-items: flex-start; }
 /* The tick box (or radio) sits in a slot one text line tall and is centred in it, so it lines up with the first
-   line of the option however many lines the name takes. */
+   line of the option however many lines the name takes. The line's middle is below the letters' middle (the line
+   keeps room for descenders), so the box is lifted 0.05em to centre on the capitals: measured against the drawn
+   "A" at 100-200% zoom it is then within half a pixel (it was 0.4-0.7px low). */
 .dash-dropdown-content .dash-options-list-option-wrapper { display: flex; align-items: center; height: 1lh;
   line-height: inherit; flex: 0 0 auto; }
-.dash-dropdown-content .dash-options-list-option-checkbox { margin-top: 0; margin-bottom: 0; }
+.dash-dropdown-content .dash-options-list-option-checkbox { margin-top: 0; margin-bottom: 0; transform: translateY(-0.05em); }
 .dash-dropdown-content .dash-options-list-option-text { white-space: normal !important; overflow-wrap: anywhere; min-width: 0; }
 /* Dash sticks the search box 8px below the list's top, so scrolled options showed through that strip: fill it. */
 .dash-dropdown-content .dash-dropdown-search-container { box-shadow: 0 -8px 0 8px var(--Dash-Fill-Inverse-Strong); z-index: 1; }

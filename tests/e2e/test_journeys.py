@@ -173,8 +173,12 @@ def test_open_owner_list_stays_inside_the_panel(page, base_url, sample_df):
     assert listbox["x"] + listbox["width"] <= panel["x"] + panel["width"]
     assert abs(listbox["width"] - trigger["width"]) <= 1
     assert text["x"] + text["width"] <= listbox["x"] + listbox["width"]      # wrapped, not cut off or spilling
-    # Owner, 26 Nov 2026: the tick box lines up with the name's first line (it sat ~4 px high in every dropdown)
+    # Owner, 26 Nov 2026: the tick box is centred on the first line's capitals. It sat ~4 px high in every dropdown,
+    # then 0.75 px low when centred on the whole line; the capitals' middle is 0.05em above the line's middle (drawn
+    # pixels of "A" at 100-200% zoom, Source Sans 3).
     tick = option.locator("input").bounding_box()
-    line = option.locator(".dash-options-list-option-text").evaluate("t => parseFloat(getComputedStyle(t).lineHeight)")
-    assert abs((tick["y"] + tick["height"] / 2) - (text["y"] + line / 2)) <= 1
+    line, size = option.locator(".dash-options-list-option-text").evaluate(
+        "t => [parseFloat(getComputedStyle(t).lineHeight), parseFloat(getComputedStyle(t).fontSize)]")
+    lift = (text["y"] + line / 2) - (tick["y"] + tick["height"] / 2)
+    assert abs(lift - 0.05 * size) <= 0.5
     assert page.errors == []
