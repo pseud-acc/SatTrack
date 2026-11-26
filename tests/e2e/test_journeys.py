@@ -19,7 +19,7 @@ from playwright.sync_api import expect
 
 from _support import expected_ids
 
-START_STATUS, START_ORBITS = ["Active"], ["LEO", "MEO", "GEO", "GSO", "HEO"]   # as it opens (3.3a: every orbit)
+START_STATUS, START_ORBITS = "Active", ["LEO", "MEO", "GEO", "GSO", "HEO"]   # as it opens (3.3a: every orbit)
 TIMEOUT = 60_000  # ms: figures render in software WebGL on CI runners
 PLOT_3D, PLOT_2D = "3d-earth-satellite-plot", "2d-earth-satellite-plot"
 
@@ -77,7 +77,7 @@ def test_home_leads_to_the_tracker(page, base_url):
 
 def test_tracker_draws_the_selected_satellites(page, base_url, sample_df, t_ref):
     open_tracker(page, base_url)
-    for box, labels in (("#status-filter-checkbox", START_STATUS), ("#orbit-filter-checkbox", START_ORBITS)):
+    for box, labels in (("#status-filter-checkbox", [START_STATUS]), ("#orbit-filter-checkbox", START_ORBITS)):
         for label in labels:
             expect(page.locator(box).get_by_label(label, exact=True)).to_be_checked()
     expected = start_selection(sample_df, t_ref)
@@ -89,7 +89,7 @@ def test_tracker_draws_the_selected_satellites(page, base_url, sample_df, t_ref)
 
 def test_one_satellite_shows_its_ground_track(page, base_url, sample_df):
     open_tracker(page, base_url)
-    sat = sample_df[sample_df.Status.isin(START_STATUS) & (sample_df.OrbitClass == "LEO")].iloc[0]
+    sat = sample_df[(sample_df.Status == START_STATUS) & (sample_df.OrbitClass == "LEO")].iloc[0]
     choose_in_dropdown(page, "satcatid-filter-dropdown", str(sat.SatCatId))
     page.get_by_role("tab", name="2D View").click()
     wait_for_traces(page, PLOT_2D, "lengths.includes(3600)")

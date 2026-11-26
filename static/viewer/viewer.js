@@ -38,6 +38,9 @@ Object.assign(S, {
   version: 1, ready: false, error: null, engine: null, step: 1, clockOffsetMs: 0, count: 0, failed: [],
   shownCount: 0, hiddenFailed: 0, typeCounts: {}, matchCounts: {}, filters: null, filterChanges: 0,
   marks: {}, frameMs: [], applyMs: [], workerMs: [], hint: null,
+  // Per applied filter change (roadmap 3.3b budget test): when it was applied (performance.now()), the time from the
+  // spec reaching the viewer to the points updated, and the main-thread part of that (showing/hiding and resampling).
+  filterReceivedAt: 0, filterAppliedAt: 0, filterMs: [], filterMainMs: [],
 });
 const push = (arr, v) => { arr.push(v); if (arr.length > KEEP) arr.shift(); };
 const avg = (a) => (a.length ? a.reduce((s, v) => s + v, 0) / a.length : 0);
@@ -296,15 +299,25 @@ class Viewer {
     S.filters = spec;
     if (!this.workerReady) return;   // the spec is picked up when the worker is ready
     const gen = this.filterGen = (this.filterGen || 0) + 1;
+    const t0 = S.filterReceivedAt = performance.now();
     try {
       const r = await this.call({ type: "filter", spec });
       if (gen !== this.filterGen || this.destroyed) return;   // a newer spec is on its way
+      const t1 = performance.now();
       this.spec = spec;
       this.mask = r.mask;
       S.matchCounts = r.counts;
-      S.filterChanges++;
       this.apply(this.simTime());
-      if (this.a) this.resync(this.simTime());
+      const main = performance.now() - t1;
+      // Newly shown objects get positions from a fresh pair of samples; the change counts as applied once they have them.
+      if (this.a) await this.resync(this.simTime());
+      if (gen !== this.filterGen || this.destroyed) return;
+      this.apply(this.simTime());   // show them now rather than on the next frame
+      const t2 = performance.now();
+      push(S.filterMs, t2 - t0);
+      push(S.filterMainMs, main);
+      S.filterAppliedAt = t2;
+      S.filterChanges++;
     } catch (e) { console.warn("SatTrack viewer: filter not applied:", String(e)); }
   }
 

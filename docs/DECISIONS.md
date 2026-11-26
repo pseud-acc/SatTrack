@@ -62,6 +62,7 @@ Read the records a feature touches before scoping it.
 | [D-048](#d-048-one-filter-spec-store-drives-every-view-the-browser-filters-in-the-worker) | One filter-spec store drives every view; the browser filters in the worker | Accepted | 2026-11-26 | [record](decisions/D-048-one-filter-spec-store-drives-every-view.md) |
 | [D-049](#d-049-the-tracker-opens-on-every-active-satellite-space-junk-mode-adds-inactive) | The tracker opens on every active satellite; Space junk mode adds Inactive | Accepted | 2026-11-26 | [record](decisions/D-049-tracker-defaults-active-satellites-junk-mode-adds-inactive.md) |
 | [D-050](#d-050-the-globe-is-coloured-by-status-by-default-with-no-point-outline) | The globe is coloured by status by default, with no point outline | Accepted | 2026-11-26 | [record](decisions/D-050-globe-coloured-by-status-no-outline.md) |
+| [D-051](#d-051-the-filter-panel-shows-its-own-state-count-segments-rows-and-chips) | The filter panel shows its own state: count, segments, rows and chips | Accepted | 2026-11-26 | [record](decisions/D-051-filter-panel-behaviour.md) |
 
 ---
 
@@ -856,3 +857,18 @@ D-022's provisional outline. Record: [D-050](decisions/D-050-globe-coloured-by-s
 
 **Decision.** Points take `--st-active` (soft red) and `--st-inactive` (grey) from the design tokens, with no
 outline. Colour by type becomes an option of 3.13's "Colour by" menu.
+
+## D-051 The filter panel shows its own state: count, segments, rows and chips
+**Status:** Accepted, 2026-11-26 (owner's 3.3 answers of 24 Nov 2026; details built in 3.3b). **Component:** the filter
+panel. Record: [D-051](decisions/D-051-filter-panel-behaviour.md).
+
+**Decision.** One server callback turns the panel's control values (through the spec's own builder) into the live
+count, "matching / total" per type, zero-match hints, chips and "More filters" summaries. Status is one choice
+(Active / Inactive / All); orbit any combination. A chip's remove button widens its control; the type chip has none;
+"Clear all" restores the opening values (D-049). "More filters" rows are native `<details>`. One callback owns chip
+removal, Clear all and junk mode. No Update button; search lists set once (Q8 S2); Clear orbits in the Plotly 3D tab.
+
+**Why.** The count can't disagree with the spec; nothing runs at load; no callback per row; no property set twice.
+
+**Rejected.** Summaries from the `filter-spec` store (empty when no type or orbit is on); chips that reset to the
+default; collapse components with a callback per row.
