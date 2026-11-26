@@ -173,4 +173,8 @@ def test_open_owner_list_stays_inside_the_panel(page, base_url, sample_df):
     assert listbox["x"] + listbox["width"] <= panel["x"] + panel["width"]
     assert abs(listbox["width"] - trigger["width"]) <= 1
     assert text["x"] + text["width"] <= listbox["x"] + listbox["width"]      # wrapped, not cut off or spilling
+    # Owner, 26 Nov 2026: the tick box lines up with the name's first line (it sat ~4 px high in every dropdown)
+    tick = option.locator("input").bounding_box()
+    line = option.locator(".dash-options-list-option-text").evaluate("t => parseFloat(getComputedStyle(t).lineHeight)")
+    assert abs((tick["y"] + tick["height"] / 2) - (text["y"] + line / 2)) <= 1
     assert page.errors == []
