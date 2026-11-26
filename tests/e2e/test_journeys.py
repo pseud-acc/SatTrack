@@ -13,6 +13,8 @@ performance, the live site.
 """
 import re
 
+import pytest
+
 from playwright.sync_api import expect
 
 from _support import expected_ids
@@ -106,4 +108,34 @@ def test_list_view_shows_the_selected_satellites(page, base_url, sample_df, t_re
     expect(rows).to_have_count(min(page_size, len(expected)))
     shown = [rows.nth(i).locator("td").first.inner_text().strip() for i in range(rows.count())]
     assert shown == names[:page_size]
+    assert page.errors == []
+
+
+STYLE_PROBE = """() => ({
+    sheets: [...document.styleSheets].map(s => s.href).filter(Boolean),
+    font: getComputedStyle(document.body).fontFamily,
+    bg: getComputedStyle(document.body).backgroundColor,
+    bsVersion: getComputedStyle(document.documentElement).getPropertyValue('--bs-breakpoint-xxl').trim(),
+    fontLoaded: document.fonts.check('16px "Source Sans 3"'),
+})"""
+
+
+@pytest.mark.parametrize("path, ready", [("/", "Track Satellites in Real-Time"), ("/sat_visualisation", None)])
+def test_pages_use_only_the_self_hosted_design(page, base_url, path, ready):
+    """3.12 (D-044): every stylesheet comes from the app itself (no CDN, no Google Fonts, no Font Awesome), Bootstrap 4
+    and the Cyborg theme are gone (Bootstrap 5 defines --bs-breakpoint-xxl; 4 doesn't), and the page body uses the
+    tokens: Source Sans 3 on the navy page colour (--st-bg #0a1220)."""
+    page.goto(base_url + path, wait_until="domcontentloaded")
+    if ready:
+        expect(page.get_by_text(ready)).to_be_visible(timeout=TIMEOUT)
+    else:
+        wait_for_traces(page, PLOT_3D, "lengths.length >= 2")
+    page.evaluate("document.fonts.ready")
+    probe = page.evaluate(STYLE_PROBE)
+    assert probe["sheets"] and all(h.startswith(base_url) for h in probe["sheets"]), probe["sheets"]
+    assert not [h for h in probe["sheets"] if "cyborg" in h.lower() or "font-awesome" in h.lower()]
+    assert probe["bsVersion"] == "1400px"
+    assert probe["font"].startswith('"Source Sans 3"') and probe["fontLoaded"]
+    assert probe["bg"] == "rgb(10, 18, 32)"
+    assert not [u for u in page.offsite if "fonts.g" in u or "cdnjs" in u or "jsdelivr" in u or "bootstrapcdn" in u]
     assert page.errors == []
