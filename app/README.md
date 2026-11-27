@@ -54,8 +54,8 @@ New data reaches the app only when a worker starts (a deploy, a restart, or the 
 ### Cesium globe (beta, behind a flag)
 
 Phase 3 replaces the Plotly views with a CesiumJS globe ([docs/cesium-architecture.md](../docs/cesium-architecture.md),
-decisions D-013 to D-029, D-038, D-041). Until it is complete it is off unless `SATTRACK_CESIUM_VIEWER=1`; with it off,
-nothing below loads and no page changes.
+decisions D-013 to D-029, D-038, D-041, D-052). It is on by default since D-052 (the Plotly 3D view was removed);
+`SATTRACK_CESIUM_VIEWER=0` switches it off, in which case nothing below loads and the tracker opens on the list.
 
 - **Self-hosted packages:** `vendor/cesium.lock` pins CesiumJS and satellite.js with their npm tarball hashes. The
   Heroku build's `bin/post_compile` hook runs `vendor/fetch.py`, which downloads each tarball from the npm registry,
@@ -63,8 +63,8 @@ nothing below loads and no page changes.
   copies, and writes `static/vendor/manifest.json`. These files are never committed. At start-up the app checks the
   manifest against the lock and every file's SHA-256; if anything differs the globe stays off and the log says why.
   `GET /static/vendor/<path>` serves only manifest files, pre-compressed, cached for a year (the paths are versioned).
-- **Page:** with the flag on, the tracker gets a "Globe (beta)" tab (first, open by default) holding an empty
-  `div#globe` that no callback writes to, and three stores: `viewer-config` (same-origin URLs and the filter spec's
+- **Page:** the tracker's first tab, "Globe" (open by default), holds `div#globe`, which no callback writes to; it
+  is rendered with only a loading bar inside (D-052), filled by the viewer as it starts, and three stores: `viewer-config` (same-origin URLs and the filter spec's
   rules), `viewer-selection` (from plan 3.4) and `viewer-bridge`. A clientside callback (the bridge,
   `callbacks/callback_viewer.py`) loads `static/viewer/viewer.js` as a module the first time the stores render, and
   hands it the page's `filter-spec` store, which the panel's controls write (plan 3.3a, D-048); the worker masks its
@@ -162,7 +162,7 @@ stops with an error naming both.
 | `SATTRACK_APP_DATA_DIR` | Local folder with the two CSVs (local runs, CI) |
 | `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` | Heroku: the read-only `sattrack-app-reader` key (S3 `app/*` only). Locally, `AWS_PROFILE` instead |
 | `AWS_REGION` | Bucket region, default `eu-west-1` |
-| `SATTRACK_CESIUM_VIEWER` | `1` turns on the Cesium globe tab and its security headers (default off) |
+| `SATTRACK_CESIUM_VIEWER` | `0` (or `false`, `no`, `off`) switches off the Cesium globe and its security headers; on by default since D-052 |
 | `SATTRACK_VENDOR_DIR` | Local runs and tests only: where `vendor/fetch.py` put the vendor files (default `static/vendor`) |
 | `PORT`, `WEB_CONCURRENCY` | Set by Heroku: gunicorn's port and worker count (each worker runs 4 threads: `--threads 4` in the Procfile, so a slow download of a data file holds one thread, not the worker; D-012) |
 

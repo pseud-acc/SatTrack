@@ -120,6 +120,19 @@ columns (typed arrays) and an index by `satcat_id`, in a Web Worker. That form i
 
 **Size** (21 Nov 2026, 32,652 records): 23.7 MB raw, 1.70 MB Brotli, 2.44 MB gzip.
 
+## `search` (derived by the app, D-052)
+
+Not published by the pipeline: the app builds it at start-up from the `objects` dataset of the same run
+(`app/core/search_index.py`) and serves it at `/data/search.json` like a published dataset (Brotli or gzip, ETag).
+It feeds the tracker's satellite search list (`assets/07_search.js`).
+
+- Envelope: `dataset` "search", `derived_from` "objects", and the objects dataset's `generated_at`, `run_id`,
+  `attribution` and `caution` (the names come from Space-Track and GCAT); `key` `satcat_id`; `count`.
+- One record per object with the objects dataset's own field names: `satcat_id`, `object_name`, `object_type`,
+  `operational_status`, `launch_year`, `flag_space_station`.
+- Order, which is the list's browsing order: space stations first, then payloads, then rocket bodies, debris and
+  unknown objects; within each, the newest launches first, then the highest SATCAT number.
+
 ## `object_detail` (shape agreed, file with plan 3.4)
 
 One record per object, keyed by `satcat_id`, in the same envelope, loaded one object at a time. Field groups, all

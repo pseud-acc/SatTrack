@@ -872,3 +872,25 @@ removal, Clear all and junk mode. No Update button; search lists set once (Q8 S2
 
 **Rejected.** Summaries from the `filter-spec` store (empty when no type or orbit is on); chips that reset to the
 default; collapse components with a callback per row.
+
+## D-052 The globe goes on in production now, Plotly 3D goes, and the tracker is made usable on phones
+**Status:** Accepted, 2026-11-27 (owner, after #84 went live and the tracker was close to unusable on a phone).
+**Component:** the tracker page, the Cesium viewer, the filter panel, search. Record:
+[D-052](decisions/D-052-globe-on-and-usable-on-phones.md).
+
+**Decision.** The globe is on unless `SATTRACK_CESIUM_VIEWER` switches it off (kept as an off switch until 3.6);
+Plotly 3D is removed; only the open tab holds a view (the 2D map built on open, the list not re-sent unchanged).
+Search is a browsable list drawn in the page from `/data/search.json`, derived by the app from the objects dataset
+(stations first, newest launches first; type to narrow), replacing both dropdowns. Filters open in the browser. The
+globe draws on demand (request-render mode, ~4 draws a second untouched), with a dimmed Earth (the owner's "shade 2"),
+a navy base colour, 3 px distance-scaled dots in a darker red (#e8564a), hover/tap labels (3.4's first tier) and a
+loading bar rendered with the page in `div#globe` (amends D-013's empty div). The panel's type swatches give way to an
+Active/Inactive key.
+
+**Why.** Measured on full data at phone size with a 4x-slowed CPU: the main thread was busy 98% of the time (every
+frame drawn, every tab rendered), the dropdowns cost 5 s, a filter change took 5.7 s and opening Filters 2.5 s;
+after: 32%, 0.2 s, 1.1-1.5 s and 0.8-0.9 s. A Plotly zoom fix was tried and dropped (little effect at full scale).
+
+**Rejected.** Keeping Plotly 3D beside the globe (keeps the slowest view); more Plotly fixes (redraw cost of ~16,600
+points); type-only search (owner rejected in #73); full dropdown lists loaded on first open (still freezes on a phone).
+
