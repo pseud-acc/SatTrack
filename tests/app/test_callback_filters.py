@@ -101,7 +101,7 @@ def test_junk_mode_on_adds_the_junk_types_and_inactive_then_off_restores(callbac
     status, on = callbacks.call(CONTROLS_OUT, JUNK, **{JUNK: True, TYPES: ["PAYLOAD"], STATUS: "Active"})
     assert status == 200
     assert on[TYPES] == ["PAYLOAD", "ROCKET BODY", "DEBRIS"]
-    assert on[STATUS] == "All"                            # almost all rocket bodies and debris are Inactive
+    assert on[STATUS] == "All"                            # rocket bodies and debris are always Inactive (D-053)
     assert on[BEFORE] == "Active"
     assert JUNK not in on                                 # the switch keeps the value the user gave it
 

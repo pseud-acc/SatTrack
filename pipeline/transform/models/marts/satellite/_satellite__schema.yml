@@ -71,6 +71,10 @@ models:
       - name: operational_status_source
         data_type: varchar
         description: '{{ doc("col__operational_status_source") }}'
+        data_tests:
+          - accepted_values:
+              name: accepted_values__fct__satellite_master__operational_status_source
+              arguments: {values: ["gcat_psatcat", "gcat_currentcat", "default_inactive", "space_track_object_type"]}
       - name: flag_still_operating
         data_type: integer
         description: '{{ doc("col__flag_still_operating") }}'

@@ -138,9 +138,16 @@ with cte_int__xsrc__satellite_gcat_matched as (
         , sat.flag_in_orbit
         -- in the GP feed (so on orbit) while GCAT says it came down
         , coalesce(st.flag_gcat_descended, 0) as flag_orbit_conflict
-        -- objects without a GCAT status record default to Inactive
-        , coalesce(st.operational_status, 'Inactive') as operational_status
-        , coalesce(st.operational_status_source, 'default_inactive') as operational_status_source
+        -- objects without a GCAT status record default to Inactive; rocket bodies and debris (Space-Track's object type)
+        -- are always Inactive, whatever GCAT says (D-053)
+        , case
+            when sat.object_type in ('ROCKET BODY', 'DEBRIS') then 'Inactive'
+            else coalesce(st.operational_status, 'Inactive')
+        end as operational_status
+        , case
+            when sat.object_type in ('ROCKET BODY', 'DEBRIS') and st.operational_status = 'Active' then 'space_track_object_type'
+            else coalesce(st.operational_status_source, 'default_inactive')
+        end as operational_status_source
         , st.flag_still_operating
         , st.flag_still_transmitting
         , st.end_operation_date

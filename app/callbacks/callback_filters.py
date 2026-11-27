@@ -119,7 +119,7 @@ def register(app):
     -------------------------
     Interactive Inputs: the junk switch, the type switches, each chip's remove button, Clear all
     Outputs: the switch, the types, the status, the status to restore, and every other control
-    Almost all rocket bodies and debris are Inactive, so junk mode on also sets status to All (remembering the status
+    Rocket bodies and debris are always Inactive (D-053), so junk mode on also sets status to All (remembering the status
     before); off restores it. Ticking both junk types by hand turns the switch on, unticking either turns it off;
     neither touches the status. A chip's remove button widens its control; Clear all restores the opening values
     (D-049). One callback owns these outputs, so no control is set by two callbacks.
