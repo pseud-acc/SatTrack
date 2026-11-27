@@ -108,14 +108,15 @@ synced folder), then `SATTRACK_CESIUM_VIEWER=1 SATTRACK_APP_DATA_DIR=tests/app_d
 
 | Callback module | Inputs | Updates |
 |---|---|---|
-| `callback_3d_viz` | filters, launch-year slider, clicks on a satellite, clear-orbits button, 20 s timer | 3D figure; clicked satellites get their orbit drawn (kept in `3d-orbit-memory`); camera kept in `camera-memory` |
-| `callback_2d_viz` | filters, slider, 3 s timer | 2D map |
-| `callback_table` | filters, slider | table rows (20 per page, **Export** to CSV) |
-| `callback_filters` | status / orbit / owner choices, slider, toggle | name and catalogue-ID dropdown options, advanced-filter panel, year labels |
+| `callback_3d_viz` | the `filter-spec` store, clicks on a satellite, the tab's Clear orbits button, 20 s timer | 3D figure; clicked satellites get their orbit drawn (kept in `3d-orbit-memory`); camera kept in `camera-memory` |
+| `callback_2d_viz` | the `filter-spec` store, 3 s timer | 2D map |
+| `callback_table` | the `filter-spec` store, tab | table rows (20 per page, **Export** to CSV) |
+| `callback_filters` | every panel control, chip remove buttons, Clear all, junk switch, toggles | the `filter-spec` store; the live count, type counts, hints, chips and "More filters" summaries (D-051); junk mode, chip removal and Clear all |
 | `callback_navbar` | URL, menu toggler | active link, collapsed menu |
 
-Filters: status (Active / Inactive), orbit class (LEO, MEO, GEO, GSO, HEO), satellite name, catalogue ID,
-owner, launch vehicle class, purpose, launch year range. Defaults: Active, LEO + GEO.
+Filters: object type (payloads, rocket bodies, debris; Space junk mode), status (Active / Inactive / All), orbit
+class (LEO, MEO, GEO, GSO, HEO, any combination), satellite name, catalogue ID, owner, launch vehicle class, purpose,
+launch year range. Defaults (D-049): payloads, Active, every orbit class, the whole year range. Changes apply at once.
 
 ## Data
 

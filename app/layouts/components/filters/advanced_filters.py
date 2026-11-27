@@ -1,81 +1,62 @@
 """
-Advanced filters component (owner, launch vehicle, purpose, launch year).
+"More filters" (roadmap 3.3b, D-044): owner, launch vehicle, purpose and launch year as rows that show their current
+value ("Any", "France +2", "1990–2005") and open their control. The rows are native <details> elements, so opening
+one needs no callback and works with the keyboard.
 """
 
 from dash import dcc, html
-import dash_bootstrap_components as dbc
-from app.helper.helper__filter_display import format_year_slider_output
+from app.core import filter_spec
 from app.helper.helper__app_data import LAUNCH_YEAR_MIN, launch_year_bounds
+from app.helper.helper__filter_display import ROWS
 
 
-def create_advanced_filters(options):
+def _row(name, summary, control):
+    return html.Details([
+        html.Summary([
+            html.Span(filter_spec.label(ROWS[name]), className="st-row-name"),
+            html.Span(summary, id=f"more-{name}-summary", className="st-row-value"),
+            html.I(className="st-icon st-icon-chevron-down st-row-chevron"),
+        ], className="st-row-head"),
+        html.Div(control, className="st-row-body"),
+    ], className="st-row", id=f"more-{name}")
+
+
+def _dropdown(options, placeholder, cid):
+    return dcc.Dropdown(options=options, multi=True, value=[], placeholder=placeholder, id=cid,
+                        className="st-adv-dropdown")
+
+
+def create_advanced_filters(options, summary):
     """
-    Create the advanced filters accordion component.
-
-    Args:
-        options (dict): Dictionary containing filter options
-
-    Returns:
-        dbc.Accordion: Advanced filters component
+    @param options: (dict) the dropdowns' options (helper__app_data.create_data_filters)
+    @param summary: (dict) panel_summary() for the starting values (the rows' summaries)
+    @return: html.Div with the four rows
     """
-    return dbc.Accordion([
-        dbc.AccordionItem([
-            # Owner, launch vehicle and purpose dropdowns (styled by assets/05_panel.css: .st-adv-dropdown)
-            dcc.Dropdown(
-                options=options["owner"],
-                multi=True,
-                value=[],
-                placeholder="Select owners...",
-                id="owner-filter-multi-dropdown",
-                className="st-adv-dropdown"
+    rows = summary["rows"]
+    return html.Div([
+        html.Label("More filters", className="st-lbl"),
+        _row("owner", rows["owner"],
+             _dropdown(options["owner"], "Select owners...", "owner-filter-multi-dropdown")),
+        _row("launchvehicle", rows["launchvehicle"],
+             _dropdown(options["launchvehicle"], "Select launch vehicles...", "launchvehicle-filter-multi-dropdown")),
+        _row("purpose", rows["purpose"],
+             _dropdown(options["purpose"], "Select purposes...", "purpose-filter-multi-dropdown")),
+        # Fixed bounds, independent of the data: 1958 to the current year (UTC), read each time the page is built,
+        # so the slider reaches this year's launches without a code change. It starts on the whole range (3.3a).
+        _row("year", rows["year"], html.Div([
+            dcc.RangeSlider(
+                min=LAUNCH_YEAR_MIN,
+                max=launch_year_bounds()[1],
+                step=1,
+                value=launch_year_bounds(),
+                marks={},
+                allow_direct_input=False,   # Dash 4: no number boxes; the row shows the range
+                id="launchyear-filter-slider",
+                tooltip={"placement": "top", "always_visible": False},
+                className="custom-range-slider"
             ),
-            dcc.Dropdown(
-                options=options["launchvehicle"],
-                multi=True,
-                value=[],
-                placeholder="Select launch vehicles...",
-                id="launchvehicle-filter-multi-dropdown",
-                className="st-adv-dropdown"
-            ),
-            dcc.Dropdown(
-                options=options["purpose"],
-                multi=True,
-                value=[],
-                placeholder="Select purposes...",
-                id="purpose-filter-multi-dropdown",
-                className="st-adv-dropdown"
-            ),
-
-            # Launch year range
-            html.Div([
-                html.Label("Launch Year", className="st-lbl"),
-
-                # Fixed bounds, independent of the data: 1958 to the current year (UTC), read each
-                # time the page is built, so the slider reaches this year's launches without a code
-                # change. It starts on the whole range (roadmap 3.3a), not the app CSV's, so no rocket body or
-                # debris older than the CSV's payloads is hidden by default.
-                dcc.RangeSlider(
-                    min=LAUNCH_YEAR_MIN,
-                    max=launch_year_bounds()[1],
-                    step=1,
-                    value=launch_year_bounds(),
-                    marks={},
-                    allow_direct_input=False,   # Dash 4: no number boxes; the min/max bubbles show the range
-                    id="launchyear-filter-slider",
-                    tooltip={"placement": "top", "always_visible": False},
-                    className="custom-range-slider"
-                ),
-
-                # Min/max bubbles (callback_filters updates them as the slider moves)
-                html.Div([
-                    html.Div(id='launch-year-min-display',
-                             children=format_year_slider_output('min', launch_year_bounds()[0]),
-                             className="st-year-bubble"),
-                    html.Div(id='launch-year-max-display',
-                             children=format_year_slider_output('max', launch_year_bounds()[1]),
-                             className="st-year-bubble"),
-                ], className="st-year-bubbles")
-            ], className="st-adv-years")
-
-        ], title="Advanced Filters", className="border-0")
-    ], start_collapsed=True, className="mb-3")
+            # The slider's ends, under the track (the dragged value shows in the bubble and the row's summary)
+            html.Div([html.Span(str(LAUNCH_YEAR_MIN)), html.Span(str(launch_year_bounds()[1]))],
+                     className="st-year-ends"),
+        ], className="st-year-track")),
+    ], className="st-more mb-3")

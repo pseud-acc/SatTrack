@@ -61,7 +61,7 @@ def register(app):
     ------------------------
     2d visualisation 
     -------------------------
-    Interactive Inputs: the filter-spec store (roadmap 3.3a), update time button, interval-timer
+    Interactive Inputs: the filter-spec store (roadmap 3.3a), interval-timer (the Update button went in 3.3b)
     Outputs: 2d orbit path scatter plot
     '''
 
@@ -70,11 +70,10 @@ def register(app):
         [
             Input('filter-spec', 'data'),   # the panel's filter spec (roadmap 3.3a, Q7)
             Input("sat-viz-tabs", "active_tab"),
-            Input("time-update-btn", "n_clicks"),
             Input('2d-viz-interval-component', "n_intervals")
         ]
     )
-    def update_2dviz(spec, tab, update_time_btn, time_intverval):
+    def update_2dviz(spec, tab, time_intverval):
 
         if tab != "2d-viz":
             raise PreventUpdate

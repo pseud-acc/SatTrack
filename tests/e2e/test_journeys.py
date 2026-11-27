@@ -19,7 +19,7 @@ from playwright.sync_api import expect
 
 from _support import expected_ids
 
-START_STATUS, START_ORBITS = ["Active"], ["LEO", "MEO", "GEO", "GSO", "HEO"]   # as it opens (3.3a: every orbit)
+START_STATUS, START_ORBITS = "Active", ["LEO", "MEO", "GEO", "GSO", "HEO"]   # as it opens (3.3a: every orbit)
 TIMEOUT = 60_000  # ms: figures render in software WebGL on CI runners
 PLOT_3D, PLOT_2D = "3d-earth-satellite-plot", "2d-earth-satellite-plot"
 
@@ -77,7 +77,7 @@ def test_home_leads_to_the_tracker(page, base_url):
 
 def test_tracker_draws_the_selected_satellites(page, base_url, sample_df, t_ref):
     open_tracker(page, base_url)
-    for box, labels in (("#status-filter-checkbox", START_STATUS), ("#orbit-filter-checkbox", START_ORBITS)):
+    for box, labels in (("#status-filter-checkbox", [START_STATUS]), ("#orbit-filter-checkbox", START_ORBITS)):
         for label in labels:
             expect(page.locator(box).get_by_label(label, exact=True)).to_be_checked()
     expected = start_selection(sample_df, t_ref)
@@ -89,7 +89,7 @@ def test_tracker_draws_the_selected_satellites(page, base_url, sample_df, t_ref)
 
 def test_one_satellite_shows_its_ground_track(page, base_url, sample_df):
     open_tracker(page, base_url)
-    sat = sample_df[sample_df.Status.isin(START_STATUS) & (sample_df.OrbitClass == "LEO")].iloc[0]
+    sat = sample_df[(sample_df.Status == START_STATUS) & (sample_df.OrbitClass == "LEO")].iloc[0]
     choose_in_dropdown(page, "satcatid-filter-dropdown", str(sat.SatCatId))
     page.get_by_role("tab", name="2D View").click()
     wait_for_traces(page, PLOT_2D, "lengths.includes(3600)")
@@ -138,4 +138,47 @@ def test_pages_use_only_the_self_hosted_design(page, base_url, path, ready):
     assert probe["font"].startswith('"Source Sans 3"') and probe["fontLoaded"]
     assert probe["bg"] == "rgb(10, 18, 32)"
     assert not [u for u in page.offsite if "fonts.g" in u or "cdnjs" in u or "jsdelivr" in u or "bootstrapcdn" in u]
+    assert page.errors == []
+
+
+@pytest.mark.parametrize("orbit, name", [("LEO", "Low Earth orbit"), ("GEO", "Geostationary orbit"),
+                                         ("HEO", "Highly elliptical orbit")])
+def test_each_orbit_button_has_an_info_card_on_hover(page, base_url, orbit, name):
+    """Owner, 26 Nov 2026: hovering an orbit button shows what that orbit class means."""
+    open_tracker(page, base_url)
+    page.locator("#orbit-filter-checkbox").get_by_text(orbit, exact=True).hover()
+    card = page.get_by_role("tooltip")
+    expect(card).to_be_visible(timeout=TIMEOUT)
+    expect(card).to_contain_text(f"{orbit}: {name}")
+    expect(card).to_contain_text("Height: ")                    # indicative height (owner, 26 Nov 2026)
+    assert page.errors == []
+
+
+def test_open_owner_list_stays_inside_the_panel(page, base_url, sample_df):
+    """Owner, 26 Nov 2026: the open owner list sized itself to the longest name and hung past the filter panel. It is
+    now as wide as its dropdown and long names wrap, so even the longest owner in the data fits."""
+    longest = max(sample_df.Owner.dropna().unique(), key=len)
+    open_tracker(page, base_url)
+    page.locator("#more-owner summary").click()
+    page.locator("#owner-filter-multi-dropdown").click()
+    search = page.locator(".dash-dropdown-content .dash-dropdown-search")
+    expect(search).to_be_focused(timeout=TIMEOUT)
+    search.fill(longest)
+    option = page.locator(".dash-dropdown-content").get_by_role("option", name=longest, exact=True)
+    expect(option).to_be_visible(timeout=TIMEOUT)
+    panel = page.locator(".st-panel").bounding_box()
+    trigger = page.locator("#owner-filter-multi-dropdown").bounding_box()
+    listbox = page.locator(".dash-dropdown-content").bounding_box()
+    text = option.locator(".dash-options-list-option-text").bounding_box()
+    assert listbox["x"] + listbox["width"] <= panel["x"] + panel["width"]
+    assert abs(listbox["width"] - trigger["width"]) <= 1
+    assert text["x"] + text["width"] <= listbox["x"] + listbox["width"]      # wrapped, not cut off or spilling
+    # Owner, 26 Nov 2026: the tick box is centred on the first line's capitals. It sat ~4 px high in every dropdown,
+    # then 0.75 px low when centred on the whole line; the capitals' middle is 0.05em above the line's middle (drawn
+    # pixels of "A" at 100-200% zoom, Source Sans 3).
+    tick = option.locator("input").bounding_box()
+    line, size = option.locator(".dash-options-list-option-text").evaluate(
+        "t => [parseFloat(getComputedStyle(t).lineHeight), parseFloat(getComputedStyle(t).fontSize)]")
+    lift = (text["y"] + line / 2) - (tick["y"] + tick["height"] / 2)
+    assert abs(lift - 0.05 * size) <= 0.5
     assert page.errors == []

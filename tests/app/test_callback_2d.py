@@ -6,6 +6,7 @@ ground track for one period (3,600 points) with its current position as the trac
 don't run it. Longitude range is covered in test_satellite_position.py.
 """
 import pytest
+from _support import STATUS_KEEPS
 
 OUT = "2d-earth-satellite-plot"
 FIG = f"{OUT}.figure"
@@ -20,7 +21,7 @@ def test_many_satellites_show_no_track(callbacks):
 
 def test_one_satellite_shows_its_ground_track(callbacks, sample_df):
     start = callbacks.filter_args({})
-    sat = sample_df[sample_df.Status.isin(start["status"]) & (sample_df.OrbitClass == "LEO")].iloc[0]
+    sat = sample_df[sample_df.Status.isin(STATUS_KEEPS[start["status"]]) & (sample_df.OrbitClass == "LEO")].iloc[0]
     status, out = callbacks.call(OUT, "satcatid-filter-dropdown.value",
                                  **{**TAB, "satcatid-filter-dropdown.value": str(sat.SatCatId)})
     assert status == 200

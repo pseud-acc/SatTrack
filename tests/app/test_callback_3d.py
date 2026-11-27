@@ -22,7 +22,7 @@ def draw(callbacks, changed="status-filter-checkbox.value", **values):
 
 @pytest.mark.parametrize("values", [
     {},                                                           # the page as it opens
-    {"status-filter-checkbox.value": ["Active", "Inactive"], "orbit-filter-checkbox.value": ["MEO", "HEO"]},
+    {"status-filter-checkbox.value": "All", "orbit-filter-checkbox.value": ["MEO", "HEO"]},
 ], ids=["start", "changed-filters"])
 def test_filter_change_draws_expected_satellites(callbacks, sample_df, t_ref, values):
     status, out = draw(callbacks, **values)

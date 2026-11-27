@@ -52,9 +52,8 @@ def test_uses_the_app_clock(sample_df, filters, t_ref):
 
 @pytest.mark.parametrize("case", [
     {},                                                  # starting state: everything
-    {"status": ["Active"]},
-    {"status": ["Inactive"]},
-    {"status": []},                                      # nothing ticked -> nothing shown
+    {"status": "Active"},
+    {"status": "Inactive"},
     {"orbit": ["GEO"]},
     {"orbit": ["LEO", "HEO"]},
     {"satcatid": "first"},
@@ -63,7 +62,7 @@ def test_uses_the_app_clock(sample_df, filters, t_ref):
     {"launchvehicle": "most_common"},
     {"purpose": ["Communications"]},
     {"year": [2000, 2010]},
-    {"status": ["Active"], "orbit": ["GEO"], "owner": "most_common", "year": [2000, 2026]},
+    {"status": "Active", "orbit": ["GEO"], "owner": "most_common", "year": [2000, 2026]},
     # More baseline for the filter spec (2.2/2.3): multi-value selections, a single year, contradictions
     {"owner": "top_two"},
     {"launchvehicle": "top_two"},
@@ -84,7 +83,7 @@ def test_filter_returns_exact_set(sample_df, filters, t_ref, case):
         ("owner", "top_two"): lambda: top("Owner", 2),
         ("launchvehicle", "most_common"): lambda: top("LaunchVehicleClass", 1),
         ("launchvehicle", "top_two"): lambda: top("LaunchVehicleClass", 2),
-        ("status", "other_status"): lambda: ["Inactive" if first.Status == "Active" else "Active"],
+        ("status", "other_status"): lambda: "Inactive" if first.Status == "Active" else "Active",
     }
     kw = {k: resolve[(k, v)]() if isinstance(v, str) and (k, v) in resolve else v for k, v in case.items()}
     out, _, encoded, args = run(sample_df, filters, **kw)

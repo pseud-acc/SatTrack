@@ -33,8 +33,9 @@ def test_starting_state_is_status_orbit_and_year_only():
 
 
 def test_inactive_covers_objects_with_no_status_active_does_not():
-    assert clauses(status=["Active"])["operational_status"] == ("in", ["Active"])
-    assert clauses(status=["Inactive"])["operational_status"] == ("in", ["Inactive", None])
+    assert clauses(status="Active")["operational_status"] == ("in", ["Active"])
+    assert clauses(status="Inactive")["operational_status"] == ("in", ["Inactive", None])
+    assert clauses(status="All")["operational_status"] == ("in", ["Active", "Inactive", None])
 
 
 @pytest.mark.parametrize("control, field, op", [
@@ -56,9 +57,9 @@ def test_one_satellite_by_name_or_number():
     assert clauses(satcatid="25544")["satcat_id"] == ("eq", 25544)
 
 
-@pytest.mark.parametrize("empty", ["status", "orbit"])
+@pytest.mark.parametrize("empty", [{"orbit": []}, {"status": None}, {"status": "Unknown choice"}])
 def test_nothing_ticked_selects_nothing(empty):
-    assert sidebar_filter_spec(**{**START, empty: []}) is None
+    assert sidebar_filter_spec(**{**START, **empty}) is None
 
 
 def gz_entry(doc):

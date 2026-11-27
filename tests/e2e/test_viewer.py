@@ -175,19 +175,19 @@ def test_panel_type_switches_and_space_junk_mode_filter_the_globe_without_reload
 
     junk = page.get_by_label("Space junk mode")
     junk.check()
-    expect(page.locator("#status-filter-checkbox").get_by_label("Inactive", exact=True)).to_be_checked()
+    expect(page.locator("#status-filter-checkbox").get_by_label("All", exact=True)).to_be_checked()
     want = expected_shown(records, page, {"PAYLOAD", "ROCKET BODY", "DEBRIS"}, {"Active", "Inactive"})
     wait_until(page, f"() => window.sattrackViewer.shownIds().length === {len(want)}")
     assert shown_ids(page) == want
     assert page.evaluate("window.sattrackViewer.matchCounts.DEBRIS") > 0
 
     junk.uncheck()
-    expect(page.locator("#status-filter-checkbox").get_by_label("Inactive", exact=True)).not_to_be_checked()
+    expect(page.locator("#status-filter-checkbox").get_by_label("Active", exact=True)).to_be_checked()
     want = expected_shown(records, page, {"PAYLOAD"}, {"Active"})
     wait_until(page, f"() => window.sattrackViewer.shownIds().length === {len(want)}")
     assert shown_ids(page) == want
 
-    page.locator("#orbit-filter-checkbox").get_by_label("LEO", exact=True).uncheck()
+    page.locator("#orbit-filter-checkbox").get_by_text("LEO", exact=True).click()   # a segment: click it
     no_leo = {r["satcat_id"] for r in records if r["orbit_class"] == "LEO"}
     want = expected_shown(records, page, {"PAYLOAD"}, {"Active"}) - no_leo
     wait_until(page, f"() => window.sattrackViewer.shownIds().length === {len(want)}")
@@ -198,6 +198,79 @@ def test_panel_type_switches_and_space_junk_mode_filter_the_globe_without_reload
     assert not page.evaluate("window.sattrackViewer.error")
     assert page.errors == []
     check_security(page)
+
+
+def panel_count(page):
+    return int(page.locator("#filter-count .st-count-n").inner_text().replace(",", ""))
+
+
+def browser_count(page):
+    return sum(page.evaluate("window.sattrackViewer.matchCounts").values())
+
+
+def wait_for_filter(page, changes):
+    """Until the viewer has applied the next filter change (newly shown objects placed)."""
+    wait_until(page, f"() => window.sattrackViewer.filterChanges > {changes}")
+    return page.evaluate("window.sattrackViewer.filterChanges")
+
+
+def test_panel_count_chips_and_clear_all_drive_the_globe(page, viewer_url):
+    """Roadmap 3.3b: the server's count (the panel) equals the browser's match count after each change; the status and
+    orbit segments, a chip's remove button and Clear all change the globe at once, with no Update button and no data
+    reload."""
+    open_viewer(page, viewer_url)
+    records = sample_records()["records"]
+    wait_until(page, "() => window.sattrackViewer.shownCount > 0")
+    assert panel_count(page) == browser_count(page) > 0                       # server count == browser count (Q4)
+    assert shown_ids(page) == expected_shown(records, page, {"PAYLOAD"}, {"Active"})
+    expect(page.locator("#filter-count")).to_contain_text(f"of {len(records):,} objects")
+    assert page.locator("#time-update-btn").count() == 0                     # changes apply at once
+    expect(page.locator("#filter-clear-all")).to_be_hidden()
+    changes = page.evaluate("window.sattrackViewer.filterChanges")
+
+    page.locator("#status-filter-checkbox").get_by_text("All", exact=True).click()
+    changes = wait_for_filter(page, changes)
+    want = expected_shown(records, page, {"PAYLOAD"}, {"Active", "Inactive"})
+    assert shown_ids(page) == want
+    expect(page.locator("#filter-count .st-count-n")).to_have_text(f"{browser_count(page):,}")
+    expect(page.locator("#chip-status")).to_be_hidden()                      # All narrows nothing
+    expect(page.locator("#filter-clear-all")).to_be_visible()
+
+    page.locator("#orbit-filter-checkbox").get_by_text("LEO", exact=True).click()
+    changes = wait_for_filter(page, changes)
+    expect(page.locator("#chip-orbit")).to_contain_text("Orbit type: MEO, GEO, GSO, HEO")
+    leo = {r["satcat_id"] for r in records if r["orbit_class"] == "LEO"}
+    assert shown_ids(page) == want - leo
+    expect(page.locator("#filter-count .st-count-n")).to_have_text(f"{browser_count(page):,}")
+
+    page.locator("#chip-x-orbit").click()                                    # remove the orbit chip: every orbit
+    changes = wait_for_filter(page, changes)
+    expect(page.locator("#orbit-filter-checkbox").get_by_label("LEO", exact=True)).to_be_checked()
+    expect(page.locator("#chip-orbit")).to_be_hidden()
+    assert shown_ids(page) == want
+
+    page.locator("#filter-clear-all").click()                                # back to the opening values
+    wait_for_filter(page, changes)
+    expect(page.locator("#status-filter-checkbox").get_by_label("Active", exact=True)).to_be_checked()
+    expect(page.locator("#filter-clear-all")).to_be_hidden()
+    assert shown_ids(page) == expected_shown(records, page, {"PAYLOAD"}, {"Active"})
+    expect(page.locator("#filter-count .st-count-n")).to_have_text(f"{browser_count(page):,}")
+
+    assert objects_requests(page) == 1
+    assert page.errors == []
+    check_security(page)
+
+
+def test_more_filters_rows_show_their_values(page, viewer_url):
+    open_viewer(page, viewer_url)
+    row = page.locator("#more-owner")
+    expect(page.locator("#more-owner-summary")).to_have_text("Any")
+    expect(page.locator("#owner-filter-multi-dropdown")).to_be_hidden()      # closed until opened
+    row.locator("summary").click()
+    expect(page.locator("#owner-filter-multi-dropdown")).to_be_visible()
+    row.locator("summary").press("Enter")                                    # keyboard closes it again
+    expect(page.locator("#owner-filter-multi-dropdown")).to_be_hidden()
+    assert page.errors == []
 
 
 def test_credits_replace_cesiums(page, viewer_url):
@@ -218,7 +291,9 @@ def test_globe_survives_tab_switches_and_page_changes(page, viewer_url):
     assert page.evaluate("document.querySelector('#globe canvas') === window.__firstCanvas")
     frames = page.evaluate("window.sattrackViewer.frameMs.length")
     wait_until(page, f"() => window.sattrackViewer.frameMs.length > {frames}")
-    # leaving the tracker and coming back mounts a fresh viewer in the new div#globe
+    # leaving the tracker and coming back mounts a fresh viewer in the new div#globe. Wait for the page's requests to
+    # finish first: a request the test cancels by navigating away (a globe tile, a callback) isn't an app error.
+    page.wait_for_load_state("networkidle")
     page.locator("#nav-home, a[href='/']").first.click()
     page.locator("#nav-viz, a[href='/sat_visualisation']").first.click()
     wait_until(page, "() => !!document.querySelector('#globe canvas') && "
@@ -429,6 +504,48 @@ def test_budget_full_catalogue(page, browser, budget_url):
     report(f"budget, space junk mode ({m['shown']:,} shown): main {m['mainMsPerFrame']:.2f} ms/frame, worker "
           f"{m['workerMsPerPass']:.1f} ms/pass, step {m['step']} s, heap {heap_mb(page):.1f} MB")
     assert m["mainMsPerFrame"] <= 5
+    assert page.errors == []
+
+
+FILTER_MAIN_MS = 50   # the viewer's main-thread work per filter change (D-027: no viewer task over 50 ms)
+
+
+def test_filter_change_cost(page, budget_url):
+    """Roadmap 3.3b: what a filter change costs on a full-size catalogue. For each change: the time from the click to
+    the spec reaching the viewer (Dash's round trip: the server builds the spec and the panel summary), then to the
+    globe updated (the worker's mask and fresh positions for newly shown objects), the viewer's own main-thread part
+    (limited), and the long main-thread tasks (> 50 ms) in the window, reported (Dash's and the renderer's work
+    included). The search lists aren't rebuilt (Q8 S2), so a change no longer re-indexes them."""
+    page.add_init_script(LONG_TASKS)
+    open_viewer(page, budget_url)
+    wait_until(page, "() => window.sattrackViewer.shownCount > 0")
+    page.wait_for_timeout(1500)
+    steps = [
+        ("Space junk mode on", lambda: page.get_by_label("Space junk mode").check()),
+        ("Status: Active", lambda: page.locator("#status-filter-checkbox").get_by_text("Active", exact=True).click()),
+        ("Orbit: LEO off", lambda: page.locator("#orbit-filter-checkbox").get_by_text("LEO", exact=True).click()),
+        ("Clear all", lambda: page.locator("#filter-clear-all").click()),
+    ]
+    rows, worst_main = [], 0.0
+    for label, act in steps:
+        changes = page.evaluate("window.sattrackViewer.filterChanges")
+        t0 = page.evaluate("performance.now()")
+        act()
+        wait_until(page, f"() => window.sattrackViewer.filterChanges > {changes}")
+        received, applied, main_ms, matched = page.evaluate(
+            "[window.sattrackViewer.filterReceivedAt, window.sattrackViewer.filterAppliedAt, "
+            "window.sattrackViewer.filterMainMs.at(-1), "
+            "Object.values(window.sattrackViewer.matchCounts).reduce((a, b) => a + b, 0)]")
+        tasks = [d for (st, d) in page.evaluate("window.__longTasks") if t0 <= st <= applied]
+        worst_main = max(worst_main, main_ms)
+        rows.append(f"| {label} | {matched:,} | {received - t0:,.0f} ms | {applied - received:,.0f} ms | "
+                    f"{main_ms:,.1f} ms | {len(tasks)} (longest {max(tasks, default=0):,.0f} ms) |")
+    job_summary("### Filter change cost (roadmap 3.3b)\n\nFull-size catalogue (32,652 objects).\n\n"
+                "| Change | Matched | Click to spec in the viewer | Then to globe updated | Viewer main thread | "
+                "Long tasks (> 50 ms) |\n|---|---|---|---|---|---|\n" + "\n".join(rows)
+                + f"\n\nLimit: viewer main thread <= {FILTER_MAIN_MS} ms per change; the rest is reported only.")
+    assert worst_main <= FILTER_MAIN_MS
+    assert objects_requests(page) == 1
     assert page.errors == []
 
 
