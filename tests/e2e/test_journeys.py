@@ -210,6 +210,9 @@ def test_search_list_browses_narrows_and_picks(page, base_url):
     chip's x clears the pick and the list starts over."""
     open_tracker(page, base_url)
     rows = page.locator(".st-search-row")
+    # Collapsed until used (owner, 27 Nov 2026); the toggle opens it for browsing
+    expect(page.locator("#sat-search-list")).to_be_hidden()
+    page.locator(".st-search-toggle").click()
     expect(rows.first).to_be_visible(timeout=TIMEOUT)
     doc = page.evaluate("fetch('/data/search.json').then(r => r.json())")
     first = [str(r["satcat_id"]) for r in doc["records"][:5]]
@@ -221,6 +224,7 @@ def test_search_list_browses_narrows_and_picks(page, base_url):
                for i in range(min(5, rows.count())))
     changes = page.evaluate("window.sattrackViewer.filterChanges")
     pick_satellite(page, target["satcat_id"])
+    expect(page.locator("#sat-search-list")).to_be_hidden()   # picking closes the list
     page.wait_for_function(f"() => window.sattrackViewer.filterChanges > {changes}", timeout=TIMEOUT)
     assert page.evaluate("window.sattrackViewer.shownIds()") == [target["satcat_id"]]
     expect(page.locator("#chip-satcatid-text")).to_contain_text(target["object_name"])

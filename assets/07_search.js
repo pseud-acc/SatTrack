@@ -9,11 +9,21 @@
    - Picking a row sets the hidden satcatid-filter-dropdown value (dash_clientside.set_props), which the panel's
      callbacks read like any other control; picking it again clears it. A clientside callback calls setSelected when
      the value changes elsewhere (a chip's x, Clear all).
+   - The list is collapsed until the box is tapped or its toggle pressed (owner, 27 Nov 2026: an open list made the
+     panel messy); picking a satellite, Esc, the toggle or a tap outside closes it again.
+   - Objects Space-Track hasn't named yet ("TBA - TO BE ASSIGNED") show as "Not yet named" with their international
+     designator, and can be found by it.
    Every data string goes in through textContent. */
 (function () {
   "use strict";
   var PAGE = 60, TYPES = { "PAYLOAD": "Payload", "ROCKET BODY": "Rocket body", "DEBRIS": "Debris" };
-  var state = { el: null, records: null, loading: null, matches: [], shown: 0, selected: null, query: "" };
+  var UNNAMED = "TBA - TO BE ASSIGNED";
+  var state = { el: null, records: null, loading: null, matches: [], shown: 0, selected: null, query: "", open: false };
+
+  function displayName(r) {
+    if (r.object_name === UNNAMED) return "Not yet named" + (r.object_id ? " (" + r.object_id + ")" : "");
+    return r.object_name || "(no name)";
+  }
 
   function load() {
     if (state.records || state.loading || !state.el) return state.loading;
@@ -23,7 +33,7 @@
       .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then(function (doc) {
         state.records = doc.records.map(function (r) {
-          r._name = (r.object_name || "").toLowerCase();
+          r._name = (displayName(r) + " " + (r.object_id || "")).toLowerCase();
           r._id = String(r.satcat_id);
           return r;
         });
@@ -62,7 +72,7 @@
     b.setAttribute("role", "option");
     b.setAttribute("aria-selected", r._id === state.selected ? "true" : "false");
     b.dataset.id = r._id;
-    var n = document.createElement("span"); n.className = "st-search-name"; n.textContent = r.object_name || "(no name)";
+    var n = document.createElement("span"); n.className = "st-search-name"; n.textContent = displayName(r);
     var m = document.createElement("span"); m.className = "st-search-meta"; m.textContent = meta(r);
     b.appendChild(n); b.appendChild(m);
     return b;
@@ -100,6 +110,16 @@
       window.dash_clientside.set_props("satcatid-filter-dropdown", { value: value });
     }
     render();
+    setOpen(false);
+  }
+
+  function setOpen(open) {
+    if (!state.el || state.open === open) return;
+    state.open = open;
+    state.el.classList.toggle("is-open", open);
+    var t = state.el.querySelector(".st-search-toggle");
+    if (t) { t.setAttribute("aria-expanded", open ? "true" : "false"); t.title = open ? "Hide the list" : "Browse the list"; }
+    if (open) { load(); render(); }
   }
 
   function mount(el) {
@@ -109,16 +129,29 @@
     input.type = "search"; input.id = "sat-search-input"; input.className = "form-control st-search-input";
     input.placeholder = "Name or SATCAT number"; input.autocomplete = "off";
     input.setAttribute("aria-controls", "sat-search-list");
+    var toggle = document.createElement("button");
+    toggle.type = "button"; toggle.className = "st-search-toggle"; toggle.setAttribute("aria-controls", "sat-search-list");
+    toggle.setAttribute("aria-expanded", "false"); toggle.title = "Browse the list";
+    toggle.setAttribute("aria-label", "Browse the satellite list");
+    var box = document.createElement("div"); box.className = "st-search-box";
     var list = document.createElement("div");
     list.className = "st-search-list"; list.id = "sat-search-list"; list.setAttribute("role", "listbox");
     list.setAttribute("aria-label", "Satellites");
     var s = document.createElement("div"); s.className = "st-search-status"; s.setAttribute("aria-live", "polite");
-    el.appendChild(input); el.appendChild(list); el.appendChild(s);
+    box.appendChild(input); box.appendChild(toggle);
+    el.appendChild(box); el.appendChild(list); el.appendChild(s);
+    state.open = false;
     var timer = null;
-    input.addEventListener("focus", load);
+    input.addEventListener("focus", function () { setOpen(true); });
     input.addEventListener("input", function () {
+      setOpen(true);
       clearTimeout(timer);
       timer = setTimeout(function () { state.query = input.value; load(); render(); }, 120);
+    });
+    input.addEventListener("keydown", function (e) { if (e.key === "Escape") { setOpen(false); input.blur(); } });
+    toggle.addEventListener("click", function () { setOpen(!state.open); });
+    document.addEventListener("click", function (e) {
+      if (state.open && state.el === el && !el.contains(e.target)) setOpen(false);
     });
     list.addEventListener("click", function (e) {
       var b = e.target.closest(".st-search-row");

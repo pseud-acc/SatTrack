@@ -393,7 +393,9 @@ class Viewer {
       if (shownIndex !== i || this.destroyed) return;
       const r = info.record;
       label.textContent = "";
-      label.append(el("strong", null, r.object_name || "(no name)"),
+      const name = r.object_name === "TBA - TO BE ASSIGNED"   // Space-Track's "not yet named"
+        ? `Not yet named${r.object_id ? ` (${r.object_id})` : ""}` : (r.object_name || "(no name)");
+      label.append(el("strong", null, name),
                    el("div", null, [`SATCAT ${r.satcat_id}`, TYPE_LABEL[r.object_type] || "Unknown type",
                                     r.operational_status].filter(Boolean).join(" · ")),
                    el("div", null, [r.orbit_class, r.launch_year ? `launched ${r.launch_year}` : null,

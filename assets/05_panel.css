@@ -247,7 +247,15 @@
   font-size: var(--st-fs-xs); font-variant-numeric: tabular-nums; }
 
 /* Satellite search (D-052; assets/07_search.js): a box over a list you can scroll, stations and newest launches first */
-.st-search-input { font-size: var(--st-fs-sm); }
+.st-search-box { display: flex; gap: var(--st-1); }
+.st-search-input { font-size: var(--st-fs-sm); flex: 1 1 auto; min-width: 0; }
+.st-search-toggle { flex: 0 0 auto; width: 36px; border: 1px solid var(--st-line); border-radius: var(--st-r);
+  background: var(--st-raised); color: var(--st-muted); }
+.st-search-toggle::before { content: "▾"; }
+.st-search.is-open .st-search-toggle::before { content: "▴"; }
+.st-search-toggle:hover, .st-search-toggle:focus-visible { color: var(--st-fg); background: var(--st-hover); }
+/* Collapsed until the box or the toggle is used (owner, 27 Nov 2026) */
+.st-search:not(.is-open) .st-search-list, .st-search:not(.is-open) .st-search-status { display: none; }
 .st-search-list { margin-top: var(--st-2); max-height: 240px; overflow-y: auto; border: 1px solid var(--st-line);
   border-radius: var(--st-r); background: var(--st-raised); overscroll-behavior: contain; }
 .st-search-row { display: flex; flex-direction: column; align-items: flex-start; width: 100%; padding: 6px 10px;

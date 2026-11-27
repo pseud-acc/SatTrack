@@ -24,7 +24,7 @@
 //               {type: "error", id, error}
 
 const TYPES = ["PAYLOAD", "ROCKET BODY", "DEBRIS", "UNKNOWN"];
-const FIELDS = ["satcat_id", "object_name", "object_type", "operational_status", "orbit_class", "owner_country",
+const FIELDS = ["satcat_id", "object_name", "object_id", "object_type", "operational_status", "orbit_class", "owner_country",
                 "launch_vehicle_brand", "mission_category_labels", "launch_year"];
 let engine = null, spec = null, rows = null, types = null, mask = null;
 

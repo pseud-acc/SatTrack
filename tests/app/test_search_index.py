@@ -24,13 +24,16 @@ def test_one_record_per_object_with_the_objects_field_names():
     doc = objects_doc()
     out = json.loads(gzip.decompress(search_dataset(doc)["gzip"]))
     assert out["dataset"] == "search" and out["derived_from"] == "objects" and out["key"] == "satcat_id"
-    assert out["count"] == len(out["records"]) == len(doc["records"])
-    assert {r["satcat_id"] for r in out["records"]} == {r["satcat_id"] for r in doc["records"]}
+    shown = [r for r in doc["records"] if r["object_type"] in ("PAYLOAD", "ROCKET BODY", "DEBRIS")]
+    assert len(shown) < len(doc["records"]), "the sample has UNKNOWN objects, which the list leaves out (D-011)"
+    assert out["count"] == len(out["records"]) == len(shown)
+    assert {r["satcat_id"] for r in out["records"]} == {r["satcat_id"] for r in shown}
     assert all(list(r) == FIELDS for r in out["records"])
     by_id = {r["satcat_id"]: r for r in doc["records"]}
     for r in out["records"]:
         src = by_id[r["satcat_id"]]
         assert r["object_name"] == src["object_name"] and r["object_type"] == src["object_type"]
+        assert r["object_id"] == src.get("object_id")
 
 
 def test_attribution_and_caution_travel_with_the_names():
@@ -59,6 +62,20 @@ def test_served_compressed_with_an_etag(client):
     resp = client.get("/data/search.json", headers={"Accept-Encoding": "br"})
     assert resp.status_code == 200 and resp.headers["Content-Encoding"] == "br"
     body = json.loads(brotli.decompress(resp.data))
-    assert body["dataset"] == "search" and body["count"] == len(objects_doc()["records"])
+    assert body["dataset"] == "search" and body["count"] == sum(
+        r["object_type"] != "UNKNOWN" for r in objects_doc()["records"])
     again = client.get("/data/search.json", headers={"Accept-Encoding": "br", "If-None-Match": resp.headers["ETag"]})
     assert again.status_code == 304
+
+
+def test_unnamed_objects_come_after_named_ones():
+    """Space-Track's placeholder name (owner, 27 Nov 2026: "TBA - TO BE ASSIGNED" topped the list, as the newest
+    launches): within a type, named objects first, then those not yet named, each newest first."""
+    doc = objects_doc()
+    payloads = [r for r in doc["records"] if r["object_type"] == "PAYLOAD"]
+    newest = max(payloads, key=lambda r: (r.get("launch_year") or 0, r["satcat_id"]))
+    newest["object_name"] = "TBA - TO BE ASSIGNED"
+    recs = json.loads(gzip.decompress(search_dataset(doc)["gzip"]))["records"]
+    p = [r for r in recs if r["object_type"] == "PAYLOAD" and r["flag_space_station"] != 1]
+    assert p[-1]["satcat_id"] == newest["satcat_id"]
+    assert all(r["object_name"] != "TBA - TO BE ASSIGNED" for r in p[:-1])

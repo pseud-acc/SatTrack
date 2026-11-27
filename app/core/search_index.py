@@ -9,27 +9,34 @@ published dataset (app/core/data_files.py: Brotli or gzip, ETag, revalidated). T
 (assets/07_search.js) fetches it once, after the globe's first positions, and filters it in the browser.
 
 Records keep the objects dataset's field names (one self-describing record per object, no lookup tables), in the
-order the list shows them: space stations first, then payloads, then rocket bodies, debris and unknown objects;
-within each, the newest launches first (then the highest SATCAT number), so browsing starts with what's new.
+order the list shows them: space stations first, then payloads, then rocket bodies and debris; within each, objects
+Space-Track has named before those it hasn't, then the newest launches first (then the highest SATCAT number), so
+browsing starts with what's new. UNKNOWN objects (Space-Track's analyst objects) are left out: the globe never shows
+them (D-011). An object not yet named carries Space-Track's placeholder name (UNNAMED); the list shows it by its
+international designator (`object_id`) instead.
 """
 import gzip
 import json
 
 import brotli
 
-FIELDS = ["satcat_id", "object_name", "object_type", "operational_status", "launch_year", "flag_space_station"]
+FIELDS = ["satcat_id", "object_name", "object_id", "object_type", "operational_status", "launch_year",
+          "flag_space_station"]
 TYPE_ORDER = {"PAYLOAD": 0, "ROCKET BODY": 1, "DEBRIS": 2}
+UNNAMED = "TBA - TO BE ASSIGNED"   # Space-Track's name for an object it hasn't named yet (D-011)
 
 
 def _order(r):
     year = r.get("launch_year")
-    return (0 if r.get("flag_space_station") == 1 else 1, TYPE_ORDER.get(r.get("object_type"), 3),
+    return (0 if r.get("flag_space_station") == 1 else 1, TYPE_ORDER[r["object_type"]],
+            1 if r.get("object_name") == UNNAMED else 0,
             -(year if isinstance(year, (int, float)) else 0), -int(r["satcat_id"]))
 
 
 def search_records(objects_records):
     """The search list's records, in the order the list shows them."""
-    rows = [{f: r.get(f) for f in FIELDS} for r in objects_records if r.get("satcat_id") is not None]
+    rows = [{f: r.get(f) for f in FIELDS} for r in objects_records
+            if r.get("satcat_id") is not None and r.get("object_type") in TYPE_ORDER]
     for r in rows:
         if isinstance(r["launch_year"], float):
             r["launch_year"] = int(r["launch_year"])

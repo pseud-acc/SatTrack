@@ -117,7 +117,8 @@ def _object_name(filter_table, satcat_id):
         hit = filter_table.loc[filter_table["satcat_id"] == int(satcat_id), "object_name"]
     except (TypeError, ValueError):
         return None
-    return hit.iloc[0] if len(hit) and isinstance(hit.iloc[0], str) else None
+    name = hit.iloc[0] if len(hit) and isinstance(hit.iloc[0], str) else None
+    return None if name == "TBA - TO BE ASSIGNED" else name   # Space-Track's "not yet named": the chip shows the number
 
 
 def panel_summary(filter_table, controls):
