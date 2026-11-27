@@ -264,3 +264,15 @@ def test_filters_open_on_a_phone_without_a_server_request(browser, base_url):
         assert sent == [], f"opening Filters called the server: {sent}"
     finally:
         context.close()
+
+
+def test_orbit_info_icon_is_a_short_explainer(page, base_url):
+    """Owner, 27 Nov 2026: the (i) card repeated the buttons' definitions. It explains orbit types in a line and
+    points to the buttons' own cards."""
+    open_tracker(page, base_url)
+    page.locator("#orbit-info-icon").hover()
+    card = page.get_by_role("tooltip")
+    expect(card).to_be_visible(timeout=TIMEOUT)
+    expect(card).to_contain_text("Hover over an orbit for its definition")
+    expect(card).not_to_contain_text("Low Earth orbit")
+    assert page.errors == []
