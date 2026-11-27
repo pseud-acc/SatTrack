@@ -32,7 +32,7 @@ def test_one_satellite_shows_its_ground_track(callbacks, sample_df):
     assert "Current Position" in current["hovertext"]
 
 
-@pytest.mark.parametrize("tab", ["3d-viz", "tbl-viz"])
+@pytest.mark.parametrize("tab", ["globe", "tbl-viz"])
 def test_other_tabs_do_not_run_it(callbacks, tab):
     status, _ = callbacks.call(OUT, "status-filter-checkbox.value", **{"sat-viz-tabs.active_tab": tab})
     assert status == 204

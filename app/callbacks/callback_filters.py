@@ -76,7 +76,7 @@ def register(app):
     The filter spec (roadmap 3.3a)
     -------------------------
     Interactive Inputs: every panel control
-    Outputs: the page's filter-spec store, which the globe, Plotly 3D and 2D and the list read (Q7). The page renders
+    Outputs: the page's filter-spec store, which the globe, the 2D map and the list read (Q7). The page renders
     the starting spec into the store, so nothing runs at load.
     '''
 
