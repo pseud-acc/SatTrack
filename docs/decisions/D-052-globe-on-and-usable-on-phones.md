@@ -43,7 +43,7 @@ dots; the panel's colours matching the globe's.
 1. **The globe is on unless `SATTRACK_CESIUM_VIEWER` switches it off** (`0`, `false`, `no`, `off`). The variable stays
    as an off switch until 3.6 removes it. Switched off, or without verified vendor files, the tracker opens on the
    list. The tab is "Globe" (no "beta"). Merging this PR therefore switches the globe on in production.
-2. **The Plotly 3D view is removed**: callback, tab, 20 s timer, stores, helpers, the Earth image and Pillow.
+2. **The Plotly 3D view is removed**: callback, tab, 20 s timer, stores, helpers, the Earth image (Pillow, which only opened it, goes in the next PR: CI's D-042 baseline runs `main`, which still imports it).
 3. **Only the open tab holds a view.** The 2D map is built when its tab opens and removed when it closes, with its
    timer on only while open, so Plotly's script loads only then. The list is built while open and isn't re-sent
    when the filters haven't changed (`list-shown-spec`).

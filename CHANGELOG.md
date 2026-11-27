@@ -47,7 +47,7 @@ When creating pull requests, use the following prefixes to indicate the type of 
 - Scheduled pipeline runs: the run title in the Actions list shows the trigger, e.g. `sattrack-pipeline (eventbridge)` or `sattrack-pipeline (manual) dry run`, since GitHub labels every dispatch "Manually run by" the owner
 
 ### Removed
-- The Plotly 3D view, its 20 s server refresh and the Clear orbits button (D-052): the globe replaces it; clicking a satellite for its orbit path returns on the globe with roadmap 3.4. Also the type switches' type-colour dots (the globe colours by status) and the Pillow dependency (it only opened the 3D view's Earth image)
+- The Plotly 3D view, its 20 s server refresh and the Clear orbits button (D-052): the globe replaces it; clicking a satellite for its orbit path returns on the globe with roadmap 3.4. Also the type switches' type-colour dots (the globe colours by status)
 - The legacy pipeline (`src/`, root `run_pipeline.py`) and its CSVs in `dat/` (CelesTrak, UCS, space.skyrocket); the app no longer reads raw GitHub CSVs
 
 ### Fixed
