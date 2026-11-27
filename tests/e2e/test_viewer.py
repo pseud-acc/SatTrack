@@ -150,7 +150,7 @@ def test_globe_opens_with_active_payloads_coloured_by_status(page, viewer_url):
     wait_until(page, "() => window.sattrackViewer.shownCount > 0")
     want = expected_shown(records, page, {"PAYLOAD"}, {"Active"})
     assert len(want) > 0 and shown_ids(page) == want
-    assert page.evaluate("window.sattrackViewer.colours") == {"active": "#f07a6e", "inactive": "#7d8aa0"}
+    assert page.evaluate("window.sattrackViewer.colours") == {"active": "#e8564a", "inactive": "#7d8aa0"}
     assert page.locator(".sattrack-viewer-legend, .sattrack-viewer-panel input").count() == 0   # toggles: panel
     expect(page.locator("#globe canvas").first).to_be_visible()
     assert page.errors == []

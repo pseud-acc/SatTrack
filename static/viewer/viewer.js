@@ -19,7 +19,7 @@
 const TYPES = ["PAYLOAD", "ROCKET BODY", "DEBRIS", "UNKNOWN"];
 // Status colours come from the design tokens (assets/03_tokens.css), read when the points are made; the fallbacks are
 // the same values, for a page without the app's stylesheet. "Colour by" (roadmap 3.13) adds the other palettes.
-const STATUS_TOKENS = { active: ["--st-active", "#f07a6e"], inactive: ["--st-inactive", "#7d8aa0"] };
+const STATUS_TOKENS = { active: ["--st-active", "#e8564a"], inactive: ["--st-inactive", "#7d8aa0"] };
 const token = ([name, fallback]) =>
   (getComputedStyle(document.documentElement).getPropertyValue(name) || "").trim() || fallback;
 const STEPS = [0.25, 0.5, 1, 2, 5, 10];     // seconds of simulation time between worker samples (D-015)

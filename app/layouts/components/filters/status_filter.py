@@ -27,7 +27,12 @@ def create_status_filter():
             options=[{"label": s, "value": s} for s in STATUS_CHOICES],
             value=DEFAULT_STATUS,   # owner, 26 Nov 2026 (D-049)
             id="status-filter-checkbox",   # id kept from the checklist it replaces (tests and journeys use it)
-            className="st-seg mb-3",
+            className="st-seg",
             inline=True,
-        )
+        ),
+        # The globe's colours (owner, 27 Nov 2026: the panel showed type colours the globe doesn't use)
+        html.Div([
+            html.Span([html.Span(className="st-swatch st-swatch-active"), "Active"], className="st-key-item"),
+            html.Span([html.Span(className="st-swatch st-swatch-inactive"), "Inactive"], className="st-key-item"),
+        ], id="status-key", className="st-status-key mb-3", title="Colours on the globe"),
     ])

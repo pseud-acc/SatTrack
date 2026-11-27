@@ -7,7 +7,7 @@ sample's objects dataset; the search lists are set once in the layout (Q8 S2); t
 """
 import pytest
 
-from _support import ALL_ORBITS, expected_object_count, objects_sample
+from _support import ALL_ORBITS, expected_object_count, objects_sample, split_outputs
 
 SEARCH_NAME, SEARCH_ID = "satname-filter-dropdown", "satcatid-filter-dropdown"
 
@@ -38,14 +38,11 @@ def test_panel_strip_button(callbacks):
                                                       "panel-strip-icon.className": "st-icon st-icon-chevron-left"})
 
 
-def test_collapse_button(callbacks):
-    def press(n, is_open):
-        return callbacks.call("filter-collapse", "toggle-filters.n_clicks",
-                              **{"toggle-filters.n_clicks": n, "filter-collapse.is_open": is_open})
-    assert press(1, False) == (200, {"filter-collapse.is_open": True, "toggle-icon.className": "st-icon st-icon-chevron-up"})
-    assert press(2, True) == (200, {"filter-collapse.is_open": False, "toggle-icon.className": "st-icon st-icon-chevron-down"})
-    assert press(None, False) == (200, {"filter-collapse.is_open": False,
-                                        "toggle-icon.className": "st-icon st-icon-chevron-down"})
+def test_collapse_button_runs_in_the_browser(dependencies):
+    """Owner, 27 Nov 2026: opening Filters on a phone waited for a server round trip. The toggle is a clientside
+    callback (no request); the browser journeys open and close it (tests/e2e/test_journeys.py)."""
+    toggle = [d for d in dependencies if split_outputs(d["output"])[0][0] == "filter-collapse"]
+    assert len(toggle) == 1 and toggle[0].get("clientside_function")
 
 
 # ---- The filter-spec store and Space junk mode (roadmap 3.3a) ----------------------------------------------------
@@ -155,7 +152,7 @@ def type_cells(out):
     """object type -> (matching, total) from the type switches' options."""
     cells = {}
     for opt in out["type-filter-checkbox.options"]:
-        m, total = text(opt["label"]["props"]["children"][2]).split(" / ")
+        m, total = text(opt["label"]["props"]["children"][1]).split(" / ")
         cells[opt["value"]] = (int(m.replace(",", "")), int(total.replace(",", "")))
     return cells
 

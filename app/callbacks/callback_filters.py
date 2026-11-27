@@ -171,23 +171,19 @@ def register(app):
     -------------------------
     Interactive Inputs: Toggle filter button
     Outputs: Filter collapse state and icon rotation
+    Runs in the browser (D-052; owner, 27 Nov 2026: opening Filters on a phone waited for a server round trip).
     '''
 
-    @app.callback(
-        [
-            Output("filter-collapse", "is_open"),
-            Output("toggle-icon", "className")
-        ],
-        [Input("toggle-filters", "n_clicks")],
-        [State("filter-collapse", "is_open")]
+    app.clientside_callback(
+        """function (n, isOpen) {
+            const open = n ? !isOpen : isOpen;
+            return [open, open ? "st-icon st-icon-chevron-up" : "st-icon st-icon-chevron-down"];
+        }""",
+        Output("filter-collapse", "is_open"),
+        Output("toggle-icon", "className"),
+        Input("toggle-filters", "n_clicks"),
+        State("filter-collapse", "is_open"),
     )
-    def toggle_filters(n, is_open):
-        if n:
-            new_state = not is_open
-            icon_class = "st-icon st-icon-chevron-up" if new_state else "st-icon st-icon-chevron-down"
-            return new_state, icon_class
-        # Initial state: filters are collapsed, so show down chevron
-        return is_open, "st-icon st-icon-chevron-down"        
 
     '''------------------------
     Desktop panel strip (3.12 step 3)

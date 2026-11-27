@@ -49,7 +49,7 @@ def test_switched_off_tracker_has_no_viewer(app_module, dependencies, client):
     assert tracker["sat-viz-tabs"].active_tab == "tbl-viz"
     # Only the globe draws rocket bodies and debris, so the type switches and junk mode are hidden without it
     assert tracker["type-filter"].hidden is True
-    assert not [d for d in dependencies if d.get("clientside_function") or "viewer" in d["output"]]
+    assert not [d for d in dependencies if "viewer" in d["output"] or "globe" in d["output"]]   # the filter toggle is clientside too (D-052)
     for path in ("/", "/sat_visualisation"):
         resp = client.get(path)
         html = resp.get_data(as_text=True)
