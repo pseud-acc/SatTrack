@@ -14,6 +14,7 @@
   --st-raised: #111d33;      /* inputs, menus */
   --st-hover: #16243f;       /* hovered row or option */
   --st-globe: #050a14;       /* behind the globe */
+  --st-globe-base: #0b1324;  /* the Earth's colour before its imagery loads (D-052) */
 
   /* Lines */
   --st-line: #1d2a40;        /* hairlines between surfaces (decorative, 1.2:1) */

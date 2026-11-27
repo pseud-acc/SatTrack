@@ -174,6 +174,17 @@ def register(app):
     Runs in the browser (D-052; owner, 27 Nov 2026: opening Filters on a phone waited for a server round trip).
     '''
 
+    # The search list (assets/07_search.js) shows the picked satellite; when a chip's x or Clear all changes it,
+    # tell the list. Runs in the browser; returns no_update (the title output is only a required target).
+    app.clientside_callback(
+        """function (value) {
+            if (window.sattrackSearch) window.sattrackSearch.setSelected(value);
+            return window.dash_clientside.no_update;
+        }""",
+        Output("sat-search", "title"),
+        Input("satcatid-filter-dropdown", "value"),
+    )
+
     app.clientside_callback(
         """function (n, isOpen) {
             const open = n ? !isOpen : isOpen;

@@ -70,7 +70,10 @@ def test_flag_on_tracker_mounts_the_globe_tab(flag_on):
     assert "filter-spec" in flag_on["tracker_ids"]   # the spec the bridge hands the viewer
     assert flag_on["active_tab"] == "globe"
     assert flag_on["type_filter_hidden"] is False   # the type switches and junk mode, which the globe can draw
-    assert flag_on["globe_children"] is None   # the empty div Cesium mounts into (D-013)
+    # The div Cesium mounts into (D-013) holds only the loading bar, rendered with the page (D-052)
+    loading = flag_on["globe_children"]
+    assert loading["props"]["className"] == "sattrack-loading" and loading["props"]["role"] == "status"
+    assert len(loading["props"]["children"][0]["props"]["children"]) == 4
     config = flag_on["viewer_config"]
     assert config["cesium"] == "/static/vendor/cesium-1.147.0/"
     assert config["satellite"] == "/static/vendor/satellite.js-7.1.0/"

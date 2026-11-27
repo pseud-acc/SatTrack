@@ -64,7 +64,7 @@ def create_filter_sidebar(options, summary, controls):
                     create_orbit_filter(options),
 
                     # Satellite Search
-                    create_search_filter(options),
+                    create_search_filter(),
 
                     # More filters: rows showing their values (roadmap 3.3b)
                     create_advanced_filters(options, summary),

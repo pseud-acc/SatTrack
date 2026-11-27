@@ -39,8 +39,6 @@ def create_data_filters(df):
     options["owner"] = list(np.sort(df.Owner.unique()))
     options["launchvehicle"] = list(np.sort(df.LaunchVehicleClass.unique()))
     options["purpose"] = sorted(list(set(sum([a.split("/") for a in df.Purpose.unique()], []))))
-    options["satname"] = list(np.sort(df.ObjectName.unique()))
-    options["satcatid"] = list(np.sort(df.SatCatId.unique()).astype(str))
     options["launchyear"] = [df.LaunchYear.min(),df.LaunchYear.max()]
     return options
 

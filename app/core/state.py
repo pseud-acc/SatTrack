@@ -35,6 +35,7 @@ from app.helper.helper__table_display import create_table_mapping
 from app.helper.helper__app_data import create_data_filters
 from app.helper.helper__satellite_position import satrec_sources, satrecs_for
 from app.core import filter_spec
+from app.core.search_index import search_dataset
 
 # Global cache for app data (lazy initialization). gunicorn runs threaded workers (Procfile), so the first requests
 # can arrive together: the lock makes sure the data is loaded once per worker.
@@ -186,10 +187,16 @@ def initialise_app_data():
     # the app must not start, so a missing dataset fails here, loudly, in the start-up log and CI's build check.
     options = create_data_filters(df)
     try:
-        filter_table = filter_spec.table_from_dataset(datasets.get("objects"))
+        objects_doc = filter_spec.objects_document(datasets.get("objects"))
     except filter_spec.MissingObjectsDataset as exc:
         print(f" - FATAL: {exc}", flush=True)
         raise
+    filter_table = filter_spec.table_from_records(objects_doc["records"])
+    # The satellite search list (D-052), from the same parse: served at /data/search.json, fetched by the page
+    datasets["search"] = _dataset_entry("search", search_dataset(objects_doc))
+    print(f" - Search list: {len(objects_doc['records']):,} objects, "
+          f"{len(datasets['search']['br']['body']):,} bytes (Brotli)")
+    del objects_doc
     missing = int((~df["SatCatId"].isin(filter_table["satcat_id"])).sum())
     print(f" - Filter table: {len(filter_table):,} objects from the objects dataset; "
           f"{missing} app CSV satellites not in it (these can't be shown)")

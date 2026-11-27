@@ -127,10 +127,9 @@ def table_from_records(records: list[dict], key: str = "satcat_id") -> pd.DataFr
     return pd.DataFrame.from_records(records, columns=list(dict.fromkeys([key, *fields()])))
 
 
-def table_from_dataset(dataset: dict | None) -> pd.DataFrame:
-    """Build the filter table from the objects dataset as the app holds it ({encoding: {"body", "sha256"}}), using
-    the gzip copy. Checks the envelope's name and count. Raises MissingObjectsDataset if it's absent or unusable.
-    Measured on the full 21 Nov export (D-035): 0.86 s, ~81 MB peak, ~15 MB kept per worker."""
+def objects_document(dataset: dict | None) -> dict:
+    """The objects dataset as the app holds it ({encoding: {"body", "sha256"}}), parsed from the gzip copy, with its
+    envelope's name and count checked. Raises MissingObjectsDataset if it's absent or unusable."""
     import gzip
     if not dataset or "gzip" not in dataset:
         raise MissingObjectsDataset(
@@ -142,9 +141,13 @@ def table_from_dataset(dataset: dict | None) -> pd.DataFrame:
         raise MissingObjectsDataset(f"objects dataset unreadable ({type(exc).__name__})") from None
     if doc.get("dataset") != "objects" or doc.get("count") != len(doc.get("records") or []):
         raise MissingObjectsDataset("objects dataset failed its envelope check (dataset name or count)")
-    table = table_from_records(doc["records"])
-    del doc
-    return table
+    return doc
+
+
+def table_from_dataset(dataset: dict | None) -> pd.DataFrame:
+    """Build the filter table from the objects dataset as the app holds it (see objects_document).
+    Measured on the full 21 Nov export (D-035): 0.86 s, ~81 MB peak, ~15 MB kept per worker."""
+    return table_from_records(objects_document(dataset)["records"])
 
 
 def select_ids(spec: dict, records: list[dict], key: str = "satcat_id") -> list:

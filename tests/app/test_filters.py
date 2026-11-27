@@ -41,8 +41,8 @@ def test_options_built_from_the_data(sample_df, filters):
     assert options["owner"] == sorted(sample_df.Owner.unique())
     assert options["launchvehicle"] == sorted(sample_df.LaunchVehicleClass.unique())
     assert options["purpose"] == sorted({p for v in sample_df.Purpose for p in v.split("/")})
-    assert options["satname"] == sorted(sample_df.ObjectName.unique())
-    assert sorted(options["satcatid"], key=int) == [str(i) for i in sorted(sample_df.SatCatId.unique())]
+    # No name or SATCAT lists: the search list comes from /data/search.json (D-052; tests/app/test_search_index.py)
+    assert "satname" not in options and "satcatid" not in options
 
 
 def test_uses_the_app_clock(sample_df, filters, t_ref):
