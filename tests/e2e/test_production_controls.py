@@ -172,9 +172,9 @@ def all_effects():
     return out
 
 
-# Controls whose effect isn't a different set of objects, checked elsewhere: the search box narrows the search list
-# (tests/e2e/test_journeys.py test_search_list_browses_narrows_and_picks).
-OWN_CHECKS = {"sat-search-input"}
+# Controls whose effect isn't a different set of objects, checked elsewhere: the search box narrows the search list and
+# its toggle opens and closes it (tests/e2e/test_journeys.py test_search_list_browses_narrows_and_picks).
+OWN_CHECKS = {"sat-search-input", "sat-search-toggle"}
 
 
 def test_every_visible_control_has_an_effect_check(page, base_url):

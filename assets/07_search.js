@@ -130,7 +130,8 @@
     input.placeholder = "Name or SATCAT number"; input.autocomplete = "off";
     input.setAttribute("aria-controls", "sat-search-list");
     var toggle = document.createElement("button");
-    toggle.type = "button"; toggle.className = "st-search-toggle"; toggle.setAttribute("aria-controls", "sat-search-list");
+    toggle.type = "button"; toggle.id = "sat-search-toggle"; toggle.className = "st-search-toggle";
+    toggle.setAttribute("aria-controls", "sat-search-list");
     toggle.setAttribute("aria-expanded", "false"); toggle.title = "Browse the list";
     toggle.setAttribute("aria-label", "Browse the satellite list");
     var box = document.createElement("div"); box.className = "st-search-box";
