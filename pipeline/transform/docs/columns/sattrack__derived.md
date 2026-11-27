@@ -553,13 +553,13 @@ Source: SatTrack-derived: see `int__xsrc__satellite_gcat_matched`, `fct__satelli
 {% enddocs %}
 
 {% docs col__operational_status %}
-Whether the object is working, from GCAT only: `Active` when GCAT says it's still operating (and not a zombie), else `Inactive`. Derived by SatTrack. E.g. `Active` for the ISS.
+Whether the object is working: `Active` when GCAT says it's still operating (and not a zombie), else `Inactive`. Rocket bodies and debris (Space-Track's object type) are always `Inactive` (D-053). Derived by SatTrack. E.g. `Active` for the ISS.
 
 Source: SatTrack-derived: see `int__jsr__satellite_status`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 8).
 {% enddocs %}
 
 {% docs col__operational_status_source %}
-Which GCAT record set `operational_status`: `gcat_psatcat` (payload catalog), `gcat_currentcat` (current catalog only) or `default_inactive` (no GCAT record). Set by SatTrack. E.g. `gcat_psatcat` for the ISS.
+What set `operational_status`: `gcat_psatcat` (payload catalog), `gcat_currentcat` (current catalog only), `default_inactive` (no GCAT record) or `space_track_object_type` (a rocket body or debris GCAT calls active, made Inactive, D-053). Set by SatTrack. E.g. `gcat_psatcat` for the ISS.
 
 Source: SatTrack-derived: see `int__jsr__satellite_status`, `fct__satellite_master`. Inputs: GCAT https://planet4589.org/space/gcat/ (Batch 9a).
 {% enddocs %}

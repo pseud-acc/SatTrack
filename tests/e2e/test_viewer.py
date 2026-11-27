@@ -160,13 +160,13 @@ def test_globe_opens_with_active_payloads_coloured_by_status(page, viewer_url):
 
 def test_panel_type_switches_and_space_junk_mode_filter_the_globe_without_reloading(page, viewer_url):
     """Roadmap 3.3a: the panel's controls drive the globe through the filter spec. Debris on its own shows nothing
-    while status is Active (the sample's debris are all Inactive; the note says almost all are); junk mode adds rocket bodies, debris and
+    while status is Active (the sample's debris are all Inactive; the note says they always are); junk mode adds rocket bodies, debris and
     Inactive; off restores. The data is fetched once and the canvas and worker survive every change."""
     open_viewer(page, viewer_url)
     records = sample_records()["records"]
     page.evaluate("window.__canvas = document.querySelector('#globe canvas')")
     types = page.locator("#type-filter-checkbox")
-    expect(page.locator(".st-type-note")).to_contain_text("Almost all rocket bodies and debris are inactive")
+    expect(page.locator(".st-type-note")).to_contain_text("Rocket bodies and debris are always inactive")
     changes = page.evaluate("window.sattrackViewer.filterChanges")
 
     types.get_by_text("Debris", exact=True).click()

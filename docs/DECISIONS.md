@@ -894,3 +894,17 @@ after: 32%, 0.2 s, 1.1-1.5 s and 0.8-0.9 s. A Plotly zoom fix was tried and drop
 **Rejected.** Keeping Plotly 3D beside the globe (keeps the slowest view); more Plotly fixes (redraw cost of ~16,600
 points); type-only search (owner rejected in #73); full dropdown lists loaded on first open (still freezes on a phone).
 
+
+## D-053 Rocket bodies and debris are always Inactive
+**Status:** Accepted, 2026-11-27 (owner). Updates D-049's note. Record:
+[D-053](decisions/D-053-rocket-bodies-and-debris-always-inactive.md).
+
+**Decision.** In `fct__satellite_master`, Space-Track's `ROCKET BODY` and `DEBRIS` objects are always
+`operational_status = 'Inactive'`; where GCAT had said Active, `operational_status_source` is
+`space_track_object_type`. The panel note says "always" instead of "almost all".
+
+**Why.** Status came from GCAT only and fell through to its current catalog for non-payloads, making 6 of 12,398
+rocket bodies and debris Active (26 Nov data). One deterministic rule; no manual list.
+
+**Rejected.** Keeping GCAT's status (junk shown as working satellites); a manual exceptions list (breaks the
+unattended pipeline rule).

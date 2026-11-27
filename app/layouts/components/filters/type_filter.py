@@ -6,8 +6,8 @@ globe and the other views. UNKNOWN is never offered, so it stays hidden (D-011).
 Each switch shows "matching / total" (roadmap 3.3b, Q6): objects of that type matching the other filters, out of all
 of that type. A switched-on type that matches nothing gets a hint saying why (Q2).
 
-Almost every rocket body and debris object is Inactive in the data (all but 6 of 12,398 on 21 Nov 2026), so the note
-under the switches says so; Space junk mode also sets status to All (owner, 26 Nov 2026; app/callbacks/callback_filters.py).
+Rocket bodies and debris are always Inactive in the data (D-053, 27 Nov 2026), so the note under the switches says
+so; Space junk mode also sets status to All (owner, 26 Nov 2026; app/callbacks/callback_filters.py).
 """
 
 from dash import dcc, html
@@ -55,7 +55,7 @@ def create_type_filter(summary, types, shown=True):
         ),
         html.Div(type_hints(summary), id="type-hint", role="status"),
         dbc.Switch(id="junk-mode-switch", label="Space junk mode", value=False, className="st-junk-switch"),
-        html.P("Almost all rocket bodies and debris are inactive, so most show only with status Inactive or All. "
+        html.P("Rocket bodies and debris are always inactive, so they show only with status Inactive or All. "
                "Space junk mode does this for you.", className="st-type-note"),
         dcc.Store(id="status-before-junk", data=None),
     ], id="type-filter", className="st-type-filter", hidden=not shown)
