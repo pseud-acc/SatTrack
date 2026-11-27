@@ -90,10 +90,9 @@ synced folder), then `SATTRACK_CESIUM_VIEWER=1 SATTRACK_APP_DATA_DIR=tests/app_d
 | `../run_app.py` | Production entry point: creates the Dash app (`server` for gunicorn), page template with analytics, URL routing (with a `validation_layout` covering both pages), registers callbacks |
 | `../run_app_dev.py` | Local development server with hot reload |
 | `core/state.py` | Loads the data (S3 or local folder), builds filters and base figures, caches them (`get_app_data`) |
-| `config/user_setup_app.py` | Static paths (Earth map image) |
 | `layouts/` | Page layouts: `layout_home.py` (landing page, data sources), `layout_sat_visualisations.py` (tracker), `layout_navbar.py` |
 | `layouts/components/` | Tracker building blocks: `header.py` (title, credits, data age), `filter_sidebar.py` + `filters/`, `visualization_area.py` + `visualizations/` (3D, 2D, table tabs) |
-| `callbacks/` | One module per area (`callback_3d_viz.py`, `callback_2d_viz.py`, `callback_table.py`, `callback_filters.py`, `callback_navbar.py`), registered by `callback_registry.py` |
+| `callbacks/` | One module per area (`callback_2d_viz.py`, `callback_table.py`, `callback_filters.py`, `callback_navbar.py`), registered by `callback_registry.py` |
 | `helper/` | `helper__app_data.py` (filter options, filtering, orbit paths), `helper__satellite_position.py` (`Satrec`s from OMM with TLE fallback, cached; SGP4; TEME → WGS 84 lat/lon/alt; xyz), `helper__plot_display.py` (3D/2D figures, hover labels, camera, orbit clicks), `helper__table_display.py`, `helper__filter_display.py`, `helper__constants.py` |
 | `styles/` | Colour palette and component styles |
 | `layouts/Archive/` | Earlier layouts, not used |
@@ -108,7 +107,6 @@ synced folder), then `SATTRACK_CESIUM_VIEWER=1 SATTRACK_APP_DATA_DIR=tests/app_d
 
 | Callback module | Inputs | Updates |
 |---|---|---|
-| `callback_3d_viz` | the `filter-spec` store, clicks on a satellite, the tab's Clear orbits button, 20 s timer | 3D figure; clicked satellites get their orbit drawn (kept in `3d-orbit-memory`); camera kept in `camera-memory` |
 | `callback_2d_viz` | the `filter-spec` store, 3 s timer | 2D map |
 | `callback_table` | the `filter-spec` store, tab | table rows (20 per page, **Export** to CSV) |
 | `callback_filters` | every panel control, chip remove buttons, Clear all, junk switch, toggles | the `filter-spec` store; the live count, type counts, hints, chips and "More filters" summaries (D-051); junk mode, chip removal and Clear all |

@@ -23,11 +23,8 @@ Todo:
 ## Packages
 
 import sys
-import numpy as np
-import plotly.graph_objects as go
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
-from dash import Dash, callback_context
 
 
 ## Internal Modules
@@ -41,6 +38,7 @@ from app.core.state import get_app_data
 from app.helper.helper__app_data import (filter_satellite_data)
 # app helper functions
 from app.helper.helper__table_display import (format_table_data)
+from app.layouts.components.visualizations.viz_table import create_table_body
 
 
 # Callback wrapper function
@@ -55,32 +53,29 @@ def register(app):
     app_data = get_app_data()
     df = app_data['data']['satcat_df']
     filter_table = app_data['filter']['table']
+    tbl_col_map = app_data['data']['tbl_col_map']
 
     # >>> Define Callbacks <<<
     '''
     ------------------------
-    Table visualisation 
+    Table visualisation
     -------------------------
-    Interactive Inputs: the filter-spec store (roadmap 3.3a); the Update button went in 3.3b (filters apply at once)
-    Outputs: Table of satellites
+    The list tab's table is built only while the tab is open (D-052): the first time it opens, and again when the
+    filters change while it's open or have changed since it was last shown (`list-shown-spec`). Opening the tab with
+    unchanged filters sends nothing, so switching tabs doesn't resend ~4 MB of rows.
+    Inputs: the open tab, the filter-spec store (roadmap 3.3a)
+    Outputs: the list tab's contents and the spec they were built for
     '''
 
     @app.callback(
-        Output('satellite-list', 'data'),
-        [
-            Input('filter-spec', 'data'),   # the panel's filter spec (roadmap 3.3a, Q7)
-            Input("sat-viz-tabs", "active_tab")
-        ]
+        Output("tab-list-body", "children"),
+        Output("list-shown-spec", "data"),
+        Input("sat-viz-tabs", "active_tab"),
+        Input("filter-spec", "data"),   # the panel's filter spec (roadmap 3.3a, Q7)
+        State("list-shown-spec", "data"),
     )
-    def update_tbl(spec, tab):
-
-        if tab != "tbl-viz":
+    def update_tbl(tab, spec, shown):
+        if tab != "tbl-viz" or shown == {"spec": spec}:
             raise PreventUpdate
-        elif tab == "tbl-viz":
-
-            # Filter data using helper
-            dff, time_now, _ = filter_satellite_data(df, filter_table, spec)
-            # Table output
-            table_data = format_table_data(dff, time_now)
-
-            return table_data
+        dff, time_now, _ = filter_satellite_data(df, filter_table, spec)
+        return create_table_body(tbl_col_map, format_table_data(dff, time_now)), {"spec": spec}

@@ -29,7 +29,6 @@ dependencies = [
     "jsonschema>=4.23,<5",                # validates filter specs (app/core/filter_spec.py): the NL-query safety boundary
     "numpy>=1.26.0,<2",
     "pandas>=2.1.0,<3",
-    "pillow>=13.0.0,<14",                 # 13.0.0+: security fixes (Dependabot); the app only opens the Earth map
     "plotly>=5.7.0,<6",
     "sgp4>=2.27,<3",
 ]

@@ -52,7 +52,9 @@ SHELL_THIRD_PARTIES = {
 
 
 def flag_on(environ=os.environ):
-    return environ.get(FLAG_ENV, "").strip().lower() in {"1", "true", "yes", "on"}
+    """The globe is on unless SATTRACK_CESIUM_VIEWER switches it off (D-052: on by default since the Plotly 3D view
+    was removed; the variable stays as an off switch until roadmap 3.6 removes it)."""
+    return environ.get(FLAG_ENV, "").strip().lower() not in {"0", "false", "no", "off"}
 
 
 def vendor_dir(environ=os.environ):
@@ -110,10 +112,10 @@ _STATE = {"checked": False, "manifest": None, "reason": None}
 
 def viewer_state():
     """{'enabled': bool, 'manifest': ..., 'reason': ...}, worked out once per process and logged. With the flag off
-    the vendor files aren't read or hashed at all, so production pays nothing at boot until the globe is switched on."""
+    the vendor files aren't read or hashed at all."""
     if not _STATE["checked"]:
         _STATE["checked"] = True
-        manifest, reason = load_vendor() if flag_on() else (None, "the viewer flag is off")
+        manifest, reason = load_vendor() if flag_on() else (None, f"switched off by {FLAG_ENV}")
         _STATE["manifest"], _STATE["reason"] = manifest, reason
         if flag_on():
             if manifest:

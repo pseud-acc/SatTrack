@@ -25,17 +25,12 @@ import json
 import os
 import sys
 import threading
-import numpy as np
-from PIL import Image
 
 ## Internal Modules
 sys.path.append("../../")
 # user config
-from app.config.user_setup_app import img_loc
 # helper scripts
-from app.helper.helper__constants import _resolution_3d_earth_map__c
-from app.helper.helper__plot_display import (create_3d_layout, create_3d_surface, create_3d_figure, 
-                                             create_2d_layout, create_2d_figure)
+from app.helper.helper__plot_display import (create_2d_layout, create_2d_figure)
 from app.helper.helper__table_display import create_table_mapping
 from app.helper.helper__app_data import create_data_filters
 from app.helper.helper__satellite_position import satrec_sources, satrecs_for
@@ -134,17 +129,14 @@ def read_app_csvs_from_dir(data_dir):
             datasets[name] = _dataset_entry(name, encoded)
     return frames["satcat_tle.csv"], frames["last_data_update.csv"], datasets
 
-def import_app_data(img_loc, res):
+def import_app_data():
     '''
-    Import satellite data and earth map.
+    Import satellite data.
 
     Satellite data comes from the pipeline's app files (Space-Track + GCAT): the private S3 bucket when
     SATTRACK_S3_BUCKET is set (Heroku), otherwise the folder in SATTRACK_APP_DATA_DIR (local runs, CI).
 
-    @param img_loc: static location of Earth map
-    @param res: integer - Earth map resolution in increments of 2^x for integer x
     @return satcat:  dataframe of satellite data
-    @return img_compr:  compressed image array of Earth map
     @return tle_metadata: last update time of the element sets
     @return data_source: 's3' or 'local'
     @return datasets: browser datasets as compressed bytes ({name: {encoding: {"body", "sha256"}}})
@@ -169,16 +161,7 @@ def import_app_data(img_loc, res):
     tle_metadata = metadata.loc[metadata["Source"] == "SpaceTrack_GP", "Last Update"].values[0]
     print("TLE metadata successfully imported!")    
 
-    img = np.asarray(Image.open(img_loc))
-    print("Earth Map successfully imported!")
-    # url = 'https://raw.githubusercontent.com/pseud-acc/SatTrack/refs/heads/main/static/gray_scale_earth_2048_1024.jpg'
-    # response = requests.get(url)
-    # img = np.asarray(Image.open((BytesIO(response.content))))
-    img = img.T
-    # Compress image
-    img_compr = img[0:-1:res,0:-1:res]
-
-    return satcat, img_compr, tle_metadata, data_source, datasets
+    return satcat, tle_metadata, data_source, datasets
 
 def initialise_app_data():
     '''
@@ -187,11 +170,10 @@ def initialise_app_data():
 
     print("Initialising app data...")
     # Import data for visualisations
-    df, img, tle_metadata, data_source, datasets = import_app_data(img_loc, _resolution_3d_earth_map__c)
+    df, tle_metadata, data_source, datasets = import_app_data()
 
     # Logging - to replace print w/ logging module later
     print(f" - Satellite catalogue size: {df.shape}")
-    print(f" - Earth map size (compressed): {img.shape}")
     print(f" - TLE metadata: {tle_metadata}")
     print(f" - Data source: {data_source} (Space-Track + GCAT)")
     print(f" - Browser datasets: {sorted(datasets) or 'none'}")
@@ -213,9 +195,6 @@ def initialise_app_data():
           f"{missing} app CSV satellites not in it (these can't be shown)")
 
     # Initilise Visualisations
-    surf_3d = create_3d_surface(img)
-    layout_3d = create_3d_layout()
-    figure_3d = create_3d_figure(layout_3d, surf_3d)
     layout_2d = create_2d_layout()
     figure_2d = create_2d_figure(layout_2d)
 
@@ -237,11 +216,6 @@ def initialise_app_data():
     app_data['filter'] = dict()
     app_data['filter']['options'] = options
     app_data['filter']['table'] = filter_table   # objects dataset's filterable fields (app.core.filter_spec)
-    # 3D Visualisation
-    app_data['viz_3d'] = dict()
-    app_data['viz_3d']['surface'] = surf_3d
-    app_data['viz_3d']['layout'] = layout_3d
-    app_data['viz_3d']['base_figure'] = figure_3d
     # 2D Visualisation
     app_data['viz_2d'] = dict()
     app_data['viz_2d']['layout'] = layout_2d

@@ -21,4 +21,4 @@ def create_globe_tab(config):
         dcc.Store(id="viewer-config", data=config),
         dcc.Store(id="viewer-selection", data=None),
         dcc.Store(id="viewer-bridge", data=None),
-    ], label="Globe (beta)", tab_id="globe")
+    ], label="Globe", tab_id="globe")

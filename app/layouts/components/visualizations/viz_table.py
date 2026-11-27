@@ -2,23 +2,31 @@
 Satellite list table tab component.
 """
 
-from dash import dash_table
+from dash import dash_table, html
 import dash_bootstrap_components as dbc
 
 
-def create_table_tab(tbl_col_map):
+def create_table_tab():
+    """The list tab with an empty body: the table is built the first time the tab is opened (callback_tabs, D-052)
+    and kept; it is rebuilt only when the filters changed since it was last shown."""
+    return dbc.Tab(html.Div(id="tab-list-body"), label="List View", tab_id="tbl-viz")
+
+
+def create_table_body(tbl_col_map, data):
     """
-    Create the satellite list table tab content.
+    The list tab's table, built when the tab is first opened.
 
     Args:
         tbl_col_map: Column mapping for the satellite data table
+        data: the rows for the current filters
 
     Returns:
-        dbc.Tab: Table visualization tab
+        list: the table
     """
-    return dbc.Tab([
+    return [
         dash_table.DataTable(
             id="satellite-list",
+            data=data,
             columns=[
                 {"name": col, "id": col, "hideable": True}
                 for col in tbl_col_map.values()
@@ -56,4 +64,4 @@ def create_table_tab(tbl_col_map):
             export_format="csv",
             hidden_columns=['Datetime (UTC)', 'Altitude (km)'] if True else []
         )
-    ], label="List View", tab_id="tbl-viz")
+    ]

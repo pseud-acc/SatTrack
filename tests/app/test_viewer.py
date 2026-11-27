@@ -18,20 +18,21 @@ from app.core import viewer as viewer_mod
 VIEWER_IDS = {"globe", "viewer-config", "viewer-selection", "viewer-bridge"}   # filter-spec is page-level (3.3a)
 
 
-# ---- flag off: production unchanged -----------------------------------------------------------------------------
+# ---- switched off (SATTRACK_CESIUM_VIEWER=0) --------------------------------------------------------------------
 
-def test_flag_off_by_default(monkeypatch):
+def test_globe_on_by_default(monkeypatch):
+    """D-052: the globe is on unless the variable switches it off (the Plotly 3D view was removed)."""
     monkeypatch.delenv("SATTRACK_CESIUM_VIEWER", raising=False)
-    assert viewer_mod.flag_on() is False
-    for value in ("", "0", "false", "off", "no"):
+    assert viewer_mod.flag_on() is True
+    for value in ("0", "false", "off", "no", "OFF"):
         assert viewer_mod.flag_on({"SATTRACK_CESIUM_VIEWER": value}) is False
-    for value in ("1", "true", "on", "YES"):
+    for value in ("", "1", "true", "on", "YES"):
         assert viewer_mod.flag_on({"SATTRACK_CESIUM_VIEWER": value}) is True
 
 
-def test_flag_off_never_reads_the_vendor_files(monkeypatch):
-    """Production with the flag off pays nothing at boot: no vendor file is read or hashed."""
-    monkeypatch.delenv("SATTRACK_CESIUM_VIEWER", raising=False)
+def test_switched_off_never_reads_the_vendor_files(monkeypatch):
+    """Switched off, nothing is paid at boot: no vendor file is read or hashed."""
+    monkeypatch.setenv("SATTRACK_CESIUM_VIEWER", "0")
     monkeypatch.setattr(viewer_mod, "load_vendor", lambda *a, **k: pytest.fail("vendor files read with the flag off"))
     viewer_mod.reset_viewer_state()
     try:
@@ -41,10 +42,11 @@ def test_flag_off_never_reads_the_vendor_files(monkeypatch):
         viewer_mod.reset_viewer_state()
 
 
-def test_flag_off_tracker_has_no_viewer(app_module, dependencies, client):
+def test_switched_off_tracker_has_no_viewer(app_module, dependencies, client):
+    """This session runs with SATTRACK_CESIUM_VIEWER=0 (tests/app/conftest.py): the tracker opens on the list."""
     tracker = layout_by_id(app_module.display_page("/sat_visualisation"))
     assert not VIEWER_IDS & set(tracker)
-    assert tracker["sat-viz-tabs"].active_tab == "3d-viz"
+    assert tracker["sat-viz-tabs"].active_tab == "tbl-viz"
     # Only the globe draws rocket bodies and debris, so the type switches and junk mode are hidden without it
     assert tracker["type-filter"].hidden is True
     assert not [d for d in dependencies if d.get("clientside_function") or "viewer" in d["output"]]
@@ -137,10 +139,10 @@ def test_flag_on_serves_vendor_files(flag_on):
 
 
 def test_flag_on_without_vendor_files_falls_back(tmp_path):
-    """Fail closed: the flag on but no verified vendor files means no globe (the Plotly views stay), and no error."""
+    """Fail closed: the flag on but no verified vendor files means no globe (the 2D map and list stay), no error."""
     probe = flag_on_app(tmp_path / "missing")
     assert not VIEWER_IDS & set(probe["tracker_ids"])
-    assert probe["active_tab"] == "3d-viz"
+    assert probe["active_tab"] == "tbl-viz"
 
 
 # ---- the vendor folder and route (stand-in files) ---------------------------------------------------------------
