@@ -76,7 +76,7 @@ def register(app):
     The filter spec (roadmap 3.3a)
     -------------------------
     Interactive Inputs: every panel control
-    Outputs: the page's filter-spec store, which the globe, Plotly 3D and 2D and the list read (Q7). The page renders
+    Outputs: the page's filter-spec store, which the globe, the 2D map and the list read (Q7). The page renders
     the starting spec into the store, so nothing runs at load.
     '''
 
@@ -171,23 +171,30 @@ def register(app):
     -------------------------
     Interactive Inputs: Toggle filter button
     Outputs: Filter collapse state and icon rotation
+    Runs in the browser (D-052; owner, 27 Nov 2026: opening Filters on a phone waited for a server round trip).
     '''
 
-    @app.callback(
-        [
-            Output("filter-collapse", "is_open"),
-            Output("toggle-icon", "className")
-        ],
-        [Input("toggle-filters", "n_clicks")],
-        [State("filter-collapse", "is_open")]
+    # The search list (assets/07_search.js) shows the picked satellite; when a chip's x or Clear all changes it,
+    # tell the list. Runs in the browser; returns no_update (the title output is only a required target).
+    app.clientside_callback(
+        """function (value) {
+            if (window.sattrackSearch) window.sattrackSearch.setSelected(value);
+            return window.dash_clientside.no_update;
+        }""",
+        Output("sat-search", "title"),
+        Input("satcatid-filter-dropdown", "value"),
     )
-    def toggle_filters(n, is_open):
-        if n:
-            new_state = not is_open
-            icon_class = "st-icon st-icon-chevron-up" if new_state else "st-icon st-icon-chevron-down"
-            return new_state, icon_class
-        # Initial state: filters are collapsed, so show down chevron
-        return is_open, "st-icon st-icon-chevron-down"        
+
+    app.clientside_callback(
+        """function (n, isOpen) {
+            const open = n ? !isOpen : isOpen;
+            return [open, open ? "st-icon st-icon-chevron-up" : "st-icon st-icon-chevron-down"];
+        }""",
+        Output("filter-collapse", "is_open"),
+        Output("toggle-icon", "className"),
+        Input("toggle-filters", "n_clicks"),
+        State("filter-collapse", "is_open"),
+    )
 
     '''------------------------
     Desktop panel strip (3.12 step 3)

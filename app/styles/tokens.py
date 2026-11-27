@@ -15,7 +15,7 @@ _DECL = re.compile(r"--(st-[a-z0-9-]+)\s*:\s*([^;]+);")
 
 
 def read_tokens(path: Path = TOKENS_CSS) -> dict:
-    """{token name without the leading dashes: value as written}, e.g. {"st-active": "#f07a6e", ...}."""
+    """{token name without the leading dashes: value as written}, e.g. {"st-active": "#e8564a", ...}."""
     block = _ROOT.search(path.read_text(encoding="utf-8")).group(1)
     block = re.sub(r"/\*.*?\*/", "", block, flags=re.S)
     return {name: value.strip() for name, value in _DECL.findall(block)}

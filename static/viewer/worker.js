@@ -20,10 +20,11 @@
 //               {type: "records", failed}                         every record built (all failures)
 //               {type: "filtered", id, mask, counts}              (mask transferred)
 //               {type: "positions", id, dates, positions: [Float64Array...], ms}  (buffers transferred)
+//               {type: "info", id, record}                        one record's fields (hover label)
 //               {type: "error", id, error}
 
 const TYPES = ["PAYLOAD", "ROCKET BODY", "DEBRIS", "UNKNOWN"];
-const FIELDS = ["satcat_id", "object_name", "object_type", "operational_status", "orbit_class", "owner_country",
+const FIELDS = ["satcat_id", "object_name", "object_id", "object_type", "operational_status", "orbit_class", "owner_country",
                 "launch_vehicle_brand", "mission_category_labels", "launch_year"];
 let engine = null, spec = null, rows = null, types = null, mask = null;
 
@@ -150,6 +151,12 @@ self.onmessage = async ({ data: msg }) => {
       mask = next.mask;
       const sent = mask.slice();
       self.postMessage({ type: "filtered", id: msg.id, mask: sent, counts: next.counts }, [sent.buffer]);
+      return;
+    }
+    if (msg.type === "info") {   // one record's details, for a hover label (D-052)
+      const r = rows[msg.index];
+      if (!r) throw new Error(`no record ${msg.index}`);
+      self.postMessage({ type: "info", id: msg.id, record: r });
       return;
     }
     if (msg.type === "compute") {

@@ -18,6 +18,7 @@ would itself be reported by the CSP.
 import gzip
 import json
 import math
+import re
 import os
 import statistics
 import time
@@ -146,11 +147,11 @@ def test_globe_opens_with_active_payloads_coloured_by_status(page, viewer_url):
     m = open_viewer(page, viewer_url)
     records = sample_records()["records"]
     assert m["engine"] == "worker-js" and m["count"] == len(records)
-    expect(page.locator("#sat-viz-tabs .nav-link.active")).to_have_text("Globe (beta)")
+    expect(page.locator("#sat-viz-tabs .nav-link.active")).to_have_text("Globe")
     wait_until(page, "() => window.sattrackViewer.shownCount > 0")
     want = expected_shown(records, page, {"PAYLOAD"}, {"Active"})
     assert len(want) > 0 and shown_ids(page) == want
-    assert page.evaluate("window.sattrackViewer.colours") == {"active": "#f07a6e", "inactive": "#7d8aa0"}
+    assert page.evaluate("window.sattrackViewer.colours") == {"active": "#e8564a", "inactive": "#7d8aa0"}
     assert page.locator(".sattrack-viewer-legend, .sattrack-viewer-panel input").count() == 0   # toggles: panel
     expect(page.locator("#globe canvas").first).to_be_visible()
     assert page.errors == []
@@ -287,7 +288,7 @@ def test_globe_survives_tab_switches_and_page_changes(page, viewer_url):
     open_viewer(page, viewer_url)
     page.evaluate("window.__firstCanvas = document.querySelector('#globe canvas')")
     page.get_by_role("tab", name="List View").click()
-    page.get_by_role("tab", name="Globe (beta)").click()
+    page.get_by_role("tab", name="Globe", exact=True).click()
     assert page.evaluate("document.querySelector('#globe canvas') === window.__firstCanvas")
     frames = page.evaluate("window.sattrackViewer.frameMs.length")
     wait_until(page, f"() => window.sattrackViewer.frameMs.length > {frames}")
@@ -583,3 +584,97 @@ def test_startup_against_baseline(browser, budget_url, baseline_url):
         f"fails when over {REGRESSION_LIMIT - 1:.0%} and over {REGRESSION_FLOOR_MS} ms slower.\n\n"
         f"| Phase | Baseline | This branch | Change | |\n|---|---|---|---|---|\n" + "\n".join(rows))
     assert not failed, f"start-up slower than the baseline in: {', '.join(failed)}"
+
+
+# ---- D-052: usable on a phone (owner, 27 Nov 2026) -----------------------------------------------------------------
+
+def test_hover_label_names_the_object_under_the_pointer(page, viewer_url):
+    """Pointing at a dot shows its name and details (pulled forward from roadmap 3.4), from the dataset's record."""
+    open_viewer(page, viewer_url)
+    records = {r["satcat_id"]: r for r in sample_records()["records"]}
+    shown = page.evaluate("window.sattrackViewer.shownIds()")
+    for satcat_id in shown:
+        pos = page.evaluate(f"window.sattrackViewer.screenOf({satcat_id})")
+        if not pos:
+            continue
+        page.evaluate(f"window.sattrackViewer.pointAt({pos['x']}, {pos['y']})")
+        label = page.evaluate("window.sattrackViewer.label")
+        if label and label["satcat_id"] == satcat_id:
+            break
+    else:
+        raise AssertionError("no shown object could be pointed at")
+    box = page.locator("#globe .sattrack-viewer-label")
+    expect(box).to_be_visible()
+    expect(box).to_contain_text(records[satcat_id]["object_name"])
+    expect(box).to_contain_text(f"SATCAT {satcat_id}")
+    page.mouse.move(5, 5)
+    page.evaluate("window.sattrackViewer.pointAt(2, 2)")   # empty space: the label goes
+    expect(box).to_be_hidden()
+    assert page.errors == []
+
+
+def test_idle_globe_draws_only_a_few_times_a_second(page, viewer_url):
+    """Request-render mode (D-052): untouched, the globe draws when 0.25 s of simulation time has passed, not every
+    frame; that is what keeps a phone free for the panel and filters."""
+    open_viewer(page, viewer_url)
+    page.wait_for_timeout(2000)
+    before = page.evaluate("window.sattrackViewer.frameMs.length")
+    page.wait_for_timeout(5000)
+    per_second = (page.evaluate("window.sattrackViewer.frameMs.length") - before) / 5
+    report(f"idle draws: {per_second:.1f} per second")
+    assert 1 <= per_second <= 6
+    assert page.errors == []
+
+
+PHONE = {"viewport": {"width": 390, "height": 760}, "is_mobile": True, "has_touch": True, "device_scale_factor": 3}
+PHONE_CPU = 4                     # CPU slowdown (Chrome DevTools throttling): a mid-range phone (D-027's 4x row)
+PHONE_FILTER_S = 3.0              # click to dots updated, per filter change (5.7 s before D-052, 1.5 s after, locally)
+PHONE_PANEL_S = 1.5               # Filters tapped to panel open (2.5 s before, 0.8 s after)
+PHONE_BUSY = 0.6                  # share of the main thread in long tasks, 10-20 s after load (0.98 before, 0.32 after)
+
+
+def test_phone_budget(browser, budget_url):
+    """D-052: the tracker on a phone-sized page with the CPU slowed 4x and the full-size catalogue. Limits on the
+    three things the owner found unusable: the main thread's load once started (it drew every frame), opening Filters
+    (a server round trip) and a filter change (Dash re-reading ~40,000 dropdown options). Software WebGL on the CI
+    runner draws on the CPU, so the limits leave room; each regression measured before D-052 is well past them."""
+    context = browser.new_context(**PHONE)
+    context.route(re.compile(r"^(?!http://127\.0\.0\.1[:/]).*"), lambda route: route.abort())
+    page = context.new_page()
+    try:
+        page.add_init_script(LONG_TASKS)
+        cdp = context.new_cdp_session(page)
+        cdp.send("Emulation.setCPUThrottlingRate", {"rate": PHONE_CPU})
+        open_viewer(page, budget_url)
+        ready = page.evaluate("performance.now()")
+        page.wait_for_timeout(10_000)
+        t0 = page.evaluate("performance.now()")
+        page.wait_for_timeout(10_000)
+        t1 = page.evaluate("performance.now()")
+        busy = sum(min(st + d, t1) - max(st, t0) for st, d in page.evaluate("window.__longTasks")
+                   if st + d > t0 and st < t1) / (t1 - t0)
+        start = time.time()
+        page.locator("#toggle-filters").click()
+        expect(page.locator("#filter-collapse")).to_have_class(re.compile(r"\bshow\b"), timeout=30_000)
+        panel_s = time.time() - start
+        page.wait_for_timeout(1500)
+        changes = page.evaluate("window.sattrackViewer.filterChanges")
+        start = time.time()
+        page.locator("#status-filter-checkbox").get_by_text("Inactive", exact=True).click()
+        wait_until(page, f"() => window.sattrackViewer.filterChanges > {changes}")
+        filter_s = time.time() - start
+        first = page.evaluate("window.sattrackViewer.firstPositionsMs")
+        ok = lambda good: "ok" if good else "FAIL"  # noqa: E731
+        job_summary(
+            f"### Phone budget (D-052)\n\n390x760 at 3x, CPU slowed {PHONE_CPU}x, full-size catalogue, software WebGL.\n\n"
+            f"| Check | Value | Limit | |\n|---|---|---|---|\n"
+            f"| Main thread in long tasks, 10-20 s after load | {busy:.0%} | {PHONE_BUSY:.0%} | {ok(busy <= PHONE_BUSY)} |\n"
+            f"| Filters tapped to open | {panel_s:.2f} s | {PHONE_PANEL_S} s | {ok(panel_s <= PHONE_PANEL_S)} |\n"
+            f"| Filter change, click to dots updated | {filter_s:.2f} s | {PHONE_FILTER_S} s | "
+            f"{ok(filter_s <= PHONE_FILTER_S)} |\n"
+            f"| First positions | {first:,.0f} ms (viewer start {ready:,.0f} ms after navigation) | reported | |")
+        assert busy <= PHONE_BUSY
+        assert panel_s <= PHONE_PANEL_S
+        assert filter_s <= PHONE_FILTER_S
+    finally:
+        context.close()

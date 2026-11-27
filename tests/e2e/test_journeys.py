@@ -4,12 +4,13 @@ the clock frozen at the sample's download time.
 Narrow scope (roadmap 0.5): each journey runs without browser errors (uncaught JS errors, console errors,
 failed or 4xx/5xx requests to the app) and shows the right thing:
   1. Home opens and "Launch Tracker" leads to the tracker, with its nav link highlighted.
-  2. The tracker opens on the 3D view and draws exactly the satellites its sidebar selects.
-  3. Choosing one satellite by catalogue number shows its ground track on the 2D map.
+  2. The tracker opens on the globe (D-052) and shows as many objects as its panel counts.
+  3. Picking one satellite in the search list shows its ground track on the 2D map.
   4. The list view shows the selected satellites, sorted by name.
-Checks are by what the page shows (counts, rows, URLs) so they can be kept when Cesium replaces the Plotly
-views (Phase 3). Not in scope: visual appearance, map tiles and other third-party resources, mobile layout,
-performance, the live site.
+  5. The search list can be browsed without typing, narrowed by typing, and picking from it filters the globe.
+  6. Only the open tab holds a view: the 2D map exists only while its tab is open (D-052).
+  7. On a phone, opening Filters makes no server request (D-052).
+Not in scope: visual appearance, map tiles and other third-party resources, performance, the live site.
 """
 import re
 
@@ -21,7 +22,7 @@ from _support import expected_ids
 
 START_STATUS, START_ORBITS = "Active", ["LEO", "MEO", "GEO", "GSO", "HEO"]   # as it opens (3.3a: every orbit)
 TIMEOUT = 60_000  # ms: figures render in software WebGL on CI runners
-PLOT_3D, PLOT_2D = "3d-earth-satellite-plot", "2d-earth-satellite-plot"
+PLOT_2D = "2d-earth-satellite-plot"
 
 
 def by_id(element_id):
@@ -55,9 +56,22 @@ def choose_in_dropdown(page, dropdown_id, label):
     expect(page.locator(f"#{dropdown_id}")).to_contain_text(label, timeout=TIMEOUT)
 
 
+def wait_for_globe(page):
+    page.wait_for_function("() => window.sattrackViewer && window.sattrackViewer.ready", timeout=TIMEOUT)
+
+
 def open_tracker(page, base_url):
     page.goto(base_url + "/sat_visualisation", wait_until="domcontentloaded")
-    wait_for_traces(page, PLOT_3D, "lengths.length >= 2")
+    wait_for_globe(page)
+
+
+def pick_satellite(page, satcat_id):
+    """Pick one satellite in the search list (D-052): type its SATCAT number, click its row, wait for its chip."""
+    page.locator("#sat-search-input").fill(str(satcat_id))
+    row = page.locator(f'.st-search-row[data-id="{satcat_id}"]')
+    expect(row).to_be_visible(timeout=TIMEOUT)
+    row.click()
+    expect(page.locator("#chip-satcatid")).to_be_visible(timeout=TIMEOUT)
 
 
 def start_selection(sample_df, t_ref):
@@ -70,27 +84,33 @@ def test_home_leads_to_the_tracker(page, base_url):
     expect(page.get_by_text("Track Satellites in Real-Time")).to_be_visible(timeout=TIMEOUT)
     page.get_by_text("Launch Tracker", exact=True).click()
     expect(page).to_have_url(re.compile(r"/sat_visualisation$"))
-    wait_for_traces(page, PLOT_3D, "lengths.length >= 2")
+    wait_for_globe(page)
     expect(page.locator("#nav-viz")).to_have_class(re.compile(r"\bactive\b"))
     assert page.errors == []
 
 
-def test_tracker_draws_the_selected_satellites(page, base_url, sample_df, t_ref):
-    open_tracker(page, base_url)
+def test_tracker_opens_on_the_globe_showing_what_the_panel_counts(page, base_url):
+    """D-052: the globe is the tracker's view. The loading bar is in the page from the start and hides once the
+    satellites are placed; the globe shows as many objects as the panel counts (exact ids: tests/e2e/test_viewer.py)."""
+    page.goto(base_url + "/sat_visualisation", wait_until="domcontentloaded")
+    expect(page.locator("#globe .sattrack-loading")).to_be_attached(timeout=TIMEOUT)
+    wait_for_globe(page)
+    expect(page.locator("#globe .sattrack-loading")).to_have_class(re.compile(r"\bis-done\b"), timeout=TIMEOUT)
     for box, labels in (("#status-filter-checkbox", [START_STATUS]), ("#orbit-filter-checkbox", START_ORBITS)):
         for label in labels:
             expect(page.locator(box).get_by_label(label, exact=True)).to_be_checked()
-    expected = start_selection(sample_df, t_ref)
-    assert len(expected) > 0
-    assert trace_lengths(page, PLOT_3D)[1] == len(expected)   # trace 0 is the Earth, trace 1 the satellites
-    expect(page.locator(f"{by_id(PLOT_3D)} canvas").first).to_be_visible()
+    counted = int(page.locator("#filter-count .st-count-n").inner_text().replace(",", ""))
+    shown = page.evaluate("window.sattrackViewer.shownCount + window.sattrackViewer.hiddenFailed")
+    assert counted > 0 and shown == counted
+    expect(page.locator("#sat-viz-tabs .nav-link.active")).to_have_text("Globe")
+    assert page.get_by_role("tab", name="3D View").count() == 0   # the Plotly 3D view was removed (D-052)
     assert page.errors == []
 
 
 def test_one_satellite_shows_its_ground_track(page, base_url, sample_df):
     open_tracker(page, base_url)
     sat = sample_df[(sample_df.Status == START_STATUS) & (sample_df.OrbitClass == "LEO")].iloc[0]
-    choose_in_dropdown(page, "satcatid-filter-dropdown", str(sat.SatCatId))
+    pick_satellite(page, sat.SatCatId)
     page.get_by_role("tab", name="2D View").click()
     wait_for_traces(page, PLOT_2D, "lengths.includes(3600)")
     assert sorted(trace_lengths(page, PLOT_2D)) == [1, 3600]   # current position + one period of track
@@ -129,7 +149,7 @@ def test_pages_use_only_the_self_hosted_design(page, base_url, path, ready):
     if ready:
         expect(page.get_by_text(ready)).to_be_visible(timeout=TIMEOUT)
     else:
-        wait_for_traces(page, PLOT_3D, "lengths.length >= 2")
+        wait_for_globe(page)
     page.evaluate("document.fonts.ready")
     probe = page.evaluate(STYLE_PROBE)
     assert probe["sheets"] and all(h.startswith(base_url) for h in probe["sheets"]), probe["sheets"]
@@ -181,4 +201,78 @@ def test_open_owner_list_stays_inside_the_panel(page, base_url, sample_df):
         "t => [parseFloat(getComputedStyle(t).lineHeight), parseFloat(getComputedStyle(t).fontSize)]")
     lift = (text["y"] + line / 2) - (tick["y"] + tick["height"] / 2)
     assert abs(lift - 0.05 * size) <= 0.5
+    assert page.errors == []
+
+
+def test_search_list_browses_narrows_and_picks(page, base_url):
+    """D-052 (owner's option A; browse-first, owner 24 Nov 2026): the list shows satellites without typing, in the
+    search dataset's order; typing narrows it; picking one filters the globe to it and names it on its chip; its
+    chip's x clears the pick and the list starts over."""
+    open_tracker(page, base_url)
+    rows = page.locator(".st-search-row")
+    # Collapsed until used (owner, 27 Nov 2026); the toggle opens it for browsing
+    expect(page.locator("#sat-search-list")).to_be_hidden()
+    page.locator(".st-search-toggle").click()
+    expect(rows.first).to_be_visible(timeout=TIMEOUT)
+    doc = page.evaluate("fetch('/data/search.json').then(r => r.json())")
+    first = [str(r["satcat_id"]) for r in doc["records"][:5]]
+    assert [rows.nth(i).get_attribute("data-id") for i in range(5)] == first, "browsing starts in the list's order"
+    target = next(r for r in doc["records"] if r["object_type"] == "PAYLOAD" and r["operational_status"] == "Active")
+    page.locator("#sat-search-input").fill(target["object_name"][:6])
+    expect(page.locator(".st-search-status")).to_contain_text("match", timeout=TIMEOUT)
+    assert all(target["object_name"][:6].lower() in rows.nth(i).locator(".st-search-name").inner_text().lower()
+               for i in range(min(5, rows.count())))
+    changes = page.evaluate("window.sattrackViewer.filterChanges")
+    pick_satellite(page, target["satcat_id"])
+    expect(page.locator("#sat-search-list")).to_be_hidden()   # picking closes the list
+    page.wait_for_function(f"() => window.sattrackViewer.filterChanges > {changes}", timeout=TIMEOUT)
+    assert page.evaluate("window.sattrackViewer.shownIds()") == [target["satcat_id"]]
+    expect(page.locator("#chip-satcatid-text")).to_contain_text(target["object_name"])
+    page.locator("#chip-x-satcatid").click()
+    page.wait_for_function("() => window.sattrackViewer.shownCount > 1", timeout=TIMEOUT)
+    expect(page.locator("#sat-search-input")).to_have_value("")
+    expect(page.locator(".st-search-row.is-picked")).to_have_count(0)
+    assert page.errors == []
+
+
+def test_only_the_open_tab_holds_a_view(page, base_url):
+    """D-052 (owner, 27 Nov 2026: every tab was rendered at once): with the globe open there is no Plotly graph in
+    the page and Plotly's script hasn't loaded; the 2D map exists only while its tab is open."""
+    open_tracker(page, base_url)
+    assert page.locator(".js-plotly-plot").count() == 0
+    assert page.evaluate("() => !window.Plotly")
+    page.get_by_role("tab", name="2D View").click()
+    expect(page.locator(f"{by_id(PLOT_2D)} .js-plotly-plot")).to_be_attached(timeout=TIMEOUT)
+    page.get_by_role("tab", name="Globe").click()
+    expect(page.locator(".js-plotly-plot")).to_have_count(0, timeout=TIMEOUT)
+    assert page.errors == []
+
+
+def test_filters_open_on_a_phone_without_a_server_request(browser, base_url):
+    """D-052 (owner, 27 Nov 2026: opening Filters on a phone waited for the server): the toggle runs in the browser."""
+    context = browser.new_context(viewport={"width": 390, "height": 760}, is_mobile=True, has_touch=True)
+    context.route(re.compile(r"^(?!http://127\.0\.0\.1[:/]).*"), lambda route: route.abort())   # offline, as `page`
+    page = context.new_page()
+    try:
+        open_tracker(page, base_url)
+        sent = []
+        page.on("request", lambda r: sent.append(r.url) if "_dash-update-component" in r.url else None)
+        expect(page.locator("#filter-collapse")).not_to_have_class(re.compile(r"\bshow\b"))
+        page.locator("#toggle-filters").click()
+        expect(page.locator("#filter-collapse")).to_have_class(re.compile(r"\bshow\b"), timeout=TIMEOUT)
+        page.wait_for_timeout(500)
+        assert sent == [], f"opening Filters called the server: {sent}"
+    finally:
+        context.close()
+
+
+def test_orbit_info_icon_is_a_short_explainer(page, base_url):
+    """Owner, 27 Nov 2026: the (i) card repeated the buttons' definitions. It explains orbit types in a line and
+    points to the buttons' own cards."""
+    open_tracker(page, base_url)
+    page.locator("#orbit-info-icon").hover()
+    card = page.get_by_role("tooltip")
+    expect(card).to_be_visible(timeout=TIMEOUT)
+    expect(card).to_contain_text("Hover over an orbit for its definition")
+    expect(card).not_to_contain_text("Low Earth orbit")
     assert page.errors == []

@@ -70,8 +70,9 @@ def _years(year):
     return f"{int(year[0])}–{int(year[1])}"
 
 
-def _chips(c):
-    """Chip text per chip (None: no chip). Prefixes are the fields' labels from the schema (D-030)."""
+def _chips(c, name_of=lambda satcat_id: None):
+    """Chip text per chip (None: no chip). Prefixes are the fields' labels from the schema (D-030). A picked
+    satellite's chip shows its name too (`name_of`: SATCAT number -> object name, or None)."""
     lbl = filter_spec.label
     types = [TYPE_LABELS[t] for t in OBJECT_TYPES if t in (c["types"] or [])]
     orbit = [o for o in DEFAULT_ORBITS if o in (c["orbit"] or [])]
@@ -81,7 +82,9 @@ def _chips(c):
         "status": None if c["status"] == "All" else (c["status"] or "No status"),
         "orbit": None if orbit == list(DEFAULT_ORBITS) else f"{lbl('orbit_class')}: {', '.join(orbit) or 'none'}",
         "satname": None if c["satname"] is None else f"{lbl('object_name')}: {c['satname']}",
-        "satcatid": None if c["satcatid"] is None else f"{lbl('satcat_id')}: {c['satcatid']}",
+        "satcatid": None if c["satcatid"] is None else (
+            f"{name_of(c['satcatid'])} ({lbl('satcat_id')} {c['satcatid']})" if name_of(c["satcatid"])
+            else f"{lbl('satcat_id')}: {c['satcatid']}"),
         "owner": f"{lbl('owner_country')}: {_picked(c['owner'])}" if c["owner"] else None,
         "launchvehicle": f"{lbl('launch_vehicle_brand')}: {_picked(c['launchvehicle'])}" if c["launchvehicle"] else None,
         "purpose": f"{lbl('mission_category_labels')}: {_picked(c['purpose'])}" if c["purpose"] else None,
@@ -108,6 +111,16 @@ def _hints(c, matches, filter_table):
     return hints
 
 
+def _object_name(filter_table, satcat_id):
+    """The object's name from the filter table, or None (no such object, no name, or not a number)."""
+    try:
+        hit = filter_table.loc[filter_table["satcat_id"] == int(satcat_id), "object_name"]
+    except (TypeError, ValueError):
+        return None
+    name = hit.iloc[0] if len(hit) and isinstance(hit.iloc[0], str) else None
+    return None if name == "TBA - TO BE ASSIGNED" else name   # Space-Track's "not yet named": the chip shows the number
+
+
 def panel_summary(filter_table, controls):
     """
     What the panel shows for a set of control values.
@@ -128,7 +141,7 @@ def panel_summary(filter_table, controls):
         "matches": matches,
         "totals": totals,
         "hints": _hints(c, matches, filter_table),
-        "chips": _chips(c),
+        "chips": _chips(c, lambda i: _object_name(filter_table, i)),
         "rows": {"owner": _picked(c["owner"]), "launchvehicle": _picked(c["launchvehicle"]),
                  "purpose": _picked(c["purpose"]), "year": _years(c["year"]) or "Any"},
         "changed": _normalised(c) != _normalised(default_controls()),

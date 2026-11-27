@@ -7,7 +7,7 @@ sample's objects dataset; the search lists are set once in the layout (Q8 S2); t
 """
 import pytest
 
-from _support import ALL_ORBITS, expected_object_count, objects_sample
+from _support import ALL_ORBITS, expected_object_count, objects_sample, split_outputs
 
 SEARCH_NAME, SEARCH_ID = "satname-filter-dropdown", "satcatid-filter-dropdown"
 
@@ -17,12 +17,20 @@ def objects():
     return objects_sample()
 
 
-def test_search_lists_are_set_once_in_the_layout(callbacks, dependencies, sample_df):
-    """Q8 S2: no callback rebuilds the search options (each rebuild re-indexed ~16k options); the layout has them all."""
+def test_the_page_carries_no_search_list(callbacks, dependencies):
+    """D-052 (owner, 27 Nov 2026): the ~40,000 dropdown options went; the list comes from /data/search.json
+    (tests/app/test_search_index.py). The picked satellite is a hidden value no callback rebuilds."""
     outputs = {o for d in dependencies for o in d["output"].strip(".").split("...")}
     assert not {o for o in outputs if o.endswith(".options") and o.split(".")[0] in (SEARCH_NAME, SEARCH_ID)}
-    assert callbacks.initial(SEARCH_NAME, "options") == sorted(sample_df.ObjectName.unique())
-    assert sorted(callbacks.initial(SEARCH_ID, "options"), key=int) == [str(i) for i in sorted(sample_df.SatCatId)]
+    for cid in (SEARCH_NAME, SEARCH_ID):
+        assert callbacks.initial(cid, "options") is None and callbacks.initial(cid, "type") == "hidden"
+
+
+def test_picked_satellite_chip_shows_its_name(callbacks, sample_df):
+    row = sample_df.iloc[0]
+    status, out = callbacks.call("filter-count", f"{SEARCH_ID}.value", **{f"{SEARCH_ID}.value": str(row.SatCatId)})
+    assert status == 200
+    assert out["chip-satcatid-text.children"] == f"{row.ObjectName} (SATCAT number {row.SatCatId})"
 
 
 def test_panel_strip_button(callbacks):
@@ -38,14 +46,11 @@ def test_panel_strip_button(callbacks):
                                                       "panel-strip-icon.className": "st-icon st-icon-chevron-left"})
 
 
-def test_collapse_button(callbacks):
-    def press(n, is_open):
-        return callbacks.call("filter-collapse", "toggle-filters.n_clicks",
-                              **{"toggle-filters.n_clicks": n, "filter-collapse.is_open": is_open})
-    assert press(1, False) == (200, {"filter-collapse.is_open": True, "toggle-icon.className": "st-icon st-icon-chevron-up"})
-    assert press(2, True) == (200, {"filter-collapse.is_open": False, "toggle-icon.className": "st-icon st-icon-chevron-down"})
-    assert press(None, False) == (200, {"filter-collapse.is_open": False,
-                                        "toggle-icon.className": "st-icon st-icon-chevron-down"})
+def test_collapse_button_runs_in_the_browser(dependencies):
+    """Owner, 27 Nov 2026: opening Filters on a phone waited for a server round trip. The toggle is a clientside
+    callback (no request); the browser journeys open and close it (tests/e2e/test_journeys.py)."""
+    toggle = [d for d in dependencies if split_outputs(d["output"])[0][0] == "filter-collapse"]
+    assert len(toggle) == 1 and toggle[0].get("clientside_function")
 
 
 # ---- The filter-spec store and Space junk mode (roadmap 3.3a) ----------------------------------------------------
@@ -155,7 +160,7 @@ def type_cells(out):
     """object type -> (matching, total) from the type switches' options."""
     cells = {}
     for opt in out["type-filter-checkbox.options"]:
-        m, total = text(opt["label"]["props"]["children"][2]).split(" / ")
+        m, total = text(opt["label"]["props"]["children"][1]).split(" / ")
         cells[opt["value"]] = (int(m.replace(",", "")), int(total.replace(",", "")))
     return cells
 
@@ -252,3 +257,11 @@ def test_clear_all_restores_the_opening_values(callbacks):
                    "orbit-filter-checkbox.value": ALL_ORBITS, f"{SEARCH_NAME}.value": None, f"{SEARCH_ID}.value": None,
                    "owner-filter-multi-dropdown.value": [], "launchvehicle-filter-multi-dropdown.value": [],
                    "purpose-filter-multi-dropdown.value": [], "launchyear-filter-slider.value": [lo, hi]}
+
+
+def test_search_list_follows_the_picked_value_in_the_browser(dependencies):
+    """The search list (assets/07_search.js) is told when the picked satellite changes elsewhere (a chip's x, Clear
+    all) by a clientside callback into "sat-search"; the browser journeys check the list itself."""
+    sync = [d for d in dependencies if split_outputs(d["output"])[0][0] == "sat-search"]
+    assert len(sync) == 1 and sync[0].get("clientside_function")
+    assert [f"{i['id']}.{i['property']}" for i in sync[0]["inputs"]] == [f"{SEARCH_ID}.value"]

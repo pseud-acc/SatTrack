@@ -61,7 +61,8 @@ def register(app):
     ------------------------
     2d visualisation 
     -------------------------
-    Interactive Inputs: the filter-spec store (roadmap 3.3a), interval-timer (the Update button went in 3.3b)
+    Interactive Inputs: the filter-spec store (roadmap 3.3a), interval-timer. The map itself is built when the tab
+    opens (callback_tabs); this keeps it current while it is open.
     Outputs: 2d orbit path scatter plot
     '''
 
@@ -69,11 +70,11 @@ def register(app):
         Output('2d-earth-satellite-plot', 'figure'),
         [
             Input('filter-spec', 'data'),   # the panel's filter spec (roadmap 3.3a, Q7)
-            Input("sat-viz-tabs", "active_tab"),
-            Input('2d-viz-interval-component', "n_intervals")
-        ]
+            Input('2d-viz-interval-component', "n_intervals")   # on only while the tab is open (callback_tabs)
+        ],
+        State("sat-viz-tabs", "active_tab"),
     )
-    def update_2dviz(spec, tab, time_intverval):
+    def update_2dviz(spec, time_intverval, tab):
 
         if tab != "2d-viz":
             raise PreventUpdate

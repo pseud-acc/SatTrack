@@ -111,9 +111,11 @@
 .st-type-name { flex: 1 1 auto; }
 .st-type-total { color: var(--st-muted); font-size: var(--st-fs-sm); font-variant-numeric: tabular-nums; }
 .st-swatch { display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex: 0 0 auto; }
-.st-swatch-payload { background: var(--st-payload); }
-.st-swatch-rocket { background: var(--st-rocket); }
-.st-swatch-debris { background: var(--st-debris); }
+.st-swatch-active { background: var(--st-active); }
+.st-swatch-inactive { background: var(--st-inactive); }
+/* The globe's colour key under the status buttons (owner, 27 Nov 2026) */
+.st-status-key { display: flex; gap: var(--st-3); margin-top: var(--st-2); color: var(--st-muted); font-size: var(--st-fs-xs); }
+.st-key-item { display: inline-flex; align-items: center; gap: var(--st-1); }
 .st-junk-switch { margin: var(--st-2) 0 var(--st-1); font-weight: 600; }
 .st-junk-switch .form-check-input:checked { background-color: var(--st-accent); border-color: var(--st-accent); }
 .st-type-note { margin: 0; color: var(--st-muted); font-size: var(--st-fs-xs); line-height: 1.4; }
@@ -243,3 +245,44 @@
 .st-year-track #launchyear-filter-slider { padding: 10px 0 2px !important; }
 .st-year-ends { display: flex; justify-content: space-between; margin: 0 -11px; color: var(--st-muted);
   font-size: var(--st-fs-xs); font-variant-numeric: tabular-nums; }
+
+/* Satellite search (D-052; assets/07_search.js): a box over a list you can scroll, stations and newest launches first */
+.st-search-box { display: flex; gap: var(--st-1); }
+.st-search-input { font-size: var(--st-fs-sm); flex: 1 1 auto; min-width: 0; }
+.st-search-toggle { flex: 0 0 auto; width: 36px; border: 1px solid var(--st-line); border-radius: var(--st-r);
+  background: var(--st-raised); color: var(--st-muted); }
+.st-search-toggle::before { content: "▾"; }
+.st-search.is-open .st-search-toggle::before { content: "▴"; }
+.st-search-toggle:hover, .st-search-toggle:focus-visible { color: var(--st-fg); background: var(--st-hover); }
+/* Collapsed until the box or the toggle is used (owner, 27 Nov 2026) */
+.st-search:not(.is-open) .st-search-list, .st-search:not(.is-open) .st-search-status { display: none; }
+.st-search-list { margin-top: var(--st-2); max-height: 240px; overflow-y: auto; border: 1px solid var(--st-line);
+  border-radius: var(--st-r); background: var(--st-raised); overscroll-behavior: contain; }
+.st-search-row { display: flex; flex-direction: column; align-items: flex-start; width: 100%; padding: 6px 10px;
+  border: 0; border-bottom: 1px solid var(--st-line); background: transparent; color: var(--st-fg); text-align: left; }
+.st-search-row:last-child { border-bottom: 0; }
+.st-search-row:hover, .st-search-row:focus-visible { background: var(--st-hover); outline: none; }
+.st-search-row.is-picked { background: var(--st-accent-soft); }
+.st-search-row.is-picked .st-search-name::after { content: " ✓"; color: var(--st-accent-hi); }
+.st-search-name { font-size: var(--st-fs-sm); line-height: 1.3; }
+.st-search-meta { font-size: var(--st-fs-xs); color: var(--st-muted); }
+.st-search-status { margin-top: var(--st-1); min-height: 1.2em; color: var(--st-muted); font-size: var(--st-fs-xs); }
+
+/* Globe loading bar (D-052; viz_globe.py, filled by static/viewer/viewer.js). In the page's stylesheet, not the
+   viewer's, so it is styled before any script runs. */
+.sattrack-loading {
+  position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 10px; color: var(--st-muted); font-size: var(--st-fs-sm); pointer-events: none;
+  transition: opacity 300ms ease;
+}
+.sattrack-loading.is-done { opacity: 0; visibility: hidden; transition: opacity 300ms ease, visibility 0s 300ms; }
+.sattrack-loading-bars { display: flex; gap: 6px; }
+.sattrack-loading-bar { width: 36px; height: 6px; border-radius: 3px; background: var(--st-line); }
+.sattrack-loading-bar.is-done { background: var(--st-accent); }
+.sattrack-loading-bar:not(.is-done) { animation: sattrack-pulse 1.2s ease-in-out infinite; }
+.sattrack-loading-bar.is-done + .sattrack-loading-bar:not(.is-done), .sattrack-loading-bar:first-child:not(.is-done) {
+  background: var(--st-accent-soft);
+}
+@keyframes sattrack-pulse { 50% { opacity: 0.45; } }
+@media (prefers-reduced-motion: reduce) { .sattrack-loading-bar { animation: none !important; } }
+

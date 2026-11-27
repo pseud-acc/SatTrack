@@ -54,8 +54,8 @@ New data reaches the app only when a worker starts (a deploy, a restart, or the 
 ### Cesium globe (beta, behind a flag)
 
 Phase 3 replaces the Plotly views with a CesiumJS globe ([docs/cesium-architecture.md](../docs/cesium-architecture.md),
-decisions D-013 to D-029, D-038, D-041). Until it is complete it is off unless `SATTRACK_CESIUM_VIEWER=1`; with it off,
-nothing below loads and no page changes.
+decisions D-013 to D-029, D-038, D-041, D-052). It is on by default since D-052 (the Plotly 3D view was removed);
+`SATTRACK_CESIUM_VIEWER=0` switches it off, in which case nothing below loads and the tracker opens on the list.
 
 - **Self-hosted packages:** `vendor/cesium.lock` pins CesiumJS and satellite.js with their npm tarball hashes. The
   Heroku build's `bin/post_compile` hook runs `vendor/fetch.py`, which downloads each tarball from the npm registry,
@@ -63,8 +63,8 @@ nothing below loads and no page changes.
   copies, and writes `static/vendor/manifest.json`. These files are never committed. At start-up the app checks the
   manifest against the lock and every file's SHA-256; if anything differs the globe stays off and the log says why.
   `GET /static/vendor/<path>` serves only manifest files, pre-compressed, cached for a year (the paths are versioned).
-- **Page:** with the flag on, the tracker gets a "Globe (beta)" tab (first, open by default) holding an empty
-  `div#globe` that no callback writes to, and three stores: `viewer-config` (same-origin URLs and the filter spec's
+- **Page:** the tracker's first tab, "Globe" (open by default), holds `div#globe`, which no callback writes to; it
+  is rendered with only a loading bar inside (D-052), filled by the viewer as it starts, and three stores: `viewer-config` (same-origin URLs and the filter spec's
   rules), `viewer-selection` (from plan 3.4) and `viewer-bridge`. A clientside callback (the bridge,
   `callbacks/callback_viewer.py`) loads `static/viewer/viewer.js` as a module the first time the stores render, and
   hands it the page's `filter-spec` store, which the panel's controls write (plan 3.3a, D-048); the worker masks its
@@ -90,10 +90,9 @@ synced folder), then `SATTRACK_CESIUM_VIEWER=1 SATTRACK_APP_DATA_DIR=tests/app_d
 | `../run_app.py` | Production entry point: creates the Dash app (`server` for gunicorn), page template with analytics, URL routing (with a `validation_layout` covering both pages), registers callbacks |
 | `../run_app_dev.py` | Local development server with hot reload |
 | `core/state.py` | Loads the data (S3 or local folder), builds filters and base figures, caches them (`get_app_data`) |
-| `config/user_setup_app.py` | Static paths (Earth map image) |
 | `layouts/` | Page layouts: `layout_home.py` (landing page, data sources), `layout_sat_visualisations.py` (tracker), `layout_navbar.py` |
 | `layouts/components/` | Tracker building blocks: `header.py` (title, credits, data age), `filter_sidebar.py` + `filters/`, `visualization_area.py` + `visualizations/` (3D, 2D, table tabs) |
-| `callbacks/` | One module per area (`callback_3d_viz.py`, `callback_2d_viz.py`, `callback_table.py`, `callback_filters.py`, `callback_navbar.py`), registered by `callback_registry.py` |
+| `callbacks/` | One module per area (`callback_2d_viz.py`, `callback_table.py`, `callback_filters.py`, `callback_navbar.py`), registered by `callback_registry.py` |
 | `helper/` | `helper__app_data.py` (filter options, filtering, orbit paths), `helper__satellite_position.py` (`Satrec`s from OMM with TLE fallback, cached; SGP4; TEME → WGS 84 lat/lon/alt; xyz), `helper__plot_display.py` (3D/2D figures, hover labels, camera, orbit clicks), `helper__table_display.py`, `helper__filter_display.py`, `helper__constants.py` |
 | `styles/` | Colour palette and component styles |
 | `layouts/Archive/` | Earlier layouts, not used |
@@ -108,7 +107,6 @@ synced folder), then `SATTRACK_CESIUM_VIEWER=1 SATTRACK_APP_DATA_DIR=tests/app_d
 
 | Callback module | Inputs | Updates |
 |---|---|---|
-| `callback_3d_viz` | the `filter-spec` store, clicks on a satellite, the tab's Clear orbits button, 20 s timer | 3D figure; clicked satellites get their orbit drawn (kept in `3d-orbit-memory`); camera kept in `camera-memory` |
 | `callback_2d_viz` | the `filter-spec` store, 3 s timer | 2D map |
 | `callback_table` | the `filter-spec` store, tab | table rows (20 per page, **Export** to CSV) |
 | `callback_filters` | every panel control, chip remove buttons, Clear all, junk switch, toggles | the `filter-spec` store; the live count, type counts, hints, chips and "More filters" summaries (D-051); junk mode, chip removal and Clear all |
@@ -164,7 +162,7 @@ stops with an error naming both.
 | `SATTRACK_APP_DATA_DIR` | Local folder with the two CSVs (local runs, CI) |
 | `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` | Heroku: the read-only `sattrack-app-reader` key (S3 `app/*` only). Locally, `AWS_PROFILE` instead |
 | `AWS_REGION` | Bucket region, default `eu-west-1` |
-| `SATTRACK_CESIUM_VIEWER` | `1` turns on the Cesium globe tab and its security headers (default off) |
+| `SATTRACK_CESIUM_VIEWER` | `0` (or `false`, `no`, `off`) switches off the Cesium globe and its security headers; on by default since D-052 |
 | `SATTRACK_VENDOR_DIR` | Local runs and tests only: where `vendor/fetch.py` put the vendor files (default `static/vendor`) |
 | `PORT`, `WEB_CONCURRENCY` | Set by Heroku: gunicorn's port and worker count (each worker runs 4 threads: `--threads 4` in the Procfile, so a slow download of a data file holds one thread, not the worker; D-012) |
 

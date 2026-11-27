@@ -27,3 +27,11 @@
   .sattrack-viewer-panel { max-width: 75%; font-size: var(--st-fs-xs); }
   .sattrack-viewer-credits { font-size: 0.6rem; }
 }
+
+/* Hover / tap label (D-052) */
+.sattrack-viewer-label {
+  position: absolute; z-index: 4; max-width: 220px; padding: 6px 9px; border-radius: var(--st-r);
+  background: var(--st-overlay); color: var(--st-muted); font-size: var(--st-fs-xs); line-height: 1.35;
+  pointer-events: none; border: 1px solid var(--st-line);
+}
+.sattrack-viewer-label strong { display: block; color: var(--st-fg); font-size: var(--st-fs-sm); font-weight: 600; }

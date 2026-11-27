@@ -1,6 +1,7 @@
 """
 Orbit type filter (LEO, MEO, GEO, GSO, HEO): a segmented control where any combination can be on (roadmap 3.3b,
-Q3). Each button has its own info card on hover (owner, 26 Nov 2026), and the (i) card lists all five.
+Q3). Each button has its own info card on hover (owner, 26 Nov 2026); the (i) card is a short explainer that
+points to them (owner, 27 Nov 2026).
 
 The cards describe the rule the pipeline actually uses to sort objects (pipeline/transform/macros, helper__classify_
 orbit_class: by orbital period, eccentricity and inclination from Space-Track GP), not altitude bands.
@@ -53,12 +54,11 @@ def create_orbit_filter(options):
             "Orbit Type ",
             html.I(className="st-icon st-icon-info", id="orbit-info-icon")
         ], className="st-lbl"),
-        dbc.Tooltip([
-            html.Div([item for orbit in options["orbit"]
-                      for item in (html.Strong(f"{orbit}: "), f"{ORBIT_HELP[orbit][0]} ({ORBIT_HELP[orbit][1]})",
-                                   html.Br())][:-1],
-                     className="st-tip-body")
-        ], target="orbit-info-icon", placement="right"),
+        # A short explainer; each button's own card has the definition (owner, 27 Nov 2026: the (i) card repeated them)
+        dbc.Tooltip(html.Div([
+            "Orbit types group objects by how long they take to go round the Earth and the shape of their path.",
+            html.Br(), html.Em("Hover over an orbit for its definition."),
+        ], className="st-tip-body"), target="orbit-info-icon", placement="right"),
         dcc.Checklist(
             options=[_option(orbit) for orbit in options["orbit"]],
             value=list(DEFAULT_ORBITS),   # every orbit class (owner, 26 Nov 2026; roadmap 3.3a)

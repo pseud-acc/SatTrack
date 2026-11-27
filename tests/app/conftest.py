@@ -15,7 +15,7 @@ import pytest
 from _support import APP_DATA_DIR, REPO_ROOT, CallbackCaller, frozen_datetime, load_sample, reference_time
 
 os.environ.pop("SATTRACK_S3_BUCKET", None)
-os.environ.pop("SATTRACK_CESIUM_VIEWER", None)   # this session runs the app as production does: viewer flag off
+os.environ["SATTRACK_CESIUM_VIEWER"] = "0"   # server-side tests run without the globe; flag_on_app() covers it (D-052)
 os.environ.pop("SATTRACK_VENDOR_DIR", None)
 os.environ["SATTRACK_APP_DATA_DIR"] = str(APP_DATA_DIR)
 os.chdir(REPO_ROOT)

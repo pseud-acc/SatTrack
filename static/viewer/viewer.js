@@ -17,12 +17,27 @@
 // - window.sattrackViewer exposes state and timings for the browser tests (parity and the D-027 budget).
 
 const TYPES = ["PAYLOAD", "ROCKET BODY", "DEBRIS", "UNKNOWN"];
+const TYPE_LABEL = { "PAYLOAD": "Payload", "ROCKET BODY": "Rocket body", "DEBRIS": "Debris" };
 // Status colours come from the design tokens (assets/03_tokens.css), read when the points are made; the fallbacks are
 // the same values, for a page without the app's stylesheet. "Colour by" (roadmap 3.13) adds the other palettes.
-const STATUS_TOKENS = { active: ["--st-active", "#f07a6e"], inactive: ["--st-inactive", "#7d8aa0"] };
+const STATUS_TOKENS = { active: ["--st-active", "#e8564a"], inactive: ["--st-inactive", "#7d8aa0"] };
 const token = ([name, fallback]) =>
   (getComputedStyle(document.documentElement).getPropertyValue(name) || "").trim() || fallback;
 const STEPS = [0.25, 0.5, 1, 2, 5, 10];     // seconds of simulation time between worker samples (D-015)
+// D-052 (owner, 27 Nov 2026: laggy on a phone, first 30 s especially; filters slow; globe too light; dots too big):
+// - The globe draws only when something changes: the camera moves, a filter applies, a label shows, or simulation
+//   time moves on by RENDER_STEP_S (Cesium's request-render mode). At 1x that is 4 draws a second when nobody
+//   touches it, instead of 30-60, which frees the page for the panel, taps and filters; moving or zooming draws
+//   every frame as before. At whole-globe zoom a satellite moves well under a pixel between draws.
+// - Darker Earth: the imagery dimmed (shade 2, chosen by the owner on a phone), no atmosphere glow, a navy base
+//   colour so the globe isn't blank before its imagery arrives.
+// - Dots 3 px, a little larger when zoomed in and smaller when zoomed out (scaleByDistance).
+const RENDER_STEP_S = 0.25;
+const EARTH_LOOK = { brightness: 0.55, contrast: 1.2, saturation: 0.8, gamma: 1.1 };
+const GLOBE_BASE = ["--st-globe-base", "#0b1324"];
+const DOT_PX = 3;
+const BUSY_FRAME_MS = 200;                   // frames closer than this are continuous drawing (a gesture or fast play)
+const LOAD_STEPS = ["Loading the globe…", "Downloading satellites…", "Placing satellites…", ""];
 const KEEP = 600;                            // timings kept per series
 const CREDITS = [
   ["Orbital data: ", "USSPACECOM via Space-Track.org", "https://www.space-track.org/",
@@ -37,7 +52,7 @@ const S = window.sattrackViewer = window.sattrackViewer || {};
 Object.assign(S, {
   version: 1, ready: false, error: null, engine: null, step: 1, clockOffsetMs: 0, count: 0, failed: [],
   shownCount: 0, hiddenFailed: 0, typeCounts: {}, matchCounts: {}, filters: null, filterChanges: 0,
-  marks: {}, frameMs: [], applyMs: [], workerMs: [], hint: null,
+  marks: {}, frameMs: [], busyFrameMs: [], applyMs: [], workerMs: [], hint: null, label: null,
   // Per applied filter change (roadmap 3.3b budget test): when it was applied (performance.now()), the time from the
   // spec reaching the viewer to the points updated, and the main-thread part of that (showing/hiding and resampling).
   filterReceivedAt: 0, filterAppliedAt: 0, filterMs: [], filterMainMs: [],
@@ -106,6 +121,20 @@ class Viewer {
     this.pending = new Map();
     this.destroyed = false;
     this.gen = 0;
+    this.loadStep = 0;
+  }
+
+  // The loading bar (D-052): the page renders it inside div#globe (viz_globe.py) so it shows before any script runs;
+  // each start-up step fills one more bar, and the last hides it.
+  stage(n) {
+    if (n <= this.loadStep) return;
+    this.loadStep = n;
+    const box = this.container.querySelector(".sattrack-loading");
+    if (!box) return;
+    box.querySelectorAll(".sattrack-loading-bar").forEach((b, i) => b.classList.toggle("is-done", i < n));
+    const text = box.querySelector(".sattrack-loading-text");
+    if (text) text.textContent = LOAD_STEPS[Math.min(n, LOAD_STEPS.length - 1)];
+    if (n >= LOAD_STEPS.length) box.classList.add("is-done");
   }
 
   call(msg) {
@@ -153,8 +182,10 @@ class Viewer {
                               first: { dates: [t0, t0 + 1000] } });
     const clock = serverClock(this.config.data);
 
+    this.stage(1);
     const Cesium = await loadCesium(this.config);
     S.marks.cesium = performance.now();
+    this.stage(2);
     if (this.destroyed) return;
     this.Cesium = Cesium;
     // SatTrack's credits replace Cesium's: its credit display goes into a detached element that is never shown.
@@ -165,12 +196,22 @@ class Viewer {
       showRenderLoopErrors: false, msaaSamples: 1,
     });
     if (window.matchMedia && window.matchMedia("(pointer: coarse)").matches) this.widget.targetFrameRate = 30;  // D-027
+    const scene = this.widget.scene;
+    scene.requestRenderMode = true;
+    scene.maximumRenderTimeChange = RENDER_STEP_S;
+    scene.globe.baseColor = Cesium.Color.fromCssColorString(token(GLOBE_BASE));
+    scene.globe.showGroundAtmosphere = false;
+    if (scene.skyAtmosphere) scene.skyAtmosphere.show = false;
+    const darken = (layer) => Object.assign(layer, EARTH_LOOK);
+    for (let i = 0; i < scene.imageryLayers.length; i++) darken(scene.imageryLayers.get(i));
+    scene.imageryLayers.layerAdded.addEventListener(darken);
     S.webgl = (() => { try { const gl = this.widget.scene.context._gl, ext = gl.getExtension("WEBGL_debug_renderer_info");
       return ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER); } catch (e) { return null; } })();
     S.marks.viewer = performance.now();
 
     const m = await meta;
     S.marks.data = performance.now();
+    this.stage(3);
     if (this.destroyed) return;
     S.count = m.count;
     S.generatedAt = m.generatedAt;
@@ -184,8 +225,10 @@ class Viewer {
     this.points = this.widget.scene.primitives.add(new Cesium.PointPrimitiveCollection());
     const colours = [token(STATUS_TOKENS.inactive), token(STATUS_TOKENS.active)].map((c) => Cesium.Color.fromCssColorString(c));
     S.colours = { active: token(STATUS_TOKENS.active), inactive: token(STATUS_TOKENS.inactive) };
-    this.handles = Array.from(m.active, (a) => this.points.add({
-      position: Cesium.Cartesian3.ZERO, show: false, pixelSize: 4, color: colours[a], outlineWidth: 0,
+    const bySize = new Cesium.NearFarScalar(1.0e7, 1.2, 6.0e7, 0.7);   // metres from the camera -> size factor
+    this.handles = Array.from(m.active, (a, i) => this.points.add({
+      position: Cesium.Cartesian3.ZERO, show: false, pixelSize: DOT_PX, color: colours[a], outlineWidth: 0,
+      scaleByDistance: bySize, id: i,   // id: the record index, for hover labels
     }));
     this.mask = new Uint8Array(this.typeCodes.length);
     this.buildPanel();
@@ -207,7 +250,10 @@ class Viewer {
     this.c = null;
     this.requestNext();
     this.apply(this.simTime());
+    scene.requestRender();
     S.marks.firstPositions = performance.now();
+    this.stage(4);
+    this.labels();
     S.firstPositionsMs = S.marks.firstPositions - S.marks.start;
     this.lastFrame = performance.now();
     this.widget.scene.preRender.addEventListener(() => this.frame());
@@ -233,6 +279,7 @@ class Viewer {
   frame() {
     const now = performance.now();
     push(S.frameMs, now - this.lastFrame);
+    if (now - this.lastFrame < BUSY_FRAME_MS) push(S.busyFrameMs, now - this.lastFrame);
     this.lastFrame = now;
     const t = this.simTime();
     while (t >= this.b.t && this.c) { this.a = this.b; this.b = this.c; this.c = null; this.requestNext(); }
@@ -280,7 +327,8 @@ class Viewer {
   // Step controller (D-015): one worker pass may use at most a quarter of the wall time between samples, never more
   // often than once a wall second at 1x; slow frames (below 20 fps) double the interval. Snapped up to STEPS.
   adapt() {
-    const w = avg(S.workerMs.slice(-5)), frame = avg(S.frameMs.slice(-60));
+    // Frame times only from continuous drawing (a gesture or fast play): between draws the globe idles (D-052)
+    const w = avg(S.workerMs.slice(-5)), frame = avg(S.busyFrameMs.slice(-60));
     const speed = Math.abs(this.widget.clock.multiplier) || 1;
     let wallS = Math.max(1, (4 * w) / 1000);
     if (frame > 50) wallS *= 2;
@@ -288,7 +336,7 @@ class Viewer {
     const step = STEPS.find((s) => s >= want) || STEPS[STEPS.length - 1];
     if (step !== this.step) { this.step = S.step = step; }
     // D-027: suggest switching debris off when junk mode runs below 20 fps for 5 s; never do it automatically.
-    const slow = (S.matchCounts.DEBRIS || 0) > 0 && S.frameMs.length > 60 && avg(S.frameMs.slice(-150)) > 50;
+    const slow = (S.matchCounts.DEBRIS || 0) > 0 && S.busyFrameMs.length > 60 && avg(S.busyFrameMs.slice(-150)) > 50;
     S.hint = slow ? "Running slowly: switching debris off makes the globe smoother." : null;
     if (this.hintEl) this.hintEl.textContent = S.hint || "";
   }
@@ -313,12 +361,72 @@ class Viewer {
       if (this.a) await this.resync(this.simTime());
       if (gen !== this.filterGen || this.destroyed) return;
       this.apply(this.simTime());   // show them now rather than on the next frame
+      this.widget.scene.requestRender();
       const t2 = performance.now();
       push(S.filterMs, t2 - t0);
       push(S.filterMainMs, main);
       S.filterAppliedAt = t2;
       S.filterChanges++;
     } catch (e) { console.warn("SatTrack viewer: filter not applied:", String(e)); }
+  }
+
+  // Hover labels (D-052, pulled forward from roadmap 3.4's first tier): pointing at a dot shows its name, SATCAT
+  // number, type, status, orbit class and launch year; on a touch screen a tap shows it and a tap elsewhere hides it.
+  // Picking is throttled (one pick per 100 ms) and skipped while dragging; the label hides when the camera moves.
+  // The details come from the worker's records; every string goes in with textContent.
+  labels() {
+    const Cesium = this.Cesium, scene = this.widget.scene;
+    const label = this.labelEl = el("div", "sattrack-viewer-label");
+    label.hidden = true;
+    label.setAttribute("role", "status");
+    this.container.append(label);
+    const handler = this.handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+    let pending = null, timer = null, dragging = false, shownIndex = null;
+    const hide = () => { label.hidden = true; shownIndex = null; S.label = null; };
+    const show = async (pos) => {
+      const picked = scene.pick(pos);
+      const i = picked && picked.collection === this.points && Number.isInteger(picked.id) ? picked.id : null;
+      if (i === null || !this.mask[i]) { hide(); return; }
+      if (i === shownIndex) { place(pos); return; }
+      shownIndex = i;
+      const info = await this.call({ type: "info", index: i });
+      if (shownIndex !== i || this.destroyed) return;
+      const r = info.record;
+      label.textContent = "";
+      const name = r.object_name === "TBA - TO BE ASSIGNED"   // Space-Track's "not yet named"
+        ? `Not yet named${r.object_id ? ` (${r.object_id})` : ""}` : (r.object_name || "(no name)");
+      label.append(el("strong", null, name),
+                   el("div", null, [`SATCAT ${r.satcat_id}`, TYPE_LABEL[r.object_type] || "Unknown type",
+                                    r.operational_status].filter(Boolean).join(" · ")),
+                   el("div", null, [r.orbit_class, r.launch_year ? `launched ${r.launch_year}` : null,
+                                    r.owner_country].filter(Boolean).join(" · ")));
+      place(pos);
+      label.hidden = false;
+      S.label = { satcat_id: r.satcat_id, object_name: r.object_name };
+    };
+    const place = (pos) => {
+      const w = this.container.clientWidth;
+      label.style.left = `${Math.min(pos.x + 12, w - 220)}px`;
+      label.style.top = `${Math.max(pos.y - 12, 4)}px`;
+    };
+    handler.setInputAction(() => { dragging = true; hide(); }, Cesium.ScreenSpaceEventType.LEFT_DOWN);
+    handler.setInputAction(() => { dragging = false; }, Cesium.ScreenSpaceEventType.LEFT_UP);
+    handler.setInputAction((m) => {
+      if (dragging) return;
+      pending = m.endPosition;
+      if (timer) return;
+      timer = setTimeout(() => { timer = null; if (pending) show(pending).catch(hide); }, 100);
+    }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+    handler.setInputAction((c) => { show(c.position).catch(hide); }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+    scene.camera.moveStart.addEventListener(hide);
+    // For the browser tests: point at a canvas position; where an object is on the canvas (null if not shown)
+    S.pointAt = (x, y) => show(new Cesium.Cartesian2(x, y));
+    S.screenOf = (satcatId) => {
+      const i = Array.prototype.indexOf.call(this.ids, satcatId);
+      if (i < 0 || !this.mask[i] || !this.handles[i].show) return null;
+      const w = Cesium.SceneTransforms.worldToWindowCoordinates(scene, this.handles[i].position);
+      return w ? { x: w.x, y: w.y } : null;
+    };
   }
 
   // The overlay keeps the status line, the slow-device hint and the credits; the type switches are in the page's
@@ -354,6 +462,7 @@ class Viewer {
   destroy() {
     this.destroyed = true;
     clearInterval(this.controller); clearInterval(this.statusTimer);
+    if (this.handler && !this.handler.isDestroyed()) this.handler.destroy();
     if (this.worker) this.worker.terminate();
     if (this.widget && !this.widget.isDestroyed()) this.widget.destroy();
     S.ready = false;

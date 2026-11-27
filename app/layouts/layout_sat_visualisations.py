@@ -48,9 +48,6 @@ def create_dash_layout(app):
 
     # Get app data
     app_data = get_app_data()
-    tbl_col_map = app_data['data']['tbl_col_map']
-    fig2d_0 = app_data['viz_2d']['base_figure']
-    fig3d_0 = app_data['viz_3d']['base_figure']    
     options = app_data['filter']['options']
     filter_table = app_data['filter']['table']
     # The spec the page opens with (roadmap 3.3a): rendered into the store, so the globe masks before its first
@@ -65,16 +62,11 @@ def create_dash_layout(app):
         dcc.Store(id='viewport-width', storage_type='session'),
 
         # Interval components
-        dcc.Interval(id='3d-viz-interval-component', interval=20000, n_intervals=0),
-        dcc.Interval(id='2d-viz-interval-component', interval=3000, n_intervals=0),
+        dcc.Interval(id='2d-viz-interval-component', interval=3000, n_intervals=0, disabled=True),  # on only while the 2D tab is open
 
-        # Memory stores
-        dcc.Store(id='3d-orbit-memory', data=[]),
-        dcc.Store(id='camera-memory', data=fig3d_0["layout"]["scene"]["camera"]),
-        dcc.Store(id='3d-sat-ids', data=None),  # fingerprint of the satellites drawn in 3D (timer ticks patch only when unchanged)
-
-        # The filter spec (D-031) every view reads: the globe, Plotly 3D and 2D and the list (roadmap 3.3a, Q7)
+        # The filter spec (D-031) every view reads: the globe, the 2D map and the list (roadmap 3.3a, Q7)
         dcc.Store(id='filter-spec', data=start_spec),
+        dcc.Store(id='list-shown-spec', data=None),   # the spec the list was last built for (callback_tabs)
 
         # Main Content Area: the filter panel and the views fill the window under the top bar (D-044)
         dbc.Row([
@@ -82,7 +74,7 @@ def create_dash_layout(app):
             create_filter_sidebar(options, summary, start),
 
             # Visualization Area
-            create_visualization_area(fig3d_0, fig2d_0, tbl_col_map)
+            create_visualization_area()
         ], id="tracker-row", className="g-2 g-md-3 st-tracker-row"),
 
         # Data credits and the conjunction caution, under the views
@@ -91,3 +83,14 @@ def create_dash_layout(app):
     ], fluid=True, className="st-tracker px-2 px-md-3 pt-2 pt-md-3")
 
     return layout
+
+
+def lazy_tab_contents():
+    """What the 2D and list tabs hold once opened (callback_tabs builds them on demand), for app.validation_layout:
+    Dash checks callbacks against it, and these components are not in the page until their tab opens."""
+    from dash import html
+    from app.layouts.components.visualizations.viz_2d import create_2d_body
+    from app.layouts.components.visualizations.viz_table import create_table_body
+    app_data = get_app_data()
+    return html.Div(create_2d_body(app_data['viz_2d']['base_figure'])
+                    + create_table_body(app_data['data']['tbl_col_map'], []))

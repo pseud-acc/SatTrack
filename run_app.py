@@ -38,6 +38,7 @@ from app.callbacks.callback_registry import register_all_callbacks
 from app.layouts.layout_navbar import create_navbar
 from app.layouts.layout_home import create_dash_layout as create_dash_layout_home
 from app.layouts.layout_sat_visualisations import create_dash_layout as create_dash_layout_sat_visualisations
+from app.layouts.layout_sat_visualisations import lazy_tab_contents
 
 ## >>>>>>>> Initialize App <<<<<<<<<<<<
 
@@ -101,6 +102,7 @@ app.validation_layout = html.Div([
     app.layout,
     create_dash_layout_home(app),
     create_dash_layout_sat_visualisations(app),
+    lazy_tab_contents(),   # the 2D and list tabs' contents, built when opened (callback_tabs)
 ])
 
 ## >>>>>>>> Register Callbacks <<<<<<<<<<<<

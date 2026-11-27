@@ -16,15 +16,12 @@ import dash_bootstrap_components as dbc
 from app.helper.helper__app_data import OBJECT_TYPES
 from app.helper.helper__filter_display import TYPE_LABELS
 
-SWATCH = {"PAYLOAD": "st-swatch-payload", "ROCKET BODY": "st-swatch-rocket", "DEBRIS": "st-swatch-debris"}
-
-
 def type_options(summary):
-    """The type switches' options for a panel summary (helper__filter_display.panel_summary): swatch, name and
-    "matching / total"."""
+    """The type switches' options for a panel summary (helper__filter_display.panel_summary): name and "matching /
+    total". No colour swatch: the globe colours points by status, not type (owner, 27 Nov 2026; the type colours
+    return with the "Colour by" menu, roadmap 3.13)."""
     return [{
         "label": html.Span([
-            html.Span(className=f"st-swatch {SWATCH[t]}"),
             html.Span(TYPE_LABELS[t], className="st-type-name"),
             html.Span([html.Strong(f"{summary['matches'][t]:,}", className="st-type-match"),
                        f" / {summary['totals'][t]:,}"], className="st-type-total"),

@@ -12,8 +12,8 @@ Todo:
 """
 
 from app.callbacks import (
-    callback_3d_viz,
     callback_2d_viz,
+    callback_tabs,
     callback_table,
     callback_filters,
     callback_navbar,
@@ -30,8 +30,8 @@ def register_all_callbacks(app):
 
     @return: None
     """
-    callback_3d_viz.register(app)
     callback_2d_viz.register(app)
+    callback_tabs.register(app)
     callback_table.register(app)
     callback_filters.register(app)
     callback_navbar.register(app)
