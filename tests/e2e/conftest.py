@@ -37,9 +37,10 @@ def _free_port():
 
 
 @pytest.fixture(scope="session")
-def base_url(tmp_path_factory):
-    """The app as production runs it (Cesium viewer flag off)."""
-    env = {k: v for k, v in os.environ.items() if k not in ("SATTRACK_CESIUM_VIEWER", "SATTRACK_VENDOR_DIR")}
+def base_url(tmp_path_factory, vendor_dir):
+    """The app as production runs it: the globe on (the default since D-052) with the real vendor files."""
+    env = {k: v for k, v in os.environ.items() if k != "SATTRACK_CESIUM_VIEWER"}
+    env["SATTRACK_VENDOR_DIR"] = str(vendor_dir)
     yield from _serve(tmp_path_factory, env)
 
 
@@ -57,10 +58,9 @@ def vendor_dir():
 
 
 @pytest.fixture(scope="session")
-def viewer_url(tmp_path_factory, vendor_dir):
-    """The app with the Cesium viewer flag on and the real vendor files."""
-    env = dict(os.environ, SATTRACK_CESIUM_VIEWER="1", SATTRACK_VENDOR_DIR=str(vendor_dir))
-    yield from _serve(tmp_path_factory, env)
+def viewer_url(base_url):
+    """The globe's tests run against production's set-up (D-052: the globe is on by default), on the same server."""
+    return base_url
 
 
 @pytest.fixture(scope="session")

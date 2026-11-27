@@ -417,7 +417,14 @@ class Viewer {
     }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
     handler.setInputAction((c) => { show(c.position).catch(hide); }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
     scene.camera.moveStart.addEventListener(hide);
-    S.pointAt = (x, y) => show(new Cesium.Cartesian2(x, y));   // for the browser tests
+    // For the browser tests: point at a canvas position; where an object is on the canvas (null if not shown)
+    S.pointAt = (x, y) => show(new Cesium.Cartesian2(x, y));
+    S.screenOf = (satcatId) => {
+      const i = Array.prototype.indexOf.call(this.ids, satcatId);
+      if (i < 0 || !this.mask[i] || !this.handles[i].show) return null;
+      const w = Cesium.SceneTransforms.worldToWindowCoordinates(scene, this.handles[i].position);
+      return w ? { x: w.x, y: w.y } : null;
+    };
   }
 
   // The overlay keeps the status line, the slow-device hint and the credits; the type switches are in the page's

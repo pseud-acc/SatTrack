@@ -1,12 +1,12 @@
 """E2E guard: no filter control that does nothing reaches production (owner, 26 Nov 2026, after #82 shipped Space junk
 mode to a production page that could only draw payloads).
 
-Runs the app as production does (`base_url`: the Cesium viewer flag off) and checks two things:
+Runs the app as production does (`base_url`: the globe on, the default since D-052) and checks two things:
   1. Coverage: every control a visitor can see in the filter panel (with its collapsed sections opened) has an
      effect check below. A new control without one fails here, so it can't ship unchecked.
   2. Effect: each control, used as a visitor would, changes what the visible view draws in the way the person
-     asked for. "What they asked for" is worked out here with plain pandas over the sample's objects dataset (every
-     object type), never with the app's code, so a control whose request the production views can't draw fails.
+     asked for, on the globe. "What they asked for" is worked out here with plain pandas over the sample's objects
+     dataset (every object type), never with the app's code, so a control whose request the globe can't draw fails.
 
 Each effect runs on a fresh page, so effects don't depend on each other.
 """
@@ -18,8 +18,8 @@ import pandas as pd
 import pytest
 from playwright.sync_api import expect, TimeoutError as PlaywrightTimeout
 
-from _support import APP_DATA_DIR, load_sample, propagates
-from test_journeys import PLOT_3D, choose_in_dropdown, open_tracker, trace_lengths, wait_for_traces
+from _support import APP_DATA_DIR
+from test_journeys import choose_in_dropdown, open_tracker, pick_satellite
 
 CHANGE_TIMEOUT = 20_000   # ms for the view to change after a control is used
 
@@ -97,6 +97,7 @@ def _pick(dropdown, label):
 def _drag_lower_year(page):
     """Drag the slider's lower thumb most of the way to the upper one, as a visitor would."""
     thumbs = page.locator("#launchyear-filter-slider [role=slider]")
+    thumbs.first.scroll_into_view_if_needed()   # the panel can be taller than the window (the search list, D-052)
     lo, hi = thumbs.first.bounding_box(), thumbs.nth(1).bounding_box()
     y = lo["y"] + lo["height"] / 2
     page.mouse.move(lo["x"] + lo["width"] / 2, y)
@@ -111,9 +112,9 @@ def _slider_years(page):
 
 
 def effects():
-    df, csv = objects(), load_sample()
+    df = objects()
     active_payloads = df[(df.object_type == "PAYLOAD") & (df.operational_status == "Active")]
-    sat = csv[(csv.Status == "Active") & (csv.OrbitClass == "LEO")].iloc[0]
+    sat = active_payloads[active_payloads.orbit_class == "LEO"].iloc[0]
     owner = most_common("owner_country", active_payloads)
     vehicle = most_common("launch_vehicle_brand", active_payloads)
     return {
@@ -121,10 +122,10 @@ def effects():
                                    lambda s: {**s, "status": ["Active", "Inactive"]}),
         "orbit-filter-checkbox": (_segment("orbit-filter-checkbox", "LEO"),
                                   lambda s: {**s, "orbit": [o for o in s["orbit"] if o != "LEO"]}),
-        "satname-filter-dropdown": (_pick("satname-filter-dropdown", sat.ObjectName),
-                                    lambda s: {**s, "name": sat.ObjectName}),
-        "satcatid-filter-dropdown": (_pick("satcatid-filter-dropdown", str(sat.SatCatId)),
-                                     lambda s: {**s, "satcat": int(sat.SatCatId)}),
+        # The search list (D-052): picking a row filters to that satellite. Typing in the box only narrows the
+        # list, so it is checked by the journeys (OWN_CHECKS), not here.
+        "sat-search-list": (lambda page: pick_satellite(page, int(sat.satcat_id)),
+                            lambda s: {**s, "satcat": int(sat.satcat_id)}),
         "owner-filter-multi-dropdown": (_pick("owner-filter-multi-dropdown", owner),
                                         lambda s: {**s, "owner": [owner]}),
         "launchvehicle-filter-multi-dropdown": (_pick("launchvehicle-filter-multi-dropdown", vehicle),
@@ -133,8 +134,8 @@ def effects():
                                           lambda s: {**s, "purpose": ["Navigation"]}),
         # the lower thumb dragged up: the request is the range the slider then shows
         "launchyear-filter-slider": (_drag_lower_year, lambda s, page: {**s, "year": _slider_years(page)}),
-        # Only the globe can draw them; listed so that offering them in production fails this test. Debris is all
-        # Inactive in the sample, so the check starts from status Active + Inactive.
+        # The globe draws every type (D-052). Debris is all Inactive in the sample, so the check starts from status
+        # Active + Inactive.
         "type-filter-checkbox": (lambda page: page.locator("#type-filter-checkbox").get_by_text("Debris", exact=True).click(),
                                  lambda s: {**s, "types": s["types"] + ["DEBRIS"]},
                                  _segment("status-filter-checkbox", "All"),
@@ -148,7 +149,7 @@ def effects():
 # Roadmap 3.3b: each chip's remove button undoes its control, and Clear all undoes everything. Their checks are built
 # from the control's own: use the control (so the chip shows), then remove it; the request goes back to the start.
 CHIP_CONTROLS = {"status": "status-filter-checkbox", "orbit": "orbit-filter-checkbox",
-                 "satname": "satname-filter-dropdown", "satcatid": "satcatid-filter-dropdown",
+                 "satcatid": "sat-search-list",
                  "owner": "owner-filter-multi-dropdown", "launchvehicle": "launchvehicle-filter-multi-dropdown",
                  "purpose": "purpose-filter-multi-dropdown", "year": "launchyear-filter-slider"}
 
@@ -171,8 +172,9 @@ def all_effects():
     return out
 
 
-# Buttons whose effect isn't a different set of objects: checked on their own below.
-OWN_CHECKS = {"clear-orbits-btn"}
+# Controls whose effect isn't a different set of objects, checked elsewhere: the search box narrows the search list
+# (tests/e2e/test_journeys.py test_search_list_browses_narrows_and_picks).
+OWN_CHECKS = {"sat-search-input"}
 
 
 def test_every_visible_control_has_an_effect_check(page, base_url):
@@ -184,42 +186,46 @@ def test_every_visible_control_has_an_effect_check(page, base_url):
     assert not unchecked, f"controls offered in production with no effect check: {sorted(unchecked)}"
 
 
-def wait_for_redraw(page, drawn):
+def shown(page):
+    """Objects the globe shows now, plus those in its filter it can't place (SGP4 fails): what the filter selects."""
+    return page.evaluate("window.sattrackViewer.shownCount + window.sattrackViewer.hiddenFailed")
+
+
+def wait_for_redraw(page, changes):
+    """Wait until the globe has applied one more filter change than `changes`, then return what it shows."""
     try:
-        page.wait_for_function(
-            """([id, n]) => (document.getElementById(id)?.querySelector('.js-plotly-plot')?.data?.[1]?.x || []).length !== n""",
-            arg=[PLOT_3D, drawn], timeout=CHANGE_TIMEOUT)
+        page.wait_for_function("n => window.sattrackViewer.filterChanges > n", arg=changes, timeout=CHANGE_TIMEOUT)
     except PlaywrightTimeout:
         pass   # reported by the caller's assertion
-    return trace_lengths(page, PLOT_3D)[1]
+    return shown(page)
 
 
 @pytest.mark.parametrize("control", list(all_effects()))
 def test_each_visible_control_changes_the_view_as_asked(page, base_url, t_ref, control):
-    """The view's change must match the request's, within the few sample objects SGP4 can't place: a control whose
-    request the view can only partly draw (e.g. junk mode adding Inactive payloads but no debris) fails too."""
+    """The globe's change must match the request's exactly: shown objects plus those in the filter it can't place,
+    so a control whose request the globe can only partly draw fails too."""
     open_tracker(page, base_url)
     open_sections(page)
     act, change, *prep = all_effects()[control]
     df = objects()
     before_state = start_state()
     if prep:
-        drawn = trace_lengths(page, PLOT_3D)[1]
+        changes = page.evaluate("window.sattrackViewer.filterChanges")
         prep[0](page)
-        wait_for_redraw(page, drawn)
+        wait_for_redraw(page, changes)
         before_state = (prep[1](before_state, page) if prep[1].__code__.co_argcount == 2 else prep[1](before_state))
     if control not in page.evaluate(VISIBLE_CONTROLS):
         return   # not offered in production: nothing to check (the coverage test above covers the reverse)
-    unplaceable = int((~propagates(load_sample(), t_ref)).sum())
-    drawn = trace_lengths(page, PLOT_3D)[1]
+    drawn, changes = shown(page), page.evaluate("window.sattrackViewer.filterChanges")
+    assert drawn == asked_for(df, before_state), f"{control}: the globe shows {drawn} before, expected {asked_for(df, before_state)}"
     act(page)
     after_state = change(before_state, page) if change.__code__.co_argcount == 2 else change(before_state)
     wanted = asked_for(df, after_state) - asked_for(df, before_state)
     assert wanted != 0, f"{control}: the chosen action asks for no change; pick another"
-    now = wait_for_redraw(page, drawn)
-    assert now != drawn and abs((now - drawn) - wanted) <= unplaceable, (
-        f"{control} doesn't do what it offers in production: it asks for {wanted:+d} objects, the 3D view drew "
-        f"{drawn} before and {now} after ({unplaceable} sample objects can't be placed)")
+    now = wait_for_redraw(page, changes)
+    assert now - drawn == wanted, (
+        f"{control} doesn't do what it offers in production: it asks for {wanted:+d} objects, the globe showed "
+        f"{drawn} before and {now} after")
     assert page.errors == []
 
 
@@ -227,16 +233,3 @@ def test_no_update_button(page, base_url):
     """Roadmap 3.3b: filters apply at once, so there's no Update button to press (or to do nothing)."""
     open_tracker(page, base_url)
     assert page.locator("#time-update-btn").count() == 0
-
-
-def test_clear_orbits_removes_drawn_orbits(page, base_url):
-    """A satellite clicked in the 3D view gets its orbit drawn; Clear orbits (in the 3D tab since 3.3b) removes it."""
-    open_tracker(page, base_url)
-    page.evaluate("""id => {
-        const gd = document.getElementById(id).querySelector('.js-plotly-plot');
-        gd.emit('plotly_click', {points: [{curveNumber: 1, pointNumber: 0, x: 0, y: 0, z: 0}]});
-    }""", PLOT_3D)
-    wait_for_traces(page, PLOT_3D, "lengths.length > 2")
-    page.locator("#clear-orbits-btn").click()
-    wait_for_traces(page, PLOT_3D, "lengths.length === 2")
-    assert page.errors == []
