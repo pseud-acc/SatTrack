@@ -126,13 +126,16 @@ if [ "$up" = 1 ]; then
     c="$(curl -s -o /dev/null -m 120 -w '%{http_code}' "http://127.0.0.1:$PORT$p")"
     echo "$c $p"; [ "$c" = 200 ] || fail "$p returned $c"
   done
-  # The viewer flag is off in production (owner, 24 Nov 2026: enabled with roadmap 3.3), so the app reads no vendor
-  # file and serves none. Serving with the flag on (pre-compressed, immutable caching) is covered by
-  # tests/app/test_viewer.py and the browser tests.
+  # The globe is on in production (D-052): the build's vendor files are served pre-compressed with immutable
+  # caching, and pages carry the report-only CSP and HSTS (D-041). Details: tests/app/test_viewer.py, browser tests.
   VURL="http://127.0.0.1:$PORT/static/vendor/cesium-1.147.0/index.js"
-  c="$(curl -s -o /dev/null -w '%{http_code}' "$VURL")"
-  echo "$c $VURL (viewer flag off: expect 404)"
-  [ "$c" = 404 ] || fail "with the viewer flag off the app served a vendored file ($c)"
+  c="$(curl -s -o /dev/null -D "$W/h_vendor" -H 'Accept-Encoding: br' -w '%{http_code}' "$VURL")"
+  enc="$(grep -i '^content-encoding:' "$W/h_vendor" | tr -d '' | cut -d' ' -f2)"
+  echo "$c $VURL ($enc; expect 200 br)"
+  [ "$c" = 200 ] && [ "$enc" = br ] || fail "the globe's vendor file was not served pre-compressed ($c $enc)"
+  grep -qi '^cache-control:.*immutable' "$W/h_vendor" || fail "the vendor file is not cached as immutable"
+  curl -s -o /dev/null -D "$W/h_page" "http://127.0.0.1:$PORT/sat_visualisation"
+  grep -qi '^content-security-policy-report-only:' "$W/h_page" && grep -qi '^strict-transport-security:' "$W/h_page"     || fail "the tracker page lacks the report-only CSP or HSTS (D-041)"
 fi
 sleep 3
 docker logs "$NAME" > "$W/run.log" 2>&1 || true
