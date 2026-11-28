@@ -209,7 +209,7 @@ Each phase's hours are the sum of its task estimates, done tasks included; the p
 
 3.17 `feature/filter-panel-redesign` — A full redesign of the filter panel once 3.5's time controls and the clock bar (3.15) are in: clearer segments per group of filters, closer to the segmented layouts of professional trackers, while staying sleek and uncluttered (owner, 28 Nov 2026). Options are mocked up and tried by the owner first. Triggered also by D-056's revisit note (six rows in "More filters"). (~6 h, estimate)
 
-3.16 `feature/orbit-on-hover` — On desktop, resting the pointer on a dot for about 300 ms draws its orbit (the selection's orbit code); phones keep tap-to-select. Never while dragging; honours `prefers-reduced-motion`. (~1.5 h)
+3.16 `feature/orbit-on-hover` — **Done** in this PR (D-058). On desktop, resting the pointer on a dot for about 300 ms draws its orbit (the selection's orbit code); phones keep tap-to-select. Never while dragging; honours `prefers-reduced-motion`. (~1.5 h)
 
 3.11 `feature/cesium-daylight` — Day/night terminator and satellites dimmed in Earth's shadow; switches the worker to satellite.js's WASM `BulkPropagator` (zero-vector guard, parity-test row, `'wasm-unsafe-eval'` in the CSP) (D-029). (~6 h)
 

@@ -496,3 +496,54 @@ def test_every_globe_control_has_an_effect_check(page, base_url):
         .map(e => e.id)"""))
     assert seen == set(GLOBE_CONTROLS)
     assert all(name in globals() for name in GLOBE_CONTROLS.values())
+
+
+def point_at_a_shown_object(page):
+    """Point at the first shown object the pointer can reach (as the hover-label test does). Returns its satcat_id."""
+    for satcat_id in page.evaluate("window.sattrackViewer.shownIds()"):
+        pos = page.evaluate(f"window.sattrackViewer.screenOf({satcat_id})")
+        if not pos:
+            continue
+        page.evaluate(f"window.sattrackViewer.pointAt({pos['x']}, {pos['y']})")
+        label = page.evaluate("window.sattrackViewer.label")
+        if label and label["satcat_id"] == satcat_id:
+            return satcat_id
+    raise AssertionError("no shown object could be pointed at")
+
+
+def test_resting_the_pointer_on_a_dot_draws_its_orbit(page, viewer_url):
+    """Roadmap 3.16 (owner, 28 Nov 2026): the orbit shows after a short rest (not at once), for the object under the
+    pointer, and goes when the pointer leaves."""
+    open_viewer(page, viewer_url)
+    satcat_id = point_at_a_shown_object(page)
+    assert page.evaluate("window.sattrackViewer.hoverOrbit") is None            # not before the rest
+    wait_until(page, "() => !!window.sattrackViewer.hoverOrbit")
+    hover = page.evaluate("window.sattrackViewer.hoverOrbit")
+    assert hover["satcat_id"] == satcat_id and hover["points"] > 100             # one period, ~180 points
+    assert page.evaluate("window.sattrackViewer.selection") is None             # hovering selects nothing
+    page.evaluate("window.sattrackViewer.pointAt(2, 2)")                         # empty space
+    assert page.evaluate("window.sattrackViewer.hoverOrbit") is None
+    assert page.errors == []
+
+
+def test_a_brief_pass_over_a_dot_draws_no_orbit(page, viewer_url):
+    open_viewer(page, viewer_url)
+    point_at_a_shown_object(page)
+    page.evaluate("window.sattrackViewer.pointAt(2, 2)")                         # gone before the rest is over
+    page.wait_for_timeout(700)
+    assert page.evaluate("window.sattrackViewer.hoverOrbit") is None
+    assert page.errors == []
+
+
+def test_no_hover_orbit_on_touch_screens(browser, viewer_url):
+    """Phones have no hover: a tap selects, and the card's Orbit toggle draws the orbit."""
+    context = browser.new_context(viewport={"width": 390, "height": 844}, has_touch=True, is_mobile=True)
+    context.route(lambda u: not u.startswith("http://127.0.0.1"), lambda route: route.abort())
+    try:
+        pg = context.new_page()
+        open_viewer(pg, viewer_url)
+        point_at_a_shown_object(pg)
+        pg.wait_for_timeout(700)
+        assert pg.evaluate("window.sattrackViewer.hoverOrbit") is None
+    finally:
+        context.close()
