@@ -23,7 +23,7 @@ import numpy as np
 from datetime import datetime, timedelta, timezone
 
 # Internal modules
-from app.helper.helper__satellite_position import (compute_satloc, lla_to_xyz, satrecs_for)
+from app.helper.helper__satellite_position import (OMM_FIELDS_OBJECTS, compute_satloc, lla_to_xyz, satrecs_for)
 from app.helper.helper__constants import _radius_earth__c
 from app.core import filter_spec
 
@@ -151,6 +151,24 @@ def type_matches(filter_table, base_spec):
         return {t: 0 for t in OBJECT_TYPES}
     hit = filter_table.loc[filter_spec.apply(base_spec, filter_table), "object_type"]
     return {t: int(n) for t, n in hit.value_counts().reindex(OBJECT_TYPES, fill_value=0).items()}
+
+
+def list_objects(objects_df, filter_table, spec):
+    '''
+    The list view's rows (owner, 27 Nov 2026: every object type, not just payloads): the objects the spec selects,
+    placed now (pure function). Objects SGP4 can't place are left out, as on the globe.
+
+    @param objects_df: (DataFrame) the objects dataset's list columns (app/core/state.py LIST_COLUMNS)
+    @param filter_table: (DataFrame) the objects dataset's filterable fields (app.core.filter_spec)
+    @param spec: (dict or None) the filter spec; None selects nothing
+    @return: (DataFrame) the selected objects with lat, lon, alt; the time used
+    '''
+    ids = [] if spec is None else filter_table.loc[filter_spec.apply(spec, filter_table), "satcat_id"].to_numpy()
+    dff = objects_df[objects_df["satcat_id"].isin(ids)].copy()
+    time_now = datetime.utcnow()
+    dff[["x", "y", "z", "lat", "lon", "alt"]] = compute_satloc(satrecs_for(dff, OMM_FIELDS_OBJECTS), time_now,
+                                                               _radius_earth__c, False)
+    return dff.dropna(subset=["lat", "lon", "alt"]), time_now
 
 
 def filter_satellite_data(df_in, filter_table, spec):

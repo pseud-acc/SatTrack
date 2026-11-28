@@ -39,6 +39,9 @@ OMM_FIELDS = {
     "REV_AT_EPOCH": "RevAtEpoch", "ELEMENT_SET_NO": "ElementSetNo", "EPHEMERIS_TYPE": "EphemerisType",
     "CLASSIFICATION_TYPE": "ClassificationType", "OBJECT_ID": "ObjectId", "NORAD_CAT_ID": "SatCatId",
 }
+# The same element set in the objects dataset (D-009, D-010): the warehouse's names, which are the OMM keywords in lower
+# case, with the catalogue number as satcat_id.
+OMM_FIELDS_OBJECTS = {k: ("satcat_id" if k == "NORAD_CAT_ID" else k.lower()) for k in OMM_FIELDS}
 
 # Building a Satrec costs ~15x more than propagating it, so each element set is built once per process and reused
 # by every callback. Key: the catalogue number plus every value the Satrec is built from (all OMM fields, or both TLE
@@ -60,18 +63,18 @@ def _complete(df, cols):
     return df[list(cols)].notna().all(axis=1).to_numpy()
 
 
-def _sources(df):
+def _sources(df, fields=OMM_FIELDS):
     """Per row: 'omm' (all OMM columns present), 'tle' (else both TLE lines) or 'none'."""
-    use_omm = _complete(df, OMM_FIELDS.values())
+    use_omm = _complete(df, fields.values())
     use_tle = ~use_omm & _complete(df, ("TLE1", "TLE2"))
     return np.where(use_omm, "omm", np.where(use_tle, "tle", "none"))
 
 
-def _build_satrec(row, source):
+def _build_satrec(row, source, names=OMM_FIELDS):
     """A Satrec from the OMM columns ('omm') or TLE1/TLE2 ('tle': fallback kept for one release, for a pre-OMM
     satcat_tle.csv); None for 'none' (no position)."""
     if source == "omm":
-        fields = {k: row[c] for k, c in OMM_FIELDS.items()}
+        fields = {k: row[c] for k, c in names.items()}
         if int(fields["NORAD_CAT_ID"]) > _SGP4_MAX_SATNUM:
             fields["NORAD_CAT_ID"] = 0
         sat = Satrec()
@@ -82,15 +85,17 @@ def _build_satrec(row, source):
     return None
 
 
-def satrecs_for(df):
+def satrecs_for(df, fields=OMM_FIELDS):
     """
-    One sgp4 Satrec per row of a satcat_tle.csv frame, in row order (None for a row without an element set).
-    Built once per element set (see _satrec_cache), so callbacks only propagate.
+    One sgp4 Satrec per row of a satcat_tle.csv frame (or, with fields=OMM_FIELDS_OBJECTS, of the objects dataset),
+    in row order (None for a row without an element set). Built once per element set (see _satrec_cache), so
+    callbacks only propagate.
 
-    @param df: (DataFrame) catalogue rows: SatCatId plus the OMM columns and/or TLE1, TLE2
+    @param df: (DataFrame) catalogue rows: the catalogue number plus the OMM columns and/or TLE1, TLE2
+    @param fields: (dict) OMM keyword -> column name
     @return: list of Satrec or None, one per row
     """
-    sources = _sources(df)
+    sources = _sources(df, fields)
     n = len(df)
 
     def values(cols):   # one tuple per row of the given columns (all None if a column is absent)
@@ -98,25 +103,25 @@ def satrecs_for(df):
             return list(zip(*(df[c].to_numpy() for c in cols)))
         return [None] * n
 
-    omm_values = values(list(OMM_FIELDS.values()))
+    omm_values = values(list(fields.values()))
     tle_values = values(["TLE1", "TLE2"])
     keys = [(i, src, o if src == "omm" else t if src == "tle" else None)
-            for i, src, o, t in zip(df["SatCatId"].to_numpy(), sources, omm_values, tle_values)]
+            for i, src, o, t in zip(df[fields["NORAD_CAT_ID"]].to_numpy(), sources, omm_values, tle_values)]
     missing = [n for n, k in enumerate(keys) if k not in _satrec_cache]
     if missing:
         if len(_satrec_cache) + len(missing) > _SATREC_CACHE_MAX:
             _satrec_cache.clear()
             missing = list(range(len(keys)))
-        cols = [c for c in dict.fromkeys(list(OMM_FIELDS.values()) + ["TLE1", "TLE2"]) if c in df.columns]
+        cols = [c for c in dict.fromkeys(list(fields.values()) + ["TLE1", "TLE2"]) if c in df.columns]
         rows = df.iloc[missing][cols].to_dict("records")
         for n, row in zip(missing, rows):
-            _satrec_cache[keys[n]] = _build_satrec(row, sources[n])
+            _satrec_cache[keys[n]] = _build_satrec(row, sources[n], fields)
     return [_satrec_cache[k] for k in keys]
 
 
-def satrec_sources(df):
+def satrec_sources(df, fields=OMM_FIELDS):
     """Counts of rows whose Satrec comes from OMM, from the TLE fallback, or neither (for the start-up log)."""
-    sources = _sources(df)
+    sources = _sources(df, fields)
     return {s: int((sources == s).sum()) for s in ("omm", "tle", "none")}
 
 

@@ -33,7 +33,7 @@ sys.path.append("../../")
 from app.helper.helper__plot_display import (create_2d_layout, create_2d_figure)
 from app.helper.helper__table_display import create_table_mapping
 from app.helper.helper__app_data import create_data_filters, group_options
-from app.helper.helper__satellite_position import satrec_sources, satrecs_for
+from app.helper.helper__satellite_position import OMM_FIELDS_OBJECTS, satrec_sources, satrecs_for
 from app.core import filter_spec
 from app.core.search_index import search_dataset
 
@@ -45,6 +45,10 @@ _app_data_lock = threading.Lock()
 # Browser datasets (docs/app-data-contract.md, D-010): each is published pre-compressed twice. The app keeps the
 # compressed bytes as they are and serves them (app/core/data_files.py).
 DATASET_ENCODINGS = {"br": ".json.br", "gzip": ".json.gz"}
+
+# The list view's columns from the objects dataset: what it shows, plus the element set it places objects with
+LIST_COLUMNS = list(dict.fromkeys(["satcat_id", "object_name", "object_id", "object_type", "operational_status",
+                                   "orbit_class", "launch_year", "owner_country", *OMM_FIELDS_OBJECTS.values()]))
 
 
 def _dataset_entry(name, encoded):
@@ -193,6 +197,11 @@ def initialise_app_data():
         raise
     filter_table = filter_spec.table_from_records(objects_doc["records"])
     options.update(group_options(filter_table))   # constellations and satellite systems (roadmap 3.14)
+    # The list view's rows: every object type, with its element set (owner, 27 Nov 2026: debris and rocket bodies in
+    # the list). Propagators built now, like the CSV's; payloads share theirs (same element sets, same cache keys)
+    objects_df = pd.DataFrame.from_records(objects_doc["records"], columns=LIST_COLUMNS)
+    satrecs_for(objects_df, OMM_FIELDS_OBJECTS)
+    print(f" - List rows: {len(objects_df):,} objects; propagators: {satrec_sources(objects_df, OMM_FIELDS_OBJECTS)}")
     # The satellite search list (D-052), from the same parse: served at /data/search.json, fetched by the page
     datasets["search"] = _dataset_entry("search", search_dataset(objects_doc))
     print(f" - Search list: {len(objects_doc['records']):,} objects, "
@@ -219,6 +228,7 @@ def initialise_app_data():
     app_data['data']['data_source'] = data_source  # 's3' or 'local'; both are the pipeline's Space-Track + GCAT files
     app_data['data']['tbl_col_map'] = tbl_column_map
     app_data['data']['datasets'] = datasets   # served by app/core/data_files.py
+    app_data['data']['objects_df'] = objects_df   # the list view's rows (every object type)
 
     # Visualisation filters
     app_data['filter'] = dict()

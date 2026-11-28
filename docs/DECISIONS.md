@@ -962,3 +962,16 @@ constellation. The same pattern as the existing rows keeps the panel uncluttered
 **Rejected.** A separate "Groups" section; one combined control; two system rows.
 
 **Deviation.** The roadmap's definition and source popovers need a groupings dataset: with the home page (3.14b).
+
+## D-057 The List View shows every object type, from the objects dataset
+**Status:** Accepted, 2026-11-28 (owner request of 27 Nov 2026). Builds on D-011, D-035, D-052. Record:
+[D-057](decisions/D-057-list-view-every-object-type.md).
+
+**Decision.** The list's rows come from the objects dataset (every type), selected by the filter spec and placed
+with the same SGP4 code using the dataset's field names; a "Type" column; "Not yet named (designator)" for unnamed
+objects. The 2D map keeps the app CSV until roadmap 3.6.
+
+**Why.** The globe drew rocket bodies and debris but the list couldn't. Measured on the full 28 Nov data: 271 MB at
+rest against 268 MB, start-up 4.8 s against 3.4 s, payloads share their propagators (32,631 cached, none doubled).
+
+**Rejected.** Widening the app CSV (being retired); a browser-built table (a second implementation).

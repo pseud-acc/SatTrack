@@ -509,6 +509,8 @@ class Viewer {
     // Leaving the browser's full screen (Esc, F11, the browser's own control) leaves the full window too
     this.onFullscreen = () => {
       const inFull = document.body.classList.contains("st-fullwindow");
+      // Our own exit reports late: if the visitor has gone back in by then, it must not undo that
+      if (!document.fullscreenElement && this.leavingFullscreen) { this.leavingFullscreen = false; return; }
       if (!document.fullscreenElement && this.usedFullscreen && inFull) this.setFullWindow(false);
       // the browser finished entering after the visitor had already left: leave its full screen too
       else if (document.fullscreenElement && !inFull) document.exitFullscreen().catch(() => {});
@@ -548,7 +550,8 @@ class Viewer {
         document.documentElement.requestFullscreen().catch(() => { this.usedFullscreen = false; });
       } else if (!on && document.fullscreenElement) {
         this.usedFullscreen = false;
-        document.exitFullscreen().catch(() => {});
+        this.leavingFullscreen = true;
+        document.exitFullscreen().catch(() => { this.leavingFullscreen = false; });
       }
     } catch (e) { this.usedFullscreen = false; }
     // Cesium resizes its canvas on its next frame; ask for one once the layout has settled

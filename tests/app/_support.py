@@ -102,6 +102,37 @@ def sgp4_teme_omm(row, when):
     return _teme(sat, when)
 
 
+OBJECT_OMM = ("epoch", "mean_motion", "eccentricity", "inclination", "ra_of_asc_node", "arg_of_pericenter",
+              "mean_anomaly", "bstar", "mean_motion_dot", "mean_motion_ddot", "rev_at_epoch", "element_set_no",
+              "ephemeris_type", "classification_type", "object_id")
+
+
+def sgp4_teme_object(record, when):
+    """Reference position (TEME, km) from an objects-dataset record (the warehouse's field names, which are the CCSDS
+    OMM keywords in lower case), with the sgp4 library directly; None on an sgp4 error."""
+    sat = Satrec()
+    fields = {k.upper(): record[k] for k in OBJECT_OMM}
+    fields["NORAD_CAT_ID"] = record["satcat_id"]
+    try:
+        omm.initialize(sat, fields)
+    except Exception:   # noqa: BLE001 - an element set the library can't initialise has no position
+        return None
+    return _teme(sat, when)
+
+
+def expected_object_ids(objects, when, status="Active", orbit=ALL_ORBITS, types=("PAYLOAD",), year=None):
+    """satcat_ids the list view should show (owner, 27 Nov 2026: every object type): expected_object_count's rules
+    with plain pandas over the objects dataset, then only the objects sgp4 can place at `when`."""
+    st = objects["operational_status"]
+    keeps = STATUS_KEEPS.get(status, [])
+    keep = st.isin(keeps) | (st.isna() & ("Inactive" in keeps))
+    keep &= objects["object_type"].isin(list(types)) & objects["orbit_class"].isin(orbit)
+    if year is not None:
+        keep &= objects["launch_year"].between(year[0], year[1])
+    placed = np.array([sgp4_teme_object(r, when) is not None for r in objects.to_dict("records")])
+    return set(objects.loc[keep & placed, "satcat_id"])
+
+
 def propagates(df, when):
     """Boolean mask: rows sgp4 can propagate to `when` from their OMM fields."""
     return np.array([sgp4_teme_omm(row, when) is not None for _, row in df.iterrows()])
