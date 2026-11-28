@@ -35,3 +35,105 @@
   pointer-events: none; border: 1px solid var(--st-line);
 }
 .sattrack-viewer-label strong { display: block; color: var(--st-fg); font-size: var(--st-fs-sm); font-weight: 600; }
+
+/* Selection panel (roadmap 3.4): a side panel on wider screens, a card at the bottom on phones */
+.sattrack-select {
+  position: absolute; z-index: 5; top: 8px; right: 8px; bottom: 34px; width: min(340px, 45%);
+  overflow-y: auto; padding: var(--st-3) var(--st-4); border-radius: var(--st-r);
+  background: var(--st-panel); color: var(--st-fg); border: 1px solid var(--st-line);
+  font-size: var(--st-fs-sm); line-height: 1.4;
+}
+.sattrack-select[hidden] { display: none; }
+/* The top (drag bar, name, - and x) stays in view while the rest scrolls under it (owner, 28 Nov 2026) */
+.sattrack-select { padding-top: 0; }
+.sattrack-select-top {
+  position: sticky; top: 0; z-index: 2; background: var(--st-panel);
+  margin: 0 calc(-1 * var(--st-4)); padding: var(--st-3) var(--st-4) var(--st-1);
+}
+.sattrack-select-head { display: flex; align-items: flex-start; gap: var(--st-2); }
+.sattrack-select-name { flex: 1; margin: 0; font-size: var(--st-fs-lg); font-weight: 600; line-height: 1.25; }
+/* Slim flat oblongs side by side, like a window's controls (owner, 28 Nov 2026): 36 x 24 px drawn, WCAG 2.2's
+   24 px minimum; on touch screens an invisible margin of the hit area takes the target to 36 x 32 px */
+.sattrack-select-close, .sattrack-select-minimise {
+  position: relative; flex: none; width: 36px; height: 24px; padding: 0; border: 1px solid var(--st-line);
+  border-radius: 5px; background: var(--st-control); color: var(--st-fg);
+  font-size: 15px; line-height: 1; display: inline-flex; align-items: center; justify-content: center;
+}
+@media (pointer: coarse) {
+  .sattrack-select-close::after, .sattrack-select-minimise::after { content: ""; position: absolute; inset: -4px -2px; }
+}
+.sattrack-select-head { align-items: center; }
+.sattrack-select-head .sattrack-select-minimise { margin-left: auto; }
+.sattrack-select-close:hover, .sattrack-select-close:focus-visible,
+.sattrack-select-minimise:hover, .sattrack-select-minimise:focus-visible { background: var(--st-hover); }
+/* Minimised (owner's option 2): the selection's name as a pill; a tap brings the panel back */
+.sattrack-select-pill {
+  position: absolute; z-index: 5; right: 8px; bottom: 34px; max-width: min(320px, 70%);
+  min-height: 36px; padding: 4px var(--st-3); border: 1px solid var(--st-accent); border-radius: var(--st-r-pill);
+  background: var(--st-panel); color: var(--st-fg); font-size: var(--st-fs-sm); font-weight: 600;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.sattrack-select-pill[hidden] { display: none; }
+.sattrack-select-pill-open { color: var(--st-accent-hi); }
+.sattrack-select-status { margin: var(--st-1) 0 var(--st-2); color: var(--st-muted); }
+.sattrack-select dl { display: grid; grid-template-columns: max-content 1fr; gap: 2px var(--st-3); margin: 0; }
+.sattrack-select dt { color: var(--st-muted); font-weight: 400; }
+.sattrack-select dd { margin: 0; overflow-wrap: anywhere; }
+.sattrack-select-unsure { color: var(--st-warn); }
+.sattrack-select-from { color: var(--st-muted); }   /* where a value came from, not a doubt */
+.sattrack-select-actions { display: flex; flex-wrap: wrap; gap: var(--st-1); margin: var(--st-3) 0; }
+.sattrack-select-toggle, .sattrack-select-copy {
+  min-height: 32px; padding: 2px var(--st-3); border: 1px solid var(--st-line); border-radius: var(--st-r-pill);
+  background: var(--st-control); color: var(--st-fg); font-size: var(--st-fs-xs);
+}
+.sattrack-select-toggle[aria-pressed="true"] { background: var(--st-accent-soft); border-color: var(--st-accent); }
+.sattrack-select-toggle:hover, .sattrack-select-copy:hover { background: var(--st-hover); }
+.sattrack-select-more summary { cursor: pointer; color: var(--st-accent-hi); }
+.sattrack-select-section { margin-top: var(--st-3); }
+.sattrack-select-section h3 { margin: 0 0 var(--st-1); font-size: var(--st-fs-sm); font-weight: 600; }
+.sattrack-select-source { margin-top: var(--st-1); color: var(--st-faint); font-size: var(--st-fs-xs); }
+.sattrack-select-note:empty { display: none; }
+.sattrack-select-note { margin-top: var(--st-2); color: var(--st-muted); font-size: var(--st-fs-xs); }
+@media (max-width: 576px) {
+  .sattrack-select { width: auto; left: 8px; top: 8px; }
+  .sattrack-select.is-card {
+    top: auto; bottom: 26px; left: 0; right: 0; max-height: 45%;
+    border-radius: var(--st-r) var(--st-r) 0 0; padding: var(--st-2) var(--st-3);
+  }
+  .sattrack-select.is-card .sattrack-select-name { font-size: var(--st-fs-md); }
+  .sattrack-select.is-card { padding-top: 0; }
+  .sattrack-select.is-card .sattrack-select-top { margin: 0 calc(-1 * var(--st-3)); padding: var(--st-1) var(--st-3) var(--st-1); }
+  /* Peek (owner, 28 Nov 2026): name, status, height and speed; Details expands to the full card */
+  .sattrack-select.is-card:not(.is-expanded) { overflow: hidden; }
+  .sattrack-select.is-card:not(.is-expanded) .sattrack-select-facts,
+  .sattrack-select.is-card:not(.is-expanded) .sattrack-select-actions,
+  .sattrack-select.is-card:not(.is-expanded) .sattrack-select-more,
+  .sattrack-select.is-card:not(.is-expanded) .sattrack-select-note { display: none; }
+  .sattrack-select.is-card .sattrack-select-status { margin: 0; font-size: var(--st-fs-xs); }
+  .sattrack-select-pill { left: 50%; right: auto; transform: translateX(-50%); bottom: 30px; }
+  .sattrack-select.is-card.is-expanded { max-height: 60%; }
+  .sattrack-select.is-card .sattrack-select-peek { display: flex; }
+}
+/* The peek row is only for the phone card */
+.sattrack-select-peek { display: none; align-items: center; justify-content: space-between; gap: var(--st-2);
+  margin-top: var(--st-1); }
+.sattrack-select-peek-live { font-variant-numeric: tabular-nums; }
+.sattrack-select-expand {
+  min-height: 32px; padding: 0 0 0 var(--st-3); border: 0; background: none;
+  color: var(--st-accent-hi); font-size: var(--st-fs-sm); font-weight: 600;
+}
+.sattrack-select-expand:hover, .sattrack-select-expand:focus-visible { text-decoration: underline; }
+/* The pull-up handle: phones' card only */
+.sattrack-select-handle { display: none; }
+@media (max-width: 576px) {
+  .sattrack-select.is-card .sattrack-select-handle {
+    display: block; height: 16px; margin: 0 0 var(--st-1); cursor: pointer;   /* a 16 px tap strip */
+    background: linear-gradient(var(--st-faint), var(--st-faint)) center / 40px 4px no-repeat;
+  }
+  .sattrack-select.is-card:not(.is-expanded) { cursor: pointer; }
+  /* the drag (pull the card down or up): the page mustn't scroll under the finger on the card's top part */
+  .sattrack-select.is-card .sattrack-select-handle, .sattrack-select.is-card .sattrack-select-head,
+  .sattrack-select.is-card .sattrack-select-status, .sattrack-select.is-card .sattrack-select-peek,
+  .sattrack-select.is-card:not(.is-expanded) { touch-action: none; }
+  .sattrack-select.is-card.is-expanded .sattrack-select-peek-live { visibility: hidden; }   /* listed below */
+}

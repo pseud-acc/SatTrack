@@ -19,7 +19,7 @@ import pytest
 from playwright.sync_api import expect, TimeoutError as PlaywrightTimeout
 
 from _support import APP_DATA_DIR
-from test_journeys import choose_in_dropdown, open_tracker, pick_satellite
+from test_journeys import choose_in_dropdown, open_tracker
 
 CHANGE_TIMEOUT = 20_000   # ms for the view to change after a control is used
 
@@ -122,10 +122,6 @@ def effects():
                                    lambda s: {**s, "status": ["Active", "Inactive"]}),
         "orbit-filter-checkbox": (_segment("orbit-filter-checkbox", "LEO"),
                                   lambda s: {**s, "orbit": [o for o in s["orbit"] if o != "LEO"]}),
-        # The search list (D-052): picking a row filters to that satellite. Typing in the box only narrows the
-        # list, so it is checked by the journeys (OWN_CHECKS), not here.
-        "sat-search-list": (lambda page: pick_satellite(page, int(sat.satcat_id)),
-                            lambda s: {**s, "satcat": int(sat.satcat_id)}),
         "owner-filter-multi-dropdown": (_pick("owner-filter-multi-dropdown", owner),
                                         lambda s: {**s, "owner": [owner]}),
         "launchvehicle-filter-multi-dropdown": (_pick("launchvehicle-filter-multi-dropdown", vehicle),
@@ -149,7 +145,6 @@ def effects():
 # Roadmap 3.3b: each chip's remove button undoes its control, and Clear all undoes everything. Their checks are built
 # from the control's own: use the control (so the chip shows), then remove it; the request goes back to the start.
 CHIP_CONTROLS = {"status": "status-filter-checkbox", "orbit": "orbit-filter-checkbox",
-                 "satcatid": "sat-search-list",
                  "owner": "owner-filter-multi-dropdown", "launchvehicle": "launchvehicle-filter-multi-dropdown",
                  "purpose": "purpose-filter-multi-dropdown", "year": "launchyear-filter-slider"}
 
@@ -173,8 +168,10 @@ def all_effects():
 
 
 # Controls whose effect isn't a different set of objects, checked elsewhere: the search box narrows the search list and
-# its toggle opens and closes it (tests/e2e/test_journeys.py test_search_list_browses_narrows_and_picks).
-OWN_CHECKS = {"sat-search-input", "sat-search-toggle"}
+# its toggle opens and closes it (tests/e2e/test_journeys.py test_search_list_browses_narrows_and_picks); on the globe a
+# pick from the list selects the object and flies to it without changing the filters, and its group links jump
+# through the list (roadmap 3.4; tests/e2e/test_selection.py). Off the globe a pick filters, checked by the journeys.
+OWN_CHECKS = {"sat-search-input", "sat-search-toggle", "sat-search-list", "sat-search"}
 
 
 def test_every_visible_control_has_an_effect_check(page, base_url):

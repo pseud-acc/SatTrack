@@ -908,3 +908,26 @@ rocket bodies and debris Active (26 Nov data). One deterministic rule; no manual
 
 **Rejected.** Keeping GCAT's status (junk shown as working satellites); a manual exceptions list (breaks the
 unattended pipeline rule).
+
+## D-054 Selecting a satellite: a sourced detail panel, the object_detail file, and search that follows the filters
+**Status:** Accepted, 2026-11-28 (owner, after trying each part on a laptop and a phone). Updates D-010, D-018, D-019,
+D-024 and D-052. Record: [D-054](decisions/D-054-selection-panel-and-object-detail.md).
+
+**Decision.** A click, tap, search pick or shared link (`#v=1&sat=25544`) selects one object: a ring and name label,
+and a panel with a plain headline (status with operating/transmitting dates, owner, operator, manufacturer, live
+height with orbit type, speed, GEO longitude, launch, constellation count; exact values only) and "More details"
+sections that each show their source and date, with uncertainty marked in place. Link and Cite copy a share link and
+a citation; Orbit, Ground track and Follow toggles; "–" minimises to a pill, "×" clears. On phones a small card that
+expands and drags, its top always in view. The details come from a new `object_detail` dataset (same keys as
+`objects`), fetched once by the worker on the first selection: 0.72 MB Brotli on 28 Nov 2026. On the globe a search
+pick selects and flies without changing the filters (an object the filters hide is pinned); browsing the search list
+shows what the filters show, typing finds the rest under "Hidden by your filters", and group headings with jump links
+reach the debris in one tap.
+
+**Why.** Two audiences (children and casual visitors; analysts and journalists who need facts they can cite); every
+UX choice tried by the owner on a phone first. The whole-file fetch reuses D-012's delivery and keeps the server's
+memory flat; a per-object route would make each worker hold ~33k parsed records.
+
+**Rejected.** A per-object route; comparisons ("as heavy as 3 cars"); the full card at once on phones; an unlabelled
+"Clear"-only control; the search list following the filters strictly; type buttons inside the search; junk first in
+junk mode.

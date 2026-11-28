@@ -255,7 +255,22 @@
 .st-search.is-open .st-search-toggle::before { content: "▴"; }
 .st-search-toggle:hover, .st-search-toggle:focus-visible { color: var(--st-fg); background: var(--st-hover); }
 /* Collapsed until the box or the toggle is used (owner, 27 Nov 2026) */
-.st-search:not(.is-open) .st-search-list, .st-search:not(.is-open) .st-search-status { display: none; }
+.st-search:not(.is-open) .st-search-list, .st-search:not(.is-open) .st-search-status,
+.st-search:not(.is-open) .st-search-jump { display: none; }
+/* Browsing in groups (roadmap 3.4, option A): jump links above the list, headings in it */
+.st-search-jump { display: flex; flex-wrap: wrap; gap: var(--st-1); margin-top: var(--st-2); }
+.st-search-jump[hidden] { display: none; }
+.st-search-jump-link, .st-search-top {
+  min-height: 28px; padding: 2px var(--st-2); border: 1px solid var(--st-line); border-radius: 6px;
+  background: var(--st-control); color: var(--st-fg); font-size: var(--st-fs-xs); font-variant-numeric: tabular-nums;
+}
+.st-search-jump-link:hover, .st-search-top:hover { background: var(--st-hover); }
+.st-search-top { width: 100%; margin-bottom: var(--st-1); color: var(--st-accent-hi); }
+.st-search-heading {
+  position: sticky; top: 0; z-index: 1; padding: var(--st-1) var(--st-2); background: var(--st-panel);
+  font-size: var(--st-fs-xs); color: var(--st-muted); text-transform: uppercase; letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--st-line);
+}
 .st-search-list { margin-top: var(--st-2); max-height: 240px; overflow-y: auto; border: 1px solid var(--st-line);
   border-radius: var(--st-r); background: var(--st-raised); overscroll-behavior: contain; }
 .st-search-row { display: flex; flex-direction: column; align-items: flex-start; width: 100%; padding: 6px 10px;
@@ -266,6 +281,12 @@
 .st-search-row.is-picked .st-search-name::after { content: " ✓"; color: var(--st-accent-hi); }
 .st-search-name { font-size: var(--st-fs-sm); line-height: 1.3; }
 .st-search-meta { font-size: var(--st-fs-xs); color: var(--st-muted); }
+/* Typed search past what the filters show (roadmap 3.4, option 3) */
+.st-search-divider {
+  padding: var(--st-2) var(--st-2) var(--st-1); border-top: 1px solid var(--st-line);
+  font-size: var(--st-fs-xs); color: var(--st-muted); text-transform: uppercase; letter-spacing: 0.04em;
+}
+.st-search-divider ~ .st-search-row .st-search-name { color: var(--st-muted); }
 .st-search-status { margin-top: var(--st-1); min-height: 1.2em; color: var(--st-muted); font-size: var(--st-fs-xs); }
 
 /* Globe loading bar (D-052; viz_globe.py, filled by static/viewer/viewer.js). In the page's stylesheet, not the

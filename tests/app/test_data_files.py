@@ -127,6 +127,23 @@ def test_the_sample_follows_the_contract(sample_objects):
     assert all(isinstance(r["satellite_system_names"], list) for r in d["records"])
 
 
+def test_the_detail_sample_follows_the_contract_and_is_served(client, sample_objects):
+    """object_detail (roadmap 3.4, D-054): the committed sample is a cut of a real export for the objects sample's
+    satcat_ids (objects that left the GP feed since have no record), every record with the contract's fields in
+    order, and the app serves it like any dataset."""
+    d = json.loads(gzip.decompress((APP_DATA_DIR / "object_detail.json.gz").read_bytes()))
+    assert d["dataset"] == "object_detail" and d["schema"] == 1 and d["key"] == "satcat_id"
+    assert d["count"] == len(d["records"]) > 0
+    ids = [r["satcat_id"] for r in d["records"]]
+    assert ids == sorted(set(ids)) and set(ids) <= {r["satcat_id"] for r in sample_objects["records"]}
+    schema = json.loads((REPO_ROOT / "app" / "contracts" / "object_detail.schema.json").read_text(encoding="utf-8"))
+    required = schema["$defs"]["record"]["required"]
+    assert all(list(r) == required for r in d["records"])
+    assert all(isinstance(r[k], list) for r in d["records"] for k in required if k.endswith(("_names", "_codes")))
+    r = client.get("/data/object_detail.json", headers={"Accept-Encoding": "gzip"})
+    assert r.status_code == 200 and json.loads(gzip.decompress(r.data)) == d
+
+
 @pytest.mark.parametrize("header, available, expected", [
     ("gzip, deflate, br", {"br", "gzip"}, "br"),
     ("br;q=0, gzip", {"br", "gzip"}, "gzip"),

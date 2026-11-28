@@ -100,9 +100,11 @@ def viewer_config(manifest):
         return f"/static/viewer/{name}?v={_sha256(VIEWER_DIR / name)[:12]}"
 
     return {"module": own("viewer.js"), "worker": own("worker.js"), "css": own("viewer.css"),
-            "filterSpec": own("filter_spec.js"),
+            "filterSpec": own("filter_spec.js"), "selection": own("selection.js"),
             "cesium": f"{VENDOR_URL}{dest['cesium']}/", "satellite": f"{VENDOR_URL}{dest['satellite.js']}/",
             "data": "/data/objects.json",
+            # the selection panel's details (roadmap 3.4, D-054): fetched by the worker on the first selection
+            "detail": "/data/object_detail.json",
             # the filter spec's rules for the browser's implementation (static/viewer/filter_spec.js; roadmap 3.3a)
             "specRules": filter_spec.browser_rules()}
 

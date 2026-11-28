@@ -14,6 +14,9 @@
 // - Natural Earth II from the self-hosted Cesium, no Cesium ion (D-014, D-022). SatTrack's credits replace
 //   Cesium's credit display. Every data string is written with textContent.
 // - The clock is corrected by the offset between this device and the server's Date header.
+// - Selecting one object (roadmap 3.4): static/viewer/selection.js, loaded alongside Cesium. A click or tap on a dot,
+//   a search pick or a shared link (#v=1&sat=25544, D-024) selects it; the selected object is always propagated, even
+//   when the filters hide it ("pinned").
 // - window.sattrackViewer exposes state and timings for the browser tests (parity and the D-027 budget).
 
 const TYPES = ["PAYLOAD", "ROCKET BODY", "DEBRIS", "UNKNOWN"];
@@ -52,7 +55,7 @@ const S = window.sattrackViewer = window.sattrackViewer || {};
 Object.assign(S, {
   version: 1, ready: false, error: null, engine: null, step: 1, clockOffsetMs: 0, count: 0, failed: [],
   shownCount: 0, hiddenFailed: 0, typeCounts: {}, matchCounts: {}, filters: null, filterChanges: 0,
-  marks: {}, frameMs: [], busyFrameMs: [], applyMs: [], workerMs: [], hint: null, label: null,
+  marks: {}, frameMs: [], busyFrameMs: [], applyMs: [], workerMs: [], hint: null, label: null, selection: null,
   // Per applied filter change (roadmap 3.3b budget test): when it was applied (performance.now()), the time from the
   // spec reaching the viewer to the points updated, and the main-thread part of that (showing/hiding and resampling).
   filterReceivedAt: 0, filterAppliedAt: 0, filterMs: [], filterMainMs: [],
@@ -177,7 +180,11 @@ class Viewer {
     this.step = S.step = 1;
     const t0 = Math.floor(Date.now() / 1000) * 1000;
     this.spec = S.filters;   // the page's starting spec, rendered into the store: masked before the first samples
-    this.worker.postMessage({ type: "init", data: this.config.data, satellite: this.config.satellite,
+    // The selection module loads with Cesium, so selecting adds no wait once the globe is up
+    this.selectionModule = this.config.selection ? import(this.config.selection) : Promise.resolve(null);
+    this.selectionModule.catch(() => {});
+    this.worker.postMessage({ type: "init", data: this.config.data, detail: this.config.detail,
+                              satellite: this.config.satellite,
                               filterSpec: this.config.filterSpec, rules: this.config.specRules, spec: this.spec,
                               first: { dates: [t0, t0 + 1000] } });
     const clock = serverClock(this.config.data);
@@ -253,6 +260,10 @@ class Viewer {
     scene.requestRender();
     S.marks.firstPositions = performance.now();
     this.stage(4);
+    try {
+      const mod = await this.selectionModule;
+      if (mod && !this.destroyed) this.selection = new mod.Selection(this, S);
+    } catch (e) { console.warn("SatTrack viewer: selection not available:", String(e)); }
     this.labels();
     S.firstPositionsMs = S.marks.firstPositions - S.marks.start;
     this.lastFrame = performance.now();
@@ -261,6 +272,8 @@ class Viewer {
     this.statusTimer = setInterval(() => this.updateStatus(), 1000);
     S.ready = true;
     this.updateStatus();
+    if (this.selection) this.selection.fromHash();   // a shared link selects its object
+    window.dispatchEvent(new Event("sattrack-filtered"));
   }
 
   simTime() { return this.Cesium.JulianDate.toDate(this.widget.clock.currentTime).getTime(); }
@@ -287,6 +300,7 @@ class Viewer {
     if (!this.resyncing && (t < this.a.t || t > this.b.t + 2 * this.step * 1000)) this.resync(t);
     const t1 = performance.now();
     this.apply(t);
+    if (this.selection) this.selection.frame();
     push(S.applyMs, performance.now() - t1);
   }
 
@@ -301,16 +315,24 @@ class Viewer {
     } catch (e) { this.fail(e); } finally { this.resyncing = false; }
   }
 
-  // Interpolate between samples a and b and move the points (metres). Objects outside the filter mask, and failed
-  // objects (NaN in either sample), are hidden.
+  // A pinned object the filters hide has no positions in the current samples: fetch a fresh pair so it shows at once.
+  async resyncIfHidden(index) {
+    if (this.mask[index] || !this.a) return;
+    await this.resync(this.simTime());
+    this.apply(this.simTime());
+    this.widget.scene.requestRender();
+  }
+
+  // Interpolate between samples a and b and move the points (metres). Objects outside the filter mask (except the
+  // pinned selection), and failed objects (NaN in either sample), are hidden.
   apply(t) {
-    const { a, b, handles, mask } = this;
+    const { a, b, handles, mask } = this, pinned = this.pinned;
     const f = b.t > a.t ? Math.min(1, Math.max(0, (t - a.t) / (b.t - a.t))) : 0;
     const scratch = this.scratch || (this.scratch = new this.Cesium.Cartesian3());
     let shown = 0, bad = 0;
     for (let i = 0; i < handles.length; i++) {
       const h = handles[i];
-      if (!mask[i]) { if (h.show) h.show = false; continue; }
+      if (!mask[i] && i !== pinned) { if (h.show) h.show = false; continue; }
       const j = 3 * i;
       const x = a.pos[j] + (b.pos[j] - a.pos[j]) * f, y = a.pos[j + 1] + (b.pos[j + 1] - a.pos[j + 1]) * f,
             z = a.pos[j + 2] + (b.pos[j + 2] - a.pos[j + 2]) * f;
@@ -367,6 +389,7 @@ class Viewer {
       push(S.filterMainMs, main);
       S.filterAppliedAt = t2;
       S.filterChanges++;
+      window.dispatchEvent(new Event("sattrack-filtered"));   // the search list follows the filters (3.4, option 3)
     } catch (e) { console.warn("SatTrack viewer: filter not applied:", String(e)); }
   }
 
@@ -386,7 +409,7 @@ class Viewer {
     const show = async (pos) => {
       const picked = scene.pick(pos);
       const i = picked && picked.collection === this.points && Number.isInteger(picked.id) ? picked.id : null;
-      if (i === null || !this.mask[i]) { hide(); return; }
+      if (i === null || !(this.mask[i] || i === this.pinned)) { hide(); return; }
       if (i === shownIndex) { place(pos); return; }
       shownIndex = i;
       const info = await this.call({ type: "info", index: i });
@@ -417,7 +440,13 @@ class Viewer {
       if (timer) return;
       timer = setTimeout(() => { timer = null; if (pending) show(pending).catch(hide); }, 100);
     }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
-    handler.setInputAction((c) => { show(c.position).catch(hide); }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+    // A click or tap on a dot selects it (roadmap 3.4); the panel then shows what the label would
+    handler.setInputAction((c) => {
+      const picked = scene.pick(c.position);
+      const i = picked && picked.collection === this.points && Number.isInteger(picked.id) ? picked.id : null;
+      hide();
+      if (i !== null && (this.mask[i] || i === this.pinned) && this.selection) this.selection.select(i);
+    }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
     scene.camera.moveStart.addEventListener(hide);
     // For the browser tests: point at a canvas position; where an object is on the canvas (null if not shown)
     S.pointAt = (x, y) => show(new Cesium.Cartesian2(x, y));
@@ -462,6 +491,7 @@ class Viewer {
   destroy() {
     this.destroyed = true;
     clearInterval(this.controller); clearInterval(this.statusTimer);
+    if (this.selection) this.selection.destroy();
     if (this.handler && !this.handler.isDestroyed()) this.handler.destroy();
     if (this.worker) this.worker.terminate();
     if (this.widget && !this.widget.isDestroyed()) this.widget.destroy();
@@ -478,9 +508,29 @@ S.snapshot = async (iso) => {
   return Array.from(current.ids, (id, i) => [id, p[3 * i], p[3 * i + 1], p[3 * i + 2]]);
 };
 // The satcat_ids shown now (in the mask and placed), for the browser tests' exact-id checks.
+// The satcat_ids the filters match (the worker's mask), as a Set: the search list browses these (roadmap 3.4,
+// owner's option 3, 28 Nov 2026). Null until the globe has its first mask.
+S.matchedIds = () => {
+  if (!current || !current.mask || !current.ids || !current.workerReady) return null;
+  const out = new Set();
+  for (let i = 0; i < current.mask.length; i++) if (current.mask[i]) out.add(current.ids[i]);
+  return out;
+};
 S.shownIds = () => {
   if (!current || !current.handles) return [];
-  return Array.from(current.ids).filter((id, i) => current.mask[i] && current.handles[i].show);
+  // the pinned selection counts as shown when it's drawn, though the filters hide it (roadmap 3.4)
+  return Array.from(current.ids).filter((id, i) => (current.mask[i] || i === current.pinned) && current.handles[i].show);
+};
+// Selection (roadmap 3.4): select by SATCAT number ({fly}), clear, and the worker's live state of an object at a time
+// (for the parity test against Python sgp4).
+S.selectSatcat = (satcatId, opts) => !!(current && current.selection && current.selection.selectSatcat(satcatId, opts));
+S.clearSelection = () => { if (current && current.selection) current.selection.clear(); };
+S.stateAt = async (satcatId, iso) => {
+  if (!current || !current.ids) throw new Error("viewer not ready");
+  const i = Array.prototype.indexOf.call(current.ids, Number(satcatId));
+  if (i < 0) return null;
+  const r = await current.call({ type: "state", index: i, ms: Date.parse(iso) });
+  return { lat: r.lat, lon: r.lon, heightKm: r.heightKm, speedKms: r.speedKms };
 };
 S.metrics = () => ({
   ready: S.ready, engine: S.engine, step: S.step, count: S.count, shown: S.shownCount, hiddenFailed: S.hiddenFailed,

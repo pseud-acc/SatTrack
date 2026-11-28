@@ -54,7 +54,9 @@ MASTER_COLS = ("satcat_id, object_name, object_type, flag_in_orbit, operational_
                "site_location_country, ownership_class_labels, mission_category_labels, launch_vehicle_brand, "
                "orbit_class, orbital_period, inclination, mass_kg, tle_line_1, tle_line_2, positions_as_of, "
                "gcat_updated_at, satellite_constellation_name, primary_satellite_system_name, satellite_system_names, "
-               "flag_space_station, inserted_by, inserted_date_time")
+               "flag_space_station, inserted_by, inserted_date_time, "
+               # the object_detail dataset's columns (D-054), ISS-like by default
+               "jcat, jcat_link_method, object_type_source, operational_status_source, flag_still_operating, flag_still_transmitting, end_operation_date, end_operation_date_precision, end_transmission_date, end_transmission_date_precision, end_of_life_code, flag_orbit_conflict, owner_country_codes, owner_country_source, owner_org_codes, owner_org_names, operator_name, manufacturer_org_codes, manufacturer_org_names, launch_agency_org_codes, launch_agency_org_names, launch_datetime, launch_datetime_precision, launch_details_source, flag_catalog_match_uncertain, site_code, site_name, site_latitude, site_longitude, launch_vehicle_type, launch_vehicle_family, flight_id, satellite_program, satellite_program_family, constellation_plane, mission_details_source, apoapsis, periapsis, rcs_size, flag_mass_estimated, dry_mass_kg, span_m")
 
 
 def master_row(satcat_id, **kw):
@@ -66,7 +68,7 @@ def master_row(satcat_id, **kw):
                tle_line_1=STALE[0], tle_line_2=STALE[1], positions_as_of=datetime(2026, 11, 16, 23, 46, 48),
                gcat_updated_at=GCAT_UPDATED, satellite_constellation_name=None,
                primary_satellite_system_name=None, satellite_system_names=[], flag_space_station=0, inserted_by=ENRICH_RUN,
-               inserted_date_time=ENRICH_BUILT)
+               inserted_date_time=ENRICH_BUILT, jcat="S25544", jcat_link_method="s_norad", object_type_source="spacetrack", operational_status_source="gcat_psatcat", flag_still_operating=1, flag_still_transmitting=1, end_operation_date=None, end_operation_date_precision="current", end_transmission_date=None, end_transmission_date_precision="current", end_of_life_code=None, flag_orbit_conflict=0, owner_country_codes=["US", "RU"], owner_country_source="iso_exact", owner_org_codes=["NASA", "RKA"], owner_org_names=["NASA", "Roskosmos"], operator_name="NASA", manufacturer_org_codes=["KHRU"], manufacturer_org_names=["Khrunichev"], launch_agency_org_codes=["RVSN"], launch_agency_org_names=["Strategic Rocket Forces"], launch_datetime=datetime(1998, 11, 20, 6, 40), launch_datetime_precision="minute", launch_details_source="own", flag_catalog_match_uncertain=0, site_code="NIIP-5", site_name="Baikonur", site_latitude=45.92, site_longitude=63.342, launch_vehicle_type="Proton-K", launch_vehicle_family="Proton", flight_id="1998-067", satellite_program="ISS", satellite_program_family="ISS", constellation_plane=None, mission_details_source="own", apoapsis=423.8, periapsis=416.1, rcs_size="LARGE", flag_mass_estimated=0, dry_mass_kg=None, span_m=109.0)
     row.update(kw)
     return row
 
@@ -99,7 +101,7 @@ def build_db(path: Path, master: list[dict], gp: list[dict]) -> Path:
         launch_vehicle_brand varchar, orbit_class varchar, orbital_period double, inclination double, mass_kg double,
         tle_line_1 varchar, tle_line_2 varchar, positions_as_of timestamp, gcat_updated_at timestamp,
         satellite_constellation_name varchar, primary_satellite_system_name varchar, satellite_system_names varchar[],
-        flag_space_station integer, inserted_by varchar, inserted_date_time timestamp)""")
+        flag_space_station integer, inserted_by varchar, inserted_date_time timestamp, jcat varchar, jcat_link_method varchar, object_type_source varchar, operational_status_source varchar, flag_still_operating integer, flag_still_transmitting integer, end_operation_date timestamp, end_operation_date_precision varchar, end_transmission_date timestamp, end_transmission_date_precision varchar, end_of_life_code varchar, flag_orbit_conflict integer, owner_country_codes varchar[], owner_country_source varchar, owner_org_codes varchar[], owner_org_names varchar[], operator_name varchar, manufacturer_org_codes varchar[], manufacturer_org_names varchar[], launch_agency_org_codes varchar[], launch_agency_org_names varchar[], launch_datetime timestamp, launch_datetime_precision varchar, launch_details_source varchar, flag_catalog_match_uncertain integer, site_code varchar, site_name varchar, site_latitude double, site_longitude double, launch_vehicle_type varchar, launch_vehicle_family varchar, flight_id varchar, satellite_program varchar, satellite_program_family varchar, constellation_plane varchar, mission_details_source varchar, apoapsis double, periapsis double, rcs_size varchar, flag_mass_estimated integer, dry_mass_kg double, span_m double)""")
     con.execute("""create table marts_tracking.fct__gp_elements (satcat_id integer, object_id varchar,
         object_name varchar, object_type varchar, epoch timestamp,
         mean_motion double, eccentricity double, inclination double, ra_of_asc_node double, arg_of_pericenter double,
@@ -125,7 +127,8 @@ def read_csv(path: Path) -> list[dict]:
 @pytest.fixture
 def run_export(tmp_path, monkeypatch):
     monkeypatch.setattr(export_app_csvs, "MIN_SATELLITE_ROWS", 1)   # the real floor (1,000) is for full catalogues
-    monkeypatch.setitem(export_app_csvs.DATASETS, "objects", {**export_app_csvs.DATASETS["objects"], "min_records": 1})
+    for name in ("objects", "object_detail"):
+        monkeypatch.setitem(export_app_csvs.DATASETS, name, {**export_app_csvs.DATASETS[name], "min_records": 1})
 
     def go(master, gp, out=None):
         db = build_db(tmp_path / f"wh{len(list(tmp_path.glob('wh*')))}.duckdb", master, gp)
@@ -164,7 +167,8 @@ def test_manifest_reports_tracking_and_details_runs(run_export):
     assert m["details_run_id"] == ENRICH_RUN and m["details_built_at"] == ENRICH_BUILT.isoformat()
     assert m["gcat_updated_at"] == GCAT_UPDATED.isoformat()
     assert {f["file"]: f["rows"] for f in m["files"]} == {"last_data_update.csv": 2, "satcat_tle.csv": 1,
-                                                          "objects.json.br": 1, "objects.json.gz": 1}
+                                                          "objects.json.br": 1, "objects.json.gz": 1,
+                                                          "object_detail.json.br": 1, "object_detail.json.gz": 1}
 
 
 def test_scope(run_export):
@@ -242,7 +246,8 @@ def test_a_failed_export_keeps_the_last_good_files(run_export, monkeypatch, tmp_
 
 def test_analyses_follow_the_export_rules():
     """Each analysis is documented, uses only ref() and maps to a file the app reads."""
-    assert set(export_app_csvs.load_analyses()) == {"satcat_tle.csv", "last_data_update.csv", "objects"}
+    assert set(export_app_csvs.load_analyses()) == {"satcat_tle.csv", "last_data_update.csv", "objects",
+                                                    "object_detail"}
 
 
 def read_dataset(files, name="objects"):
@@ -349,13 +354,14 @@ def test_a_contract_violation_keeps_the_last_good_files(run_export, tmp_path):
     assert {p.name: p.read_bytes() for p in out.iterdir()} == before
 
 
-def test_dataset_schema_matches_the_analysis_columns():
+@pytest.mark.parametrize("name", ["objects", "object_detail"])
+def test_dataset_schema_matches_the_analysis_columns(name):
     """The contract and the query can't drift: the schema requires exactly the columns the analysis selects, in the
     same names (the marts' own)."""
     import re
-    schema = json.loads((export_app_csvs.CONTRACTS_DIR / "objects.schema.json").read_text(encoding="utf-8"))
+    schema = json.loads((export_app_csvs.CONTRACTS_DIR / f"{name}.schema.json").read_text(encoding="utf-8"))
     record = schema["$defs"]["record"]
-    sql = (PIPELINE / "transform" / "analyses" / "app_export" / "app__objects.sql").read_text(encoding="utf-8")
+    sql = (PIPELINE / "transform" / "analyses" / "app_export" / f"app__{name}.sql").read_text(encoding="utf-8")
     final = sql[sql.index("cte_final as ("):]
     selected = re.findall(r"\bas ([a-z_]+)\s*$", final, flags=re.M)
     assert selected == record["required"]
@@ -369,3 +375,50 @@ def test_health_page_dates(tmp_path):
     assert d["positions_as_of"] == GP_LOADED          # tracking, not the enrichment build's positions_as_of
     assert d["gcat_updated_at"] == GCAT_UPDATED
     assert (d["objects"], d["active"]) == (2, 1)
+
+
+def test_object_detail_record_uses_warehouse_names(run_export):
+    """D-054: the selection panel's fields with the marts' names; dates as ISO text beside their GCAT precision;
+    organisations as ordered lists."""
+    files = run_export([master_row(25544)], [gp_row(25544)])
+    data = read_dataset(files, "object_detail")
+    assert {k: data[k] for k in ("dataset", "schema", "count", "run_id", "key")} == {
+        "dataset": "object_detail", "schema": 1, "count": 1, "run_id": TRACK_RUN, "key": "satcat_id"}
+    assert "conjunction" in data["caution"] and any("GCAT" in a for a in data["attribution"])
+    (rec,) = data["records"]
+    assert rec == {
+        "satcat_id": 25544, "jcat": "S25544", "jcat_link_method": "s_norad", "object_type_source": "spacetrack",
+        "operational_status_source": "gcat_psatcat", "flag_still_operating": 1, "flag_still_transmitting": 1,
+        "end_operation_date": None, "end_operation_date_precision": "current", "end_transmission_date": None,
+        "end_transmission_date_precision": "current", "end_of_life_code": None, "flag_orbit_conflict": 0,
+        "owner_country_codes": ["US", "RU"], "owner_country_source": "iso_exact",
+        "owner_org_codes": ["NASA", "RKA"], "owner_org_names": ["NASA", "Roskosmos"], "operator_name": "NASA",
+        "manufacturer_org_codes": ["KHRU"], "manufacturer_org_names": ["Khrunichev"],
+        "launch_agency_org_codes": ["RVSN"], "launch_agency_org_names": ["Strategic Rocket Forces"],
+        "launch_datetime": "1998-11-20T06:40:00", "launch_datetime_precision": "minute", "launch_details_source": "own",
+        "flag_catalog_match_uncertain": 0, "site_code": "NIIP-5", "site_name": "Baikonur", "site_latitude": 45.92,
+        "site_longitude": 63.342, "launch_vehicle_type": "Proton-K", "launch_vehicle_family": "Proton",
+        "flight_id": "1998-067", "satellite_program": "ISS", "satellite_program_family": "ISS",
+        "constellation_plane": None, "mission_details_source": "own", "apoapsis": 423.8, "periapsis": 416.1,
+        "rcs_size": "LARGE", "mass_kg": 420000.0, "flag_mass_estimated": 0, "dry_mass_kg": None, "span_m": 109.0,
+        "gcat_updated_at": "2026-11-15T10:18:40"}
+
+
+def test_object_detail_has_the_objects_keys(run_export):
+    """The panel looks a selected object up by satcat_id, so object_detail holds exactly the objects dataset's keys:
+    an object without an enrichment row has null details, empty lists and 0 flags; one without a full element set
+    is in neither."""
+    master = [master_row(1), master_row(2, object_type="DEBRIS", owner_org_names=None, end_of_life_code="X",
+                                        end_operation_date=datetime(1960, 1, 1), end_operation_date_precision="year?")]
+    gp = [gp_row(1), gp_row(2, object_type="DEBRIS"), gp_row(270449, object_type="UNKNOWN"), gp_row(5, epoch=None)]
+    files = run_export(master, gp)
+    objects = [r["satcat_id"] for r in read_dataset(files)["records"]]
+    detail = {r["satcat_id"]: r for r in read_dataset(files, "object_detail")["records"]}
+    assert list(detail) == objects == [1, 2, 270449]
+    assert detail[2]["owner_org_names"] == [] and detail[2]["end_of_life_code"] == "X"
+    assert (detail[2]["end_operation_date"], detail[2]["end_operation_date_precision"]) == ("1960-01-01T00:00:00", "year?")
+    bare = detail[270449]
+    assert bare["jcat"] is None and bare["operator_name"] is None and bare["launch_datetime"] is None
+    assert bare["owner_org_names"] == [] and bare["manufacturer_org_names"] == []
+    assert (bare["flag_mass_estimated"], bare["flag_catalog_match_uncertain"], bare["flag_orbit_conflict"]) == (0, 0, 0)
+    assert bare["flag_still_operating"] is None and bare["gcat_updated_at"] is None

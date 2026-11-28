@@ -14,7 +14,7 @@ to the same envelope.
 | Dataset | Kind | Contents | Access | Status |
 |---|---|---|---|---|
 | `objects` | Core | Every tracked object: identity, type, full OMM element set, filter fields | Whole file, every page load | **Published** (plan 2.1) |
-| `object_detail` | Core | What the detail panel shows (shape below) | One object at a time | Shape agreed; file ships with the panel (3.4) |
+| `object_detail` | Core | What the selection panel shows (shape below) | Whole file, fetched by the worker on the first selection (D-054) | **Published** (plan 3.4) |
 | `reentries` | Feature | Objects predicted to re-enter soon | Whole file | With plan 7 |
 | `conjunctions` | Feature | Close-approach pairs (CelesTrak SOCRATES; D-008 rules) | Whole file | With plan 7 |
 | `transmitters` | Feature | Radio frequencies (SatNOGS DB, CC BY-SA, so its own file) | One object or whole file | With plan 7 |
@@ -133,10 +133,13 @@ It feeds the tracker's satellite search list (`assets/07_search.js`).
 - Order, which is the list's browsing order: space stations first, then payloads, then rocket bodies, debris and
   unknown objects; within each, the newest launches first, then the highest SATCAT number.
 
-## `object_detail` (shape agreed, file with plan 3.4)
+## `object_detail` (published, plan 3.4, D-054)
 
-One record per object, keyed by `satcat_id`, in the same envelope, loaded one object at a time. Field groups, all
-taken from `fct__satellite_master` with their mart names:
+One record per object in `objects` (the same GP scope, so the same keys), keyed by `satcat_id`, in the same envelope.
+The browser's worker fetches the whole file on the first selection and looks records up by `satcat_id` (0.72 MB
+Brotli on 28 Nov 2026; D-054 measured it against a per-object route). Contract: `app/contracts/object_detail.schema.json`;
+query: `pipeline/transform/analyses/app_export/app__object_detail.sql`. Field groups, all taken from
+`fct__satellite_master` with their mart names:
 
 - **Identity:** `satcat_id`, `jcat`, `object_name`, `object_id`, `satellite_program`, `satellite_program_family`,
   `constellation_plane`.
@@ -152,7 +155,10 @@ taken from `fct__satellite_master` with their mart names:
 - **Data quality:** `object_type_source`, `launch_details_source`, `mission_details_source`,
   `flag_catalog_match_uncertain`, `flag_orbit_conflict`, `jcat_link_method`.
 
-The panel's design (3.4, 5.2) may narrow or extend this list before the file ships. Every addition is additive.
+Also, so every panel section can name its source and date: `apoapsis`, `periapsis`, `rcs_size` (Space-Track),
+`owner_country_source`, `operational_status_source`, `launch_datetime` (replacing `launch_date`) and `gcat_updated_at`
+(the as-of date of the GCAT fields). Dates are ISO text with their GCAT precision (`second` ... `millennium`,
+`current`, `unknown`, a trailing `?` for an uncertain date). 5.1's physical fields will be additive.
 
 ## Delivery
 

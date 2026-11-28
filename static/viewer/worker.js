@@ -14,19 +14,39 @@
 //                 starting spec (null: nothing shown), the first samples to compute
 //               {type: "filter", id, spec}                        a new spec: returns the mask and the counts
 //               {type: "compute", id, dates: [ms...], all}         all: true propagates every object (parity test)
+//               {type: "pin", id, index}       the selected object (roadmap 3.4): always propagated, even when the
+//                                              filters hide it (a shared link or a search pick); null unpins
+//               {type: "state", id, index, ms} the selected object's live state: latitude, longitude, height, speed
+//               {type: "track", id, index, ms, kind}  "orbit": one period of inertial positions centred on ms, drawn
+//                                              in the Earth-fixed frame of ms (a closed ellipse); "ground": the
+//                                              sub-satellite points from half a period before ms to one after
+//               {type: "detail", id, satcatId} the object's object_detail record (D-054): the file is fetched once,
+//                                              on the first request, and kept; null when it has no record
+//               {type: "group", id, field, value}  how many objects (and how many Active) share a constellation or
+//                                              primary system
 // Messages out: {type: "meta", count, ids, types, active, generatedAt}  as soon as the data is parsed
 //               {type: "ready", failed, engine, built, mask, counts, first: {dates, positions, ms}}
 //                 records of the masked-in types built (built: how many, for the start-up check, D-042)
 //               {type: "records", failed}                         every record built (all failures)
 //               {type: "filtered", id, mask, counts}              (mask transferred)
 //               {type: "positions", id, dates, positions: [Float64Array...], ms}  (buffers transferred)
-//               {type: "info", id, record}                        one record's fields (hover label)
+//               {type: "info", id, record}                        one record's fields (hover label, panel)
+//               {type: "state", id, lat, lon, heightKm, speedKms}   degrees, km, km/s (null when it fails)
+//               {type: "track", id, positions: Float64Array}      km, Earth-fixed (orbit) or degrees lon/lat (ground)
+//               {type: "detail", id, record, available}           available: false when the file can't be had
+//               {type: "group", id, total, active}
+//               {type: "names", id, names}                        display names for {type: "names", indices}
 //               {type: "error", id, error}
 
 const TYPES = ["PAYLOAD", "ROCKET BODY", "DEBRIS", "UNKNOWN"];
 const FIELDS = ["satcat_id", "object_name", "object_id", "object_type", "operational_status", "orbit_class", "owner_country",
-                "launch_vehicle_brand", "mission_category_labels", "launch_year"];
-let engine = null, spec = null, rows = null, types = null, mask = null;
+                "launch_vehicle_brand", "mission_category_labels", "launch_year",
+                // the selection panel's headline (roadmap 3.4)
+                "epoch", "orbital_period", "inclination", "eccentricity", "satellite_constellation_name",
+                "primary_satellite_system_name", "flag_space_station"];
+const TRACK_POINTS = 180;
+let engine = null, spec = null, rows = null, types = null, mask = null, pinned = null, sat = null, satrecs = null;
+let detailUrl = null, details = null;
 
 // The record's field names are the warehouse's (D-009, D-010); satellite.js takes the CCSDS OMM keywords, which are
 // the same names upper-cased.
@@ -62,7 +82,7 @@ function jsEngine(sat, satrecs) {
         const date = new Date(ms), gmst = sat.gstime(date), out = new Float64Array(3 * satrecs.length).fill(NaN);
         for (let i = 0; i < satrecs.length; i++) {
           const s = satrecs[i];
-          if (!s || (!all && !mask[i])) continue;
+          if (!s || (!all && !mask[i] && i !== pinned)) continue;
           let p = null;
           try {
             const pv = sat.propagate(s, date);
@@ -78,18 +98,21 @@ function jsEngine(sat, satrecs) {
   };
 }
 
-async function init({ data, satellite, filterSpec, rules, spec: startSpec, first }) {
+async function init({ data, detail, satellite, filterSpec, rules, spec: startSpec, first }) {
+  detailUrl = detail || null;
   // Only the modules the JavaScript engine needs (no WebAssembly, so no 'wasm-unsafe-eval' in the CSP).
   const [io, prop, tf, fs, response] = await Promise.all([
     import(`${satellite}dist/io.js`), import(`${satellite}dist/propagation.js`), import(`${satellite}dist/transforms.js`),
     import(filterSpec), fetch(data),
   ]);
-  const sat = { json2satrec: io.json2satrec, propagate: prop.propagate, gstime: prop.gstime, eciToEcf: tf.eciToEcf };
+  sat = { json2satrec: io.json2satrec, propagate: prop.propagate, gstime: prop.gstime, eciToEcf: tf.eciToEcf,
+          eciToGeodetic: tf.eciToGeodetic };
   spec = { compile: fs.compile, rules };
   if (!response.ok) throw new Error(`${data}: HTTP ${response.status}`);
   const dataset = await response.json();
   const records = Array.isArray(dataset.records) ? dataset.records : [];
-  const ids = new Int32Array(records.length), active = new Uint8Array(records.length), satrecs = new Array(records.length);
+  const ids = new Int32Array(records.length), active = new Uint8Array(records.length);
+  satrecs = new Array(records.length);
   types = new Uint8Array(records.length);
   rows = new Array(records.length);
   records.forEach((r, i) => {
@@ -139,6 +162,69 @@ async function init({ data, satellite, filterSpec, rules, spec: startSpec, first
   self.postMessage({ type: "records", failed });
 }
 
+// The selected object at one time: position and velocity (km, km/s, inertial), or null when it fails.
+function pv(i, ms) {
+  const s = satrecs[i];
+  if (!s) return null;
+  try {
+    const r = sat.propagate(s, new Date(ms));
+    return r && r.position && r.velocity && Number.isFinite(r.position.x) ? r : null;
+  } catch (e) { return null; }
+}
+
+function liveState(i, ms) {
+  const r = pv(i, ms);
+  if (!r) return { lat: null, lon: null, heightKm: null, speedKms: null };
+  const g = sat.eciToGeodetic(r.position, sat.gstime(new Date(ms)));
+  const v = r.velocity;
+  const deg = 180 / Math.PI;
+  return { lat: g.latitude * deg, lon: ((g.longitude * deg + 540) % 360) - 180, heightKm: g.height,
+           speedKms: Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z) };
+}
+
+function track(i, ms, kind) {
+  const periodMs = (rows[i].orbital_period || 0) * 60000;
+  if (!(periodMs > 0)) return new Float64Array(0);
+  const from = ms - periodMs / 2, span = kind === "ground" ? 1.5 * periodMs : periodMs;
+  const out = [], gmstNow = sat.gstime(new Date(ms)), deg = 180 / Math.PI;
+  for (let k = 0; k <= TRACK_POINTS; k++) {
+    const t = from + (span * k) / TRACK_POINTS, r = pv(i, t);
+    if (!r) continue;
+    if (kind === "ground") {
+      const g = sat.eciToGeodetic(r.position, sat.gstime(new Date(t)));
+      out.push(((g.longitude * deg + 540) % 360) - 180, g.latitude * deg);
+    } else {
+      const p = sat.eciToEcf(r.position, gmstNow);   // the inertial orbit, seen from the Earth at ms
+      out.push(p.x, p.y, p.z);
+    }
+  }
+  return Float64Array.from(out);
+}
+
+// object_detail (D-054): one fetch, on the first selection, then a lookup by satcat_id. A missing or broken file
+// leaves the panel with the objects dataset's fields only; it is retried on the next selection.
+async function detailFor(satcatId) {
+  if (!details) {
+    if (!detailUrl) return { record: null, available: false };
+    try {
+      const r = await fetch(detailUrl);
+      if (!r.ok) return { record: null, available: false };
+      const doc = await r.json();
+      const map = new Map();
+      for (const rec of Array.isArray(doc.records) ? doc.records : []) map.set(Number(rec.satcat_id), rec);
+      details = { map };
+    } catch (e) { return { record: null, available: false }; }
+  }
+  return { record: details.map.get(Number(satcatId)) || null, available: true };
+}
+
+function group(field, value) {
+  let total = 0, act = 0;
+  if (value === null || value === undefined || value === "") return { total, active: act };
+  for (const r of rows) if (r[field] === value) { total++; if (r.operational_status === "Active") act++; }
+  return { total, active: act };
+}
+
 self.onmessage = async ({ data: msg }) => {
   try {
     if (msg.type === "init") {
@@ -157,6 +243,38 @@ self.onmessage = async ({ data: msg }) => {
       const r = rows[msg.index];
       if (!r) throw new Error(`no record ${msg.index}`);
       self.postMessage({ type: "info", id: msg.id, record: r });
+      return;
+    }
+    if (msg.type === "pin") {
+      pinned = Number.isInteger(msg.index) ? msg.index : null;
+      self.postMessage({ type: "pinned", id: msg.id, index: pinned });
+      return;
+    }
+    if (msg.type === "state") {
+      self.postMessage({ type: "state", id: msg.id, ...liveState(msg.index, msg.ms) });
+      return;
+    }
+    if (msg.type === "track") {
+      const positions = track(msg.index, msg.ms, msg.kind);
+      self.postMessage({ type: "track", id: msg.id, positions }, [positions.buffer]);
+      return;
+    }
+    if (msg.type === "detail") {
+      self.postMessage({ type: "detail", id: msg.id, ...(await detailFor(msg.satcatId)) });
+      return;
+    }
+    if (msg.type === "group") {
+      self.postMessage({ type: "group", id: msg.id, ...group(msg.field, msg.value) });
+      return;
+    }
+    if (msg.type === "names") {   // labels for the objects nearest the camera (D-023)
+      const names = (msg.indices || []).map((i) => {
+        const r = rows[i];
+        if (!r) return "";
+        return r.object_name === "TBA - TO BE ASSIGNED" ? `Not yet named${r.object_id ? ` (${r.object_id})` : ""}`
+                                                       : (r.object_name || "");
+      });
+      self.postMessage({ type: "names", id: msg.id, names });
       return;
     }
     if (msg.type === "compute") {
