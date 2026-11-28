@@ -59,13 +59,13 @@ Where SatTrack is today in each area, what it should do, and the work to get the
 | 0 | Housekeeping & guardrails | 12 (done) | 2–3 |
 | 1 | OMM propagation | 8 (done) | 2 |
 | 2 | Client data contract + filter spec | 11.5 (incl. 2.4, the one task left) | 2–3 |
-| 3 | Cesium migration | 81.5 (spike 3.1: 3, done; core 59.5 incl. 3.3a/3.3b, 3.7, 3.12, 3.13; extensions 19 incl. 3.14; +15% buffer → ~93.5) | 17–19 |
+| 3 | Cesium migration | 85.5 (spike 3.1: 3, done; core 63.5 incl. 3.3a/3.3b, 3.7, 3.12, 3.13; extensions 19 incl. 3.14; +15% buffer → ~98) | 18–20 |
 | 4 | Freshness & SupGP | 12 | 3 |
-| 5 | Detail enrichment | 12 (incl. 5.4 and the optional 5.3) | 2–3 |
+| 5 | Detail enrichment | 14 (incl. 5.4, 5.5 and the optional 5.3) | 3 |
 | 6 | Natural-language query | 20 (+25% buffer → 25) | 4–5 |
 | 7 | Backlog (pick as wanted) | — | — |
 
-Each phase's hours are the sum of its task estimates, done tasks included; the plan adds the stated buffers (Phase 3 +15%, Phase 6 +25%). To the end of Phase 6 that is **157 h of estimates, ~174 h with the buffers: roughly 35 weeks (~8 months) at 5 h a week**, of which ~56 h is done (Phases 0 and 1, 2.1 to 2.3, 3.1, 3.2, 3.8 and 3.12), leaving ~114 h with the buffers (~23 weeks). On 26 Nov 2026 3.3 was split into 3.3a and 3.3b (~11 h against ~6 h, D-048) and the constellation and system filters were added as 3.14 (~3 h, D-047). It includes the tasks added by the review, the Phase 3 scope set after the Cesium spike (D-028; 93 h as originally written) and the design and "Colour by" tasks added on 24 Nov 2026 (3.12, 3.13; D-044, D-045). Phases 4 and 5 are independent of 3 and can be swapped in if Cesium work stalls.
+Each phase's hours are the sum of its task estimates, done tasks included; the plan adds the stated buffers (Phase 3 +15%, Phase 6 +25%). To the end of Phase 6 that is **163 h of estimates, ~181 h with the buffers: roughly 36 weeks (~8 months) at 5 h a week**, of which ~56 h is done (Phases 0 and 1, 2.1 to 2.3, 3.1, 3.2, 3.8 and 3.12), leaving ~121 h with the buffers (~24 weeks). On 26 Nov 2026 3.3 was split into 3.3a and 3.3b (~11 h against ~6 h, D-048) and the constellation and system filters were added as 3.14 (~3 h, D-047). It includes the tasks added by the review, the Phase 3 scope set after the Cesium spike (D-028; 93 h as originally written) and the design and "Colour by" tasks added on 24 Nov 2026 (3.12, 3.13; D-044, D-045). Phases 4 and 5 are independent of 3 and can be swapped in if Cesium work stalls. On 28 Nov 2026 3.4 grew to ~13 h (detail dataset, citation, share link, GEO longitude), 5.5 was added (~2 h), and 5.4, 5.5, 5.3 and 7.5 were moved straight after 3.4 for the analyst and journalist audience; 7.4 rose to ~6–8 h, behind a coverage check.
 
 ---
 
@@ -136,7 +136,7 @@ Each phase's hours are the sum of its task estimates, done tasks included; the p
 
 ---
 
-## Phase 3 — Cesium migration (~81.5 h: spike ~3 h (done), core ~59.5 h, extensions ~19 h; plan for ~93.5 h)
+## Phase 3 — Cesium migration (~85.5 h: spike ~3 h (done), core ~63.5 h, extensions ~19 h; plan for ~98 h)
 
 **Goal:** replace Plotly 3D/2D with a CesiumJS viewer, propagating in the browser.
 
@@ -165,11 +165,13 @@ Each phase's hours are the sum of its task estimates, done tasks included; the p
 
 3.3b `feature/filter-panel` — The rest of the panel (D-044, D-048, D-051): live match count ("16,576 of 32,652 objects", computed on the server), type counts "matching / total", segmented status and orbit controls, "More filters" rows showing their values, active-filter chips with "Clear all", no Update button, Clear Orbits into the Plotly 3D tab, search lists set once at load (Q8 S2), a hint when a shown type matches 0, a filter-change budget test, the D-027 release check, then the globe switched on with the Heroku config var (owner's go-ahead). (~5.5 h)
 
-3.3c `feature/globe-usable` — **Done** in this PR (D-052; owner, 27 Nov 2026: production close to unusable on a phone after 3.3b). The globe on by default and Plotly 3D removed (ahead of 3.6); only the open tab holds a view; search as 3.9's browsable list (`/data/search.json`; fly-to and Save image stay in 3.9); Filters open in the browser; the globe drawn on demand, on a darker Earth with smaller red dots; hover labels (3.4's first tier); a loading bar; a phone budget test in CI. Merging it switches the globe on in production.
+3.3c `feature/globe-usable` — **Done** in PR #85 (D-052; owner, 27 Nov 2026: production close to unusable on a phone after 3.3b). The globe on by default and Plotly 3D removed (ahead of 3.6); only the open tab holds a view; search as 3.9's browsable list (`/data/search.json`; fly-to and Save image stay in 3.9); Filters open in the browser; the globe drawn on demand, on a darker Earth with smaller red dots; hover labels (3.4's first tier); a loading bar; a phone budget test in CI. Merging it switches the globe on in production.
 
 3.13 `feature/cesium-colour-by` — The "Colour by" menu and legend (D-017), straight after 3.3 (D-045): object type (default), orbit class, status and owner. (~3 h)
 
-3.4 `feature/cesium-selection` — Three tiers (D-018): throttled hover label, click panel (altitude, speed, period, element age at the displayed time, launch; fed by on-demand detail data), "More" → the list view. Single selection with toggles for orbit path (one period, past faded), follow camera and ground track (D-019). Labels on the selection and the ~20 nearest when zoomed in (D-023). Every data string through `textContent`. (~9 h)
+3.4 `feature/cesium-selection` — Three tiers (D-018): throttled hover label, click panel, "More" → the list view. Single selection with toggles for orbit path (one period, past faded), follow camera and ground track (D-019). Labels on the selection and the ~20 nearest when zoomed in (D-023). Every data string through `textContent`. **Scope widened (owner, 28 Nov 2026)** for two audiences, children and casual visitors, and analysts and journalists in comms, tech and space: the panel is fed by an on-demand per-object detail dataset (a pipeline export) and shows a plain headline (name, type, status with operating vs transmitting and end dates, owner, operator and manufacturer with roles, live altitude and speed, for GEO objects the live longitude, launch) with exact values only (masses in kg, no comparisons), then sections in which every fact carries its source and as-of date and uncertain values show a marker in place; a short "Copy citation" link; a share link that opens the globe with the satellite selected (D-024's hash, version and satellite only; 3.5 adds the other fields). Search pick → select + fly-to (from 3.9) and a compact phone bottom card (until 3.5's sheet) are tried by the owner on a local test server before they're decided. (~13 h)
+
+**Next after 3.4 (owner, 28 Nov 2026): the analyst track.** 5.4 (page per satellite), 5.5 (CSV download), 5.3 (counts by owner, country, constellation), then 7.5 (re-entry), then the rest of Phase 3. These serve the analyst and journalist audience sooner; each is small and uses data already ingested.
 
 3.5 `feature/cesium-modes-time-mobile` — 3D / 2D / Columbus switch with ground tracks split at ±180°; camera presets (Earth, LEO close-up, GEO belt); own time scrubber ±1 day with Now, play/pause and 1×–1000× (D-020); shareable links in the URL hash with allowlist parsing (D-024); the phone bottom sheet (D-025) with Playwright tests at phone sizes. (~11 h)
 
@@ -223,7 +225,7 @@ Each phase's hours are the sum of its task estimates, done tasks included; the p
 
 ---
 
-## Phase 5 — Detail enrichment (~12 h)
+## Phase 5 — Detail enrichment (~14 h)
 
 **Goal:** deep per-object detail, using data already ingested from GCAT where possible.
 
@@ -233,7 +235,9 @@ Each phase's hours are the sum of its task estimates, done tasks included; the p
 
 5.3 `feature/rollup-views` (optional) — Simple views by owner, manufacturer, bus, constellation that set the filter spec and fly the camera to the selection. (~2 h)
 
-5.4 `feature/satellite-page` — A shareable page per satellite (`/satellite/<id>`) built from the detail panel, linkable from search results and the globe, and indexable by search engines (README planned item "Satellite informational page"). Do it before 5.3. (~2 h)
+5.4 `feature/satellite-page` — A shareable page per satellite (`/satellite/<id>`) built from the detail panel, linkable from search results and the globe, and indexable by search engines (README planned item "Satellite informational page"). Do it before 5.3. First on the analyst track, straight after 3.4. (~2 h)
+
+5.5 `feature/list-download` — Download the objects matching the current filters as CSV, with the field names of the data contract, the as-of dates and the citation (USSPACECOM via Space-Track.org with the conjunction caution; GCAT CC-BY; CelesTrak for groupings) in the file. Added 28 Nov 2026 for analysts and journalists. (~2 h)
 
 **Done when:** detail panel covers the fields above with sources/uncertainty shown; each satellite has its own page.
 
@@ -262,8 +266,8 @@ Recommended order: passes first (README planned items; the main feature for peop
 - **7.1 Passes & visibility**: observer location (browser geolocation, opt-in), client-side pass prediction; add standard magnitude (McCants) for visual passes. (~10 h)
 - **7.2 Pass export**: a pass list as CSV and as calendar events (`.ics`). README planned item. (~2 h)
 - **7.3 Element history**: append-only GP snapshot table (incremental model) → altitude/decay and manoeuvre plots per object. `raw_history` already keeps 90 days of GP in S3 to seed it. (~8 h)
-- **7.4 Radio**: SatNOGS DB frequencies/transmitters in the detail panel. SatNOGS DB data is CC BY-SA. (~4 h)
-- **7.5 Re-entry**: Space-Track decay/TIP predictions as a "re-entering soon" layer. (~4 h)
+- **7.4 Radio**: SatNOGS DB frequencies/transmitters in the detail panel. SatNOGS DB data is CC BY-SA 4.0 (share-alike: the republished frequencies keep that licence, so a separate file) and SatNOGS is a community catalogue, not the original publisher, so it needs a recorded sourcing exception like CelesTrak's. **First count its coverage of active GEO and commercial communications satellites** (owner, 28 Nov 2026: analysts in comms are an audience; SatNOGS is likely strongest on amateur and CubeSat missions). (~6–8 h)
+- **7.5 Re-entry**: Space-Track decay/TIP predictions as a "re-entering soon" layer. Brought forward onto the analyst track after 5.3 (28 Nov 2026). (~4 h)
 - **7.6 Conjunctions**: CelesTrak SOCRATES close approaches visualised between pairs; check CelesTrak's usage policy, show with the conjunction caution. (~8 h)
 - **7.7 Deep-space view** (optional): JWST and other L1/L2/lunar/interplanetary craft from JPL Horizons, at a scale where L2 fits (SGP4 can't propagate these). (~8 h)
 - **7.8 Operator ephemerides direct** (optional; Starlink files on Space-Track) — only if independence from CelesTrak SupGP is wanted; check licensing before republishing. (~6 h)
