@@ -493,7 +493,12 @@ class Viewer {
     };
     document.addEventListener("keydown", this.onKey);
     // Leaving the browser's full screen (Esc, F11, the browser's own control) leaves the full window too
-    this.onFullscreen = () => { if (!document.fullscreenElement && this.usedFullscreen) this.setFullWindow(false); };
+    this.onFullscreen = () => {
+      const inFull = document.body.classList.contains("st-fullwindow");
+      if (!document.fullscreenElement && this.usedFullscreen && inFull) this.setFullWindow(false);
+      // the browser finished entering after the visitor had already left: leave its full screen too
+      else if (document.fullscreenElement && !inFull) document.exitFullscreen().catch(() => {});
+    };
     document.addEventListener("fullscreenchange", this.onFullscreen);
   }
 

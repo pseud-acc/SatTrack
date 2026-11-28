@@ -417,7 +417,11 @@ def test_full_screen_fills_the_window_with_a_filter_drawer(page, viewer_url):
     assert page.evaluate("window.sattrackViewer.fullWindow") is False
     expect(page.locator(".st-panel-col")).to_be_visible()
     page.locator("#sattrack-fullscreen").click()
+    wait_until(page, "() => window.sattrackViewer.fullWindow === true")
+    page.wait_for_timeout(500)                                             # the browser's own full screen settles
     page.locator("#sattrack-fullscreen").click()                           # the button leaves it too
+    wait_until(page, "() => window.sattrackViewer.fullWindow === false")
+    page.wait_for_timeout(500)
     assert page.evaluate("window.sattrackViewer.fullWindow") is False
     assert page.errors == []
 
