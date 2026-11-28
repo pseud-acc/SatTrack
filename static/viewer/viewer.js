@@ -20,6 +20,7 @@
 // - Full screen (owner, 28 Nov 2026): a button on the globe makes the tracker fill the window (and the screen, where
 //   the browser allows it), with the filter panel as a drawer opened from a "Filters" button; the button or Esc
 //   leaves it. The page's layout is changed only by a class on <body>; nothing is moved in the DOM.
+// - Orbit on hover (roadmap 3.16): resting the pointer on a dot draws its orbit as a thin line (hoverOrbit below).
 // - window.sattrackViewer exposes state and timings for the browser tests (parity and the D-027 budget).
 
 const TYPES = ["PAYLOAD", "ROCKET BODY", "DEBRIS", "UNKNOWN"];
@@ -27,6 +28,7 @@ const TYPE_LABEL = { "PAYLOAD": "Payload", "ROCKET BODY": "Rocket body", "DEBRIS
 // Status colours come from the design tokens (assets/03_tokens.css), read when the points are made; the fallbacks are
 // the same values, for a page without the app's stylesheet. "Colour by" (roadmap 3.13) adds the other palettes.
 const STATUS_TOKENS = { active: ["--st-active", "#e8564a"], inactive: ["--st-inactive", "#7d8aa0"] };
+const token2 = (name, fallback) => (getComputedStyle(document.documentElement).getPropertyValue(name) || "").trim() || fallback;
 const token = ([name, fallback]) =>
   (getComputedStyle(document.documentElement).getPropertyValue(name) || "").trim() || fallback;
 const STEPS = [0.25, 0.5, 1, 2, 5, 10];     // seconds of simulation time between worker samples (D-015)
@@ -42,6 +44,7 @@ const RENDER_STEP_S = 0.25;
 const EARTH_LOOK = { brightness: 0.55, contrast: 1.2, saturation: 0.8, gamma: 1.1 };
 const GLOBE_BASE = ["--st-globe-base", "#0b1324"];
 const DOT_PX = 3;
+const HOVER_ORBIT_MS = 300;                  // rest the pointer this long on a dot and its orbit is drawn (3.16)
 const BUSY_FRAME_MS = 200;                   // frames closer than this are continuous drawing (a gesture or fast play)
 const LOAD_STEPS = ["Loading the globe…", "Downloading satellites…", "Placing satellites…", ""];
 const KEEP = 600;                            // timings kept per series
@@ -408,7 +411,7 @@ class Viewer {
     this.container.append(label);
     const handler = this.handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
     let pending = null, timer = null, dragging = false, shownIndex = null;
-    const hide = () => { label.hidden = true; shownIndex = null; S.label = null; };
+    const hide = () => { label.hidden = true; shownIndex = null; S.label = null; this.clearHoverOrbit(); };
     const show = async (pos) => {
       const picked = scene.pick(pos);
       const i = picked && picked.collection === this.points && Number.isInteger(picked.id) ? picked.id : null;
@@ -429,6 +432,7 @@ class Viewer {
       place(pos);
       label.hidden = false;
       S.label = { satcat_id: r.satcat_id, object_name: r.object_name };
+      this.hoverOrbit(i, r.satcat_id);
     };
     const place = (pos) => {
       const w = this.container.clientWidth;
@@ -459,6 +463,39 @@ class Viewer {
       const w = Cesium.SceneTransforms.worldToWindowCoordinates(scene, this.handles[i].position);
       return w ? { x: w.x, y: w.y } : null;
     };
+  }
+
+  // Orbit on hover (roadmap 3.16; owner, 28 Nov 2026): resting the pointer on a dot for HOVER_ORBIT_MS draws its
+  // orbit (one period, as the selection's Orbit toggle draws it) as a thin muted line, until the pointer leaves
+  // or the camera moves. Only where there is a pointer that can hover: on touch screens a tap selects, and
+  // the card's Orbit toggle draws it. Not drawn for the selected object while its own orbit is on.
+  hoverOrbit(index, satcatId) {
+    this.clearHoverOrbit();
+    if (window.matchMedia && window.matchMedia("(hover: none)").matches) return;
+    const sel = this.selection;
+    if (sel && sel.index === index && sel.toggles.orbit) return;
+    const token = this.hoverToken = {};
+    this.hoverTimer = setTimeout(async () => {
+      try {
+        const r = await this.call({ type: "track", index, ms: this.simTime(), kind: "orbit" });
+        if (this.hoverToken !== token || this.destroyed) return;   // the pointer moved on meanwhile
+        const C = this.Cesium, pos = r.positions, pts = [];
+        for (let k = 0; k + 2 < pos.length; k += 3) pts.push(new C.Cartesian3(pos[k] * 1000, pos[k + 1] * 1000, pos[k + 2] * 1000));
+        if (pts.length < 2) return;
+        if (!this.hoverLines) this.hoverLines = this.widget.scene.primitives.add(new C.PolylineCollection());
+        const colour = C.Color.fromCssColorString(token2("--st-fg", "#dfe7f2")).withAlpha(0.55);
+        this.hoverLines.add({ positions: pts, width: 1, material: C.Material.fromType("Color", { color: colour }) });
+        S.hoverOrbit = { satcat_id: satcatId, points: pts.length };
+        this.widget.scene.requestRender();
+      } catch (e) { /* no orbit for this object */ }
+    }, HOVER_ORBIT_MS);
+  }
+
+  clearHoverOrbit() {
+    clearTimeout(this.hoverTimer);
+    this.hoverToken = null;
+    if (this.hoverLines && this.hoverLines.length) { this.hoverLines.removeAll(); this.widget.scene.requestRender(); }
+    S.hoverOrbit = null;
   }
 
   // The overlay keeps the status line, the slow-device hint and the credits; the type switches are in the page's
@@ -591,7 +628,7 @@ class Viewer {
 
   destroy() {
     this.destroyed = true;
-    clearInterval(this.controller); clearInterval(this.statusTimer);
+    clearInterval(this.controller); clearInterval(this.statusTimer); clearTimeout(this.hoverTimer);
     if (this.selection) this.selection.destroy();
     document.removeEventListener("keydown", this.onKey);
     document.removeEventListener("fullscreenchange", this.onFullscreen);

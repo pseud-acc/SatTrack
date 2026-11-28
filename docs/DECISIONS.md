@@ -975,3 +975,13 @@ objects. The 2D map keeps the app CSV until roadmap 3.6.
 rest against 268 MB, start-up 4.8 s against 3.4 s, payloads share their propagators (32,631 cached, none doubled).
 
 **Rejected.** Widening the app CSV (being retired); a browser-built table (a second implementation).
+## D-058 Resting the pointer on a dot draws its orbit
+**Status:** Accepted, 2026-11-28 (owner). Builds on D-018, D-019, D-052. Record:
+[D-058](decisions/D-058-orbit-on-hover.md).
+
+**Decision.** On devices with a hovering pointer, resting on a dot for 300 ms draws its orbit (one period) as a thin
+muted line until the pointer leaves or the camera moves. Phones keep tap-to-select and the card's Orbit toggle.
+
+**Why.** See an orbit without selecting; the rest keeps a pointer sweep from flickering lines.
+
+**Rejected.** Drawing on every hover at once; drawing on tap.
