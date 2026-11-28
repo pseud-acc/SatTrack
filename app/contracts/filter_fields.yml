@@ -29,3 +29,10 @@ fields:
     model: fct__satellite_master
   - name: launch_year
     model: fct__satellite_master
+  # Constellations and satellite systems (D-047; roadmap 3.14)
+  - name: satellite_constellation_name
+    model: fct__satellite_master
+  - name: primary_satellite_system_name
+    model: fct__satellite_master
+  - name: satellite_system_names
+    model: fct__satellite_master

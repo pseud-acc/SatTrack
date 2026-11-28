@@ -46,7 +46,9 @@ def test_every_field_has_a_readable_label():
     """Users never see a snake_case name: every allowed field has a label from its dbt meta, with no underscores."""
     fields = filter_spec.fields()
     assert set(fields) == {"satcat_id", "object_name", "object_type", "operational_status", "orbit_class",
-                           "owner_country", "launch_vehicle_brand", "mission_category_labels", "launch_year"}
+                           "owner_country", "launch_vehicle_brand", "mission_category_labels", "launch_year",
+                           "satellite_constellation_name", "primary_satellite_system_name",
+                           "satellite_system_names"}
     for name, f in fields.items():
         assert f["label"] and "_" not in f["label"] and f["label"] != name
     assert filter_spec.label("mission_category_labels") == "Purpose"

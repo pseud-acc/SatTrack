@@ -79,6 +79,8 @@ Each phase's hours are the sum of its task estimates, done tasks included; the p
 - **Tests**: add/extend tests with each change; parity tests for anything that changes satellite positions.
 - **Keep PRs small** (one task each) so they fit a 5-hour week, including review.
 - When a task's assumption turns out wrong (e.g. a library lacks a feature), stop and write up options in the PR rather than working around it silently.
+- **Accessibility** (owner, 28 Nov 2026: essential, for every task): everything works from the keyboard with a visible focus; controls have names a screen reader can read; text meets WCAG AA contrast and colour is never the only signal (colour-blind-safe palettes); tap targets are at least 24 px (WCAG 2.2); motion respects `prefers-reduced-motion`. Check these in the PR for anything a visitor sees.
+- **UX choices** are discussed with the owner and tried on a laptop and a phone before they're decided (owner, 28 Nov 2026). Keep the app sleek and uncluttered: one panel open at a time, nothing shown that wasn't asked for, depth inside sections that open.
 
 ---
 
@@ -197,7 +199,15 @@ Each phase's hours are the sum of its task estimates, done tasks included; the p
 
 3.10 `feature/cesium-constellations` — Adds "constellation" and "satellite system" to 3.13's "Colour by" menu and legend, from the D-047 fields (`satellite_constellation_name`, `primary_satellite_system_name`), with the CelesTrak credit. (~2 h)
 
-3.14 `feature/cesium-group-filters` — Constellation and satellite system filters (D-047): multi-selects on `satellite_constellation_name` and `satellite_system_names`, a "primary system only" switch, and info popovers showing each grouping's definition and source link (`dim__satellite_constellation`, `dim__satellite_system`). Follows 3.3b. (~3 h, estimate)
+3.14 `feature/constellation-system-filters` — **Done** in this PR (D-056; owner, 28 Nov 2026: a priority), except the definition popovers (3.14b). Constellation and satellite system filters (D-047): multi-selects on `satellite_constellation_name` and `satellite_system_names`, a "primary system only" switch, and info popovers showing each grouping's definition and source link (`dim__satellite_constellation`, `dim__satellite_system`). Follows 3.3b. (~3 h, estimate)
+
+3.14b `feature/groupings-dataset` — A small `groupings` dataset from `dim__satellite_constellation` and `dim__satellite_system` (name, kind, definition, source name and link, member and active counts), for the filter rows' definition and source popovers and the home page's summary tiles. With the home page work. (~2 h)
+
+3.15 `feature/live-clock-bar` — A slim bar on the globe: "LIVE · 28 Nov 2026 02:44:52 UTC", always visible; it becomes the home of 3.5's time controls (owner, 28 Nov 2026, from comparing with other trackers). (~1.5 h)
+
+3.17 `feature/filter-panel-redesign` — A full redesign of the filter panel once 3.5's time controls and the clock bar (3.15) are in: clearer segments per group of filters, closer to the segmented layouts of professional trackers, while staying sleek and uncluttered (owner, 28 Nov 2026). Options are mocked up and tried by the owner first. Triggered also by D-056's revisit note (six rows in "More filters"). (~6 h, estimate)
+
+3.16 `feature/orbit-on-hover` — On desktop, resting the pointer on a dot for about 300 ms draws its orbit (the selection's orbit code); phones keep tap-to-select. Never while dragging; honours `prefers-reduced-motion`. (~1.5 h)
 
 3.11 `feature/cesium-daylight` — Day/night terminator and satellites dimmed in Earth's shadow; switches the worker to satellite.js's WASM `BulkPropagator` (zero-vector guard, parity-test row, `'wasm-unsafe-eval'` in the CSP) (D-029). (~6 h)
 

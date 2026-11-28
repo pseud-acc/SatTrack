@@ -30,21 +30,28 @@ CONTROLS = {
     "purpose": "purpose-filter-multi-dropdown",
     "year": "launchyear-filter-slider",
     "types": "type-filter-checkbox",
+    # Constellations and satellite systems (roadmap 3.14, D-047); the switch narrows the system filter to the
+    # system each object was built for
+    "constellation": "constellation-filter-multi-dropdown",
+    "system": "system-filter-multi-dropdown",
+    "systemprimary": "system-primary-switch",
 }
 
 # Chips, in the order they show. The type chip has no remove button: the switches right above it set the types.
-CHIPS = ["types", "status", "orbit", "satname", "satcatid", "owner", "launchvehicle", "purpose", "year"]
+CHIPS = ["types", "status", "orbit", "satname", "satcatid", "owner", "launchvehicle", "purpose", "constellation",
+         "system", "year"]
 REMOVABLE_CHIPS = [c for c in CHIPS if c != "types"]
 
 # The "More filters" rows: control -> the filter-spec field whose label (D-030) the row shows.
-ROWS = {"owner": "owner_country", "launchvehicle": "launch_vehicle_brand", "purpose": "mission_category_labels",
-        "year": "launch_year"}
+ROWS = {"constellation": "satellite_constellation_name", "system": "satellite_system_names", "owner": "owner_country",
+        "launchvehicle": "launch_vehicle_brand", "purpose": "mission_category_labels", "year": "launch_year"}
 
 
 def default_controls():
     """The values the tracker opens with (owner, 26 Nov 2026; D-049). "Clear all" goes back to these."""
     return {"status": DEFAULT_STATUS, "orbit": list(DEFAULT_ORBITS), "satname": None, "satcatid": None, "owner": [],
-            "launchvehicle": [], "purpose": [], "year": launch_year_bounds(), "types": list(DEFAULT_TYPES)}
+            "launchvehicle": [], "purpose": [], "year": launch_year_bounds(), "types": list(DEFAULT_TYPES),
+            "constellation": [], "system": [], "systemprimary": False}
 
 
 def widened_controls():
@@ -52,7 +59,7 @@ def widened_controls():
     All, every orbit class, the whole year range, nothing selected), not the default, so removing "Active" shows
     Inactive too."""
     return {"status": "All", "orbit": list(DEFAULT_ORBITS), "satname": None, "satcatid": None, "owner": [],
-            "launchvehicle": [], "purpose": [], "year": launch_year_bounds()}
+            "launchvehicle": [], "purpose": [], "year": launch_year_bounds(), "constellation": [], "system": []}
 
 
 def _picked(values):
@@ -88,6 +95,11 @@ def _chips(c, name_of=lambda satcat_id: None):
         "owner": f"{lbl('owner_country')}: {_picked(c['owner'])}" if c["owner"] else None,
         "launchvehicle": f"{lbl('launch_vehicle_brand')}: {_picked(c['launchvehicle'])}" if c["launchvehicle"] else None,
         "purpose": f"{lbl('mission_category_labels')}: {_picked(c['purpose'])}" if c["purpose"] else None,
+        "constellation": (f"{lbl('satellite_constellation_name')}: {_picked(c['constellation'])}"
+                          if c["constellation"] else None),
+        # the label says which field filters: every system, or the primary one only
+        "system": (f"{lbl('primary_satellite_system_name' if c['systemprimary'] else 'satellite_system_names')}: "
+                   f"{_picked(c['system'])}" if c["system"] else None),
         "year": None if years is None else f"{lbl('launch_year')}: {years}",
     }
 
@@ -143,11 +155,12 @@ def panel_summary(filter_table, controls):
         "hints": _hints(c, matches, filter_table),
         "chips": _chips(c, lambda i: _object_name(filter_table, i)),
         "rows": {"owner": _picked(c["owner"]), "launchvehicle": _picked(c["launchvehicle"]),
-                 "purpose": _picked(c["purpose"]), "year": _years(c["year"]) or "Any"},
+                 "purpose": _picked(c["purpose"]), "constellation": _picked(c["constellation"]),
+                 "system": _picked(c["system"]), "year": _years(c["year"]) or "Any"},
         "changed": _normalised(c) != _normalised(default_controls()),
     }
 
 
 def _normalised(c):
-    return {k: (sorted(v) if isinstance(v, list) and k != "year" else
+    return {k: (bool(v) if k == "systemprimary" else sorted(v) if isinstance(v, list) and k != "year" else
                 [int(y) for y in v] if k == "year" and v is not None else v) for k, v in c.items()}

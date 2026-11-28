@@ -1,10 +1,12 @@
 """
-"More filters" (roadmap 3.3b, D-044): owner, launch vehicle, purpose and launch year as rows that show their current
+"More filters" (roadmap 3.3b, D-044; constellation and satellite system added in 3.14, D-047): owner, launch
+vehicle, purpose, constellation, satellite system and launch year as rows that show their current
 value ("Any", "France +2", "1990–2005") and open their control. The rows are native <details> elements, so opening
 one needs no callback and works with the keyboard.
 """
 
 from dash import dcc, html
+import dash_bootstrap_components as dbc
 from app.core import filter_spec
 from app.helper.helper__app_data import LAUNCH_YEAR_MIN, launch_year_bounds
 from app.helper.helper__filter_display import ROWS
@@ -30,11 +32,25 @@ def create_advanced_filters(options, summary):
     """
     @param options: (dict) the dropdowns' options (helper__app_data.create_data_filters)
     @param summary: (dict) panel_summary() for the starting values (the rows' summaries)
-    @return: html.Div with the four rows
+    @return: html.Div with the six rows
     """
     rows = summary["rows"]
     return html.Div([
         html.Label("More filters", className="st-lbl"),
+        # Constellations and satellite systems first (roadmap 3.14; owner, 28 Nov 2026: a priority). One line under
+        # each says what it is, in D-047's words. A system matches every object that is part of it, hosted payloads
+        # included; the switch keeps only the objects built for it.
+        _row("constellation", rows["constellation"], html.Div([
+            _dropdown(options["constellation"], "Select constellations...", "constellation-filter-multi-dropdown"),
+            html.P("Near-identical satellites working together.", className="st-row-note"),
+        ])),
+        _row("system", rows["system"], html.Div([
+            _dropdown(options["system"], "Select satellite systems...", "system-filter-multi-dropdown"),
+            html.P("Different satellites working together on one service. A satellite can belong to several.",
+                   className="st-row-note"),
+            dbc.Switch(id="system-primary-switch", label="Only satellites built for the system", value=False,
+                       className="st-system-primary"),
+        ])),
         _row("owner", rows["owner"],
              _dropdown(options["owner"], "Select owners...", "owner-filter-multi-dropdown")),
         _row("launchvehicle", rows["launchvehicle"],

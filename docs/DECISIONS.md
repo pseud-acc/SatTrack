@@ -946,3 +946,19 @@ with KeepTrack, 28 Nov 2026).
 
 **Rejected.** One "More details" (all or nothing); summary lines per section (busier); a separate full-screen page; a
 hand-made phrase per GCAT mission category.
+
+## D-056 Filtering by constellation and satellite system
+**Status:** Accepted, 2026-11-28 (owner). Builds on D-047. Record:
+[D-056](decisions/D-056-constellation-and-system-filters.md).
+
+**Decision.** `satellite_constellation_name`, `primary_satellite_system_name` and `satellite_system_names` join the
+filter spec's fields. The panel's "More filters" opens with two rows: Constellation (any of) and Satellite systems
+(any system the object is part of, hosted payloads included; a switch keeps only the objects built for it). Options
+come from the data. Each row has one line saying what it is.
+
+**Why.** Constellations and systems are a priority to show (owner); the home page's hero promises exploring by
+constellation. The same pattern as the existing rows keeps the panel uncluttered.
+
+**Rejected.** A separate "Groups" section; one combined control; two system rows.
+
+**Deviation.** The roadmap's definition and source popovers need a groupings dataset: with the home page (3.14b).

@@ -57,6 +57,7 @@ def start_state():
     """The panel as production opens it: active payloads, every orbit class, the whole launch-year range."""
     return {"types": ["PAYLOAD"], "status": ["Active"], "orbit": ["LEO", "MEO", "GEO", "GSO", "HEO"],
             "name": None, "satcat": None, "owner": [], "vehicle": [], "purpose": [],
+            "constellation": [], "system": [], "primary": False,
             "year": [1958, datetime.now(timezone.utc).year]}
 
 
@@ -76,7 +77,21 @@ def asked_for(df, s):
         keep &= df["launch_vehicle_brand"].isin(s["vehicle"])
     if s["purpose"]:
         keep &= df["mission_category_labels"].map(lambda v: bool(set(v or []) & set(s["purpose"])))
+    if s["constellation"]:
+        keep &= df["satellite_constellation_name"].isin(s["constellation"])
+    if s["system"]:   # every system the object is part of, or only the one it was built for (roadmap 3.14)
+        keep &= (df["primary_satellite_system_name"].isin(s["system"]) if s["primary"]
+                 else df["satellite_system_names"].map(lambda v: bool(set(v or []) & set(s["system"]))))
     return int(keep.sum())
+
+
+def hosted_system(df):
+    """A system some of `df`'s objects are part of without being built for it, so "built for" narrows it."""
+    for r in df.itertuples():
+        for s in (r.satellite_system_names or []):
+            if s != r.primary_satellite_system_name:
+                return s
+    raise AssertionError("the sample has no hosted system among the active payloads")
 
 
 # ---- effects: (use the control, how the request changes) ----------------------------------------------------------
@@ -117,7 +132,19 @@ def effects():
     sat = active_payloads[active_payloads.orbit_class == "LEO"].iloc[0]
     owner = most_common("owner_country", active_payloads)
     vehicle = most_common("launch_vehicle_brand", active_payloads)
+    constellation = most_common("satellite_constellation_name", active_payloads)
+    system = hosted_system(active_payloads)
     return {
+        # Constellations and satellite systems (roadmap 3.14). The switch narrows a picked system to the objects built
+        # for it, so its check picks a system first.
+        "constellation-filter-multi-dropdown": (_pick("constellation-filter-multi-dropdown", constellation),
+                                                lambda s: {**s, "constellation": [constellation]}),
+        "system-filter-multi-dropdown": (_pick("system-filter-multi-dropdown", system),
+                                         lambda s: {**s, "system": [system]}),
+        "system-primary-switch": (lambda page: page.get_by_label("Only satellites built for the system").check(),
+                                  lambda s: {**s, "primary": True},
+                                  _pick("system-filter-multi-dropdown", system),
+                                  lambda s: {**s, "system": [system]}),
         "status-filter-checkbox": (_segment("status-filter-checkbox", "All"),
                                    lambda s: {**s, "status": ["Active", "Inactive"]}),
         "orbit-filter-checkbox": (_segment("orbit-filter-checkbox", "LEO"),
@@ -145,6 +172,7 @@ def effects():
 # Roadmap 3.3b: each chip's remove button undoes its control, and Clear all undoes everything. Their checks are built
 # from the control's own: use the control (so the chip shows), then remove it; the request goes back to the start.
 CHIP_CONTROLS = {"status": "status-filter-checkbox", "orbit": "orbit-filter-checkbox",
+                 "constellation": "constellation-filter-multi-dropdown", "system": "system-filter-multi-dropdown",
                  "owner": "owner-filter-multi-dropdown", "launchvehicle": "launchvehicle-filter-multi-dropdown",
                  "purpose": "purpose-filter-multi-dropdown", "year": "launchyear-filter-slider"}
 

@@ -81,9 +81,11 @@ def register(app):
     '''
 
     @app.callback(Output('filter-spec', 'data'), control_inputs, prevent_initial_call=True)
-    def update_filter_spec(status, orbit, satname, satcatid, owner, launchvehicle, purpose, year, types):
-        spec = sidebar_filter_spec(status, orbit, satname, satcatid, owner or [], launchvehicle or [], purpose or [],
-                                   year, types or [])
+    def update_filter_spec(*values):
+        c = dict(zip(CONTROLS, values))
+        for name in ("owner", "launchvehicle", "purpose", "types", "constellation", "system"):
+            c[name] = c[name] or []
+        spec = sidebar_filter_spec(**c)
         return None if spec is None else spec_rules.validate(spec)
 
     '''------------------------

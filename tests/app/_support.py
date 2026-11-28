@@ -146,7 +146,8 @@ SIDEBAR = {  # expected_ids() argument -> sidebar component id (its `value` prop
 
 
 # Every panel control that feeds the filter-spec store (roadmap 3.3a)
-PANEL_CONTROLS = set(SIDEBAR.values()) | {"type-filter-checkbox"}
+PANEL_CONTROLS = set(SIDEBAR.values()) | {"type-filter-checkbox", "constellation-filter-multi-dropdown",
+                                          "system-filter-multi-dropdown", "system-primary-switch"}
 
 
 def split_outputs(output):

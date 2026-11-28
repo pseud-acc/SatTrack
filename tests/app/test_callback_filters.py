@@ -133,7 +133,8 @@ def test_a_type_change_that_keeps_the_switch_state_changes_nothing(callbacks):
 # ---- What the panel shows (roadmap 3.3b) ---------------------------------------------------------------------------
 
 SUMMARY = "filter-count"   # update_panel_summary's first output
-CHIP_NAMES = ["types", "status", "orbit", "satname", "satcatid", "owner", "launchvehicle", "purpose", "year"]
+CHIP_NAMES = ["types", "status", "orbit", "satname", "satcatid", "owner", "launchvehicle", "purpose", "constellation",
+              "system", "year"]
 
 
 def text(children):
@@ -234,6 +235,7 @@ def test_chips_show_what_narrows_and_rows_show_their_values(callbacks):
     assert out["filter-clear-all.hidden"] is False
     assert [out[f"more-{r}-summary.children"] for r in ("owner", "launchvehicle", "purpose", "year")] == [
         "France +2", "Any", "Navigation", "1990–2005"]
+    assert [out[f"more-{r}-summary.children"] for r in ("constellation", "system")] == ["Any", "Any"]
 
 
 @pytest.mark.parametrize("chip, control, widened", [
@@ -256,7 +258,9 @@ def test_clear_all_restores_the_opening_values(callbacks):
     assert out == {JUNK: False, TYPES: ["PAYLOAD"], STATUS: "Active", BEFORE: None,
                    "orbit-filter-checkbox.value": ALL_ORBITS, f"{SEARCH_NAME}.value": None, f"{SEARCH_ID}.value": None,
                    "owner-filter-multi-dropdown.value": [], "launchvehicle-filter-multi-dropdown.value": [],
-                   "purpose-filter-multi-dropdown.value": [], "launchyear-filter-slider.value": [lo, hi]}
+                   "purpose-filter-multi-dropdown.value": [], "launchyear-filter-slider.value": [lo, hi],
+                   "constellation-filter-multi-dropdown.value": [], "system-filter-multi-dropdown.value": [],
+                   "system-primary-switch.value": False}
 
 
 def test_search_list_follows_the_picked_value_in_the_browser(dependencies):
@@ -265,3 +269,81 @@ def test_search_list_follows_the_picked_value_in_the_browser(dependencies):
     sync = [d for d in dependencies if split_outputs(d["output"])[0][0] == "sat-search"]
     assert len(sync) == 1 and sync[0].get("clientside_function")
     assert [f"{i['id']}.{i['property']}" for i in sync[0]["inputs"]] == [f"{SEARCH_ID}.value"]
+
+
+# ---- Constellations and satellite systems (roadmap 3.14, D-047) --------------------------------------------------
+
+CONSTELLATION, SYSTEM, PRIMARY = ("constellation-filter-multi-dropdown.value", "system-filter-multi-dropdown.value",
+                                  "system-primary-switch.value")
+
+
+def count_of(out):
+    """Payloads matching the filters (the type switch's "matching" figure)."""
+    return type_cells(out)["PAYLOAD"][0]
+
+
+def groupings(objects):
+    """From the sample's objects, with plain pandas: a constellation with members, and a system some object belongs
+    to without it being that object's primary system (a hosted payload), so the switch changes the result."""
+    constellation = objects["satellite_constellation_name"].dropna().value_counts().index[0]
+    hosted = objects[objects.apply(lambda r: isinstance(r["satellite_system_names"], list) and any(
+        s != r["primary_satellite_system_name"] for s in r["satellite_system_names"]), axis=1)]
+    system = next(s for r in hosted.itertuples() for s in r.satellite_system_names if s != r.primary_satellite_system_name)
+    return constellation, system
+
+
+def test_group_dropdowns_list_the_datasets_own_values(callbacks, objects):
+    constellations = sorted(objects["satellite_constellation_name"].dropna().unique())
+    systems = sorted({s for v in objects["satellite_system_names"] if isinstance(v, list) for s in v})
+    assert callbacks.initial("constellation-filter-multi-dropdown", "options") == constellations
+    assert callbacks.initial("system-filter-multi-dropdown", "options") == systems
+    assert len(constellations) > 0 and len(systems) > 0
+    assert callbacks.initial("system-primary-switch", "value") is False
+
+
+def test_constellation_and_system_go_into_the_spec(callbacks, objects):
+    constellation, system = groupings(objects)
+    status, out = callbacks.call(SPEC, CONSTELLATION, **{CONSTELLATION: [constellation]})
+    assert status == 200
+    assert out[f"{SPEC}.data"]["clauses"][-1] == {"field": "satellite_constellation_name", "op": "in",
+                                                  "value": [constellation]}
+    status, out = callbacks.call(SPEC, SYSTEM, **{SYSTEM: [system]})
+    assert out[f"{SPEC}.data"]["clauses"][-1] == {"field": "satellite_system_names", "op": "contains_any",
+                                                  "value": [system]}
+    status, out = callbacks.call(SPEC, PRIMARY, **{SYSTEM: [system], PRIMARY: True})
+    assert out[f"{SPEC}.data"]["clauses"][-1] == {"field": "primary_satellite_system_name", "op": "in",
+                                                  "value": [system]}
+    status, out = callbacks.call(SPEC, PRIMARY, **{PRIMARY: True})             # the switch alone filters nothing
+    assert all(c["field"] != "primary_satellite_system_name" for c in out[f"{SPEC}.data"]["clauses"])
+
+
+def test_group_filters_count_chip_and_row(callbacks, objects):
+    """The live count for a constellation and for a system (every member, then built-for only), worked out here with
+    plain pandas; the chip and the row name what filters."""
+    constellation, system = groupings(objects)
+    base = (objects["object_type"] == "PAYLOAD") & objects["orbit_class"].isin(ALL_ORBITS) & objects["launch_year"].notna()
+    everything = {STATUS: "All"}
+
+    out = summary(callbacks, **{**everything, CONSTELLATION: [constellation]})
+    want = int((base & (objects["satellite_constellation_name"] == constellation)).sum())
+    assert want > 0 and count_of(out) == want
+    assert shown_chips(out)["constellation"] == f"Constellation: {constellation}"
+    assert out["more-constellation-summary.children"] == constellation
+
+    member = objects["satellite_system_names"].map(lambda v: isinstance(v, list) and system in v)
+    out = summary(callbacks, **{**everything, SYSTEM: [system]})
+    any_member = int((base & member).sum())
+    assert count_of(out) == any_member
+    assert shown_chips(out)["system"] == f"Satellite systems: {system}"
+
+    out = summary(callbacks, **{**everything, SYSTEM: [system], PRIMARY: True})
+    built_for = int((base & (objects["primary_satellite_system_name"] == system)).sum())
+    assert count_of(out) == built_for and built_for < any_member
+    assert shown_chips(out)["system"] == f"Primary satellite system: {system}"
+    assert out["more-system-summary.children"] == system
+
+
+@pytest.mark.parametrize("chip, control", [("constellation", CONSTELLATION), ("system", SYSTEM)])
+def test_a_group_chips_remove_button_clears_only_its_dropdown(callbacks, chip, control):
+    status, out = callbacks.call(CONTROLS_OUT, f"chip-x-{chip}.n_clicks", **{f"chip-x-{chip}.n_clicks": 1})
+    assert status == 200 and out == {control: []}

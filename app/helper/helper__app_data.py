@@ -73,7 +73,21 @@ def _with_null(values):
     return [None if v == UNKNOWN else v for v in values]
 
 
-def sidebar_filter_spec(status, orbit, satname, satcatid, owner, launchvehicle, purpose, year, types=None):
+def group_options(filter_table):
+    '''
+    The constellation and satellite system dropdowns' options (roadmap 3.14, D-047), from the objects dataset's
+    own values, so a grouping the pipeline adds shows up with no code change.
+
+    @param filter_table: (DataFrame) the objects dataset's filterable fields
+    @return: (dict) constellation: sorted names; system: sorted names of every system (primary or hosted)
+    '''
+    constellations = sorted({v for v in filter_table["satellite_constellation_name"] if isinstance(v, str)})
+    systems = sorted({s for v in filter_table["satellite_system_names"] if isinstance(v, (list, tuple)) for s in v})
+    return {"constellation": constellations, "system": systems}
+
+
+def sidebar_filter_spec(status, orbit, satname, satcatid, owner, launchvehicle, purpose, year, types=None,
+                        constellation=None, system=None, systemprimary=False):
     '''
     The filter spec (D-031) for the sidebar's values, in the objects dataset's field names (D-030).
 
@@ -83,6 +97,11 @@ def sidebar_filter_spec(status, orbit, satname, satcatid, owner, launchvehicle, 
     purpose matches any of an object's labels; launch year is an inclusive range. "Unknown" in a dropdown is a
     missing value. "Inactive" also covers objects with no status, as the app CSV always has (it fills a missing
     status with "Inactive").
+
+    Constellations and systems (roadmap 3.14, D-047) filter only when something is selected: constellation is "any
+    of" on `satellite_constellation_name`; system is "any of" on every system the object belongs to
+    (`satellite_system_names`, hosted payloads included), or with `systemprimary` only on the system it was built
+    for (`primary_satellite_system_name`).
 
     Object types (roadmap 3.3a): `types` is the panel's type switches, as an `object_type in [...]` clause in display
     order; None leaves type out (the search dropdowns, which list the app CSV's payloads only).
@@ -111,6 +130,11 @@ def sidebar_filter_spec(status, orbit, satname, satcatid, owner, launchvehicle, 
         clauses.append({"field": "launch_vehicle_brand", "op": "in", "value": _with_null(launchvehicle)})
     if purpose:
         clauses.append({"field": "mission_category_labels", "op": "contains_any", "value": _with_null(purpose)})
+    if constellation:
+        clauses.append({"field": "satellite_constellation_name", "op": "in", "value": list(constellation)})
+    if system:
+        clauses.append({"field": "primary_satellite_system_name", "op": "in", "value": list(system)} if systemprimary
+                       else {"field": "satellite_system_names", "op": "contains_any", "value": list(system)})
     return {"version": 1, "clauses": clauses}
 
 

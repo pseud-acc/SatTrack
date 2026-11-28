@@ -44,6 +44,15 @@
           },
           {
             "$ref": "#/$defs/launch_year"
+          },
+          {
+            "$ref": "#/$defs/satellite_constellation_name"
+          },
+          {
+            "$ref": "#/$defs/primary_satellite_system_name"
+          },
+          {
+            "$ref": "#/$defs/satellite_system_names"
           }
         ]
       }
@@ -1122,6 +1131,306 @@
           "properties": {
             "field": {
               "const": "launch_year"
+            },
+            "op": {
+              "const": "is_missing"
+            },
+            "value": {
+              "type": "boolean"
+            }
+          }
+        }
+      ]
+    },
+    "satellite_constellation_name": {
+      "title": "Constellation",
+      "x-kind": "string",
+      "x-source": "fct__satellite_master.satellite_constellation_name",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "field",
+            "op",
+            "value"
+          ],
+          "properties": {
+            "field": {
+              "const": "satellite_constellation_name"
+            },
+            "op": {
+              "const": "eq"
+            },
+            "value": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "field",
+            "op",
+            "value"
+          ],
+          "properties": {
+            "field": {
+              "const": "satellite_constellation_name"
+            },
+            "op": {
+              "const": "in"
+            },
+            "value": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 1000,
+              "uniqueItems": true,
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "field",
+            "op",
+            "value"
+          ],
+          "properties": {
+            "field": {
+              "const": "satellite_constellation_name"
+            },
+            "op": {
+              "const": "not_in"
+            },
+            "value": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 1000,
+              "uniqueItems": true,
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "field",
+            "op",
+            "value"
+          ],
+          "properties": {
+            "field": {
+              "const": "satellite_constellation_name"
+            },
+            "op": {
+              "const": "is_missing"
+            },
+            "value": {
+              "type": "boolean"
+            }
+          }
+        }
+      ]
+    },
+    "primary_satellite_system_name": {
+      "title": "Primary satellite system",
+      "x-kind": "string",
+      "x-source": "fct__satellite_master.primary_satellite_system_name",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "field",
+            "op",
+            "value"
+          ],
+          "properties": {
+            "field": {
+              "const": "primary_satellite_system_name"
+            },
+            "op": {
+              "const": "eq"
+            },
+            "value": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "field",
+            "op",
+            "value"
+          ],
+          "properties": {
+            "field": {
+              "const": "primary_satellite_system_name"
+            },
+            "op": {
+              "const": "in"
+            },
+            "value": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 1000,
+              "uniqueItems": true,
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "field",
+            "op",
+            "value"
+          ],
+          "properties": {
+            "field": {
+              "const": "primary_satellite_system_name"
+            },
+            "op": {
+              "const": "not_in"
+            },
+            "value": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 1000,
+              "uniqueItems": true,
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "field",
+            "op",
+            "value"
+          ],
+          "properties": {
+            "field": {
+              "const": "primary_satellite_system_name"
+            },
+            "op": {
+              "const": "is_missing"
+            },
+            "value": {
+              "type": "boolean"
+            }
+          }
+        }
+      ]
+    },
+    "satellite_system_names": {
+      "title": "Satellite systems",
+      "x-kind": "string_list",
+      "x-source": "fct__satellite_master.satellite_system_names",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "field",
+            "op",
+            "value"
+          ],
+          "properties": {
+            "field": {
+              "const": "satellite_system_names"
+            },
+            "op": {
+              "const": "contains_any"
+            },
+            "value": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 1000,
+              "uniqueItems": true,
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "field",
+            "op",
+            "value"
+          ],
+          "properties": {
+            "field": {
+              "const": "satellite_system_names"
             },
             "op": {
               "const": "is_missing"
