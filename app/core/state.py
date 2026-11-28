@@ -36,6 +36,7 @@ from app.helper.helper__app_data import create_data_filters, group_options
 from app.helper.helper__satellite_position import OMM_FIELDS_OBJECTS, satrec_sources, satrecs_for
 from app.core import filter_spec
 from app.core.search_index import search_dataset
+from app.core.catalogue_summary import build_summary
 
 # Global cache for app data (lazy initialization). gunicorn runs threaded workers (Procfile), so the first requests
 # can arrive together: the lock makes sure the data is loaded once per worker.
@@ -49,6 +50,17 @@ DATASET_ENCODINGS = {"br": ".json.br", "gzip": ".json.gz"}
 # The list view's columns from the objects dataset: what it shows, plus the element set it places objects with
 LIST_COLUMNS = list(dict.fromkeys(["satcat_id", "object_name", "object_id", "object_type", "operational_status",
                                    "orbit_class", "launch_year", "owner_country", *OMM_FIELDS_OBJECTS.values()]))
+
+
+def _detail_records(dataset):
+    '''object_detail's records from the app's copy ({encoding: {"body", "sha256"}}), or None when the dataset isn't
+    published or can't be read: the home page then leaves out what needs it (D-059).'''
+    import gzip
+    try:
+        doc = json.loads(gzip.decompress(dataset["gzip"]["body"]))
+        return doc["records"] if doc.get("dataset") == "object_detail" else None
+    except Exception:   # absent or unreadable: optional
+        return None
 
 
 def _dataset_entry(name, encoded):
@@ -206,6 +218,11 @@ def initialise_app_data():
     datasets["search"] = _dataset_entry("search", search_dataset(objects_doc))
     print(f" - Search list: {len(objects_doc['records']):,} objects, "
           f"{len(datasets['search']['br']['body']):,} bytes (Brotli)")
+    # The catalogue at a glance (home page and Explore pages, D-059): counted once, here, from the datasets
+    # themselves. object_detail (operators, the records strip) is parsed for the count and dropped again.
+    summary = build_summary(objects_doc["records"], _detail_records(datasets.get("object_detail")))
+    print(f" - Catalogue summary: {summary['totals']['tracked']:,} tracked, {summary['totals']['working']:,} working; "
+          f"details {'read' if summary['records'] else 'not published'}")
     del objects_doc
     missing = int((~df["SatCatId"].isin(filter_table["satcat_id"])).sum())
     print(f" - Filter table: {len(filter_table):,} objects from the objects dataset; "
@@ -229,6 +246,7 @@ def initialise_app_data():
     app_data['data']['tbl_col_map'] = tbl_column_map
     app_data['data']['datasets'] = datasets   # served by app/core/data_files.py
     app_data['data']['objects_df'] = objects_df   # the list view's rows (every object type)
+    app_data['data']['summary'] = summary   # home page and Explore pages (app/core/catalogue_summary.py)
 
     # Visualisation filters
     app_data['filter'] = dict()

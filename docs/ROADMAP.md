@@ -203,7 +203,9 @@ Each phase's hours are the sum of its task estimates, done tasks included; the p
 
 3.14 `feature/constellation-system-filters` — **Done** in PR #90 (D-056; owner, 28 Nov 2026: a priority), except the definition popovers (3.14b). Constellation and satellite system filters (D-047): multi-selects on `satellite_constellation_name` and `satellite_system_names`, a "primary system only" switch, and info popovers showing each grouping's definition and source link (`dim__satellite_constellation`, `dim__satellite_system`). Follows 3.3b. (~3 h, estimate)
 
-3.14b `feature/groupings-dataset` — A small `groupings` dataset from `dim__satellite_constellation` and `dim__satellite_system` (name, kind, definition, source name and link, member and active counts), for the filter rows' definition and source popovers and the home page's summary tiles. With the home page work. (~2 h)
+3.18 `feature/home-page` — **Done** in this PR (D-059; owner's choices of 28 Nov 2026): the home page, the Explore menu and its pages (the counts of 5.3, brought forward), Sources and FAQ, every figure from a start-up summary. (~6 h)
+
+3.14b `feature/groupings-dataset` — A small `groupings` dataset from `dim__satellite_constellation` and `dim__satellite_system` (name, kind, definition, source name and link, member and active counts), for the filter rows' definition and source popovers and the Explore pages (definition and source per grouping). The home page's tiles turned out not to need it (D-059). (~2 h)
 
 3.15 `feature/live-clock-bar` — A slim bar on the globe: "LIVE · 28 Nov 2026 02:44:52 UTC", always visible; it becomes the home of 3.5's time controls (owner, 28 Nov 2026, from comparing with other trackers). (~1.5 h)
 

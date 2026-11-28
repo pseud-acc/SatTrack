@@ -985,3 +985,22 @@ muted line until the pointer leaves or the camera moves. Phones keep tap-to-sele
 **Why.** See an orbit without selecting; the rest keeps a pointer sweep from flickering lines.
 
 **Rejected.** Drawing on every hover at once; drawing on tap.
+
+## D-059 The home page, the Explore pages, Sources and FAQ
+**Status:** Accepted, 2026-11-28 (owner, from three rounds of mockups and copy). Builds on D-044, D-047, D-054, D-056.
+Record: [D-059](decisions/D-059-home-page-and-explore.md).
+
+**Decision.** The top bar is Overview, Tracker, an Explore menu (a summary and six views), Sources and FAQ. The home
+page opens with "<N> tracked objects in Earth orbit." and the agreed sub-line, both numbers read from the data; then
+six index tiles, a "From SatTrack's records" strip, six points on what sets SatTrack apart, and the sources. Each
+Explore view ranks working satellites (by constellation, satellite system, operator, country, mission, orbit). The
+FAQ has six answers worded from the app's own definitions. Every figure comes from a summary counted at start-up.
+
+**Why.** A professional front door for casual visitors and for analysts and journalists; the old page made claims
+the app couldn't back.
+
+**Rejected.** Six top-bar tabs or a second row of tabs; ranked tables with bars or question cards for the summary;
+a typed-in headline number; "open source" before the licence task; a second font.
+
+**Deviations from the mockups.** No hero search box (quick links instead); "satellite systems" for "navigation
+systems"; Explore pages instead of pre-filtered tracker links (roadmap 3.5).
