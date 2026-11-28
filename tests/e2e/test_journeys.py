@@ -3,7 +3,8 @@ the clock frozen at the sample's download time.
 
 Narrow scope (roadmap 0.5): each journey runs without browser errors (uncaught JS errors, console errors,
 failed or 4xx/5xx requests to the app) and shows the right thing:
-  1. Home opens and "Launch Tracker" leads to the tracker, with its nav link highlighted.
+  1. Home opens and "Open the tracker" leads to the tracker, with its nav link highlighted; the Explore menu,
+     Sources and FAQ lead to their pages (D-059).
   2. The tracker opens on the globe (D-052) and shows as many objects as its panel counts.
   3. Picking one satellite in the search list shows its ground track on the 2D map.
   4. The list view shows the selected satellites, sorted by name.
@@ -65,6 +66,53 @@ def open_tracker(page, base_url):
     wait_for_globe(page)
 
 
+def test_explore_menu_leads_to_each_view_and_back(page, base_url):
+    """D-059 (owner's N2 choice): Overview, Tracker, Explore (a menu), Sources and FAQ. The menu opens each view's
+    page; a home tile's link does too; Sources and FAQ open; nothing in the bar is a dead end."""
+    page.goto(base_url + "/", wait_until="domcontentloaded")
+    expect(page.locator("#home-title")).to_be_visible(timeout=TIMEOUT)
+    for key, heading in (("constellations", "Constellations"), ("systems", "Satellite systems"),
+                         ("operators", "Operators"), ("countries", "Countries"), ("missions", "Missions"),
+                         ("orbits", "Orbits"), ("summary", "Explore the catalogue")):
+        page.locator("#nav-explore").click()
+        page.locator(f"#nav-explore-{key}").click()
+        expect(page.locator(".st-page-title")).to_have_text(heading, timeout=TIMEOUT)
+        expect(page.locator("#nav-explore .dropdown-toggle")).to_have_class(re.compile(r"\bactive\b"))
+    expect(page.locator(".st-tile").first).to_be_visible()
+    page.locator("#nav-home").click()
+    page.locator("#tile-constellations .st-tile-link").click()
+    expect(page).to_have_url(re.compile(r"/explore/constellations$"))
+    expect(page.locator(".st-rank-table tbody tr").first).to_be_visible(timeout=TIMEOUT)
+    page.locator("#nav-faq").click()
+    expect(page.locator(".st-faq")).to_have_count(6)
+    page.locator(".st-faq-q").first.click()
+    expect(page.locator(".st-faq-a").first).to_be_visible()
+    page.locator("#nav-sources").click()
+    expect(page.locator("#sources-caution")).to_be_visible()
+    assert page.errors == []
+
+
+def test_home_and_explore_fit_a_phone(browser, base_url):
+    """No sideways scrolling at phone width; the menu button opens the bar and the Explore menu works in it."""
+    context = browser.new_context(viewport={"width": 390, "height": 844}, has_touch=True, is_mobile=True)
+    context.route(lambda u: not u.startswith("http://127.0.0.1"), lambda route: route.abort())
+    try:
+        pg = context.new_page()
+        errors = []
+        pg.on("pageerror", lambda e: errors.append(str(e)))
+        for path in ("/", "/explore", "/explore/operators", "/faq", "/sources"):
+            pg.goto(base_url + path, wait_until="domcontentloaded")
+            expect(pg.locator(".st-home")).to_be_visible(timeout=TIMEOUT)
+            assert pg.evaluate("document.documentElement.scrollWidth - document.documentElement.clientWidth") <= 1, path
+        pg.locator("#navbar-toggler").tap()
+        pg.locator("#nav-explore").tap()
+        pg.locator("#nav-explore-missions").tap()
+        expect(pg.locator(".st-page-title")).to_have_text("Missions", timeout=TIMEOUT)
+        assert errors == []
+    finally:
+        context.close()
+
+
 def pick_satellite(page, satcat_id):
     """Pick one satellite in the search list (D-052) while the 2D map or list tab is open, where a pick filters to it
     (on the globe a pick selects it instead, roadmap 3.4): type its SATCAT number, click its row, wait for its chip."""
@@ -82,8 +130,8 @@ def start_selection(sample_df, t_ref):
 
 def test_home_leads_to_the_tracker(page, base_url):
     page.goto(base_url + "/", wait_until="domcontentloaded")
-    expect(page.get_by_text("Track Satellites in Real-Time")).to_be_visible(timeout=TIMEOUT)
-    page.get_by_text("Launch Tracker", exact=True).click()
+    expect(page.locator("#home-title")).to_contain_text("tracked objects in Earth orbit.", timeout=TIMEOUT)
+    page.locator("#get-started-button").click()
     expect(page).to_have_url(re.compile(r"/sat_visualisation$"))
     wait_for_globe(page)
     expect(page.locator("#nav-viz")).to_have_class(re.compile(r"\bactive\b"))
@@ -156,7 +204,7 @@ STYLE_PROBE = """() => ({
 })"""
 
 
-@pytest.mark.parametrize("path, ready", [("/", "Track Satellites in Real-Time"), ("/sat_visualisation", None)])
+@pytest.mark.parametrize("path, ready", [("/", "tracked objects in Earth orbit."), ("/sat_visualisation", None)])
 def test_pages_use_only_the_self_hosted_design(page, base_url, path, ready):
     """3.12 (D-044): every stylesheet comes from the app itself (no CDN, no Google Fonts, no Font Awesome), Bootstrap 4
     and the Cyborg theme are gone (Bootstrap 5 defines --bs-breakpoint-xxl; 4 doesn't), and the page body uses the

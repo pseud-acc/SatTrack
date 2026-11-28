@@ -39,6 +39,8 @@ from app.layouts.layout_navbar import create_navbar
 from app.layouts.layout_home import create_dash_layout as create_dash_layout_home
 from app.layouts.layout_sat_visualisations import create_dash_layout as create_dash_layout_sat_visualisations
 from app.layouts.layout_sat_visualisations import lazy_tab_contents
+from app.layouts.layout_pages import create_explore_layout, create_faq_layout, create_sources_layout
+from app.callbacks.callback_navbar import page_for
 
 ## >>>>>>>> Initialize App <<<<<<<<<<<<
 
@@ -101,6 +103,7 @@ app.layout = html.Div([
 app.validation_layout = html.Div([
     app.layout,
     create_dash_layout_home(app),
+    create_explore_layout(), create_sources_layout(), create_faq_layout(),
     create_dash_layout_sat_visualisations(app),
     lazy_tab_contents(),   # the 2D and list tabs' contents, built when opened (callback_tabs)
 ])
@@ -139,11 +142,19 @@ def display_page(pathname):
     Routes:
         / - Home page (landing/welcome)
         /sat_visualisation - Live satellite tracking (3D/2D/Table)
+        /explore, /explore/<view> - the catalogue summary and its views (D-059)
+        /sources, /faq - sources and credits; questions and answers
     """
-    if pathname == '/sat_visualisation':
+    page = page_for(pathname)
+    if page == "tracker":
         return create_dash_layout_sat_visualisations(app)
-    else:
-        return create_dash_layout_home(app)
+    if page == "explore":   # /explore is the summary; /explore/<view> one view (an unknown view shows the summary)
+        return create_explore_layout((pathname or "").rstrip("/").split("/explore/")[-1] if "/explore/" in pathname else None)
+    if page == "sources":
+        return create_sources_layout()
+    if page == "faq":
+        return create_faq_layout()
+    return create_dash_layout_home(app)
 
 
 ## >>>>>>>> Run App <<<<<<<<<<<<

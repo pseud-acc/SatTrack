@@ -42,10 +42,16 @@ def test_every_callback_id_is_in_the_validation_layout(app_module, dependencies)
 
 
 @pytest.mark.parametrize("path, page", [
-    ("/", "home"), ("/sat_visualisation", "viz"), ("/no-such-page", "home"), (None, "home")])
+    ("/", "home"), ("/sat_visualisation", "viz"), ("/no-such-page", "home"), (None, "home"),
+    ("/explore", "explore"), ("/explore/", "explore"), ("/explore/no-such-view", "explore"),
+    ("/explore/systems", "systems"), ("/sources", "sources"), ("/faq", "faq")])
 def test_router_returns_the_right_page(app_module, path, page):
-    expected = {"home": app_module.create_dash_layout_home,
-                "viz": app_module.create_dash_layout_sat_visualisations}[page](app_module.app)
+    expected = {"home": lambda app: app_module.create_dash_layout_home(app),
+                "viz": lambda app: app_module.create_dash_layout_sat_visualisations(app),
+                "explore": lambda app: app_module.create_explore_layout(None),
+                "systems": lambda app: app_module.create_explore_layout("systems"),
+                "sources": lambda app: app_module.create_sources_layout(),
+                "faq": lambda app: app_module.create_faq_layout()}[page](app_module.app)
     def as_json(component):
         return json.dumps(component, cls=plotly.utils.PlotlyJSONEncoder, sort_keys=True)
     assert as_json(app_module.display_page(path)) == as_json(expected)

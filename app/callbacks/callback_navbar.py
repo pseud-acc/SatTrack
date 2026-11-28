@@ -18,6 +18,19 @@ from dash.dependencies import Input, Output, State
 
 
 # Callback wrapper function
+def page_for(pathname):
+    """Which page a path shows (the router in run_app.py uses the same rule): tracker, explore (the summary and its
+    views), sources, faq; anything else is the home page."""
+    path = (pathname or "/").rstrip("/") or "/"
+    if path == "/sat_visualisation":
+        return "tracker"
+    if path == "/explore" or path.startswith("/explore/"):
+        return "explore"
+    if path in ("/sources", "/faq"):
+        return path[1:]
+    return "home"
+
+
 def register(app):
     '''
     Wrapper function that defines navbar callbacks using app instantiation.
@@ -67,6 +80,9 @@ def register(app):
         [
             Output("nav-home", "active"),
             Output("nav-viz", "active"),
+            Output("nav-explore", "toggleClassName"),
+            Output("nav-sources", "active"),
+            Output("nav-faq", "active"),
         ],
         [Input("url", "pathname")],
     )
@@ -78,6 +94,6 @@ def register(app):
 
         @return: (tuple) active state for each nav link (home, viz)
         """
-        if pathname == "/sat_visualisation":
-            return False, True
-        return True, False   # every other path shows the home page
+        page = page_for(pathname)
+        return (page == "home", page == "tracker", "active" if page == "explore" else "", page == "sources",
+                page == "faq")
