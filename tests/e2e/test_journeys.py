@@ -66,7 +66,8 @@ def open_tracker(page, base_url):
 
 
 def pick_satellite(page, satcat_id):
-    """Pick one satellite in the search list (D-052): type its SATCAT number, click its row, wait for its chip."""
+    """Pick one satellite in the search list (D-052) while the 2D map or list tab is open, where a pick filters to it
+    (on the globe a pick selects it instead, roadmap 3.4): type its SATCAT number, click its row, wait for its chip."""
     page.locator("#sat-search-input").fill(str(satcat_id))
     row = page.locator(f'.st-search-row[data-id="{satcat_id}"]')
     expect(row).to_be_visible(timeout=TIMEOUT)
@@ -110,8 +111,8 @@ def test_tracker_opens_on_the_globe_showing_what_the_panel_counts(page, base_url
 def test_one_satellite_shows_its_ground_track(page, base_url, sample_df):
     open_tracker(page, base_url)
     sat = sample_df[(sample_df.Status == START_STATUS) & (sample_df.OrbitClass == "LEO")].iloc[0]
-    pick_satellite(page, sat.SatCatId)
     page.get_by_role("tab", name="2D View").click()
+    pick_satellite(page, sat.SatCatId)
     wait_for_traces(page, PLOT_2D, "lengths.includes(3600)")
     assert sorted(trace_lengths(page, PLOT_2D)) == [1, 3600]   # current position + one period of track
     assert page.errors == []
@@ -206,16 +207,19 @@ def test_open_owner_list_stays_inside_the_panel(page, base_url, sample_df):
 
 def test_search_list_browses_narrows_and_picks(page, base_url):
     """D-052 (owner's option A; browse-first, owner 24 Nov 2026): the list shows satellites without typing, in the
-    search dataset's order; typing narrows it; picking one filters the globe to it and names it on its chip; its
-    chip's x clears the pick and the list starts over."""
+    search dataset's order; typing narrows it. On the 2D map tab, picking one filters to it and names it on its chip;
+    its chip's x clears the pick and the list starts over. (On the globe a pick selects instead: test_selection.py.)"""
     open_tracker(page, base_url)
+    page.get_by_role("tab", name="2D View").click()
     rows = page.locator(".st-search-row")
     # Collapsed until used (owner, 27 Nov 2026); the toggle opens it for browsing
     expect(page.locator("#sat-search-list")).to_be_hidden()
     page.locator(".st-search-toggle").click()
     expect(rows.first).to_be_visible(timeout=TIMEOUT)
     doc = page.evaluate("fetch('/data/search.json').then(r => r.json())")
-    first = [str(r["satcat_id"]) for r in doc["records"][:5]]
+    # browsing lists what the filters show, in the list's order (roadmap 3.4, owner's option 3)
+    matched = set(page.evaluate("[...window.sattrackViewer.matchedIds()]"))
+    first = [str(r["satcat_id"]) for r in doc["records"] if r["satcat_id"] in matched][:5]
     assert [rows.nth(i).get_attribute("data-id") for i in range(5)] == first, "browsing starts in the list's order"
     target = next(r for r in doc["records"] if r["object_type"] == "PAYLOAD" and r["operational_status"] == "Active")
     page.locator("#sat-search-input").fill(target["object_name"][:6])

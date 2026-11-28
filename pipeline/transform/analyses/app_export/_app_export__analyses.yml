@@ -23,6 +23,17 @@ analyses:
       space station group (D-043), credited in the envelope's attribution.
       scripts/export_app_csvs.py wraps it in the dataset envelope and validates every record against
       app/contracts/objects.schema.json.
+  - name: app__object_detail
+    description: >-
+      The object_detail dataset for the browser (object_detail.json.br / .gz; docs/app-data-contract.md, decisions
+      D-010 and D-054): what the globe's selection panel shows beyond the objects dataset (roadmap 3.4), one record
+      per object in the objects dataset (same scope, same keys), keyed by satcat_id, with the marts' own column
+      names: organisations with their roles (owners, operator, manufacturers, launch agencies), launch (date with
+      its GCAT precision, site, vehicle), status detail (still operating / transmitting, end dates with precision),
+      physical facts (mass, dry mass, span, radar size) and where each came from (the *_source columns, uncertainty
+      flags, gcat_updated_at). From fct__satellite_master (enrichment, left join), scoped by fct__gp_elements.
+      Gaps stay null; lists are always lists. scripts/export_app_csvs.py wraps it in the dataset envelope and
+      validates every record against app/contracts/object_detail.schema.json.
   - name: app__last_data_update
     description: >-
       last_data_update.csv for the app: Source, Last Download, Last Update (dd/mm/YYYY, HH:MM:SS); rows SpaceTrack_GP

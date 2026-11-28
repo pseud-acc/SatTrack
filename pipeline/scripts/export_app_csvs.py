@@ -17,7 +17,8 @@ Only when every file passes are the temp files renamed over the published ones (
 manifest.json (file, rows, sha256, generated_at, run id, as-of dates). On any failure nothing is replaced, so the
 last good files stay in place.
 
-Output: DATA_DIR/app/: satcat_tle.csv, last_data_update.csv, objects.json.br, objects.json.gz, manifest.json.
+Output: DATA_DIR/app/: satcat_tle.csv, last_data_update.csv, objects.json.{br,gz}, object_detail.json.{br,gz},
+manifest.json.
 
 Why read the analyses directly rather than `dbt compile`: the only Jinja allowed is ref(), which resolves to a
 table in the live DB, so no dbt run (and no project-wide parse) is needed at export time. `dbt parse` still sees
@@ -58,6 +59,7 @@ CONTRACTS_DIR = ROOT.parent / "app" / "contracts"   # JSON Schemas of the datase
 # meaning); min_records: a sanity floor like MIN_SATELLITE_ROWS.
 DATASETS = {
     "objects": {"schema": 2, "key": "satcat_id", "min_records": MIN_SATELLITE_ROWS},   # 2: D-047
+    "object_detail": {"schema": 1, "key": "satcat_id", "min_records": MIN_SATELLITE_ROWS},   # 3.4, D-054
 }
 # Carried in every dataset's header (CLAUDE.md: public outputs with Space-Track fields cite the source and keep the
 # caution; GCAT is CC BY; CelesTrak's group lists are credited wherever shown, D-026).

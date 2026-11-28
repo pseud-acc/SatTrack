@@ -21,6 +21,11 @@ A small fixed sample of the pipeline's app files, used to run the app without AW
   `primary_satellite_system_name` and `satellite_system_names`, filled from a dev build of the 21 Nov warehouse with
   CelesTrak fetch run 45061938995 (32 records with a constellation, 56 with a system); nothing else changed.
 
+- `object_detail.json.br`, `object_detail.json.gz`: the selection panel's dataset (roadmap 3.4, D-054), cut from the
+  28 Nov 2026 export (`run_2026-11-27T203808Z`) for the objects sample's satcat_ids: 380 records, as 4 sample
+  objects (28361, 40350, 59228, 66586) had left the GP feed by then, which keeps the panel's "no details" path
+  covered. Built with the export's envelope, contract validation and compression.
+
 CI's Heroku build check (`.github/scripts/heroku_build_check.sh`) starts the app with
 `SATTRACK_APP_DATA_DIR` pointing here. For a local run without S3:
 
