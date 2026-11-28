@@ -32,7 +32,7 @@ sys.path.append("../../")
 # helper scripts
 from app.helper.helper__plot_display import (create_2d_layout, create_2d_figure)
 from app.helper.helper__table_display import create_table_mapping
-from app.helper.helper__app_data import create_data_filters
+from app.helper.helper__app_data import create_data_filters, group_options
 from app.helper.helper__satellite_position import satrec_sources, satrecs_for
 from app.core import filter_spec
 from app.core.search_index import search_dataset
@@ -192,6 +192,7 @@ def initialise_app_data():
         print(f" - FATAL: {exc}", flush=True)
         raise
     filter_table = filter_spec.table_from_records(objects_doc["records"])
+    options.update(group_options(filter_table))   # constellations and satellite systems (roadmap 3.14)
     # The satellite search list (D-052), from the same parse: served at /data/search.json, fetched by the page
     datasets["search"] = _dataset_entry("search", search_dataset(objects_doc))
     print(f" - Search list: {len(objects_doc['records']):,} objects, "

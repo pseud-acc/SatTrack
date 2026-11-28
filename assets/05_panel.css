@@ -169,6 +169,8 @@
 .st-row[open] .st-row-chevron { transform: rotate(180deg); }
 .st-row-body { padding: 0 0 var(--st-3); }
 .st-row-body .st-adv-dropdown { margin-bottom: 0; }
+.st-row-note { margin: var(--st-1) 0 0; color: var(--st-muted); font-size: var(--st-fs-xs); line-height: 1.4; }
+.st-system-primary { margin: var(--st-2) 0 0; font-size: var(--st-fs-sm); }
 
 /* ---- Active-filter chips and Clear all (roadmap 3.3b) ------------------------------------------------------------ */
 .st-chips-head { display: flex; align-items: center; justify-content: space-between; }

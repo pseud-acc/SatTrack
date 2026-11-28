@@ -43,7 +43,9 @@ const FIELDS = ["satcat_id", "object_name", "object_id", "object_type", "operati
                 "launch_vehicle_brand", "mission_category_labels", "launch_year",
                 // the selection panel's headline (roadmap 3.4)
                 "epoch", "orbital_period", "inclination", "eccentricity", "satellite_constellation_name",
-                "primary_satellite_system_name", "flag_space_station"];
+                "primary_satellite_system_name", "flag_space_station",
+                // the constellation and system filters (roadmap 3.14)
+                "satellite_system_names"];
 const TRACK_POINTS = 180;
 let engine = null, spec = null, rows = null, types = null, mask = null, pinned = null, sat = null, satrecs = null;
 let detailUrl = null, details = null;
