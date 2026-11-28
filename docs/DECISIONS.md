@@ -931,3 +931,18 @@ memory flat; a per-object route would make each worker hold ~33k parsed records.
 **Rejected.** A per-object route; comparisons ("as heavy as 3 cars"); the full card at once on phones; an unlabelled
 "Clear"-only control; the search list following the filters strictly; type buttons inside the search; junk first in
 junk mode.
+
+## D-055 The selection card's sections open on their own, and the tracker has a full-screen mode
+**Status:** Accepted, 2026-11-28 (owner). Updates D-054. Record:
+[D-055](decisions/D-055-card-sections-and-full-screen.md).
+
+**Decision.** The card's sections (Identity, Organisations, Launch, Orbit, Physical, Status, Group) each open on
+their own, and the browser remembers which a visitor keeps open. A description line under the name, built only from
+the data ("Active satellite · Communications · SpaceX"; "Rocket body · launched 2018"). A "Full screen" button makes
+the tracker fill the window (and the screen where allowed), with the filter panel as a drawer; Esc leaves it.
+
+**Why.** Scan headings and open only what's needed; the globe boxed inside the page on a laptop (owner's comparison
+with KeepTrack, 28 Nov 2026).
+
+**Rejected.** One "More details" (all or nothing); summary lines per section (busier); a separate full-screen page; a
+hand-made phrase per GCAT mission category.

@@ -17,6 +17,9 @@
 // - Selecting one object (roadmap 3.4): static/viewer/selection.js, loaded alongside Cesium. A click or tap on a dot,
 //   a search pick or a shared link (#v=1&sat=25544, D-024) selects it; the selected object is always propagated, even
 //   when the filters hide it ("pinned").
+// - Full screen (owner, 28 Nov 2026): a button on the globe makes the tracker fill the window (and the screen, where
+//   the browser allows it), with the filter panel as a drawer opened from a "Filters" button; the button or Esc
+//   leaves it. The page's layout is changed only by a class on <body>; nothing is moved in the DOM.
 // - window.sattrackViewer exposes state and timings for the browser tests (parity and the D-027 budget).
 
 const TYPES = ["PAYLOAD", "ROCKET BODY", "DEBRIS", "UNKNOWN"];
@@ -472,8 +475,66 @@ class Viewer {
       line.append(document.createTextNode(before), link, document.createTextNode(after));
       credits.append(line);
     }
-    panel.append(this.statusEl, this.hintEl);
+    // Full screen and, while in it, the filter drawer
+    const tools = el("div", "sattrack-viewer-tools");
+    const full = this.fullEl = el("button", "sattrack-viewer-tool", "⛶ Full screen");
+    full.type = "button"; full.id = "sattrack-fullscreen"; full.setAttribute("aria-pressed", "false");
+    full.addEventListener("click", () => this.setFullWindow(!document.body.classList.contains("st-fullwindow")));
+    const filters = this.filtersEl = el("button", "sattrack-viewer-tool sattrack-viewer-filters", "Filters");
+    filters.type = "button"; filters.id = "sattrack-filters-drawer"; filters.setAttribute("aria-expanded", "false");
+    filters.addEventListener("click", () => this.setFilterDrawer(!document.body.classList.contains("st-filters-open")));
+    tools.append(full, filters);
+    panel.append(this.statusEl, this.hintEl, tools);
     this.container.append(panel, credits);
+    this.onKey = (e) => {
+      if (e.key !== "Escape" || !document.body.classList.contains("st-fullwindow")) return;
+      if (document.body.classList.contains("st-filters-open")) this.setFilterDrawer(false);
+      else this.setFullWindow(false);
+    };
+    document.addEventListener("keydown", this.onKey);
+    // Leaving the browser's full screen (Esc, F11, the browser's own control) leaves the full window too
+    this.onFullscreen = () => { if (!document.fullscreenElement && this.usedFullscreen) this.setFullWindow(false); };
+    document.addEventListener("fullscreenchange", this.onFullscreen);
+  }
+
+  setFullWindow(on) {
+    const body = document.body;
+    body.classList.toggle("st-fullwindow", on);
+    if (!on) this.setFilterDrawer(false);
+    this.fullEl.textContent = on ? "⤡ Exit full screen" : "⛶ Full screen";
+    this.fullEl.setAttribute("aria-pressed", String(on));
+    S.fullWindow = on;
+    // The browser's own full screen where it's allowed (not on iPhones); the full window works without it
+    try {
+      if (on && document.documentElement.requestFullscreen && !document.fullscreenElement) {
+        this.usedFullscreen = true;
+        document.documentElement.requestFullscreen().catch(() => { this.usedFullscreen = false; });
+      } else if (!on && document.fullscreenElement) {
+        this.usedFullscreen = false;
+        document.exitFullscreen().catch(() => {});
+      }
+    } catch (e) { this.usedFullscreen = false; }
+    // Cesium resizes its canvas on its next frame; ask for one once the layout has settled
+    setTimeout(() => { if (this.widget && !this.widget.isDestroyed()) this.widget.scene.requestRender(); }, 60);
+  }
+
+  // The drawer opens below the globe's status box (so its buttons stay reachable), unfolded: on phones the panel's
+  // own fold (#toggle-filters) and on wider screens its strip (#panel-strip-toggle) are opened for it.
+  setFilterDrawer(open) {
+    if (open) {
+      const box = this.container.querySelector(".sattrack-viewer-panel");
+      const top = box ? Math.round(box.getBoundingClientRect().bottom + 8) : 120;
+      document.body.style.setProperty("--st-drawer-top", `${top}px`);
+    }
+    document.body.classList.toggle("st-filters-open", open);
+    if (open) {
+      const collapse = document.getElementById("filter-collapse"), fold = document.getElementById("toggle-filters");
+      if (collapse && collapse.offsetHeight === 0 && fold && fold.offsetParent !== null) fold.click();
+      const row = document.querySelector(".st-tracker-row.st-panel-folded"), strip = document.getElementById("panel-strip-toggle");
+      if (row && strip) strip.click();
+    }
+    if (this.filtersEl) this.filtersEl.setAttribute("aria-expanded", String(open));
+    S.filterDrawer = open;
   }
 
   updateStatus() {
@@ -492,6 +553,9 @@ class Viewer {
     this.destroyed = true;
     clearInterval(this.controller); clearInterval(this.statusTimer);
     if (this.selection) this.selection.destroy();
+    document.removeEventListener("keydown", this.onKey);
+    document.removeEventListener("fullscreenchange", this.onFullscreen);
+    document.body.classList.remove("st-fullwindow", "st-filters-open");
     if (this.handler && !this.handler.isDestroyed()) this.handler.destroy();
     if (this.worker) this.worker.terminate();
     if (this.widget && !this.widget.isDestroyed()) this.widget.destroy();

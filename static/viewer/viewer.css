@@ -88,9 +88,19 @@
 }
 .sattrack-select-toggle[aria-pressed="true"] { background: var(--st-accent-soft); border-color: var(--st-accent); }
 .sattrack-select-toggle:hover, .sattrack-select-copy:hover { background: var(--st-hover); }
-.sattrack-select-more summary { cursor: pointer; color: var(--st-accent-hi); }
-.sattrack-select-section { margin-top: var(--st-3); }
-.sattrack-select-section h3 { margin: 0 0 var(--st-1); font-size: var(--st-fs-sm); font-weight: 600; }
+/* Sections that open on their own (owner's C2) */
+.sattrack-select-section { border-top: 1px solid var(--st-line); }
+.sattrack-select-section summary { cursor: pointer; padding: var(--st-2) 0; list-style: none; display: flex;
+  align-items: center; gap: var(--st-2); }
+.sattrack-select-section summary::-webkit-details-marker { display: none; }
+.sattrack-select-section summary::before { content: "▸"; color: var(--st-accent-hi); width: 1em; }
+.sattrack-select-section[open] summary::before { content: "▾"; }
+.sattrack-select-section summary:focus-visible { outline: 2px solid var(--st-accent-hi); outline-offset: 2px; }
+.sattrack-select-section > dl, .sattrack-select-section > .sattrack-select-source { margin-left: 1.5em; }
+.sattrack-select-section[open] { padding-bottom: var(--st-2); }
+.sattrack-select-desc { margin-top: 2px; color: var(--st-fg); font-size: var(--st-fs-sm); }
+.sattrack-select-status:empty { display: none; }
+.sattrack-select-section h3 { margin: 0; font-size: var(--st-fs-sm); font-weight: 600; }
 .sattrack-select-source { margin-top: var(--st-1); color: var(--st-faint); font-size: var(--st-fs-xs); }
 .sattrack-select-note:empty { display: none; }
 .sattrack-select-note { margin-top: var(--st-2); color: var(--st-muted); font-size: var(--st-fs-xs); }
@@ -107,7 +117,7 @@
   .sattrack-select.is-card:not(.is-expanded) { overflow: hidden; }
   .sattrack-select.is-card:not(.is-expanded) .sattrack-select-facts,
   .sattrack-select.is-card:not(.is-expanded) .sattrack-select-actions,
-  .sattrack-select.is-card:not(.is-expanded) .sattrack-select-more,
+  .sattrack-select.is-card:not(.is-expanded) .sattrack-select-sections,
   .sattrack-select.is-card:not(.is-expanded) .sattrack-select-note { display: none; }
   .sattrack-select.is-card .sattrack-select-status { margin: 0; font-size: var(--st-fs-xs); }
   .sattrack-select-pill { left: 50%; right: auto; transform: translateX(-50%); bottom: 30px; }
@@ -137,3 +147,37 @@
   .sattrack-select.is-card:not(.is-expanded) { touch-action: none; }
   .sattrack-select.is-card.is-expanded .sattrack-select-peek-live { visibility: hidden; }   /* listed below */
 }
+
+/* Full screen (owner, 28 Nov 2026): the tracker fills the window; the filter panel becomes a drawer over the globe.
+   Only classes on <body> (st-fullwindow, st-filters-open) change; the page keeps its DOM. */
+.sattrack-viewer-tools { display: flex; flex-wrap: wrap; gap: var(--st-1); margin-top: var(--st-1); }
+.sattrack-viewer-tool {
+  min-height: 28px; padding: 2px var(--st-2); border: 1px solid var(--st-line); border-radius: 6px;
+  background: var(--st-control); color: var(--st-fg); font-size: var(--st-fs-xs);
+}
+.sattrack-viewer-tool:hover, .sattrack-viewer-tool:focus-visible { background: var(--st-hover); }
+.sattrack-viewer-tool[aria-pressed="true"], .sattrack-viewer-tool[aria-expanded="true"] {
+  background: var(--st-accent-soft); border-color: var(--st-accent);
+}
+.sattrack-viewer-filters { display: none; }
+body.st-fullwindow { overflow: hidden; }
+body.st-fullwindow .sattrack-viewer-filters { display: inline-block; }
+body.st-fullwindow .st-viz-col {
+  position: fixed; inset: 0; z-index: 1040; max-width: none; width: 100%; margin: 0;
+  padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px)
+           env(safe-area-inset-left, 0px);
+  background: var(--st-bg);
+}
+body.st-fullwindow .st-viz-col > .card { height: 100%; border: 0; border-radius: 0; box-shadow: none; }
+body.st-fullwindow .st-viz-col > .card > .card-body { padding: 0 !important; height: 100%; }
+body.st-fullwindow .st-viz-tabs.nav-tabs { padding: 0 var(--st-2); }
+body.st-fullwindow #globe {
+  height: calc(100dvh - 44px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)); min-height: 0;
+}
+body.st-fullwindow .st-panel-col {
+  display: none; position: fixed; z-index: 1050; top: var(--st-drawer-top, calc(52px + env(safe-area-inset-top, 0px)));
+  left: max(8px, env(safe-area-inset-left, 0px)); width: min(340px, calc(100% - 16px)); max-width: none;
+  max-height: calc(100dvh - var(--st-drawer-top, 120px) - 40px); overflow-y: auto; border-radius: var(--st-r);
+  border: 1px solid var(--st-line);   /* set apart from the globe by the panel colour and a line (tokens only) */
+}
+body.st-fullwindow.st-filters-open .st-panel-col { display: block; }

@@ -61,17 +61,32 @@ def test_click_selects_and_the_panel_shows_the_headline_and_sources(page, viewer
     panel = page.locator("#sattrack-select")
     expect(panel).to_be_visible()
     expect(panel.locator(".sattrack-select-name")).to_have_text(rec["object_name"])
-    expect(panel.locator(".sattrack-select-status")).to_contain_text(rec["operational_status"])
+    # the one-line description (owner's C2): status and kind, GCAT's first mission category as written, who runs it
+    kind = {"PAYLOAD": "satellite", "ROCKET BODY": "Rocket body", "DEBRIS": "Debris"}[rec["object_type"]]
+    expect(panel.locator(".sattrack-select-desc")).to_contain_text(kind)
+    if rec["object_type"] == "PAYLOAD":
+        expect(panel.locator(".sattrack-select-desc")).to_contain_text(rec["operational_status"])
+        if rec["mission_category_labels"]:
+            expect(panel.locator(".sattrack-select-desc")).to_contain_text(rec["mission_category_labels"][0])
     if det["owner_org_names"]:
         expect(panel.locator(".sattrack-select-facts")).to_contain_text(det["owner_org_names"][0])
-    # More details: the sections, each with its source line
-    panel.locator("#sattrack-select-more summary").click()
+    # The sections open on their own, each with its source line; the browser remembers which are open
     sections = page.evaluate("window.sattrackViewer.selectionSections")
     assert {"Identity", "Orbit"} <= set(sections)
-    expect(panel.locator(".sattrack-select-section").filter(has_text="Orbit")).to_contain_text("USSPACECOM via Space-Track.org")
-    expect(panel.locator(".sattrack-select-sections")).to_contain_text(f"{satcat_id}")
+    orbit = panel.locator("#sattrack-select-sec-orbit")
+    expect(orbit.locator("dl")).to_be_hidden()
+    orbit.locator("summary").click()
+    expect(orbit).to_contain_text("USSPACECOM via Space-Track.org")
+    panel.locator("#sattrack-select-sec-identity summary").click()
+    expect(panel.locator("#sattrack-select-sec-identity")).to_contain_text(f"{satcat_id}")
     if det["gcat_updated_at"]:
-        expect(panel.locator(".sattrack-select-sections")).to_contain_text("GCAT (J. McDowell")
+        expect(panel.locator("#sattrack-select-sec-identity")).to_contain_text("GCAT (J. McDowell")
+    # the browser records a section's toggle a moment after the click
+    wait_until(page, "() => (JSON.parse(localStorage.getItem('sattrack-open-sections')) || []).length === 2")
+    assert set(page.evaluate("JSON.parse(localStorage.getItem('sattrack-open-sections'))")) == {"Orbit", "Identity"}
+    page.evaluate("window.sattrackViewer.clearSelection()")
+    page.evaluate(f"window.sattrackViewer.selectSatcat({satcat_id})")
+    expect(panel.locator("#sattrack-select-sec-orbit")).to_have_attribute("open", "")   # remembered
     # the hash carries the selection (D-024)
     assert page.evaluate("location.hash") == f"#v=1&sat={satcat_id}"
     # the ring and label sit on the dot
@@ -326,7 +341,7 @@ def test_on_phones_a_small_card_that_expands_drags_and_keeps_its_top_in_view(bro
         pg.locator("#sattrack-select-expand").tap()
         expect(pg.locator(".sattrack-select-facts")).to_be_visible()
         expect(pg.locator(".sattrack-select-facts")).to_contain_text("Low Earth orbit (LEO)")
-        pg.locator("#sattrack-select-more summary").tap()
+        pg.locator("#sattrack-select-sec-orbit summary").tap()
         pg.evaluate("const p = document.getElementById('sattrack-select'); p.scrollTop = p.scrollHeight")
         assert abs(pg.locator(".sattrack-select-top").bounding_box()["y"] - panel.bounding_box()["y"]) < 3
         pg.evaluate("document.getElementById('sattrack-select').scrollTop = 0")
@@ -353,7 +368,7 @@ PANEL_CONTROLS = {
     "sattrack-select-follow": "test_toggles_draw_the_orbit_and_ground_track_and_follow_moves_the_camera",
     "sattrack-select-link": "test_link_and_cite_copy_text",
     "sattrack-select-cite": "test_link_and_cite_copy_text",
-    "sattrack-select-more": "test_click_selects_and_the_panel_shows_the_headline_and_sources",
+    "sattrack-select-sections": "test_click_selects_and_the_panel_shows_the_headline_and_sources",   # each section
 }
 OTHER_CONTROLS = {
     "sattrack-select-pill": "test_minimise_keeps_the_selection_and_the_pill_brings_it_back",
@@ -369,6 +384,51 @@ def test_every_panel_control_has_an_effect_check(page, base_url):
     page.evaluate(f"window.sattrackViewer.selectSatcat({sid})")
     expect(page.locator("#sattrack-select")).to_be_visible()
     seen = set(page.evaluate("""() => [...document.querySelectorAll('#sattrack-select button, #sattrack-select details')]
-        .filter(e => e.getBoundingClientRect().width > 0).map(e => e.id)"""))
+        .filter(e => e.getBoundingClientRect().width > 0)
+        .map(e => e.id.startsWith('sattrack-select-sec-') ? 'sattrack-select-sections' : e.id)"""))
     assert seen == set(PANEL_CONTROLS)
     assert all(name in globals() for name in {**PANEL_CONTROLS, **OTHER_CONTROLS}.values())
+
+
+def test_full_screen_fills_the_window_with_a_filter_drawer(page, viewer_url):
+    """Owner, 28 Nov 2026: Full screen makes the tracker fill the window; Filters opens the panel as a drawer below the
+    globe's status box, and its controls still drive the globe; Esc closes the drawer, then leaves full screen."""
+    open_viewer(page, viewer_url)
+    vp = page.viewport_size
+    expect(page.locator("#sattrack-filters-drawer")).to_be_hidden()        # only offered in full screen
+    page.locator("#sattrack-fullscreen").click()
+    expect(page.locator("#sattrack-fullscreen")).to_have_attribute("aria-pressed", "true")
+    page.wait_for_timeout(500)
+    globe = page.locator("#globe").bounding_box()
+    assert globe["width"] >= vp["width"] - 2 and globe["height"] >= vp["height"] - 60
+    expect(page.locator(".st-panel-col")).to_be_hidden()
+    page.locator("#sattrack-filters-drawer").click()
+    drawer = page.locator(".st-panel-col")
+    expect(drawer).to_be_visible()
+    status = page.locator(".sattrack-viewer-panel").bounding_box()
+    assert drawer.bounding_box()["y"] >= status["y"] + status["height"]   # the status box's buttons stay reachable
+    changes = page.evaluate("window.sattrackViewer.filterChanges")
+    drawer.locator("#type-filter-checkbox").get_by_text("Debris", exact=True).click()
+    wait_until(page, f"() => window.sattrackViewer.filterChanges > {changes}")
+    page.keyboard.press("Escape")
+    expect(drawer).to_be_hidden()
+    assert page.evaluate("window.sattrackViewer.fullWindow") is True
+    page.keyboard.press("Escape")
+    assert page.evaluate("window.sattrackViewer.fullWindow") is False
+    expect(page.locator(".st-panel-col")).to_be_visible()
+    page.locator("#sattrack-fullscreen").click()
+    page.locator("#sattrack-fullscreen").click()                           # the button leaves it too
+    assert page.evaluate("window.sattrackViewer.fullWindow") is False
+    assert page.errors == []
+
+
+def test_full_screen_on_a_phone_opens_the_drawer_unfolded(browser, viewer_url):
+    context, pg = phone(browser)
+    try:
+        open_viewer(pg, viewer_url)
+        pg.locator("#sattrack-fullscreen").tap()
+        pg.locator("#sattrack-filters-drawer").tap()
+        expect(pg.locator("#type-filter-checkbox")).to_be_visible()     # the panel's own fold opened for it
+        assert pg.errors == []
+    finally:
+        context.close()
