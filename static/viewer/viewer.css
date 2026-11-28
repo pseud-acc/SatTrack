@@ -178,6 +178,21 @@ body.st-fullwindow .st-panel-col {
   display: none; position: fixed; z-index: 1050; top: var(--st-drawer-top, calc(52px + env(safe-area-inset-top, 0px)));
   left: max(8px, env(safe-area-inset-left, 0px)); width: min(340px, calc(100% - 16px)); max-width: none;
   max-height: calc(100dvh - var(--st-drawer-top, 120px) - 40px); overflow-y: auto; border-radius: var(--st-r);
-  border: 1px solid var(--st-line);   /* set apart from the globe by the panel colour and a line (tokens only) */
 }
+/* the panel's own card is the drawer's only box (owner, 28 Nov 2026: no second border, no gap under it) */
+body.st-fullwindow .st-panel-col > .st-panel { margin-bottom: 0 !important; }
+body.st-fullwindow .st-panel-head { top: 0; }   /* the drawer scrolls on its own: no top bar above it */
 body.st-fullwindow.st-filters-open .st-panel-col { display: block; }
+
+/* Zoom in and out (owner, 28 Nov 2026): a small stack on the globe's left edge */
+.sattrack-viewer-zoom {
+  position: absolute; z-index: 3; left: max(8px, env(safe-area-inset-left, 0px)); top: 50%;
+  transform: translateY(-50%); display: flex; flex-direction: column;
+  border: 1px solid var(--st-line); border-radius: 6px; overflow: hidden; background: var(--st-overlay);
+}
+.sattrack-viewer-zoom-btn {
+  width: 36px; height: 36px; border: 0; background: transparent; color: var(--st-fg); font-size: 20px; line-height: 1;
+}
+.sattrack-viewer-zoom-btn + .sattrack-viewer-zoom-btn { border-top: 1px solid var(--st-line); }
+.sattrack-viewer-zoom-btn:hover { background: var(--st-hover); }
+.sattrack-viewer-zoom-btn:focus-visible { outline: 2px solid var(--st-accent-hi); outline-offset: -2px; }

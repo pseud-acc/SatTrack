@@ -483,9 +483,23 @@ class Viewer {
     const filters = this.filtersEl = el("button", "sattrack-viewer-tool sattrack-viewer-filters", "Filters");
     filters.type = "button"; filters.id = "sattrack-filters-drawer"; filters.setAttribute("aria-expanded", "false");
     filters.addEventListener("click", () => this.setFilterDrawer(!document.body.classList.contains("st-filters-open")));
-    tools.append(full, filters);
+    // Reset view (owner, 28 Nov 2026): back to the whole-Earth view the globe opens on; stops Follow, keeps the
+    // selection. The filters have their own "Clear all".
+    const reset = el("button", "sattrack-viewer-tool", "⌂ Reset view");
+    reset.type = "button"; reset.id = "sattrack-reset-view";
+    reset.addEventListener("click", () => this.resetView());
+    tools.append(reset, full, filters);
     panel.append(this.statusEl, this.hintEl, tools);
-    this.container.append(panel, credits);
+    // Zoom in and out (owner, 28 Nov 2026): on the left edge, clear of the side panel, the phone card and the pill
+    const zoom = el("div", "sattrack-viewer-zoom");
+    zoom.setAttribute("role", "group"); zoom.setAttribute("aria-label", "Zoom");
+    for (const [id, text, label, dir] of [["sattrack-zoom-in", "+", "Zoom in", 1], ["sattrack-zoom-out", "−", "Zoom out", -1]]) {
+      const b = el("button", "sattrack-viewer-zoom-btn", text);
+      b.type = "button"; b.id = id; b.setAttribute("aria-label", label); b.title = label;
+      b.addEventListener("click", () => this.zoom(dir));
+      zoom.append(b);
+    }
+    this.container.append(panel, zoom, credits);
     this.onKey = (e) => {
       if (e.key !== "Escape" || !document.body.classList.contains("st-fullwindow")) return;
       if (document.body.classList.contains("st-filters-open")) this.setFilterDrawer(false);
@@ -500,6 +514,24 @@ class Viewer {
       else if (document.fullscreenElement && !inFull) document.exitFullscreen().catch(() => {});
     };
     document.addEventListener("fullscreenchange", this.onFullscreen);
+  }
+
+  // One press moves the camera 40% of its height in or out, so a step feels the same near and far
+  zoom(dir) {
+    if (!this.widget) return;
+    const camera = this.widget.scene.camera;
+    const h = Math.max(camera.positionCartographic.height, 1000);
+    if (dir > 0) camera.zoomIn(h * 0.4); else camera.zoomOut(h * 0.4 / 0.6);
+    this.widget.scene.requestRender();
+  }
+
+  resetView() {
+    if (!this.widget) return;
+    if (this.selection && this.selection.toggles.follow) this.selection.toggle("follow");
+    const camera = this.widget.scene.camera;
+    camera.lookAtTransform(this.Cesium.Matrix4.IDENTITY);
+    camera.flyHome(1);
+    S.viewResets = (S.viewResets || 0) + 1;
   }
 
   setFullWindow(on) {
@@ -585,6 +617,8 @@ S.matchedIds = () => {
   for (let i = 0; i < current.mask.length; i++) if (current.mask[i]) out.add(current.ids[i]);
   return out;
 };
+// The camera's height above the ellipsoid (m), for the browser tests (Reset view)
+S.cameraHeight = () => (current && current.widget ? current.widget.scene.camera.positionCartographic.height : null);
 S.shownIds = () => {
   if (!current || !current.handles) return [];
   // the pinned selection counts as shown when it's drawn, though the filters hide it (roadmap 3.4)

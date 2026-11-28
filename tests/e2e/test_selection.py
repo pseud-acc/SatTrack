@@ -433,6 +433,66 @@ def test_full_screen_on_a_phone_opens_the_drawer_unfolded(browser, viewer_url):
         pg.locator("#sattrack-fullscreen").tap()
         pg.locator("#sattrack-filters-drawer").tap()
         expect(pg.locator("#type-filter-checkbox")).to_be_visible()     # the panel's own fold opened for it
+        # one box only (no second border, no gap under the card), and "Filters" with its fold button stays at the
+        # top while the drawer scrolls (owner, 28 Nov 2026)
+        assert pg.evaluate("getComputedStyle(document.querySelector('.st-panel-col')).borderTopWidth") == "0px"
+        assert pg.evaluate("getComputedStyle(document.querySelector('.st-panel')).marginBottom") == "0px"
+        pg.evaluate("document.querySelector('.st-panel-col').scrollTop = 400")
+        head, col = pg.locator(".st-panel-head").bounding_box(), pg.locator(".st-panel-col").bounding_box()
+        assert abs(head["y"] - col["y"]) < 3
+        expect(pg.locator("#toggle-filters")).to_be_visible()
         assert pg.errors == []
     finally:
         context.close()
+
+
+def test_reset_view_returns_to_the_whole_earth_and_stops_follow(page, viewer_url):
+    """Owner, 28 Nov 2026: Reset view flies back to the opening view; Follow stops; the selection stays."""
+    open_viewer(page, viewer_url)
+    start = page.evaluate("window.sattrackViewer.cameraHeight()")
+    shown = set(page.evaluate("window.sattrackViewer.shownIds()"))
+    satcat_id = next(r["satcat_id"] for r in sample_records()["records"]
+                     if r["satcat_id"] in shown and r["orbit_class"] == "LEO")     # following it brings the camera in
+    page.evaluate(f"window.sattrackViewer.selectSatcat({satcat_id})")
+    wait_until(page, "() => window.sattrackViewer.selection && window.sattrackViewer.selection.live")
+    page.locator("#sattrack-select-follow").click()
+    page.wait_for_timeout(500)
+    assert page.evaluate("window.sattrackViewer.cameraHeight()") < start / 2      # follow moved in close
+    page.locator("#sattrack-reset-view").click()
+    wait_until(page, f"() => Math.abs(window.sattrackViewer.cameraHeight() - {start}) < {start} * 0.05")
+    assert page.evaluate("window.sattrackViewer.selection.toggles.follow") is False
+    expect(page.locator("#sattrack-select-follow")).to_have_attribute("aria-pressed", "false")
+    assert page.evaluate("window.sattrackViewer.selection.satcat_id") == satcat_id
+    assert page.errors == []
+
+
+def test_zoom_buttons_move_the_camera_in_and_out(page, viewer_url):
+    """Owner, 28 Nov 2026: + and - zoom by 40% of the camera's height per press (in, then back out)."""
+    open_viewer(page, viewer_url)
+    start = page.evaluate("window.sattrackViewer.cameraHeight()")
+    page.locator("#sattrack-zoom-in").click()
+    wait_until(page, f"() => Math.abs(window.sattrackViewer.cameraHeight() - {start * 0.6}) < {start * 0.02}")
+    page.locator("#sattrack-zoom-out").click()
+    wait_until(page, f"() => Math.abs(window.sattrackViewer.cameraHeight() - {start}) < {start * 0.02}")
+    expect(page.locator("#sattrack-zoom-in")).to_have_attribute("aria-label", "Zoom in")
+    assert page.errors == []
+
+
+# The globe's own controls and the test that checks each (no dead controls in production)
+GLOBE_CONTROLS = {
+    "sattrack-zoom-in": "test_zoom_buttons_move_the_camera_in_and_out",
+    "sattrack-zoom-out": "test_zoom_buttons_move_the_camera_in_and_out",
+    "sattrack-reset-view": "test_reset_view_returns_to_the_whole_earth_and_stops_follow",
+    "sattrack-fullscreen": "test_full_screen_fills_the_window_with_a_filter_drawer",
+}
+
+
+def test_every_globe_control_has_an_effect_check(page, base_url):
+    """Run as production does: every button on the globe outside the selection panel is listed above with its test
+    (the Filters drawer button shows only in full screen and is checked by the full-screen test)."""
+    open_viewer(page, base_url)
+    seen = set(page.evaluate("""() => [...document.querySelectorAll('#globe button')]
+        .filter(e => !e.closest('#sattrack-select') && e.id !== 'sattrack-select-pill' && e.getBoundingClientRect().width > 0)
+        .map(e => e.id)"""))
+    assert seen == set(GLOBE_CONTROLS)
+    assert all(name in globals() for name in GLOBE_CONTROLS.values())

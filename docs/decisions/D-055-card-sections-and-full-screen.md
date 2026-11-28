@@ -33,6 +33,12 @@ Design options: https://claude.ai/artifact/PbPynq3FcJVUCWxEg5pfyN (C1 to C3).
   is allowed (not on iPhones). A "Filters" button then opens the filter panel as a drawer below the status box,
   unfolded. Esc closes the drawer, then leaves full screen; leaving the browser's full screen leaves it too.
 
+- **Globe controls** (owner, 28 Nov 2026, while trying full screen): "⌂ Reset view" in the status box flies back to
+  the opening whole-Earth view, stops Follow and keeps the selection (the filters have "Clear all"); "+" and "−" on
+  the globe's left edge zoom by 40% of the camera's height per press. The filter panel's "Filters" header and fold
+  button stay in view while it scrolls, on the page (below the top bar) and in the drawer, which is one box with no
+  border or gap of its own.
+
 ## Evidence
 Owner's choices, 28 Nov 2026. `tests/e2e/test_selection.py`: sections open on their own and are remembered, the
 description, full screen with the drawer (its controls still drive the globe; Esc), the phone drawer unfolded.
