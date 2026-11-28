@@ -5,8 +5,10 @@
 // - a headline anyone can read: name, type and status (operating vs transmitting, with dates), who owns, operates
 //   and built it, live height and speed, the longitude it sits over for a GEO object, the launch, and the
 //   constellation or system it belongs to ("one of 6,617 Starlink, 6,601 active");
-// - "More details": identity, organisations, launch, orbit, physical and status sections, each with the source and
-//   as-of date of its facts, and uncertain values marked where they show (an estimated mass, an approximate date,
+// - a one-line description under the name ("Active satellite · Communications · SpaceX"), from Space-Track's type,
+//   SatTrack's status and GCAT's first mission category, used as GCAT writes it (owner's C2, 28 Nov 2026);
+// - identity, organisations, launch, orbit, physical and status sections, each opening on its own (the browser
+//   remembers which ones a visitor keeps open; C2), each with the source and as-of date of its facts, and uncertain values marked where they show (an estimated mass, an approximate date,
 //   an uncertain catalogue match);
 // - toggles for the orbit (one period, the past half faded), the ground track (half a period back, one ahead) and a
 //   camera that follows it (D-019); "Link" copies a link that opens the globe with it selected (D-024's hash,
@@ -31,6 +33,7 @@ const STATUS_SOURCE = {
 export const ORBIT_NAMES = { LEO: "Low Earth orbit", MEO: "Medium Earth orbit", GEO: "Geostationary orbit",
                              GSO: "Geosynchronous orbit", HEO: "Highly elliptical orbit" };
 const NEAR_LABELS = 20;                  // D-023
+const SECTIONS_KEY = "sattrack-open-sections";
 const NEAR_LABEL_HEIGHT_M = 6.0e6;       // camera height below which nearby objects get labels
 const HASH_MAX = 64;
 const SHARE_HOST = "https://www.sattrackapp.com/";
@@ -80,8 +83,9 @@ export function parseHash(hash) {
 export const hashFor = (satcatId) => `#v=1&sat=${satcatId}`;
 
 // The status line: Space-Track's type and SatTrack's status, then GCAT's operating and transmitting detail.
+// The type and status are in the description (describe); this line is GCAT's operating / transmitting detail.
 export function statusLine(rec, det) {
-  const parts = [TYPE_LABEL[rec.object_type] || "Unknown type", rec.operational_status || "Status unknown"];
+  const parts = [];
   if (det) {
     const op = det.flag_still_operating, tx = det.flag_still_transmitting;
     const opEnd = vagueDate(det.end_operation_date, det.end_operation_date_precision);
@@ -93,7 +97,22 @@ export function statusLine(rec, det) {
     // GCAT's "Z": "Zombie satellite: no longer controlled, but continues emitting a beacon signal"
     if (det.end_of_life_code === "Z") parts.push("no longer controlled, still sends a beacon");
   }
-  return parts.join(" · ");
+  const text = parts.join(" · ");
+  return text ? text[0].toUpperCase() + text.slice(1) : "";
+}
+
+// The one-line description (owner's C2, 28 Nov 2026): status and kind, GCAT's first mission category as written,
+// and who runs it; for rocket bodies and debris, the launch year. Built only from the data, no hand-made phrases.
+export function describe(rec, det) {
+  const who = (det && (det.operator_name || (det.owner_org_names || [])[0])) || rec.owner_country || null;
+  if (rec.object_type === "PAYLOAD") {
+    const noun = rec.flag_space_station === 1 ? "space station" : "satellite";
+    const status = rec.operational_status || "";
+    const first = status ? `${status} ${noun}` : noun[0].toUpperCase() + noun.slice(1);
+    return [first, (rec.mission_category_labels || [])[0], who].filter(Boolean).join(" · ");
+  }
+  const kind = TYPE_LABEL[rec.object_type] || "Unknown object";
+  return [kind, rec.launch_year ? `launched ${rec.launch_year}` : null].filter(Boolean).join(" · ");
 }
 
 const list = (names, max = 3) => {
@@ -366,6 +385,7 @@ export class Selection {
     close.setAttribute("aria-label", "Clear the selection"); close.title = "Clear the selection";
     close.addEventListener("click", (e) => { e.stopPropagation(); this.clear(); });
     head.append(this.nameEl, minimise, close);
+    this.descEl = el("div", "sattrack-select-desc");
     // The pill: the selection's name while the panel is minimised; a tap brings the panel back
     const pill = this.pillEl = el("button", "sattrack-select-pill");
     pill.type = "button"; pill.id = "sattrack-select-pill"; pill.hidden = true;
@@ -441,16 +461,12 @@ export class Selection {
       b.addEventListener("click", () => this.copy(key, b));
       this.buttons[key] = b; actions.append(b);
     }
-    this.more = el("details", "sattrack-select-more");
-    this.more.id = "sattrack-select-more";
-    this.more.append(el("summary", null, "More details"));
     this.sectionsEl = el("div", "sattrack-select-sections");
-    this.more.append(this.sectionsEl);
     this.noteEl = el("div", "sattrack-select-note");
     // The drag bar, name, – and × stay in view while the details scroll (owner, 28 Nov 2026)
     const top = el("div", "sattrack-select-top");
-    top.append(this.handleEl, head);
-    p.append(top, this.statusEl, this.peekEl, this.factsEl, actions, this.more, this.noteEl);
+    top.append(this.handleEl, head, this.descEl);
+    p.append(top, this.statusEl, this.peekEl, this.factsEl, actions, this.sectionsEl, this.noteEl);
     this.v.container.append(p, pill);
   }
 
@@ -518,6 +534,7 @@ export class Selection {
     const r = this.record, d = this.detail;
     if (!r) return;
     this.nameEl.textContent = displayName(r);
+    this.descEl.textContent = describe(r, d);
     this.statusEl.textContent = statusLine(r, d);
     const f = this.factsEl;
     f.textContent = "";
@@ -567,11 +584,27 @@ export class Selection {
     set(E.lon, `${num(Math.abs(L.lon), 1)}°${L.lon >= 0 ? "E" : "W"}`);
   }
 
+  // Which sections this visitor keeps open (C2): remembered in this browser only; a blocked store just forgets.
+  openSections() {
+    try { return new Set(JSON.parse(localStorage.getItem(SECTIONS_KEY) || "[]")); } catch (e) { return new Set(); }
+  }
+
+  rememberSection(title, open) {
+    const set = this.openSections();
+    if (open) set.add(title); else set.delete(title);
+    try { localStorage.setItem(SECTIONS_KEY, JSON.stringify([...set])); } catch (e) { /* not remembered */ }
+  }
+
   section(title, rows, source) {
     const rowsIn = rows.filter((x) => x && x[1] !== null && x[1] !== undefined && x[1] !== "");
     if (!rowsIn.length) return;
-    const s = el("section", "sattrack-select-section");
-    s.append(el("h3", null, title));
+    const s = el("details", "sattrack-select-section");
+    s.id = `sattrack-select-sec-${title.toLowerCase()}`;
+    s.open = this.openSections().has(title);
+    const summary = el("summary");
+    summary.append(el("h3", null, title));
+    s.append(summary);
+    s.addEventListener("toggle", () => this.rememberSection(title, s.open));
     const dl = el("dl");
     for (const [term, value, note, kind] of rowsIn) this.fact(dl, term, value, note, kind);
     s.append(dl);

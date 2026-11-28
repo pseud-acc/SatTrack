@@ -12,6 +12,10 @@
   gap: var(--st-2);
   padding: var(--st-2) var(--st-2) var(--st-2) var(--st-4);
   border-bottom: 1px solid var(--st-line);
+  /* "Filters" and its fold button stay in view while the panel scrolls (owner, 28 Nov 2026), on the page and in the
+     full-screen drawer, like the selection card's top */
+  position: sticky; top: var(--st-bar-h); z-index: 2; background: var(--st-panel);   /* below the page's top bar */
+  border-radius: var(--st-r) var(--st-r) 0 0;
 }
 .st-panel-title { margin: 0; font-size: var(--st-fs-lg); font-weight: 600; }
 .st-panel-btn {

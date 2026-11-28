@@ -17,6 +17,9 @@
 // - Selecting one object (roadmap 3.4): static/viewer/selection.js, loaded alongside Cesium. A click or tap on a dot,
 //   a search pick or a shared link (#v=1&sat=25544, D-024) selects it; the selected object is always propagated, even
 //   when the filters hide it ("pinned").
+// - Full screen (owner, 28 Nov 2026): a button on the globe makes the tracker fill the window (and the screen, where
+//   the browser allows it), with the filter panel as a drawer opened from a "Filters" button; the button or Esc
+//   leaves it. The page's layout is changed only by a class on <body>; nothing is moved in the DOM.
 // - window.sattrackViewer exposes state and timings for the browser tests (parity and the D-027 budget).
 
 const TYPES = ["PAYLOAD", "ROCKET BODY", "DEBRIS", "UNKNOWN"];
@@ -472,8 +475,103 @@ class Viewer {
       line.append(document.createTextNode(before), link, document.createTextNode(after));
       credits.append(line);
     }
-    panel.append(this.statusEl, this.hintEl);
-    this.container.append(panel, credits);
+    // Full screen and, while in it, the filter drawer
+    const tools = el("div", "sattrack-viewer-tools");
+    const full = this.fullEl = el("button", "sattrack-viewer-tool", "⛶ Full screen");
+    full.type = "button"; full.id = "sattrack-fullscreen"; full.setAttribute("aria-pressed", "false");
+    full.addEventListener("click", () => this.setFullWindow(!document.body.classList.contains("st-fullwindow")));
+    const filters = this.filtersEl = el("button", "sattrack-viewer-tool sattrack-viewer-filters", "Filters");
+    filters.type = "button"; filters.id = "sattrack-filters-drawer"; filters.setAttribute("aria-expanded", "false");
+    filters.addEventListener("click", () => this.setFilterDrawer(!document.body.classList.contains("st-filters-open")));
+    // Reset view (owner, 28 Nov 2026): back to the whole-Earth view the globe opens on; stops Follow, keeps the
+    // selection. The filters have their own "Clear all".
+    const reset = el("button", "sattrack-viewer-tool", "⌂ Reset view");
+    reset.type = "button"; reset.id = "sattrack-reset-view";
+    reset.addEventListener("click", () => this.resetView());
+    tools.append(reset, full, filters);
+    panel.append(this.statusEl, this.hintEl, tools);
+    // Zoom in and out (owner, 28 Nov 2026): on the left edge, clear of the side panel, the phone card and the pill
+    const zoom = el("div", "sattrack-viewer-zoom");
+    zoom.setAttribute("role", "group"); zoom.setAttribute("aria-label", "Zoom");
+    for (const [id, text, label, dir] of [["sattrack-zoom-in", "+", "Zoom in", 1], ["sattrack-zoom-out", "−", "Zoom out", -1]]) {
+      const b = el("button", "sattrack-viewer-zoom-btn", text);
+      b.type = "button"; b.id = id; b.setAttribute("aria-label", label); b.title = label;
+      b.addEventListener("click", () => this.zoom(dir));
+      zoom.append(b);
+    }
+    this.container.append(panel, zoom, credits);
+    this.onKey = (e) => {
+      if (e.key !== "Escape" || !document.body.classList.contains("st-fullwindow")) return;
+      if (document.body.classList.contains("st-filters-open")) this.setFilterDrawer(false);
+      else this.setFullWindow(false);
+    };
+    document.addEventListener("keydown", this.onKey);
+    // Leaving the browser's full screen (Esc, F11, the browser's own control) leaves the full window too
+    this.onFullscreen = () => {
+      const inFull = document.body.classList.contains("st-fullwindow");
+      if (!document.fullscreenElement && this.usedFullscreen && inFull) this.setFullWindow(false);
+      // the browser finished entering after the visitor had already left: leave its full screen too
+      else if (document.fullscreenElement && !inFull) document.exitFullscreen().catch(() => {});
+    };
+    document.addEventListener("fullscreenchange", this.onFullscreen);
+  }
+
+  // One press moves the camera 40% of its height in or out, so a step feels the same near and far
+  zoom(dir) {
+    if (!this.widget) return;
+    const camera = this.widget.scene.camera;
+    const h = Math.max(camera.positionCartographic.height, 1000);
+    if (dir > 0) camera.zoomIn(h * 0.4); else camera.zoomOut(h * 0.4 / 0.6);
+    this.widget.scene.requestRender();
+  }
+
+  resetView() {
+    if (!this.widget) return;
+    if (this.selection && this.selection.toggles.follow) this.selection.toggle("follow");
+    const camera = this.widget.scene.camera;
+    camera.lookAtTransform(this.Cesium.Matrix4.IDENTITY);
+    camera.flyHome(1);
+    S.viewResets = (S.viewResets || 0) + 1;
+  }
+
+  setFullWindow(on) {
+    const body = document.body;
+    body.classList.toggle("st-fullwindow", on);
+    if (!on) this.setFilterDrawer(false);
+    this.fullEl.textContent = on ? "⤡ Exit full screen" : "⛶ Full screen";
+    this.fullEl.setAttribute("aria-pressed", String(on));
+    S.fullWindow = on;
+    // The browser's own full screen where it's allowed (not on iPhones); the full window works without it
+    try {
+      if (on && document.documentElement.requestFullscreen && !document.fullscreenElement) {
+        this.usedFullscreen = true;
+        document.documentElement.requestFullscreen().catch(() => { this.usedFullscreen = false; });
+      } else if (!on && document.fullscreenElement) {
+        this.usedFullscreen = false;
+        document.exitFullscreen().catch(() => {});
+      }
+    } catch (e) { this.usedFullscreen = false; }
+    // Cesium resizes its canvas on its next frame; ask for one once the layout has settled
+    setTimeout(() => { if (this.widget && !this.widget.isDestroyed()) this.widget.scene.requestRender(); }, 60);
+  }
+
+  // The drawer opens below the globe's status box (so its buttons stay reachable), unfolded: on phones the panel's
+  // own fold (#toggle-filters) and on wider screens its strip (#panel-strip-toggle) are opened for it.
+  setFilterDrawer(open) {
+    if (open) {
+      const box = this.container.querySelector(".sattrack-viewer-panel");
+      const top = box ? Math.round(box.getBoundingClientRect().bottom + 8) : 120;
+      document.body.style.setProperty("--st-drawer-top", `${top}px`);
+    }
+    document.body.classList.toggle("st-filters-open", open);
+    if (open) {
+      const collapse = document.getElementById("filter-collapse"), fold = document.getElementById("toggle-filters");
+      if (collapse && collapse.offsetHeight === 0 && fold && fold.offsetParent !== null) fold.click();
+      const row = document.querySelector(".st-tracker-row.st-panel-folded"), strip = document.getElementById("panel-strip-toggle");
+      if (row && strip) strip.click();
+    }
+    if (this.filtersEl) this.filtersEl.setAttribute("aria-expanded", String(open));
+    S.filterDrawer = open;
   }
 
   updateStatus() {
@@ -492,6 +590,9 @@ class Viewer {
     this.destroyed = true;
     clearInterval(this.controller); clearInterval(this.statusTimer);
     if (this.selection) this.selection.destroy();
+    document.removeEventListener("keydown", this.onKey);
+    document.removeEventListener("fullscreenchange", this.onFullscreen);
+    document.body.classList.remove("st-fullwindow", "st-filters-open");
     if (this.handler && !this.handler.isDestroyed()) this.handler.destroy();
     if (this.worker) this.worker.terminate();
     if (this.widget && !this.widget.isDestroyed()) this.widget.destroy();
@@ -516,6 +617,8 @@ S.matchedIds = () => {
   for (let i = 0; i < current.mask.length; i++) if (current.mask[i]) out.add(current.ids[i]);
   return out;
 };
+// The camera's height above the ellipsoid (m), for the browser tests (Reset view)
+S.cameraHeight = () => (current && current.widget ? current.widget.scene.camera.positionCartographic.height : null);
 S.shownIds = () => {
   if (!current || !current.handles) return [];
   // the pinned selection counts as shown when it's drawn, though the filters hide it (roadmap 3.4)
