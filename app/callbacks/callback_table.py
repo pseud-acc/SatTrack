@@ -35,7 +35,7 @@ sys.path.append("../../")
 # app data
 from app.core.state import get_app_data
 # app functions
-from app.helper.helper__app_data import (filter_satellite_data)
+from app.helper.helper__app_data import list_objects
 # app helper functions
 from app.helper.helper__table_display import (format_table_data)
 from app.layouts.components.visualizations.viz_table import create_table_body
@@ -51,7 +51,7 @@ def register(app):
 
     # Get app data
     app_data = get_app_data()
-    df = app_data['data']['satcat_df']
+    objects_df = app_data['data']['objects_df']   # every object type (owner, 27 Nov 2026)
     filter_table = app_data['filter']['table']
     tbl_col_map = app_data['data']['tbl_col_map']
 
@@ -77,5 +77,5 @@ def register(app):
     def update_tbl(tab, spec, shown):
         if tab != "tbl-viz" or shown == {"spec": spec}:
             raise PreventUpdate
-        dff, time_now, _ = filter_satellite_data(df, filter_table, spec)
+        dff, time_now = list_objects(objects_df, filter_table, spec)
         return create_table_body(tbl_col_map, format_table_data(dff, time_now)), {"spec": spec}

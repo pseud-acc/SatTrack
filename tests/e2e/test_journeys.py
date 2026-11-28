@@ -18,7 +18,7 @@ import pytest
 
 from playwright.sync_api import expect
 
-from _support import expected_ids
+from _support import expected_ids, expected_object_ids, objects_sample
 
 START_STATUS, START_ORBITS = "Active", ["LEO", "MEO", "GEO", "GSO", "HEO"]   # as it opens (3.3a: every orbit)
 TIMEOUT = 60_000  # ms: figures render in software WebGL on CI runners
@@ -123,12 +123,27 @@ def test_list_view_shows_the_selected_satellites(page, base_url, sample_df, t_re
     page.get_by_role("tab", name="List View").click()
     rows = page.locator("#satellite-list tbody tr:has(td)")
     expect(rows.first).to_be_visible(timeout=TIMEOUT)
-    expected = start_selection(sample_df, t_ref)
-    names = sorted(sample_df[sample_df.SatCatId.isin(expected)].ObjectName)
+    # The list is built from the objects dataset (every object type; owner, 27 Nov 2026): at the start, the active
+    # payloads sgp4 can place, sorted by name, with a Type column
+    objects = objects_sample()
+    expected = expected_object_ids(objects, t_ref)
+    names = sorted(objects[objects.satcat_id.isin(expected)].object_name)
     page_size = 20   # viz_table.py
     expect(rows).to_have_count(min(page_size, len(expected)))
     shown = [rows.nth(i).locator("td").first.inner_text().strip() for i in range(rows.count())]
     assert shown == names[:page_size]
+    headers = [h.strip() for h in page.locator("#satellite-list .column-header-name").all_inner_texts()]
+    assert headers[:3] == ["Name", "Type", "SATCAT Number"]
+    assert {rows.nth(i).locator("td").nth(1).inner_text().strip() for i in range(rows.count())} == {"Payload"}
+    # Space junk mode: rocket bodies and debris join the list (they weren't in it before)
+    page.get_by_label("Space junk mode").check()
+    junk = expected_object_ids(objects, t_ref, status="All", types=["PAYLOAD", "ROCKET BODY", "DEBRIS"])
+    all_names = sorted(objects[objects.satcat_id.isin(junk)].object_name)
+    changed = next(i for i in range(page_size) if names[i] != all_names[i])   # the first row that must change
+    expect(rows.nth(changed).locator("td").first).to_have_text(all_names[changed], timeout=TIMEOUT)
+    shown = [rows.nth(i).locator("td").first.inner_text().strip() for i in range(rows.count())]
+    assert shown == all_names[:page_size]
+    assert len(junk) > len(expected)
     assert page.errors == []
 
 
